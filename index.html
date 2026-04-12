@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlashMind — AI-Powered Study Tool</title>
+  <meta name="description" content="Paste notes, upload PDFs, or type any topic — instantly get structured study notes, interactive flashcards, multiple-choice quizzes, and an AI tutor. Free, no signup.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/notes.css">
+  <link rel="stylesheet" href="css/cards.css">
+  <link rel="stylesheet" href="css/quiz.css">
+  <link rel="stylesheet" href="css/chat.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+
+  <!-- Confetti Container -->
+  <div id="confetti-container"></div>
+
+  <!-- ===== INPUT VIEW ===== -->
+  <div id="input-view" class="view active">
+    <div class="input-wrapper">
+      <div class="logo-section">
+        <div class="logo">
+          <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+            <path d="M20 4C11.16 4 4 11.16 4 20s7.16 16 16 16 16-7.16 16-16S28.84 4 20 4zm0 2c3.26 0 6.26 1.12 8.64 3L26 11.64l-2.5-1.5a2 2 0 00-2.1.05L18 12.5l-3.8-2.28A2 2 0 0012 12v4.38l-2.97 1.78A13.93 13.93 0 0120 6zm-8 7.62l3.4 2.04a2 2 0 002.1-.05L20.9 13.3l2.5 1.5A2 2 0 0026 13V9.24l2 2V16a2 2 0 01-1 1.73l-6 3.46a2 2 0 01-2 0l-6-3.46A2 2 0 0112 16v-2.38zM8.06 21.2L12 18.84V22a4 4 0 002 3.46l6 3.46 6-3.46A4 4 0 0028 22v-3.16l3.46 2A14 14 0 018.06 21.2zM20 34a13.93 13.93 0 01-8.94-3.24L14 29l3 1.73a4 4 0 004 0L24 29l2.94 1.76A13.93 13.93 0 0120 34z" fill="url(#brain-grad)"/>
+            <defs>
+              <linearGradient id="brain-grad" x1="4" y1="4" x2="36" y2="36">
+                <stop stop-color="#7c3aed"/>
+                <stop offset="1" stop-color="#06b6d4"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <h1 class="logo-text">FlashMind</h1>
+        </div>
+        <p class="tagline">Paste. Learn. Ace.</p>
+      </div>
+
+      <!-- Input Tabs -->
+      <div class="input-tabs">
+        <button class="input-tab active" data-input-tab="paste">Paste Text</button>
+        <button class="input-tab" data-input-tab="pdf">Upload PDF</button>
+        <button class="input-tab" data-input-tab="topic">Just a Topic</button>
+      </div>
+
+      <!-- Paste Text Panel -->
+      <div class="input-panel active" id="paste-panel">
+        <div class="textarea-wrapper">
+          <textarea id="paste-input" placeholder="Paste your notes, textbook content, lecture transcript, or any study material..." spellcheck="false"></textarea>
+          <div class="textarea-footer">
+            <span id="char-count">0 characters</span>
+            <button id="clear-btn" class="btn-ghost" style="display:none">Clear</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upload PDF Panel -->
+      <div class="input-panel" id="pdf-panel">
+        <div id="pdf-dropzone" class="dropzone">
+          <svg class="dropzone-icon" viewBox="0 0 48 48" fill="none">
+            <path d="M14 36h20V22h8L24 4 6 22h8v14z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M6 42h36" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <p class="dropzone-text">Drop a PDF here or click to browse</p>
+          <p class="dropzone-hint">Supports any text-based PDF</p>
+          <input type="file" id="pdf-file-input" accept=".pdf" hidden>
+        </div>
+        <div id="pdf-preview" style="display:none">
+          <div class="pdf-info">
+            <span id="pdf-filename"></span>
+            <span id="pdf-pages"></span>
+          </div>
+          <div id="pdf-progress" style="display:none">
+            <div class="progress-bar"><div class="progress-fill" id="pdf-progress-fill"></div></div>
+            <span id="pdf-progress-text">Extracting text...</span>
+          </div>
+          <textarea id="pdf-text-preview" readonly></textarea>
+          <div class="pdf-actions">
+            <button id="pdf-use-btn" class="btn-primary">Use this text</button>
+            <button id="pdf-clear-btn" class="btn-ghost">Remove</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Topic Panel -->
+      <div class="input-panel" id="topic-panel">
+        <input type="text" id="topic-input" class="topic-input" placeholder="Enter a topic (e.g., 'Photosynthesis', 'World War II causes', 'Python lists')">
+        <div class="topic-chips">
+          <button class="topic-chip" data-topic="Photosynthesis">Photosynthesis</button>
+          <button class="topic-chip" data-topic="French Revolution">French Revolution</button>
+          <button class="topic-chip" data-topic="Quadratic Formula">Quadratic Formula</button>
+          <button class="topic-chip" data-topic="DNA Replication">DNA Replication</button>
+          <button class="topic-chip" data-topic="Supply & Demand">Supply &amp; Demand</button>
+          <button class="topic-chip" data-topic="Newton's Laws">Newton's Laws</button>
+        </div>
+      </div>
+
+      <!-- Generate Button -->
+      <button id="generate-btn" class="btn-generate">
+        <span class="btn-generate-text">Generate Study Materials</span>
+        <span class="btn-generate-loading" style="display:none">
+          <svg class="spinner" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="31.4 31.4" stroke-linecap="round"/></svg>
+          <span>Generating... <span id="elapsed-time">0s</span></span>
+        </span>
+      </button>
+      <p class="generate-hint">Ctrl + Enter</p>
+    </div>
+  </div>
+
+  <!-- ===== STUDY VIEW ===== -->
+  <div id="study-view" class="view">
+    <!-- Top Bar -->
+    <header class="topbar">
+      <button class="topbar-logo" id="back-to-input" title="Back to input">
+        <svg class="topbar-logo-icon" viewBox="0 0 40 40" fill="none">
+          <path d="M20 4C11.16 4 4 11.16 4 20s7.16 16 16 16 16-7.16 16-16S28.84 4 20 4z" fill="url(#brain-grad2)"/>
+          <defs><linearGradient id="brain-grad2" x1="4" y1="4" x2="36" y2="36"><stop stop-color="#7c3aed"/><stop offset="1" stop-color="#06b6d4"/></linearGradient></defs>
+        </svg>
+        <span>FlashMind</span>
+      </button>
+      <h2 class="topbar-title" id="study-title">Study Materials</h2>
+      <div class="topbar-actions">
+        <div class="export-dropdown">
+          <button class="btn-ghost" id="export-btn">Export</button>
+          <div class="export-menu" id="export-menu">
+            <button data-export="notes-md">Notes as Markdown</button>
+            <button data-export="notes-pdf">Notes as PDF</button>
+            <button data-export="cards-csv">Flashcards as CSV</button>
+            <button data-export="quiz-text">Quiz as Text</button>
+            <button data-export="all-json">Everything as JSON</button>
+          </div>
+        </div>
+        <button class="btn-ghost" id="new-material-btn">New Material</button>
+      </div>
+    </header>
+
+    <!-- Study Tabs -->
+    <nav class="study-tabs">
+      <button class="study-tab active" data-tab="notes">Notes</button>
+      <button class="study-tab" data-tab="flashcards">Flashcards</button>
+      <button class="study-tab" data-tab="quiz">Quiz</button>
+      <button class="study-tab" data-tab="chat">Ask AI</button>
+    </nav>
+
+    <!-- Tab Content -->
+    <main class="study-content">
+      <!-- Notes Tab -->
+      <div class="tab-content active" id="tab-notes"></div>
+
+      <!-- Flashcards Tab -->
+      <div class="tab-content" id="tab-flashcards"></div>
+
+      <!-- Quiz Tab -->
+      <div class="tab-content" id="tab-quiz"></div>
+
+      <!-- Chat Tab -->
+      <div class="tab-content" id="tab-chat">
+        <div class="chat-container">
+          <div class="chat-header">
+            <span>Ask about your study material</span>
+            <span class="chat-context-badge" id="chat-context-badge"></span>
+          </div>
+          <div class="chat-messages" id="chat-messages">
+            <div class="chat-starters" id="chat-starters"></div>
+          </div>
+          <div class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Ask anything about your study material..." autocomplete="off">
+            <button id="chat-send-btn" class="btn-send" disabled>
+              <svg viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2L15 22 11 13M22 2L2 9l9 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ===== STUDY MODE OVERLAY ===== -->
+  <div id="study-mode-overlay" class="study-mode-overlay" style="display:none">
+    <div class="study-mode-header">
+      <div class="study-mode-progress">
+        <div class="study-progress-bar"><div class="study-progress-fill" id="study-progress-fill"></div></div>
+        <span id="study-progress-text">0 / 0</span>
+      </div>
+      <button id="study-mode-close" class="btn-icon" title="Exit study mode (Esc)">&times;</button>
+    </div>
+    <div class="study-mode-card-area">
+      <div class="study-card" id="study-card">
+        <div class="study-card-inner">
+          <div class="study-card-front">
+            <span class="study-card-label">Question</span>
+            <p id="study-card-front-text"></p>
+          </div>
+          <div class="study-card-back">
+            <span class="study-card-label">Answer</span>
+            <p id="study-card-back-text"></p>
+          </div>
+        </div>
+      </div>
+      <p class="study-flip-hint" id="study-flip-hint">Click or press Space to flip</p>
+    </div>
+    <div class="study-mode-actions" id="study-mode-actions" style="display:none">
+      <button class="study-btn again" data-rating="again">Again</button>
+      <button class="study-btn hard" data-rating="hard">Hard</button>
+      <button class="study-btn got-it" data-rating="gotit">Got it</button>
+    </div>
+    <div class="study-shortcuts-hint">Space: flip &middot; 1: Again &middot; 2: Hard &middot; 3: Got it</div>
+  </div>
+
+  <!-- ===== DECK COMPLETE OVERLAY ===== -->
+  <div id="deck-complete-overlay" class="deck-complete-overlay" style="display:none">
+    <div class="deck-complete-card">
+      <h2>Deck Complete!</h2>
+      <div class="deck-complete-stats">
+        <div class="deck-stat"><span class="deck-stat-value" id="dc-time">0:00</span><span class="deck-stat-label">Time</span></div>
+        <div class="deck-stat"><span class="deck-stat-value" id="dc-mastered">0</span><span class="deck-stat-label">Mastered</span></div>
+        <div class="deck-stat"><span class="deck-stat-value" id="dc-reviewed">0</span><span class="deck-stat-label">Reviewed</span></div>
+      </div>
+      <div class="deck-complete-actions">
+        <button id="dc-study-again" class="btn-primary">Study Again</button>
+        <button id="dc-take-quiz" class="btn-ghost">Take Quiz</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/parser.js"></script>
+  <script src="js/pdf.js"></script>
+  <script src="js/notes.js"></script>
+  <script src="js/flashcards.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/chat.js"></script>
+  <script src="js/export.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

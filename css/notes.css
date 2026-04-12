@@ -1,0 +1,187 @@
+/* ===== NOTES TAB ===== */
+.notes-container {
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+.notes-header {
+  margin-bottom: 32px;
+}
+
+.notes-title {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.notes-summary {
+  padding: 16px 20px;
+  background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(6,182,212,0.08));
+  border-radius: var(--radius);
+  border-left: 3px solid var(--primary);
+  font-family: var(--font-content);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+/* Sections */
+.notes-section {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 20px;
+  border-left: 3px solid var(--primary);
+}
+
+.notes-section-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.notes-section-content {
+  font-family: var(--font-content);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+/* Key Terms */
+.key-terms {
+  background: var(--surface);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.key-terms-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.key-term {
+  display: flex;
+  gap: 8px;
+  padding: 6px 0;
+  font-family: var(--font-content);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.key-term:not(:last-child) {
+  border-bottom: 1px solid var(--border);
+}
+
+.key-term-name {
+  font-weight: 600;
+  color: var(--secondary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.key-term-def { color: var(--text); }
+
+/* Bullet Points */
+.notes-bullets {
+  list-style: none;
+  padding: 0;
+}
+
+.notes-bullets li {
+  position: relative;
+  padding: 4px 0 4px 20px;
+  font-family: var(--font-content);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.notes-bullets li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 6px;
+  height: 6px;
+  background: var(--primary);
+  border-radius: 50%;
+}
+
+/* Important Dates */
+.notes-dates {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 20px;
+}
+
+.notes-dates-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.date-item {
+  display: flex;
+  gap: 12px;
+  padding: 8px 0;
+  font-family: var(--font-content);
+  font-size: 0.9rem;
+  border-left: 2px solid var(--secondary);
+  padding-left: 16px;
+  margin-bottom: 8px;
+}
+
+/* Common Mistakes */
+.notes-mistakes {
+  margin-bottom: 20px;
+}
+
+.notes-mistakes-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.mistake-item {
+  background: var(--card);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  margin-bottom: 10px;
+  border-left: 3px solid var(--wrong);
+  font-family: var(--font-content);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* Notes Actions */
+.notes-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+/* Highlight */
+.highlight {
+  background: rgba(251, 191, 36, 0.15);
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+
+@media (max-width: 768px) {
+  .notes-title { font-size: 1.4rem; }
+  .notes-section { padding: 18px; }
+}

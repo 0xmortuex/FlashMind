@@ -1,0 +1,414 @@
+/* ===== FLASHCARDS TAB ===== */
+.cards-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.cards-count {
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+.cards-filters {
+  display: flex;
+  gap: 4px;
+  background: var(--surface);
+  border-radius: 50px;
+  padding: 3px;
+}
+
+.filter-btn {
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: all var(--transition);
+}
+
+.filter-btn:hover { color: var(--text); }
+.filter-btn.active { background: var(--primary); color: #fff; }
+
+.start-study-btn {
+  padding: 12px 28px;
+  background: linear-gradient(135deg, var(--primary), #6d28d9);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: var(--radius);
+  transition: all var(--transition);
+}
+
+.start-study-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px var(--primary-glow);
+}
+
+/* Card Grid */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+/* Individual Card */
+.flashcard {
+  perspective: 1000px;
+  height: 200px;
+  cursor: pointer;
+}
+
+.flashcard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.4s ease;
+  transform-style: preserve-3d;
+}
+
+.flashcard.flipped .flashcard-inner {
+  transform: rotateY(180deg);
+}
+
+.flashcard-front, .flashcard-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.flashcard-front {
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  color: #fff;
+}
+
+.flashcard-back {
+  background: linear-gradient(135deg, #06b6d4, #0891b2);
+  color: #fff;
+  transform: rotateY(180deg);
+}
+
+.flashcard-text {
+  font-family: var(--font-content);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.flashcard-meta {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.difficulty-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 50px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.difficulty-badge.easy { background: rgba(34,197,94,0.2); color: var(--correct); }
+.difficulty-badge.medium { background: rgba(251,191,36,0.2); color: var(--highlight); }
+.difficulty-badge.hard { background: rgba(239,68,68,0.2); color: var(--wrong); }
+
+.card-category {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.6);
+}
+
+/* Deck Stats */
+.deck-stats {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 20px;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.deck-stat-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+}
+
+.deck-stat-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.deck-stat-dot.mastered { background: var(--correct); }
+.deck-stat-dot.reviewing { background: var(--highlight); }
+.deck-stat-dot.unseen { background: var(--text-muted); }
+
+.deck-progress-bar {
+  flex: 1;
+  min-width: 120px;
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.deck-progress-segments {
+  display: flex;
+  height: 100%;
+}
+
+.deck-progress-mastered { background: var(--correct); transition: width 0.3s ease; }
+.deck-progress-reviewing { background: var(--highlight); transition: width 0.3s ease; }
+
+/* ===== STUDY MODE ===== */
+.study-mode-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.study-mode-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+}
+
+.study-mode-progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  max-width: 400px;
+}
+
+.study-progress-bar {
+  flex: 1;
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.study-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  border-radius: 3px;
+  transition: width 0.3s ease;
+  width: 0%;
+}
+
+#study-progress-text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* Study Card */
+.study-mode-card-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.study-card {
+  perspective: 1200px;
+  width: 500px;
+  height: 300px;
+  cursor: pointer;
+  animation: slideInRight 0.3s ease;
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(60px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.study-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.4s ease;
+  transform-style: preserve-3d;
+}
+
+.study-card.flipped .study-card-inner {
+  transform: rotateY(180deg);
+}
+
+.study-card-front, .study-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  text-align: center;
+}
+
+.study-card-front {
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  color: #fff;
+}
+
+.study-card-back {
+  background: linear-gradient(135deg, #06b6d4, #0891b2);
+  color: #fff;
+  transform: rotateY(180deg);
+}
+
+.study-card-label {
+  position: absolute;
+  top: 14px;
+  left: 20px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.6;
+  font-weight: 600;
+}
+
+.study-card-front p, .study-card-back p {
+  font-family: var(--font-content);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.study-flip-hint {
+  margin-top: 16px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+/* Study Actions */
+.study-mode-actions {
+  display: flex;
+  gap: 16px;
+  padding: 24px;
+}
+
+.study-btn {
+  padding: 12px 32px;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all var(--transition);
+}
+
+.study-btn:hover { transform: translateY(-2px); }
+.study-btn.again { background: rgba(239,68,68,0.15); color: var(--wrong); border: 1px solid rgba(239,68,68,0.3); }
+.study-btn.again:hover { background: rgba(239,68,68,0.25); }
+.study-btn.hard { background: rgba(251,191,36,0.15); color: var(--highlight); border: 1px solid rgba(251,191,36,0.3); }
+.study-btn.hard:hover { background: rgba(251,191,36,0.25); }
+.study-btn.got-it { background: rgba(34,197,94,0.15); color: var(--correct); border: 1px solid rgba(34,197,94,0.3); }
+.study-btn.got-it:hover { background: rgba(34,197,94,0.25); }
+
+.study-shortcuts-hint {
+  padding-bottom: 16px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* ===== DECK COMPLETE ===== */
+.deck-complete-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15,17,23,0.92);
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.deck-complete-card {
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  text-align: center;
+  animation: fadeSlideUp 0.4s ease;
+  max-width: 420px;
+  width: 90%;
+}
+
+.deck-complete-card h2 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  margin-bottom: 24px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.deck-complete-stats {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 28px;
+}
+
+.deck-stat { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.deck-stat-value { font-size: 1.4rem; font-weight: 700; color: var(--text); }
+.deck-stat-label { font-size: 0.78rem; color: var(--text-muted); }
+
+.deck-complete-actions { display: flex; gap: 12px; justify-content: center; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .cards-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .cards-grid { grid-template-columns: 1fr; }
+  .study-card { width: 90vw; max-width: 400px; height: 250px; }
+  .cards-header { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 480px) {
+  .flashcard { height: 180px; }
+  .study-card { height: 220px; }
+  .study-card-front p, .study-card-back p { font-size: 0.95rem; }
+  .study-btn { padding: 10px 20px; font-size: 0.85rem; }
+}
