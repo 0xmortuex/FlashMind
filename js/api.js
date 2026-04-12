@@ -1,6 +1,6 @@
 // ===== API Module =====
 const API = (() => {
-  const WORKER_URL = 'https://flashmind-proxy.0xmortuex.workers.dev';
+  const WORKER_URL = 'https://flashmind-proxy.mortuexhavoc.workers.dev';
 
   async function generate(text) {
     const res = await fetch(WORKER_URL, {
