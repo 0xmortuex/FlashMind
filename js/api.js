@@ -6,7 +6,7 @@ const API = (() => {
     const res = await fetch(WORKER_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'generate', text })
+      body: JSON.stringify({ action: 'generate', text, lang: i18n.getLang() })
     });
 
     if (!res.ok) {
@@ -22,7 +22,7 @@ const API = (() => {
     const res = await fetch(WORKER_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'chat', question, context })
+      body: JSON.stringify({ action: 'chat', question, context, lang: i18n.getLang() })
     });
 
     if (!res.ok) {
@@ -38,7 +38,7 @@ const API = (() => {
     const res = await fetch(WORKER_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'grade', studentAnswer, correctAnswer, keyPoints })
+      body: JSON.stringify({ action: 'grade', studentAnswer, correctAnswer, keyPoints, lang: i18n.getLang() })
     });
 
     if (!res.ok) {

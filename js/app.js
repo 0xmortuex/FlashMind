@@ -7,6 +7,8 @@ const App = (() => {
   let elapsedTimer = null;
 
   function init() {
+    translateStaticHTML();
+    setupLangSwitcher();
     setupInputTabs();
     setupStudyTabs();
     setupPDF();
@@ -22,6 +24,89 @@ const App = (() => {
     checkShareLink() || checkSavedData();
   }
 
+  // ===== Translate static HTML =====
+  function translateStaticHTML() {
+    const T = i18n.t;
+    document.getElementById('tagline').textContent = T('tagline');
+    document.querySelector('[data-input-tab="paste"]').textContent = T('tabPaste');
+    document.querySelector('[data-input-tab="pdf"]').textContent = T('tabPdf');
+    document.querySelector('[data-input-tab="topic"]').textContent = T('tabTopic');
+    document.getElementById('paste-input').placeholder = T('pasteHolder');
+    document.getElementById('char-count').textContent = T('charCount', { n: 0 });
+    document.getElementById('clear-btn').textContent = T('clear');
+    document.querySelector('.dropzone-text').textContent = T('dropText');
+    document.querySelector('.dropzone-hint').textContent = T('dropHint');
+    document.getElementById('pdf-progress-text').textContent = T('extracting');
+    document.getElementById('pdf-use-btn').textContent = T('useText');
+    document.getElementById('pdf-clear-btn').textContent = T('remove');
+    document.getElementById('topic-input').placeholder = T('topicHolder');
+    document.querySelector('.btn-generate-text').textContent = T('generateBtn');
+    document.querySelector('.generate-hint').textContent = T('ctrlEnter');
+    document.getElementById('study-title').textContent = T('studyMaterials');
+    document.getElementById('share-btn').textContent = T('share');
+    document.getElementById('export-btn').textContent = T('export_');
+    document.getElementById('new-material-btn').textContent = T('newMaterial');
+
+    // Export menu items
+    const exportItems = document.querySelectorAll('#export-menu button');
+    const exportKeys = ['notesMd', 'notesPdf', 'cardsCsv', 'quizText', 'allJson'];
+    exportItems.forEach((el, idx) => { if (exportKeys[idx]) el.textContent = T(exportKeys[idx]); });
+
+    // Study tabs
+    document.querySelector('[data-tab="notes"]').textContent = T('tabNotes');
+    document.querySelector('[data-tab="flashcards"]').textContent = T('tabFlashcards');
+    document.querySelector('[data-tab="quiz"]').textContent = T('tabQuiz');
+    document.querySelector('[data-tab="chat"]').textContent = T('tabChat');
+
+    // Chat header & input
+    document.querySelector('.chat-header span').textContent = T('chatHeader');
+    document.getElementById('chat-input').placeholder = T('chatHolder');
+
+    // Study mode overlay
+    document.getElementById('study-mode-close').title = T('exitStudy');
+    document.getElementById('study-flip-hint').textContent = T('flipHint');
+    document.querySelector('.study-btn.again').textContent = T('again');
+    document.querySelector('.study-btn.hard').textContent = T('hard');
+    document.querySelector('.study-btn.got-it').textContent = T('gotIt');
+    document.querySelector('.study-shortcuts-hint').textContent = T('shortcutsHint');
+
+    // Deck complete
+    document.querySelector('.deck-complete-card h2').textContent = T('deckComplete');
+    document.querySelectorAll('.deck-stat-label').forEach((el, idx) => {
+      el.textContent = [T('time'), T('mastered'), T('reviewing')][idx] || el.textContent;
+    });
+    document.getElementById('dc-study-again').textContent = T('studyAgain');
+    document.getElementById('dc-take-quiz').textContent = T('takeQuiz');
+
+    // Study card labels
+    document.querySelector('.study-card-front .study-card-label').textContent = T('question');
+    document.querySelector('.study-card-back .study-card-label').textContent = T('answer');
+
+    // Share modal
+    document.querySelector('.share-modal-header h3').textContent = T('shareTitle');
+    document.querySelector('.share-label').textContent = T('shareLabel');
+    document.getElementById('share-copy-btn').textContent = T('copyLink');
+    document.querySelector('.share-expires').textContent = T('expires30');
+    document.querySelector('.share-load-card p').textContent = T('shareLoading');
+
+    // Lang switcher active state
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.lang === i18n.getLang());
+    });
+  }
+
+  // ===== Language Switcher =====
+  function setupLangSwitcher() {
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const newLang = btn.dataset.lang;
+        if (newLang !== i18n.getLang()) {
+          i18n.setLang(newLang);
+        }
+      });
+    });
+  }
+
   // ===== Input Tabs =====
   function setupInputTabs() {
     document.querySelectorAll('.input-tab').forEach(tab => {
@@ -34,20 +119,19 @@ const App = (() => {
       });
     });
 
-    // Character count
     const textarea = document.getElementById('paste-input');
     const charCount = document.getElementById('char-count');
     const clearBtn = document.getElementById('clear-btn');
 
     textarea.addEventListener('input', () => {
       const len = textarea.value.length;
-      charCount.textContent = `${len.toLocaleString()} characters`;
+      charCount.textContent = i18n.t('charCount', { n: len.toLocaleString() });
       clearBtn.style.display = len > 0 ? '' : 'none';
     });
 
     clearBtn.addEventListener('click', () => {
       textarea.value = '';
-      charCount.textContent = '0 characters';
+      charCount.textContent = i18n.t('charCount', { n: 0 });
       clearBtn.style.display = 'none';
     });
   }
@@ -63,7 +147,6 @@ const App = (() => {
     currentTab = tabName;
     document.querySelectorAll('.study-tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-
     document.querySelector(`.study-tab[data-tab="${tabName}"]`).classList.add('active');
     document.getElementById(`tab-${tabName}`).classList.add('active');
   }
@@ -75,39 +158,25 @@ const App = (() => {
     const preview = document.getElementById('pdf-preview');
 
     dropzone.addEventListener('click', () => fileInput.click());
-
-    dropzone.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      dropzone.classList.add('dragover');
-    });
-
-    dropzone.addEventListener('dragleave', () => {
-      dropzone.classList.remove('dragover');
-    });
-
+    dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
+    dropzone.addEventListener('dragleave', () => { dropzone.classList.remove('dragover'); });
     dropzone.addEventListener('drop', (e) => {
       e.preventDefault();
       dropzone.classList.remove('dragover');
       const file = e.dataTransfer.files[0];
-      if (file && file.type === 'application/pdf') {
-        processPDF(file);
-      }
+      if (file && file.type === 'application/pdf') processPDF(file);
     });
-
-    fileInput.addEventListener('change', () => {
-      if (fileInput.files[0]) processPDF(fileInput.files[0]);
-    });
+    fileInput.addEventListener('change', () => { if (fileInput.files[0]) processPDF(fileInput.files[0]); });
 
     document.getElementById('pdf-use-btn').addEventListener('click', () => {
       const text = document.getElementById('pdf-text-preview').value;
       if (text) {
         document.getElementById('paste-input').value = text;
-        // Switch to paste tab
         document.querySelectorAll('.input-tab').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.input-panel').forEach(p => p.classList.remove('active'));
         document.querySelector('[data-input-tab="paste"]').classList.add('active');
         document.getElementById('paste-panel').classList.add('active');
-        document.getElementById('char-count').textContent = `${text.length.toLocaleString()} characters`;
+        document.getElementById('char-count').textContent = i18n.t('charCount', { n: text.length.toLocaleString() });
         document.getElementById('clear-btn').style.display = '';
       }
     });
@@ -137,16 +206,15 @@ const App = (() => {
       const result = await PDF.extractText(file, (current, total) => {
         const pct = (current / total * 100).toFixed(0);
         progressFill.style.width = pct + '%';
-        progressText.textContent = `Extracting text... Page ${current}/${total}`;
-        document.getElementById('pdf-pages').textContent = `${total} pages`;
+        progressText.textContent = i18n.t('extractingPage', { c: current, t: total });
+        document.getElementById('pdf-pages').textContent = i18n.t('pages', { n: total });
       });
-
       progressEl.style.display = 'none';
       document.getElementById('pdf-text-preview').value = result.text;
-      document.getElementById('pdf-pages').textContent = `${result.pages} pages`;
+      document.getElementById('pdf-pages').textContent = i18n.t('pages', { n: result.pages });
     } catch (err) {
       progressEl.style.display = 'none';
-      showToast('Failed to extract PDF text: ' + err.message, 'error');
+      showToast(i18n.t('pdfFailed') + ' ' + err.message, 'error');
       dropzone.style.display = '';
       preview.style.display = 'none';
     }
@@ -163,14 +231,9 @@ const App = (() => {
 
   // ===== Generate =====
   function setupGenerate() {
-    const btn = document.getElementById('generate-btn');
-
-    btn.addEventListener('click', generate);
-
+    document.getElementById('generate-btn').addEventListener('click', generate);
     document.addEventListener('keydown', (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter' && currentView === 'input') {
-        generate();
-      }
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter' && currentView === 'input') generate();
     });
   }
 
@@ -180,56 +243,36 @@ const App = (() => {
     const loadingEl = btn.querySelector('.btn-generate-loading');
     const elapsedEl = document.getElementById('elapsed-time');
 
-    // Get text based on active tab
     let text = '';
     const activeTab = document.querySelector('.input-tab.active').dataset.inputTab;
-
-    if (activeTab === 'paste') {
-      text = document.getElementById('paste-input').value.trim();
-    } else if (activeTab === 'pdf') {
-      text = document.getElementById('pdf-text-preview').value.trim();
-    } else if (activeTab === 'topic') {
+    if (activeTab === 'paste') text = document.getElementById('paste-input').value.trim();
+    else if (activeTab === 'pdf') text = document.getElementById('pdf-text-preview').value.trim();
+    else if (activeTab === 'topic') {
       text = document.getElementById('topic-input').value.trim();
       if (text) text = `Generate comprehensive study materials about: ${text}`;
     }
 
-    if (!text) {
-      showToast('Please enter some text or a topic first', 'error');
-      return;
-    }
-
-    // Truncate very long text
-    if (text.length > 15000) {
-      text = text.substring(0, 15000);
-      showToast('Text truncated to 15,000 characters', 'info');
-    }
+    if (!text) { showToast(i18n.t('noInput'), 'error'); return; }
+    if (text.length > 15000) { text = text.substring(0, 15000); showToast(i18n.t('truncated'), 'info'); }
 
     originalText = text;
-
-    // Loading state
     btn.disabled = true;
     textEl.style.display = 'none';
     loadingEl.style.display = '';
 
     let seconds = 0;
     elapsedEl.textContent = '0s';
-    elapsedTimer = setInterval(() => {
-      seconds++;
-      elapsedEl.textContent = seconds + 's';
-    }, 1000);
+    elapsedTimer = setInterval(() => { seconds++; elapsedEl.textContent = seconds + 's'; }, 1000);
 
     try {
       const raw = await API.generate(text);
       const data = Parser.parseGenerate(raw);
       studyData = data;
-
-      // Save to localStorage
       localStorage.setItem('flashmind_data', JSON.stringify(data));
       localStorage.setItem('flashmind_text', originalText);
-
       showStudyView(data);
     } catch (err) {
-      showToast('Generation failed: ' + err.message, 'error');
+      showToast(i18n.t('genFailed') + ' ' + err.message, 'error');
     }
 
     clearInterval(elapsedTimer);
@@ -242,16 +285,13 @@ const App = (() => {
   function showStudyView(data) {
     studyData = data;
     currentView = 'study';
-
     document.getElementById('input-view').classList.remove('active');
     document.getElementById('study-view').classList.add('active');
     document.getElementById('study-title').textContent = data.title;
-
     Notes.render(data);
     Flashcards.setCards(data.flashcards);
     Quiz.setQuestions(data.quiz);
     Chat.setup(data.title);
-
     switchTab('notes');
   }
 
@@ -275,14 +315,8 @@ const App = (() => {
   function setupExport() {
     const btn = document.getElementById('export-btn');
     const menu = document.getElementById('export-menu');
-
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      menu.classList.toggle('open');
-    });
-
+    btn.addEventListener('click', (e) => { e.stopPropagation(); menu.classList.toggle('open'); });
     document.addEventListener('click', () => menu.classList.remove('open'));
-
     menu.querySelectorAll('button').forEach(item => {
       item.addEventListener('click', () => {
         menu.classList.remove('open');
@@ -306,102 +340,70 @@ const App = (() => {
     const discordBtn = document.getElementById('share-discord');
 
     shareBtn.addEventListener('click', openShareModal);
-
     closeBtn.addEventListener('click', () => { modal.style.display = 'none'; });
-
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) modal.style.display = 'none';
-    });
+    modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
 
     copyBtn.addEventListener('click', () => {
       const input = document.getElementById('share-link-input');
       navigator.clipboard.writeText(input.value).then(() => {
-        copyBtn.textContent = 'Copied!';
+        copyBtn.textContent = i18n.t('copied');
         copyBtn.classList.add('copied');
-        setTimeout(() => {
-          copyBtn.textContent = 'Copy Link';
-          copyBtn.classList.remove('copied');
-        }, 2000);
+        setTimeout(() => { copyBtn.textContent = i18n.t('copyLink'); copyBtn.classList.remove('copied'); }, 2000);
       }).catch(() => {
         input.select();
         document.execCommand('copy');
-        copyBtn.textContent = 'Copied!';
+        copyBtn.textContent = i18n.t('copied');
         copyBtn.classList.add('copied');
-        setTimeout(() => {
-          copyBtn.textContent = 'Copy Link';
-          copyBtn.classList.remove('copied');
-        }, 2000);
+        setTimeout(() => { copyBtn.textContent = i18n.t('copyLink'); copyBtn.classList.remove('copied'); }, 2000);
       });
     });
 
     whatsappBtn.addEventListener('click', () => {
       const url = document.getElementById('share-link-input').value;
-      const title = studyData ? studyData.title : 'study materials';
-      const text = `Study with me! Check out these ${title} notes, flashcards & quiz: ${url}`;
+      const title = studyData ? studyData.title : '';
+      const text = i18n.t('shareWhatsapp', { title }) + ' ' + url;
       window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
     });
 
     discordBtn.addEventListener('click', () => {
       const url = document.getElementById('share-link-input').value;
-      const title = studyData ? studyData.title : 'study materials';
-      const text = `**FlashMind** — ${title}\nNotes, flashcards, quiz & AI tutor all in one link:\n${url}`;
+      const title = studyData ? studyData.title : '';
+      const text = i18n.t('shareDiscord', { title }) + '\n' + url;
       navigator.clipboard.writeText(text).then(() => {
-        showToast('Discord message copied to clipboard!', 'success');
-      }).catch(() => {
-        showToast('Failed to copy', 'error');
-      });
+        showToast(i18n.t('discordCopied'), 'success');
+      }).catch(() => { showToast(i18n.t('failedCopy'), 'error'); });
     });
   }
 
   async function openShareModal() {
-    if (!studyData) {
-      showToast('No study materials to share', 'error');
-      return;
-    }
-
+    if (!studyData) { showToast(i18n.t('noDataShare'), 'error'); return; }
     const modal = document.getElementById('share-modal');
     const loading = document.getElementById('share-loading');
     const result = document.getElementById('share-result');
-
     modal.style.display = 'flex';
     loading.style.display = 'flex';
     result.style.display = 'none';
 
     try {
-      const sharePayload = {
-        studyData: studyData,
-        originalText: originalText
-      };
-
-      const response = await API.share(sharePayload);
+      const response = await API.share({ studyData, originalText });
       const code = response.code;
-      const shareUrl = `https://0xmortuex.github.io/FlashMind/?s=${code}`;
-
-      document.getElementById('share-link-input').value = shareUrl;
+      document.getElementById('share-link-input').value = `https://0xmortuex.github.io/FlashMind/?s=${code}`;
       loading.style.display = 'none';
       result.style.display = 'block';
-
-      showToast('Share link created! Expires in 30 days.', 'success');
+      showToast(i18n.t('shareCreated'), 'success');
     } catch (err) {
       modal.style.display = 'none';
-      showToast('Failed to create share link: ' + err.message, 'error');
+      showToast(i18n.t('shareFailed') + ' ' + err.message, 'error');
     }
   }
 
   // ===== Share Link Detection =====
   function checkShareLink() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const shareCode = urlParams.get('s');
-
+    const shareCode = new URLSearchParams(window.location.search).get('s');
     if (!shareCode) return false;
-
-    // Show loading overlay
     const overlay = document.getElementById('share-load-overlay');
     overlay.style.display = 'flex';
-
-    // Clean URL without reload
     history.replaceState({}, '', window.location.pathname);
-
     loadSharedMaterials(shareCode, overlay);
     return true;
   }
@@ -409,28 +411,19 @@ const App = (() => {
   async function loadSharedMaterials(code, overlay) {
     try {
       const data = await API.load(code);
-
-      // Extract study data and original text
       const shared = data.studyData || data;
       const text = data.originalText || '';
-
-      if (!shared.title || !shared.notes || !shared.flashcards || !shared.quiz) {
-        throw new Error('Invalid shared data');
-      }
-
+      if (!shared.title || !shared.notes || !shared.flashcards || !shared.quiz) throw new Error('Invalid');
       originalText = text;
       studyData = shared;
-
-      // Save to localStorage so it persists
       localStorage.setItem('flashmind_data', JSON.stringify(shared));
       if (text) localStorage.setItem('flashmind_text', text);
-
       overlay.style.display = 'none';
       showStudyView(shared);
-      showToast('Shared study materials loaded!', 'success');
+      showToast(i18n.t('shareLoaded'), 'success');
     } catch (err) {
       overlay.style.display = 'none';
-      showToast('Share link expired or not found', 'error');
+      showToast(i18n.t('shareExpired'), 'error');
     }
   }
 
@@ -438,19 +431,16 @@ const App = (() => {
   function checkSavedData() {
     const saved = localStorage.getItem('flashmind_data');
     const savedText = localStorage.getItem('flashmind_text');
-
     if (saved) {
       try {
         const data = JSON.parse(saved);
         if (data.title && data.notes && data.flashcards && data.quiz) {
           originalText = savedText || '';
-          showToast('Restored your previous study materials', 'info');
+          showToast(i18n.t('restored'), 'info');
           showStudyView(data);
           return;
         }
-      } catch (e) {
-        localStorage.removeItem('flashmind_data');
-      }
+      } catch (e) { localStorage.removeItem('flashmind_data'); }
     }
   }
 
@@ -461,18 +451,13 @@ const App = (() => {
     toast.className = `toast ${type}`;
     toast.textContent = message;
     container.appendChild(toast);
-
-    setTimeout(() => {
-      toast.classList.add('removing');
-      setTimeout(() => toast.remove(), 300);
-    }, 3000);
+    setTimeout(() => { toast.classList.add('removing'); setTimeout(() => toast.remove(), 300); }, 3000);
   }
 
   // ===== Getters =====
   function getStudyData() { return studyData; }
   function getOriginalText() { return originalText; }
 
-  // Init on DOM ready
   document.addEventListener('DOMContentLoaded', init);
 
   return { switchTab, showToast, getStudyData, getOriginalText };

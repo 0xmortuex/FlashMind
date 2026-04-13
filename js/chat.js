@@ -3,14 +3,12 @@ const Chat = (() => {
   let messagesEl;
   let inputEl;
   let sendBtn;
-  let startersEl;
   let isLoading = false;
 
   function init() {
     messagesEl = document.getElementById('chat-messages');
     inputEl = document.getElementById('chat-input');
     sendBtn = document.getElementById('chat-send-btn');
-    startersEl = document.getElementById('chat-starters');
 
     inputEl.addEventListener('input', () => {
       sendBtn.disabled = !inputEl.value.trim() || isLoading;
@@ -23,26 +21,21 @@ const Chat = (() => {
     });
 
     sendBtn.addEventListener('click', () => {
-      if (inputEl.value.trim() && !isLoading) {
-        sendMessage(inputEl.value.trim());
-      }
+      if (inputEl.value.trim() && !isLoading) sendMessage(inputEl.value.trim());
     });
   }
 
   function setup(title) {
     document.getElementById('chat-context-badge').textContent = title;
     messagesEl.innerHTML = '';
-    showStarters(title);
+    showStarters();
   }
 
-  function showStarters(title) {
+  function showStarters() {
+    const T = i18n.t;
     const starters = [
-      `Explain the key concepts in simpler terms`,
-      `What are the most important things to remember?`,
-      `Give me a mnemonic to remember this`,
-      `What questions might appear on an exam?`,
-      `Generate 5 more flashcards on the hardest topics`,
-      `Create a harder quiz`
+      T('starter1'), T('starter2'), T('starter3'),
+      T('starter4'), T('starter5'), T('starter6')
     ];
 
     let html = '<div class="chat-starters">';
@@ -56,7 +49,6 @@ const Chat = (() => {
   function addUserMessage(text) {
     const startersDiv = messagesEl.querySelector('.chat-starters');
     if (startersDiv) startersDiv.remove();
-
     const msg = document.createElement('div');
     msg.className = 'chat-message user';
     msg.innerHTML = `<div class="chat-bubble">${esc(text)}</div>`;
@@ -65,15 +57,13 @@ const Chat = (() => {
   }
 
   function addAIMessage(data) {
+    const T = i18n.t;
     const msg = document.createElement('div');
     msg.className = 'chat-message ai';
-
     let html = `<div class="chat-bubble">${esc(data.answer)}</div>`;
-
     if (data.tip) {
-      html += `<div class="chat-tip"><div class="chat-tip-label">Study Tip</div>${esc(data.tip)}</div>`;
+      html += `<div class="chat-tip"><div class="chat-tip-label">${T('studyTip')}</div>${esc(data.tip)}</div>`;
     }
-
     if (data.followUps && data.followUps.length > 0) {
       html += `<div class="chat-followups">`;
       data.followUps.forEach(f => {
@@ -81,29 +71,30 @@ const Chat = (() => {
       });
       html += `</div>`;
     }
-
     msg.innerHTML = html;
     messagesEl.appendChild(msg);
     scrollToBottom();
   }
 
   function addFlashcardsMessage(data) {
+    const T = i18n.t;
     const msg = document.createElement('div');
     msg.className = 'chat-message ai';
     msg.innerHTML = `
-      <div class="chat-bubble">Here are ${data.flashcards.length} new flashcards!</div>
-      <button class="chat-action-btn" onclick="Chat.addFlashcards()">Add to Deck</button>`;
+      <div class="chat-bubble">${T('newFlashcards', { n: data.flashcards.length })}</div>
+      <button class="chat-action-btn" onclick="Chat.addFlashcards()">${T('addToDeck')}</button>`;
     msg._flashcards = data.flashcards;
     messagesEl.appendChild(msg);
     scrollToBottom();
   }
 
   function addQuizMessage(data) {
+    const T = i18n.t;
     const msg = document.createElement('div');
     msg.className = 'chat-message ai';
     msg.innerHTML = `
-      <div class="chat-bubble">Generated ${data.quiz.length} new quiz questions!</div>
-      <button class="chat-action-btn" onclick="Chat.addQuizQuestions()">Add to Quiz</button>`;
+      <div class="chat-bubble">${T('newQuizQs', { n: data.quiz.length })}</div>
+      <button class="chat-action-btn" onclick="Chat.addQuizQuestions()">${T('addToQuiz')}</button>`;
     msg._quiz = data.quiz;
     messagesEl.appendChild(msg);
     scrollToBottom();
@@ -114,9 +105,7 @@ const Chat = (() => {
     loader.className = 'chat-message ai';
     loader.id = 'chat-loader';
     loader.innerHTML = `<div class="chat-loading">
-      <div class="chat-loading-dot"></div>
-      <div class="chat-loading-dot"></div>
-      <div class="chat-loading-dot"></div>
+      <div class="chat-loading-dot"></div><div class="chat-loading-dot"></div><div class="chat-loading-dot"></div>
     </div>`;
     messagesEl.appendChild(loader);
     scrollToBottom();
@@ -132,7 +121,6 @@ const Chat = (() => {
     isLoading = true;
     sendBtn.disabled = true;
     inputEl.value = '';
-
     addUserMessage(text);
     showLoading();
 
@@ -140,9 +128,7 @@ const Chat = (() => {
       const context = App.getOriginalText();
       const raw = await API.chat(text, context);
       removeLoading();
-
       const data = Parser.parseChat(raw);
-
       if (data.type === 'flashcards') {
         addFlashcardsMessage(data);
         Chat._pendingFlashcards = data.flashcards;
@@ -154,7 +140,7 @@ const Chat = (() => {
       }
     } catch (err) {
       removeLoading();
-      addAIMessage({ answer: `Sorry, I couldn't process that. ${err.message}`, tip: null, followUps: [] });
+      addAIMessage({ answer: `${i18n.t('chatError')} ${err.message}`, tip: null, followUps: [] });
     }
 
     isLoading = false;
@@ -165,7 +151,7 @@ const Chat = (() => {
     if (Chat._pendingFlashcards) {
       Flashcards.addCards(Chat._pendingFlashcards);
       Chat._pendingFlashcards = null;
-      App.showToast('Flashcards added to deck!', 'success');
+      App.showToast(i18n.t('flashcardsAdded'), 'success');
     }
   }
 
@@ -173,20 +159,13 @@ const Chat = (() => {
     if (Chat._pendingQuiz) {
       Quiz.addQuestions(Chat._pendingQuiz);
       Chat._pendingQuiz = null;
-      App.showToast('Questions added to quiz!', 'success');
+      App.showToast(i18n.t('questionsAdded'), 'success');
     }
   }
 
-  function scrollToBottom() {
-    messagesEl.scrollTop = messagesEl.scrollHeight;
-  }
+  function scrollToBottom() { messagesEl.scrollTop = messagesEl.scrollHeight; }
 
-  function esc(str) {
-    if (!str) return '';
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
-  }
+  function esc(str) { if (!str) return ''; const d = document.createElement('div'); d.textContent = str; return d.innerHTML; }
 
   return { init, setup, sendMessage, addFlashcards, addQuizQuestions };
 })();
