@@ -14,11 +14,12 @@ const App = (() => {
     setupGenerate();
     setupExport();
     setupTopBar();
+    setupShare();
     Notes.init();
     Flashcards.init();
     Quiz.init();
     Chat.init();
-    checkSavedData();
+    checkShareLink() || checkSavedData();
   }
 
   // ===== Input Tabs =====
@@ -293,6 +294,144 @@ const App = (() => {
         else if (action === 'all-json') Export.allJSON();
       });
     });
+  }
+
+  // ===== Share =====
+  function setupShare() {
+    const shareBtn = document.getElementById('share-btn');
+    const modal = document.getElementById('share-modal');
+    const closeBtn = document.getElementById('share-modal-close');
+    const copyBtn = document.getElementById('share-copy-btn');
+    const whatsappBtn = document.getElementById('share-whatsapp');
+    const discordBtn = document.getElementById('share-discord');
+
+    shareBtn.addEventListener('click', openShareModal);
+
+    closeBtn.addEventListener('click', () => { modal.style.display = 'none'; });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.style.display = 'none';
+    });
+
+    copyBtn.addEventListener('click', () => {
+      const input = document.getElementById('share-link-input');
+      navigator.clipboard.writeText(input.value).then(() => {
+        copyBtn.textContent = 'Copied!';
+        copyBtn.classList.add('copied');
+        setTimeout(() => {
+          copyBtn.textContent = 'Copy Link';
+          copyBtn.classList.remove('copied');
+        }, 2000);
+      }).catch(() => {
+        input.select();
+        document.execCommand('copy');
+        copyBtn.textContent = 'Copied!';
+        copyBtn.classList.add('copied');
+        setTimeout(() => {
+          copyBtn.textContent = 'Copy Link';
+          copyBtn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+
+    whatsappBtn.addEventListener('click', () => {
+      const url = document.getElementById('share-link-input').value;
+      const title = studyData ? studyData.title : 'study materials';
+      const text = `Study with me! Check out these ${title} notes, flashcards & quiz: ${url}`;
+      window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+    });
+
+    discordBtn.addEventListener('click', () => {
+      const url = document.getElementById('share-link-input').value;
+      const title = studyData ? studyData.title : 'study materials';
+      const text = `**FlashMind** — ${title}\nNotes, flashcards, quiz & AI tutor all in one link:\n${url}`;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('Discord message copied to clipboard!', 'success');
+      }).catch(() => {
+        showToast('Failed to copy', 'error');
+      });
+    });
+  }
+
+  async function openShareModal() {
+    if (!studyData) {
+      showToast('No study materials to share', 'error');
+      return;
+    }
+
+    const modal = document.getElementById('share-modal');
+    const loading = document.getElementById('share-loading');
+    const result = document.getElementById('share-result');
+
+    modal.style.display = 'flex';
+    loading.style.display = 'flex';
+    result.style.display = 'none';
+
+    try {
+      const sharePayload = {
+        studyData: studyData,
+        originalText: originalText
+      };
+
+      const response = await API.share(sharePayload);
+      const code = response.code;
+      const shareUrl = `https://0xmortuex.github.io/FlashMind/?s=${code}`;
+
+      document.getElementById('share-link-input').value = shareUrl;
+      loading.style.display = 'none';
+      result.style.display = 'block';
+
+      showToast('Share link created! Expires in 30 days.', 'success');
+    } catch (err) {
+      modal.style.display = 'none';
+      showToast('Failed to create share link: ' + err.message, 'error');
+    }
+  }
+
+  // ===== Share Link Detection =====
+  function checkShareLink() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const shareCode = urlParams.get('s');
+
+    if (!shareCode) return false;
+
+    // Show loading overlay
+    const overlay = document.getElementById('share-load-overlay');
+    overlay.style.display = 'flex';
+
+    // Clean URL without reload
+    history.replaceState({}, '', window.location.pathname);
+
+    loadSharedMaterials(shareCode, overlay);
+    return true;
+  }
+
+  async function loadSharedMaterials(code, overlay) {
+    try {
+      const data = await API.load(code);
+
+      // Extract study data and original text
+      const shared = data.studyData || data;
+      const text = data.originalText || '';
+
+      if (!shared.title || !shared.notes || !shared.flashcards || !shared.quiz) {
+        throw new Error('Invalid shared data');
+      }
+
+      originalText = text;
+      studyData = shared;
+
+      // Save to localStorage so it persists
+      localStorage.setItem('flashmind_data', JSON.stringify(shared));
+      if (text) localStorage.setItem('flashmind_text', text);
+
+      overlay.style.display = 'none';
+      showStudyView(shared);
+      showToast('Shared study materials loaded!', 'success');
+    } catch (err) {
+      overlay.style.display = 'none';
+      showToast('Share link expired or not found', 'error');
+    }
   }
 
   // ===== Auto-save =====

@@ -50,5 +50,37 @@ const API = (() => {
     return data.result;
   }
 
-  return { generate, chat, grade };
+  async function share(data) {
+    const res = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'share', data })
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ error: 'Failed to share' }));
+      throw new Error(err.error || `HTTP ${res.status}`);
+    }
+
+    const json = await res.json();
+    return typeof json.result === 'string' ? JSON.parse(json.result) : json.result;
+  }
+
+  async function load(code) {
+    const res = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'load', code })
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ error: 'Share link expired or not found' }));
+      throw new Error(err.error || `HTTP ${res.status}`);
+    }
+
+    const json = await res.json();
+    return typeof json.result === 'string' ? JSON.parse(json.result) : json.result;
+  }
+
+  return { generate, chat, grade, share, load };
 })();
