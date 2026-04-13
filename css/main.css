@@ -280,6 +280,124 @@ input:focus, textarea:focus { border-color: var(--primary); }
   background: rgba(124, 58, 237, 0.1);
 }
 
+/* Generate Settings */
+.generate-settings {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.settings-toggle {
+  padding: 8px 18px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  transition: all var(--transition);
+}
+
+.settings-toggle:hover { color: var(--text); border-color: var(--text-muted); }
+.settings-toggle.open { color: var(--primary); border-color: var(--primary); }
+
+.settings-panel {
+  margin-top: 12px;
+  padding: 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  overflow: hidden;
+  animation: settingsSlide 0.25s ease;
+}
+
+@keyframes settingsSlide {
+  from { opacity: 0; max-height: 0; padding-top: 0; padding-bottom: 0; }
+  to { opacity: 1; max-height: 300px; }
+}
+
+.setting-group { margin-bottom: 18px; }
+.setting-group:last-child { margin-bottom: 0; }
+
+.setting-group-label {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+
+.difficulty-inputs {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.diff-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.diff-input label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.diff-input span {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.diff-input input[type="number"] {
+  width: 60px;
+  padding: 6px 4px;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  -moz-appearance: textfield;
+}
+
+.diff-input input[type="number"]::-webkit-inner-spin-button,
+.diff-input input[type="number"]::-webkit-outer-spin-button {
+  opacity: 1;
+}
+
+.diff-input input[type="number"]:focus { border-color: var(--primary); }
+
+.diff-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.diff-dot.easy { background: var(--correct); }
+.diff-dot.medium { background: var(--highlight); }
+.diff-dot.hard { background: var(--wrong); }
+
+.fc-total {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-left: auto;
+  font-weight: 500;
+}
+
+@media (max-width: 480px) {
+  .difficulty-inputs { gap: 10px; }
+  .diff-input input[type="number"] { width: 50px; }
+  .fc-total { margin-left: 0; width: 100%; text-align: center; margin-top: 4px; }
+}
+
 /* Generate Button */
 .btn-generate {
   width: 100%;

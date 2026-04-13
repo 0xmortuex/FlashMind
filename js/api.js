@@ -2,11 +2,11 @@
 const API = (() => {
   const WORKER_URL = 'https://flashmind-proxy.mortuexhavoc.workers.dev';
 
-  async function generate(text) {
+  async function generate(text, flashcardConfig, quizConfig) {
     const res = await fetch(WORKER_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'generate', text, lang: i18n.getLang() })
+      body: JSON.stringify({ action: 'generate', text, lang: i18n.getLang(), flashcardConfig, quizConfig })
     });
 
     if (!res.ok) {

@@ -14,6 +14,7 @@ const App = (() => {
     setupPDF();
     setupTopicChips();
     setupGenerate();
+    setupSettings();
     setupExport();
     setupTopBar();
     setupShare();
@@ -229,6 +230,40 @@ const App = (() => {
     });
   }
 
+  // ===== Settings Panel =====
+  function setupSettings() {
+    const toggle = document.getElementById('settings-toggle');
+    const panel = document.getElementById('settings-panel');
+
+    toggle.addEventListener('click', () => {
+      const isOpen = panel.style.display !== 'none';
+      panel.style.display = isOpen ? 'none' : '';
+      toggle.classList.toggle('open', !isOpen);
+    });
+
+    ['fc-easy', 'fc-medium', 'fc-hard'].forEach(id => {
+      document.getElementById(id).addEventListener('input', () => {
+        const total = ['fc-easy', 'fc-medium', 'fc-hard']
+          .reduce((sum, id) => sum + (parseInt(document.getElementById(id).value) || 0), 0);
+        document.getElementById('fc-total').textContent = `Total: ${total}`;
+      });
+    });
+  }
+
+  function getGenerationConfig() {
+    return {
+      flashcardConfig: {
+        easy: parseInt(document.getElementById('fc-easy').value) || 10,
+        medium: parseInt(document.getElementById('fc-medium').value) || 15,
+        hard: parseInt(document.getElementById('fc-hard').value) || 10
+      },
+      quizConfig: {
+        multipleChoice: parseInt(document.getElementById('quiz-mc').value) || 15,
+        openEnded: parseInt(document.getElementById('quiz-open').value) || 8
+      }
+    };
+  }
+
   // ===== Generate =====
   function setupGenerate() {
     document.getElementById('generate-btn').addEventListener('click', generate);
@@ -264,8 +299,10 @@ const App = (() => {
     elapsedEl.textContent = '0s';
     elapsedTimer = setInterval(() => { seconds++; elapsedEl.textContent = seconds + 's'; }, 1000);
 
+    const { flashcardConfig, quizConfig } = getGenerationConfig();
+
     try {
-      const raw = await API.generate(text);
+      const raw = await API.generate(text, flashcardConfig, quizConfig);
       const data = Parser.parseGenerate(raw);
       studyData = data;
       localStorage.setItem('flashmind_data', JSON.stringify(data));
