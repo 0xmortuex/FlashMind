@@ -181,7 +181,49 @@
   border-radius: 3px;
 }
 
+/* ===== Diagrams ===== */
+.diagram-container {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 20px;
+  border-left: 3px solid var(--secondary);
+}
+
+.diagram-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+
+.diagram-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 4px 0;
+}
+
+.diagram-svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.diagram-description {
+  margin-top: 12px;
+  font-family: var(--font-content);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  text-align: center;
+  font-style: italic;
+}
+
 @media (max-width: 768px) {
   .notes-title { font-size: 1.4rem; }
   .notes-section { padding: 18px; }
+  .diagram-container { padding: 16px; }
+  .diagram-wrapper { margin: 0 -8px; }
 }

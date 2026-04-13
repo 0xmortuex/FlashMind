@@ -34,5 +34,21 @@ const API = (() => {
     return data.result;
   }
 
-  return { generate, chat };
+  async function grade(studentAnswer, correctAnswer, keyPoints) {
+    const res = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'grade', studentAnswer, correctAnswer, keyPoints })
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ error: 'Request failed' }));
+      throw new Error(err.error || `HTTP ${res.status}`);
+    }
+
+    const data = await res.json();
+    return data.result;
+  }
+
+  return { generate, chat, grade };
 })();
