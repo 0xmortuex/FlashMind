@@ -337,6 +337,35 @@ const i18n = (() => {
     }
   };
 
+  // ===== Topic Categories =====
+  const topicCategories = {
+    en: [
+      { name: 'Science', topics: ['Photosynthesis', 'DNA Replication', "Newton's Laws of Motion", 'The Solar System', 'Human Digestive System', 'Periodic Table Basics', 'Electricity & Circuits'] },
+      { name: 'History', topics: ['French Revolution', 'World War II Causes', 'Ottoman Empire', 'Cold War', 'Ancient Egypt'] },
+      { name: 'Math', topics: ['Quadratic Formula', 'Pythagorean Theorem', 'Fractions & Decimals', 'Probability Basics'] },
+      { name: 'Social Sciences', topics: ['Supply & Demand', 'Climate Change', 'Human Rights', 'Types of Government'] },
+      { name: 'Languages & Literature', topics: ["Shakespeare's Romeo & Juliet", 'Parts of Speech in English', 'Essay Writing Structure'] },
+      { name: 'Technology', topics: ['How the Internet Works', 'Artificial Intelligence Basics', 'Cybersecurity Fundamentals'] }
+    ],
+    tr: [
+      { name: 'Fen Bilimleri', topics: ['Fotosentez', 'DNA Replikasyonu', 'Newton Hareket Yasalari', 'Sindirim Sistemi', 'Periyodik Tablo'] },
+      { name: 'Tarih', topics: ['Osmanli Imparatorlugu', 'Kurtulus Savasi', 'Fransiz Devrimi', 'Soguk Savas', 'Eski Misir'] },
+      { name: 'Matematik', topics: ['Ikinci Derece Denklemler', 'Pisagor Teoremi', 'Olasilik', 'Kesirler'] },
+      { name: 'Sosyal Bilimler', topics: ['Arz ve Talep', 'Iklim Degisikligi', 'Insan Haklari', 'Yonetim Bicimleri'] },
+      { name: 'Teknoloji', topics: ['Internet Nasil Calisir', 'Yapay Zeka', 'Siber Guvenlik'] }
+    ]
+  };
+
+  function getTopicCategories() {
+    return topicCategories[lang] || topicCategories.en;
+  }
+
+  // Add UI strings for show/hide more topics
+  translations.en.showMoreTopics = 'Show more topics \u25BE';
+  translations.en.showFewerTopics = 'Show fewer topics \u25B4';
+  translations.tr.showMoreTopics = 'Daha fazla konu goster \u25BE';
+  translations.tr.showFewerTopics = 'Daha az konu goster \u25B4';
+
   function t(key, params) {
     let str = (translations[lang] && translations[lang][key]) || translations.en[key] || key;
     if (params) {
@@ -355,5 +384,5 @@ const i18n = (() => {
     location.reload();
   }
 
-  return { t, getLang, setLang };
+  return { t, getLang, setLang, getTopicCategories };
 })();

@@ -222,12 +222,60 @@ const App = (() => {
   }
 
   // ===== Topic Chips =====
+  let topicsExpanded = false;
+
   function setupTopicChips() {
-    document.querySelectorAll('.topic-chip').forEach(chip => {
+    renderTopicCategories();
+
+    const showMoreBtn = document.getElementById('show-more-topics');
+    showMoreBtn.addEventListener('click', () => {
+      topicsExpanded = !topicsExpanded;
+      renderTopicCategories();
+    });
+  }
+
+  function renderTopicCategories() {
+    const container = document.getElementById('topic-categories');
+    const showMoreBtn = document.getElementById('show-more-topics');
+    const categories = i18n.getTopicCategories();
+    const visibleCount = topicsExpanded ? categories.length : 2;
+    const visible = categories.slice(0, visibleCount);
+
+    let html = '';
+    visible.forEach(cat => {
+      html += `<div class="topic-category">
+        <h4 class="topic-category-name">${escText(cat.name)}</h4>
+        <div class="topic-chips">`;
+      cat.topics.forEach(topic => {
+        const safe = topic.replace(/"/g, '&quot;');
+        html += `<button class="topic-chip" data-topic="${safe}">${escText(topic)}</button>`;
+      });
+      html += `</div></div>`;
+    });
+
+    container.innerHTML = html;
+
+    // Bind click handlers
+    container.querySelectorAll('.topic-chip').forEach(chip => {
       chip.addEventListener('click', () => {
         document.getElementById('topic-input').value = chip.dataset.topic;
       });
     });
+
+    // Update show more button
+    if (categories.length <= 2) {
+      showMoreBtn.style.display = 'none';
+    } else {
+      showMoreBtn.style.display = '';
+      showMoreBtn.textContent = topicsExpanded ? i18n.t('showFewerTopics') : i18n.t('showMoreTopics');
+    }
+  }
+
+  function escText(str) {
+    if (!str) return '';
+    const d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
   }
 
   // ===== Settings Panel =====
