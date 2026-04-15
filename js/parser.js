@@ -4,64 +4,120 @@ const Parser = (() => {
   function cleanJSON(raw) {
     let str = raw.trim();
     // Remove markdown fences
-    if (str.startsWith('```')) {
-      str = str.replace(/^```(?:json)?\s*\n?/, '').replace(/\n?```\s*$/, '');
-    }
+    str = str.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim();
     return str;
   }
 
-  function parseGenerate(raw) {
-    const cleaned = cleanJSON(raw);
-    const data = JSON.parse(cleaned);
+  function repairJSON(str) {
+    // Remove markdown fences if present
+    str = str.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim();
 
-    // Validate structure
-    if (!data.title || !data.notes || !data.flashcards || !data.quiz) {
+    // Walk the string, tracking string state and brace/bracket depth
+    let openBraces = 0;
+    let openBrackets = 0;
+    let inString = false;
+    let escaped = false;
+
+    for (let i = 0; i < str.length; i++) {
+      const ch = str[i];
+      if (escaped) { escaped = false; continue; }
+      if (ch === '\\') { escaped = true; continue; }
+      if (ch === '"') { inString = !inString; continue; }
+      if (inString) continue;
+      if (ch === '{') openBraces++;
+      else if (ch === '}') openBraces--;
+      else if (ch === '[') openBrackets++;
+      else if (ch === ']') openBrackets--;
+    }
+
+    // If we ended mid-string, close it
+    if (inString) str += '"';
+
+    // Drop any trailing partial token after the last complete value:
+    // remove trailing comma, colon, or partial property name like ", "key
+    // Keep stripping until we hit a digit, letter, ", ], }, or end
+    str = str.replace(/,\s*$/, '');
+    // Strip a trailing partial string-key like  ,"key (no closing colon yet)
+    str = str.replace(/,\s*"[^"]*$/, '');
+
+    // Close any unclosed arrays/objects in correct order
+    for (let i = 0; i < openBrackets; i++) str += ']';
+    for (let i = 0; i < openBraces; i++) str += '}';
+
+    return str;
+  }
+
+  function safeParseJSON(raw) {
+    const cleaned = cleanJSON(raw);
+    try {
+      return JSON.parse(cleaned);
+    } catch (e1) {
+      try {
+        const repaired = repairJSON(cleaned);
+        return JSON.parse(repaired);
+      } catch (e2) {
+        // Last resort: try repairing the original raw text
+        try {
+          return JSON.parse(repairJSON(raw));
+        } catch (e3) {
+          throw new Error('Could not parse response: ' + e1.message);
+        }
+      }
+    }
+  }
+
+  function parseGenerate(raw) {
+    const data = safeParseJSON(raw);
+
+    // Validate top-level structure
+    if (!data || !data.title || !data.notes) {
       throw new Error('Invalid response structure');
     }
 
-    // Validate notes
-    if (!data.notes.summary || !Array.isArray(data.notes.sections)) {
-      throw new Error('Invalid notes structure');
-    }
+    // Notes — be tolerant
+    data.notes.summary = data.notes.summary || '';
+    if (!Array.isArray(data.notes.sections)) data.notes.sections = [];
 
-    // Validate flashcards
-    if (!Array.isArray(data.flashcards) || data.flashcards.length === 0) {
-      throw new Error('No flashcards generated');
-    }
+    // Flashcards — drop any malformed entries instead of throwing
+    if (!Array.isArray(data.flashcards)) data.flashcards = [];
+    data.flashcards = data.flashcards.filter(card => card && card.front && card.back);
     data.flashcards.forEach((card, i) => {
-      if (!card.front || !card.back) {
-        throw new Error(`Invalid flashcard at index ${i}`);
-      }
       card.id = card.id || i + 1;
       card.difficulty = card.difficulty || 'medium';
       card.category = card.category || 'General';
     });
 
-    // Validate quiz — support both multiple-choice and open-ended
-    if (!Array.isArray(data.quiz) || data.quiz.length === 0) {
-      throw new Error('No quiz questions generated');
+    if (data.flashcards.length === 0) {
+      throw new Error('No flashcards generated');
     }
+
+    // Quiz — drop malformed entries
+    if (!Array.isArray(data.quiz)) data.quiz = [];
+    data.quiz = data.quiz.filter(q => {
+      if (!q || !q.question) return false;
+      if (q.type === 'open-ended') return true;
+      // multiple-choice needs options array
+      return Array.isArray(q.options) && q.options.length >= 2;
+    });
     data.quiz.forEach((q, i) => {
       q.id = q.id || i + 1;
       q.type = q.type || 'multiple-choice';
-
       if (q.type === 'open-ended') {
-        if (!q.question) throw new Error(`Invalid open-ended question at index ${i}`);
         q.correctAnswer = q.correctAnswer || '';
         q.keyPoints = Array.isArray(q.keyPoints) ? q.keyPoints : [];
         q.maxPoints = q.maxPoints || 3;
       } else {
-        // multiple-choice
         q.type = 'multiple-choice';
-        if (!q.question || !Array.isArray(q.options) || q.options.length < 2) {
-          throw new Error(`Invalid quiz question at index ${i}`);
-        }
         if (typeof q.correct !== 'number') q.correct = 0;
         q.explanation = q.explanation || '';
       }
     });
 
-    // Defaults for optional fields
+    if (data.quiz.length === 0) {
+      throw new Error('No quiz questions generated');
+    }
+
+    // Optional fields
     data.notes.importantDates = data.notes.importantDates || [];
     data.notes.commonMistakes = data.notes.commonMistakes || [];
     data.notes.diagrams = Array.isArray(data.notes.diagrams) ? data.notes.diagrams : [];
@@ -83,28 +139,27 @@ const Parser = (() => {
   }
 
   function parseChat(raw) {
-    const cleaned = cleanJSON(raw);
-    const data = JSON.parse(cleaned);
+    const data = safeParseJSON(raw);
 
     if (data.type === 'flashcards' && Array.isArray(data.flashcards)) {
+      data.flashcards = data.flashcards.filter(c => c && c.front && c.back);
       return data;
     }
 
     if (data.type === 'quiz' && Array.isArray(data.quiz)) {
+      data.quiz = data.quiz.filter(q => q && q.question);
       return data;
     }
 
-    // Regular answer
     return {
-      answer: data.answer || cleaned,
+      answer: data.answer || cleanJSON(raw),
       tip: data.tip || null,
       followUps: Array.isArray(data.followUps) ? data.followUps : []
     };
   }
 
   function parseGrade(raw) {
-    const cleaned = cleanJSON(raw);
-    const data = JSON.parse(cleaned);
+    const data = safeParseJSON(raw);
     return {
       score: typeof data.score === 'number' ? data.score : 0,
       maxScore: data.maxScore || 3,
@@ -113,5 +168,5 @@ const Parser = (() => {
     };
   }
 
-  return { parseGenerate, parseChat, parseGrade };
+  return { parseGenerate, parseChat, parseGrade, repairJSON, safeParseJSON };
 })();
