@@ -856,8 +856,9 @@ input:focus, textarea:focus { border-color: var(--primary); }
 @media (max-width: 768px) {
   #input-view { padding: 24px 16px; }
   .logo-text { font-size: 2rem; }
-  .topbar { padding: 10px 16px; }
+  .topbar { padding: 10px 16px; flex-wrap: wrap; row-gap: 8px; }
   .topbar-title { display: none; }
+  .topbar-actions { margin-left: auto; }
   .study-tabs { padding: 0 16px; }
   .study-tab { padding: 12px 16px; font-size: 0.85rem; }
   .tab-content { padding: 20px 16px; }
