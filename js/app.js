@@ -5,6 +5,9 @@ const App = (() => {
   let studyData = null;
   let originalText = '';
   let elapsedTimer = null;
+  // When true, the next generated/imported set is MERGED into the current
+  // studyData instead of replacing it ("Add Materials" flow).
+  let appendMode = false;
 
   function init() {
     translateStaticHTML();
@@ -47,6 +50,8 @@ const App = (() => {
     document.getElementById('share-btn').textContent = T('share');
     document.getElementById('export-btn').textContent = T('export_');
     document.getElementById('new-material-btn').textContent = T('newMaterial');
+    document.getElementById('add-material-btn').textContent = T('addMaterials');
+    document.getElementById('append-cancel-btn').textContent = T('cancel');
 
     // Export menu items
     const exportItems = document.querySelectorAll('#export-menu button');
@@ -87,7 +92,7 @@ const App = (() => {
     document.querySelector('.share-modal-header h3').textContent = T('shareTitle');
     document.querySelector('.share-label').textContent = T('shareLabel');
     document.getElementById('share-copy-btn').textContent = T('copyLink');
-    document.querySelector('.share-expires').textContent = T('expires30');
+    document.querySelector('.share-expires').textContent = T('shareExpiry');
     document.querySelector('.share-load-card p').textContent = T('shareLoading');
 
     // Lang switcher active state
@@ -165,9 +170,9 @@ const App = (() => {
       e.preventDefault();
       dropzone.classList.remove('dragover');
       const file = e.dataTransfer.files[0];
-      if (file && file.type === 'application/pdf') processPDF(file);
+      if (file) processFile(file);
     });
-    fileInput.addEventListener('change', () => { if (fileInput.files[0]) processPDF(fileInput.files[0]); });
+    fileInput.addEventListener('change', () => { if (fileInput.files[0]) processFile(fileInput.files[0]); });
 
     document.getElementById('pdf-use-btn').addEventListener('click', () => {
       const text = document.getElementById('pdf-text-preview').value;
@@ -187,6 +192,40 @@ const App = (() => {
       preview.style.display = 'none';
       fileInput.value = '';
     });
+  }
+
+  // Route an uploaded file: JSON → import a study set (or use as text), else PDF.
+  async function processFile(file) {
+    if (/\.json$/i.test(file.name) || file.type === 'application/json') {
+      return importJSONFile(file);
+    }
+    return processPDF(file);
+  }
+
+  async function importJSONFile(file) {
+    try {
+      const obj = JSON.parse(await file.text());
+      if (looksLikeDeck(obj)) {
+        // A FlashMind set (e.g. an "Everything as JSON" export). Load it
+        // directly — merged into the current set if "Add Materials" is active.
+        const wasAppend = appendMode;
+        commitStudyData(obj, ''); // shows its own "added" toast when appending
+        if (!wasAppend) showToast(i18n.t('jsonImported'), 'success');
+      } else {
+        // Arbitrary JSON — feed it to the generator as raw study text.
+        const text = JSON.stringify(obj, null, 2);
+        document.getElementById('paste-input').value = text;
+        document.querySelectorAll('.input-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.input-panel').forEach(p => p.classList.remove('active'));
+        document.querySelector('[data-input-tab="paste"]').classList.add('active');
+        document.getElementById('paste-panel').classList.add('active');
+        document.getElementById('char-count').textContent = i18n.t('charCount', { n: text.length.toLocaleString() });
+        document.getElementById('clear-btn').style.display = '';
+        showToast(i18n.t('jsonAsText'), 'info');
+      }
+    } catch (err) {
+      showToast(i18n.t('jsonInvalid') + ' ' + err.message, 'error');
+    }
   }
 
   async function processPDF(file) {
@@ -338,7 +377,6 @@ const App = (() => {
     if (!text) { showToast(i18n.t('noInput'), 'error'); return; }
     if (text.length > 15000) { text = text.substring(0, 15000); showToast(i18n.t('truncated'), 'info'); }
 
-    originalText = text;
     btn.disabled = true;
     textEl.style.display = 'none';
     loadingEl.style.display = '';
@@ -352,10 +390,7 @@ const App = (() => {
     try {
       const raw = await API.generate(text, flashcardConfig, quizConfig);
       const data = Parser.parseGenerate(raw);
-      studyData = data;
-      localStorage.setItem('flashmind_data', JSON.stringify(data));
-      localStorage.setItem('flashmind_text', originalText);
-      showStudyView(data);
+      commitStudyData(data, text);
     } catch (err) {
       showToast(i18n.t('genFailed') + ' ' + err.message, 'error');
     }
@@ -380,10 +415,101 @@ const App = (() => {
     switchTab('notes');
   }
 
+  // ===== Deck helpers (normalize / merge / import) =====
+  // A study set is { title, notes:{summary,sections,...}, flashcards[], quiz[] }.
+  function normalizeDeck(d) {
+    d = d && typeof d === 'object' ? d : {};
+    let notes = (d.notes && typeof d.notes === 'object') ? d.notes : {};
+    if (typeof d.notes === 'string') notes = { summary: d.notes };
+    return {
+      title: typeof d.title === 'string' && d.title.trim() ? d.title : i18n.t('importedSet'),
+      notes: {
+        summary: notes.summary || '',
+        sections: Array.isArray(notes.sections) ? notes.sections : [],
+        importantDates: Array.isArray(notes.importantDates) ? notes.importantDates : [],
+        commonMistakes: Array.isArray(notes.commonMistakes) ? notes.commonMistakes : [],
+        diagrams: Array.isArray(notes.diagrams) ? notes.diagrams : []
+      },
+      flashcards: Array.isArray(d.flashcards) ? d.flashcards : [],
+      quiz: Array.isArray(d.quiz) ? d.quiz : []
+    };
+  }
+
+  // Does a parsed JSON object look like a FlashMind study set we can import?
+  function looksLikeDeck(obj) {
+    return obj && typeof obj === 'object' &&
+      typeof obj.title === 'string' &&
+      (Array.isArray(obj.flashcards) || Array.isArray(obj.quiz));
+  }
+
+  // Merge `extra` into `base`: concatenate cards/quiz/note-sections, join
+  // summaries, then re-number ids so navigation stays unique.
+  function mergeStudyData(base, extra) {
+    const b = normalizeDeck(base), e = normalizeDeck(extra);
+    const merged = {
+      title: b.title,
+      notes: {
+        summary: [b.notes.summary, e.notes.summary].filter(Boolean).join('\n\n'),
+        sections: [...b.notes.sections, ...e.notes.sections],
+        importantDates: [...b.notes.importantDates, ...e.notes.importantDates],
+        commonMistakes: [...b.notes.commonMistakes, ...e.notes.commonMistakes],
+        diagrams: [...b.notes.diagrams, ...e.notes.diagrams]
+      },
+      flashcards: [...b.flashcards, ...e.flashcards],
+      quiz: [...b.quiz, ...e.quiz]
+    };
+    merged.flashcards.forEach((c, i) => { if (c) c.id = i + 1; });
+    merged.quiz.forEach((q, i) => { if (q) q.id = i + 1; });
+    return merged;
+  }
+
+  // Single commit path for both generation and JSON import. Respects append
+  // mode, persists, refreshes the study view, and returns the active set.
+  function commitStudyData(data, sourceText) {
+    const incoming = normalizeDeck(data);
+    if (appendMode && studyData) {
+      studyData = mergeStudyData(studyData, incoming);
+      if (sourceText) originalText = [originalText, sourceText].filter(Boolean).join('\n\n');
+      showToast(i18n.t('materialsAdded'), 'success');
+    } else {
+      studyData = incoming;
+      originalText = sourceText || '';
+    }
+    localStorage.setItem('flashmind_data', JSON.stringify(studyData));
+    localStorage.setItem('flashmind_text', originalText);
+    exitAppendMode();
+    showStudyView(studyData);
+    return studyData;
+  }
+
+  // ===== Add Materials (append mode) =====
+  function startAddMaterials() {
+    if (!studyData) return;
+    appendMode = true;
+    const banner = document.getElementById('append-banner');
+    document.getElementById('append-banner-text').textContent =
+      i18n.t('addingTo', { title: studyData.title });
+    banner.style.display = 'flex';
+    // Fresh input fields so the user adds new material, not a duplicate.
+    const paste = document.getElementById('paste-input');
+    if (paste) { paste.value = ''; document.getElementById('char-count').textContent = i18n.t('charCount', { n: 0 }); }
+    backToInput();
+    window.scrollTo(0, 0);
+  }
+
+  function exitAppendMode() {
+    appendMode = false;
+    const banner = document.getElementById('append-banner');
+    if (banner) banner.style.display = 'none';
+  }
+
   // ===== Top Bar =====
   function setupTopBar() {
     document.getElementById('back-to-input').addEventListener('click', backToInput);
+    document.getElementById('add-material-btn').addEventListener('click', startAddMaterials);
+    document.getElementById('append-cancel-btn').addEventListener('click', exitAppendMode);
     document.getElementById('new-material-btn').addEventListener('click', () => {
+      exitAppendMode();
       localStorage.removeItem('flashmind_data');
       localStorage.removeItem('flashmind_text');
       backToInput();
@@ -494,11 +620,30 @@ const App = (() => {
   }
 
   async function loadSharedMaterials(code, overlay) {
+    // Step 1: fetch. Only a real 404 from the worker means the share is gone;
+    // a network/5xx failure is a DIFFERENT problem and must not masquerade as
+    // "expired" (that misdiagnosis is why a working link looked dead).
+    let data;
     try {
-      const data = await API.load(code);
+      data = await API.load(code);
+    } catch (err) {
+      overlay.style.display = 'none';
+      const notFound = /not found|expired|404/i.test(err && err.message || '');
+      showToast(i18n.t(notFound ? 'shareExpired' : 'shareLoadError'), 'error');
+      return;
+    }
+
+    // Step 2: use the data. Be lenient — a deck is usable with a title plus at
+    // least flashcards OR a quiz. Notes/quiz/flashcards may legitimately be
+    // empty (e.g. a flashcards-only deck), so normalize rather than reject.
+    try {
       const shared = data.studyData || data;
       const text = data.originalText || '';
-      if (!shared.title || !shared.notes || !shared.flashcards || !shared.quiz) throw new Error('Invalid');
+      shared.notes = shared.notes || '';
+      shared.flashcards = Array.isArray(shared.flashcards) ? shared.flashcards : [];
+      shared.quiz = Array.isArray(shared.quiz) ? shared.quiz : [];
+      const usable = shared.title && (shared.flashcards.length || shared.quiz.length);
+      if (!usable) throw new Error('Invalid');
       originalText = text;
       studyData = shared;
       localStorage.setItem('flashmind_data', JSON.stringify(shared));
@@ -508,7 +653,7 @@ const App = (() => {
       showToast(i18n.t('shareLoaded'), 'success');
     } catch (err) {
       overlay.style.display = 'none';
-      showToast(i18n.t('shareExpired'), 'error');
+      showToast(i18n.t('shareInvalid'), 'error');
     }
   }
 

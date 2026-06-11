@@ -46,10 +46,16 @@
         </div>
       </div>
 
+      <!-- Append-mode banner (shown when adding to an existing set) -->
+      <div id="append-banner" class="append-banner" style="display:none;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;margin-bottom:14px;border:1px solid #7c3aed;border-radius:10px;background:rgba(124,58,237,0.08)">
+        <span id="append-banner-text" style="font-size:14px;font-weight:600">Adding to your set</span>
+        <button id="append-cancel-btn" class="btn-ghost" style="font-size:13px">Cancel</button>
+      </div>
+
       <!-- Input Tabs -->
       <div class="input-tabs">
         <button class="input-tab active" data-input-tab="paste">Paste Text</button>
-        <button class="input-tab" data-input-tab="pdf">Upload PDF</button>
+        <button class="input-tab" data-input-tab="pdf">Upload PDF / JSON</button>
         <button class="input-tab" data-input-tab="topic">Just a Topic</button>
       </div>
 
@@ -71,9 +77,9 @@
             <path d="M14 36h20V22h8L24 4 6 22h8v14z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
             <path d="M6 42h36" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
           </svg>
-          <p class="dropzone-text">Drop a PDF here or click to browse</p>
-          <p class="dropzone-hint">Supports any text-based PDF</p>
-          <input type="file" id="pdf-file-input" accept=".pdf" hidden>
+          <p class="dropzone-text">Drop a PDF or JSON file here, or click to browse</p>
+          <p class="dropzone-hint">Text-based PDFs and FlashMind JSON exports</p>
+          <input type="file" id="pdf-file-input" accept=".pdf,.json,application/json,application/pdf" hidden>
         </div>
         <div id="pdf-preview" style="display:none">
           <div class="pdf-info">
@@ -178,6 +184,7 @@
             <button data-export="all-json">Everything as JSON</button>
           </div>
         </div>
+        <button class="btn-ghost" id="add-material-btn">Add Materials</button>
         <button class="btn-ghost" id="new-material-btn">New Material</button>
       </div>
     </header>
@@ -298,7 +305,7 @@
               Discord
             </button>
           </div>
-          <p class="share-expires">Expires in 30 days</p>
+          <p class="share-expires">Link stays available — no expiry</p>
         </div>
       </div>
     </div>
