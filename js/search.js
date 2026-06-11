@@ -1,11 +1,12 @@
 // ===== Study Search — keyword search across notes + exam =====
 const Search = (() => {
-  let input, results, clearBtn, debounce;
+  let input, results, clearBtn, container, debounce;
 
   function init() {
     input = document.getElementById('study-search-input');
     results = document.getElementById('study-search-results');
     clearBtn = document.getElementById('study-search-clear');
+    container = document.getElementById('study-search');
     if (!input) return;
     input.placeholder = i18n.t('searchPlaceholder');
     input.addEventListener('input', () => {
@@ -16,7 +17,7 @@ const Search = (() => {
     clearBtn.addEventListener('click', () => { reset(); input.focus(); });
     input.addEventListener('keydown', e => { if (e.key === 'Escape') reset(); });
     document.addEventListener('click', e => {
-      if (results && !results.contains(e.target) && e.target !== input) close();
+      if (container && !container.contains(e.target)) close();
     });
   }
 

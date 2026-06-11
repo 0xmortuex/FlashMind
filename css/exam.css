@@ -102,25 +102,35 @@
 .match-area > .btn-primary { align-self: flex-start; margin-top: 4px; }
 
 /* ===== Notes / Exam keyword search ===== */
-.study-search { max-width: 820px; margin: 0 auto 4px; padding: 8px 20px 0; position: relative; }
+/* Compact search living in the topbar, next to Share */
+.study-search { position: relative; }
 .study-search-bar {
-  display: flex; align-items: center; gap: 10px;
-  padding: 9px 14px;
+  display: flex; align-items: center; gap: 8px;
+  width: 190px;
+  padding: 7px 12px;
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
+  border-radius: 999px;
   color: var(--text-muted);
+  transition: width 0.2s ease, border-color 0.2s ease;
 }
-.study-search-bar:focus-within { border-color: var(--primary); }
-.study-search-bar input { flex: 1; background: none; border: none; outline: none; color: var(--text); font-size: 14px; }
-.study-search-clear { background: none; border: none; color: var(--text-muted); font-size: 20px; line-height: 1; cursor: pointer; padding: 0 4px; }
+.study-search-bar:focus-within { border-color: var(--primary); width: 240px; }
+.study-search-bar > svg { flex: 0 0 auto; }
+.study-search-bar input { flex: 1; min-width: 0; background: none; border: none; outline: none; color: var(--text); font-size: 13.5px; }
+.study-search-clear { background: none; border: none; color: var(--text-muted); font-size: 18px; line-height: 1; cursor: pointer; padding: 0 2px; }
 .study-search-results {
-  position: absolute; left: 20px; right: 20px; top: calc(100% + 6px); z-index: 30;
-  max-height: 62vh; overflow-y: auto;
+  position: absolute; right: 0; top: calc(100% + 8px); z-index: 60;
+  width: min(420px, 86vw); max-height: 65vh; overflow-y: auto;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 16px 46px rgba(0, 0, 0, 0.32);
+  text-align: left;
+}
+@media (max-width: 640px) {
+  .study-search-bar { width: 140px; }
+  .study-search-bar:focus-within { width: 170px; }
+  .study-search-results { width: min(320px, 88vw); }
 }
 .search-group-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); padding: 10px 14px 4px; }
 .search-result { padding: 9px 14px; border-top: 1px solid var(--border); cursor: pointer; display: flex; flex-direction: column; gap: 3px; }

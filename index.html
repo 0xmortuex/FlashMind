@@ -174,6 +174,14 @@
       </button>
       <h2 class="topbar-title" id="study-title">Study Materials</h2>
       <div class="topbar-actions">
+        <div class="study-search" id="study-search">
+          <div class="study-search-bar">
+            <svg viewBox="0 0 16 16" fill="none" width="15" height="15"><circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <input type="text" id="study-search-input" placeholder="Search notes & exam..." autocomplete="off" spellcheck="false">
+            <button id="study-search-clear" class="study-search-clear" aria-label="Clear" style="display:none">&times;</button>
+          </div>
+          <div class="study-search-results" id="study-search-results" style="display:none"></div>
+        </div>
         <button class="btn-share" id="share-btn">Share</button>
         <div class="export-dropdown">
           <button class="btn-ghost" id="export-btn">Export</button>
@@ -197,16 +205,6 @@
       <button class="study-tab" data-tab="quiz">Exam</button>
       <button class="study-tab" data-tab="chat">Ask AI</button>
     </nav>
-
-    <!-- Notes / Exam keyword search -->
-    <div class="study-search" id="study-search">
-      <div class="study-search-bar">
-        <svg viewBox="0 0 16 16" fill="none" width="16" height="16"><circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        <input type="text" id="study-search-input" placeholder="Search notes & exam..." autocomplete="off" spellcheck="false">
-        <button id="study-search-clear" class="study-search-clear" aria-label="Clear" style="display:none">&times;</button>
-      </div>
-      <div class="study-search-results" id="study-search-results" style="display:none"></div>
-    </div>
 
     <!-- Tab Content -->
     <main class="study-content">
