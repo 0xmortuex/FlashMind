@@ -25,6 +25,7 @@ const App = (() => {
     Flashcards.init();
     Quiz.init();
     if (typeof Search !== 'undefined') Search.init();
+    if (typeof Profile !== 'undefined') Profile.init();
     Chat.init();
     checkShareLink() || checkSavedData();
   }
@@ -33,6 +34,8 @@ const App = (() => {
   function translateStaticHTML() {
     const T = i18n.t;
     document.getElementById('tagline').textContent = T('tagline');
+    const profTab = document.querySelector('[data-input-tab="profile"]');
+    if (profTab) profTab.textContent = T('profileTab');
     document.querySelector('[data-input-tab="paste"]').textContent = T('tabPaste');
     document.querySelector('[data-input-tab="pdf"]').textContent = T('tabPdf');
     document.querySelector('[data-input-tab="topic"]').textContent = T('tabTopic');
@@ -116,6 +119,14 @@ const App = (() => {
 
   // ===== Input Tabs =====
   function setupInputTabs() {
+    // The profile tab generates via topic chips, so the Generate button and
+    // customize panel are hidden while it's active.
+    const applyGenVisibility = (inputTab) => {
+      const hide = inputTab === 'profile';
+      const btn = document.getElementById('generate-btn');
+      if (btn) btn.style.display = hide ? 'none' : '';
+      document.querySelectorAll('.generate-settings, .generate-hint').forEach(el => { el.style.display = hide ? 'none' : ''; });
+    };
     document.querySelectorAll('.input-tab').forEach(tab => {
       tab.addEventListener('click', () => {
         document.querySelectorAll('.input-tab').forEach(t => t.classList.remove('active'));
@@ -123,8 +134,11 @@ const App = (() => {
         tab.classList.add('active');
         const panelId = tab.dataset.inputTab + '-panel';
         document.getElementById(panelId).classList.add('active');
+        applyGenVisibility(tab.dataset.inputTab);
       });
     });
+    const activeTab = document.querySelector('.input-tab.active');
+    if (activeTab) applyGenVisibility(activeTab.dataset.inputTab);
 
     const textarea = document.getElementById('paste-input');
     const charCount = document.getElementById('char-count');

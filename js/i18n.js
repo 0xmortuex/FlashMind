@@ -148,6 +148,15 @@ const i18n = (() => {
       summaryLabel: 'Summary',
       datesLabel: 'Dates',
       mistakesLabel: 'Common mistakes',
+      profileTab: '10th Grade',
+      profileHi: 'Hi, {name}!',
+      profileHiNoName: 'Hi there! 👋',
+      profileGrade: '10th Grade · Lise 2',
+      profileSetName: 'Set name',
+      profileEditName: 'Edit name',
+      profileNamePrompt: 'Your name:',
+      profileSub: 'Pick a subject and topic — FlashMind builds notes, flashcards, and a Turkish-style exam for it.',
+      profileRecent: 'Recently studied',
 
       // Chat
       chatHeader: 'Ask about your study material',
@@ -355,6 +364,15 @@ const i18n = (() => {
       summaryLabel: '\u00d6zet',
       datesLabel: 'Tarihler',
       mistakesLabel: 'S\u0131k yap\u0131lan hatalar',
+      profileTab: '10. S\u0131n\u0131f',
+      profileHi: 'Merhaba, {name}!',
+      profileHiNoName: 'Merhaba! \ud83d\udc4b',
+      profileGrade: '10. S\u0131n\u0131f \u00b7 Lise 2',
+      profileSetName: '\u0130smini gir',
+      profileEditName: '\u0130smi d\u00fczenle',
+      profileNamePrompt: 'Ad\u0131n:',
+      profileSub: 'Bir ders ve konu se\u00e7 \u2014 FlashMind sana notlar, kartlar ve T\u00fcrk usul\u00fc bir s\u0131nav haz\u0131rlas\u0131n.',
+      profileRecent: 'Son \u00e7al\u0131\u015f\u0131lanlar',
 
       // Chat
       chatHeader: 'Calisma materyalin hakkinda sor',

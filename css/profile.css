@@ -1,0 +1,69 @@
+/* ===== 10th-grade study profile ===== */
+.profile { display: flex; flex-direction: column; gap: 18px; }
+
+.profile-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.profile-greet { display: flex; flex-direction: column; gap: 6px; }
+.profile-hi { font-size: clamp(22px, 4vw, 30px); font-weight: 700; color: var(--text); line-height: 1.1; }
+.profile-grade {
+  align-self: flex-start;
+  font-size: 12.5px; font-weight: 600;
+  color: var(--primary);
+  background: rgba(124, 58, 237, 0.12);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 3px 12px;
+}
+.profile-name-btn {
+  font-size: 12.5px; font-weight: 600;
+  color: var(--text-muted);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 7px 14px;
+  cursor: pointer;
+}
+.profile-name-btn:hover { color: var(--text); border-color: var(--primary); }
+.profile-sub { color: var(--text-muted); font-size: 14px; margin-top: -6px; }
+
+/* Recently studied */
+.profile-recent { display: flex; flex-direction: column; gap: 8px; }
+.profile-recent-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); }
+.profile-recent-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.profile-recent-chip {
+  font-size: 13px; color: var(--text);
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 999px; padding: 6px 14px; cursor: pointer;
+}
+.profile-recent-chip:hover { border-color: var(--primary); color: var(--primary); }
+
+/* Subject grid */
+.profile-subjects { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+.subject-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 16px 14px;
+  border-top: 3px solid var(--subject-accent, var(--primary));
+}
+.subject-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.subject-emoji { font-size: 22px; }
+.subject-name { font-weight: 700; font-size: 15.5px; color: var(--text); }
+.subject-topics { display: flex; flex-wrap: wrap; gap: 7px; }
+.subject-topic {
+  font-size: 12.5px; line-height: 1.3;
+  color: var(--text);
+  background: var(--bg, transparent);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+.subject-topic:hover {
+  border-color: var(--subject-accent, var(--primary));
+  background: color-mix(in srgb, var(--subject-accent, var(--primary)) 12%, transparent);
+}
+
+@media (max-width: 560px) {
+  .profile-subjects { grid-template-columns: 1fr; }
+}
