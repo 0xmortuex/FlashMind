@@ -119,6 +119,12 @@ const App = (() => {
 
   // ===== Input Tabs =====
   function setupInputTabs() {
+    // New users land on the "10. Sınıf" profile; returning users (who already
+    // have a saved set) land on Paste, the general entry.
+    if (localStorage.getItem('flashmind_data')) {
+      document.querySelectorAll('.input-tab').forEach(t => t.classList.toggle('active', t.dataset.inputTab === 'paste'));
+      document.querySelectorAll('.input-panel').forEach(p => p.classList.toggle('active', p.id === 'paste-panel'));
+    }
     // The profile tab generates via topic chips, so the Generate button and
     // customize panel are hidden while it's active.
     const applyGenVisibility = (inputTab) => {
