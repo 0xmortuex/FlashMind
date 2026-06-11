@@ -91,25 +91,44 @@ const Parser = (() => {
       throw new Error('No flashcards generated');
     }
 
-    // Quiz — drop malformed entries
+    // Quiz — normalize + drop malformed entries. Supports the Turkish-style
+    // exam types: multiple-choice (5 options), true-false (doğru-yanlış),
+    // fill-blank (boşluk doldurma), matching (eşleştirme), open-ended (açık uçlu).
     if (!Array.isArray(data.quiz)) data.quiz = [];
     data.quiz = data.quiz.filter(q => {
       if (!q || !q.question) return false;
-      if (q.type === 'open-ended') return true;
-      // multiple-choice needs options array
-      return Array.isArray(q.options) && q.options.length >= 2;
+      switch (q.type) {
+        case 'open-ended': return true;
+        case 'true-false': return true;
+        case 'fill-blank':
+          return (Array.isArray(q.answers) && q.answers.length > 0) || typeof q.answer === 'string';
+        case 'matching':
+          return Array.isArray(q.pairs) && q.pairs.filter(p => p && p.left && p.right).length >= 2;
+        default: // multiple-choice (or unspecified)
+          return Array.isArray(q.options) && q.options.length >= 2;
+      }
     });
     data.quiz.forEach((q, i) => {
       q.id = q.id || i + 1;
-      q.type = q.type || 'multiple-choice';
+      q.explanation = q.explanation || '';
       if (q.type === 'open-ended') {
         q.correctAnswer = q.correctAnswer || '';
         q.keyPoints = Array.isArray(q.keyPoints) ? q.keyPoints : [];
         q.maxPoints = q.maxPoints || 3;
+      } else if (q.type === 'true-false') {
+        if (typeof q.correct === 'string') q.correct = /^(true|doğru|dogru|d|t|1|yes|evet)$/i.test(q.correct.trim());
+        q.correct = !!q.correct;
+      } else if (q.type === 'fill-blank') {
+        if (!Array.isArray(q.answers)) q.answers = (q.answer != null ? [String(q.answer)] : []);
+        q.answers = q.answers.map(a => String(a)).filter(a => a.trim());
+        if (!/_{2,}/.test(q.question)) q.question += ' ___';
+      } else if (q.type === 'matching') {
+        q.pairs = (Array.isArray(q.pairs) ? q.pairs : [])
+          .filter(p => p && p.left && p.right)
+          .map(p => ({ left: String(p.left), right: String(p.right) }));
       } else {
         q.type = 'multiple-choice';
-        if (typeof q.correct !== 'number') q.correct = 0;
-        q.explanation = q.explanation || '';
+        if (typeof q.correct !== 'number' || q.correct < 0 || q.correct >= q.options.length) q.correct = 0;
       }
     });
 

@@ -24,6 +24,7 @@ const App = (() => {
     Notes.init();
     Flashcards.init();
     Quiz.init();
+    if (typeof Search !== 'undefined') Search.init();
     Chat.init();
     checkShareLink() || checkSavedData();
   }
@@ -412,6 +413,7 @@ const App = (() => {
     Flashcards.setCards(data.flashcards);
     Quiz.setQuestions(data.quiz);
     Chat.setup(data.title);
+    if (typeof Search !== 'undefined') Search.reset();
     switchTab('notes');
   }
 

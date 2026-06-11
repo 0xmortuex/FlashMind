@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="css/notes.css">
   <link rel="stylesheet" href="css/cards.css">
   <link rel="stylesheet" href="css/quiz.css">
+  <link rel="stylesheet" href="css/exam.css">
   <link rel="stylesheet" href="css/chat.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 </head>
@@ -193,9 +194,19 @@
     <nav class="study-tabs">
       <button class="study-tab active" data-tab="notes">Notes</button>
       <button class="study-tab" data-tab="flashcards">Flashcards</button>
-      <button class="study-tab" data-tab="quiz">Quiz</button>
+      <button class="study-tab" data-tab="quiz">Exam</button>
       <button class="study-tab" data-tab="chat">Ask AI</button>
     </nav>
+
+    <!-- Notes / Exam keyword search -->
+    <div class="study-search" id="study-search">
+      <div class="study-search-bar">
+        <svg viewBox="0 0 16 16" fill="none" width="16" height="16"><circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <input type="text" id="study-search-input" placeholder="Search notes & exam..." autocomplete="off" spellcheck="false">
+        <button id="study-search-clear" class="study-search-clear" aria-label="Clear" style="display:none">&times;</button>
+      </div>
+      <div class="study-search-results" id="study-search-results" style="display:none"></div>
+    </div>
 
     <!-- Tab Content -->
     <main class="study-content">
@@ -327,6 +338,7 @@
   <script src="js/flashcards.js"></script>
   <script src="js/quiz.js"></script>
   <script src="js/chat.js"></script>
+  <script src="js/search.js"></script>
   <script src="js/export.js"></script>
   <script src="js/app.js"></script>
 </body>

@@ -1,5 +1,13 @@
-// ===== Quiz Module =====
+// ===== Quiz / Exam Module — Turkish-style exam (Türk sınav sistemi) =====
+// Question types: multiple-choice (çoktan seçmeli, 5 options A–E),
+// true-false (doğru-yanlış), fill-blank (boşluk doldurma),
+// matching (eşleştirme), open-ended (açık uçlu / klasik, AI-graded).
+// Scoring follows the Turkish convention: Doğru / Yanlış / Boş counts and a
+// "Net" for the multiple-choice section (net = doğru − yanlış / 4).
 const Quiz = (() => {
+  const OPT_LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
+  const OBJECTIVE = ['multiple-choice', 'true-false', 'fill-blank', 'matching'];
+
   let container;
   let questions = [];
   let settings = {
@@ -7,48 +15,67 @@ const Quiz = (() => {
     timerDuration: 30,
     shuffle: true,
     showExplanations: 'each',
-    questionTypes: 'both'
+    questionTypes: 'both' // both | objective | written
   };
   let state = null;
   let timerInterval = null;
 
   function init() { container = document.getElementById('tab-quiz'); }
 
-  function setQuestions(newQuestions) { questions = newQuestions; state = null; renderReady(); }
-  function addQuestions(newQuestions) { questions = questions.concat(newQuestions); if (!state) renderReady(); }
+  function setQuestions(newQuestions) { questions = newQuestions || []; state = null; renderReady(); }
+  function addQuestions(newQuestions) { questions = questions.concat(newQuestions || []); if (!state) renderReady(); }
+
+  function isObjective(q) { return q.type !== 'open-ended'; }
 
   function getFilteredQuestions() {
-    if (settings.questionTypes === 'mc') return questions.filter(q => q.type !== 'open-ended');
+    if (settings.questionTypes === 'objective') return questions.filter(isObjective);
     if (settings.questionTypes === 'written') return questions.filter(q => q.type === 'open-ended');
     return [...questions];
   }
 
+  // Turkish-aware normalization for fill-in-the-blank comparison.
+  function normalize(s) {
+    return String(s == null ? '' : s)
+      .toLocaleLowerCase('tr')
+      .replace(/[.,;:!?'"`´()\[\]{}]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function typeLabel(type) {
+    const T = i18n.t;
+    return type === 'true-false' ? T('typeTf')
+      : type === 'fill-blank' ? T('typeFill')
+      : type === 'matching' ? T('typeMatch')
+      : type === 'open-ended' ? T('writtenAnswer')
+      : T('typeMc');
+  }
+
+  // ===== Ready / settings screen =====
   function renderReady() {
     if (!container) init();
     const T = i18n.t;
-    const mcCount = questions.filter(q => q.type !== 'open-ended').length;
+    const objCount = questions.filter(isObjective).length;
     const oeCount = questions.filter(q => q.type === 'open-ended').length;
     const filtered = getFilteredQuestions();
 
     container.innerHTML = `
       <div class="quiz-container">
         <div class="quiz-ready">
-          <h2>${T('testKnowledge')}</h2>
-          <p class="quiz-info">${T('quizInfo', { n: filtered.length, mc: mcCount, oe: oeCount })}</p>
+          <h2>${T('examTitle')}</h2>
+          <p class="quiz-info">${T('quizInfo', { n: filtered.length, mc: objCount, oe: oeCount })}</p>
           <div class="quiz-settings">
             <div class="quiz-setting">
               <span class="quiz-setting-label">${T('questionTypes')}</span>
               <div class="timer-options">
-                <button class="timer-option ${settings.questionTypes === 'both' ? 'active' : ''}" data-qtype="both">${T('both')}</button>
-                <button class="timer-option ${settings.questionTypes === 'mc' ? 'active' : ''}" data-qtype="mc">${T('mcOnly')}</button>
+                <button class="timer-option ${settings.questionTypes === 'both' ? 'active' : ''}" data-qtype="both">${T('allTypes')}</button>
+                <button class="timer-option ${settings.questionTypes === 'objective' ? 'active' : ''}" data-qtype="objective">${T('objectiveOnly')}</button>
                 <button class="timer-option ${settings.questionTypes === 'written' ? 'active' : ''}" data-qtype="written">${T('writtenOnly')}</button>
               </div>
             </div>
             <div class="quiz-setting">
               <span class="quiz-setting-label">${T('timer')}</span>
-              <div class="quiz-setting-control">
-                <div class="toggle ${settings.timer ? 'active' : ''}" id="timer-toggle"></div>
-              </div>
+              <div class="quiz-setting-control"><div class="toggle ${settings.timer ? 'active' : ''}" id="timer-toggle"></div></div>
             </div>
             <div class="quiz-setting" id="timer-duration-row" style="display:${settings.timer ? 'flex' : 'none'}">
               <span class="quiz-setting-label">${T('timePerQ')}</span>
@@ -70,45 +97,39 @@ const Quiz = (() => {
               </div>
             </div>
           </div>
-          <button class="start-quiz-btn" id="start-quiz-btn">${T('startQuiz')}</button>
+          <button class="start-quiz-btn" id="start-quiz-btn">${T('startExam')}</button>
         </div>
       </div>`;
 
-    document.getElementById('timer-toggle').addEventListener('click', function() {
+    document.getElementById('timer-toggle').addEventListener('click', function () {
       settings.timer = !settings.timer;
       this.classList.toggle('active');
       document.getElementById('timer-duration-row').style.display = settings.timer ? 'flex' : 'none';
     });
-    document.getElementById('shuffle-toggle').addEventListener('click', function() {
-      settings.shuffle = !settings.shuffle;
-      this.classList.toggle('active');
+    document.getElementById('shuffle-toggle').addEventListener('click', function () {
+      settings.shuffle = !settings.shuffle; this.classList.toggle('active');
     });
-    container.querySelectorAll('[data-dur]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        settings.timerDuration = parseInt(btn.dataset.dur);
-        container.querySelectorAll('[data-dur]').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      });
-    });
-    container.querySelectorAll('[data-exp]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        settings.showExplanations = btn.dataset.exp;
-        container.querySelectorAll('[data-exp]').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      });
-    });
-    container.querySelectorAll('[data-qtype]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        settings.questionTypes = btn.dataset.qtype;
-        container.querySelectorAll('[data-qtype]').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const f = getFilteredQuestions();
-        container.querySelector('.quiz-info').textContent = T('quizInfo', { n: f.length, mc: mcCount, oe: oeCount });
-      });
+    bindOptionGroup('[data-dur]', btn => { settings.timerDuration = parseInt(btn.dataset.dur); });
+    bindOptionGroup('[data-exp]', btn => { settings.showExplanations = btn.dataset.exp; });
+    bindOptionGroup('[data-qtype]', btn => {
+      settings.questionTypes = btn.dataset.qtype;
+      const f = getFilteredQuestions();
+      container.querySelector('.quiz-info').textContent = T('quizInfo', { n: f.length, mc: objCount, oe: oeCount });
     });
     document.getElementById('start-quiz-btn').addEventListener('click', startQuiz);
   }
 
+  function bindOptionGroup(selector, onPick) {
+    container.querySelectorAll(selector).forEach(btn => {
+      btn.addEventListener('click', () => {
+        onPick(btn);
+        container.querySelectorAll(selector).forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  }
+
+  // ===== Run =====
   function startQuiz() {
     const T = i18n.t;
     let qs = getFilteredQuestions();
@@ -126,74 +147,192 @@ const Quiz = (() => {
     const { questions: qs, current } = state;
     const q = qs[current];
     const total = qs.length;
-    const isOpenEnded = q.type === 'open-ended';
 
     let timerHtml = '';
     if (settings.timer) {
       state.timeLeft = settings.timerDuration;
-      state.questionStartTime = Date.now();
       timerHtml = `<span class="quiz-timer" id="quiz-timer">${settings.timerDuration}s</span>`;
     }
-
-    let questionBody = '';
-    if (isOpenEnded) {
-      questionBody = `
-        <div class="open-ended-area">
-          <span class="oe-badge">${T('writtenAnswer')}</span>
-          <textarea class="oe-textarea" id="oe-answer" placeholder="${T('typeAnswer')}" spellcheck="false"></textarea>
-          <button class="btn-primary oe-submit-btn" id="oe-submit-btn">${T('submitAnswer')}</button>
-        </div>`;
-    } else {
-      questionBody = `<div class="quiz-options" id="quiz-options">
-        ${q.options.map((opt, i) => `<button class="quiz-option" data-idx="${i}">${esc(opt)}</button>`).join('')}
-      </div>`;
-    }
+    state.questionStartTime = Date.now();
 
     container.innerHTML = `
       <div class="quiz-container">
         <div class="quiz-progress-bar"><div class="quiz-progress-fill" style="width:${(current / total) * 100}%"></div></div>
-        <div class="quiz-question-number">${T('questionOf', { c: current + 1, t: total })} ${timerHtml}</div>
-        <p class="quiz-question-text">${esc(q.question)}</p>
-        ${questionBody}
+        <div class="quiz-question-number">${T('questionOf', { c: current + 1, t: total })}
+          <span class="q-type-badge">${esc(typeLabel(q.type))}</span> ${timerHtml}</div>
+        <p class="quiz-question-text">${renderStem(q)}</p>
+        <div id="quiz-body">${renderBody(q)}</div>
         <div id="quiz-feedback"></div>
       </div>`;
 
-    if (isOpenEnded) document.getElementById('oe-submit-btn').addEventListener('click', submitOpenEnded);
-    else container.querySelectorAll('.quiz-option').forEach(btn => { btn.addEventListener('click', () => selectAnswer(parseInt(btn.dataset.idx))); });
+    wireBody(q);
 
     if (settings.timer) {
       clearInterval(timerInterval);
       timerInterval = setInterval(() => {
         state.timeLeft--;
-        const timerEl = document.getElementById('quiz-timer');
-        if (timerEl) { timerEl.textContent = state.timeLeft + 's'; if (state.timeLeft <= 5) timerEl.classList.add('warning'); }
-        if (state.timeLeft <= 0) { clearInterval(timerInterval); if (q.type === 'open-ended') submitOpenEnded(); else selectAnswer(-1); }
+        const el = document.getElementById('quiz-timer');
+        if (el) { el.textContent = state.timeLeft + 's'; if (state.timeLeft <= 5) el.classList.add('warning'); }
+        if (state.timeLeft <= 0) { clearInterval(timerInterval); timeOut(q); }
       }, 1000);
     }
   }
 
-  function selectAnswer(idx) {
+  // The stem: for fill-blank show the blank as a styled gap.
+  function renderStem(q) {
+    if (q.type === 'fill-blank') return esc(q.question).replace(/_{2,}/, '<span class="fill-gap">_____</span>');
+    return esc(q.question);
+  }
+
+  function renderBody(q) {
+    const T = i18n.t;
+    if (q.type === 'open-ended') {
+      return `<div class="open-ended-area">
+          <span class="oe-badge">${T('writtenAnswer')}</span>
+          <textarea class="oe-textarea" id="oe-answer" placeholder="${T('typeAnswer')}" spellcheck="false"></textarea>
+          <button class="btn-primary oe-submit-btn" id="oe-submit-btn">${T('submitAnswer')}</button>
+        </div>`;
+    }
+    if (q.type === 'true-false') {
+      return `<div class="quiz-options tf-options" id="quiz-options">
+          <button class="quiz-option tf-option" data-tf="true">${T('tfTrue')}</button>
+          <button class="quiz-option tf-option" data-tf="false">${T('tfFalse')}</button>
+        </div>`;
+    }
+    if (q.type === 'fill-blank') {
+      return `<div class="fill-area">
+          <input type="text" class="fill-input" id="fill-input" placeholder="${T('fillPlaceholder')}" autocomplete="off" spellcheck="false">
+          <button class="btn-primary" id="fill-submit-btn">${T('checkAnswer')}</button>
+        </div>`;
+    }
+    if (q.type === 'matching') {
+      const rights = q.pairs.map(p => p.right);
+      const shuffled = rights.slice();
+      for (let i = shuffled.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; }
+      const rows = q.pairs.map((p, i) => `
+          <div class="match-row" data-i="${i}">
+            <span class="match-left">${esc(p.left)}</span>
+            <select class="match-select" data-i="${i}">
+              <option value="">${esc(T('matchChoose'))}</option>
+              ${shuffled.map(r => `<option value="${esc(r)}">${esc(r)}</option>`).join('')}
+            </select>
+          </div>`).join('');
+      return `<div class="match-area">${rows}
+          <button class="btn-primary" id="match-submit-btn">${T('checkAnswer')}</button>
+        </div>`;
+    }
+    // multiple-choice
+    return `<div class="quiz-options" id="quiz-options">
+        ${q.options.map((opt, i) => `<button class="quiz-option" data-idx="${i}"><span class="opt-letter">${OPT_LETTERS[i] || '?'}</span>${esc(opt)}</button>`).join('')}
+      </div>`;
+  }
+
+  function wireBody(q) {
+    if (q.type === 'open-ended') {
+      document.getElementById('oe-submit-btn').addEventListener('click', submitOpenEnded);
+    } else if (q.type === 'true-false') {
+      container.querySelectorAll('.tf-option').forEach(btn =>
+        btn.addEventListener('click', () => gradeTrueFalse(q, btn.dataset.tf === 'true', btn)));
+    } else if (q.type === 'fill-blank') {
+      const submit = () => gradeFillBlank(q);
+      document.getElementById('fill-submit-btn').addEventListener('click', submit);
+      const inp = document.getElementById('fill-input');
+      inp.addEventListener('keydown', e => { if (e.key === 'Enter') submit(); });
+      inp.focus();
+    } else if (q.type === 'matching') {
+      document.getElementById('match-submit-btn').addEventListener('click', () => gradeMatching(q));
+    } else {
+      container.querySelectorAll('.quiz-option').forEach(btn =>
+        btn.addEventListener('click', () => gradeMultipleChoice(q, parseInt(btn.dataset.idx))));
+    }
+  }
+
+  function timeOut(q) {
+    if (q.type === 'open-ended') { submitOpenEnded(); return; }
+    if (q.type === 'multiple-choice') { gradeMultipleChoice(q, -1); return; }
+    if (q.type === 'true-false') { recordObjective(q, 'blank'); revealTrueFalse(q, null); showNextButton(q); return; }
+    if (q.type === 'fill-blank') { gradeFillBlank(q, true); return; }
+    if (q.type === 'matching') { gradeMatching(q, true); return; }
+  }
+
+  // ===== Grading per type =====
+  function recordObjective(q, result, extra) {
+    state.answers.push(Object.assign({
+      questionIdx: state.current, qType: q.type, result, // 'correct' | 'wrong' | 'blank'
+      time: Math.floor((Date.now() - state.questionStartTime) / 1000)
+    }, extra || {}));
+  }
+
+  function gradeMultipleChoice(q, idx) {
     clearInterval(timerInterval);
-    const { questions: qs, current } = state;
-    const q = qs[current];
-    const correct = q.correct;
-    const isCorrect = idx === correct;
-    state.answers.push({ questionIdx: current, type: 'multiple-choice', selected: idx, correct, isCorrect, time: Math.floor((Date.now() - state.questionStartTime) / 1000) });
-    const options = container.querySelectorAll('.quiz-option');
-    options.forEach(opt => {
+    const result = idx < 0 ? 'blank' : (idx === q.correct ? 'correct' : 'wrong');
+    recordObjective(q, result, { selected: idx });
+    container.querySelectorAll('.quiz-option').forEach(opt => {
       opt.classList.add('disabled');
       const i = parseInt(opt.dataset.idx);
-      if (i === correct) { opt.classList.add('correct'); opt.innerHTML += '<span class="option-indicator">&#10003;</span>'; }
-      if (i === idx && !isCorrect) { opt.classList.add('wrong'); opt.innerHTML += '<span class="option-indicator">&#10007;</span>'; }
+      if (i === q.correct) { opt.classList.add('correct'); opt.innerHTML += '<span class="option-indicator">&#10003;</span>'; }
+      if (i === idx && result === 'wrong') { opt.classList.add('wrong'); opt.innerHTML += '<span class="option-indicator">&#10007;</span>'; }
     });
+    showNextButton(q);
+  }
+
+  function gradeTrueFalse(q, chosen, btn) {
+    clearInterval(timerInterval);
+    const result = chosen === !!q.correct ? 'correct' : 'wrong';
+    recordObjective(q, result, { selected: chosen });
+    revealTrueFalse(q, chosen);
+    showNextButton(q);
+  }
+  function revealTrueFalse(q, chosen) {
+    container.querySelectorAll('.tf-option').forEach(opt => {
+      opt.classList.add('disabled');
+      const val = opt.dataset.tf === 'true';
+      if (val === !!q.correct) opt.classList.add('correct');
+      else if (chosen !== null && val === chosen) opt.classList.add('wrong');
+    });
+  }
+
+  function gradeFillBlank(q, fromTimeout) {
+    clearInterval(timerInterval);
+    const inp = document.getElementById('fill-input');
+    const val = inp ? inp.value.trim() : '';
+    const accepted = (q.answers || []).map(normalize);
+    const result = !val ? 'blank' : (accepted.includes(normalize(val)) ? 'correct' : 'wrong');
+    recordObjective(q, result, { answerText: val });
+    if (inp) { inp.disabled = true; inp.classList.add(result === 'correct' ? 'correct' : 'wrong'); }
+    const btn = document.getElementById('fill-submit-btn'); if (btn) btn.disabled = true;
+    const fb = document.getElementById('quiz-feedback');
+    fb.innerHTML = `<div class="fill-answer ${result}">
+        <span class="fill-answer-label">${i18n.t(result === 'correct' ? 'correctLabel' : 'acceptedAnswer')}</span>
+        ${esc((q.answers || []).join(' / '))}</div>`;
+    showNextButton(q);
+  }
+
+  function gradeMatching(q, fromTimeout) {
+    clearInterval(timerInterval);
+    const selects = container.querySelectorAll('.match-select');
+    let correctPairs = 0, anyChosen = false;
+    selects.forEach(sel => {
+      const i = parseInt(sel.dataset.i);
+      const chosen = sel.value;
+      const right = q.pairs[i].right;
+      if (chosen) anyChosen = true;
+      const row = container.querySelector(`.match-row[data-i="${i}"]`);
+      sel.disabled = true;
+      if (normalize(chosen) === normalize(right)) { correctPairs++; row.classList.add('correct'); }
+      else { row.classList.add('wrong'); row.insertAdjacentHTML('beforeend', `<span class="match-correct">→ ${esc(right)}</span>`); }
+    });
+    const total = q.pairs.length;
+    const result = !anyChosen ? 'blank' : (correctPairs === total ? 'correct' : (correctPairs === 0 ? 'wrong' : 'partial'));
+    recordObjective(q, result, { correctPairs, totalPairs: total });
+    const btn = document.getElementById('match-submit-btn'); if (btn) btn.disabled = true;
     showNextButton(q);
   }
 
   async function submitOpenEnded() {
     clearInterval(timerInterval);
     const T = i18n.t;
-    const { questions: qs, current } = state;
-    const q = qs[current];
+    const q = state.questions[state.current];
     const answerEl = document.getElementById('oe-answer');
     const submitBtn = document.getElementById('oe-submit-btn');
     const studentAnswer = answerEl ? answerEl.value.trim() : '';
@@ -206,18 +345,21 @@ const Quiz = (() => {
       <span>${T('aiGrading')}</span></div>`;
 
     let gradeResult;
-    try {
-      const raw = await API.grade(studentAnswer, q.correctAnswer, q.keyPoints);
-      gradeResult = Parser.parseGrade(raw);
-    } catch (err) { gradeResult = fallbackGrade(studentAnswer, q); }
+    try { gradeResult = Parser.parseGrade(await API.grade(studentAnswer, q.correctAnswer, q.keyPoints)); }
+    catch (err) { gradeResult = fallbackGrade(studentAnswer, q); }
 
-    state.answers.push({ questionIdx: current, type: 'open-ended', studentAnswer, score: gradeResult.score, maxScore: gradeResult.maxScore, feedback: gradeResult.feedback, missedPoints: gradeResult.missedPoints, correctAnswer: q.correctAnswer, time: Math.floor((Date.now() - state.questionStartTime) / 1000) });
+    state.answers.push({
+      questionIdx: state.current, qType: 'open-ended', studentAnswer,
+      score: gradeResult.score, maxScore: gradeResult.maxScore, feedback: gradeResult.feedback,
+      missedPoints: gradeResult.missedPoints, correctAnswer: q.correctAnswer,
+      time: Math.floor((Date.now() - state.questionStartTime) / 1000)
+    });
 
     const scoreColor = gradeResult.score === 3 ? 'var(--correct)' : gradeResult.score === 2 ? 'var(--highlight)' : gradeResult.score === 1 ? '#f97316' : 'var(--wrong)';
     let html = `<div class="oe-grade-result" style="animation: fadeSlideUp 0.3s ease">
       <div class="oe-score" style="color:${scoreColor}">${gradeResult.score}/${gradeResult.maxScore}</div>
       <div class="oe-feedback">${esc(gradeResult.feedback)}</div>`;
-    if (gradeResult.missedPoints && gradeResult.missedPoints.length > 0) {
+    if (gradeResult.missedPoints && gradeResult.missedPoints.length) {
       html += `<div class="oe-missed"><span class="oe-missed-label">${T('missedLabel')}</span>
         ${gradeResult.missedPoints.map(p => `<span class="oe-missed-point">${esc(p)}</span>`).join('')}</div>`;
     }
@@ -232,7 +374,7 @@ const Quiz = (() => {
     const lower = studentAnswer.toLowerCase();
     const matched = (q.keyPoints || []).filter(kp => lower.includes(kp.toLowerCase()));
     const missed = (q.keyPoints || []).filter(kp => !lower.includes(kp.toLowerCase()));
-    const ratio = q.keyPoints.length > 0 ? matched.length / q.keyPoints.length : 0;
+    const ratio = q.keyPoints.length ? matched.length / q.keyPoints.length : 0;
     let score = 0;
     if (ratio >= 0.9) score = 3; else if (ratio >= 0.6) score = 2; else if (ratio >= 0.3) score = 1;
     return { score, maxScore: 3, feedback: T('offlineGrading', { m: matched.length, t: q.keyPoints.length }), missedPoints: missed };
@@ -253,55 +395,72 @@ const Quiz = (() => {
     });
   }
 
+  // ===== Results (Turkish scoring) =====
+  function objectivePoints(a) {
+    // 1 point per objective question; matching gets a fraction of its pairs.
+    if (a.qType === 'matching') return a.totalPairs ? a.correctPairs / a.totalPairs : 0;
+    return a.result === 'correct' ? 1 : 0;
+  }
+
   function showResults() {
     clearInterval(timerInterval);
     const T = i18n.t;
     const { answers, startTime } = state;
     const total = state.questions.length;
     const elapsed = Math.floor((Date.now() - startTime) / 1000);
-    const avgTime = Math.round(elapsed / total);
-    const mcAnswers = answers.filter(a => a.type === 'multiple-choice');
-    const oeAnswers = answers.filter(a => a.type === 'open-ended');
-    const mcCorrect = mcAnswers.filter(a => a.isCorrect).length;
-    const mcTotal = mcAnswers.length;
-    const oePoints = oeAnswers.reduce((sum, a) => sum + a.score, 0);
-    const oeMaxPoints = oeAnswers.reduce((sum, a) => sum + a.maxScore, 0);
-    const oeTotal = oeAnswers.length;
-    const totalPoints = mcCorrect + oePoints;
-    const totalPossible = mcTotal + oeMaxPoints;
-    const pct = totalPossible > 0 ? Math.round((totalPoints / totalPossible) * 100) : 0;
+
+    const objAnswers = answers.filter(a => a.qType !== 'open-ended');
+    const oeAnswers = answers.filter(a => a.qType === 'open-ended');
+
+    const dogru = objAnswers.filter(a => a.result === 'correct').length;
+    const yanlis = objAnswers.filter(a => a.result === 'wrong').length;
+    const bos = objAnswers.filter(a => a.result === 'blank').length;
+    const partial = objAnswers.filter(a => a.result === 'partial').length;
+
+    // Net for multiple-choice section (YKS: net = doğru − yanlış / 4)
+    const mc = objAnswers.filter(a => a.qType === 'multiple-choice');
+    const mcCorrect = mc.filter(a => a.result === 'correct').length;
+    const mcWrong = mc.filter(a => a.result === 'wrong').length;
+    const net = Math.max(0, mcCorrect - mcWrong / 4);
+
+    const oePoints = oeAnswers.reduce((s, a) => s + a.score, 0);
+    const oeMax = oeAnswers.reduce((s, a) => s + a.maxScore, 0);
+
+    const earned = objAnswers.reduce((s, a) => s + objectivePoints(a), 0) + (oeMax ? (oePoints / oeMax) * oeAnswers.length : 0);
+    const possible = objAnswers.length + oeAnswers.length;
+    const pct = possible > 0 ? Math.round((earned / possible) * 100) : 0;
 
     let grade, gradeClass;
-    if (pct >= 90) { grade = 'A'; gradeClass = 'grade-a'; }
-    else if (pct >= 80) { grade = 'B'; gradeClass = 'grade-b'; }
-    else if (pct >= 70) { grade = 'C'; gradeClass = 'grade-c'; }
-    else if (pct >= 60) { grade = 'D'; gradeClass = 'grade-d'; }
-    else { grade = 'F'; gradeClass = 'grade-f'; }
+    if (pct >= 85) { grade = 'AA'; gradeClass = 'grade-a'; }
+    else if (pct >= 70) { grade = 'BA'; gradeClass = 'grade-b'; }
+    else if (pct >= 60) { grade = 'BB'; gradeClass = 'grade-c'; }
+    else if (pct >= 50) { grade = 'CC'; gradeClass = 'grade-d'; }
+    else { grade = 'FF'; gradeClass = 'grade-f'; }
 
-    let breakdownHtml = '';
-    if (mcTotal > 0 && oeTotal > 0) breakdownHtml = `<p class="quiz-breakdown">${T('mcBreakdown', { c: mcCorrect, t: mcTotal, p: oePoints, m: oeMaxPoints, n: oeTotal })}</p>`;
-    else if (oeTotal > 0) breakdownHtml = `<p class="quiz-breakdown">${T('oeBreakdown', { p: oePoints, m: oeMaxPoints, n: oeTotal })}</p>`;
+    const stat = (val, label, color) =>
+      `<div class="quiz-result-stat"><span class="quiz-result-stat-value"${color ? ` style="color:${color}"` : ''}>${val}</span><span class="quiz-result-stat-label">${label}</span></div>`;
 
     container.innerHTML = `
       <div class="quiz-container"><div class="quiz-results">
-        <div class="quiz-score-circle"><span class="quiz-score-value">${totalPoints}/${totalPossible}</span><span class="quiz-score-percent">${pct}%</span></div>
+        <div class="quiz-score-circle"><span class="quiz-score-value">${pct}</span><span class="quiz-score-percent">${T('points100')}</span></div>
         <div class="quiz-grade ${gradeClass}">${grade}</div>
-        ${breakdownHtml}
         <div class="quiz-result-stats">
-          ${mcTotal > 0 ? `<div class="quiz-result-stat"><span class="quiz-result-stat-value" style="color:var(--correct)">${mcCorrect}</span><span class="quiz-result-stat-label">${T('mcCorrect')}</span></div>
-          <div class="quiz-result-stat"><span class="quiz-result-stat-value" style="color:var(--wrong)">${mcTotal - mcCorrect}</span><span class="quiz-result-stat-label">${T('mcWrong')}</span></div>` : ''}
-          ${oeTotal > 0 ? `<div class="quiz-result-stat"><span class="quiz-result-stat-value" style="color:var(--secondary)">${oePoints}/${oeMaxPoints}</span><span class="quiz-result-stat-label">${T('writtenPts')}</span></div>` : ''}
-          <div class="quiz-result-stat"><span class="quiz-result-stat-value">${Math.floor(elapsed / 60)}:${(elapsed % 60).toString().padStart(2, '0')}</span><span class="quiz-result-stat-label">${T('time')}</span></div>
-          <div class="quiz-result-stat"><span class="quiz-result-stat-value">${avgTime}s</span><span class="quiz-result-stat-label">${T('avgPerQ')}</span></div>
+          ${objAnswers.length ? stat(dogru, T('correctCount'), 'var(--correct)') : ''}
+          ${objAnswers.length ? stat(yanlis, T('wrongCount'), 'var(--wrong)') : ''}
+          ${objAnswers.length ? stat(bos, T('blankCount'), 'var(--text-muted)') : ''}
+          ${partial ? stat(partial, T('partialCount'), 'var(--highlight)') : ''}
+          ${mc.length ? stat(net.toFixed(2), T('netScore'), 'var(--secondary)') : ''}
+          ${oeAnswers.length ? stat(oePoints + '/' + oeMax, T('writtenPts'), 'var(--secondary)') : ''}
+          ${stat(Math.floor(elapsed / 60) + ':' + (elapsed % 60).toString().padStart(2, '0'), T('time'))}
         </div>
         <div class="quiz-result-actions">
           <button class="btn-primary" id="review-btn">${T('reviewAnswers')}</button>
-          <button class="btn-ghost" id="retake-btn">${T('retakeQuiz')}</button>
+          <button class="btn-ghost" id="retake-btn">${T('retakeExam')}</button>
         </div>
         <div class="quiz-review" id="quiz-review" style="display:none"></div>
       </div></div>`;
 
-    if (pct >= 90) launchConfetti();
+    if (pct >= 85) launchConfetti();
     document.getElementById('review-btn').addEventListener('click', showReview);
     document.getElementById('retake-btn').addEventListener('click', () => { state = null; renderReady(); });
   }
@@ -314,39 +473,51 @@ const Quiz = (() => {
 
     answers.forEach((a, i) => {
       const q = qs[a.questionIdx];
-      const isWrong = a.type === 'multiple-choice' ? !a.isCorrect : a.score < 3;
-      html += `<div class="review-question" data-correct="${!isWrong}"><p class="review-question-text">${i + 1}. ${esc(q.question)} ${q.type === 'open-ended' ? '<span class="oe-badge-sm">' + T('writtenAnswer') + '</span>' : ''}</p>`;
+      const ok = a.qType === 'open-ended' ? a.score >= 3 : a.result === 'correct';
+      html += `<div class="review-question" data-correct="${ok}">
+        <p class="review-question-text">${i + 1}. ${esc(q.question)} <span class="oe-badge-sm">${esc(typeLabel(q.type))}</span></p>`;
 
-      if (a.type === 'multiple-choice') {
-        if (a.selected >= 0) {
-          if (a.isCorrect) html += `<div class="review-answer your-correct">${T('yourAnswer')} ${esc(q.options[a.selected])}</div>`;
-          else { html += `<div class="review-answer your-wrong">${T('yourAnswer')} ${esc(q.options[a.selected])}</div>`; html += `<div class="review-answer correct-answer">${T('correct')} ${esc(q.options[q.correct])}</div>`; }
-        } else { html += `<div class="review-answer your-wrong">${T('timesUp')}</div><div class="review-answer correct-answer">${T('correct')} ${esc(q.options[q.correct])}</div>`; }
-        if (q.explanation) html += `<div class="review-explanation">${esc(q.explanation)}</div>`;
+      if (a.qType === 'multiple-choice') {
+        if (a.result === 'blank') html += `<div class="review-answer your-wrong">${T('blankCount')}</div>`;
+        else html += `<div class="review-answer ${a.result === 'correct' ? 'your-correct' : 'your-wrong'}">${T('yourAnswer')} ${esc(q.options[a.selected])}</div>`;
+        if (a.result !== 'correct') html += `<div class="review-answer correct-answer">${T('correct')} ${esc(q.options[q.correct])}</div>`;
+      } else if (a.qType === 'true-false') {
+        const ans = v => v ? T('tfTrue') : T('tfFalse');
+        if (a.result === 'blank') html += `<div class="review-answer your-wrong">${T('blankCount')}</div>`;
+        else html += `<div class="review-answer ${a.result === 'correct' ? 'your-correct' : 'your-wrong'}">${T('yourAnswer')} ${ans(a.selected)}</div>`;
+        if (a.result !== 'correct') html += `<div class="review-answer correct-answer">${T('correct')} ${ans(!!q.correct)}</div>`;
+      } else if (a.qType === 'fill-blank') {
+        html += `<div class="review-answer ${a.result === 'correct' ? 'your-correct' : 'your-wrong'}">${T('yourAnswer')} ${esc(a.answerText || '(-)')}</div>`;
+        if (a.result !== 'correct') html += `<div class="review-answer correct-answer">${T('acceptedAnswer')} ${esc((q.answers || []).join(' / '))}</div>`;
+      } else if (a.qType === 'matching') {
+        html += `<div class="review-answer ${a.result === 'correct' ? 'your-correct' : 'your-wrong'}">${a.correctPairs}/${a.totalPairs} ${T('pairsCorrect')}</div>`;
+        html += `<div class="review-explanation">${q.pairs.map(p => esc(p.left) + ' → ' + esc(p.right)).join('<br>')}</div>`;
       } else {
         const scoreColor = a.score === 3 ? 'var(--correct)' : a.score === 2 ? 'var(--highlight)' : a.score === 1 ? '#f97316' : 'var(--wrong)';
-        html += `<div class="review-answer ${a.score >= 2 ? 'your-correct' : 'your-wrong'}">${T('yourAnswer')} ${esc(a.studentAnswer || '(-)') }</div>`;
+        html += `<div class="review-answer ${a.score >= 2 ? 'your-correct' : 'your-wrong'}">${T('yourAnswer')} ${esc(a.studentAnswer || '(-)')}</div>`;
         html += `<div class="oe-review-score" style="color:${scoreColor}">${T('score')} ${a.score}/${a.maxScore}</div>`;
         if (a.feedback) html += `<div class="review-explanation">${esc(a.feedback)}</div>`;
         html += `<div class="review-answer correct-answer">${T('modelAnswer')} ${esc(a.correctAnswer)}</div>`;
       }
+      if (q.explanation && a.qType !== 'open-ended') html += `<div class="review-explanation">${esc(q.explanation)}</div>`;
       html += `</div>`;
     });
 
     reviewEl.innerHTML = html;
     reviewEl.style.display = 'block';
-    let showingWrongOnly = false;
-    document.getElementById('show-wrong-only').addEventListener('click', function() {
-      showingWrongOnly = !showingWrongOnly;
-      this.textContent = showingWrongOnly ? T('showAll') : T('showWrongOnly');
+    let wrongOnly = false;
+    document.getElementById('show-wrong-only').addEventListener('click', function () {
+      wrongOnly = !wrongOnly;
+      this.textContent = wrongOnly ? T('showAll') : T('showWrongOnly');
       reviewEl.querySelectorAll('.review-question').forEach(el => {
-        el.style.display = (showingWrongOnly && el.dataset.correct === 'true') ? 'none' : '';
+        el.style.display = (wrongOnly && el.dataset.correct === 'true') ? 'none' : '';
       });
     });
   }
 
   function launchConfetti() {
     const c = document.getElementById('confetti-container');
+    if (!c) return;
     const colors = ['#7c3aed', '#06b6d4', '#22c55e', '#fbbf24', '#ef4444', '#ec4899'];
     for (let i = 0; i < 60; i++) {
       const p = document.createElement('div');
@@ -363,7 +534,7 @@ const Quiz = (() => {
     setTimeout(() => { c.innerHTML = ''; }, 4000);
   }
 
-  function esc(str) { if (!str) return ''; const d = document.createElement('div'); d.textContent = str; return d.innerHTML; }
+  function esc(str) { if (str == null) return ''; const d = document.createElement('div'); d.textContent = String(str); return d.innerHTML; }
 
   return { init, setQuestions, addQuestions, renderReady, startQuiz };
 })();
