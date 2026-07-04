@@ -460,6 +460,12 @@ const Quiz = (() => {
         <div class="quiz-review" id="quiz-review" style="display:none"></div>
       </div></div>`;
 
+    // Record the result for the Stats tab (exam history + score chart).
+    if (typeof Stats !== 'undefined') {
+      const title = (typeof App !== 'undefined' && App.getStudyData && App.getStudyData()) ? App.getStudyData().title : '';
+      Stats.recordExam(pct, grade, title);
+    }
+
     if (pct >= 85) launchConfetti();
     document.getElementById('review-btn').addEventListener('click', showReview);
     document.getElementById('retake-btn').addEventListener('click', () => { state = null; renderReady(); });

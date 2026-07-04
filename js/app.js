@@ -4,6 +4,7 @@ const App = (() => {
   let currentTab = 'notes';
   let studyData = null;
   let originalText = '';
+  let activeDeckId = null; // id of the deck currently open (null = unsaved)
   let elapsedTimer = null;
   // When true, the next generated/imported set is MERGED into the current
   // studyData instead of replacing it ("Add Materials" flow).
@@ -11,6 +12,7 @@ const App = (() => {
 
   function init() {
     translateStaticHTML();
+    setupTheme();
     setupLangSwitcher();
     setupInputTabs();
     setupStudyTabs();
@@ -27,6 +29,9 @@ const App = (() => {
     if (typeof Search !== 'undefined') Search.init();
     if (typeof Profile !== 'undefined') Profile.init();
     Chat.init();
+    setupDemo();
+    renderDeckLibrary();
+    registerServiceWorker();
     checkShareLink() || checkSavedData();
   }
 
@@ -34,11 +39,15 @@ const App = (() => {
   function translateStaticHTML() {
     const T = i18n.t;
     document.getElementById('tagline').textContent = T('tagline');
-    const profTab = document.querySelector('[data-input-tab="profile"]');
-    if (profTab) profTab.textContent = T('profileTab');
-    document.querySelector('[data-input-tab="paste"]').textContent = T('tabPaste');
-    document.querySelector('[data-input-tab="pdf"]').textContent = T('tabPdf');
-    document.querySelector('[data-input-tab="topic"]').textContent = T('tabTopic');
+    // Tab labels live in a span next to the tab icon — only replace the span.
+    const setTabLabel = (tab, text) => {
+      const label = document.querySelector(`[data-input-tab="${tab}"] .input-tab-label`);
+      if (label) label.textContent = text;
+    };
+    setTabLabel('profile', T('profileTab'));
+    setTabLabel('paste', T('tabPaste'));
+    setTabLabel('pdf', T('tabPdf'));
+    setTabLabel('topic', T('tabTopic'));
     document.getElementById('paste-input').placeholder = T('pasteHolder');
     document.getElementById('char-count').textContent = T('charCount', { n: 0 });
     document.getElementById('clear-btn').textContent = T('clear');
@@ -99,9 +108,28 @@ const App = (() => {
     document.querySelector('.share-expires').textContent = T('shareExpiry');
     document.querySelector('.share-load-card p').textContent = T('shareLoading');
 
+    // Demo + study Stats tab
+    const demoBtn = document.getElementById('demo-btn');
+    if (demoBtn) demoBtn.textContent = T('tryExample');
+    const statsTab = document.querySelector('[data-tab="stats"]');
+    if (statsTab) statsTab.textContent = T('tabStats');
+
     // Lang switcher active state
     document.querySelectorAll('.lang-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.lang === i18n.getLang());
+    });
+  }
+
+  // ===== Theme =====
+  // The initial theme is applied by an inline <head> script before first
+  // paint; these buttons just flip it and persist the choice.
+  function setupTheme() {
+    document.querySelectorAll('.theme-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+        document.documentElement.dataset.theme = next;
+        localStorage.setItem('flashmind_theme', next);
+      });
     });
   }
 
@@ -119,9 +147,9 @@ const App = (() => {
 
   // ===== Input Tabs =====
   function setupInputTabs() {
-    // New users land on the "10. Sınıf" profile; returning users (who already
-    // have a saved set) land on Paste, the general entry.
-    if (localStorage.getItem('flashmind_data')) {
+    // Returning users (who already have saved decks) land on Paste, the general
+    // entry; new users land on the "10. Sınıf" profile.
+    if (Decks.list().length) {
       document.querySelectorAll('.input-tab').forEach(t => t.classList.toggle('active', t.dataset.inputTab === 'paste'));
       document.querySelectorAll('.input-panel').forEach(p => p.classList.toggle('active', p.id === 'paste-panel'));
     }
@@ -172,10 +200,14 @@ const App = (() => {
 
   function switchTab(tabName) {
     currentTab = tabName;
-    document.querySelectorAll('.study-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.study-tab').forEach(t => {
+      const active = t.dataset.tab === tabName;
+      t.classList.toggle('active', active);
+      t.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    document.querySelector(`.study-tab[data-tab="${tabName}"]`).classList.add('active');
     document.getElementById(`tab-${tabName}`).classList.add('active');
+    if (tabName === 'stats' && typeof Stats !== 'undefined') Stats.render();
   }
 
   // ===== PDF =====
@@ -402,9 +434,21 @@ const App = (() => {
     textEl.style.display = 'none';
     loadingEl.style.display = '';
 
+    // Staged progress: rotate through generation-phase messages so the wait
+    // feels alive instead of a bare seconds counter.
+    const stageEl = document.getElementById('gen-stage');
+    const stages = [i18n.t('genStage1'), i18n.t('genStage2'), i18n.t('genStage3'), i18n.t('genStage4')];
     let seconds = 0;
     elapsedEl.textContent = '0s';
-    elapsedTimer = setInterval(() => { seconds++; elapsedEl.textContent = seconds + 's'; }, 1000);
+    if (stageEl) stageEl.textContent = stages[0];
+    elapsedTimer = setInterval(() => {
+      seconds++;
+      elapsedEl.textContent = seconds + 's';
+      if (stageEl) {
+        const stage = stages[Math.min(Math.floor(seconds / 8), stages.length - 1)];
+        if (stageEl.textContent !== stage) stageEl.textContent = stage;
+      }
+    }, 1000);
 
     const { flashcardConfig, quizConfig } = getGenerationConfig();
 
@@ -434,6 +478,7 @@ const App = (() => {
     Quiz.setQuestions(data.quiz);
     Chat.setup(data.title);
     if (typeof Search !== 'undefined') Search.reset();
+    if (typeof Stats !== 'undefined') Stats.render();
     switchTab('notes');
   }
 
@@ -496,9 +541,10 @@ const App = (() => {
     } else {
       studyData = incoming;
       originalText = sourceText || '';
+      activeDeckId = null; // a fresh set becomes a new deck below
     }
-    localStorage.setItem('flashmind_data', JSON.stringify(studyData));
-    localStorage.setItem('flashmind_text', originalText);
+    const deck = Decks.save(studyData, originalText, activeDeckId);
+    activeDeckId = deck.id;
     exitAppendMode();
     showStudyView(studyData);
     return studyData;
@@ -532,8 +578,10 @@ const App = (() => {
     document.getElementById('append-cancel-btn').addEventListener('click', exitAppendMode);
     document.getElementById('new-material-btn').addEventListener('click', () => {
       exitAppendMode();
-      localStorage.removeItem('flashmind_data');
-      localStorage.removeItem('flashmind_text');
+      // Keep saved decks intact; just return to the input screen for a new one.
+      activeDeckId = null;
+      studyData = null;
+      renderDeckLibrary();
       backToInput();
     });
   }
@@ -575,6 +623,9 @@ const App = (() => {
     shareBtn.addEventListener('click', openShareModal);
     closeBtn.addEventListener('click', () => { modal.style.display = 'none'; });
     modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.style.display === 'flex') modal.style.display = 'none';
+    });
 
     copyBtn.addEventListener('click', () => {
       const input = document.getElementById('share-link-input');
@@ -667,11 +718,12 @@ const App = (() => {
       const usable = shared.title && (shared.flashcards.length || shared.quiz.length);
       if (!usable) throw new Error('Invalid');
       originalText = text;
-      studyData = shared;
-      localStorage.setItem('flashmind_data', JSON.stringify(shared));
-      if (text) localStorage.setItem('flashmind_text', text);
+      studyData = normalizeDeck(shared);
+      const deck = Decks.save(studyData, text, null);
+      activeDeckId = deck.id;
       overlay.style.display = 'none';
-      showStudyView(shared);
+      showStudyView(studyData);
+      renderDeckLibrary();
       showToast(i18n.t('shareLoaded'), 'success');
     } catch (err) {
       overlay.style.display = 'none';
@@ -679,20 +731,96 @@ const App = (() => {
     }
   }
 
-  // ===== Auto-save =====
+  // ===== Auto-restore last active deck =====
   function checkSavedData() {
-    const saved = localStorage.getItem('flashmind_data');
-    const savedText = localStorage.getItem('flashmind_text');
-    if (saved) {
-      try {
-        const data = JSON.parse(saved);
-        if (data.title && data.notes && data.flashcards && data.quiz) {
-          originalText = savedText || '';
-          showToast(i18n.t('restored'), 'info');
-          showStudyView(data);
-          return;
-        }
-      } catch (e) { localStorage.removeItem('flashmind_data'); }
+    const deck = Decks.getActive();
+    if (deck && deck.data) {
+      openDeck(deck.id, true);
+    }
+  }
+
+  // ===== Deck Library =====
+  function openDeck(id, silent) {
+    const deck = Decks.get(id);
+    if (!deck) return;
+    Decks.setActive(id);
+    activeDeckId = id;
+    studyData = normalizeDeck(deck.data);
+    originalText = deck.originalText || '';
+    if (!silent) showToast(i18n.t('deckOpened', { title: studyData.title }), 'info');
+    else showToast(i18n.t('restored'), 'info');
+    showStudyView(studyData);
+    renderDeckLibrary();
+  }
+
+  function renderDeckLibrary() {
+    const wrap = document.getElementById('deck-library');
+    if (!wrap) return;
+    const decks = Decks.list();
+    if (!decks.length) { wrap.style.display = 'none'; wrap.innerHTML = ''; return; }
+    wrap.style.display = 'block';
+    const T = i18n.t;
+    let html = `<div class="deck-library-head"><span class="deck-library-title">${T('yourDecks')}</span></div><div class="deck-library-grid">`;
+    decks.forEach(d => {
+      const data = d.data || {};
+      const cards = Array.isArray(data.flashcards) ? data.flashcards.length : 0;
+      const qs = Array.isArray(data.quiz) ? data.quiz.length : 0;
+      const due = (() => {
+        // Count due cards for this specific deck without switching active.
+        const now = Date.now();
+        return Object.values(d.srs || {}).filter(s => s && s.due && s.due <= now).length;
+      })();
+      html += `
+        <div class="deck-card" data-id="${d.id}" role="button" tabindex="0">
+          <div class="deck-card-body">
+            <h3 class="deck-card-title">${escText(data.title || T('importedSet'))}</h3>
+            <div class="deck-card-meta">
+              <span>${T('cardsN', { n: cards })}</span>
+              <span>&middot;</span>
+              <span>${T('questionsN', { n: qs })}</span>
+              ${due ? `<span class="deck-card-due">${T('dueN', { n: due })}</span>` : ''}
+            </div>
+          </div>
+          <button class="deck-card-del" data-del="${d.id}" aria-label="${T('deleteDeck')}" title="${T('deleteDeck')}">&times;</button>
+        </div>`;
+    });
+    html += `</div>`;
+    wrap.innerHTML = html;
+
+    wrap.querySelectorAll('.deck-card').forEach(el => {
+      const id = el.dataset.id;
+      const open = () => openDeck(id);
+      el.addEventListener('click', (e) => { if (!e.target.closest('[data-del]')) open(); });
+      el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+    });
+    wrap.querySelectorAll('[data-del]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = btn.dataset.del;
+        Decks.remove(id);
+        if (activeDeckId === id) { activeDeckId = null; studyData = null; }
+        renderDeckLibrary();
+        showToast(i18n.t('deckDeleted'), 'info');
+      });
+    });
+  }
+
+  // ===== Demo Deck =====
+  function setupDemo() {
+    const btn = document.getElementById('demo-btn');
+    if (btn) btn.addEventListener('click', () => {
+      if (typeof Demo === 'undefined') return;
+      commitStudyData(Demo.get(), '');
+      showToast(i18n.t('demoLoaded'), 'success');
+    });
+  }
+
+  // ===== Service Worker (PWA) =====
+  function registerServiceWorker() {
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(() => { /* offline unsupported — non-fatal */ });
+      });
     }
   }
 

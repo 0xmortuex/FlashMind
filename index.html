@@ -6,6 +6,16 @@
   <title>FlashMind — AI-Powered Study Tool</title>
   <meta name="description" content="Paste notes, upload PDFs, or type any topic — instantly get structured study notes, interactive flashcards, multiple-choice quizzes, and an AI tutor. Free, no signup.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <script>
+    // Set the theme before first paint to avoid a flash of the wrong theme.
+    (function () {
+      var t = localStorage.getItem('flashmind_theme');
+      if (t !== 'light' && t !== 'dark') {
+        t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -16,17 +26,30 @@
   <link rel="stylesheet" href="css/exam.css">
   <link rel="stylesheet" href="css/profile.css">
   <link rel="stylesheet" href="css/chat.css">
+  <link rel="stylesheet" href="css/library.css">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#0a0c12">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 </head>
 <body>
   <!-- Toast Container -->
-  <div id="toast-container"></div>
+  <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
 
   <!-- Confetti Container -->
   <div id="confetti-container"></div>
 
   <!-- ===== INPUT VIEW ===== -->
   <div id="input-view" class="view active">
+    <div class="corner-controls">
+      <div class="lang-switcher" id="lang-switcher">
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="tr">TR</button>
+      </div>
+      <button class="theme-toggle" id="theme-toggle-input" aria-label="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
     <div class="input-wrapper">
       <div class="logo-section">
         <div class="logo">
@@ -42,24 +65,33 @@
           <h1 class="logo-text">FlashMind</h1>
         </div>
         <p class="tagline" id="tagline">Paste. Learn. Ace.</p>
-        <div class="lang-switcher" id="lang-switcher">
-          <button class="lang-btn" data-lang="en">EN</button>
-          <button class="lang-btn" data-lang="tr">TR</button>
-        </div>
       </div>
 
       <!-- Append-mode banner (shown when adding to an existing set) -->
-      <div id="append-banner" class="append-banner" style="display:none;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;margin-bottom:14px;border:1px solid #7c3aed;border-radius:10px;background:rgba(124,58,237,0.08)">
-        <span id="append-banner-text" style="font-size:14px;font-weight:600">Adding to your set</span>
-        <button id="append-cancel-btn" class="btn-ghost" style="font-size:13px">Cancel</button>
+      <div id="append-banner" class="append-banner" style="display:none">
+        <span id="append-banner-text">Adding to your set</span>
+        <button id="append-cancel-btn" class="btn-ghost">Cancel</button>
       </div>
 
+      <div class="input-card">
       <!-- Input Tabs -->
       <div class="input-tabs">
-        <button class="input-tab active" data-input-tab="profile">10. Sınıf</button>
-        <button class="input-tab" data-input-tab="paste">Paste Text</button>
-        <button class="input-tab" data-input-tab="pdf">Upload PDF / JSON</button>
-        <button class="input-tab" data-input-tab="topic">Just a Topic</button>
+        <button class="input-tab active" data-input-tab="profile">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M22 9L12 4 2 9l10 5 10-5zM6 11.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 9v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <span class="input-tab-label">10. Sınıf</span>
+        </button>
+        <button class="input-tab" data-input-tab="paste">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <span class="input-tab-label">Paste Text</span>
+        </button>
+        <button class="input-tab" data-input-tab="pdf">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 16V4m0 0L7 9m5-5l5 5M4 20h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="input-tab-label">Upload PDF / JSON</span>
+        </button>
+        <button class="input-tab" data-input-tab="topic">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3a6 6 0 00-3.5 10.9c.7.5 1 1.3 1 2.1h5c0-.8.3-1.6 1-2.1A6 6 0 0012 3zM9.5 19h5M10.5 22h3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="input-tab-label">Just a Topic</span>
+        </button>
       </div>
 
       <!-- 10th-grade study profile -->
@@ -154,15 +186,25 @@
         </div>
       </div>
 
+      <!-- Try an example (demo deck, no API call) -->
+      <div class="demo-row">
+        <button id="demo-btn" class="demo-btn" type="button">Try an example</button>
+      </div>
+
       <!-- Generate Button -->
       <button id="generate-btn" class="btn-generate">
         <span class="btn-generate-text">Generate Study Materials</span>
         <span class="btn-generate-loading" style="display:none">
           <svg class="spinner" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="31.4 31.4" stroke-linecap="round"/></svg>
-          <span>Generating... <span id="elapsed-time">0s</span></span>
+          <span id="gen-stage">Generating...</span>
+          <span id="elapsed-time">0s</span>
         </span>
       </button>
       <p class="generate-hint">Ctrl + Enter</p>
+      </div>
+
+      <!-- Saved decks library (hidden when empty) -->
+      <div id="deck-library" class="deck-library" style="display:none"></div>
     </div>
   </div>
 
@@ -187,6 +229,10 @@
           </div>
           <div class="study-search-results" id="study-search-results" style="display:none"></div>
         </div>
+        <button class="theme-toggle" id="theme-toggle-study" aria-label="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
         <button class="btn-share" id="share-btn">Share</button>
         <div class="export-dropdown">
           <button class="btn-ghost" id="export-btn">Export</button>
@@ -204,26 +250,45 @@
     </header>
 
     <!-- Study Tabs -->
-    <nav class="study-tabs">
-      <button class="study-tab active" data-tab="notes">Notes</button>
-      <button class="study-tab" data-tab="flashcards">Flashcards</button>
-      <button class="study-tab" data-tab="quiz">Exam</button>
-      <button class="study-tab" data-tab="chat">Ask AI</button>
+    <nav class="study-tabs" role="tablist" aria-label="Study sections">
+      <button class="study-tab active" data-tab="notes" role="tab" aria-selected="true" aria-controls="tab-notes">
+        <svg class="study-tab-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 3h9l5 5v13H5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 3v5h5M8 13h8M8 17h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span class="study-tab-label">Notes</span>
+      </button>
+      <button class="study-tab" data-tab="flashcards" role="tab" aria-selected="false" aria-controls="tab-flashcards">
+        <svg class="study-tab-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2" stroke="currentColor" stroke-width="2"/><path d="M7 3h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span class="study-tab-label">Flashcards</span>
+      </button>
+      <button class="study-tab" data-tab="quiz" role="tab" aria-selected="false" aria-controls="tab-quiz">
+        <svg class="study-tab-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 11l3 3 5-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" stroke-width="2"/></svg>
+        <span class="study-tab-label">Exam</span>
+      </button>
+      <button class="study-tab" data-tab="stats" role="tab" aria-selected="false" aria-controls="tab-stats">
+        <svg class="study-tab-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 20V10M12 20V4M19 20v-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span class="study-tab-label">Stats</span>
+      </button>
+      <button class="study-tab" data-tab="chat" role="tab" aria-selected="false" aria-controls="tab-chat">
+        <svg class="study-tab-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5h16v11H9l-4 4V5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        <span class="study-tab-label">Ask AI</span>
+      </button>
     </nav>
 
     <!-- Tab Content -->
     <main class="study-content">
       <!-- Notes Tab -->
-      <div class="tab-content active" id="tab-notes"></div>
+      <div class="tab-content active" id="tab-notes" role="tabpanel"></div>
 
       <!-- Flashcards Tab -->
-      <div class="tab-content" id="tab-flashcards"></div>
+      <div class="tab-content" id="tab-flashcards" role="tabpanel"></div>
 
       <!-- Quiz Tab -->
-      <div class="tab-content" id="tab-quiz"></div>
+      <div class="tab-content" id="tab-quiz" role="tabpanel"></div>
+
+      <!-- Stats Tab -->
+      <div class="tab-content" id="tab-stats" role="tabpanel"></div>
 
       <!-- Chat Tab -->
-      <div class="tab-content" id="tab-chat">
+      <div class="tab-content" id="tab-chat" role="tabpanel">
         <div class="chat-container">
           <div class="chat-header">
             <span>Ask about your study material</span>
@@ -293,10 +358,10 @@
 
   <!-- ===== SHARE MODAL ===== -->
   <div id="share-modal" class="share-modal-backdrop" style="display:none">
-    <div class="share-modal">
+    <div class="share-modal" role="dialog" aria-modal="true" aria-labelledby="share-modal-title">
       <div class="share-modal-header">
-        <h3>Share Study Materials</h3>
-        <button class="btn-icon" id="share-modal-close">&times;</button>
+        <h3 id="share-modal-title">Share Study Materials</h3>
+        <button class="btn-icon" id="share-modal-close" aria-label="Close">&times;</button>
       </div>
       <div class="share-modal-body">
         <div id="share-loading" class="share-loading">
@@ -334,6 +399,9 @@
   </div>
 
   <script src="js/i18n.js"></script>
+  <script src="js/decks.js"></script>
+  <script src="js/stats.js"></script>
+  <script src="js/demo.js"></script>
   <script src="js/api.js"></script>
   <script src="js/parser.js"></script>
   <script src="js/pdf.js"></script>

@@ -22,6 +22,10 @@ const i18n = (() => {
       topicHolder: "Enter a topic (e.g., 'Photosynthesis', 'World War II causes', 'Python lists')",
       generateBtn: 'Generate Study Materials',
       generating: 'Generating...',
+      genStage1: 'Reading your material...',
+      genStage2: 'Writing structured notes...',
+      genStage3: 'Building flashcards...',
+      genStage4: 'Preparing your exam...',
       ctrlEnter: 'Ctrl + Enter',
       pages: '{n} pages',
 
@@ -48,7 +52,32 @@ const i18n = (() => {
       tabNotes: 'Notes',
       tabFlashcards: 'Flashcards',
       tabQuiz: 'Exam',
+      tabStats: 'Stats',
       tabChat: 'Ask AI',
+
+      // Demo + deck library
+      tryExample: 'Try an example',
+      demoLoaded: 'Loaded a sample deck — explore every feature!',
+      yourDecks: 'Your decks',
+      cardsN: '{n} cards',
+      questionsN: '{n} questions',
+      dueN: '{n} due',
+      deleteDeck: 'Delete deck',
+      deckDeleted: 'Deck deleted',
+      deckOpened: 'Opened: {title}',
+
+      // Spaced repetition
+      reviewDue: 'Review due ({n})',
+      noDue: 'Nothing due right now — great job!',
+
+      // Stats
+      noStatsYet: 'Study some cards or take an exam to see your stats here.',
+      statStreak: 'Day streak',
+      statReviews: 'Cards reviewed',
+      statDue: 'Due now',
+      statExams: 'Exams taken',
+      reviewsLast14: 'Reviews — last 14 days',
+      examHistory: 'Exam history',
 
       // Flashcards
       flashcardCount: '{n} flashcards',
@@ -238,6 +267,10 @@ const i18n = (() => {
       topicHolder: "Bir konu girin (ornegin, 'Fotosentez', 'Dunya Savasi nedenleri', 'Python listeleri')",
       generateBtn: 'Calisma Materyalleri Olustur',
       generating: 'Olusturuluyor...',
+      genStage1: 'Materyalin okunuyor...',
+      genStage2: 'Notlar yaziliyor...',
+      genStage3: 'Kartlar hazirlaniyor...',
+      genStage4: 'Sinav olusturuluyor...',
       ctrlEnter: 'Ctrl + Enter',
       pages: '{n} sayfa',
 
@@ -264,7 +297,32 @@ const i18n = (() => {
       tabNotes: 'Notlar',
       tabFlashcards: 'Kartlar',
       tabQuiz: 'Sınav',
+      tabStats: 'Istatistik',
       tabChat: "AI'ya Sor",
+
+      // Demo + deck library
+      tryExample: 'Ornek dene',
+      demoLoaded: 'Ornek deste yuklendi — tum ozellikleri kesfet!',
+      yourDecks: 'Destelerin',
+      cardsN: '{n} kart',
+      questionsN: '{n} soru',
+      dueN: '{n} tekrar',
+      deleteDeck: 'Desteyi sil',
+      deckDeleted: 'Deste silindi',
+      deckOpened: 'Acildi: {title}',
+
+      // Spaced repetition
+      reviewDue: 'Tekrar ({n})',
+      noDue: 'Su an tekrar yok — harika!',
+
+      // Stats
+      noStatsYet: 'Istatistikleri gormek icin kart calis veya sinav yap.',
+      statStreak: 'Gun serisi',
+      statReviews: 'Calisilir kart',
+      statDue: 'Simdi tekrar',
+      statExams: 'Yapilan sinav',
+      reviewsLast14: 'Tekrarlar — son 14 gun',
+      examHistory: 'Sinav gecmisi',
 
       // Flashcards
       flashcardCount: '{n} kart',
