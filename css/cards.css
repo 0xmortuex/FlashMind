@@ -35,7 +35,7 @@
 
 .start-study-btn {
   padding: 12px 28px;
-  background: linear-gradient(135deg, var(--primary), #6d28d9);
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
   color: #fff;
   font-size: 0.95rem;
   font-weight: 600;
@@ -355,7 +355,9 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(15,17,23,0.92);
+  background: var(--backdrop);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   z-index: 1001;
   display: flex;
   align-items: center;

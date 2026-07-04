@@ -11,9 +11,12 @@
 Give FlashMind some material and it generates a complete study set in one call:
 
 - **📝 Notes** — a clean summary with sections, key terms, important dates, common mistakes, and simple diagrams.
-- **🃏 Flashcards** — 3D flip-card deck across easy/medium/hard with a study mode (Again / Hard / Got it).
+- **🃏 Flashcards** — 3D flip-card deck across easy/medium/hard with a study mode (Again / Hard / Got it) and **spaced repetition**.
 - **📋 Exam (Turkish style)** — a mixed-format exam modeled on the Turkish system (see below).
+- **📊 Stats** — study streak, a 14-day review chart, and your exam-score history.
 - **💬 Ask AI** — a tutor that answers questions about your material and can generate more cards/questions.
+
+Not sure? Hit **Try an example** on the home screen for an instant sample deck — no waiting, no API call.
 
 ## Inputs
 
@@ -40,18 +43,28 @@ The exam matches how Turkish exams actually work, mixing question types:
 
 ## Other features
 
+- **📚 Deck library** — every set you make is saved. Return to the home screen to see your decks, reopen one, or delete it; due-card counts show at a glance.
+- **🧠 Spaced repetition (SM-2)** — flashcard reviews schedule each card for its optimal next review date. A **Review due** button studies just what's ready today; progress persists across sessions.
+- **📊 Stats dashboard** — day streak, cards reviewed, a 14-day review bar chart, and an exam-score line chart with history — all rendered in dependency-free inline SVG.
+- **🌗 Light & dark theme** — toggle in the corner; remembers your choice and follows your OS by default.
+- **📱 Mobile-first** — a bottom navigation bar on phones and **swipe gestures** in study mode (right = Got it, left = Again, up = Hard).
+- **📴 Installable PWA** — add to your home screen and study saved decks offline (app shell + decks cached; generation still needs a connection).
 - **➕ Add Materials** — generate or import more and **merge** it into your current set (flashcards, exam questions, and notes all append) without clearing what you have.
 - **🔍 Search** — search keywords across your **notes and exam**; notes matches jump-and-highlight, exam matches show the question and its answer.
 - **🔗 Share** — one click creates a link that loads your set on any device. Links **don't expire**.
 - **📤 Export** — notes as Markdown/PDF, flashcards as Anki-compatible CSV, exam as text, or the whole set as JSON (re-importable).
 - **🌍 Languages** — full English and Turkish UI; generated content matches the source language.
-- **💾 Local-first** — your current set is saved in the browser; no account required.
+- **♿ Accessible** — ARIA roles on tabs and dialogs, keyboard support (Esc closes modals), and focus-visible outlines.
+- **💾 Local-first** — decks, spaced-repetition schedules, and stats all live in your browser; no account required.
 
 ## How it's built
 
 - **Frontend** — vanilla HTML/CSS/JS, no framework, no build step. Hosted on GitHub Pages.
 - **Backend** — a Cloudflare Worker (`flashmind-worker`) that proxies generation/grading to [OpenRouter](https://openrouter.ai) (Claude) and stores shared sets in KV. The API key lives only as a Worker secret.
 - **PDF.js** — client-side PDF text extraction.
+- **Storage** — decks, SM-2 schedules, and stats persist in `localStorage`; the deck library migrates the old single-set key automatically.
+- **Offline** — a service worker (`sw.js`) caches the app shell for offline use; `manifest.webmanifest` makes it installable.
+- **Charts & spaced repetition** — hand-rolled: inline-SVG stat charts and a classic SM-2 scheduler, no libraries.
 
 ## Run locally
 

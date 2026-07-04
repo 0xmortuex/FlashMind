@@ -14,18 +14,30 @@ const Flashcards = (() => {
     setupStudyMode();
   }
 
+  // Study session mode: 'all' (whole deck) or 'due' (SM-2 due cards only).
+  let sessionMode = 'all';
+
   function setCards(newCards) {
     cards = newCards;
-    cardStatus = {};
-    cards.forEach(c => { cardStatus[c.id] = 'unseen'; });
     filter = 'all';
+    refreshStatus();
     render();
   }
 
   function addCards(newCards) {
     cards = cards.concat(newCards);
-    newCards.forEach(c => { cardStatus[c.id] = 'unseen'; });
+    refreshStatus();
     render();
+  }
+
+  // Pull each card's status from the deck's SM-2 state so mastered/reviewing
+  // persists across sessions instead of resetting to "unseen" every load.
+  function refreshStatus() {
+    cardStatus = {};
+    const hasDecks = typeof Decks !== 'undefined' && Decks.getActive();
+    cards.forEach(c => {
+      cardStatus[c.id] = hasDecks ? Decks.statusOf(c.id) : 'unseen';
+    });
   }
 
   function render() {
@@ -33,6 +45,7 @@ const Flashcards = (() => {
     const T = i18n.t;
     const filtered = filter === 'all' ? cards : cards.filter(c => c.difficulty === filter);
     const stats = getStats();
+    const dueCount = typeof Decks !== 'undefined' ? Decks.dueCards(cards).length : 0;
 
     let html = `
       <div class="cards-header">
@@ -47,7 +60,8 @@ const Flashcards = (() => {
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap">
           <button class="btn-ghost" id="generate-more-cards-btn" onclick="Flashcards.generateMore()" ${generatingMore ? 'disabled' : ''}>${generatingMore ? T('generatingMore') : T('generateMore')}</button>
-          <button class="start-study-btn" onclick="Flashcards.startStudy()">${T('startStudy')}</button>
+          ${dueCount > 0 ? `<button class="btn-ghost review-due-btn" onclick="Flashcards.startStudy('due')">${T('reviewDue', { n: dueCount })}</button>` : ''}
+          <button class="start-study-btn" onclick="Flashcards.startStudy('all')">${T('startStudy')}</button>
         </div>
       </div>
 
@@ -159,13 +173,54 @@ const Flashcards = (() => {
       else if (e.key === '3' && studyState.flipped) rateCard('gotit');
       else if (e.code === 'Escape') exitStudy();
     });
+
+    setupSwipe(card);
   }
 
-  function startStudy() {
-    const deck = cards.filter(c => cardStatus[c.id] !== 'mastered');
-    if (deck.length === 0) {
-      cards.forEach(c => { cardStatus[c.id] = 'unseen'; });
-      return startStudy();
+  // Touch swipe on the study card: tap to flip (handled by click); once
+  // flipped, swipe right = Got it, left = Again, up = Hard.
+  function setupSwipe(cardEl) {
+    let sx = 0, sy = 0, tracking = false;
+    cardEl.addEventListener('touchstart', (e) => {
+      if (!studyState) return;
+      tracking = true;
+      sx = e.touches[0].clientX;
+      sy = e.touches[0].clientY;
+      cardEl.style.transition = 'none';
+    }, { passive: true });
+
+    cardEl.addEventListener('touchmove', (e) => {
+      if (!tracking || !studyState || !studyState.flipped) return;
+      const dx = e.touches[0].clientX - sx;
+      const dy = e.touches[0].clientY - sy;
+      cardEl.style.transform = `translate(${dx}px, ${Math.min(0, dy)}px) rotate(${dx / 20}deg)`;
+    }, { passive: true });
+
+    cardEl.addEventListener('touchend', (e) => {
+      if (!tracking || !studyState) return;
+      tracking = false;
+      cardEl.style.transition = '';
+      cardEl.style.transform = '';
+      if (!studyState.flipped) return; // flip is handled by the click event
+      const dx = e.changedTouches[0].clientX - sx;
+      const dy = e.changedTouches[0].clientY - sy;
+      const TH = 60;
+      if (Math.abs(dx) < TH && Math.abs(dy) < TH) return; // treat as a tap
+      if (Math.abs(dy) > Math.abs(dx)) { if (dy < -TH) rateCard('hard'); }
+      else if (dx > TH) rateCard('gotit');
+      else if (dx < -TH) rateCard('again');
+    }, { passive: true });
+  }
+
+  function startStudy(mode) {
+    sessionMode = mode === 'due' ? 'due' : 'all';
+    let deck;
+    if (sessionMode === 'due') {
+      deck = typeof Decks !== 'undefined' ? Decks.dueCards(cards).slice() : [];
+      if (deck.length === 0) { App.showToast(i18n.t('noDue'), 'info'); return; }
+    } else {
+      deck = cards.filter(c => cardStatus[c.id] !== 'mastered');
+      if (deck.length === 0) deck = cards.slice(); // all mastered — review everything
     }
     for (let i = deck.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -205,6 +260,11 @@ const Flashcards = (() => {
   function rateCard(rating) {
     const { deck, index } = studyState;
     const card = deck[index];
+    // Map the three buttons to SM-2 quality scores and persist scheduling.
+    const quality = rating === 'gotit' ? 5 : rating === 'hard' ? 3 : 1;
+    if (typeof Decks !== 'undefined') Decks.review(card.id, quality);
+    if (typeof Stats !== 'undefined') Stats.recordReview(rating);
+
     if (rating === 'gotit') { cardStatus[card.id] = 'mastered'; studyState.mastered++; }
     else if (rating === 'hard') { cardStatus[card.id] = 'reviewing'; studyState.reviewed++; }
     else { cardStatus[card.id] = 'reviewing'; studyState.reviewed++; deck.push(card); }
@@ -224,7 +284,7 @@ const Flashcards = (() => {
     document.getElementById('deck-complete-overlay').style.display = 'flex';
     document.getElementById('dc-study-again').onclick = () => {
       document.getElementById('deck-complete-overlay').style.display = 'none';
-      startStudy();
+      startStudy(sessionMode);
     };
     document.getElementById('dc-take-quiz').onclick = () => {
       document.getElementById('deck-complete-overlay').style.display = 'none';
