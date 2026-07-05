@@ -96,8 +96,8 @@ const Stats = (() => {
       const h = s.n === 0 ? 2 : Math.max(3, (s.n / max) * (H - 34));
       const x = PAD + i * bw + bw * 0.15;
       const y = H - 22 - h;
-      bars += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${(bw * 0.7).toFixed(1)}" height="${h.toFixed(1)}" rx="3" class="${s.n ? 'stat-bar' : 'stat-bar empty'}"><title>${s.label}: ${s.n}</title></rect>`;
-      if (s.n > 0) bars += `<text x="${(x + bw * 0.35).toFixed(1)}" y="${(y - 5).toFixed(1)}" class="stat-bar-num" text-anchor="middle">${s.n}</text>`;
+      bars += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${(bw * 0.7).toFixed(1)}" height="${h.toFixed(1)}" rx="3" style="--i:${i}" class="${s.n ? 'stat-bar' : 'stat-bar empty'}"><title>${s.label}: ${s.n}</title></rect>`;
+      if (s.n > 0) bars += `<text x="${(x + bw * 0.35).toFixed(1)}" y="${(y - 5).toFixed(1)}" style="--i:${i}" class="stat-bar-num" text-anchor="middle">${s.n}</text>`;
       if (i === 0 || i === days - 1 || i === Math.floor(days / 2)) {
         bars += `<text x="${(x + bw * 0.35).toFixed(1)}" y="${H - 7}" class="stat-axis" text-anchor="middle">${s.label}</text>`;
       }
@@ -120,12 +120,12 @@ const Stats = (() => {
     exams.forEach((e, i) => {
       const [x, y] = pt(e, i);
       path += (i === 0 ? 'M' : 'L') + x.toFixed(1) + ' ' + y.toFixed(1);
-      dots += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4" class="stat-dot"><title>${esc(e.title)}: ${e.pct}</title></circle>`;
+      dots += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4" style="--i:${i}" class="stat-dot"><title>${esc(e.title)}: ${e.pct}</title></circle>`;
     });
     return `<svg viewBox="0 0 ${W} ${H}" class="stat-chart" role="img">
       <line x1="${PADX}" y1="${PADY}" x2="${W - PADX}" y2="${PADY}" class="stat-grid"/>
       <line x1="${PADX}" y1="${H - PADY}" x2="${W - PADX}" y2="${H - PADY}" class="stat-grid"/>
-      ${n > 1 ? `<path d="${path}" class="stat-line"/>` : ''}${dots}
+      ${n > 1 ? `<path d="${path}" pathLength="1" class="stat-line"/>` : ''}${dots}
     </svg>`;
   }
 
@@ -142,7 +142,18 @@ const Stats = (() => {
     const exams = data.exams;
 
     if (reviews === 0 && exams.length === 0) {
-      container.innerHTML = `<div class="stats-container"><p class="stats-empty">${T('noStatsYet')}</p></div>`;
+      container.innerHTML = `
+        <div class="stats-container">
+          <div class="empty-state">
+            <svg viewBox="0 0 72 72" fill="none">
+              <rect x="10" y="34" width="10" height="24" rx="3" stroke="currentColor" stroke-width="2.5"/>
+              <rect x="31" y="22" width="10" height="36" rx="3" stroke="currentColor" stroke-width="2.5"/>
+              <rect x="52" y="42" width="10" height="16" rx="3" stroke="currentColor" stroke-width="2.5"/>
+              <path d="M12 24c8-10 18-12 26-8s14 2 22-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="3 5"/>
+            </svg>
+            <p>${T('noStatsYet')}</p>
+          </div>
+        </div>`;
       return;
     }
 
@@ -156,10 +167,10 @@ const Stats = (() => {
     container.innerHTML = `
       <div class="stats-container">
         <div class="stat-tiles">
-          ${tile('&#128293; ' + streak(), T('statStreak'))}
-          ${tile(reviews, T('statReviews'))}
-          ${tile(due, T('statDue'))}
-          ${tile(exams.length, T('statExams'))}
+          ${tile(`<span class="flame">&#128293;</span> <span data-count="${streak()}">0</span>`, T('statStreak'))}
+          ${tile(`<span data-count="${reviews}">0</span>`, T('statReviews'))}
+          ${tile(`<span data-count="${due}">0</span>`, T('statDue'))}
+          ${tile(`<span data-count="${exams.length}">0</span>`, T('statExams'))}
         </div>
         <div class="stat-card">
           <h3 class="stat-card-title">${T('reviewsLast14')}</h3>
@@ -172,6 +183,11 @@ const Stats = (() => {
           <div class="exam-rows">${examRows}</div>
         </div>` : ''}
       </div>`;
+
+    // Bring the numbers to life: tiles cascade in and count up.
+    container.querySelectorAll('.stat-tile').forEach((el, i) => el.style.setProperty('--i', i));
+    container.querySelectorAll('[data-count]').forEach(el =>
+      FX.countUp(el, parseInt(el.dataset.count, 10) || 0, { duration: 800 }));
   }
 
   return { recordReview, recordExam, render, streak };

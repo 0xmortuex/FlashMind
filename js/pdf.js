@@ -12,6 +12,8 @@ const PDF = (() => {
     if (typeof pdfjsLib === 'undefined') {
       throw new Error('PDF.js not loaded');
     }
+    // The CDN script is deferred, so it may load after this module ran init().
+    if (!pdfjsLib.GlobalWorkerOptions.workerSrc) init();
 
     const arrayBuffer = await file.arrayBuffer();
     const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;

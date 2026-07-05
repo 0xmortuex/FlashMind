@@ -1,0 +1,810 @@
+/* ===== FX — motion & visual-polish layer =====
+   Loaded last so it can refine rules from the other sheets. Everything here
+   resolves from the design tokens in main.css and degrades gracefully:
+   prefers-reduced-motion is already zeroed globally, and heavier effects sit
+   behind @supports guards. */
+
+:root {
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in: cubic-bezier(0.55, 0, 0.55, 0.2);
+}
+
+/* ===== Micro-interactions: press states ===== */
+.btn-primary:active, .btn-ghost:active, .btn-generate:active:not(:disabled),
+.start-study-btn:active, .start-quiz-btn:active, .study-btn:active,
+.quiz-option:active:not(.disabled), .filter-btn:active, .topic-chip:active,
+.input-tab:active, .demo-btn:active, .btn-share:active, .btn-copy:active,
+.timer-option:active, .quiz-next-btn:active, .lang-btn:active {
+  transform: scale(0.97);
+  transition-duration: 0.06s;
+}
+
+/* ===== Aurora home background ===== */
+#input-view { position: relative; isolation: isolate; }
+
+#input-view::before,
+#input-view::after {
+  content: '';
+  position: fixed;
+  z-index: -1;
+  width: 46vmax;
+  height: 46vmax;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.16;
+  pointer-events: none;
+}
+
+#input-view::before {
+  background: radial-gradient(circle at 35% 35%, var(--primary), transparent 65%);
+  top: -18vmax;
+  left: -10vmax;
+  animation: auroraA 26s ease-in-out infinite alternate;
+}
+
+#input-view::after {
+  background: radial-gradient(circle at 60% 60%, var(--secondary), transparent 65%);
+  bottom: -20vmax;
+  right: -12vmax;
+  opacity: 0.11;
+  animation: auroraB 32s ease-in-out infinite alternate;
+}
+
+@keyframes auroraA {
+  from { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(9vmax, 6vmax) scale(1.15); }
+  to   { transform: translate(2vmax, 12vmax) scale(0.95); }
+}
+
+@keyframes auroraB {
+  from { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(-8vmax, -7vmax) scale(1.12); }
+  to   { transform: translate(-3vmax, -13vmax) scale(1.02); }
+}
+
+:root[data-theme="light"] #input-view::before { opacity: 0.12; }
+:root[data-theme="light"] #input-view::after { opacity: 0.09; }
+
+/* ===== Glass topbar ===== */
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .topbar {
+    background: color-mix(in srgb, var(--surface) 78%, transparent);
+    backdrop-filter: blur(14px) saturate(1.3);
+    -webkit-backdrop-filter: blur(14px) saturate(1.3);
+  }
+}
+
+/* ===== Sliding study-tab indicator ===== */
+.study-tabs { position: relative; }
+
+.tab-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  border-radius: 2px 2px 0 0;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  transition: transform 0.35s var(--ease-spring), width 0.35s var(--ease-spring);
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* The moving pill replaces the per-tab underline on desktop. */
+.study-tab.active { border-bottom-color: transparent; }
+
+@media (max-width: 768px) {
+  .tab-indicator { display: none; }
+}
+
+/* ===== Directional tab-content transitions ===== */
+.tab-content.tab-slide-left { animation: tabSlideLeft 0.3s var(--ease-out) both; }
+.tab-content.tab-slide-right { animation: tabSlideRight 0.3s var(--ease-out) both; }
+
+@keyframes tabSlideLeft {
+  from { opacity: 0; transform: translateX(26px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes tabSlideRight {
+  from { opacity: 0; transform: translateX(-26px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ===== Staggered entrances =====
+   Give children style="--i:n" and the container renders them as a cascade.
+   `both` keeps the `from` state during the per-item delay. */
+.fade-up {
+  animation: fadeUpIn 0.5s var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 35ms);
+}
+
+@keyframes fadeUpIn {
+  from { opacity: 0; transform: translateY(14px) scale(0.985); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Scroll-reveal (notes sections) — FX.observe() flips .in via IntersectionObserver. */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out);
+  transition-delay: calc(min(var(--i, 0), 6) * 45ms);
+}
+
+.reveal.in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; }
+}
+
+/* ===== Flashcard grid: difficulty tints, springy flip, tilt ===== */
+.flashcard-inner {
+  transition: transform 0.55s var(--ease-spring);
+}
+
+.flashcard {
+  transition: transform 0.25s var(--ease-out);
+  will-change: transform;
+}
+
+.flashcard-front { background: linear-gradient(150deg, #7c3aed, #5b21b6); }
+.flashcard.diff-easy .flashcard-front { background: linear-gradient(150deg, #0d9488, #065f56); }
+.flashcard.diff-hard .flashcard-front { background: linear-gradient(150deg, #9333ea, #6d1fa8 55%, #86198f); }
+
+.flashcard-front::after, .flashcard-back::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 90% at 20% 0%, rgba(255, 255, 255, 0.14), transparent 55%);
+  pointer-events: none;
+}
+
+/* ===== Study mode: springy flip + drag physics ===== */
+.study-card-inner { transition: transform 0.55s var(--ease-spring); }
+
+.study-card {
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.study-card.flipped { cursor: grab; }
+.study-card.dragging { cursor: grabbing; }
+.study-card.dragging .study-card-inner { transition: none; }
+
+/* Spring back to center after an under-threshold drag. */
+.study-card.spring-back { transition: transform 0.45s var(--ease-spring); }
+
+/* Directional glow while dragging toward a rating. */
+.study-card.drag-right .study-card-back {
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.75), 0 24px 64px rgba(34, 197, 94, 0.35);
+}
+.study-card.drag-left .study-card-back {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.75), 0 24px 64px rgba(239, 68, 68, 0.35);
+}
+.study-card.drag-up .study-card-back {
+  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.75), 0 24px 64px rgba(251, 191, 36, 0.35);
+}
+
+/* Fly-off exits (start from the current inline transform). */
+.study-card.fly-right { animation: flyRight 0.32s var(--ease-in) forwards; }
+.study-card.fly-left { animation: flyLeft 0.32s var(--ease-in) forwards; }
+.study-card.fly-up { animation: flyUp 0.32s var(--ease-in) forwards; }
+
+@keyframes flyRight { to { transform: translate(120vw, -8vh) rotate(24deg); opacity: 0; } }
+@keyframes flyLeft { to { transform: translate(-120vw, -8vh) rotate(-24deg); opacity: 0; } }
+@keyframes flyUp { to { transform: translateY(-120vh) rotate(-6deg); opacity: 0; } }
+
+/* Next-card entrance (replaces the old slideInRight reset trick). */
+.study-card.card-enter { animation: cardEnter 0.4s var(--ease-spring) both; }
+
+@keyframes cardEnter {
+  from { opacity: 0; transform: translateX(48px) scale(0.94) rotate(2deg); }
+  to   { opacity: 1; transform: none; }
+}
+
+.deck-complete-card { animation: popIn 0.45s var(--ease-spring) both; }
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.86) translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ===== Quiz feedback ===== */
+.shake { animation: shakeX 0.4s var(--ease-out); }
+
+@keyframes shakeX {
+  20%, 60% { transform: translateX(-7px); }
+  40%, 80% { transform: translateX(7px); }
+}
+
+.quiz-option { transition: all var(--transition), transform 0.15s var(--ease-out); }
+.quiz-option:not(.disabled):hover { transform: translateY(-1px); }
+
+.opt-check, .opt-cross {
+  width: 20px;
+  height: 20px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.opt-check path {
+  stroke: var(--correct);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  stroke-dasharray: 26;
+  stroke-dashoffset: 26;
+  animation: drawCheck 0.35s var(--ease-out) 0.1s forwards;
+}
+
+@keyframes drawCheck { to { stroke-dashoffset: 0; } }
+
+.opt-cross path {
+  stroke: var(--wrong);
+  stroke-width: 3;
+  stroke-linecap: round;
+  fill: none;
+  stroke-dasharray: 20;
+  stroke-dashoffset: 20;
+  animation: drawCheck 0.25s var(--ease-out) forwards;
+}
+
+/* ===== Animated score ring (exam results) ===== */
+.quiz-score-ring {
+  position: relative;
+  width: 152px;
+  height: 152px;
+  margin: 0 auto 14px;
+}
+
+.quiz-score-ring svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.ring-track {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 9;
+}
+
+.ring-fill {
+  fill: none;
+  stroke: url(#ring-grad);
+  stroke-width: 9;
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: calc(100 - var(--pct, 0));
+  transition: stroke-dashoffset 1.1s var(--ease-out) 0.15s;
+}
+
+.ring-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.ring-center .quiz-score-value {
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.ring-center .quiz-score-percent {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.quiz-grade { animation: gradePop 0.5s var(--ease-spring) 0.65s both; }
+
+@keyframes gradePop {
+  from { opacity: 0; transform: scale(0.4) rotate(-8deg); }
+  to   { opacity: 1; transform: none; }
+}
+
+.quiz-result-stat { animation: fadeUpIn 0.45s var(--ease-out) both; animation-delay: calc(var(--i, 0) * 60ms + 0.3s); }
+
+/* ===== Stats ===== */
+.stat-tile { animation: fadeUpIn 0.45s var(--ease-out) both; animation-delay: calc(var(--i, 0) * 50ms); }
+
+.stat-bar {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  animation: barGrow 0.6s var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 30ms + 0.15s);
+}
+
+@keyframes barGrow { from { transform: scaleY(0); } }
+
+.stat-bar-num {
+  animation: fadeUpIn 0.4s ease both;
+  animation-delay: calc(var(--i, 0) * 30ms + 0.55s);
+}
+
+.stat-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: drawLine 1.1s var(--ease-out) 0.2s forwards;
+}
+
+@keyframes drawLine { to { stroke-dashoffset: 0; } }
+
+.stat-dot {
+  animation: dotIn 0.3s var(--ease-spring) both;
+  animation-delay: calc(var(--i, 0) * 70ms + 0.25s);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes dotIn {
+  from { opacity: 0; transform: scale(0); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.flame {
+  display: inline-block;
+  animation: flicker 1.6s ease-in-out infinite;
+  transform-origin: 50% 85%;
+}
+
+@keyframes flicker {
+  0%, 100% { transform: scale(1) rotate(-2deg); }
+  30% { transform: scale(1.12) rotate(2deg); }
+  60% { transform: scale(0.96) rotate(-1deg); }
+}
+
+/* Empty state */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 56px 20px;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.empty-state svg { width: 72px; height: 72px; opacity: 0.55; }
+.empty-state p { font-size: 0.95rem; max-width: 340px; }
+
+/* ===== Toast: spring in + auto-dismiss progress ===== */
+.toast {
+  position: relative;
+  overflow: hidden;
+  animation: toastSpring 0.45s var(--ease-spring);
+}
+
+@keyframes toastSpring {
+  from { opacity: 0; transform: translateX(56px) scale(0.92); }
+  to   { opacity: 1; transform: none; }
+}
+
+.toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  opacity: 0.6;
+  animation: toastDrain linear forwards;
+}
+
+@keyframes toastDrain { from { width: 100%; } to { width: 0%; } }
+
+/* ===== Generation progress: stage checklist + skeleton ===== */
+.gen-progress {
+  margin-top: 14px;
+  padding: 16px 18px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  animation: fadeUpIn 0.35s var(--ease-out);
+}
+
+.gen-step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 0;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  transition: color 0.3s ease;
+}
+
+.gen-step.active { color: var(--text); }
+.gen-step.done { color: var(--text-muted); }
+
+.gen-step-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.gen-step .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--border-strong);
+}
+
+.gen-step.active .spinner { width: 15px; height: 15px; color: var(--primary); }
+
+.gen-step.done .gen-check {
+  width: 15px;
+  height: 15px;
+}
+
+.gen-check path {
+  stroke: var(--correct);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  stroke-dasharray: 26;
+  stroke-dashoffset: 26;
+  animation: drawCheck 0.35s var(--ease-out) forwards;
+}
+
+.gen-skeleton {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gen-skeleton span {
+  height: 10px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, var(--border) 25%, var(--border-strong) 42%, var(--border) 60%);
+  background-size: 220% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+
+.gen-skeleton span:nth-child(1) { width: 72%; }
+.gen-skeleton span:nth-child(2) { width: 92%; }
+.gen-skeleton span:nth-child(3) { width: 58%; }
+
+@keyframes shimmer {
+  from { background-position: 160% 0; }
+  to   { background-position: -60% 0; }
+}
+
+/* ===== Deck library: mastery ring + stagger ===== */
+.deck-card { align-items: center; }
+.deck-card .deck-card-body { flex: 1; }
+
+.deck-ring-wrap {
+  position: relative;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+}
+
+.deck-ring { width: 100%; height: 100%; transform: rotate(-90deg); }
+
+.deck-ring-bg { fill: none; stroke: var(--border); stroke-width: 3.5; }
+
+.deck-ring-fill {
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-dasharray: var(--pct, 0) 100;
+  animation: ringIn 0.9s var(--ease-out) 0.2s both;
+}
+
+@keyframes ringIn { from { stroke-dasharray: 0 100; } }
+
+.deck-ring-num {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.58rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+}
+
+/* ===== Sound toggle ===== */
+.sound-toggle {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  transition: all var(--transition);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.sound-toggle:hover { color: var(--text); border-color: var(--border-strong); }
+.sound-toggle svg { width: 17px; height: 17px; }
+.sound-toggle .icon-sound-off { display: block; }
+.sound-toggle .icon-sound-on { display: none; }
+.sound-toggle.on { color: var(--primary); border-color: var(--primary); }
+.sound-toggle.on .icon-sound-on { display: block; }
+.sound-toggle.on .icon-sound-off { display: none; }
+
+/* ===== Command palette ===== */
+.palette-backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--backdrop);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 8000;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 12vh 16px 16px;
+  animation: fadeIn 0.15s ease;
+}
+
+.palette {
+  width: 100%;
+  max-width: 520px;
+  background: var(--card);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  animation: paletteIn 0.25s var(--ease-spring);
+}
+
+@keyframes paletteIn {
+  from { opacity: 0; transform: translateY(-14px) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+
+.palette-input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+  padding: 16px 18px;
+  font-size: 1rem;
+}
+
+.palette-input:focus { box-shadow: none; border-color: var(--border); }
+
+.palette-list {
+  max-height: 46vh;
+  overflow-y: auto;
+  padding: 6px;
+}
+
+.palette-section {
+  padding: 10px 12px 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.palette-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.palette-item .palette-item-hint {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.palette-item.selected { background: var(--primary-tint); color: var(--primary); }
+
+.palette-empty { padding: 24px; text-align: center; color: var(--text-muted); font-size: 0.9rem; }
+
+.palette-footer {
+  display: flex;
+  gap: 14px;
+  padding: 9px 14px;
+  border-top: 1px solid var(--border);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.palette-footer kbd {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1px 5px;
+  margin-right: 4px;
+}
+
+/* ===== Theme toggle: circular reveal (View Transitions API) ===== */
+@supports (view-transition-name: root) {
+  ::view-transition-old(root), ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+
+  ::view-transition-new(root) {
+    clip-path: circle(0 at var(--tt-x, 50%) var(--tt-y, 0%));
+    animation: themeReveal 0.5s var(--ease-out) forwards;
+  }
+
+  @keyframes themeReveal {
+    to { clip-path: circle(150vmax at var(--tt-x, 50%) var(--tt-y, 0%)); }
+  }
+}
+
+/* ===== Modals: scale + fade ===== */
+.share-modal { animation: popIn 0.35s var(--ease-spring) both; }
+
+/* ===== Progress bars: subtle moving sheen ===== */
+.study-progress-fill, .quiz-progress-fill, .progress-fill {
+  position: relative;
+  overflow: hidden;
+}
+
+.study-progress-fill::after, .quiz-progress-fill::after, .progress-fill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s linear infinite;
+}
+
+/* ===== Exam: question entrance + countdown ring ===== */
+#tab-quiz .quiz-container { animation: fadeUpIn 0.35s var(--ease-out); }
+#quiz-feedback > * { animation: fadeUpIn 0.3s var(--ease-out); }
+
+.quiz-timer-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  float: right;
+}
+
+.quiz-timer-wrap .quiz-timer { float: none; animation: none; }
+
+.quiz-timer-wrap svg {
+  width: 25px;
+  height: 25px;
+  transform: rotate(-90deg);
+}
+
+.qt-track { fill: none; stroke: var(--border); stroke-width: 3.5; }
+
+.qt-fill {
+  fill: none;
+  stroke: var(--secondary);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1s linear, stroke 0.3s ease;
+}
+
+.quiz-timer-wrap.warning .qt-fill { stroke: var(--wrong); }
+.quiz-timer-wrap.warning .quiz-timer { color: var(--wrong); animation: pulse 0.5s ease infinite alternate; }
+
+/* ===== Notes reading progress ===== */
+.read-progress {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 2.5px;
+  width: 0;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  border-radius: 0 2px 2px 0;
+  transition: width 0.15s linear;
+  pointer-events: none;
+}
+
+/* ===== Keyboard shortcuts overlay ===== */
+.shortcuts-backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--backdrop);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 7000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.15s ease;
+}
+
+.shortcuts-card {
+  background: var(--card);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  padding: 22px 24px;
+  width: 90%;
+  max-width: 380px;
+  box-shadow: var(--shadow-lg);
+  animation: popIn 0.35s var(--ease-spring);
+}
+
+.shortcuts-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  margin-bottom: 12px;
+}
+
+.shortcut-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+}
+
+.shortcut-row kbd {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  padding: 2px 8px;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+/* ===== Study card drag-discovery nudge ===== */
+.study-card.drag-hint { animation: dragHint 1.5s var(--ease-out) 0.4s; }
+
+@keyframes dragHint {
+  0%, 100% { transform: none; }
+  18% { transform: translateX(26px) rotate(2deg); }
+  46% { transform: translateX(-20px) rotate(-1.5deg); }
+  72% { transform: translateX(9px) rotate(0.8deg); }
+}
+
+/* ===== Chat: message + starter entrances ===== */
+.chat-message { animation: fadeUpIn 0.35s var(--ease-out); }
+
+.chat-starters .chat-starter { animation: fadeUpIn 0.4s var(--ease-out) both; }
+.chat-starters .chat-starter:nth-child(2) { animation-delay: 0.05s; }
+.chat-starters .chat-starter:nth-child(3) { animation-delay: 0.1s; }
+.chat-starters .chat-starter:nth-child(4) { animation-delay: 0.15s; }
+.chat-starters .chat-starter:nth-child(5) { animation-delay: 0.2s; }
+.chat-starters .chat-starter:nth-child(6) { animation-delay: 0.25s; }
+
+/* ===== Reduced motion: keep decorative layers still ===== */
+@media (prefers-reduced-motion: reduce) {
+  #input-view::before, #input-view::after { animation: none; }
+  .gen-skeleton span, .study-progress-fill::after,
+  .quiz-progress-fill::after, .progress-fill::after { animation: none; }
+  .flame { animation: none; }
+}

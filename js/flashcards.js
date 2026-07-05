@@ -12,6 +12,27 @@ const Flashcards = (() => {
   function init() {
     container = document.getElementById('tab-flashcards');
     setupStudyMode();
+    setupGridTilt();
+  }
+
+  // ----- Hover tilt on grid cards (mouse only) -----
+  let tiltedCard = null;
+
+  function setupGridTilt() {
+    container.addEventListener('pointermove', (e) => {
+      if (e.pointerType !== 'mouse' || FX.reduced()) return;
+      const card = e.target.closest('.flashcard');
+      if (tiltedCard && card !== tiltedCard) tiltedCard.style.transform = '';
+      tiltedCard = card;
+      if (!card) return;
+      const r = card.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - 0.5;
+      const py = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `perspective(700px) rotateY(${(px * 7).toFixed(2)}deg) rotateX(${(py * -7).toFixed(2)}deg)`;
+    });
+    container.addEventListener('pointerleave', () => {
+      if (tiltedCard) { tiltedCard.style.transform = ''; tiltedCard = null; }
+    });
   }
 
   // Study session mode: 'all' (whole deck) or 'due' (SM-2 due cards only).
@@ -40,7 +61,7 @@ const Flashcards = (() => {
     });
   }
 
-  function render() {
+  function render(animate = true) {
     if (!container) init();
     const T = i18n.t;
     const filtered = filter === 'all' ? cards : cards.filter(c => c.difficulty === filter);
@@ -67,9 +88,9 @@ const Flashcards = (() => {
 
       <div class="cards-grid">`;
 
-    filtered.forEach(card => {
+    filtered.forEach((card, idx) => {
       html += `
-        <div class="flashcard" onclick="Flashcards.flipCard(this)" data-id="${card.id}">
+        <div class="flashcard diff-${card.difficulty}${animate ? ' fade-up' : ''}" style="--i:${Math.min(idx, 18)}" onclick="Flashcards.flipCard(this)" data-id="${card.id}">
           <div class="flashcard-inner">
             <div class="flashcard-front">
               <p class="flashcard-text">${esc(card.front)}</p>
@@ -117,9 +138,30 @@ const Flashcards = (() => {
     };
   }
 
+  // Filter changes animate with the FLIP technique: capture card positions,
+  // re-render, then invert-and-play so surviving cards glide to their new
+  // spots instead of snapping.
   function setFilter(f) {
+    const grid = container ? container.querySelector('.cards-grid') : null;
+    const before = {};
+    if (grid) grid.querySelectorAll('.flashcard').forEach(el => { before[el.dataset.id] = el.getBoundingClientRect(); });
     filter = f;
-    render();
+    render(false);
+    if (FX.reduced() || !grid) return;
+    container.querySelectorAll('.cards-grid .flashcard').forEach(el => {
+      const b = before[el.dataset.id];
+      if (!b) { el.classList.add('fade-up'); return; } // newly visible card
+      const a = el.getBoundingClientRect();
+      const dx = b.left - a.left, dy = b.top - a.top;
+      if (!dx && !dy) return;
+      el.style.transition = 'none';
+      el.style.transform = `translate(${dx}px, ${dy}px)`;
+      requestAnimationFrame(() => {
+        el.style.transition = 'transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)';
+        el.style.transform = '';
+        setTimeout(() => { el.style.transition = ''; }, 450);
+      });
+    });
   }
 
   function flipCard(el) {
@@ -158,7 +200,7 @@ const Flashcards = (() => {
     const actionsEl = document.getElementById('study-mode-actions');
 
     card.addEventListener('click', () => {
-      if (studyState && !studyState.flipped) flipStudyCard();
+      if (studyState && !studyState.flipped && !dragMoved) flipStudyCard();
     });
     closeBtn.addEventListener('click', exitStudy);
     actionsEl.querySelectorAll('.study-btn').forEach(btn => {
@@ -174,42 +216,57 @@ const Flashcards = (() => {
       else if (e.code === 'Escape') exitStudy();
     });
 
-    setupSwipe(card);
+    setupDrag(card);
   }
 
-  // Touch swipe on the study card: tap to flip (handled by click); once
-  // flipped, swipe right = Got it, left = Again, up = Hard.
-  function setupSwipe(cardEl) {
-    let sx = 0, sy = 0, tracking = false;
-    cardEl.addEventListener('touchstart', (e) => {
-      if (!studyState) return;
-      tracking = true;
-      sx = e.touches[0].clientX;
-      sy = e.touches[0].clientY;
-      cardEl.style.transition = 'none';
-    }, { passive: true });
+  // Drag the flipped card with mouse or finger (Pointer Events): it follows
+  // the pointer with rotation, glows toward the rating it's heading for
+  // (right = Got it, left = Again, up = Hard), flies off past the threshold,
+  // and springs back otherwise.
+  let drag = null, dragMoved = false, ratingLock = false;
 
-    cardEl.addEventListener('touchmove', (e) => {
-      if (!tracking || !studyState || !studyState.flipped) return;
-      const dx = e.touches[0].clientX - sx;
-      const dy = e.touches[0].clientY - sy;
-      cardEl.style.transform = `translate(${dx}px, ${Math.min(0, dy)}px) rotate(${dx / 20}deg)`;
-    }, { passive: true });
+  function setupDrag(cardEl) {
+    cardEl.addEventListener('pointerdown', (e) => {
+      if (!studyState || !studyState.flipped || ratingLock) return;
+      drag = { sx: e.clientX, sy: e.clientY };
+      dragMoved = false;
+      try { cardEl.setPointerCapture(e.pointerId); } catch (err) { /* unsupported */ }
+      cardEl.classList.remove('spring-back', 'card-enter', 'drag-hint');
+      cardEl.classList.add('dragging');
+    });
 
-    cardEl.addEventListener('touchend', (e) => {
-      if (!tracking || !studyState) return;
-      tracking = false;
-      cardEl.style.transition = '';
+    cardEl.addEventListener('pointermove', (e) => {
+      if (!drag) return;
+      const dx = e.clientX - drag.sx;
+      const dy = e.clientY - drag.sy;
+      if (!dragMoved && Math.hypot(dx, dy) > 6) dragMoved = true;
+      if (!dragMoved) return;
+      cardEl.style.transform = `translate(${dx}px, ${Math.min(dy, 40)}px) rotate(${(dx / 18).toFixed(2)}deg)`;
+      const horizontal = Math.abs(dx) >= Math.abs(dy);
+      cardEl.classList.toggle('drag-right', horizontal && dx > 48);
+      cardEl.classList.toggle('drag-left', horizontal && dx < -48);
+      cardEl.classList.toggle('drag-up', !horizontal && dy < -48);
+    });
+
+    const release = (e) => {
+      if (!drag) return;
+      const dx = e.clientX - drag.sx;
+      const dy = e.clientY - drag.sy;
+      drag = null;
+      cardEl.classList.remove('dragging', 'drag-right', 'drag-left', 'drag-up');
+      const TH = 90;
+      if (studyState && dragMoved) {
+        if (Math.abs(dy) > Math.abs(dx) && dy < -TH) return rateCard('hard');
+        if (dx > TH) return rateCard('gotit');
+        if (dx < -TH) return rateCard('again');
+      }
+      // Under threshold — spring back to center.
+      cardEl.classList.add('spring-back');
       cardEl.style.transform = '';
-      if (!studyState.flipped) return; // flip is handled by the click event
-      const dx = e.changedTouches[0].clientX - sx;
-      const dy = e.changedTouches[0].clientY - sy;
-      const TH = 60;
-      if (Math.abs(dx) < TH && Math.abs(dy) < TH) return; // treat as a tap
-      if (Math.abs(dy) > Math.abs(dx)) { if (dy < -TH) rateCard('hard'); }
-      else if (dx > TH) rateCard('gotit');
-      else if (dx < -TH) rateCard('again');
-    }, { passive: true });
+      setTimeout(() => cardEl.classList.remove('spring-back'), 500);
+    };
+    cardEl.addEventListener('pointerup', release);
+    cardEl.addEventListener('pointercancel', release);
   }
 
   function startStudy(mode) {
@@ -244,20 +301,48 @@ const Flashcards = (() => {
     document.getElementById('study-mode-actions').style.display = 'none';
     studyState.flipped = false;
     const cardEl = document.getElementById('study-card');
-    cardEl.classList.remove('flipped');
-    cardEl.style.animation = 'none';
-    cardEl.offsetHeight;
-    cardEl.style.animation = '';
+    cardEl.classList.remove('flipped', 'fly-right', 'fly-left', 'fly-up', 'spring-back', 'dragging', 'drag-right', 'drag-left', 'drag-up', 'card-enter', 'drag-hint');
+    cardEl.style.transform = '';
+    void cardEl.offsetWidth; // restart the entrance animation
+    cardEl.classList.add('card-enter');
   }
 
   function flipStudyCard() {
     studyState.flipped = true;
-    document.getElementById('study-card').classList.add('flipped');
+    const cardEl = document.getElementById('study-card');
+    cardEl.classList.add('flipped');
     document.getElementById('study-flip-hint').style.display = 'none';
     document.getElementById('study-mode-actions').style.display = 'flex';
+    Sound.play('flip');
+    Sound.haptic(8);
+    // First flip of the session: nudge the card sideways so the drag gesture
+    // is discoverable without instructions.
+    if (!studyState.hintShown && !FX.reduced()) {
+      studyState.hintShown = true;
+      cardEl.classList.add('drag-hint');
+      setTimeout(() => cardEl.classList.remove('drag-hint'), 2000);
+    }
   }
 
+  // Rating first plays the card's exit (fly-off in the rating's direction),
+  // then commits the SM-2 update and advances.
+  const FLY_DIR = { gotit: 'fly-right', again: 'fly-left', hard: 'fly-up' };
+
   function rateCard(rating) {
+    if (!studyState || ratingLock) return;
+    ratingLock = true;
+    Sound.play(rating === 'gotit' ? 'correct' : 'flip');
+    Sound.haptic(rating === 'gotit' ? [12, 40, 12] : 10);
+    const cardEl = document.getElementById('study-card');
+    document.getElementById('study-mode-actions').style.display = 'none';
+    if (FX.reduced()) return commitRate(rating);
+    cardEl.classList.add(FLY_DIR[rating]);
+    setTimeout(() => commitRate(rating), 300);
+  }
+
+  function commitRate(rating) {
+    ratingLock = false;
+    if (!studyState) return; // study mode exited mid-animation
     const { deck, index } = studyState;
     const card = deck[index];
     // Map the three buttons to SM-2 quality scores and persist scheduling.
@@ -278,10 +363,12 @@ const Flashcards = (() => {
     const mins = Math.floor(elapsed / 60);
     const secs = elapsed % 60;
     document.getElementById('dc-time').textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
-    document.getElementById('dc-mastered').textContent = studyState.mastered;
-    document.getElementById('dc-reviewed').textContent = studyState.reviewed;
+    FX.countUp(document.getElementById('dc-mastered'), studyState.mastered, { duration: 700 });
+    FX.countUp(document.getElementById('dc-reviewed'), studyState.reviewed, { duration: 700 });
     document.getElementById('study-mode-overlay').style.display = 'none';
     document.getElementById('deck-complete-overlay').style.display = 'flex';
+    Sound.play('complete');
+    FX.celebrate();
     document.getElementById('dc-study-again').onclick = () => {
       document.getElementById('deck-complete-overlay').style.display = 'none';
       startStudy(sessionMode);
@@ -295,6 +382,8 @@ const Flashcards = (() => {
 
   function exitStudy() {
     studyState = null;
+    drag = null;
+    ratingLock = false;
     document.getElementById('study-mode-overlay').style.display = 'none';
     document.getElementById('deck-complete-overlay').style.display = 'none';
     document.body.style.overflow = '';

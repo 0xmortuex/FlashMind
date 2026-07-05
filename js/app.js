@@ -29,6 +29,10 @@ const App = (() => {
     if (typeof Search !== 'undefined') Search.init();
     if (typeof Profile !== 'undefined') Profile.init();
     Chat.init();
+    if (typeof Sound !== 'undefined') Sound.init();
+    if (typeof Palette !== 'undefined') Palette.init();
+    setupReadProgress();
+    setupShortcutsOverlay();
     setupDemo();
     renderDeckLibrary();
     registerServiceWorker();
@@ -71,11 +75,17 @@ const App = (() => {
     const exportKeys = ['notesMd', 'notesPdf', 'cardsCsv', 'quizText', 'allJson'];
     exportItems.forEach((el, idx) => { if (exportKeys[idx]) el.textContent = T(exportKeys[idx]); });
 
-    // Study tabs
-    document.querySelector('[data-tab="notes"]').textContent = T('tabNotes');
-    document.querySelector('[data-tab="flashcards"]').textContent = T('tabFlashcards');
-    document.querySelector('[data-tab="quiz"]').textContent = T('tabQuiz');
-    document.querySelector('[data-tab="chat"]').textContent = T('tabChat');
+    // Study tabs — set only the label span; textContent on the button would
+    // wipe out the icon used by the mobile bottom nav.
+    const setStudyTabLabel = (tab, text) => {
+      const label = document.querySelector(`[data-tab="${tab}"] .study-tab-label`);
+      if (label) label.textContent = text;
+    };
+    setStudyTabLabel('notes', T('tabNotes'));
+    setStudyTabLabel('flashcards', T('tabFlashcards'));
+    setStudyTabLabel('quiz', T('tabQuiz'));
+    setStudyTabLabel('stats', T('tabStats'));
+    setStudyTabLabel('chat', T('tabChat'));
 
     // Chat header & input
     document.querySelector('.chat-header span').textContent = T('chatHeader');
@@ -108,11 +118,9 @@ const App = (() => {
     document.querySelector('.share-expires').textContent = T('shareExpiry');
     document.querySelector('.share-load-card p').textContent = T('shareLoading');
 
-    // Demo + study Stats tab
+    // Demo button
     const demoBtn = document.getElementById('demo-btn');
     if (demoBtn) demoBtn.textContent = T('tryExample');
-    const statsTab = document.querySelector('[data-tab="stats"]');
-    if (statsTab) statsTab.textContent = T('tabStats');
 
     // Lang switcher active state
     document.querySelectorAll('.lang-btn').forEach(btn => {
@@ -122,14 +130,30 @@ const App = (() => {
 
   // ===== Theme =====
   // The initial theme is applied by an inline <head> script before first
-  // paint; these buttons just flip it and persist the choice.
+  // paint; these buttons just flip it and persist the choice. Where the View
+  // Transitions API exists, the new theme sweeps out from the button in an
+  // expanding circle (see fx.css ::view-transition rules).
+  function toggleTheme(originEl) {
+    const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+    const apply = () => {
+      document.documentElement.dataset.theme = next;
+      localStorage.setItem('flashmind_theme', next);
+    };
+    if (document.startViewTransition && !FX.reduced()) {
+      if (originEl) {
+        const r = originEl.getBoundingClientRect();
+        document.documentElement.style.setProperty('--tt-x', (r.left + r.width / 2) + 'px');
+        document.documentElement.style.setProperty('--tt-y', (r.top + r.height / 2) + 'px');
+      }
+      document.startViewTransition(apply);
+    } else {
+      apply();
+    }
+  }
+
   function setupTheme() {
     document.querySelectorAll('.theme-toggle').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
-        document.documentElement.dataset.theme = next;
-        localStorage.setItem('flashmind_theme', next);
-      });
+      btn.addEventListener('click', () => toggleTheme(btn));
     });
   }
 
@@ -192,13 +216,33 @@ const App = (() => {
   }
 
   // ===== Study Tabs =====
+  const TAB_ORDER = ['notes', 'flashcards', 'quiz', 'stats', 'chat'];
+  let tabIndicator = null;
+
   function setupStudyTabs() {
     document.querySelectorAll('.study-tab').forEach(tab => {
       tab.addEventListener('click', () => switchTab(tab.dataset.tab));
     });
+    // Sliding underline that glides between tabs (desktop only; fx.css hides
+    // it when the tab strip becomes the mobile bottom nav).
+    const nav = document.querySelector('.study-tabs');
+    tabIndicator = document.createElement('span');
+    tabIndicator.className = 'tab-indicator';
+    nav.appendChild(tabIndicator);
+    window.addEventListener('resize', moveTabIndicator);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(moveTabIndicator);
+  }
+
+  function moveTabIndicator() {
+    if (!tabIndicator) return;
+    const active = document.querySelector('.study-tab.active');
+    if (!active) return;
+    tabIndicator.style.width = active.offsetWidth + 'px';
+    tabIndicator.style.transform = `translateX(${active.offsetLeft}px)`;
   }
 
   function switchTab(tabName) {
+    const prevTab = currentTab;
     currentTab = tabName;
     document.querySelectorAll('.study-tab').forEach(t => {
       const active = t.dataset.tab === tabName;
@@ -206,8 +250,79 @@ const App = (() => {
       t.setAttribute('aria-selected', active ? 'true' : 'false');
     });
     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    document.getElementById(`tab-${tabName}`).classList.add('active');
+    const content = document.getElementById(`tab-${tabName}`);
+    content.classList.add('active');
+    // Content slides in from the direction of travel.
+    if (prevTab !== tabName) {
+      const dir = TAB_ORDER.indexOf(tabName) > TAB_ORDER.indexOf(prevTab) ? 'tab-slide-left' : 'tab-slide-right';
+      content.classList.remove('tab-slide-left', 'tab-slide-right');
+      void content.offsetWidth; // restart the animation
+      content.classList.add(dir);
+      content.addEventListener('animationend', () => content.classList.remove(dir), { once: true });
+    }
+    moveTabIndicator();
+    updateReadProgress();
     if (tabName === 'stats' && typeof Stats !== 'undefined') Stats.render();
+  }
+
+  // ===== Notes reading progress =====
+  // Thin gradient bar under the topbar that fills as you scroll the notes.
+  let readBar = null;
+
+  function setupReadProgress() {
+    readBar = document.createElement('div');
+    readBar.className = 'read-progress';
+    document.querySelector('.topbar').appendChild(readBar);
+    window.addEventListener('scroll', updateReadProgress, { passive: true });
+  }
+
+  function updateReadProgress() {
+    if (!readBar) return;
+    if (currentView !== 'study' || currentTab !== 'notes') { readBar.style.width = '0%'; return; }
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    readBar.style.width = max > 40 ? Math.min(100, (h.scrollTop / max) * 100) + '%' : '0%';
+  }
+
+  // ===== Keyboard shortcuts overlay (press ?) =====
+  let shortcutsEl = null;
+
+  function buildShortcuts() {
+    if (shortcutsEl) return;
+    const T = i18n.t;
+    const rows = [
+      ['Ctrl + K', T('scPalette')],
+      ['Ctrl + Enter', T('scGenerate')],
+      ['Space', T('scFlip')],
+      ['1 / 2 / 3', T('scRate')],
+      ['Esc', T('scEsc')],
+      ['?', T('shortcutsTitle')]
+    ];
+    shortcutsEl = document.createElement('div');
+    shortcutsEl.className = 'shortcuts-backdrop';
+    shortcutsEl.style.display = 'none';
+    shortcutsEl.innerHTML = `
+      <div class="shortcuts-card" role="dialog" aria-modal="true">
+        <h3>${T('shortcutsTitle')}</h3>
+        ${rows.map(([k, d]) => `<div class="shortcut-row"><span>${d}</span><kbd>${k}</kbd></div>`).join('')}
+      </div>`;
+    document.body.appendChild(shortcutsEl);
+    shortcutsEl.addEventListener('click', (e) => { if (e.target === shortcutsEl) toggleShortcuts(false); });
+  }
+
+  function toggleShortcuts(force) {
+    buildShortcuts();
+    const show = force !== undefined ? force : shortcutsEl.style.display === 'none';
+    shortcutsEl.style.display = show ? 'flex' : 'none';
+  }
+
+  function setupShortcutsOverlay() {
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && shortcutsEl && shortcutsEl.style.display !== 'none') { toggleShortcuts(false); return; }
+      const tag = (e.target.tagName || '').toLowerCase();
+      if (tag === 'input' || tag === 'textarea' || tag === 'select' || e.target.isContentEditable) return;
+      if (e.key === '?') { e.preventDefault(); toggleShortcuts(); }
+    });
   }
 
   // ===== PDF =====
@@ -434,20 +549,18 @@ const App = (() => {
     textEl.style.display = 'none';
     loadingEl.style.display = '';
 
-    // Staged progress: rotate through generation-phase messages so the wait
-    // feels alive instead of a bare seconds counter.
+    // Staged progress: an animated checklist under the button walks through
+    // the generation phases (time-driven — it's a single API call) with a
+    // shimmering skeleton, so the wait feels alive.
     const stageEl = document.getElementById('gen-stage');
-    const stages = [i18n.t('genStage1'), i18n.t('genStage2'), i18n.t('genStage3'), i18n.t('genStage4')];
+    if (stageEl) stageEl.textContent = i18n.t('generating');
     let seconds = 0;
     elapsedEl.textContent = '0s';
-    if (stageEl) stageEl.textContent = stages[0];
+    renderGenProgress(0);
     elapsedTimer = setInterval(() => {
       seconds++;
       elapsedEl.textContent = seconds + 's';
-      if (stageEl) {
-        const stage = stages[Math.min(Math.floor(seconds / 8), stages.length - 1)];
-        if (stageEl.textContent !== stage) stageEl.textContent = stage;
-      }
+      renderGenProgress(Math.min(Math.floor(seconds / 8), 3));
     }, 1000);
 
     const { flashcardConfig, quizConfig } = getGenerationConfig();
@@ -461,9 +574,36 @@ const App = (() => {
     }
 
     clearInterval(elapsedTimer);
+    hideGenProgress();
     btn.disabled = false;
     textEl.style.display = '';
     loadingEl.style.display = 'none';
+  }
+
+  // Stage checklist rendered under the Generate button while a set is being
+  // built. Steps before `activeIdx` show a drawn check, the active one spins.
+  let genProgressStage = -1;
+
+  function renderGenProgress(activeIdx) {
+    const panel = document.getElementById('gen-progress');
+    if (!panel) return;
+    if (genProgressStage === activeIdx && panel.style.display !== 'none') return;
+    genProgressStage = activeIdx;
+    const stages = [i18n.t('genStage1'), i18n.t('genStage2'), i18n.t('genStage3'), i18n.t('genStage4')];
+    const spinner = '<svg class="spinner" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="31.4 31.4" stroke-linecap="round"/></svg>';
+    const check = '<svg class="gen-check" viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg>';
+    panel.innerHTML = stages.map((label, i) => {
+      const state = i < activeIdx ? 'done' : i === activeIdx ? 'active' : 'pending';
+      const icon = state === 'done' ? check : state === 'active' ? spinner : '<span class="dot"></span>';
+      return `<div class="gen-step ${state}"><span class="gen-step-icon">${icon}</span><span>${label}</span></div>`;
+    }).join('') + '<div class="gen-skeleton"><span></span><span></span><span></span></div>';
+    panel.style.display = '';
+  }
+
+  function hideGenProgress() {
+    genProgressStage = -1;
+    const panel = document.getElementById('gen-progress');
+    if (panel) { panel.style.display = 'none'; panel.innerHTML = ''; }
   }
 
   // ===== Show Study View =====
@@ -590,6 +730,8 @@ const App = (() => {
     currentView = 'input';
     document.getElementById('study-view').classList.remove('active');
     document.getElementById('input-view').classList.add('active');
+    // Re-render so a deck created this session (and fresh due counts) show up.
+    renderDeckLibrary();
   }
 
   // ===== Export =====
@@ -761,17 +903,27 @@ const App = (() => {
     wrap.style.display = 'block';
     const T = i18n.t;
     let html = `<div class="deck-library-head"><span class="deck-library-title">${T('yourDecks')}</span></div><div class="deck-library-grid">`;
-    decks.forEach(d => {
+    decks.forEach((d, idx) => {
       const data = d.data || {};
-      const cards = Array.isArray(data.flashcards) ? data.flashcards.length : 0;
+      const cardList = Array.isArray(data.flashcards) ? data.flashcards : [];
+      const cards = cardList.length;
       const qs = Array.isArray(data.quiz) ? data.quiz.length : 0;
-      const due = (() => {
-        // Count due cards for this specific deck without switching active.
-        const now = Date.now();
-        return Object.values(d.srs || {}).filter(s => s && s.due && s.due <= now).length;
-      })();
+      const now = Date.now();
+      // Due + mastery for this specific deck without switching active.
+      const due = Object.values(d.srs || {}).filter(s => s && s.due && s.due <= now).length;
+      const ids = new Set(cardList.map(c => String(c.id)));
+      const masteredCount = Object.entries(d.srs || {})
+        .filter(([id, s]) => ids.has(id) && s && s.due > now).length;
+      const pct = cards ? Math.round((masteredCount / cards) * 100) : 0;
       html += `
-        <div class="deck-card" data-id="${d.id}" role="button" tabindex="0">
+        <div class="deck-card fade-up" data-id="${d.id}" role="button" tabindex="0" style="--i:${idx}">
+          <div class="deck-ring-wrap" title="${pct}%">
+            <svg class="deck-ring" viewBox="0 0 36 36">
+              <circle class="deck-ring-bg" cx="18" cy="18" r="15.5"/>
+              <circle class="deck-ring-fill" cx="18" cy="18" r="15.5" pathLength="100" style="--pct:${pct}"/>
+            </svg>
+            <span class="deck-ring-num">${pct}%</span>
+          </div>
           <div class="deck-card-body">
             <h3 class="deck-card-title">${escText(data.title || T('importedSet'))}</h3>
             <div class="deck-card-meta">
@@ -830,6 +982,11 @@ const App = (() => {
     const toast = document.createElement('div');
     toast.className = `toast ${type}`;
     toast.textContent = message;
+    // Auto-dismiss progress bar along the bottom edge.
+    const progress = document.createElement('span');
+    progress.className = 'toast-progress';
+    progress.style.animationDuration = '3000ms';
+    toast.appendChild(progress);
     container.appendChild(toast);
     setTimeout(() => { toast.classList.add('removing'); setTimeout(() => toast.remove(), 300); }, 3000);
   }
@@ -840,5 +997,5 @@ const App = (() => {
 
   document.addEventListener('DOMContentLoaded', init);
 
-  return { switchTab, showToast, getStudyData, getOriginalText };
+  return { switchTab, showToast, getStudyData, getOriginalText, openDeck, toggleTheme, toggleShortcuts };
 })();

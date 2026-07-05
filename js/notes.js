@@ -19,9 +19,9 @@ const Notes = (() => {
       <div class="notes-summary">${esc(notes.summary)}</div>
     </div>`;
 
-    // Sections
+    // Sections (scroll-revealed with a slight cascade — see FX.observe below)
     notes.sections.forEach((section, idx) => {
-      html += `<div class="notes-section">
+      html += `<div class="notes-section reveal" style="--i:${idx % 3}">
         <h2 class="notes-section-title">${esc(section.title)}</h2>
         <p class="notes-section-content">${esc(section.content)}</p>`;
 
@@ -63,13 +63,13 @@ const Notes = (() => {
     }
 
     if (notes.importantDates && notes.importantDates.length > 0) {
-      html += `<div class="notes-dates"><h3 class="notes-dates-title">${T('importantDates')}</h3>`;
+      html += `<div class="notes-dates reveal"><h3 class="notes-dates-title">${T('importantDates')}</h3>`;
       notes.importantDates.forEach(d => { html += `<div class="date-item">${esc(d)}</div>`; });
       html += `</div>`;
     }
 
     if (notes.commonMistakes && notes.commonMistakes.length > 0) {
-      html += `<div class="notes-mistakes"><h3 class="notes-mistakes-title">${T('commonMistakes')}</h3>`;
+      html += `<div class="notes-mistakes reveal"><h3 class="notes-mistakes-title">${T('commonMistakes')}</h3>`;
       notes.commonMistakes.forEach(m => { html += `<div class="mistake-item">${esc(m)}</div>`; });
       html += `</div>`;
     }
@@ -81,6 +81,7 @@ const Notes = (() => {
 
     html += `</div>`;
     container.innerHTML = html;
+    if (typeof FX !== 'undefined') FX.observe(container);
   }
 
   // ===== SVG Diagram Rendering =====

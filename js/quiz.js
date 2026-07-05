@@ -151,7 +151,10 @@ const Quiz = (() => {
     let timerHtml = '';
     if (settings.timer) {
       state.timeLeft = settings.timerDuration;
-      timerHtml = `<span class="quiz-timer" id="quiz-timer">${settings.timerDuration}s</span>`;
+      timerHtml = `<span class="quiz-timer-wrap" id="quiz-timer-wrap">
+        <svg viewBox="0 0 36 36"><circle class="qt-track" cx="18" cy="18" r="15"/><circle class="qt-fill" id="quiz-timer-ring" cx="18" cy="18" r="15" pathLength="100"/></svg>
+        <span class="quiz-timer" id="quiz-timer">${settings.timerDuration}s</span>
+      </span>`;
     }
     state.questionStartTime = Date.now();
 
@@ -172,7 +175,14 @@ const Quiz = (() => {
       timerInterval = setInterval(() => {
         state.timeLeft--;
         const el = document.getElementById('quiz-timer');
-        if (el) { el.textContent = state.timeLeft + 's'; if (state.timeLeft <= 5) el.classList.add('warning'); }
+        const ring = document.getElementById('quiz-timer-ring');
+        const wrap = document.getElementById('quiz-timer-wrap');
+        if (el) el.textContent = state.timeLeft + 's';
+        if (ring) ring.style.strokeDashoffset = (100 * (1 - state.timeLeft / settings.timerDuration)).toFixed(1);
+        if (state.timeLeft <= 5 && state.timeLeft > 0) {
+          if (wrap) wrap.classList.add('warning');
+          Sound.play('click');
+        }
         if (state.timeLeft <= 0) { clearInterval(timerInterval); timeOut(q); }
       }, 1000);
     }
@@ -263,15 +273,26 @@ const Quiz = (() => {
     }, extra || {}));
   }
 
+  // Animated per-option verdicts: a checkmark that draws itself on the
+  // correct option, a drawn cross + shake on a wrong pick.
+  const CHECK_SVG = '<svg class="opt-check" viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg>';
+  const CROSS_SVG = '<svg class="opt-cross" viewBox="0 0 24 24"><path d="M7 7l10 10M17 7L7 17"/></svg>';
+
+  function feedbackSound(result) {
+    Sound.play(result === 'correct' ? 'correct' : result === 'blank' ? 'flip' : 'wrong');
+    Sound.haptic(result === 'correct' ? [12, 40, 12] : 25);
+  }
+
   function gradeMultipleChoice(q, idx) {
     clearInterval(timerInterval);
     const result = idx < 0 ? 'blank' : (idx === q.correct ? 'correct' : 'wrong');
     recordObjective(q, result, { selected: idx });
+    feedbackSound(result);
     container.querySelectorAll('.quiz-option').forEach(opt => {
       opt.classList.add('disabled');
       const i = parseInt(opt.dataset.idx);
-      if (i === q.correct) { opt.classList.add('correct'); opt.innerHTML += '<span class="option-indicator">&#10003;</span>'; }
-      if (i === idx && result === 'wrong') { opt.classList.add('wrong'); opt.innerHTML += '<span class="option-indicator">&#10007;</span>'; }
+      if (i === q.correct) { opt.classList.add('correct'); opt.innerHTML += CHECK_SVG; }
+      if (i === idx && result === 'wrong') { opt.classList.add('wrong', 'shake'); opt.innerHTML += CROSS_SVG; }
     });
     showNextButton(q);
   }
@@ -280,6 +301,7 @@ const Quiz = (() => {
     clearInterval(timerInterval);
     const result = chosen === !!q.correct ? 'correct' : 'wrong';
     recordObjective(q, result, { selected: chosen });
+    feedbackSound(result);
     revealTrueFalse(q, chosen);
     showNextButton(q);
   }
@@ -288,7 +310,7 @@ const Quiz = (() => {
       opt.classList.add('disabled');
       const val = opt.dataset.tf === 'true';
       if (val === !!q.correct) opt.classList.add('correct');
-      else if (chosen !== null && val === chosen) opt.classList.add('wrong');
+      else if (chosen !== null && val === chosen) opt.classList.add('wrong', 'shake');
     });
   }
 
@@ -299,7 +321,12 @@ const Quiz = (() => {
     const accepted = (q.answers || []).map(normalize);
     const result = !val ? 'blank' : (accepted.includes(normalize(val)) ? 'correct' : 'wrong');
     recordObjective(q, result, { answerText: val });
-    if (inp) { inp.disabled = true; inp.classList.add(result === 'correct' ? 'correct' : 'wrong'); }
+    feedbackSound(result);
+    if (inp) {
+      inp.disabled = true;
+      inp.classList.add(result === 'correct' ? 'correct' : 'wrong');
+      if (result === 'wrong') inp.classList.add('shake');
+    }
     const btn = document.getElementById('fill-submit-btn'); if (btn) btn.disabled = true;
     const fb = document.getElementById('quiz-feedback');
     fb.innerHTML = `<div class="fill-answer ${result}">
@@ -320,11 +347,12 @@ const Quiz = (() => {
       const row = container.querySelector(`.match-row[data-i="${i}"]`);
       sel.disabled = true;
       if (normalize(chosen) === normalize(right)) { correctPairs++; row.classList.add('correct'); }
-      else { row.classList.add('wrong'); row.insertAdjacentHTML('beforeend', `<span class="match-correct">→ ${esc(right)}</span>`); }
+      else { row.classList.add('wrong', 'shake'); row.insertAdjacentHTML('beforeend', `<span class="match-correct">→ ${esc(right)}</span>`); }
     });
     const total = q.pairs.length;
     const result = !anyChosen ? 'blank' : (correctPairs === total ? 'correct' : (correctPairs === 0 ? 'wrong' : 'partial'));
     recordObjective(q, result, { correctPairs, totalPairs: total });
+    feedbackSound(result === 'partial' ? 'correct' : result);
     const btn = document.getElementById('match-submit-btn'); if (btn) btn.disabled = true;
     showNextButton(q);
   }
@@ -354,6 +382,7 @@ const Quiz = (() => {
       missedPoints: gradeResult.missedPoints, correctAnswer: q.correctAnswer,
       time: Math.floor((Date.now() - state.questionStartTime) / 1000)
     });
+    feedbackSound(gradeResult.score >= 2 ? 'correct' : 'wrong');
 
     const scoreColor = gradeResult.score === 3 ? 'var(--correct)' : gradeResult.score === 2 ? 'var(--highlight)' : gradeResult.score === 1 ? '#f97316' : 'var(--wrong)';
     let html = `<div class="oe-grade-result" style="animation: fadeSlideUp 0.3s ease">
@@ -442,7 +471,22 @@ const Quiz = (() => {
 
     container.innerHTML = `
       <div class="quiz-container"><div class="quiz-results">
-        <div class="quiz-score-circle"><span class="quiz-score-value">${pct}</span><span class="quiz-score-percent">${T('points100')}</span></div>
+        <div class="quiz-score-ring">
+          <svg viewBox="0 0 120 120">
+            <defs>
+              <linearGradient id="ring-grad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="var(--primary)"/>
+                <stop offset="1" stop-color="var(--secondary)"/>
+              </linearGradient>
+            </defs>
+            <circle class="ring-track" cx="60" cy="60" r="52"/>
+            <circle class="ring-fill" cx="60" cy="60" r="52" pathLength="100"/>
+          </svg>
+          <div class="ring-center">
+            <span class="quiz-score-value" id="quiz-score-num">0</span>
+            <span class="quiz-score-percent">${T('points100')}</span>
+          </div>
+        </div>
         <div class="quiz-grade ${gradeClass}">${grade}</div>
         <div class="quiz-result-stats">
           ${objAnswers.length ? stat(dogru, T('correctCount'), 'var(--correct)') : ''}
@@ -466,7 +510,16 @@ const Quiz = (() => {
       Stats.recordExam(pct, grade, title);
     }
 
-    if (pct >= 85) launchConfetti();
+    // Animate the gauge: the ring transitions to the score (see fx.css) while
+    // the number counts up in sync; the result stats cascade in.
+    const ringFill = container.querySelector('.ring-fill');
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      if (ringFill) ringFill.style.setProperty('--pct', pct);
+    }));
+    FX.countUp(document.getElementById('quiz-score-num'), pct, { duration: 1200 });
+    container.querySelectorAll('.quiz-result-stat').forEach((el, i) => el.style.setProperty('--i', i));
+
+    if (pct >= 85) { FX.celebrate(); Sound.play('complete'); }
     document.getElementById('review-btn').addEventListener('click', showReview);
     document.getElementById('retake-btn').addEventListener('click', () => { state = null; renderReady(); });
   }
@@ -519,25 +572,6 @@ const Quiz = (() => {
         el.style.display = (wrongOnly && el.dataset.correct === 'true') ? 'none' : '';
       });
     });
-  }
-
-  function launchConfetti() {
-    const c = document.getElementById('confetti-container');
-    if (!c) return;
-    const colors = ['#7c3aed', '#06b6d4', '#22c55e', '#fbbf24', '#ef4444', '#ec4899'];
-    for (let i = 0; i < 60; i++) {
-      const p = document.createElement('div');
-      p.className = 'confetti-piece';
-      p.style.left = Math.random() * 100 + '%';
-      p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-      p.style.animationDelay = Math.random() * 2 + 's';
-      p.style.animationDuration = (2 + Math.random() * 2) + 's';
-      p.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
-      p.style.width = (6 + Math.random() * 8) + 'px';
-      p.style.height = (6 + Math.random() * 8) + 'px';
-      c.appendChild(p);
-    }
-    setTimeout(() => { c.innerHTML = ''; }, 4000);
   }
 
   function esc(str) { if (str == null) return ''; const d = document.createElement('div'); d.textContent = String(str); return d.innerHTML; }

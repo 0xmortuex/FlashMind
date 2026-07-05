@@ -27,9 +27,10 @@
   <link rel="stylesheet" href="css/profile.css">
   <link rel="stylesheet" href="css/chat.css">
   <link rel="stylesheet" href="css/library.css">
+  <link rel="stylesheet" href="css/fx.css">
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#0a0c12">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 </head>
 <body>
   <!-- Toast Container -->
@@ -48,6 +49,10 @@
       <button class="theme-toggle" id="theme-toggle-input" aria-label="Toggle theme">
         <svg class="icon-moon" viewBox="0 0 24 24" fill="none"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <button class="sound-toggle" id="sound-toggle-input" aria-label="Toggle sound">
+        <svg class="icon-sound-on" viewBox="0 0 24 24" fill="none"><path d="M11 5L6 9H3v6h3l5 4V5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M15.5 8.5a5 5 0 010 7M18 6a8.5 8.5 0 010 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <svg class="icon-sound-off" viewBox="0 0 24 24" fill="none"><path d="M11 5L6 9H3v6h3l5 4V5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M16 9l5 5M21 9l-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       </button>
     </div>
     <div class="input-wrapper">
@@ -200,6 +205,7 @@
           <span id="elapsed-time">0s</span>
         </span>
       </button>
+      <div id="gen-progress" class="gen-progress" style="display:none"></div>
       <p class="generate-hint">Ctrl + Enter</p>
       </div>
 
@@ -232,6 +238,10 @@
         <button class="theme-toggle" id="theme-toggle-study" aria-label="Toggle theme">
           <svg class="icon-moon" viewBox="0 0 24 24" fill="none"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <svg class="icon-sun" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+        <button class="sound-toggle" id="sound-toggle-study" aria-label="Toggle sound">
+          <svg class="icon-sound-on" viewBox="0 0 24 24" fill="none"><path d="M11 5L6 9H3v6h3l5 4V5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M15.5 8.5a5 5 0 010 7M18 6a8.5 8.5 0 010 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg class="icon-sound-off" viewBox="0 0 24 24" fill="none"><path d="M11 5L6 9H3v6h3l5 4V5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M16 9l5 5M21 9l-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         </button>
         <button class="btn-share" id="share-btn">Share</button>
         <div class="export-dropdown">
@@ -399,6 +409,8 @@
   </div>
 
   <script src="js/i18n.js"></script>
+  <script src="js/fx.js"></script>
+  <script src="js/sound.js"></script>
   <script src="js/decks.js"></script>
   <script src="js/stats.js"></script>
   <script src="js/demo.js"></script>
@@ -412,6 +424,7 @@
   <script src="js/search.js"></script>
   <script src="js/profile.js"></script>
   <script src="js/export.js"></script>
+  <script src="js/palette.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

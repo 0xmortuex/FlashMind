@@ -251,12 +251,6 @@
   width: 500px;
   height: 300px;
   cursor: pointer;
-  animation: slideInRight 0.3s ease;
-}
-
-@keyframes slideInRight {
-  from { opacity: 0; transform: translateX(60px); }
-  to { opacity: 1; transform: translateX(0); }
 }
 
 .study-card-inner {

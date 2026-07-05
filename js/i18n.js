@@ -244,6 +244,26 @@ const i18n = (() => {
       genFailed: 'Generation failed:',
       restored: 'Restored your previous study materials',
 
+      // Command palette
+      palettePlaceholder: 'Type a command or search…',
+      paletteNoResults: 'No matches',
+      paletteNav: 'Navigate',
+      paletteActions: 'Actions',
+      cmdToggleTheme: 'Toggle theme',
+      cmdToggleSound: 'Toggle sounds & haptics',
+
+      // Sound
+      soundOnToast: 'Sounds & haptics on',
+      soundOffToast: 'Sounds & haptics off',
+
+      // Keyboard shortcuts overlay
+      shortcutsTitle: 'Keyboard shortcuts',
+      scPalette: 'Command palette',
+      scGenerate: 'Generate (input screen)',
+      scFlip: 'Flip card (study mode)',
+      scRate: 'Rate card: Again / Hard / Got it',
+      scEsc: 'Close overlays / exit study',
+
       // Language
       langEn: 'EN',
       langTr: 'TR',
@@ -488,6 +508,26 @@ const i18n = (() => {
       truncated: 'Metin 15.000 karaktere kisaltildi',
       genFailed: 'Olusturma basarisiz:',
       restored: 'Onceki calisma materyalleriniz geri yuklendi',
+
+      // Command palette
+      palettePlaceholder: 'Komut yazın veya arayın…',
+      paletteNoResults: 'Sonuç yok',
+      paletteNav: 'Gezin',
+      paletteActions: 'Eylemler',
+      cmdToggleTheme: 'Temayı değiştir',
+      cmdToggleSound: 'Sesleri aç/kapat',
+
+      // Sound
+      soundOnToast: 'Ses ve titreşim açık',
+      soundOffToast: 'Ses ve titreşim kapalı',
+
+      // Keyboard shortcuts overlay
+      shortcutsTitle: 'Klavye kısayolları',
+      scPalette: 'Komut paleti',
+      scGenerate: 'Oluştur (giriş ekranı)',
+      scFlip: 'Kartı çevir (çalışma modu)',
+      scRate: 'Kartı değerlendir: Tekrar / Zor / Bildim',
+      scEsc: 'Pencereleri kapat / çalışmadan çık',
 
       // Language
       langEn: 'EN',
