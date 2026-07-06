@@ -128,5 +128,32 @@ const FX = (() => {
     els.forEach(el => io.observe(el));
   }
 
-  return { reduced, burst, celebrate, countUp, observe };
+  // ----- Focus trap for modal dialogs -----
+  // Keeps Tab cycling inside `container`; returns a release function that
+  // removes the trap and restores focus to the previously focused element.
+  function trapFocus(container) {
+    const prev = document.activeElement;
+    function focusables() {
+      return Array.from(container.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      )).filter(el => el.offsetParent !== null && !el.disabled);
+    }
+    function onKey(e) {
+      if (e.key !== 'Tab') return;
+      const els = focusables();
+      if (!els.length) return;
+      const first = els[0], last = els[els.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+    container.addEventListener('keydown', onKey);
+    const els = focusables();
+    if (els.length) els[0].focus();
+    return () => {
+      container.removeEventListener('keydown', onKey);
+      if (prev && typeof prev.focus === 'function') prev.focus();
+    };
+  }
+
+  return { reduced, burst, celebrate, countUp, observe, trapFocus };
 })();

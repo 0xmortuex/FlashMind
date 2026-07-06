@@ -13,8 +13,8 @@ const i18n = (() => {
       pasteHolder: 'Paste your notes, textbook content, lecture transcript, or any study material...',
       charCount: '{n} characters',
       clear: 'Clear',
-      dropText: 'Drop a PDF or JSON file here, or click to browse',
-      dropHint: 'Text-based PDFs and FlashMind JSON exports',
+      dropText: 'Drop a PDF, JSON, or CSV file here, or click to browse',
+      dropHint: 'Text-based PDFs, FlashMind JSON, and CSV/TSV flashcards (e.g. Anki exports)',
       extracting: 'Extracting text...',
       extractingPage: 'Extracting text... Page {c}/{t}',
       useText: 'Use this text',
@@ -264,6 +264,68 @@ const i18n = (() => {
       scRate: 'Rate card: Again / Hard / Got it',
       scEsc: 'Close overlays / exit study',
 
+      // Mistake notebook
+      retakeMistakes: 'Retake mistakes ({n})',
+      mistakesHint: 'Questions you got wrong — answer them correctly to clear them.',
+      explainThis: 'Explain this',
+      explainPrompt: 'I got this exam question wrong: "{q}". The correct answer is: "{a}". Explain why that answer is correct and where I probably went wrong.',
+
+      // Read aloud
+      readAloud: 'Read aloud',
+      stopReading: 'Stop',
+
+      // CSV import
+      csvEmpty: 'No flashcards found in that file (need front,back columns)',
+      csvImported: '{n} flashcards imported!',
+
+      // Weak spots
+      targetWeak: 'Target weak spots',
+      noWeakSpots: 'No weak spots detected yet — study some cards first!',
+
+      // Deck management
+      searchDecks: 'Search decks...',
+      deckActions: 'Deck actions',
+      renameDeck: 'Rename',
+      duplicateDeck: 'Duplicate',
+      renamePrompt: 'New deck name:',
+      deckDuplicated: 'Deck duplicated',
+
+      // Printable exam
+      examPdfKey: 'Printable Exam (PDF)',
+      answerKey: 'Answer Key',
+
+      // Streaming generation
+      genLive: '{f} flashcards · {q} questions written...',
+
+      // Device sync
+      syncTitle: 'Sync devices',
+      syncDesc: 'Sync your decks and stats across devices — no account needed. Enable sync here, then enter the code on your other device.',
+      syncEnable: 'Enable sync',
+      syncEnter: 'Enter a code',
+      syncEnterPrompt: 'Sync code from your other device:',
+      syncCodeLabel: 'Your sync code — enter it on another device:',
+      syncCodeWarn: 'Anyone with this code can read and change your decks. Keep it private.',
+      syncLast: 'Last synced',
+      syncNow: 'Sync now',
+      syncDisable: 'Disable',
+      syncDone: 'Synced!',
+      syncFailed: 'Sync failed:',
+      syncEnabled: 'Sync enabled — enter your code on another device',
+      syncDisabled: 'Sync disabled on this device',
+      syncCodeInvalid: 'That sync code was not found',
+
+      // URL import
+      urlHolder: 'https://... (import text from a web page)',
+      urlFetch: 'Fetch',
+      urlFetching: 'Fetching...',
+      urlFetched: 'Page text imported — review it, then generate',
+      urlFailed: 'Could not import that page:',
+
+      // Stats extras
+      forecastTitle: 'Upcoming reviews — next 7 days',
+      activityTitle: 'Study activity — last 6 months',
+      todayLabel: 'Today',
+
       // Language
       langEn: 'EN',
       langTr: 'TR',
@@ -278,8 +340,8 @@ const i18n = (() => {
       pasteHolder: 'Notlarinizi, ders kitabi icerigini, ders yazisini veya herhangi bir calisma materyalini yapistirin...',
       charCount: '{n} karakter',
       clear: 'Temizle',
-      dropText: "Bir PDF veya JSON dosyasini buraya birakin",
-      dropHint: "Metin tabanli PDF'ler ve FlashMind JSON disa aktarimlari",
+      dropText: 'Bir PDF, JSON veya CSV dosyasini buraya birakin',
+      dropHint: "Metin tabanli PDF'ler, FlashMind JSON ve CSV/TSV kartlar (orn. Anki)",
       extracting: 'Metin cikariliyor...',
       extractingPage: 'Metin cikariliyor... Sayfa {c}/{t}',
       useText: 'Bu metni kullan',
@@ -528,6 +590,68 @@ const i18n = (() => {
       scFlip: 'Kartı çevir (çalışma modu)',
       scRate: 'Kartı değerlendir: Tekrar / Zor / Bildim',
       scEsc: 'Pencereleri kapat / çalışmadan çık',
+
+      // Mistake notebook
+      retakeMistakes: 'Yanlışlarını çöz ({n})',
+      mistakesHint: 'Yanlış defterin — doğru cevapladıkça sorular silinir.',
+      explainThis: 'Bunu açıkla',
+      explainPrompt: 'Bu sınav sorusunu yanlış yaptım: "{q}". Doğru cevap: "{a}". Bu cevabın neden doğru olduğunu ve muhtemelen nerede hata yaptığımı açıkla.',
+
+      // Read aloud
+      readAloud: 'Sesli oku',
+      stopReading: 'Durdur',
+
+      // CSV import
+      csvEmpty: 'Dosyada kart bulunamadı (ön,arka sütunları gerekli)',
+      csvImported: '{n} kart içe aktarıldı!',
+
+      // Weak spots
+      targetWeak: 'Zayıf noktaları çalış',
+      noWeakSpots: 'Henüz zayıf nokta tespit edilmedi — önce biraz kart çalış!',
+
+      // Deck management
+      searchDecks: 'Destelerde ara...',
+      deckActions: 'Deste işlemleri',
+      renameDeck: 'Yeniden adlandır',
+      duplicateDeck: 'Kopyala',
+      renamePrompt: 'Yeni deste adı:',
+      deckDuplicated: 'Deste kopyalandı',
+
+      // Printable exam
+      examPdfKey: 'Yazdırılabilir Sınav (PDF)',
+      answerKey: 'Cevap Anahtarı',
+
+      // Streaming generation
+      genLive: '{f} kart · {q} soru yazıldı...',
+
+      // Device sync
+      syncTitle: 'Cihaz senkronu',
+      syncDesc: 'Destelerini ve istatistiklerini cihazlar arasında eşitle — hesap gerekmez. Burada senkronu aç, kodu diğer cihazına gir.',
+      syncEnable: 'Senkronu aç',
+      syncEnter: 'Kod gir',
+      syncEnterPrompt: 'Diğer cihazındaki senkron kodu:',
+      syncCodeLabel: 'Senkron kodun — diğer cihazına gir:',
+      syncCodeWarn: 'Bu koda sahip herkes destelerini okuyabilir ve değiştirebilir. Gizli tut.',
+      syncLast: 'Son eşitleme',
+      syncNow: 'Şimdi eşitle',
+      syncDisable: 'Kapat',
+      syncDone: 'Eşitlendi!',
+      syncFailed: 'Eşitleme başarısız:',
+      syncEnabled: 'Senkron açıldı — kodu diğer cihazına gir',
+      syncDisabled: 'Bu cihazda senkron kapatıldı',
+      syncCodeInvalid: 'Bu senkron kodu bulunamadı',
+
+      // URL import
+      urlHolder: 'https://... (web sayfasından metin al)',
+      urlFetch: 'Getir',
+      urlFetching: 'Getiriliyor...',
+      urlFetched: 'Sayfa metni alındı — kontrol et, sonra oluştur',
+      urlFailed: 'Sayfa alınamadı:',
+
+      // Stats extras
+      forecastTitle: 'Yaklaşan tekrarlar — 7 gün',
+      activityTitle: 'Çalışma aktivitesi — son 6 ay',
+      todayLabel: 'Bugün',
 
       // Language
       langEn: 'EN',

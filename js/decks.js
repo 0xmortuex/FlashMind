@@ -45,6 +45,28 @@ const Decks = (() => {
         try { localStorage.setItem(STORE_KEY, JSON.stringify(store)); } catch (e2) { /* give up */ }
       }
     }
+    // Device sync rides every persist (debounced inside Sync).
+    if (typeof Sync !== 'undefined' && Sync.schedulePush) Sync.schedulePush();
+  }
+
+  // Merge a remote deck store (device sync): per deck, newer updatedAt wins.
+  function mergeRemote(remoteJson) {
+    load();
+    let remote;
+    try { remote = typeof remoteJson === 'string' ? JSON.parse(remoteJson) : remoteJson; }
+    catch (e) { return false; }
+    if (!remote || typeof remote.decks !== 'object') return false;
+    let changed = false;
+    Object.values(remote.decks).forEach(rd => {
+      if (!rd || !rd.id) return;
+      const local = store.decks[rd.id];
+      if (!local || (rd.updatedAt || 0) > (local.updatedAt || 0)) {
+        store.decks[rd.id] = rd;
+        changed = true;
+      }
+    });
+    if (changed) persist();
+    return changed;
   }
 
   function newId() {
@@ -101,33 +123,141 @@ const Decks = (() => {
     if (deck) { deck.updatedAt = Date.now(); persist(); }
   }
 
-  // ----- SM-2 spaced repetition -----
-  // srs[cardId] = { ef, reps, interval (days), due (ms epoch) }
+  function rename(id, title) {
+    load();
+    const deck = store.decks[id];
+    if (!deck || !title || !title.trim()) return null;
+    deck.data = deck.data || {};
+    deck.data.title = title.trim();
+    deck.updatedAt = Date.now();
+    persist();
+    return deck;
+  }
+
+  // Full copy including SRS progress, under a new id.
+  function duplicate(id) {
+    load();
+    const src = store.decks[id];
+    if (!src) return null;
+    const copy = JSON.parse(JSON.stringify(src));
+    copy.id = newId();
+    copy.createdAt = copy.updatedAt = Date.now();
+    if (copy.data) copy.data.title = (copy.data.title || '') + (i18n.getLang() === 'tr' ? ' (kopya)' : ' (copy)');
+    store.decks[copy.id] = copy;
+    persist();
+    return copy;
+  }
+
+  // ----- Mistake notebook (yanlış defteri) -----
+  // Wrongly answered exam questions per deck, keyed by type+question text so
+  // retakes and regenerated sets don't create duplicates. Answering the same
+  // question correctly anywhere removes it from the notebook.
+
+  function mistakeKey(q) {
+    return (q.type || 'mc') + '|' + String(q.question || '').slice(0, 200);
+  }
+
+  function addMistakes(questions) {
+    const deck = getActive();
+    if (!deck || !questions || !questions.length) return;
+    deck.mistakes = Array.isArray(deck.mistakes) ? deck.mistakes : [];
+    const seen = new Set(deck.mistakes.map(mistakeKey));
+    questions.forEach(q => {
+      const k = mistakeKey(q);
+      if (!seen.has(k)) { seen.add(k); deck.mistakes.push(JSON.parse(JSON.stringify(q))); }
+    });
+    persist();
+  }
+
+  function resolveMistakes(questions) {
+    const deck = getActive();
+    if (!deck || !Array.isArray(deck.mistakes) || !questions || !questions.length) return;
+    const done = new Set(questions.map(mistakeKey));
+    deck.mistakes = deck.mistakes.filter(q => !done.has(mistakeKey(q)));
+    persist();
+  }
+
+  function getMistakes() {
+    const deck = getActive();
+    return deck && Array.isArray(deck.mistakes) ? deck.mistakes : [];
+  }
+
+  // ----- FSRS spaced repetition (replaces SM-2) -----
+  // srs[cardId] = { stab (days), diff (1-10), reps, lapses, due (ms), last (ms) }
+  // FSRS-4.5 with the published default weights. The three rating buttons map
+  // to FSRS grades: Again=1, Hard=2, Got it=3 (Good). Requested retention is
+  // 0.9, and with the FSRS-4.5 forgetting curve that makes the next interval
+  // exactly the stability, which keeps the math pleasantly simple.
+  // Legacy SM-2 entries ({ef, interval, ...}) migrate on first review.
 
   const DAY = 24 * 60 * 60 * 1000;
+  const W = [0.4872, 1.4003, 3.7145, 13.8206, 5.1618, 1.2298, 0.8975, 0.031,
+    1.6474, 0.1367, 1.0461, 2.1072, 0.0793, 0.3246, 1.587, 0.2272, 2.8755];
+  const FACTOR = 19 / 81, DECAY = -0.5;
+
+  function clamp(v, lo, hi) { return Math.min(hi, Math.max(lo, v)); }
+  function initDifficulty(g) { return clamp(W[4] - Math.exp(W[5] * (g - 1)) + 1, 1, 10); }
+  function retrievability(days, stab) { return Math.pow(1 + FACTOR * days / stab, DECAY); }
 
   function getSrs(cardId) {
     const deck = getActive();
     return deck ? deck.srs[cardId] || null : null;
   }
 
-  // Apply an SM-2 review. quality: 0-5 (again=1, hard=3, gotit=5).
+  function migrateSm2(s, now) {
+    return {
+      stab: Math.max(s.interval || 0.5, 0.1),
+      diff: clamp(11 - (s.ef || 2.5) * 2, 1, 10),
+      reps: s.reps || 1,
+      lapses: 0,
+      due: s.due || now,
+      last: now - (s.interval || 0) * DAY
+    };
+  }
+
+  // Apply a review. quality keeps the old public scale (again=1, hard=3,
+  // gotit=5) so callers didn't have to change.
   function review(cardId, quality) {
     const deck = getActive();
     if (!deck) return null;
-    const s = deck.srs[cardId] || { ef: 2.5, reps: 0, interval: 0, due: 0 };
-    if (quality < 3) {
-      s.reps = 0;
-      s.interval = 0;
-      s.due = Date.now(); // failed — stays due now
+    const g = quality >= 5 ? 3 : quality >= 3 ? 2 : 1; // FSRS grade
+    const now = Date.now();
+    let s = deck.srs[cardId] || null;
+    if (s && s.ef !== undefined && s.stab === undefined) s = migrateSm2(s, now);
+
+    if (!s || !s.reps) {
+      // First review of this card.
+      s = {
+        stab: Math.max(W[g - 1], 0.1),
+        diff: initDifficulty(g),
+        reps: 1,
+        lapses: g === 1 ? 1 : 0,
+        due: 0,
+        last: now
+      };
     } else {
+      const elapsed = Math.max(0, (now - (s.last || now)) / DAY);
+      const R = retrievability(elapsed, s.stab);
+      // Difficulty update with mean reversion toward initDifficulty(Easy).
+      const d1 = s.diff - W[6] * (g - 3);
+      s.diff = clamp(W[7] * initDifficulty(4) + (1 - W[7]) * d1, 1, 10);
+      if (g === 1) {
+        // Forgotten: post-lapse stability.
+        s.stab = Math.max(0.1,
+          W[11] * Math.pow(s.diff, -W[12]) * (Math.pow(s.stab + 1, W[13]) - 1) * Math.exp(W[14] * (1 - R)));
+        s.lapses = (s.lapses || 0) + 1;
+      } else {
+        // Recalled: stability grows, dampened for Hard (W[15] < 1).
+        const growth = Math.exp(W[8]) * (11 - s.diff) * Math.pow(s.stab, -W[9]) *
+          (Math.exp(W[10] * (1 - R)) - 1) * (g === 2 ? W[15] : 1);
+        s.stab = Math.min(36500, s.stab * (1 + growth));
+      }
       s.reps += 1;
-      if (s.reps === 1) s.interval = 1;
-      else if (s.reps === 2) s.interval = 6;
-      else s.interval = Math.round(s.interval * s.ef);
-      s.ef = Math.max(1.3, s.ef + 0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02));
-      s.due = Date.now() + s.interval * DAY;
+      s.last = now;
     }
+
+    // At 0.9 requested retention the FSRS-4.5 curve gives interval = stability.
+    s.due = g === 1 ? now : now + Math.max(1, Math.round(s.stab)) * DAY;
     deck.srs[cardId] = s;
     deck.updatedAt = Date.now();
     persist();
@@ -154,5 +284,9 @@ const Decks = (() => {
     return 'reviewing';
   }
 
-  return { save, get, getActive, setActive, list, remove, touch, getSrs, review, dueCards, statusOf };
+  return {
+    save, get, getActive, setActive, list, remove, touch, rename, duplicate,
+    getSrs, review, dueCards, statusOf,
+    addMistakes, resolveMistakes, getMistakes, mergeRemote
+  };
 })();

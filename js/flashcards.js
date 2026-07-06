@@ -81,6 +81,7 @@ const Flashcards = (() => {
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap">
           <button class="btn-ghost" id="generate-more-cards-btn" onclick="Flashcards.generateMore()" ${generatingMore ? 'disabled' : ''}>${generatingMore ? T('generatingMore') : T('generateMore')}</button>
+          ${weakCategories().length ? `<button class="btn-ghost" onclick="Flashcards.generateWeakSpots()" ${generatingMore ? 'disabled' : ''}>&#127919; ${T('targetWeak')}</button>` : ''}
           ${dueCount > 0 ? `<button class="btn-ghost review-due-btn" onclick="Flashcards.startStudy('due')">${T('reviewDue', { n: dueCount })}</button>` : ''}
           <button class="start-study-btn" onclick="Flashcards.startStudy('all')">${T('startStudy')}</button>
         </div>
@@ -169,14 +170,18 @@ const Flashcards = (() => {
   }
 
   // ===== Generate More Flashcards =====
-  async function generateMore() {
+  // Optionally takes a custom prompt (weak-spot targeting). Guard against the
+  // inline onclick handler passing a MouseEvent as the first argument.
+  async function generateMore(customPrompt) {
     if (generatingMore) return;
     generatingMore = true;
-    render();
+    render(false);
 
     try {
       const context = App.getOriginalText();
-      const raw = await API.chat('Generate 10 more flashcards covering concepts not yet in the existing cards. Return diverse difficulty levels.', context);
+      const prompt = (typeof customPrompt === 'string' && customPrompt) ||
+        'Generate 10 more flashcards covering concepts not yet in the existing cards. Return diverse difficulty levels.';
+      const raw = await API.chat(prompt, context);
       const data = Parser.parseChat(raw);
 
       if (data.type === 'flashcards' && Array.isArray(data.flashcards)) {
@@ -190,7 +195,27 @@ const Flashcards = (() => {
     }
 
     generatingMore = false;
-    render();
+    render(false);
+  }
+
+  // Categories where the user struggles: lapsed cards (FSRS lapses) or cards
+  // still in "reviewing", ranked by how many weak cards they contain.
+  function weakCategories() {
+    const counts = {};
+    cards.forEach(c => {
+      const s = typeof Decks !== 'undefined' ? Decks.getSrs(c.id) : null;
+      const weak = (s && s.lapses > 0) || cardStatus[c.id] === 'reviewing';
+      if (weak && c.category) counts[c.category] = (counts[c.category] || 0) + 1;
+    });
+    return Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 3).map(e => e[0]);
+  }
+
+  function generateWeakSpots() {
+    const cats = weakCategories();
+    if (!cats.length) { App.showToast(i18n.t('noWeakSpots'), 'info'); return; }
+    generateMore(`The student is struggling with these topics: ${cats.join(', ')}. ` +
+      'Generate 10 new flashcards focused specifically on these weak areas, mostly medium and hard difficulty, ' +
+      'approaching the concepts from different angles than typical flashcards.');
   }
 
   // ===== STUDY MODE =====
@@ -206,6 +231,18 @@ const Flashcards = (() => {
     actionsEl.querySelectorAll('.study-btn').forEach(btn => {
       btn.addEventListener('click', () => rateCard(btn.dataset.rating));
     });
+
+    // Read the visible side of the current card aloud.
+    const ttsBtn = document.getElementById('study-tts');
+    if (ttsBtn) {
+      if (typeof TTS !== 'undefined' && !TTS.supported()) ttsBtn.style.display = 'none';
+      else ttsBtn.addEventListener('click', () => {
+        if (!studyState) return;
+        const c = studyState.deck[studyState.index];
+        if (TTS.isSpeaking()) TTS.stop();
+        else TTS.speak(studyState.flipped ? c.back : c.front);
+      });
+    }
 
     document.addEventListener('keydown', (e) => {
       if (!studyState) return;
@@ -384,6 +421,7 @@ const Flashcards = (() => {
     studyState = null;
     drag = null;
     ratingLock = false;
+    if (typeof TTS !== 'undefined') TTS.stop();
     document.getElementById('study-mode-overlay').style.display = 'none';
     document.getElementById('deck-complete-overlay').style.display = 'none';
     document.body.style.overflow = '';
@@ -397,5 +435,5 @@ const Flashcards = (() => {
     return div.innerHTML;
   }
 
-  return { init, setCards, addCards, render, setFilter, flipCard, startStudy, generateMore };
+  return { init, setCards, addCards, render, setFilter, flipCard, startStudy, generateMore, generateWeakSpots };
 })();

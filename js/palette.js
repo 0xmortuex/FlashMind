@@ -6,6 +6,7 @@ const Palette = (() => {
   let backdrop = null, input = null, listEl = null;
   let flat = [];   // currently visible items in DOM order
   let sel = 0;
+  let releaseTrap = null;
 
   function isOpen() { return !!backdrop && backdrop.style.display !== 'none'; }
 
@@ -64,6 +65,7 @@ const Palette = (() => {
     items.push({ section: T('paletteActions'), label: T('cmdToggleTheme'), run: () => App.toggleTheme() });
     items.push({ section: T('paletteActions'), label: T('cmdToggleSound'), run: () => Sound.toggle() });
     items.push({ section: T('paletteActions'), label: T('shortcutsTitle'), hint: '?', run: () => App.toggleShortcuts(true) });
+    items.push({ section: T('paletteActions'), label: T('syncTitle'), run: () => Sync.openModal() });
 
     if (typeof Decks !== 'undefined') {
       Decks.list().forEach(d => {
@@ -127,13 +129,18 @@ const Palette = (() => {
     build();
     input.value = '';
     input.placeholder = i18n.t('palettePlaceholder');
+    input.setAttribute('aria-label', i18n.t('palettePlaceholder'));
     sel = 0;
     backdrop.style.display = 'flex';
     renderList();
+    releaseTrap = FX.trapFocus(backdrop);
     input.focus();
   }
 
-  function close() { if (backdrop) backdrop.style.display = 'none'; }
+  function close() {
+    if (backdrop) backdrop.style.display = 'none';
+    if (releaseTrap) { releaseTrap(); releaseTrap = null; }
+  }
 
   function init() {
     document.addEventListener('keydown', e => {

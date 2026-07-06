@@ -31,8 +31,13 @@ const App = (() => {
     Chat.init();
     if (typeof Sound !== 'undefined') Sound.init();
     if (typeof Palette !== 'undefined') Palette.init();
+    if (typeof Sync !== 'undefined') Sync.init();
     setupReadProgress();
     setupShortcutsOverlay();
+    // Close any open deck kebab menu on outside clicks.
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.deck-menu').forEach(m => { m.style.display = 'none'; });
+    });
     setupDemo();
     renderDeckLibrary();
     registerServiceWorker();
@@ -72,7 +77,7 @@ const App = (() => {
 
     // Export menu items
     const exportItems = document.querySelectorAll('#export-menu button');
-    const exportKeys = ['notesMd', 'notesPdf', 'cardsCsv', 'quizText', 'allJson'];
+    const exportKeys = ['notesMd', 'notesPdf', 'cardsCsv', 'quizText', 'examPdfKey', 'allJson'];
     exportItems.forEach((el, idx) => { if (exportKeys[idx]) el.textContent = T(exportKeys[idx]); });
 
     // Study tabs — set only the label span; textContent on the button would
@@ -213,6 +218,38 @@ const App = (() => {
       charCount.textContent = i18n.t('charCount', { n: 0 });
       clearBtn.style.display = 'none';
     });
+
+    setupUrlImport(textarea, charCount, clearBtn);
+  }
+
+  // ===== Import text from a URL (worker fetches + strips the page) =====
+  function setupUrlImport(textarea, charCount, clearBtn) {
+    const input = document.getElementById('url-import-input');
+    const btn = document.getElementById('url-import-btn');
+    if (!input || !btn) return;
+    input.placeholder = i18n.t('urlHolder');
+    btn.textContent = i18n.t('urlFetch');
+
+    const run = async () => {
+      let url = input.value.trim();
+      if (!url) return;
+      if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+      btn.disabled = true;
+      btn.textContent = i18n.t('urlFetching');
+      try {
+        const pageText = await API.fetchUrl(url);
+        textarea.value = pageText;
+        charCount.textContent = i18n.t('charCount', { n: pageText.length.toLocaleString() });
+        clearBtn.style.display = '';
+        showToast(i18n.t('urlFetched'), 'success');
+      } catch (err) {
+        showToast(i18n.t('urlFailed') + ' ' + err.message, 'error');
+      }
+      btn.disabled = false;
+      btn.textContent = i18n.t('urlFetch');
+    };
+    btn.addEventListener('click', run);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') run(); });
   }
 
   // ===== Study Tabs =====
@@ -310,10 +347,14 @@ const App = (() => {
     shortcutsEl.addEventListener('click', (e) => { if (e.target === shortcutsEl) toggleShortcuts(false); });
   }
 
+  let releaseShortcutsTrap = null;
+
   function toggleShortcuts(force) {
     buildShortcuts();
     const show = force !== undefined ? force : shortcutsEl.style.display === 'none';
     shortcutsEl.style.display = show ? 'flex' : 'none';
+    if (show) releaseShortcutsTrap = FX.trapFocus(shortcutsEl);
+    else if (releaseShortcutsTrap) { releaseShortcutsTrap(); releaseShortcutsTrap = null; }
   }
 
   function setupShortcutsOverlay() {
@@ -362,12 +403,30 @@ const App = (() => {
     });
   }
 
-  // Route an uploaded file: JSON → import a study set (or use as text), else PDF.
+  // Route an uploaded file: JSON → import a study set (or use as text),
+  // CSV/TSV → flashcard import, else PDF.
   async function processFile(file) {
     if (/\.json$/i.test(file.name) || file.type === 'application/json') {
       return importJSONFile(file);
     }
+    if (/\.(csv|tsv)$/i.test(file.name) || file.type === 'text/csv') {
+      return importCSVFile(file);
+    }
     return processPDF(file);
+  }
+
+  // CSV/TSV → a flashcards-only deck (our export, Anki exports, any
+  // front/back sheet).
+  async function importCSVFile(file) {
+    try {
+      const cards = Parser.parseCSVCards(await file.text());
+      if (!cards.length) { showToast(i18n.t('csvEmpty'), 'error'); return; }
+      const title = file.name.replace(/\.(csv|tsv)$/i, '').replace(/[_-]+/g, ' ').trim() || i18n.t('importedSet');
+      commitStudyData({ title, notes: { summary: '' }, flashcards: cards, quiz: [] }, '');
+      showToast(i18n.t('csvImported', { n: cards.length }), 'success');
+    } catch (err) {
+      showToast(i18n.t('jsonInvalid') + ' ' + err.message, 'error');
+    }
   }
 
   async function importJSONFile(file) {
@@ -555,18 +614,27 @@ const App = (() => {
     const stageEl = document.getElementById('gen-stage');
     if (stageEl) stageEl.textContent = i18n.t('generating');
     let seconds = 0;
+    genStreaming = false;
     elapsedEl.textContent = '0s';
     renderGenProgress(0);
     elapsedTimer = setInterval(() => {
       seconds++;
       elapsedEl.textContent = seconds + 's';
-      renderGenProgress(Math.min(Math.floor(seconds / 8), 3));
+      // Time-based stage advance is only the fallback; once the stream
+      // delivers content, stages are driven by what's actually been written.
+      if (!genStreaming) renderGenProgress(Math.min(Math.floor(seconds / 8), 3));
     }, 1000);
 
     const { flashcardConfig, quizConfig } = getGenerationConfig();
 
     try {
-      const raw = await API.generate(text, flashcardConfig, quizConfig);
+      let raw = null;
+      try {
+        raw = await API.generateStream(text, flashcardConfig, quizConfig, updateGenLive);
+      } catch (e) {
+        raw = null; // streaming unavailable — fall back to the plain request
+      }
+      if (!raw) raw = await API.generate(text, flashcardConfig, quizConfig);
       const data = Parser.parseGenerate(raw);
       commitStudyData(data, text);
     } catch (err) {
@@ -583,6 +651,24 @@ const App = (() => {
   // Stage checklist rendered under the Generate button while a set is being
   // built. Steps before `activeIdx` show a drawn check, the active one spins.
   let genProgressStage = -1;
+  let genStreaming = false;
+
+  // Streaming progress: derive the real stage and live counters from the
+  // accumulated model output instead of guessing from elapsed time.
+  function updateGenLive(full) {
+    genStreaming = true;
+    const stage = full.includes('"quiz"') ? 3 : full.includes('"flashcards"') ? 2 : full.includes('"sections"') ? 1 : 0;
+    renderGenProgress(stage);
+    const live = document.getElementById('gen-live');
+    if (!live) return;
+    if (stage >= 2) {
+      const fc = (full.match(/"front"/g) || []).length;
+      const qs = (full.match(/"question"/g) || []).length;
+      live.textContent = i18n.t('genLive', { f: fc, q: qs });
+    } else {
+      live.textContent = '';
+    }
+  }
 
   function renderGenProgress(activeIdx) {
     const panel = document.getElementById('gen-progress');
@@ -596,7 +682,7 @@ const App = (() => {
       const state = i < activeIdx ? 'done' : i === activeIdx ? 'active' : 'pending';
       const icon = state === 'done' ? check : state === 'active' ? spinner : '<span class="dot"></span>';
       return `<div class="gen-step ${state}"><span class="gen-step-icon">${icon}</span><span>${label}</span></div>`;
-    }).join('') + '<div class="gen-skeleton"><span></span><span></span><span></span></div>';
+    }).join('') + '<div class="gen-live" id="gen-live"></div><div class="gen-skeleton"><span></span><span></span><span></span></div>';
     panel.style.display = '';
   }
 
@@ -748,6 +834,7 @@ const App = (() => {
         else if (action === 'notes-pdf') Export.notesPdf();
         else if (action === 'cards-csv') Export.cardsCSV();
         else if (action === 'quiz-text') Export.quizText();
+        else if (action === 'exam-pdf') Export.examPdf();
         else if (action === 'all-json') Export.allJSON();
       });
     });
@@ -762,11 +849,17 @@ const App = (() => {
     const whatsappBtn = document.getElementById('share-whatsapp');
     const discordBtn = document.getElementById('share-discord');
 
+    let releaseShareTrap = null;
+    const closeShare = () => {
+      modal.style.display = 'none';
+      if (releaseShareTrap) { releaseShareTrap(); releaseShareTrap = null; }
+    };
+    modal._trap = () => { releaseShareTrap = FX.trapFocus(modal.querySelector('.share-modal')); };
     shareBtn.addEventListener('click', openShareModal);
-    closeBtn.addEventListener('click', () => { modal.style.display = 'none'; });
-    modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+    closeBtn.addEventListener('click', closeShare);
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeShare(); });
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.style.display === 'flex') modal.style.display = 'none';
+      if (e.key === 'Escape' && modal.style.display === 'flex') closeShare();
     });
 
     copyBtn.addEventListener('click', () => {
@@ -809,6 +902,7 @@ const App = (() => {
     modal.style.display = 'flex';
     loading.style.display = 'flex';
     result.style.display = 'none';
+    if (modal._trap) modal._trap();
 
     try {
       const response = await API.share({ studyData, originalText });
@@ -895,14 +989,26 @@ const App = (() => {
     renderDeckLibrary();
   }
 
+  let librarySearch = '';
+
   function renderDeckLibrary() {
     const wrap = document.getElementById('deck-library');
     if (!wrap) return;
-    const decks = Decks.list();
-    if (!decks.length) { wrap.style.display = 'none'; wrap.innerHTML = ''; return; }
+    const allDecks = Decks.list();
+    if (!allDecks.length) { wrap.style.display = 'none'; wrap.innerHTML = ''; librarySearch = ''; return; }
     wrap.style.display = 'block';
     const T = i18n.t;
-    let html = `<div class="deck-library-head"><span class="deck-library-title">${T('yourDecks')}</span></div><div class="deck-library-grid">`;
+    const q = librarySearch.trim().toLocaleLowerCase('tr');
+    const decks = q
+      ? allDecks.filter(d => ((d.data && d.data.title) || '').toLocaleLowerCase('tr').includes(q))
+      : allDecks;
+    let html = `<div class="deck-library-head">
+      <span class="deck-library-title">${T('yourDecks')}</span>
+      <span class="deck-library-tools">
+        ${allDecks.length > 4 ? `<input type="text" id="deck-search" class="deck-search" placeholder="${T('searchDecks')}" value="${escText(librarySearch)}">` : ''}
+        <button class="btn-ghost deck-sync-btn" id="deck-sync-btn">&#10227; ${T('syncTitle')}</button>
+      </span>
+    </div><div class="deck-library-grid">`;
     decks.forEach((d, idx) => {
       const data = d.data || {};
       const cardList = Array.isArray(data.flashcards) ? data.flashcards : [];
@@ -933,28 +1039,95 @@ const App = (() => {
               ${due ? `<span class="deck-card-due">${T('dueN', { n: due })}</span>` : ''}
             </div>
           </div>
-          <button class="deck-card-del" data-del="${d.id}" aria-label="${T('deleteDeck')}" title="${T('deleteDeck')}">&times;</button>
+          <button class="deck-card-menu-btn" data-menu="${d.id}" aria-label="${T('deckActions')}" title="${T('deckActions')}" aria-haspopup="menu">&#8943;</button>
+          <div class="deck-menu" data-menu-for="${d.id}" role="menu" style="display:none">
+            <button data-act="rename" data-id="${d.id}" role="menuitem">${T('renameDeck')}</button>
+            <button data-act="duplicate" data-id="${d.id}" role="menuitem">${T('duplicateDeck')}</button>
+            <button data-act="export" data-id="${d.id}" role="menuitem">${T('allJson')}</button>
+            <button data-act="delete" data-id="${d.id}" class="deck-menu-danger" role="menuitem">${T('deleteDeck')}</button>
+          </div>
         </div>`;
     });
     html += `</div>`;
+    if (q && !decks.length) html += `<p class="deck-search-empty">${T('searchNoResults')}</p>`;
     wrap.innerHTML = html;
+
+    const syncBtn = document.getElementById('deck-sync-btn');
+    if (syncBtn) syncBtn.addEventListener('click', () => Sync.openModal());
+
+    // Search field keeps focus across re-renders.
+    const search = document.getElementById('deck-search');
+    if (search) {
+      search.addEventListener('input', () => {
+        const pos = search.selectionStart;
+        librarySearch = search.value;
+        renderDeckLibrary();
+        const again = document.getElementById('deck-search');
+        if (again) { again.focus(); again.setSelectionRange(pos, pos); }
+      });
+    }
 
     wrap.querySelectorAll('.deck-card').forEach(el => {
       const id = el.dataset.id;
       const open = () => openDeck(id);
-      el.addEventListener('click', (e) => { if (!e.target.closest('[data-del]')) open(); });
-      el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
-    });
-    wrap.querySelectorAll('[data-del]').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const id = btn.dataset.del;
-        Decks.remove(id);
-        if (activeDeckId === id) { activeDeckId = null; studyData = null; }
-        renderDeckLibrary();
-        showToast(i18n.t('deckDeleted'), 'info');
+      el.addEventListener('click', (e) => {
+        if (!e.target.closest('[data-menu], .deck-menu')) open();
+      });
+      el.addEventListener('keydown', (e) => {
+        if ((e.key === 'Enter' || e.key === ' ') && e.target === el) { e.preventDefault(); open(); }
       });
     });
+
+    // Kebab menus: one open at a time; a persistent document listener
+    // (registered once in init) closes them on any outside click.
+    const closeMenus = () => wrap.querySelectorAll('.deck-menu').forEach(m => { m.style.display = 'none'; });
+    wrap.querySelectorAll('[data-menu]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const menu = wrap.querySelector(`[data-menu-for="${btn.dataset.menu}"]`);
+        const isOpen = menu.style.display !== 'none';
+        closeMenus();
+        menu.style.display = isOpen ? 'none' : 'block';
+      });
+    });
+
+    wrap.querySelectorAll('.deck-menu button').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeMenus();
+        deckMenuAction(btn.dataset.act, btn.dataset.id);
+      });
+    });
+  }
+
+  function deckMenuAction(act, id) {
+    const T = i18n.t;
+    const deck = Decks.get(id);
+    if (!deck) return;
+    if (act === 'rename') {
+      const title = prompt(T('renamePrompt'), (deck.data && deck.data.title) || '');
+      if (title && title.trim()) {
+        Decks.rename(id, title);
+        if (activeDeckId === id && studyData) {
+          studyData.title = title.trim();
+          document.getElementById('study-title').textContent = studyData.title;
+        }
+        renderDeckLibrary();
+      }
+    } else if (act === 'duplicate') {
+      Decks.duplicate(id);
+      renderDeckLibrary();
+      showToast(T('deckDuplicated'), 'success');
+    } else if (act === 'export') {
+      const data = deck.data || {};
+      Export.downloadFile(JSON.stringify(data, null, 2), `${Export.sanitize(data.title)}_study_set.json`, 'application/json');
+      showToast(T('jsonExported'), 'success');
+    } else if (act === 'delete') {
+      Decks.remove(id);
+      if (activeDeckId === id) { activeDeckId = null; studyData = null; }
+      renderDeckLibrary();
+      showToast(T('deckDeleted'), 'info');
+    }
   }
 
   // ===== Demo Deck =====
@@ -997,5 +1170,5 @@ const App = (() => {
 
   document.addEventListener('DOMContentLoaded', init);
 
-  return { switchTab, showToast, getStudyData, getOriginalText, openDeck, toggleTheme, toggleShortcuts };
+  return { switchTab, showToast, getStudyData, getOriginalText, openDeck, toggleTheme, toggleShortcuts, refreshLibrary: renderDeckLibrary };
 })();

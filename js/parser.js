@@ -187,5 +187,56 @@ const Parser = (() => {
     };
   }
 
-  return { parseGenerate, parseChat, parseGrade, repairJSON, safeParseJSON };
+  // ===== CSV / TSV flashcard import =====
+  // Accepts our own CSV export, Anki TSV exports, or any front/back sheet.
+  // Delimiter is auto-detected (tab wins if present); quoted fields with
+  // embedded delimiters/newlines and doubled quotes are handled.
+  function parseDelimited(text, delim) {
+    const rows = [];
+    let row = [], field = '', inQuotes = false;
+    for (let i = 0; i < text.length; i++) {
+      const c = text[i];
+      if (inQuotes) {
+        if (c === '"') {
+          if (text[i + 1] === '"') { field += '"'; i++; }
+          else inQuotes = false;
+        } else field += c;
+      } else if (c === '"') {
+        inQuotes = true;
+      } else if (c === delim) {
+        row.push(field); field = '';
+      } else if (c === '\n' || c === '\r') {
+        if (c === '\r' && text[i + 1] === '\n') i++;
+        row.push(field); field = '';
+        if (row.some(f => f.trim())) rows.push(row);
+        row = [];
+      } else field += c;
+    }
+    row.push(field);
+    if (row.some(f => f.trim())) rows.push(row);
+    return rows;
+  }
+
+  function parseCSVCards(text) {
+    const src = String(text || '').replace(/^﻿/, '');
+    // Anki exports may carry "#separator:tab"-style header comments.
+    const body = src.split('\n').filter(l => !l.startsWith('#')).join('\n');
+    const delim = body.split('\n', 1)[0].includes('\t') ? '\t' : ',';
+    let rows = parseDelimited(body, delim);
+    if (!rows.length) return [];
+    // Drop a header row like front,back[,difficulty,category].
+    if (/^(front|question|ön|soru)$/i.test((rows[0][0] || '').trim())) rows = rows.slice(1);
+    const DIFF = ['easy', 'medium', 'hard'];
+    return rows
+      .filter(r => (r[0] || '').trim() && (r[1] || '').trim())
+      .map((r, i) => ({
+        id: i + 1,
+        front: r[0].trim(),
+        back: r[1].trim(),
+        difficulty: DIFF.includes((r[2] || '').trim().toLowerCase()) ? r[2].trim().toLowerCase() : 'medium',
+        category: (r[3] || '').trim() || 'Imported'
+      }));
+  }
+
+  return { parseGenerate, parseChat, parseGrade, repairJSON, safeParseJSON, parseCSVCards };
 })();

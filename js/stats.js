@@ -17,6 +17,39 @@ const Stats = (() => {
 
   function persist() {
     try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) { /* non-fatal */ }
+    if (typeof Sync !== 'undefined' && Sync.schedulePush) Sync.schedulePush();
+  }
+
+  // Merge remote stats (device sync): per-day counts take the max (avoids
+  // double-counting), exam history unions by timestamp.
+  function mergeRemote(remoteJson) {
+    load();
+    let remote;
+    try { remote = typeof remoteJson === 'string' ? JSON.parse(remoteJson) : remoteJson; }
+    catch (e) { return false; }
+    if (!remote || typeof remote !== 'object') return false;
+    let changed = false;
+    Object.entries(remote.days || {}).forEach(([k, day]) => {
+      if (!day) return;
+      const local = data.days[k];
+      if (!local || (day.reviews || 0) > local.reviews) {
+        data.days[k] = {
+          reviews: Math.max(day.reviews || 0, local ? local.reviews : 0),
+          gotit: Math.max(day.gotit || 0, local ? local.gotit : 0)
+        };
+        changed = true;
+      }
+    });
+    const have = new Set(data.exams.map(e => e.t));
+    (remote.exams || []).forEach(e => {
+      if (e && e.t && !have.has(e.t)) { data.exams.push(e); changed = true; }
+    });
+    if (changed) {
+      data.exams.sort((a, b) => a.t - b.t);
+      if (data.exams.length > MAX_EXAMS) data.exams = data.exams.slice(-MAX_EXAMS);
+      persist();
+    }
+    return changed;
   }
 
   function dayKey(t) {
@@ -105,6 +138,72 @@ const Stats = (() => {
     return `<svg viewBox="0 0 ${W} ${H}" class="stat-chart" role="img">${bars}</svg>`;
   }
 
+  // GitHub-style activity heatmap of the last ~26 weeks of reviews.
+  function heatmap() {
+    load();
+    const WEEKS = 26, CELL = 10, GAP = 2;
+    const W = WEEKS * (CELL + GAP) + 30, H = 7 * (CELL + GAP) + 18;
+    // Start on the Monday at least 26 weeks back.
+    const start = new Date();
+    start.setDate(start.getDate() - (WEEKS * 7 - 1));
+    start.setDate(start.getDate() - ((start.getDay() + 6) % 7)); // back to Monday
+    const today = dayKey(Date.now());
+    let cells = '', maxN = 1;
+    const grid = [];
+    const d = new Date(start);
+    for (let w = 0; w < WEEKS + 1; w++) {
+      for (let r = 0; r < 7; r++) {
+        const k = dayKey(d.getTime());
+        const n = data.days[k] ? data.days[k].reviews : 0;
+        if (k > today) break;
+        grid.push({ w, r, k, n });
+        maxN = Math.max(maxN, n);
+        d.setDate(d.getDate() + 1);
+      }
+    }
+    grid.forEach(c => {
+      const level = c.n === 0 ? 0 : Math.min(4, Math.ceil((c.n / maxN) * 4));
+      cells += `<rect x="${26 + c.w * (CELL + GAP)}" y="${c.r * (CELL + GAP)}" width="${CELL}" height="${CELL}" rx="2.5" class="heat-cell heat-${level}"><title>${c.k}: ${c.n}</title></rect>`;
+    });
+    // Weekday hints (Mon/Fri rows).
+    const days = i18n.getLang() === 'tr' ? ['Pzt', 'Cum'] : ['Mon', 'Fri'];
+    const labels = `<text x="0" y="${CELL - 2}" class="stat-axis">${days[0]}</text>
+      <text x="0" y="${4 * (CELL + GAP) + CELL - 2}" class="stat-axis">${days[1]}</text>`;
+    return `<svg viewBox="0 0 ${W} ${H}" class="stat-chart heatmap" role="img">${labels}${cells}</svg>`;
+  }
+
+  // Due-count forecast for the next 7 days (from the active deck's SRS state).
+  function forecast() {
+    const deck = Decks.getActive();
+    if (!deck) return '';
+    const now = Date.now();
+    const DAY = 24 * 60 * 60 * 1000;
+    const buckets = new Array(7).fill(0);
+    Object.values(deck.srs || {}).forEach(s => {
+      if (!s || !s.due) return;
+      const idx = s.due <= now ? 0 : Math.floor((s.due - now) / DAY) + 1;
+      if (idx < 7) buckets[idx] += 1;
+    });
+    if (!buckets.some(n => n)) return '';
+    const W = 560, H = 120, PAD = 8;
+    const bw = (W - PAD * 2) / 7;
+    const max = Math.max(...buckets, 3);
+    const lang = i18n.getLang() === 'tr' ? 'tr-TR' : 'en-US';
+    let bars = '';
+    buckets.forEach((n, i) => {
+      const h = n === 0 ? 2 : Math.max(3, (n / max) * (H - 40));
+      const x = PAD + i * bw + bw * 0.2;
+      const y = H - 24 - h;
+      const d = new Date(now + i * DAY);
+      const label = i === 0 ? i18n.t('todayLabel') : d.toLocaleDateString(lang, { weekday: 'short' });
+      bars += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${(bw * 0.6).toFixed(1)}" height="${h.toFixed(1)}" rx="3" style="--i:${i}" class="${n ? 'stat-bar forecast-bar' : 'stat-bar empty'}"><title>${label}: ${n}</title></rect>`;
+      if (n > 0) bars += `<text x="${(x + bw * 0.3).toFixed(1)}" y="${(y - 5).toFixed(1)}" style="--i:${i}" class="stat-bar-num" text-anchor="middle">${n}</text>`;
+      bars += `<text x="${(x + bw * 0.3).toFixed(1)}" y="${H - 8}" class="stat-axis" text-anchor="middle">${label}</text>`;
+    });
+    return `<div class="stat-card"><h3 class="stat-card-title">${i18n.t('forecastTitle')}</h3>
+      <svg viewBox="0 0 ${W} ${H}" class="stat-chart" role="img">${bars}</svg></div>`;
+  }
+
   // Line chart of the last exams' scores (0-100).
   function examChart(exams) {
     const W = 560, H = 140, PADX = 14, PADY = 16;
@@ -176,6 +275,11 @@ const Stats = (() => {
           <h3 class="stat-card-title">${T('reviewsLast14')}</h3>
           ${barChart(14)}
         </div>
+        ${forecast()}
+        <div class="stat-card">
+          <h3 class="stat-card-title">${T('activityTitle')}</h3>
+          ${heatmap()}
+        </div>
         ${exams.length ? `
         <div class="stat-card">
           <h3 class="stat-card-title">${T('examHistory')}</h3>
@@ -190,5 +294,5 @@ const Stats = (() => {
       FX.countUp(el, parseInt(el.dataset.count, 10) || 0, { duration: 800 }));
   }
 
-  return { recordReview, recordExam, render, streak };
+  return { recordReview, recordExam, render, streak, mergeRemote };
 })();

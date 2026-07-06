@@ -350,6 +350,15 @@
   to   { opacity: 1; transform: scale(1); }
 }
 
+/* Activity heatmap + forecast (no entrance animation on cells — the level
+   classes drive opacity and an animation would fight them) */
+.heat-0 { fill: var(--border); opacity: 0.55; }
+.heat-1 { fill: var(--primary); opacity: 0.3; }
+.heat-2 { fill: var(--primary); opacity: 0.55; }
+.heat-3 { fill: var(--primary); opacity: 0.8; }
+.heat-4 { fill: var(--primary); opacity: 1; }
+.forecast-bar { fill: var(--secondary); }
+
 .flame {
   display: inline-block;
   animation: flicker 1.6s ease-in-out infinite;
@@ -457,6 +466,16 @@
   animation: drawCheck 0.35s var(--ease-out) forwards;
 }
 
+.gen-live {
+  margin-top: 6px;
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  color: var(--secondary);
+  min-height: 0;
+}
+
+.gen-live:empty { display: none; }
+
 .gen-skeleton {
   margin-top: 12px;
   padding-top: 12px;
@@ -520,6 +539,89 @@
   font-family: var(--font-mono);
   color: var(--text-muted);
 }
+
+/* ===== Deck management: kebab menu + search ===== */
+.deck-card { position: relative; }
+
+.deck-card-menu-btn {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--text-muted);
+  opacity: 0.65;
+  transition: all var(--transition);
+}
+
+.deck-card-menu-btn:hover { opacity: 1; color: var(--text); background: var(--card-raised); }
+
+.deck-menu {
+  position: absolute;
+  top: 40px;
+  right: 10px;
+  z-index: 60;
+  min-width: 150px;
+  background: var(--card);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  animation: paletteIn 0.18s var(--ease-out);
+}
+
+.deck-menu button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 9px 14px;
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+.deck-menu button:hover { background: var(--surface); }
+.deck-menu .deck-menu-danger { color: var(--wrong); }
+
+.deck-search {
+  padding: 6px 12px;
+  font-size: 0.82rem;
+  border-radius: 50px;
+  background: var(--surface);
+  max-width: 200px;
+}
+
+.deck-search-empty {
+  padding: 18px 4px;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+/* Mistake notebook (exam ready screen) */
+.mistakes-row { margin-top: 16px; text-align: center; }
+.mistakes-btn { border-color: rgba(239, 68, 68, 0.4); color: var(--wrong); }
+.mistakes-btn:hover { border-color: var(--wrong); background: rgba(239, 68, 68, 0.08); color: var(--wrong); }
+.mistakes-hint { margin-top: 6px; font-size: 0.76rem; color: var(--text-muted); }
+
+.explain-btn { margin-top: 8px; font-size: 0.8rem; }
+
+/* ===== Sync modal + library tools ===== */
+.deck-library-tools { display: flex; align-items: center; gap: 8px; }
+.deck-sync-btn { font-size: 0.78rem; padding: 5px 12px; border-radius: 50px; }
+
+.sync-card { max-width: 420px; }
+.sync-desc { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 16px; line-height: 1.55; }
+.sync-warn { font-size: 0.76rem; color: var(--highlight); margin: 10px 0 4px; }
+.sync-last { font-size: 0.76rem; color: var(--text-muted); margin-bottom: 14px; }
+.sync-actions { display: flex; gap: 10px; margin-top: 12px; }
+
+/* URL importer row (paste panel) */
+.url-import-row { display: flex; gap: 8px; margin-top: 10px; }
+.url-import-row input { flex: 1; min-width: 0; font-size: 0.88rem; background: var(--bg); }
+.url-import-row .btn-ghost { white-space: nowrap; }
 
 /* ===== Sound toggle ===== */
 .sound-toggle {

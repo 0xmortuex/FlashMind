@@ -98,6 +98,11 @@ const Quiz = (() => {
             </div>
           </div>
           <button class="start-quiz-btn" id="start-quiz-btn">${T('startExam')}</button>
+          ${(typeof Decks !== 'undefined' && Decks.getMistakes().length) ? `
+          <div class="mistakes-row">
+            <button class="btn-ghost mistakes-btn" id="retake-mistakes-btn">&#128213; ${T('retakeMistakes', { n: Decks.getMistakes().length })}</button>
+            <p class="mistakes-hint">${T('mistakesHint')}</p>
+          </div>` : ''}
         </div>
       </div>`;
 
@@ -116,7 +121,9 @@ const Quiz = (() => {
       const f = getFilteredQuestions();
       container.querySelector('.quiz-info').textContent = T('quizInfo', { n: f.length, mc: objCount, oe: oeCount });
     });
-    document.getElementById('start-quiz-btn').addEventListener('click', startQuiz);
+    document.getElementById('start-quiz-btn').addEventListener('click', () => startQuiz());
+    const mistakesBtn = document.getElementById('retake-mistakes-btn');
+    if (mistakesBtn) mistakesBtn.addEventListener('click', () => startQuiz(Decks.getMistakes()));
   }
 
   function bindOptionGroup(selector, onPick) {
@@ -130,9 +137,11 @@ const Quiz = (() => {
   }
 
   // ===== Run =====
-  function startQuiz() {
+  // Pass an explicit question list (e.g. the mistake notebook) to bypass the
+  // type filter; otherwise the configured filter applies.
+  function startQuiz(customQs) {
     const T = i18n.t;
-    let qs = getFilteredQuestions();
+    let qs = Array.isArray(customQs) ? customQs.slice() : getFilteredQuestions();
     if (qs.length === 0) { App.showToast(T('noQuestions'), 'error'); return; }
     if (settings.shuffle) {
       for (let i = qs.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [qs[i], qs[j]] = [qs[j], qs[i]]; }
@@ -151,7 +160,7 @@ const Quiz = (() => {
     let timerHtml = '';
     if (settings.timer) {
       state.timeLeft = settings.timerDuration;
-      timerHtml = `<span class="quiz-timer-wrap" id="quiz-timer-wrap">
+      timerHtml = `<span class="quiz-timer-wrap" id="quiz-timer-wrap" role="timer" aria-label="${esc(T('timePerQ'))}">
         <svg viewBox="0 0 36 36"><circle class="qt-track" cx="18" cy="18" r="15"/><circle class="qt-fill" id="quiz-timer-ring" cx="18" cy="18" r="15" pathLength="100"/></svg>
         <span class="quiz-timer" id="quiz-timer">${settings.timerDuration}s</span>
       </span>`;
@@ -504,6 +513,19 @@ const Quiz = (() => {
         <div class="quiz-review" id="quiz-review" style="display:none"></div>
       </div></div>`;
 
+    // Mistake notebook (yanlış defteri): wrong/blank answers are filed for a
+    // targeted retake; answering correctly clears the question from the bank.
+    if (typeof Decks !== 'undefined') {
+      const wrongQs = [], rightQs = [];
+      answers.forEach(a => {
+        const q = state.questions[a.questionIdx];
+        const ok = a.qType === 'open-ended' ? a.score >= 2 : a.result === 'correct';
+        (ok ? rightQs : wrongQs).push(q);
+      });
+      Decks.addMistakes(wrongQs);
+      Decks.resolveMistakes(rightQs);
+    }
+
     // Record the result for the Stats tab (exam history + score chart).
     if (typeof Stats !== 'undefined') {
       const title = (typeof App !== 'undefined' && App.getStudyData && App.getStudyData()) ? App.getStudyData().title : '';
@@ -559,10 +581,24 @@ const Quiz = (() => {
         html += `<div class="review-answer correct-answer">${T('modelAnswer')} ${esc(a.correctAnswer)}</div>`;
       }
       if (q.explanation && a.qType !== 'open-ended') html += `<div class="review-explanation">${esc(q.explanation)}</div>`;
+      // Wrong answers get a one-click bridge to the AI tutor.
+      if (!ok) html += `<button class="btn-ghost explain-btn" data-qi="${a.questionIdx}">&#128172; ${T('explainThis')}</button>`;
       html += `</div>`;
     });
 
     reviewEl.innerHTML = html;
+    reviewEl.querySelectorAll('.explain-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const q = qs[parseInt(btn.dataset.qi)];
+        const correctText = q.type === 'multiple-choice' ? q.options[q.correct]
+          : q.type === 'true-false' ? (q.correct ? T('tfTrue') : T('tfFalse'))
+          : q.type === 'fill-blank' ? (q.answers || []).join(' / ')
+          : q.type === 'matching' ? q.pairs.map(p => p.left + ' → ' + p.right).join('; ')
+          : q.correctAnswer;
+        App.switchTab('chat');
+        Chat.sendMessage(T('explainPrompt', { q: q.question, a: correctText }));
+      });
+    });
     reviewEl.style.display = 'block';
     let wrongOnly = false;
     document.getElementById('show-wrong-only').addEventListener('click', function () {

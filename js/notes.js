@@ -77,6 +77,7 @@ const Notes = (() => {
     html += `<div class="notes-actions">
       <button class="btn-ghost" onclick="Export.copyNotesMd()">${T('copyNotes')}</button>
       <button class="btn-ghost" onclick="Export.notesPdf()">${T('downloadPdf')}</button>
+      ${(typeof TTS !== 'undefined' && TTS.supported()) ? `<button class="btn-ghost" id="notes-tts-btn" onclick="Notes.readAloud(this)">&#128266; ${T('readAloud')}</button>` : ''}
     </div>`;
 
     html += `</div>`;
@@ -168,8 +169,31 @@ const Notes = (() => {
     return svg;
   }
 
+  // ===== Read aloud (TTS) =====
+  let reading = false;
+
+  function readAloud(btn) {
+    const T = i18n.t;
+    if (reading) {
+      TTS.stop();
+      reading = false;
+      btn.innerHTML = '&#128266; ' + T('readAloud');
+      return;
+    }
+    const data = App.getStudyData();
+    if (!data) return;
+    const parts = [data.title, data.notes.summary];
+    (data.notes.sections || []).forEach(s => { parts.push(s.title); parts.push(s.content); });
+    reading = true;
+    btn.innerHTML = '&#9209;&#65039; ' + T('stopReading');
+    TTS.speak(parts.filter(Boolean).join('. '), () => {
+      reading = false;
+      btn.innerHTML = '&#128266; ' + T('readAloud');
+    });
+  }
+
   function esc(str) { if (!str) return ''; const d = document.createElement('div'); d.textContent = str; return d.innerHTML; }
   function escSvg(str) { if (!str) return ''; return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 
-  return { init, render };
+  return { init, render, readAloud };
 })();
