@@ -66,6 +66,7 @@ const Palette = (() => {
     items.push({ section: T('paletteActions'), label: T('cmdToggleSound'), run: () => Sound.toggle() });
     items.push({ section: T('paletteActions'), label: T('shortcutsTitle'), hint: '?', run: () => App.toggleShortcuts(true) });
     items.push({ section: T('paletteActions'), label: T('syncTitle'), run: () => Sync.openModal() });
+    items.push({ section: T('paletteActions'), label: T('backupBtn'), run: () => Export.backupAll() });
 
     if (typeof Decks !== 'undefined') {
       Decks.list().forEach(d => {

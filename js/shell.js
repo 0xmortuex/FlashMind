@@ -71,6 +71,8 @@ const Shell = (() => {
       ['Ctrl + Enter', T('scGenerate')],
       ['Space', T('scFlip')],
       ['1 / 2 / 3', T('scRate')],
+      ['A – E', T('scAnswer')],
+      ['Enter', T('scNext')],
       ['Esc', T('scEsc')],
       ['?', T('shortcutsTitle')]
     ];

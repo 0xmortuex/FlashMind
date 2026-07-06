@@ -348,6 +348,15 @@ const App = (() => {
   async function importJSONFile(file) {
     try {
       const obj = JSON.parse(await file.text());
+      if (obj && obj.flashmindBackup === 1) {
+        // Whole-library backup — merge into the local library (tombstone-aware,
+        // never destructive) and refresh.
+        Decks.mergeRemote(obj.decks);
+        Stats.mergeRemote(obj.stats);
+        Library.render();
+        showToast(i18n.t('backupRestored'), 'success');
+        return;
+      }
       if (looksLikeDeck(obj)) {
         // A FlashMind set (e.g. an "Everything as JSON" export). Load it
         // directly — merged into the current set if "Add Materials" is active.

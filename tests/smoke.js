@@ -138,6 +138,13 @@ const puppeteer = require('puppeteer');
     if (!verified) throw new Error('never reached an MC question');
   });
 
+  await step('Enter key advances to the next question', async () => {
+    await page.waitForSelector('#quiz-next-btn', { timeout: 2000 });
+    await page.keyboard.press('Enter');
+    await new Promise(r => setTimeout(r, 400));
+    if (await page.$('#quiz-next-btn')) throw new Error('next button still present');
+  });
+
   await step('FSRS state written after rating', async () => {
     const srs = await page.evaluate(() => {
       const deck = Decks.getActive();

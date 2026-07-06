@@ -1,6 +1,8 @@
 # FlashMind — AI-Powered Study Tool
 
-**Turn any notes, PDF, or topic into structured study notes, flashcards, and a Turkish-style exam — with an AI tutor.** Free, no signup, runs in the browser.
+[![Smoke test](https://github.com/0xmortuex/FlashMind/actions/workflows/smoke.yml/badge.svg)](https://github.com/0xmortuex/FlashMind/actions/workflows/smoke.yml)
+
+**Turn any notes, PDF, web page, or topic into structured study notes, flashcards, and a Turkish-style exam — with an AI tutor, FSRS spaced repetition, and device sync.** Free, no signup, runs in the browser.
 
 🔗 **Live:** [0xmortuex.github.io/FlashMind](https://0xmortuex.github.io/FlashMind/)
 
@@ -8,28 +10,27 @@
 
 ## What it does
 
-Give FlashMind some material and it generates a complete study set in one call:
+Give FlashMind some material and it generates a complete study set in one streamed call — you watch the stage checklist tick off and the flashcard counter climb while it writes:
 
-- **📝 Notes** — a clean summary with sections, key terms, important dates, common mistakes, and simple diagrams.
-- **🃏 Flashcards** — 3D flip-card deck across easy/medium/hard with a study mode (Again / Hard / Got it) and **spaced repetition**.
-- **📋 Exam (Turkish style)** — a mixed-format exam modeled on the Turkish system (see below).
-- **📊 Stats** — study streak, a 14-day review chart, and your exam-score history.
-- **💬 Ask AI** — a tutor that answers questions about your material and can generate more cards/questions.
+- **📝 Notes** — a clean summary with sections, key terms, important dates, common mistakes, and simple diagrams. Read-aloud (TTS) included.
+- **🃏 Flashcards** — 3D flip-card deck with a drag-to-rate study mode (swipe right = Got it, left = Again, up = Hard) scheduled by **FSRS**, plus one-click **cloze cards** built from your notes' key terms.
+- **📋 Exam (Turkish style)** — mixed-format exam with two modes: **Practice** (per-question feedback, optional timer) and **Simulation (deneme sınavı)** — one overall countdown, optik-form question navigator, results only at the end.
+- **📕 Mistake notebook (yanlış defteri)** — every wrong answer is filed automatically; retake just your mistakes, and correct answers clear them.
+- **📊 Stats** — day streak, review charts, a 6-month activity heatmap, a 7-day due forecast, and exam-score history.
+- **💬 Ask AI** — a tutor with your material as context; one click on any wrong exam answer asks it "explain this".
 
 Not sure? Hit **Try an example** on the home screen for an instant sample deck — no waiting, no API call.
 
 ## Inputs
 
-Feed it material four ways:
-
 - **Paste** text (notes, a transcript, a textbook chapter).
 - **Upload a PDF** — text extracted client-side with PDF.js.
-- **Upload JSON** — import a FlashMind set (an "Everything as JSON" export) directly, or load any JSON as raw text.
+- **Upload JSON** — re-import a FlashMind export, or load any JSON as raw text.
+- **Upload CSV/TSV** — flashcards from our export, Anki exports, or any front/back sheet.
+- **A URL** — the backend fetches the page and extracts its readable text.
 - **Just a topic** — type "Photosynthesis" and it teaches the subject.
 
 ## Turkish-style exam (Türk sınav sistemi)
-
-The exam matches how Turkish exams actually work, mixing question types:
 
 | Type | Turkish | Notes |
 |---|---|---|
@@ -37,34 +38,34 @@ The exam matches how Turkish exams actually work, mixing question types:
 | True / False | Doğru-Yanlış | single statement |
 | Fill in the blank | Boşluk doldurma | typed answer, accepts synonyms |
 | Matching | Eşleştirme | match term ↔ definition |
-| Open-ended | Açık uçlu / klasik | written answer, **AI-graded** |
+| Open-ended | Açık uçlu / klasik | written answer, **AI-graded** (practice mode) |
 
-**Scoring follows Turkish conventions:** results show **Doğru / Yanlış / Boş** counts and a **Net** for the multiple-choice section (`net = doğru − yanlış ⁄ 4` — the YKS rule where 4 wrong cancel 1 correct), plus a 0–100 puan and a letter grade. Filter to objective-only or written-only, shuffle, set a per-question timer, and review every answer.
+**Scoring follows Turkish conventions:** Doğru / Yanlış / Boş counts and a **Net** for the multiple-choice section (`net = doğru − yanlış ⁄ 4`), a 0–100 puan shown on an animated gauge, and a letter grade. Answer with the keyboard (**A–E**, Enter for next), filter types, shuffle, set timers, review every answer, and export a **printable exam sheet with an answer key**.
 
-## Other features
+## Study features
 
-- **📚 Deck library** — every set you make is saved. Return to the home screen to see your decks, reopen one, or delete it; due-card counts show at a glance.
-- **🧠 Spaced repetition (SM-2)** — flashcard reviews schedule each card for its optimal next review date. A **Review due** button studies just what's ready today; progress persists across sessions.
-- **📊 Stats dashboard** — day streak, cards reviewed, a 14-day review bar chart, and an exam-score line chart with history — all rendered in dependency-free inline SVG.
-- **🌗 Light & dark theme** — toggle in the corner; remembers your choice and follows your OS by default.
-- **📱 Mobile-first** — a bottom navigation bar on phones and **swipe gestures** in study mode (right = Got it, left = Again, up = Hard).
-- **📴 Installable PWA** — add to your home screen and study saved decks offline (app shell + decks cached; generation still needs a connection).
-- **➕ Add Materials** — generate or import more and **merge** it into your current set (flashcards, exam questions, and notes all append) without clearing what you have.
-- **🔍 Search** — search keywords across your **notes and exam**; notes matches jump-and-highlight, exam matches show the question and its answer.
-- **🔗 Share** — one click creates a link that loads your set on any device. Links **don't expire**.
-- **📤 Export** — notes as Markdown/PDF, flashcards as Anki-compatible CSV, exam as text, or the whole set as JSON (re-importable).
-- **🌍 Languages** — full English and Turkish UI; generated content matches the source language.
-- **♿ Accessible** — ARIA roles on tabs and dialogs, keyboard support (Esc closes modals), and focus-visible outlines.
-- **💾 Local-first** — decks, spaced-repetition schedules, and stats all live in your browser; no account required.
+- **🧠 FSRS spaced repetition** — the modern scheduler (FSRS-4.5) plans each card's optimal review date; lapses feed **weak-spot targeting**, which generates new cards for the categories you struggle with.
+- **📚 Deck library** — every set is saved locally; rename, duplicate, search, export, delete; mastery rings and due counts at a glance.
+- **🔁 Device sync** — account-less: enable sync, enter the private code on another device, and decks/stats merge (deletions propagate too). Disabling wipes the cloud copy.
+- **💾 Backup** — one file backs up the whole library including schedules, stats, and mistake banks; drop it on any FlashMind to restore.
+- **🔍 Search, 🔗 permanent share links, 📤 exports** (Markdown, PDF, Anki-compatible CSV, printable exam, JSON).
+
+## Interface
+
+- **⌘ Command palette** — Ctrl+K for tabs, actions, and decks; **?** shows all keyboard shortcuts.
+- **🌗 Light & dark theme** with an animated circular reveal; motion everywhere is GPU-cheap and respects `prefers-reduced-motion`.
+- **🔊 Opt-in sounds & haptics** — WebAudio-synthesized, off by default.
+- **📱 Mobile-first PWA** — bottom navigation, swipe gestures, installable, offline for saved decks.
+- **♿ Accessible** — focus-trapped dialogs, ARIA roles, keyboard support throughout.
+- **🌍 Full English and Turkish UI**; generated content matches the source language.
 
 ## How it's built
 
 - **Frontend** — vanilla HTML/CSS/JS, no framework, no build step. Hosted on GitHub Pages.
-- **Backend** — a Cloudflare Worker (`flashmind-worker`) that proxies generation/grading to [OpenRouter](https://openrouter.ai) (Claude) and stores shared sets in KV. The API key lives only as a Worker secret.
-- **PDF.js** — client-side PDF text extraction.
-- **Storage** — decks, SM-2 schedules, and stats persist in `localStorage`; the deck library migrates the old single-set key automatically.
-- **Offline** — a service worker (`sw.js`) caches the app shell for offline use; `manifest.webmanifest` makes it installable.
-- **Charts & spaced repetition** — hand-rolled: inline-SVG stat charts and a classic SM-2 scheduler, no libraries.
+- **Backend** — a Cloudflare Worker ([`flashmind-worker`](https://github.com/0xmortuex/flashmind-worker)) that proxies generation/grading to [OpenRouter](https://openrouter.ai) (Claude) with SSE streaming, stores shares and sync blobs in KV, extracts text from URLs, and rate-limits per IP. The API key lives only as a Worker secret.
+- **Storage** — decks, FSRS schedules, mistake banks, and stats persist in `localStorage`; sync/share blobs in Worker KV under random bearer codes.
+- **Charts & scheduling** — hand-rolled: inline-SVG charts, canvas confetti, and an FSRS-4.5 implementation — no libraries.
+- **CI** — a 23-step puppeteer smoke test runs on every push (badge above).
 
 ## Run locally
 
@@ -74,11 +75,11 @@ It's static — open `index.html`, or:
 npx serve .
 ```
 
-Generation/sharing call the hosted Worker. To run your own backend, deploy `flashmind-worker` (see its README) and point `WORKER_URL` in `js/api.js` at it.
+Generation/sharing/sync call the hosted Worker. To run your own backend, deploy `flashmind-worker` (see its README) and point `WORKER_URL` in `js/api.js` at it. Run the test suite with `npm i --no-save puppeteer serve && npx serve -l 4173 . & node tests/smoke.js`.
 
 ## Privacy
 
-Material is processed on demand and not stored server-side; your active set lives in your browser's localStorage. Shared sets are stored (by you, on demand) under a random code until you delete them.
+Material is processed on demand and not stored server-side. Your library lives in your browser. Shared sets and sync data are stored (by you, on demand) under random codes until you delete them — disabling sync deletes your cloud copy.
 
 ## License
 

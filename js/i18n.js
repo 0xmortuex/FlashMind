@@ -340,6 +340,13 @@ const i18n = (() => {
       clozeAdded: '{n} cloze cards created from your notes!',
       clozeNone: 'No new cloze cards to make — key terms are already covered.',
 
+      // Backup + keyboard answering
+      backupBtn: 'Backup',
+      backupDone: 'Library backup downloaded — keep it somewhere safe',
+      backupRestored: 'Backup restored — decks and stats merged into your library',
+      scAnswer: 'Answer option (exam)',
+      scNext: 'Next question (exam)',
+
       // Language
       langEn: 'EN',
       langTr: 'TR',
@@ -680,6 +687,13 @@ const i18n = (() => {
       clozeBtn: 'Boşluk kartları',
       clozeAdded: 'Notlarından {n} boşluk doldurma kartı oluşturuldu!',
       clozeNone: 'Yeni boşluk kartı çıkmadı — önemli terimler zaten kapsanmış.',
+
+      // Backup + keyboard answering
+      backupBtn: 'Yedekle',
+      backupDone: 'Kütüphane yedeği indirildi — güvenli bir yerde sakla',
+      backupRestored: 'Yedek geri yüklendi — desteler ve istatistikler birleştirildi',
+      scAnswer: 'Şıkkı işaretle (sınav)',
+      scNext: 'Sonraki soru (sınav)',
 
       // Language
       langEn: 'EN',

@@ -37,6 +37,7 @@ const Library = (() => {
       <span class="deck-library-tools">
         ${allDecks.length > 4 ? `<input type="text" id="deck-search" class="deck-search" placeholder="${T('searchDecks')}" value="${escText(librarySearch)}">` : ''}
         <button class="btn-ghost deck-sync-btn" id="deck-sync-btn">&#10227; ${T('syncTitle')}</button>
+        <button class="btn-ghost deck-sync-btn" id="deck-backup-btn">&#128190; ${T('backupBtn')}</button>
       </span>
     </div><div class="deck-library-grid">`;
     decks.forEach((d, idx) => {
@@ -84,6 +85,8 @@ const Library = (() => {
 
     const syncBtn = document.getElementById('deck-sync-btn');
     if (syncBtn) syncBtn.addEventListener('click', () => Sync.openModal());
+    const backupBtn = document.getElementById('deck-backup-btn');
+    if (backupBtn) backupBtn.addEventListener('click', () => Export.backupAll());
 
     // Search field keeps focus across re-renders.
     const search = document.getElementById('deck-search');

@@ -23,7 +23,33 @@ const Quiz = (() => {
   let timerInterval = null;
   let simInterval = null;
 
-  function init() { container = document.getElementById('tab-quiz'); }
+  function init() {
+    container = document.getElementById('tab-quiz');
+    setupKeyboardAnswers();
+  }
+
+  // Keyboard answering: A–E picks the matching visible option (multiple
+  // choice and true/false), Enter advances via the next button. Ignored while
+  // typing (fill-blank input, chat, palette) or when the exam tab is hidden.
+  function setupKeyboardAnswers() {
+    document.addEventListener('keydown', (e) => {
+      if (!state || state.finished) return;
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      const tag = (e.target.tagName || '').toLowerCase();
+      if (tag === 'input' || tag === 'textarea' || tag === 'select' || e.target.isContentEditable) return;
+      const tab = document.getElementById('tab-quiz');
+      if (!tab || !tab.classList.contains('active')) return;
+      if (e.key === 'Enter') {
+        const next = document.getElementById('quiz-next-btn');
+        if (next) { e.preventDefault(); next.click(); }
+        return;
+      }
+      const idx = 'abcde'.indexOf(e.key.toLowerCase());
+      if (idx < 0) return;
+      const options = container.querySelectorAll('#quiz-body .quiz-option:not(.disabled)');
+      if (options[idx]) { e.preventDefault(); options[idx].click(); }
+    });
+  }
 
   function setQuestions(newQuestions) { questions = newQuestions || []; state = null; renderReady(); }
 
@@ -234,44 +260,39 @@ const Quiz = (() => {
         </div>`;
   }
 
-  // Answered questions can be revisited but not changed: like a pencil-marked
-  // optik form, a committed answer is final (deliberate simplification —
-  // erasing is not supported). Controls are shown disabled with the recorded
-  // answer selected; no listeners are wired, so nothing re-records.
-  function simMarkReadOnly(q, a) {
+  // Revisited questions show the recorded answer pre-selected but stay LIVE —
+  // like erasing on an optik form, answering again replaces the earlier pick
+  // (recordObjective swaps the entry in place).
+  function simShowRecorded(q, a) {
     if (q.type === 'true-false') {
       container.querySelectorAll('.tf-option').forEach(opt => {
-        opt.classList.add('disabled');
         if (a.selected !== undefined && (opt.dataset.tf === 'true') === a.selected) opt.classList.add('selected');
       });
     } else if (q.type === 'fill-blank') {
       const inp = document.getElementById('fill-input');
-      if (inp) { inp.value = a.answerText || ''; inp.disabled = true; }
-      const btn = document.getElementById('fill-submit-btn'); if (btn) btn.disabled = true;
+      if (inp) inp.value = a.answerText || '';
     } else if (q.type === 'matching') {
       container.querySelectorAll('.match-select').forEach(sel => {
         const i = parseInt(sel.dataset.i);
         if (a.selections && a.selections[i]) sel.value = a.selections[i];
-        sel.disabled = true;
       });
-      const btn = document.getElementById('match-submit-btn'); if (btn) btn.disabled = true;
     } else {
       container.querySelectorAll('.quiz-option').forEach(opt => {
-        opt.classList.add('disabled');
         if (parseInt(opt.dataset.idx) === a.selected) opt.classList.add('selected');
       });
     }
   }
 
-  // After a silent recording: jump to the next unanswered question, or submit
-  // when every question has been committed (answers are final anyway).
+  // After a silent recording: jump to the next unanswered question. When
+  // everything is answered, stay put — answers remain changeable, so only the
+  // Finish button (or the clock) submits the exam.
   function simAfterAnswer() {
     const total = state.questions.length;
     for (let step = 1; step <= total; step++) {
       const idx = (state.current + step) % total;
       if (!simIsAnswered(idx)) { state.current = idx; renderQuestion(); return; }
     }
-    finishExam(false);
+    renderQuestion();
   }
 
   function confirmFinishExam() {
@@ -336,8 +357,8 @@ const Quiz = (() => {
       container.querySelectorAll('.sim-chip').forEach(chip =>
         chip.addEventListener('click', () => { state.current = parseInt(chip.dataset.nav); renderQuestion(); }));
     }
-    if (answeredEntry) simMarkReadOnly(q, answeredEntry);
-    else wireBody(q);
+    wireBody(q);
+    if (answeredEntry) simShowRecorded(q, answeredEntry);
 
     if (!sim && settings.timer) {
       clearInterval(timerInterval);
@@ -436,10 +457,17 @@ const Quiz = (() => {
 
   // ===== Grading per type =====
   function recordObjective(q, result, extra) {
-    state.answers.push(Object.assign({
+    const entry = Object.assign({
       questionIdx: state.current, qType: q.type, result, // 'correct' | 'wrong' | 'blank'
       time: Math.floor((Date.now() - state.questionStartTime) / 1000)
-    }, extra || {}));
+    }, extra || {});
+    // Simulation answers are erasable until the exam is finished: answering a
+    // revisited question replaces its earlier entry instead of duplicating it.
+    if (state.mode === 'sim') {
+      const i = state.answers.findIndex(a => a.questionIdx === state.current);
+      if (i >= 0) { state.answers[i] = entry; return; }
+    }
+    state.answers.push(entry);
   }
 
   // Animated per-option verdicts: a checkmark that draws itself on the
