@@ -33,6 +33,14 @@ const API = (() => {
       throw new Error(err.error || `HTTP ${res.status}`);
     }
 
+    // A worker that predates streaming ignores stream:true and answers with
+    // plain JSON — use that result directly instead of burning a second call.
+    if ((res.headers.get('content-type') || '').includes('application/json')) {
+      const data = await res.json();
+      if (!data.result) throw new Error('Empty response');
+      return data.result;
+    }
+
     const reader = res.body.getReader();
     const decoder = new TextDecoder();
     let buf = '', full = '';
