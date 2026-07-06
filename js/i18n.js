@@ -151,6 +151,14 @@ const i18n = (() => {
       objectiveOnly: 'Test',
       startExam: 'Start Exam',
       retakeExam: 'Retake Exam',
+      examMode: 'Exam mode',
+      modePractice: 'Practice',
+      modeSim: 'Simulation',
+      simDuration: 'Total time',
+      finishExam: 'Finish exam',
+      simUnansweredConfirm: 'You have {n} unanswered questions. Finish anyway?',
+      simTimeUp: 'Time is up! Your exam was submitted.',
+      simHint: 'Objective questions only · one timer · no feedback until the end',
       typeMc: 'Multiple Choice',
       typeTf: 'True / False',
       typeFill: 'Fill in the Blank',
@@ -326,6 +334,12 @@ const i18n = (() => {
       activityTitle: 'Study activity — last 6 months',
       todayLabel: 'Today',
 
+      // Due reminder + cloze cards
+      dueReminder: '{n} cards are due for review today',
+      clozeBtn: 'Cloze cards',
+      clozeAdded: '{n} cloze cards created from your notes!',
+      clozeNone: 'No new cloze cards to make — key terms are already covered.',
+
       // Language
       langEn: 'EN',
       langTr: 'TR',
@@ -478,6 +492,14 @@ const i18n = (() => {
       objectiveOnly: 'Test',
       startExam: 'S\u0131nav\u0131 Ba\u015flat',
       retakeExam: 'S\u0131nav\u0131 Tekrarla',
+      examMode: 'S\u0131nav modu',
+      modePractice: 'Al\u0131\u015ft\u0131rma',
+      modeSim: 'Deneme',
+      simDuration: 'Toplam s\u00fcre',
+      finishExam: 'S\u0131nav\u0131 bitir',
+      simUnansweredConfirm: '{n} cevaplanmam\u0131\u015f soru var. Yine de bitirilsin mi?',
+      simTimeUp: 'S\u00fcre doldu! S\u0131nav\u0131n g\u00f6nderildi.',
+      simHint: 'Sadece test sorular\u0131 \u00b7 tek s\u00fcre \u00b7 geri bildirim s\u0131nav sonunda',
       typeMc: '\u00c7oktan Se\u00e7meli',
       typeTf: 'Do\u011fru-Yanl\u0131\u015f',
       typeFill: 'Bo\u015fluk Doldurma',
@@ -652,6 +674,12 @@ const i18n = (() => {
       forecastTitle: 'Yaklaşan tekrarlar — 7 gün',
       activityTitle: 'Çalışma aktivitesi — son 6 ay',
       todayLabel: 'Bugün',
+
+      // Due reminder + cloze cards
+      dueReminder: 'Bugün {n} kartın tekrar zamanı geldi',
+      clozeBtn: 'Boşluk kartları',
+      clozeAdded: 'Notlarından {n} boşluk doldurma kartı oluşturuldu!',
+      clozeNone: 'Yeni boşluk kartı çıkmadı — önemli terimler zaten kapsanmış.',
 
       // Language
       langEn: 'EN',

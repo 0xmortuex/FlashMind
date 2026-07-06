@@ -90,6 +90,19 @@ const API = (() => {
     return (await res.json()).result;
   }
 
+  async function syncDelete(code) {
+    const res = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'syncDelete', code })
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ error: 'Sync failed' }));
+      throw new Error(err.error || `HTTP ${res.status}`);
+    }
+    return (await res.json()).result;
+  }
+
   async function fetchUrl(url) {
     const res = await fetch(WORKER_URL, {
       method: 'POST',
@@ -167,5 +180,5 @@ const API = (() => {
     return typeof json.result === 'string' ? JSON.parse(json.result) : json.result;
   }
 
-  return { generate, generateStream, chat, grade, share, load, syncPush, syncPull, fetchUrl };
+  return { generate, generateStream, chat, grade, share, load, syncPush, syncPull, syncDelete, fetchUrl };
 })();

@@ -15,15 +15,27 @@ const Quiz = (() => {
     timerDuration: 30,
     shuffle: true,
     showExplanations: 'each',
-    questionTypes: 'both' // both | objective | written
+    questionTypes: 'both', // both | objective | written
+    mode: 'practice', // practice | sim (deneme: one countdown, no per-question feedback)
+    simDuration: 10 // total exam minutes in simulation mode
   };
   let state = null;
   let timerInterval = null;
+  let simInterval = null;
 
   function init() { container = document.getElementById('tab-quiz'); }
 
   function setQuestions(newQuestions) { questions = newQuestions || []; state = null; renderReady(); }
-  function addQuestions(newQuestions) { questions = questions.concat(newQuestions || []); if (!state) renderReady(); }
+
+  function addQuestions(newQuestions) {
+    // Push IN PLACE and persist: `questions` is the same array as
+    // studyData.quiz, so replacing it (the old concat) orphaned added
+    // questions — they were never saved to the deck.
+    let maxId = questions.reduce((m, q) => Math.max(m, q.id || 0), 0);
+    (newQuestions || []).forEach(q => { q.id = ++maxId; questions.push(q); });
+    if (typeof App !== 'undefined' && App.persistActiveDeck) App.persistActiveDeck();
+    if (!state) renderReady();
+  }
 
   function isObjective(q) { return q.type !== 'open-ended'; }
 
@@ -74,10 +86,25 @@ const Quiz = (() => {
               </div>
             </div>
             <div class="quiz-setting">
+              <span class="quiz-setting-label">${T('examMode')}</span>
+              <div class="timer-options">
+                <button class="timer-option ${settings.mode === 'practice' ? 'active' : ''}" data-mode="practice">${T('modePractice')}</button>
+                <button class="timer-option ${settings.mode === 'sim' ? 'active' : ''}" data-mode="sim">${T('modeSim')}</button>
+              </div>
+            </div>
+            <div class="quiz-setting" id="sim-duration-row" style="display:${settings.mode === 'sim' ? 'flex' : 'none'}">
+              <span class="quiz-setting-label">${T('simDuration')}</span>
+              <div class="timer-options">
+                <button class="timer-option ${settings.simDuration === 10 ? 'active' : ''}" data-simdur="10">10:00</button>
+                <button class="timer-option ${settings.simDuration === 20 ? 'active' : ''}" data-simdur="20">20:00</button>
+                <button class="timer-option ${settings.simDuration === 40 ? 'active' : ''}" data-simdur="40">40:00</button>
+              </div>
+            </div>
+            <div class="quiz-setting" id="timer-row" style="display:${settings.mode === 'sim' ? 'none' : 'flex'}">
               <span class="quiz-setting-label">${T('timer')}</span>
               <div class="quiz-setting-control"><div class="toggle ${settings.timer ? 'active' : ''}" id="timer-toggle"></div></div>
             </div>
-            <div class="quiz-setting" id="timer-duration-row" style="display:${settings.timer ? 'flex' : 'none'}">
+            <div class="quiz-setting" id="timer-duration-row" style="display:${settings.timer && settings.mode !== 'sim' ? 'flex' : 'none'}">
               <span class="quiz-setting-label">${T('timePerQ')}</span>
               <div class="timer-options">
                 <button class="timer-option ${settings.timerDuration === 30 ? 'active' : ''}" data-dur="30">30s</button>
@@ -89,7 +116,7 @@ const Quiz = (() => {
               <span class="quiz-setting-label">${T('shuffleQ')}</span>
               <div class="toggle ${settings.shuffle ? 'active' : ''}" id="shuffle-toggle"></div>
             </div>
-            <div class="quiz-setting">
+            <div class="quiz-setting" id="explanations-row" style="display:${settings.mode === 'sim' ? 'none' : 'flex'}">
               <span class="quiz-setting-label">${T('showExplanations')}</span>
               <div class="timer-options">
                 <button class="timer-option ${settings.showExplanations === 'each' ? 'active' : ''}" data-exp="each">${T('afterEach')}</button>
@@ -97,6 +124,7 @@ const Quiz = (() => {
               </div>
             </div>
           </div>
+          <p class="sim-hint" id="sim-hint" style="display:${settings.mode === 'sim' ? 'block' : 'none'}">${T('simHint')}</p>
           <button class="start-quiz-btn" id="start-quiz-btn">${T('startExam')}</button>
           ${(typeof Decks !== 'undefined' && Decks.getMistakes().length) ? `
           <div class="mistakes-row">
@@ -116,6 +144,16 @@ const Quiz = (() => {
     });
     bindOptionGroup('[data-dur]', btn => { settings.timerDuration = parseInt(btn.dataset.dur); });
     bindOptionGroup('[data-exp]', btn => { settings.showExplanations = btn.dataset.exp; });
+    bindOptionGroup('[data-simdur]', btn => { settings.simDuration = parseInt(btn.dataset.simdur); });
+    bindOptionGroup('[data-mode]', btn => {
+      settings.mode = btn.dataset.mode;
+      const sim = settings.mode === 'sim';
+      document.getElementById('sim-duration-row').style.display = sim ? 'flex' : 'none';
+      document.getElementById('timer-row').style.display = sim ? 'none' : 'flex';
+      document.getElementById('timer-duration-row').style.display = settings.timer && !sim ? 'flex' : 'none';
+      document.getElementById('explanations-row').style.display = sim ? 'none' : 'flex';
+      document.getElementById('sim-hint').style.display = sim ? 'block' : 'none';
+    });
     bindOptionGroup('[data-qtype]', btn => {
       settings.questionTypes = btn.dataset.qtype;
       const f = getFilteredQuestions();
@@ -141,13 +179,125 @@ const Quiz = (() => {
   // type filter; otherwise the configured filter applies.
   function startQuiz(customQs) {
     const T = i18n.t;
+    clearInterval(simInterval);
     let qs = Array.isArray(customQs) ? customQs.slice() : getFilteredQuestions();
+    // Simulation is objective-only: AI grading mid-exam would break the
+    // one-sitting format, so open-ended questions are dropped regardless of
+    // the type filter (and even for custom lists like the mistake notebook).
+    if (settings.mode === 'sim') qs = qs.filter(isObjective);
     if (qs.length === 0) { App.showToast(T('noQuestions'), 'error'); return; }
     if (settings.shuffle) {
       for (let i = qs.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [qs[i], qs[j]] = [qs[j], qs[i]]; }
     }
     state = { questions: qs, current: 0, answers: [], startTime: Date.now(), questionStartTime: Date.now(), timeLeft: settings.timerDuration };
+    if (settings.mode === 'sim') {
+      state.mode = 'sim';
+      state.simTimeLeft = settings.simDuration * 60;
+      simInterval = setInterval(simTick, 1000);
+    }
     renderQuestion();
+  }
+
+  // ===== Simulation (deneme) helpers =====
+  function fmtClock(secs) { return Math.floor(secs / 60) + ':' + (secs % 60).toString().padStart(2, '0'); }
+
+  function simIsAnswered(idx) { return state.answers.some(a => a.questionIdx === idx); }
+
+  function simTick() {
+    if (!state || state.mode !== 'sim' || state.finished) { clearInterval(simInterval); return; }
+    state.simTimeLeft--;
+    const el = document.getElementById('sim-timer');
+    const ring = document.getElementById('sim-timer-ring');
+    const wrap = document.getElementById('sim-timer-wrap');
+    if (el) el.textContent = fmtClock(Math.max(0, state.simTimeLeft));
+    if (ring) ring.style.strokeDashoffset = (100 * (1 - state.simTimeLeft / (settings.simDuration * 60))).toFixed(1);
+    if (wrap && state.simTimeLeft < 60) wrap.classList.add('warning');
+    if (state.simTimeLeft <= 0) finishExam(true);
+  }
+
+  // One persistent countdown for the whole sitting + an optik-form style
+  // question navigator (current / answered / blank chips).
+  function renderSimHeader() {
+    const T = i18n.t;
+    const totalSecs = settings.simDuration * 60;
+    const offset = (100 * (1 - state.simTimeLeft / totalSecs)).toFixed(1);
+    const chips = state.questions.map((q, i) =>
+      `<button class="sim-chip ${i === state.current ? 'current' : simIsAnswered(i) ? 'answered' : ''}" data-nav="${i}">${i + 1}</button>`).join('');
+    return `
+        <div class="sim-header">
+          <span class="quiz-timer-wrap ${state.simTimeLeft < 60 ? 'warning' : ''}" id="sim-timer-wrap" role="timer" aria-label="${esc(T('simDuration'))}">
+            <svg viewBox="0 0 36 36"><circle class="qt-track" cx="18" cy="18" r="15"/><circle class="qt-fill" id="sim-timer-ring" cx="18" cy="18" r="15" pathLength="100" style="stroke-dashoffset:${offset}"/></svg>
+            <span class="quiz-timer" id="sim-timer">${fmtClock(state.simTimeLeft)}</span>
+          </span>
+          <button class="btn-ghost sim-finish-btn" id="sim-finish-btn">${T('finishExam')}</button>
+          <div class="sim-nav">${chips}</div>
+        </div>`;
+  }
+
+  // Answered questions can be revisited but not changed: like a pencil-marked
+  // optik form, a committed answer is final (deliberate simplification —
+  // erasing is not supported). Controls are shown disabled with the recorded
+  // answer selected; no listeners are wired, so nothing re-records.
+  function simMarkReadOnly(q, a) {
+    if (q.type === 'true-false') {
+      container.querySelectorAll('.tf-option').forEach(opt => {
+        opt.classList.add('disabled');
+        if (a.selected !== undefined && (opt.dataset.tf === 'true') === a.selected) opt.classList.add('selected');
+      });
+    } else if (q.type === 'fill-blank') {
+      const inp = document.getElementById('fill-input');
+      if (inp) { inp.value = a.answerText || ''; inp.disabled = true; }
+      const btn = document.getElementById('fill-submit-btn'); if (btn) btn.disabled = true;
+    } else if (q.type === 'matching') {
+      container.querySelectorAll('.match-select').forEach(sel => {
+        const i = parseInt(sel.dataset.i);
+        if (a.selections && a.selections[i]) sel.value = a.selections[i];
+        sel.disabled = true;
+      });
+      const btn = document.getElementById('match-submit-btn'); if (btn) btn.disabled = true;
+    } else {
+      container.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.add('disabled');
+        if (parseInt(opt.dataset.idx) === a.selected) opt.classList.add('selected');
+      });
+    }
+  }
+
+  // After a silent recording: jump to the next unanswered question, or submit
+  // when every question has been committed (answers are final anyway).
+  function simAfterAnswer() {
+    const total = state.questions.length;
+    for (let step = 1; step <= total; step++) {
+      const idx = (state.current + step) % total;
+      if (!simIsAnswered(idx)) { state.current = idx; renderQuestion(); return; }
+    }
+    finishExam(false);
+  }
+
+  function confirmFinishExam() {
+    const unanswered = state.questions.filter((q, i) => !simIsAnswered(i)).length;
+    if (unanswered > 0 && !confirm(i18n.t('simUnansweredConfirm', { n: unanswered }))) return;
+    finishExam(false);
+  }
+
+  function finishExam(timeUp) {
+    if (!state || state.mode !== 'sim' || state.finished) return;
+    state.finished = true;
+    clearInterval(simInterval);
+    // Every unanswered question records a 'blank' entry shaped exactly like
+    // the ones recordObjective produces, so the existing results pipeline
+    // (Net, mistake notebook, Stats.recordExam) works unchanged.
+    state.questions.forEach((q, i) => {
+      if (simIsAnswered(i)) return;
+      const extra = q.type === 'multiple-choice' ? { selected: -1 }
+        : q.type === 'fill-blank' ? { answerText: '' }
+        : q.type === 'matching' ? { correctPairs: 0, totalPairs: q.pairs.length }
+        : {};
+      state.answers.push(Object.assign({ questionIdx: i, qType: q.type, result: 'blank', time: 0 }, extra));
+    });
+    if (timeUp) App.showToast(i18n.t('simTimeUp'), 'info');
+    Sound.play('complete');
+    showResults();
   }
 
   function renderQuestion() {
@@ -156,9 +306,10 @@ const Quiz = (() => {
     const { questions: qs, current } = state;
     const q = qs[current];
     const total = qs.length;
+    const sim = state.mode === 'sim';
 
     let timerHtml = '';
-    if (settings.timer) {
+    if (!sim && settings.timer) {
       state.timeLeft = settings.timerDuration;
       timerHtml = `<span class="quiz-timer-wrap" id="quiz-timer-wrap" role="timer" aria-label="${esc(T('timePerQ'))}">
         <svg viewBox="0 0 36 36"><circle class="qt-track" cx="18" cy="18" r="15"/><circle class="qt-fill" id="quiz-timer-ring" cx="18" cy="18" r="15" pathLength="100"/></svg>
@@ -166,10 +317,13 @@ const Quiz = (() => {
       </span>`;
     }
     state.questionStartTime = Date.now();
+    const answeredEntry = sim ? state.answers.find(a => a.questionIdx === current) : null;
+    const progress = sim ? state.answers.length / total : current / total;
 
     container.innerHTML = `
       <div class="quiz-container">
-        <div class="quiz-progress-bar"><div class="quiz-progress-fill" style="width:${(current / total) * 100}%"></div></div>
+        ${sim ? renderSimHeader() : ''}
+        <div class="quiz-progress-bar"><div class="quiz-progress-fill" style="width:${progress * 100}%"></div></div>
         <div class="quiz-question-number">${T('questionOf', { c: current + 1, t: total })}
           <span class="q-type-badge">${esc(typeLabel(q.type))}</span> ${timerHtml}</div>
         <p class="quiz-question-text">${renderStem(q)}</p>
@@ -177,9 +331,15 @@ const Quiz = (() => {
         <div id="quiz-feedback"></div>
       </div>`;
 
-    wireBody(q);
+    if (sim) {
+      document.getElementById('sim-finish-btn').addEventListener('click', confirmFinishExam);
+      container.querySelectorAll('.sim-chip').forEach(chip =>
+        chip.addEventListener('click', () => { state.current = parseInt(chip.dataset.nav); renderQuestion(); }));
+    }
+    if (answeredEntry) simMarkReadOnly(q, answeredEntry);
+    else wireBody(q);
 
-    if (settings.timer) {
+    if (!sim && settings.timer) {
       clearInterval(timerInterval);
       timerInterval = setInterval(() => {
         state.timeLeft--;
@@ -296,6 +456,7 @@ const Quiz = (() => {
     clearInterval(timerInterval);
     const result = idx < 0 ? 'blank' : (idx === q.correct ? 'correct' : 'wrong');
     recordObjective(q, result, { selected: idx });
+    if (state.mode === 'sim') { simAfterAnswer(); return; } // no feedback until the end
     feedbackSound(result);
     container.querySelectorAll('.quiz-option').forEach(opt => {
       opt.classList.add('disabled');
@@ -310,6 +471,7 @@ const Quiz = (() => {
     clearInterval(timerInterval);
     const result = chosen === !!q.correct ? 'correct' : 'wrong';
     recordObjective(q, result, { selected: chosen });
+    if (state.mode === 'sim') { simAfterAnswer(); return; } // no feedback until the end
     feedbackSound(result);
     revealTrueFalse(q, chosen);
     showNextButton(q);
@@ -330,6 +492,7 @@ const Quiz = (() => {
     const accepted = (q.answers || []).map(normalize);
     const result = !val ? 'blank' : (accepted.includes(normalize(val)) ? 'correct' : 'wrong');
     recordObjective(q, result, { answerText: val });
+    if (state.mode === 'sim') { simAfterAnswer(); return; } // no feedback until the end
     feedbackSound(result);
     if (inp) {
       inp.disabled = true;
@@ -346,21 +509,30 @@ const Quiz = (() => {
 
   function gradeMatching(q, fromTimeout) {
     clearInterval(timerInterval);
+    const sim = state.mode === 'sim';
     const selects = container.querySelectorAll('.match-select');
     let correctPairs = 0, anyChosen = false;
+    const selections = [];
     selects.forEach(sel => {
       const i = parseInt(sel.dataset.i);
       const chosen = sel.value;
       const right = q.pairs[i].right;
       if (chosen) anyChosen = true;
+      selections[i] = chosen;
+      const ok = normalize(chosen) === normalize(right);
+      if (ok) correctPairs++;
+      if (sim) return; // no feedback until the end
       const row = container.querySelector(`.match-row[data-i="${i}"]`);
       sel.disabled = true;
-      if (normalize(chosen) === normalize(right)) { correctPairs++; row.classList.add('correct'); }
+      if (ok) { row.classList.add('correct'); }
       else { row.classList.add('wrong', 'shake'); row.insertAdjacentHTML('beforeend', `<span class="match-correct">→ ${esc(right)}</span>`); }
     });
     const total = q.pairs.length;
     const result = !anyChosen ? 'blank' : (correctPairs === total ? 'correct' : (correctPairs === 0 ? 'wrong' : 'partial'));
-    recordObjective(q, result, { correctPairs, totalPairs: total });
+    // In sim the per-pair picks are kept too, so a revisited question can
+    // redisplay them read-only (extra field; the results pipeline ignores it).
+    recordObjective(q, result, sim ? { correctPairs, totalPairs: total, selections } : { correctPairs, totalPairs: total });
+    if (sim) { simAfterAnswer(); return; }
     feedbackSound(result === 'partial' ? 'correct' : result);
     const btn = document.getElementById('match-submit-btn'); if (btn) btn.disabled = true;
     showNextButton(q);
@@ -541,7 +713,7 @@ const Quiz = (() => {
     FX.countUp(document.getElementById('quiz-score-num'), pct, { duration: 1200 });
     container.querySelectorAll('.quiz-result-stat').forEach((el, i) => el.style.setProperty('--i', i));
 
-    if (pct >= 85) { FX.celebrate(); Sound.play('complete'); }
+    if (pct >= 85) { FX.celebrate(); if (state.mode !== 'sim') Sound.play('complete'); } // sim already played it on finish
     document.getElementById('review-btn').addEventListener('click', showReview);
     document.getElementById('retake-btn').addEventListener('click', () => { state = null; renderReady(); });
   }

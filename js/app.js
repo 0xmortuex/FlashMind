@@ -12,7 +12,6 @@ const App = (() => {
 
   function init() {
     translateStaticHTML();
-    setupTheme();
     setupLangSwitcher();
     setupInputTabs();
     setupStudyTabs();
@@ -32,14 +31,24 @@ const App = (() => {
     if (typeof Sound !== 'undefined') Sound.init();
     if (typeof Palette !== 'undefined') Palette.init();
     if (typeof Sync !== 'undefined') Sync.init();
-    setupReadProgress();
-    setupShortcutsOverlay();
-    // Close any open deck kebab menu on outside clicks.
-    document.addEventListener('click', () => {
-      document.querySelectorAll('.deck-menu').forEach(m => { m.style.display = 'none'; });
+    Shell.init({
+      getView: () => currentView,
+      getTab: () => currentTab
+    });
+    Library.init({
+      onOpen: openDeck,
+      getActiveId: () => activeDeckId,
+      onActiveDeckGone: () => { activeDeckId = null; studyData = null; },
+      onRenamed: (id, title) => {
+        if (studyData) {
+          studyData.title = title.trim();
+          document.getElementById('study-title').textContent = studyData.title;
+        }
+      },
+      showToast
     });
     setupDemo();
-    renderDeckLibrary();
+    Library.render();
     registerServiceWorker();
     checkShareLink() || checkSavedData();
   }
@@ -130,35 +139,6 @@ const App = (() => {
     // Lang switcher active state
     document.querySelectorAll('.lang-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.lang === i18n.getLang());
-    });
-  }
-
-  // ===== Theme =====
-  // The initial theme is applied by an inline <head> script before first
-  // paint; these buttons just flip it and persist the choice. Where the View
-  // Transitions API exists, the new theme sweeps out from the button in an
-  // expanding circle (see fx.css ::view-transition rules).
-  function toggleTheme(originEl) {
-    const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
-    const apply = () => {
-      document.documentElement.dataset.theme = next;
-      localStorage.setItem('flashmind_theme', next);
-    };
-    if (document.startViewTransition && !FX.reduced()) {
-      if (originEl) {
-        const r = originEl.getBoundingClientRect();
-        document.documentElement.style.setProperty('--tt-x', (r.left + r.width / 2) + 'px');
-        document.documentElement.style.setProperty('--tt-y', (r.top + r.height / 2) + 'px');
-      }
-      document.startViewTransition(apply);
-    } else {
-      apply();
-    }
-  }
-
-  function setupTheme() {
-    document.querySelectorAll('.theme-toggle').forEach(btn => {
-      btn.addEventListener('click', () => toggleTheme(btn));
     });
   }
 
@@ -298,72 +278,8 @@ const App = (() => {
       content.addEventListener('animationend', () => content.classList.remove(dir), { once: true });
     }
     moveTabIndicator();
-    updateReadProgress();
+    Shell.updateReadProgress();
     if (tabName === 'stats' && typeof Stats !== 'undefined') Stats.render();
-  }
-
-  // ===== Notes reading progress =====
-  // Thin gradient bar under the topbar that fills as you scroll the notes.
-  let readBar = null;
-
-  function setupReadProgress() {
-    readBar = document.createElement('div');
-    readBar.className = 'read-progress';
-    document.querySelector('.topbar').appendChild(readBar);
-    window.addEventListener('scroll', updateReadProgress, { passive: true });
-  }
-
-  function updateReadProgress() {
-    if (!readBar) return;
-    if (currentView !== 'study' || currentTab !== 'notes') { readBar.style.width = '0%'; return; }
-    const h = document.documentElement;
-    const max = h.scrollHeight - h.clientHeight;
-    readBar.style.width = max > 40 ? Math.min(100, (h.scrollTop / max) * 100) + '%' : '0%';
-  }
-
-  // ===== Keyboard shortcuts overlay (press ?) =====
-  let shortcutsEl = null;
-
-  function buildShortcuts() {
-    if (shortcutsEl) return;
-    const T = i18n.t;
-    const rows = [
-      ['Ctrl + K', T('scPalette')],
-      ['Ctrl + Enter', T('scGenerate')],
-      ['Space', T('scFlip')],
-      ['1 / 2 / 3', T('scRate')],
-      ['Esc', T('scEsc')],
-      ['?', T('shortcutsTitle')]
-    ];
-    shortcutsEl = document.createElement('div');
-    shortcutsEl.className = 'shortcuts-backdrop';
-    shortcutsEl.style.display = 'none';
-    shortcutsEl.innerHTML = `
-      <div class="shortcuts-card" role="dialog" aria-modal="true">
-        <h3>${T('shortcutsTitle')}</h3>
-        ${rows.map(([k, d]) => `<div class="shortcut-row"><span>${d}</span><kbd>${k}</kbd></div>`).join('')}
-      </div>`;
-    document.body.appendChild(shortcutsEl);
-    shortcutsEl.addEventListener('click', (e) => { if (e.target === shortcutsEl) toggleShortcuts(false); });
-  }
-
-  let releaseShortcutsTrap = null;
-
-  function toggleShortcuts(force) {
-    buildShortcuts();
-    const show = force !== undefined ? force : shortcutsEl.style.display === 'none';
-    shortcutsEl.style.display = show ? 'flex' : 'none';
-    if (show) releaseShortcutsTrap = FX.trapFocus(shortcutsEl);
-    else if (releaseShortcutsTrap) { releaseShortcutsTrap(); releaseShortcutsTrap = null; }
-  }
-
-  function setupShortcutsOverlay() {
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && shortcutsEl && shortcutsEl.style.display !== 'none') { toggleShortcuts(false); return; }
-      const tag = (e.target.tagName || '').toLowerCase();
-      if (tag === 'input' || tag === 'textarea' || tag === 'select' || e.target.isContentEditable) return;
-      if (e.key === '?') { e.preventDefault(); toggleShortcuts(); }
-    });
   }
 
   // ===== PDF =====
@@ -807,7 +723,7 @@ const App = (() => {
       // Keep saved decks intact; just return to the input screen for a new one.
       activeDeckId = null;
       studyData = null;
-      renderDeckLibrary();
+      Library.render();
       backToInput();
     });
   }
@@ -817,7 +733,7 @@ const App = (() => {
     document.getElementById('study-view').classList.remove('active');
     document.getElementById('input-view').classList.add('active');
     // Re-render so a deck created this session (and fresh due counts) show up.
-    renderDeckLibrary();
+    Library.render();
   }
 
   // ===== Export =====
@@ -959,7 +875,7 @@ const App = (() => {
       activeDeckId = deck.id;
       overlay.style.display = 'none';
       showStudyView(studyData);
-      renderDeckLibrary();
+      Library.render();
       showToast(i18n.t('shareLoaded'), 'success');
     } catch (err) {
       overlay.style.display = 'none';
@@ -972,7 +888,19 @@ const App = (() => {
     const deck = Decks.getActive();
     if (deck && deck.data) {
       openDeck(deck.id, true);
+      // Gentle on-open reminder when reviews are waiting.
+      const cards = Array.isArray(deck.data.flashcards) ? deck.data.flashcards : [];
+      const due = Decks.dueCards(cards).length;
+      if (due > 0) setTimeout(() => showToast(i18n.t('dueReminder', { n: due }), 'info'), 1200);
     }
+  }
+
+  // Persist the currently open study set back to its deck (used when modules
+  // append cards/questions outside the normal generate/commit path).
+  function persistActiveDeck() {
+    if (!studyData) return;
+    const deck = Decks.save(studyData, originalText, activeDeckId);
+    activeDeckId = deck.id;
   }
 
   // ===== Deck Library =====
@@ -986,149 +914,12 @@ const App = (() => {
     if (!silent) showToast(i18n.t('deckOpened', { title: studyData.title }), 'info');
     else showToast(i18n.t('restored'), 'info');
     showStudyView(studyData);
-    renderDeckLibrary();
+    Library.render();
   }
 
-  let librarySearch = '';
-
-  function renderDeckLibrary() {
-    const wrap = document.getElementById('deck-library');
-    if (!wrap) return;
-    const allDecks = Decks.list();
-    if (!allDecks.length) { wrap.style.display = 'none'; wrap.innerHTML = ''; librarySearch = ''; return; }
-    wrap.style.display = 'block';
-    const T = i18n.t;
-    const q = librarySearch.trim().toLocaleLowerCase('tr');
-    const decks = q
-      ? allDecks.filter(d => ((d.data && d.data.title) || '').toLocaleLowerCase('tr').includes(q))
-      : allDecks;
-    let html = `<div class="deck-library-head">
-      <span class="deck-library-title">${T('yourDecks')}</span>
-      <span class="deck-library-tools">
-        ${allDecks.length > 4 ? `<input type="text" id="deck-search" class="deck-search" placeholder="${T('searchDecks')}" value="${escText(librarySearch)}">` : ''}
-        <button class="btn-ghost deck-sync-btn" id="deck-sync-btn">&#10227; ${T('syncTitle')}</button>
-      </span>
-    </div><div class="deck-library-grid">`;
-    decks.forEach((d, idx) => {
-      const data = d.data || {};
-      const cardList = Array.isArray(data.flashcards) ? data.flashcards : [];
-      const cards = cardList.length;
-      const qs = Array.isArray(data.quiz) ? data.quiz.length : 0;
-      const now = Date.now();
-      // Due + mastery for this specific deck without switching active.
-      const due = Object.values(d.srs || {}).filter(s => s && s.due && s.due <= now).length;
-      const ids = new Set(cardList.map(c => String(c.id)));
-      const masteredCount = Object.entries(d.srs || {})
-        .filter(([id, s]) => ids.has(id) && s && s.due > now).length;
-      const pct = cards ? Math.round((masteredCount / cards) * 100) : 0;
-      html += `
-        <div class="deck-card fade-up" data-id="${d.id}" role="button" tabindex="0" style="--i:${idx}">
-          <div class="deck-ring-wrap" title="${pct}%">
-            <svg class="deck-ring" viewBox="0 0 36 36">
-              <circle class="deck-ring-bg" cx="18" cy="18" r="15.5"/>
-              <circle class="deck-ring-fill" cx="18" cy="18" r="15.5" pathLength="100" style="--pct:${pct}"/>
-            </svg>
-            <span class="deck-ring-num">${pct}%</span>
-          </div>
-          <div class="deck-card-body">
-            <h3 class="deck-card-title">${escText(data.title || T('importedSet'))}</h3>
-            <div class="deck-card-meta">
-              <span>${T('cardsN', { n: cards })}</span>
-              <span>&middot;</span>
-              <span>${T('questionsN', { n: qs })}</span>
-              ${due ? `<span class="deck-card-due">${T('dueN', { n: due })}</span>` : ''}
-            </div>
-          </div>
-          <button class="deck-card-menu-btn" data-menu="${d.id}" aria-label="${T('deckActions')}" title="${T('deckActions')}" aria-haspopup="menu">&#8943;</button>
-          <div class="deck-menu" data-menu-for="${d.id}" role="menu" style="display:none">
-            <button data-act="rename" data-id="${d.id}" role="menuitem">${T('renameDeck')}</button>
-            <button data-act="duplicate" data-id="${d.id}" role="menuitem">${T('duplicateDeck')}</button>
-            <button data-act="export" data-id="${d.id}" role="menuitem">${T('allJson')}</button>
-            <button data-act="delete" data-id="${d.id}" class="deck-menu-danger" role="menuitem">${T('deleteDeck')}</button>
-          </div>
-        </div>`;
-    });
-    html += `</div>`;
-    if (q && !decks.length) html += `<p class="deck-search-empty">${T('searchNoResults')}</p>`;
-    wrap.innerHTML = html;
-
-    const syncBtn = document.getElementById('deck-sync-btn');
-    if (syncBtn) syncBtn.addEventListener('click', () => Sync.openModal());
-
-    // Search field keeps focus across re-renders.
-    const search = document.getElementById('deck-search');
-    if (search) {
-      search.addEventListener('input', () => {
-        const pos = search.selectionStart;
-        librarySearch = search.value;
-        renderDeckLibrary();
-        const again = document.getElementById('deck-search');
-        if (again) { again.focus(); again.setSelectionRange(pos, pos); }
-      });
-    }
-
-    wrap.querySelectorAll('.deck-card').forEach(el => {
-      const id = el.dataset.id;
-      const open = () => openDeck(id);
-      el.addEventListener('click', (e) => {
-        if (!e.target.closest('[data-menu], .deck-menu')) open();
-      });
-      el.addEventListener('keydown', (e) => {
-        if ((e.key === 'Enter' || e.key === ' ') && e.target === el) { e.preventDefault(); open(); }
-      });
-    });
-
-    // Kebab menus: one open at a time; a persistent document listener
-    // (registered once in init) closes them on any outside click.
-    const closeMenus = () => wrap.querySelectorAll('.deck-menu').forEach(m => { m.style.display = 'none'; });
-    wrap.querySelectorAll('[data-menu]').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const menu = wrap.querySelector(`[data-menu-for="${btn.dataset.menu}"]`);
-        const isOpen = menu.style.display !== 'none';
-        closeMenus();
-        menu.style.display = isOpen ? 'none' : 'block';
-      });
-    });
-
-    wrap.querySelectorAll('.deck-menu button').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        closeMenus();
-        deckMenuAction(btn.dataset.act, btn.dataset.id);
-      });
-    });
-  }
-
-  function deckMenuAction(act, id) {
-    const T = i18n.t;
-    const deck = Decks.get(id);
-    if (!deck) return;
-    if (act === 'rename') {
-      const title = prompt(T('renamePrompt'), (deck.data && deck.data.title) || '');
-      if (title && title.trim()) {
-        Decks.rename(id, title);
-        if (activeDeckId === id && studyData) {
-          studyData.title = title.trim();
-          document.getElementById('study-title').textContent = studyData.title;
-        }
-        renderDeckLibrary();
-      }
-    } else if (act === 'duplicate') {
-      Decks.duplicate(id);
-      renderDeckLibrary();
-      showToast(T('deckDuplicated'), 'success');
-    } else if (act === 'export') {
-      const data = deck.data || {};
-      Export.downloadFile(JSON.stringify(data, null, 2), `${Export.sanitize(data.title)}_study_set.json`, 'application/json');
-      showToast(T('jsonExported'), 'success');
-    } else if (act === 'delete') {
-      Decks.remove(id);
-      if (activeDeckId === id) { activeDeckId = null; studyData = null; }
-      renderDeckLibrary();
-      showToast(T('deckDeleted'), 'info');
-    }
-  }
+  // Thin wrapper so external modules (palette.js, sync.js) can refresh the
+  // deck library through App's public surface.
+  function refreshLibrary() { Library.render(); }
 
   // ===== Demo Deck =====
   function setupDemo() {
@@ -1170,5 +961,16 @@ const App = (() => {
 
   document.addEventListener('DOMContentLoaded', init);
 
-  return { switchTab, showToast, getStudyData, getOriginalText, openDeck, toggleTheme, toggleShortcuts, refreshLibrary: renderDeckLibrary };
+  return {
+    switchTab,
+    showToast,
+    getStudyData,
+    getOriginalText,
+    openDeck,
+    // Pass-throughs kept for external callers (palette.js).
+    toggleTheme: (originEl) => Shell.toggleTheme(originEl),
+    toggleShortcuts: (force) => Shell.toggleShortcuts(force),
+    refreshLibrary,
+    persistActiveDeck
+  };
 })();

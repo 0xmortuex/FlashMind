@@ -99,10 +99,14 @@ const Sync = (() => {
     renderModalBody();
   }
 
-  function disable() {
+  async function disable() {
+    load();
+    clearTimeout(pushTimer); // no pending push may recreate the cloud copy
+    if (cfg.code) {
+      try { await API.syncDelete(cfg.code); } catch (e) { /* offline — local disable still proceeds */ }
+    }
     cfg = {};
     save();
-    clearTimeout(pushTimer);
     App.showToast(i18n.t('syncDisabled'), 'info');
     renderModalBody();
   }

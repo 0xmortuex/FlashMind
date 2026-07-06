@@ -46,9 +46,14 @@ const Flashcards = (() => {
   }
 
   function addCards(newCards) {
-    cards = cards.concat(newCards);
+    // Re-number past the current max id and push IN PLACE: `cards` is the
+    // same array as studyData.flashcards, so replacing it (the old concat)
+    // silently orphaned added cards — they were never saved to the deck.
+    let maxId = cards.reduce((m, c) => Math.max(m, c.id || 0), 0);
+    newCards.forEach(c => { c.id = ++maxId; cards.push(c); });
+    if (typeof App !== 'undefined' && App.persistActiveDeck) App.persistActiveDeck();
     refreshStatus();
-    render();
+    render(false);
   }
 
   // Pull each card's status from the deck's SM-2 state so mastered/reviewing
@@ -82,6 +87,7 @@ const Flashcards = (() => {
         <div style="display:flex;gap:10px;flex-wrap:wrap">
           <button class="btn-ghost" id="generate-more-cards-btn" onclick="Flashcards.generateMore()" ${generatingMore ? 'disabled' : ''}>${generatingMore ? T('generatingMore') : T('generateMore')}</button>
           ${weakCategories().length ? `<button class="btn-ghost" onclick="Flashcards.generateWeakSpots()" ${generatingMore ? 'disabled' : ''}>&#127919; ${T('targetWeak')}</button>` : ''}
+          ${clozeCandidates().length ? `<button class="btn-ghost" onclick="Flashcards.addClozeCards()">&#9998; ${T('clozeBtn')}</button>` : ''}
           ${dueCount > 0 ? `<button class="btn-ghost review-due-btn" onclick="Flashcards.startStudy('due')">${T('reviewDue', { n: dueCount })}</button>` : ''}
           <button class="start-study-btn" onclick="Flashcards.startStudy('all')">${T('startStudy')}</button>
         </div>
@@ -216,6 +222,42 @@ const Flashcards = (() => {
     generateMore(`The student is struggling with these topics: ${cats.join(', ')}. ` +
       'Generate 10 new flashcards focused specifically on these weak areas, mostly medium and hard difficulty, ' +
       'approaching the concepts from different angles than typical flashcards.');
+  }
+
+  // ===== Cloze cards (client-side, no AI call) =====
+  // Build fill-in-the-blank cards from the notes' key terms: blank the term
+  // out of a sentence in its section that mentions it, or fall back to the
+  // definition. Skips terms that already have a cloze card.
+  function clozeCandidates() {
+    const data = typeof App !== 'undefined' && App.getStudyData ? App.getStudyData() : null;
+    if (!data || !data.notes || !Array.isArray(data.notes.sections)) return [];
+    const existingFronts = new Set(cards.map(c => c.front));
+    const out = [];
+    data.notes.sections.forEach(section => {
+      (section.keyTerms || []).forEach(kt => {
+        if (!kt || !kt.term || !kt.definition) return;
+        const term = kt.term.trim();
+        let front = null;
+        // Prefer a real sentence from the section content containing the term.
+        const sentences = String(section.content || '').match(/[^.!?…]+[.!?…]+/g) || [];
+        const hit = sentences.find(s => s.toLocaleLowerCase('tr').includes(term.toLocaleLowerCase('tr')));
+        if (hit && hit.trim().length <= 220) {
+          const re = new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+          front = hit.trim().replace(re, '____');
+        }
+        if (!front) front = `____: ${kt.definition}`;
+        if (existingFronts.has(front)) return;
+        out.push({ front, back: term, difficulty: 'medium', category: section.title || 'Cloze' });
+      });
+    });
+    return out;
+  }
+
+  function addClozeCards() {
+    const fresh = clozeCandidates();
+    if (!fresh.length) { App.showToast(i18n.t('clozeNone'), 'info'); return; }
+    addCards(fresh);
+    App.showToast(i18n.t('clozeAdded', { n: fresh.length }), 'success');
   }
 
   // ===== STUDY MODE =====
@@ -435,5 +477,5 @@ const Flashcards = (() => {
     return div.innerHTML;
   }
 
-  return { init, setCards, addCards, render, setFilter, flipCard, startStudy, generateMore, generateWeakSpots };
+  return { init, setCards, addCards, render, setFilter, flipCard, startStudy, generateMore, generateWeakSpots, addClozeCards };
 })();

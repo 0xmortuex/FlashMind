@@ -533,6 +533,64 @@
   margin-bottom: 16px;
 }
 
+/* ===== Simulation (Deneme) Mode ===== */
+.sim-hint {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin: -16px 0 24px;
+}
+
+.sim-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.sim-header .quiz-timer-wrap { float: none; }
+
+.sim-header .quiz-timer { font-size: 0.95rem; }
+
+.sim-finish-btn { margin-left: auto; }
+
+/* Question navigator (optik form): one chip per question */
+.sim-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  width: 100%;
+}
+
+.sim-chip {
+  min-width: 30px;
+  height: 30px;
+  padding: 0 7px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.sim-chip:hover { border-color: var(--primary); color: var(--text); }
+
+.sim-chip.answered {
+  background: var(--primary-tint);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.sim-chip.current {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
 @media (max-width: 480px) {
   .quiz-question-text { font-size: 1rem; }
   .quiz-score-circle { width: 130px; height: 130px; }

@@ -15,6 +15,7 @@ const Decks = (() => {
       store = JSON.parse(localStorage.getItem(STORE_KEY)) || null;
     } catch (e) { store = null; }
     if (!store || typeof store.decks !== 'object') store = { decks: {}, activeId: null };
+    if (!store.deleted || typeof store.deleted !== 'object') store.deleted = {};
     migrateLegacy();
     return store;
   }
@@ -50,18 +51,41 @@ const Decks = (() => {
   }
 
   // Merge a remote deck store (device sync): per deck, newer updatedAt wins.
+  // Deletions propagate via tombstones (store.deleted[id] = deletedAt): a
+  // tombstone beats any deck edited before it, while an edit made after the
+  // deletion revives the deck and drops the tombstone.
   function mergeRemote(remoteJson) {
     load();
+    // Prune tombstones older than 90 days — they've long since propagated.
+    const cutoff = Date.now() - 90 * 24 * 60 * 60 * 1000;
+    Object.keys(store.deleted).forEach(id => {
+      if (store.deleted[id] < cutoff) delete store.deleted[id];
+    });
     let remote;
     try { remote = typeof remoteJson === 'string' ? JSON.parse(remoteJson) : remoteJson; }
     catch (e) { return false; }
     if (!remote || typeof remote.decks !== 'object') return false;
     let changed = false;
+    // Merge tombstone maps first: newest deletion time per deck id wins.
+    Object.entries(remote.deleted || {}).forEach(([id, t]) => {
+      if (!store.deleted[id] || t > store.deleted[id]) { store.deleted[id] = t; changed = true; }
+    });
     Object.values(remote.decks).forEach(rd => {
       if (!rd || !rd.id) return;
+      const tomb = store.deleted[rd.id];
+      if (tomb && tomb >= (rd.updatedAt || 0)) return; // deleted elsewhere — handled below
+      if (tomb) { delete store.deleted[rd.id]; changed = true; } // edited after deletion — revive
       const local = store.decks[rd.id];
       if (!local || (rd.updatedAt || 0) > (local.updatedAt || 0)) {
         store.decks[rd.id] = rd;
+        changed = true;
+      }
+    });
+    // Apply tombstones to local decks: a deletion beats older edits.
+    Object.keys(store.decks).forEach(id => {
+      if (store.deleted[id] && store.deleted[id] >= (store.decks[id].updatedAt || 0)) {
+        delete store.decks[id];
+        if (store.activeId === id) store.activeId = null;
         changed = true;
       }
     });
@@ -113,6 +137,7 @@ const Decks = (() => {
   function remove(id) {
     load();
     delete store.decks[id];
+    store.deleted[id] = Date.now(); // tombstone so sync propagates the deletion
     if (store.activeId === id) store.activeId = null;
     persist();
   }
