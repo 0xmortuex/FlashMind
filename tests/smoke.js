@@ -7,7 +7,12 @@ const puppeteer = require('puppeteer');
   const baseUrl = process.env.BASE_URL || 'http://localhost:4173/';
   const browser = await puppeteer.launch({
     headless: 'new',
-    args: ['--no-first-run', '--disable-extensions', '--window-size=1280,900'],
+    args: [
+      '--no-first-run', '--disable-extensions', '--window-size=1280,900',
+      // GitHub's Ubuntu 24.04 runners restrict unprivileged user namespaces,
+      // which breaks Chrome's sandbox — CI runs unsandboxed.
+      ...(process.env.CI ? ['--no-sandbox', '--disable-setuid-sandbox'] : []),
+    ],
     defaultViewport: { width: 1280, height: 900 },
   });
   const page = await browser.newPage();
