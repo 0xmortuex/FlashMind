@@ -50,6 +50,7 @@ const App = (() => {
     setupDemo();
     Library.render();
     if (typeof Today !== 'undefined') Today.init();
+    if (typeof Gallery !== 'undefined') Gallery.init();
     registerServiceWorker();
     checkShareLink() || checkSavedData();
   }
@@ -137,6 +138,8 @@ const App = (() => {
 
     // Share modal
     document.querySelector('.share-modal-header h3').textContent = T('shareTitle');
+    const pubBtn = document.getElementById('share-publish-btn');
+    if (pubBtn) pubBtn.textContent = '🌍 ' + T('publishToGallery');
     document.querySelector('.share-label').textContent = T('shareLabel');
     document.getElementById('share-copy-btn').textContent = T('copyLink');
     document.querySelector('.share-expires').textContent = T('shareExpiry');
@@ -883,6 +886,22 @@ const App = (() => {
       window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
     });
 
+    // Opt-in gallery listing for the share code that was just created.
+    const publishBtn = document.getElementById('share-publish-btn');
+    if (publishBtn) publishBtn.addEventListener('click', async () => {
+      if (!lastShareCode || publishBtn.disabled) return;
+      publishBtn.disabled = true;
+      try {
+        await API.publishShare(lastShareCode);
+        publishBtn.textContent = '✓ ' + i18n.t('publishedToGallery');
+        showToast(i18n.t('publishedToGallery'), 'success');
+        if (typeof Gallery !== 'undefined') Gallery.load().catch(() => {});
+      } catch (err) {
+        publishBtn.disabled = false;
+        showToast(i18n.t('publishFailed') + ' ' + err.message, 'error');
+      }
+    });
+
     discordBtn.addEventListener('click', () => {
       const url = document.getElementById('share-link-input').value;
       const title = studyData ? studyData.title : '';
@@ -906,6 +925,12 @@ const App = (() => {
     try {
       const response = await API.share({ studyData, originalText });
       const code = response.code;
+      lastShareCode = code;
+      const publishBtn = document.getElementById('share-publish-btn');
+      if (publishBtn) {
+        publishBtn.disabled = false;
+        publishBtn.textContent = '🌍 ' + i18n.t('publishToGallery');
+      }
       document.getElementById('share-link-input').value = `https://0xmortuex.github.io/FlashMind/?s=${code}`;
       loading.style.display = 'none';
       result.style.display = 'block';
@@ -914,6 +939,18 @@ const App = (() => {
       modal.style.display = 'none';
       showToast(i18n.t('shareFailed') + ' ' + err.message, 'error');
     }
+  }
+
+  // The most recent share code minted in this session (gallery publishing).
+  let lastShareCode = null;
+
+  // Open a shared deck by code (community gallery cards) — same pipeline as
+  // an incoming ?s= link.
+  function openSharedCode(code) {
+    if (!code) return;
+    const overlay = document.getElementById('share-load-overlay');
+    overlay.style.display = 'flex';
+    loadSharedMaterials(code, overlay);
   }
 
   // ===== Share Link Detection =====
@@ -1059,6 +1096,7 @@ const App = (() => {
     toggleTheme: (originEl) => Shell.toggleTheme(originEl),
     toggleShortcuts: (force) => Shell.toggleShortcuts(force),
     refreshLibrary,
-    persistActiveDeck
+    persistActiveDeck,
+    openSharedCode
   };
 })();

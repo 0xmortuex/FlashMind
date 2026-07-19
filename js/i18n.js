@@ -323,11 +323,18 @@ const i18n = (() => {
       syncCodeInvalid: 'That sync code was not found',
 
       // URL import
-      urlHolder: 'https://... (import text from a web page)',
+      urlHolder: 'https://... (web page or YouTube video)',
       urlFetch: 'Fetch',
       urlFetching: 'Fetching...',
       urlFetched: 'Page text imported — review it, then generate',
       urlFailed: 'Could not import that page:',
+
+      // Community gallery
+      galleryTitle: 'Community gallery',
+      galleryHint: 'Decks other students chose to share publicly',
+      publishToGallery: 'Add to public gallery',
+      publishedToGallery: 'Listed in the community gallery',
+      publishFailed: 'Could not publish:',
 
       // Stats extras
       forecastTitle: 'Upcoming reviews — next 7 days',
@@ -753,11 +760,18 @@ const i18n = (() => {
       syncCodeInvalid: 'Bu senkron kodu bulunamadı',
 
       // URL import
-      urlHolder: 'https://... (web sayfasından metin al)',
+      urlHolder: 'https://... (web sayfası veya YouTube videosu)',
       urlFetch: 'Getir',
       urlFetching: 'Getiriliyor...',
       urlFetched: 'Sayfa metni alındı — kontrol et, sonra oluştur',
       urlFailed: 'Sayfa alınamadı:',
+
+      // Community gallery
+      galleryTitle: 'Topluluk galerisi',
+      galleryHint: 'Diğer öğrencilerin herkese açık paylaştığı desteler',
+      publishToGallery: 'Herkese açık galeriye ekle',
+      publishedToGallery: 'Topluluk galerisinde listelendi',
+      publishFailed: 'Yayınlanamadı:',
 
       // Stats extras
       forecastTitle: 'Yaklaşan tekrarlar — 7 gün',

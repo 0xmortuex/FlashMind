@@ -234,6 +234,9 @@
 
       <!-- Saved decks library (hidden when empty) -->
       <div id="deck-library" class="deck-library" style="display:none"></div>
+
+      <!-- Community gallery (hidden until the worker returns entries) -->
+      <div id="gallery-section" class="deck-library gallery-section" style="display:none"></div>
     </div>
   </div>
 
@@ -443,6 +446,7 @@
               Discord
             </button>
           </div>
+          <button class="btn-ghost share-publish-btn" id="share-publish-btn">&#127757; Add to public gallery</button>
           <p class="share-expires">Link stays available — no expiry</p>
         </div>
       </div>
@@ -480,6 +484,7 @@
   <script src="js/palette.js"></script>
   <script src="js/shell.js"></script>
   <script src="js/library.js"></script>
+  <script src="js/gallery.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

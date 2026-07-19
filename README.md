@@ -30,6 +30,7 @@ Not sure? Hit **Try an example** on the home screen for an instant sample deck �
 - **Upload JSON** — re-import a FlashMind export, or load any JSON as raw text.
 - **Upload CSV/TSV** — flashcards from our export, Anki exports, or any front/back sheet.
 - **A URL** — the backend fetches the page and extracts its readable text.
+- **A YouTube link** — the backend pulls the video's caption transcript (prefers your UI language, falls back to English/auto-generated).
 - **Just a topic** — type "Photosynthesis" and it teaches the subject.
 
 ## Turkish-style exam (Türk sınav sistemi)
@@ -52,6 +53,7 @@ Not sure? Hit **Try an example** on the home screen for an instant sample deck �
 - **🔁 Device sync** — account-less: enable sync, enter the private code on another device, and decks/stats merge (deletions propagate too). Disabling wipes the cloud copy.
 - **💾 Backup** — one file backs up the whole library including schedules, stats, and mistake banks; drop it on any FlashMind to restore.
 - **🔍 Search, 🔗 permanent share links, 📤 exports** (Markdown, PDF, Anki-compatible CSV, printable exam, JSON).
+- **🌍 Community gallery** — optionally list a shared deck publicly; the home screen shows the latest community decks, one tap to open.
 
 ## Interface
 
