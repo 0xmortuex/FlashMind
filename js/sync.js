@@ -187,5 +187,7 @@ const Sync = (() => {
     if (enabled()) setTimeout(() => { pull().catch(() => { /* offline — fine */ }); }, 800);
   }
 
-  return { init, enabled, schedulePush, syncNow, openModal };
+  function lastSyncTime() { return load().lastSync || 0; }
+
+  return { init, enabled, schedulePush, syncNow, openModal, lastSyncTime };
 })();

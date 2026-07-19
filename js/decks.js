@@ -159,6 +159,73 @@ const Decks = (() => {
     return deck;
   }
 
+  // Assign a deck to a folder (empty/null clears it). Folders are plain
+  // strings on the deck; the library groups by them at render time.
+  function setFolder(id, folder) {
+    load();
+    const deck = store.decks[id];
+    if (!deck) return null;
+    const f = (folder || '').trim();
+    if (f) deck.folder = f; else delete deck.folder;
+    deck.updatedAt = Date.now();
+    persist();
+    return deck;
+  }
+
+  function folders() {
+    load();
+    const set = new Set();
+    Object.values(store.decks).forEach(d => { if (d.folder) set.add(d.folder); });
+    return [...set].sort((a, b) => a.localeCompare(b, 'tr'));
+  }
+
+  // Merge deck `srcId` into `dstId`: cards/questions/notes/mistakes are
+  // appended with fresh ids, and each moved card's FSRS state is remapped to
+  // its new id so no scheduling progress is lost. The source deck is deleted
+  // (tombstoned, so sync propagates the merge as a delete + an edit).
+  function mergeInto(srcId, dstId) {
+    load();
+    const src = store.decks[srcId], dst = store.decks[dstId];
+    if (!src || !dst || srcId === dstId) return null;
+    const sd = src.data || {};
+    const dd = dst.data = dst.data || {};
+    dd.flashcards = Array.isArray(dd.flashcards) ? dd.flashcards : [];
+    dd.quiz = Array.isArray(dd.quiz) ? dd.quiz : [];
+    dst.srs = dst.srs || {};
+    let maxId = dd.flashcards.reduce((m, c) => Math.max(m, c.id || 0), 0);
+    (sd.flashcards || []).forEach(c => {
+      const copy = JSON.parse(JSON.stringify(c));
+      const oldId = copy.id;
+      copy.id = ++maxId;
+      dd.flashcards.push(copy);
+      const s = (src.srs || {})[oldId];
+      if (s) dst.srs[copy.id] = JSON.parse(JSON.stringify(s));
+    });
+    let maxQ = dd.quiz.reduce((m, q) => Math.max(m, q.id || 0), 0);
+    (sd.quiz || []).forEach(q => {
+      const copy = JSON.parse(JSON.stringify(q));
+      copy.id = ++maxQ;
+      dd.quiz.push(copy);
+    });
+    if (sd.notes && typeof sd.notes === 'object') {
+      dd.notes = dd.notes || { summary: '' };
+      if (sd.notes.summary) dd.notes.summary = [dd.notes.summary, sd.notes.summary].filter(Boolean).join('\n\n');
+      ['sections', 'importantDates', 'commonMistakes', 'diagrams'].forEach(k => {
+        if (Array.isArray(sd.notes[k]) && sd.notes[k].length) dd.notes[k] = (dd.notes[k] || []).concat(sd.notes[k]);
+      });
+    }
+    if (Array.isArray(src.mistakes) && src.mistakes.length) {
+      dst.mistakes = (Array.isArray(dst.mistakes) ? dst.mistakes : []).concat(src.mistakes);
+    }
+    dst.originalText = [dst.originalText, src.originalText].filter(Boolean).join('\n\n');
+    dst.updatedAt = Date.now();
+    delete store.decks[srcId];
+    store.deleted[srcId] = Date.now();
+    if (store.activeId === srcId) store.activeId = dstId;
+    persist();
+    return dst;
+  }
+
   // Full copy including SRS progress, under a new id.
   function duplicate(id) {
     load();
@@ -243,8 +310,19 @@ const Decks = (() => {
   // Apply a review. quality keeps the old public scale (again=1, hard=3,
   // gotit=5) so callers didn't have to change.
   function review(cardId, quality) {
-    const deck = getActive();
+    return applyReview(getActive(), cardId, quality);
+  }
+
+  // Same as review() but against an explicit deck — used by the cross-deck
+  // "Today" queue, where the rated card may not belong to the active deck.
+  function reviewIn(deckId, cardId, quality) {
+    load();
+    return applyReview(store.decks[deckId] || null, cardId, quality);
+  }
+
+  function applyReview(deck, cardId, quality) {
     if (!deck) return null;
+    deck.srs = deck.srs || {};
     const g = quality >= 5 ? 3 : quality >= 3 ? 2 : 1; // FSRS grade
     const now = Date.now();
     let s = deck.srs[cardId] || null;
@@ -289,6 +367,22 @@ const Decks = (() => {
     return s;
   }
 
+  // Every due card across the whole library, tagged with its deck — the
+  // cross-deck "Today" queue. Never-seen cards are not "due".
+  function dueAcrossDecks() {
+    load();
+    const now = Date.now();
+    const out = [];
+    Object.values(store.decks).forEach(deck => {
+      const cards = deck.data && Array.isArray(deck.data.flashcards) ? deck.data.flashcards : [];
+      cards.forEach(c => {
+        const s = (deck.srs || {})[c.id];
+        if (s && s.due <= now) out.push({ deckId: deck.id, deckTitle: (deck.data && deck.data.title) || '', card: c });
+      });
+    });
+    return out;
+  }
+
   // Cards due for review right now (never-seen cards are not "due").
   function dueCards(cards) {
     const deck = getActive();
@@ -311,7 +405,8 @@ const Decks = (() => {
 
   return {
     save, get, getActive, setActive, list, remove, touch, rename, duplicate,
-    getSrs, review, dueCards, statusOf,
+    setFolder, folders, mergeInto,
+    getSrs, review, reviewIn, dueCards, dueAcrossDecks, statusOf,
     addMistakes, resolveMistakes, getMistakes, mergeRemote
   };
 })();

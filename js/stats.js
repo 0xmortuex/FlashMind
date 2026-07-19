@@ -12,6 +12,11 @@ const Stats = (() => {
     try { data = JSON.parse(localStorage.getItem(KEY)) || null; } catch (e) { data = null; }
     if (!data || typeof data.days !== 'object') data = { days: {}, exams: [] };
     if (!Array.isArray(data.exams)) data.exams = [];
+    // Streak freezes: earned every 7 studied days, consumed automatically to
+    // bridge a single missed day so one quiet day doesn't zero the streak.
+    if (typeof data.freezes !== 'number') data.freezes = 0;
+    if (typeof data.freezeMeter !== 'number') data.freezeMeter = 0;
+    if (!data.frozen || typeof data.frozen !== 'object') data.frozen = {};
     return data;
   }
 
@@ -62,10 +67,19 @@ const Stats = (() => {
   function recordReview(rating) {
     load();
     const k = dayKey(Date.now());
+    const firstToday = !data.days[k];
     const day = data.days[k] || { reviews: 0, gotit: 0 };
     day.reviews += 1;
     if (rating === 'gotit') day.gotit += 1;
     data.days[k] = day;
+    // Every 7 studied days earns a streak freeze (held max 2).
+    if (firstToday) {
+      data.freezeMeter += 1;
+      if (data.freezeMeter >= 7) {
+        data.freezeMeter = 0;
+        if (data.freezes < 2) data.freezes += 1;
+      }
+    }
     persist();
   }
 
@@ -80,17 +94,32 @@ const Stats = (() => {
 
   function streak() {
     load();
-    let n = 0;
+    let n = 0, spent = false;
     const d = new Date();
     // Today counts if studied; otherwise the streak may still be alive from
     // yesterday, so a quiet today doesn't zero it.
     if (!data.days[dayKey(d.getTime())]) d.setDate(d.getDate() - 1);
-    while (data.days[dayKey(d.getTime())]) {
-      n++;
+    while (true) {
+      const k = dayKey(d.getTime());
+      if (data.days[k]) {
+        n++;
+      } else if (data.frozen[k]) {
+        // Already bridged by a freeze on an earlier computation.
+      } else if (n > 0 && data.freezes > 0) {
+        // Gap inside a live streak — spend a freeze to bridge it.
+        data.freezes -= 1;
+        data.frozen[k] = true;
+        spent = true;
+      } else {
+        break;
+      }
       d.setDate(d.getDate() - 1);
     }
+    if (spent) persist();
     return n;
   }
+
+  function freezes() { load(); return data.freezes; }
 
   function totalReviews() {
     load();
@@ -267,6 +296,7 @@ const Stats = (() => {
       <div class="stats-container">
         <div class="stat-tiles">
           ${tile(`<span class="flame">&#128293;</span> <span data-count="${streak()}">0</span>`, T('statStreak'))}
+          ${data.freezes > 0 ? tile(`&#129482; ${data.freezes}`, T('statFreezes')) : ''}
           ${tile(`<span data-count="${reviews}">0</span>`, T('statReviews'))}
           ${tile(`<span data-count="${due}">0</span>`, T('statDue'))}
           ${tile(`<span data-count="${exams.length}">0</span>`, T('statExams'))}
@@ -286,7 +316,17 @@ const Stats = (() => {
           ${examChart(lastExams)}
           <div class="exam-rows">${examRows}</div>
         </div>` : ''}
+        <div class="stat-card">
+          <h3 class="stat-card-title">${T('weeklyTitle')}</h3>
+          <div id="weekly-report-body">${weeklyCache
+            ? `<div class="weekly-report-text">${esc(weeklyCache)}</div>`
+            : `<button class="btn-ghost" id="weekly-report-btn">&#10024; ${T('weeklyBtn')}</button>`}
+          </div>
+        </div>
       </div>`;
+
+    const weeklyBtn = document.getElementById('weekly-report-btn');
+    if (weeklyBtn) weeklyBtn.addEventListener('click', weeklyReport);
 
     // Bring the numbers to life: tiles cascade in and count up.
     container.querySelectorAll('.stat-tile').forEach((el, i) => el.style.setProperty('--i', i));
@@ -294,5 +334,54 @@ const Stats = (() => {
       FX.countUp(el, parseInt(el.dataset.count, 10) || 0, { duration: 800 }));
   }
 
-  return { recordReview, recordExam, render, streak, mergeRemote };
+  // ===== AI weekly report =====
+  // One paragraph-style report generated from the raw last-7-days numbers.
+  // Cached per session so tab switches don't re-bill the API.
+  let weeklyCache = null;
+
+  async function weeklyReport() {
+    const body = document.getElementById('weekly-report-body');
+    if (!body) return;
+    body.innerHTML = `<div class="chat-loading"><div class="chat-loading-dot"></div><div class="chat-loading-dot"></div><div class="chat-loading-dot"></div></div>`;
+    load();
+    const lines = [];
+    const d = new Date();
+    d.setDate(d.getDate() - 6);
+    for (let i = 0; i < 7; i++) {
+      const k = dayKey(d.getTime());
+      const e = data.days[k];
+      lines.push(`${k}: ${e ? e.reviews : 0} reviews (${e ? e.gotit : 0} correct)`);
+      d.setDate(d.getDate() + 1);
+    }
+    const exams = data.exams.filter(e => Date.now() - e.t < 7 * 86400000)
+      .map(e => `${e.title || 'exam'}: ${e.pct}/100 (${e.grade})`);
+    const weak = {};
+    const deck = typeof Decks !== 'undefined' ? Decks.getActive() : null;
+    if (deck && deck.data && Array.isArray(deck.data.flashcards)) {
+      deck.data.flashcards.forEach(c => {
+        const s = (deck.srs || {})[c.id];
+        if (s && s.lapses > 0 && c.category) weak[c.category] = (weak[c.category] || 0) + 1;
+      });
+    }
+    const prompt = 'Write my weekly study report as a short, motivating summary (max 120 words, plain text, no lists needed). ' +
+      'Mention the trend, my weakest area, and ONE concrete suggestion for next week.\n' +
+      `Current streak: ${streak()} days.\n` +
+      'Reviews per day, last 7 days:\n' + lines.join('\n') +
+      (exams.length ? '\nExams this week:\n' + exams.join('\n') : '\nNo exams this week.') +
+      (Object.keys(weak).length ? '\nCategories with forgotten cards: ' +
+        Object.entries(weak).sort((a, b) => b[1] - a[1]).map(e => `${e[0]} (${e[1]})`).join(', ') : '');
+    try {
+      const raw = await API.chat(prompt, '');
+      const parsed = Parser.parseChat(raw);
+      weeklyCache = parsed.answer || '';
+      body.innerHTML = `<div class="weekly-report-text">${esc(weeklyCache)}</div>`;
+    } catch (err) {
+      body.innerHTML = `<button class="btn-ghost" id="weekly-report-btn">&#10024; ${i18n.t('weeklyBtn')}</button>`;
+      const again = document.getElementById('weekly-report-btn');
+      if (again) again.addEventListener('click', weeklyReport);
+      App.showToast(i18n.t('chatError'), 'error');
+    }
+  }
+
+  return { recordReview, recordExam, render, streak, freezes, mergeRemote };
 })();

@@ -33,6 +33,14 @@
   --font-body: 'Outfit', sans-serif;
   --font-content: 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+  /* Accent palette (juice layer): one hue per surface family so tabs, tiles,
+     and badges each get an identity instead of everything being violet. */
+  --accent-pink: #f472b6;
+  --accent-orange: #fb923c;
+  --accent-lime: #a3e635;
+  --accent-sky: #38bdf8;
+  --grad-brand: linear-gradient(120deg, var(--primary), var(--secondary));
+  --grad-warm: linear-gradient(120deg, var(--accent-pink), var(--accent-orange));
 }
 
 :root[data-theme="light"] {
@@ -54,6 +62,11 @@
   --backdrop: rgba(24, 27, 38, 0.5);
   --shadow: 0 4px 24px rgba(24, 27, 38, 0.08);
   --shadow-lg: 0 16px 48px rgba(24, 27, 38, 0.16);
+  /* Deeper accents for light backgrounds (contrast). */
+  --accent-pink: #ec4899;
+  --accent-orange: #f97316;
+  --accent-lime: #84cc16;
+  --accent-sky: #0ea5e9;
 }
 
 /* ===== Reset ===== */
@@ -994,4 +1007,10 @@ button:focus:not(:focus-visible), input:focus:not(:focus-visible), textarea:focu
   .logo-text { font-size: 1.7rem; }
   #paste-input { min-height: 180px; }
   .btn-generate { padding: 14px 20px; font-size: 0.95rem; }
+}
+
+/* AI weekly report (Stats tab) */
+.weekly-report-text {
+  white-space: pre-wrap; line-height: 1.6; font-family: var(--font-content);
+  font-size: 0.92rem; color: var(--text);
 }

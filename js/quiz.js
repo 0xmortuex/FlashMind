@@ -53,14 +53,99 @@ const Quiz = (() => {
 
   function setQuestions(newQuestions) { questions = newQuestions || []; state = null; renderReady(); }
 
+  // Validate + default one incoming question (chat-generated questions skip
+  // parseGenerate's normalization). Returns null when unusable.
+  function normalizeQuestion(q) {
+    if (!q || !q.question) return null;
+    q.explanation = q.explanation || '';
+    if (q.type === 'open-ended') {
+      q.correctAnswer = q.correctAnswer || '';
+      q.keyPoints = Array.isArray(q.keyPoints) ? q.keyPoints : [];
+      q.maxPoints = q.maxPoints || 3;
+    } else if (q.type === 'true-false') {
+      if (typeof q.correct === 'string') q.correct = /^(true|doğru|dogru|d|t|1|yes|evet)$/i.test(q.correct.trim());
+      q.correct = !!q.correct;
+    } else if (q.type === 'fill-blank') {
+      if (!Array.isArray(q.answers)) q.answers = (q.answer != null ? [String(q.answer)] : []);
+      q.answers = q.answers.map(a => String(a)).filter(a => a.trim());
+      if (!q.answers.length) return null;
+      if (!/_{2,}/.test(q.question)) q.question += ' ___';
+    } else if (q.type === 'matching') {
+      q.pairs = (Array.isArray(q.pairs) ? q.pairs : [])
+        .filter(p => p && p.left && p.right)
+        .map(p => ({ left: String(p.left), right: String(p.right) }));
+      if (q.pairs.length < 2) return null;
+    } else {
+      q.type = 'multiple-choice';
+      if (!Array.isArray(q.options) || q.options.length < 2) return null;
+      if (typeof q.correct !== 'number' || q.correct < 0 || q.correct >= q.options.length) q.correct = 0;
+    }
+    return q;
+  }
+
+  // Returns how many questions were actually added (post validate + dedupe).
   function addQuestions(newQuestions) {
     // Push IN PLACE and persist: `questions` is the same array as
     // studyData.quiz, so replacing it (the old concat) orphaned added
-    // questions — they were never saved to the deck.
+    // questions — they were never saved to the deck. The question bank only
+    // grows: retakes draw from everything ever added, and duplicates (by
+    // normalized stem) are dropped.
     let maxId = questions.reduce((m, q) => Math.max(m, q.id || 0), 0);
-    (newQuestions || []).forEach(q => { q.id = ++maxId; questions.push(q); });
+    const seen = new Set(questions.map(q => normalize(q.question)));
+    let added = 0;
+    (newQuestions || []).forEach(q => {
+      q = normalizeQuestion(q);
+      if (!q) return;
+      const k = normalize(q.question);
+      if (seen.has(k)) return;
+      seen.add(k);
+      q.id = ++maxId;
+      questions.push(q);
+      added++;
+    });
     if (typeof App !== 'undefined' && App.persistActiveDeck) App.persistActiveDeck();
     if (!state) renderReady();
+    return added;
+  }
+
+  // ===== Grow the question bank with AI =====
+  let genQBusy = false;
+
+  async function generateMoreQuestions(customPrompt) {
+    if (genQBusy) return;
+    genQBusy = true;
+    const btn = document.getElementById('gen-more-q-btn');
+    if (btn) { btn.disabled = true; btn.textContent = i18n.t('generatingMore'); }
+    const hbtn = document.getElementById('harder-mistakes-btn');
+    if (hbtn) hbtn.disabled = true;
+    try {
+      const prompt = (typeof customPrompt === 'string' && customPrompt) ||
+        'Generate 10 more exam questions covering concepts not yet tested by the existing questions. ' +
+        'Mix multiple-choice (5 options, Turkish YKS style), true-false, and fill-blank. Return them as a quiz.';
+      const raw = await API.chat(prompt, App.getOriginalText());
+      const data = Parser.parseChat(raw);
+      if (data.type === 'quiz' && Array.isArray(data.quiz) && data.quiz.length) {
+        const added = addQuestions(data.quiz);
+        App.showToast(i18n.t('questionsAddedN', { n: added }), added ? 'success' : 'info');
+      } else {
+        App.showToast(i18n.t('chatError'), 'error');
+      }
+    } catch (err) {
+      App.showToast(i18n.t('genFailed') + ' ' + err.message, 'error');
+    }
+    genQBusy = false;
+    if (!state) renderReady();
+  }
+
+  // New, harder questions targeting exactly what the student got wrong.
+  function harderFromMistakes() {
+    const ms = (typeof Decks !== 'undefined' ? Decks.getMistakes() : []).slice(0, 10);
+    if (!ms.length) return;
+    const listing = ms.map(q => '- ' + q.question).join('\n');
+    generateMoreQuestions(
+      'The student answered these exam questions WRONG:\n' + listing +
+      '\nGenerate 8 NEW and noticeably harder exam questions that test the same concepts from different angles ' +
+      '(multiple-choice with 5 options, true-false, fill-blank). Do not repeat the original questions. Return them as a quiz.');
   }
 
   function isObjective(q) { return q.type !== 'open-ended'; }
@@ -155,8 +240,12 @@ const Quiz = (() => {
           ${(typeof Decks !== 'undefined' && Decks.getMistakes().length) ? `
           <div class="mistakes-row">
             <button class="btn-ghost mistakes-btn" id="retake-mistakes-btn">&#128213; ${T('retakeMistakes', { n: Decks.getMistakes().length })}</button>
+            <button class="btn-ghost mistakes-btn" id="harder-mistakes-btn">&#128293; ${T('harderMistakes')}</button>
             <p class="mistakes-hint">${T('mistakesHint')}</p>
           </div>` : ''}
+          <div class="quiz-grow-row">
+            <button class="btn-ghost" id="gen-more-q-btn">&#65291; ${T('genMoreQs')}</button>
+          </div>
         </div>
       </div>`;
 
@@ -188,6 +277,10 @@ const Quiz = (() => {
     document.getElementById('start-quiz-btn').addEventListener('click', () => startQuiz());
     const mistakesBtn = document.getElementById('retake-mistakes-btn');
     if (mistakesBtn) mistakesBtn.addEventListener('click', () => startQuiz(Decks.getMistakes()));
+    const harderBtn = document.getElementById('harder-mistakes-btn');
+    if (harderBtn) harderBtn.addEventListener('click', harderFromMistakes);
+    const moreBtn = document.getElementById('gen-more-q-btn');
+    if (moreBtn) moreBtn.addEventListener('click', () => generateMoreQuestions());
   }
 
   function bindOptionGroup(selector, onPick) {
@@ -678,6 +771,35 @@ const Quiz = (() => {
     const stat = (val, label, color) =>
       `<div class="quiz-result-stat"><span class="quiz-result-stat-value"${color ? ` style="color:${color}"` : ''}>${val}</span><span class="quiz-result-stat-label">${label}</span></div>`;
 
+    // Accuracy breakdown: by topic when the questions carry categories,
+    // otherwise by question type — either way the score becomes actionable.
+    const hasCats = answers.filter(a => {
+      const q = state.questions[a.questionIdx];
+      return q && q.category;
+    }).length >= answers.length / 2;
+    const groups = {};
+    answers.forEach(a => {
+      const q = state.questions[a.questionIdx];
+      if (!q) return;
+      const key = hasCats ? (q.category || '—') : typeLabel(q.type);
+      const g = groups[key] = groups[key] || { ok: 0, total: 0 };
+      g.total++;
+      if (a.qType === 'open-ended' ? a.score >= 2 : a.result === 'correct') g.ok++;
+    });
+    const groupEntries = Object.entries(groups)
+      .map(([name, g]) => ({ name, ok: g.ok, total: g.total, pct: Math.round(g.ok / g.total * 100) }))
+      .sort((a, b) => a.pct - b.pct);
+    const breakdownHtml = groupEntries.length >= 2 ? `
+        <div class="quiz-breakdown">
+          <h3 class="quiz-breakdown-title">${T('breakdownTitle')}</h3>
+          ${groupEntries.map(g => `
+          <div class="qb-row">
+            <span class="qb-name">${esc(g.name)}</span>
+            <span class="qb-bar"><span class="qb-fill ${g.pct >= 70 ? 'good' : g.pct >= 40 ? 'mid' : 'bad'}" style="width:${g.pct}%"></span></span>
+            <span class="qb-score">${g.ok}/${g.total}</span>
+          </div>`).join('')}
+        </div>` : '';
+
     container.innerHTML = `
       <div class="quiz-container"><div class="quiz-results">
         <div class="quiz-score-ring">
@@ -706,6 +828,7 @@ const Quiz = (() => {
           ${oeAnswers.length ? stat(oePoints + '/' + oeMax, T('writtenPts'), 'var(--secondary)') : ''}
           ${stat(Math.floor(elapsed / 60) + ':' + (elapsed % 60).toString().padStart(2, '0'), T('time'))}
         </div>
+        ${breakdownHtml}
         <div class="quiz-result-actions">
           <button class="btn-primary" id="review-btn">${T('reviewAnswers')}</button>
           <button class="btn-ghost" id="retake-btn">${T('retakeExam')}</button>

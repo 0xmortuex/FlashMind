@@ -598,3 +598,20 @@
   .quiz-grade { font-size: 2.4rem; }
   .oe-textarea { min-height: 100px; }
 }
+
+/* ===== Results: per-topic / per-type accuracy breakdown ===== */
+.quiz-breakdown {
+  width: min(520px, 100%); margin: 18px auto 0; text-align: left;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 16px 18px;
+}
+.quiz-breakdown-title { font-size: 0.95rem; margin-bottom: 12px; }
+.qb-row { display: flex; align-items: center; gap: 10px; margin: 7px 0; }
+.qb-name { flex: 0 0 32%; font-size: 0.85rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.qb-bar { flex: 1; height: 8px; background: var(--surface); border-radius: 999px; overflow: hidden; }
+.qb-fill { display: block; height: 100%; border-radius: 999px; transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
+.qb-fill.good { background: var(--correct); }
+.qb-fill.mid { background: var(--highlight); }
+.qb-fill.bad { background: var(--wrong); }
+.qb-score { flex: 0 0 44px; text-align: right; font-size: 0.82rem; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.quiz-grow-row { margin-top: 14px; }
