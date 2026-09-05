@@ -38,7 +38,7 @@ const Quiz = (() => {
       const tag = (e.target.tagName || '').toLowerCase();
       if (tag === 'input' || tag === 'textarea' || tag === 'select' || e.target.isContentEditable) return;
       const tab = document.getElementById('tab-quiz');
-      if (!tab || !tab.classList.contains('active')) return;
+      if (!tab || !tab.classList.contains('active') || tab.offsetParent === null) return;
       if (e.key === 'Enter') {
         const next = document.getElementById('quiz-next-btn');
         if (next) { e.preventDefault(); next.click(); }
@@ -51,13 +51,17 @@ const Quiz = (() => {
     });
   }
 
-  function setQuestions(newQuestions) { questions = newQuestions || []; state = null; renderReady(); }
+  function setQuestions(newQuestions) {
+    clearInterval(timerInterval);
+    clearInterval(simInterval);
+    questions = newQuestions || []; state = null; renderReady();
+  }
 
   function addQuestions(newQuestions) {
     // Push IN PLACE and persist: `questions` is the same array as
     // studyData.quiz, so replacing it (the old concat) orphaned added
     // questions — they were never saved to the deck.
-    let maxId = questions.reduce((m, q) => Math.max(m, q.id || 0), 0);
+    let maxId = questions.reduce((m, q) => Math.max(m, Number(q.id) || 0), 0);
     (newQuestions || []).forEach(q => { q.id = ++maxId; questions.push(q); });
     if (typeof App !== 'undefined' && App.persistActiveDeck) App.persistActiveDeck();
     if (!state) renderReady();
@@ -91,6 +95,9 @@ const Quiz = (() => {
 
   // ===== Ready / settings screen =====
   function renderReady() {
+    clearInterval(timerInterval);
+    clearInterval(simInterval);
+    state = null;
     if (!container) init();
     const T = i18n.t;
     const objCount = questions.filter(isObjective).length;
@@ -219,6 +226,7 @@ const Quiz = (() => {
     if (settings.mode === 'sim') {
       state.mode = 'sim';
       state.simTimeLeft = settings.simDuration * 60;
+      state.simDeadline = Date.now() + state.simTimeLeft * 1000;
       simInterval = setInterval(simTick, 1000);
     }
     renderQuestion();
@@ -231,7 +239,7 @@ const Quiz = (() => {
 
   function simTick() {
     if (!state || state.mode !== 'sim' || state.finished) { clearInterval(simInterval); return; }
-    state.simTimeLeft--;
+    state.simTimeLeft = Math.max(0, Math.ceil((state.simDeadline - Date.now()) / 1000));
     const el = document.getElementById('sim-timer');
     const ring = document.getElementById('sim-timer-ring');
     const wrap = document.getElementById('sim-timer-wrap');
@@ -362,8 +370,9 @@ const Quiz = (() => {
 
     if (!sim && settings.timer) {
       clearInterval(timerInterval);
+      const deadline = Date.now() + state.timeLeft * 1000;
       timerInterval = setInterval(() => {
-        state.timeLeft--;
+        state.timeLeft = Math.max(0, Math.ceil((deadline - Date.now()) / 1000));
         const el = document.getElementById('quiz-timer');
         const ring = document.getElementById('quiz-timer-ring');
         const wrap = document.getElementById('quiz-timer-wrap');
@@ -567,6 +576,10 @@ const Quiz = (() => {
   }
 
   async function submitOpenEnded() {
+    if (!state || state.finished || state.grading) return;
+    const gradingState = state;
+    const gradingIndex = state.current;
+    state.grading = true;
     clearInterval(timerInterval);
     const T = i18n.t;
     const q = state.questions[state.current];
@@ -584,6 +597,8 @@ const Quiz = (() => {
     let gradeResult;
     try { gradeResult = Parser.parseGrade(await API.grade(studentAnswer, q.correctAnswer, q.keyPoints)); }
     catch (err) { gradeResult = fallbackGrade(studentAnswer, q); }
+    if (state !== gradingState || state.current !== gradingIndex || state.finished) return;
+    state.grading = false;
 
     state.answers.push({
       questionIdx: state.current, qType: 'open-ended', studentAnswer,
@@ -641,6 +656,10 @@ const Quiz = (() => {
   }
 
   function showResults() {
+    if (!state || state.resultsRecorded) return;
+    state.resultsRecorded = true;
+    state.finished = true;
+    clearInterval(simInterval);
     clearInterval(timerInterval);
     const T = i18n.t;
     const { answers, startTime } = state;

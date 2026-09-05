@@ -141,7 +141,7 @@ const FX = (() => {
     function onKey(e) {
       if (e.key !== 'Tab') return;
       const els = focusables();
-      if (!els.length) return;
+      if (!els.length) { e.preventDefault(); container.focus(); return; }
       const first = els[0], last = els[els.length - 1];
       if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
@@ -149,6 +149,7 @@ const FX = (() => {
     container.addEventListener('keydown', onKey);
     const els = focusables();
     if (els.length) els[0].focus();
+    else { container.setAttribute('tabindex', '-1'); container.focus(); }
     return () => {
       container.removeEventListener('keydown', onKey);
       if (prev && typeof prev.focus === 'function') prev.focus();

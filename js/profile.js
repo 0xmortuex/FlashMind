@@ -35,13 +35,13 @@ const Profile = (() => {
 
   function getName() { try { return localStorage.getItem(NAME_KEY) || ''; } catch { return ''; } }
   function setName(n) { try { localStorage.setItem(NAME_KEY, n); } catch {} }
-  function getRecent() { try { return JSON.parse(localStorage.getItem(RECENT_KEY) || '[]'); } catch { return []; } }
+  function getRecent() { try { const items = JSON.parse(localStorage.getItem(RECENT_KEY) || '[]'); return Array.isArray(items) ? items.filter(x => x && typeof x.subject === 'string' && typeof x.topic === 'string') : []; } catch { return []; } }
   function pushRecent(item) {
     let r = getRecent().filter(x => !(x.subject === item.subject && x.topic === item.topic));
     r.unshift(item);
     try { localStorage.setItem(RECENT_KEY, JSON.stringify(r.slice(0, 8))); } catch {}
   }
-  function esc(s) { const d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; }
+  function esc(s) { const d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML.replace(/"/g, '&quot;'); }
 
   let panel;
   function init() { panel = document.getElementById('profile-panel'); if (panel) render(); }

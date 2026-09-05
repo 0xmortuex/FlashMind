@@ -65,7 +65,7 @@ Not sure? Hit **Try an example** on the home screen for an instant sample deck �
 - **Backend** — a Cloudflare Worker ([`flashmind-worker`](https://github.com/0xmortuex/flashmind-worker)) that proxies generation/grading to [OpenRouter](https://openrouter.ai) (Claude) with SSE streaming, stores shares and sync blobs in KV, extracts text from URLs, and rate-limits per IP. The API key lives only as a Worker secret.
 - **Storage** — decks, FSRS schedules, mistake banks, and stats persist in `localStorage`; sync/share blobs in Worker KV under random bearer codes.
 - **Charts & scheduling** — hand-rolled: inline-SVG charts, canvas confetti, and an FSRS-4.5 implementation — no libraries.
-- **CI** — a 23-step puppeteer smoke test runs on every push (badge above).
+- **CI** — a 24-step Puppeteer smoke test plus data and browser regression suites runs on every push (badge above).
 
 ## Run locally
 
@@ -75,7 +75,22 @@ It's static — open `index.html`, or:
 npx serve .
 ```
 
-Generation/sharing/sync call the hosted Worker. To run your own backend, deploy `flashmind-worker` (see its README) and point `WORKER_URL` in `js/api.js` at it. Run the test suite with `npm i --no-save puppeteer serve && npx serve -l 4173 . & node tests/smoke.js`.
+Generation/sharing/sync call the hosted Worker. To run your own backend, deploy `flashmind-worker` (see its README) and point `WORKER_URL` in `js/api.js` at it. Run the tests with Node.js 20 or newer. Install the browser test dependencies and start a local server:
+
+```bash
+npm install --no-save puppeteer serve
+npx serve -l 4173 .
+```
+
+In a second terminal:
+
+```bash
+node --test tests/regression.js
+node tests/smoke.js
+node tests/browser-regression.js
+```
+
+The regression suites use mocked AI/sync responses; they do not upload study material. See [AUDIT.md](AUDIT.md) for the audit findings, fixes, and remaining architectural work.
 
 ## Privacy
 

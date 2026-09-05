@@ -7,6 +7,7 @@ const Notes = (() => {
   }
 
   function render(data) {
+    if (reading) { TTS.stop(); reading = false; }
     if (!container) init();
     const T = i18n.t;
     const { title, notes } = data;
@@ -98,7 +99,7 @@ const Notes = (() => {
     const svgW = Math.min(nodes.length, maxPerRow) * (nodeW + gapX) - gapX + padX * 2;
     const svgH = rows.length * (nodeH + gapY + 40) - gapY + padY * 2;
 
-    const positions = {};
+    const positions = Object.create(null);
     rows.forEach((row, rowIdx) => {
       const rowWidth = row.length * (nodeW + gapX) - gapX;
       const offsetX = (svgW - rowWidth) / 2;

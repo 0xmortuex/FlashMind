@@ -41,7 +41,7 @@ const Export = (() => {
     const { title, notes } = data;
 
     let html = `<!DOCTYPE html><html><head><meta charset="UTF-8">
-      <title>${title} — FlashMind</title>
+      <title>${esc(title)} — FlashMind</title>
       <style>
         body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 700px; margin: 40px auto; padding: 0 20px; color: #1a1a2e; line-height: 1.7; }
         h1 { color: #7c3aed; border-bottom: 2px solid #7c3aed; padding-bottom: 8px; }
@@ -72,6 +72,7 @@ const Export = (() => {
     html += `</body></html>`;
 
     const w = window.open('', '_blank');
+    if (!w) { App.showToast(i18n.getLang() === 'tr' ? 'Yazdırmak için açılır pencerelere izin verin.' : 'Allow popups to print.', 'error'); return; }
     w.document.write(html);
     w.document.close();
     setTimeout(() => w.print(), 500);
@@ -136,6 +137,7 @@ const Export = (() => {
       </body></html>`;
 
     const w = window.open('', '_blank');
+    if (!w) { App.showToast(i18n.getLang() === 'tr' ? 'Yazdırmak için açılır pencerelere izin verin.' : 'Allow popups to print.', 'error'); return; }
     w.document.write(html);
     w.document.close();
     setTimeout(() => w.print(), 500);
@@ -160,6 +162,12 @@ const Export = (() => {
       text += `${i + 1}. ${q.question}\n`;
       if (q.type === 'open-ended') {
         text += `   ${i18n.t('modelAnswer')} ${q.correctAnswer}\n`;
+      } else if (q.type === 'true-false') {
+        text += `   ${q.correct ? i18n.t('tfTrue') : i18n.t('tfFalse')}\n`;
+      } else if (q.type === 'fill-blank') {
+        text += `   ${(q.answers || []).join(' / ')}\n`;
+      } else if (q.type === 'matching') {
+        q.pairs.forEach(p => { text += `   ${p.left} → ${p.right}\n`; });
       } else {
         q.options.forEach((opt, j) => {
           const marker = j === q.correct ? ' \u2713' : '';
@@ -185,9 +193,8 @@ const Export = (() => {
   // banks, plus stats — everything a per-deck export loses. Dropping the file
   // on the upload zone restores it (merged, never destructive).
   function backupAll() {
-    let decks = {}, stats = {};
-    try { decks = JSON.parse(localStorage.getItem('flashmind_decks_v1')) || {}; } catch (e) { /* empty library */ }
-    try { stats = JSON.parse(localStorage.getItem('flashmind_stats_v1')) || {}; } catch (e) { /* no stats yet */ }
+    // Include in-memory changes even when the last storage write failed.
+    const decks = Decks.snapshot(), stats = Stats.snapshot();
     const backup = { flashmindBackup: 1, exportedAt: new Date().toISOString(), decks, stats };
     const date = new Date().toISOString().slice(0, 10);
     downloadFile(JSON.stringify(backup), `flashmind_backup_${date}.json`, 'application/json');
@@ -204,7 +211,7 @@ const Export = (() => {
     URL.revokeObjectURL(url);
   }
 
-  function csvEsc(str) { return (str || '').replace(/"/g, '""'); }
+  function csvEsc(str) { return String(str ?? '').replace(/"/g, '""'); }
   function sanitize(str) { return (str || 'study').replace(/[^a-zA-Z0-9_-]/g, '_').substring(0, 50); }
   function esc(str) { if (!str) return ''; const d = document.createElement('div'); d.textContent = str; return d.innerHTML; }
 

@@ -44,22 +44,31 @@ const API = (() => {
     const reader = res.body.getReader();
     const decoder = new TextDecoder();
     let buf = '', full = '';
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      buf += decoder.decode(value, { stream: true });
-      const lines = buf.split('\n');
-      buf = lines.pop(); // keep a possibly-partial last line in the buffer
-      for (const line of lines) {
-        if (!line.startsWith('data: ')) continue;
-        const payload = line.slice(6).trim();
-        if (!payload || payload === '[DONE]') continue;
-        try {
-          const delta = JSON.parse(payload).choices?.[0]?.delta?.content;
-          if (delta) { full += delta; if (onProgress) onProgress(full); }
-        } catch (e) { /* keep-alive/comment lines — ignore */ }
+    function consume(line) {
+      if (!line.startsWith('data:')) return;
+      const payload = line.slice(5).trim();
+      if (!payload || payload === '[DONE]') return;
+      let event;
+      try { event = JSON.parse(payload); } catch { return; }
+      if (event.error) throw new Error(event.error.message || String(event.error));
+      const delta = event.choices?.[0]?.delta?.content;
+      if (typeof delta === 'string') {
+        full += delta;
+        if (onProgress) onProgress(full);
       }
     }
+    try {
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buf += decoder.decode(value, { stream: true });
+        const lines = buf.split('\n');
+        buf = lines.pop();
+        lines.forEach(consume);
+      }
+      buf += decoder.decode();
+      if (buf) consume(buf);
+    } finally { reader.releaseLock(); }
     if (!full) throw new Error('Empty stream');
     return full;
   }

@@ -4,6 +4,7 @@ const Chat = (() => {
   let inputEl;
   let sendBtn;
   let isLoading = false;
+  let session = 0;
 
   function init() {
     messagesEl = document.getElementById('chat-messages');
@@ -16,6 +17,7 @@ const Chat = (() => {
 
     inputEl.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' && !e.shiftKey && inputEl.value.trim() && !isLoading) {
+        e.preventDefault();
         sendMessage(inputEl.value.trim());
       }
     });
@@ -26,6 +28,11 @@ const Chat = (() => {
   }
 
   function setup(title) {
+    session++;
+    isLoading = false;
+    Chat._pendingFlashcards = null;
+    Chat._pendingQuiz = null;
+    sendBtn.disabled = !inputEl.value.trim();
     document.getElementById('chat-context-badge').textContent = title;
     messagesEl.innerHTML = '';
     showStarters();
@@ -66,12 +73,13 @@ const Chat = (() => {
     }
     if (data.followUps && data.followUps.length > 0) {
       html += `<div class="chat-followups">`;
-      data.followUps.forEach(f => {
-        html += `<button class="chat-followup" onclick="Chat.sendMessage('${f.replace(/'/g, "\\'")}')">${esc(f)}</button>`;
+      data.followUps.filter(f => typeof f === 'string').forEach(f => {
+        html += `<button class="chat-followup">${esc(f)}</button>`;
       });
       html += `</div>`;
     }
     msg.innerHTML = html;
+    msg.querySelectorAll('.chat-followup').forEach(btn => btn.addEventListener('click', () => sendMessage(btn.textContent)));
     messagesEl.appendChild(msg);
     scrollToBottom();
   }
@@ -82,8 +90,12 @@ const Chat = (() => {
     msg.className = 'chat-message ai';
     msg.innerHTML = `
       <div class="chat-bubble">${T('newFlashcards', { n: data.flashcards.length })}</div>
-      <button class="chat-action-btn" onclick="Chat.addFlashcards()">${T('addToDeck')}</button>`;
+      <button class="chat-action-btn">${T('addToDeck')}</button>`;
     msg._flashcards = data.flashcards;
+    msg.querySelector('button').addEventListener('click', function () {
+      Flashcards.addCards(msg._flashcards);
+      this.disabled = true;
+    }, { once: true });
     messagesEl.appendChild(msg);
     scrollToBottom();
   }
@@ -94,8 +106,12 @@ const Chat = (() => {
     msg.className = 'chat-message ai';
     msg.innerHTML = `
       <div class="chat-bubble">${T('newQuizQs', { n: data.quiz.length })}</div>
-      <button class="chat-action-btn" onclick="Chat.addQuizQuestions()">${T('addToQuiz')}</button>`;
+      <button class="chat-action-btn">${T('addToQuiz')}</button>`;
     msg._quiz = data.quiz;
+    msg.querySelector('button').addEventListener('click', function () {
+      Quiz.addQuestions(msg._quiz);
+      this.disabled = true;
+    }, { once: true });
     messagesEl.appendChild(msg);
     scrollToBottom();
   }
@@ -118,6 +134,8 @@ const Chat = (() => {
 
   async function sendMessage(text) {
     if (isLoading) return;
+    const requestSession = session;
+    const source = App.getStudyData();
     isLoading = true;
     sendBtn.disabled = true;
     inputEl.value = '';
@@ -125,8 +143,9 @@ const Chat = (() => {
     showLoading();
 
     try {
-      const context = App.getOriginalText();
+      const context = App.getOriginalText() || JSON.stringify(source);
       const raw = await API.chat(text, context);
+      if (requestSession !== session || source !== App.getStudyData()) return;
       removeLoading();
       const data = Parser.parseChat(raw);
       if (data.type === 'flashcards') {
@@ -139,6 +158,7 @@ const Chat = (() => {
         addAIMessage(data);
       }
     } catch (err) {
+      if (requestSession !== session || source !== App.getStudyData()) return;
       removeLoading();
       addAIMessage({ answer: `${i18n.t('chatError')} ${err.message}`, tip: null, followUps: [] });
     }

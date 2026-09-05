@@ -21,7 +21,7 @@ const Shell = (() => {
     const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
     const apply = () => {
       document.documentElement.dataset.theme = next;
-      localStorage.setItem('flashmind_theme', next);
+      try { localStorage.setItem('flashmind_theme', next); } catch {}
     };
     if (document.startViewTransition && !FX.reduced()) {
       if (originEl) {

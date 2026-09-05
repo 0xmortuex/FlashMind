@@ -39,6 +39,7 @@ const Flashcards = (() => {
   let sessionMode = 'all';
 
   function setCards(newCards) {
+    if (studyState) exitStudy();
     cards = newCards;
     filter = 'all';
     refreshStatus();
@@ -49,7 +50,7 @@ const Flashcards = (() => {
     // Re-number past the current max id and push IN PLACE: `cards` is the
     // same array as studyData.flashcards, so replacing it (the old concat)
     // silently orphaned added cards — they were never saved to the deck.
-    let maxId = cards.reduce((m, c) => Math.max(m, c.id || 0), 0);
+    let maxId = cards.reduce((m, c) => Math.max(m, Number(c.id) || 0), 0);
     newCards.forEach(c => { c.id = ++maxId; cards.push(c); });
     if (typeof App !== 'undefined' && App.persistActiveDeck) App.persistActiveDeck();
     refreshStatus();
@@ -97,7 +98,7 @@ const Flashcards = (() => {
 
     filtered.forEach((card, idx) => {
       html += `
-        <div class="flashcard diff-${card.difficulty}${animate ? ' fade-up' : ''}" style="--i:${Math.min(idx, 18)}" onclick="Flashcards.flipCard(this)" data-id="${card.id}">
+        <div class="flashcard diff-${card.difficulty}${animate ? ' fade-up' : ''}" style="--i:${Math.min(idx, 18)}" role="button" tabindex="0" aria-pressed="false" onclick="Flashcards.flipCard(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();Flashcards.flipCard(this)}" data-id="${card.id}">
           <div class="flashcard-inner">
             <div class="flashcard-front">
               <p class="flashcard-text">${esc(card.front)}</p>
@@ -173,6 +174,7 @@ const Flashcards = (() => {
 
   function flipCard(el) {
     el.classList.toggle('flipped');
+    el.setAttribute('aria-pressed', String(el.classList.contains('flipped')));
   }
 
   // ===== Generate More Flashcards =====
@@ -180,16 +182,18 @@ const Flashcards = (() => {
   // inline onclick handler passing a MouseEvent as the first argument.
   async function generateMore(customPrompt) {
     if (generatingMore) return;
+    const targetCards = cards;
     generatingMore = true;
     render(false);
 
     try {
-      const context = App.getOriginalText();
+      const context = App.getOriginalText() || JSON.stringify(App.getStudyData());
       const prompt = (typeof customPrompt === 'string' && customPrompt) ||
         'Generate 10 more flashcards covering concepts not yet in the existing cards. Return diverse difficulty levels.';
       const raw = await API.chat(prompt, context);
       const data = Parser.parseChat(raw);
 
+      if (cards !== targetCards) { generatingMore = false; render(false); return; }
       if (data.type === 'flashcards' && Array.isArray(data.flashcards)) {
         addCards(data.flashcards);
         App.showToast(i18n.t('moreAdded', { n: data.flashcards.length }), 'success');
@@ -247,6 +251,7 @@ const Flashcards = (() => {
         }
         if (!front) front = `____: ${kt.definition}`;
         if (existingFronts.has(front)) return;
+        existingFronts.add(front);
         out.push({ front, back: term, difficulty: 'medium', category: section.title || 'Cloze' });
       });
     });
@@ -287,6 +292,7 @@ const Flashcards = (() => {
     }
 
     document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && document.getElementById('deck-complete-overlay').style.display === 'flex') { exitStudy(); return; }
       if (!studyState) return;
       if (e.code === 'Space') { e.preventDefault(); if (!studyState.flipped) flipStudyCard(); }
       else if (e.key === '1' && studyState.flipped) rateCard('again');
@@ -303,6 +309,7 @@ const Flashcards = (() => {
   // (right = Got it, left = Again, up = Hard), flies off past the threshold,
   // and springs back otherwise.
   let drag = null, dragMoved = false, ratingLock = false;
+  let releaseStudyTrap = null;
 
   function setupDrag(cardEl) {
     cardEl.addEventListener('pointerdown', (e) => {
@@ -334,7 +341,7 @@ const Flashcards = (() => {
       drag = null;
       cardEl.classList.remove('dragging', 'drag-right', 'drag-left', 'drag-up');
       const TH = 90;
-      if (studyState && dragMoved) {
+      if (e.type !== 'pointercancel' && studyState && dragMoved) {
         if (Math.abs(dy) > Math.abs(dx) && dy < -TH) return rateCard('hard');
         if (dx > TH) return rateCard('gotit');
         if (dx < -TH) return rateCard('again');
@@ -349,6 +356,9 @@ const Flashcards = (() => {
   }
 
   function startStudy(mode) {
+    if (!cards.length) return;
+    clearTimeout(rateTimer);
+    ratingLock = false;
     sessionMode = mode === 'due' ? 'due' : 'all';
     let deck;
     if (sessionMode === 'due') {
@@ -364,11 +374,14 @@ const Flashcards = (() => {
     }
     studyState = { deck, index: 0, flipped: false, startTime: Date.now(), mastered: 0, reviewed: 0 };
     document.getElementById('study-mode-overlay').style.display = 'flex';
+    if (releaseStudyTrap) releaseStudyTrap();
+    releaseStudyTrap = FX.trapFocus(document.getElementById('study-mode-overlay'));
     document.body.style.overflow = 'hidden';
     showStudyCard();
   }
 
   function showStudyCard() {
+    if (typeof TTS !== 'undefined') TTS.stop();
     const { deck, index } = studyState;
     const card = deck[index];
     const total = deck.length;
@@ -406,9 +419,10 @@ const Flashcards = (() => {
   // Rating first plays the card's exit (fly-off in the rating's direction),
   // then commits the SM-2 update and advances.
   const FLY_DIR = { gotit: 'fly-right', again: 'fly-left', hard: 'fly-up' };
+  let rateTimer = null;
 
   function rateCard(rating) {
-    if (!studyState || ratingLock) return;
+    if (!studyState || !studyState.flipped || ratingLock || !Object.hasOwn(FLY_DIR, rating)) return;
     ratingLock = true;
     Sound.play(rating === 'gotit' ? 'correct' : 'flip');
     Sound.haptic(rating === 'gotit' ? [12, 40, 12] : 10);
@@ -416,7 +430,7 @@ const Flashcards = (() => {
     document.getElementById('study-mode-actions').style.display = 'none';
     if (FX.reduced()) return commitRate(rating);
     cardEl.classList.add(FLY_DIR[rating]);
-    setTimeout(() => commitRate(rating), 300);
+    rateTimer = setTimeout(() => commitRate(rating), 300);
   }
 
   function commitRate(rating) {
@@ -446,20 +460,30 @@ const Flashcards = (() => {
     FX.countUp(document.getElementById('dc-reviewed'), studyState.reviewed, { duration: 700 });
     document.getElementById('study-mode-overlay').style.display = 'none';
     document.getElementById('deck-complete-overlay').style.display = 'flex';
+    if (releaseStudyTrap) releaseStudyTrap();
+    releaseStudyTrap = FX.trapFocus(document.getElementById('deck-complete-overlay'));
+    studyState = null;
+    refreshStatus();
+    render(false);
     Sound.play('complete');
     FX.celebrate();
     document.getElementById('dc-study-again').onclick = () => {
       document.getElementById('deck-complete-overlay').style.display = 'none';
+      if (releaseStudyTrap) { releaseStudyTrap(); releaseStudyTrap = null; }
+      document.body.style.overflow = '';
       startStudy(sessionMode);
     };
     document.getElementById('dc-take-quiz').onclick = () => {
       document.getElementById('deck-complete-overlay').style.display = 'none';
+      if (releaseStudyTrap) { releaseStudyTrap(); releaseStudyTrap = null; }
       document.body.style.overflow = '';
       App.switchTab('quiz');
     };
   }
 
   function exitStudy() {
+    clearTimeout(rateTimer);
+    if (releaseStudyTrap) { releaseStudyTrap(); releaseStudyTrap = null; }
     studyState = null;
     drag = null;
     ratingLock = false;

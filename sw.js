@@ -1,6 +1,6 @@
 // FlashMind service worker — app-shell caching for offline study of saved decks.
 // Bump CACHE when any shell asset changes so clients pick up the new version.
-const CACHE = 'flashmind-v6';
+const CACHE = 'flashmind-v7';
 
 // Same-origin shell assets. Third-party (PDF.js CDN) and API/worker calls are
 // intentionally excluded — they fall through to the network.
@@ -55,7 +55,7 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys()
-      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
+      .then((keys) => Promise.all(keys.filter((k) => k.startsWith('flashmind-') && k !== CACHE).map((k) => caches.delete(k))))
       .then(() => self.clients.claim())
   );
 });
@@ -70,16 +70,23 @@ self.addEventListener('fetch', (event) => {
   if (url.origin !== self.location.origin) return;
 
   event.respondWith(
-    caches.match(req).then((cached) => {
+    caches.open(CACHE).then(async (cache) => {
+      const cached = await cache.match(req);
       if (cached) return cached;
       return fetch(req).then((res) => {
         // Runtime-cache successful same-origin responses for next time.
         if (res && res.status === 200 && res.type === 'basic') {
           const copy = res.clone();
-          caches.open(CACHE).then((cache) => cache.put(req, copy));
+          event.waitUntil(cache.put(req, copy).catch(() => {}));
         }
         return res;
-      }).catch(() => cached);
+      }).catch(async () => {
+        if (req.mode === 'navigate') {
+          const shell = await cache.match('./index.html');
+          if (shell) return shell;
+        }
+        return Response.error();
+      });
     })
   );
 });

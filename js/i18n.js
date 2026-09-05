@@ -1,7 +1,9 @@
 // ===== i18n Module =====
 const i18n = (() => {
   const STORAGE_KEY = 'flashmind_lang';
-  let lang = localStorage.getItem(STORAGE_KEY) || 'en';
+  let lang = 'en';
+  try { lang = localStorage.getItem(STORAGE_KEY) === 'tr' ? 'tr' : 'en'; } catch {}
+  document.documentElement.lang = lang;
 
   const translations = {
     en: {
@@ -734,7 +736,7 @@ const i18n = (() => {
     let str = (translations[lang] && translations[lang][key]) || translations.en[key] || key;
     if (params) {
       Object.keys(params).forEach(k => {
-        str = str.replace(new RegExp('\\{' + k + '\\}', 'g'), params[k]);
+        str = str.replace(new RegExp('\\{' + k + '\\}', 'g'), () => params[k]);
       });
     }
     return str;

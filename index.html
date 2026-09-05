@@ -19,7 +19,8 @@
   <script>
     // Set the theme before first paint to avoid a flash of the wrong theme.
     (function () {
-      var t = localStorage.getItem('flashmind_theme');
+      var t;
+      try { t = localStorage.getItem('flashmind_theme'); } catch {}
       if (t !== 'light' && t !== 'dark') {
         t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
       }

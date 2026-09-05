@@ -3,7 +3,8 @@
 // audio files), OFF by default, and persisted. Haptics ride the same toggle.
 const Sound = (() => {
   const KEY = 'flashmind_sound';
-  let on = localStorage.getItem(KEY) === '1';
+  let on = false;
+  try { on = localStorage.getItem(KEY) === '1'; } catch {}
   let ctx = null;
 
   function ac() {
@@ -61,7 +62,7 @@ const Sound = (() => {
 
   function toggle() {
     on = !on;
-    localStorage.setItem(KEY, on ? '1' : '0');
+    try { localStorage.setItem(KEY, on ? '1' : '0'); } catch {}
     sync();
     if (on) play('correct');
     if (typeof App !== 'undefined' && App.showToast) {

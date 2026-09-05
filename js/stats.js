@@ -6,12 +6,20 @@ const Stats = (() => {
   const KEY = 'flashmind_stats_v1';
   const MAX_EXAMS = 50;
   let data = null; // { days: {'YYYY-MM-DD': {reviews, gotit}}, exams: [{t, pct, grade, title}] }
+  const record = v => v && typeof v === 'object' && !Array.isArray(v);
+  const count = v => Number.isFinite(v) && v >= 0 ? Math.floor(v) : 0;
+  const validExam = e => record(e) && Number.isFinite(e.t) && e.t > 0 && Number.isFinite(e.pct) && e.pct >= 0 && e.pct <= 100;
 
   function load() {
     if (data) return data;
     try { data = JSON.parse(localStorage.getItem(KEY)) || null; } catch (e) { data = null; }
-    if (!data || typeof data.days !== 'object') data = { days: {}, exams: [] };
+    if (!record(data) || !record(data.days)) data = { days: {}, exams: [] };
     if (!Array.isArray(data.exams)) data.exams = [];
+    data.exams = data.exams.filter(validExam).slice(-MAX_EXAMS);
+    Object.entries(data.days).forEach(([k, d]) => {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(k) || !record(d)) { delete data.days[k]; return; }
+      data.days[k] = { reviews: count(d.reviews), gotit: Math.min(count(d.reviews), count(d.gotit)) };
+    });
     return data;
   }
 
@@ -30,19 +38,20 @@ const Stats = (() => {
     if (!remote || typeof remote !== 'object') return false;
     let changed = false;
     Object.entries(remote.days || {}).forEach(([k, day]) => {
-      if (!day) return;
+      if (!record(day) || !/^\d{4}-\d{2}-\d{2}$/.test(k)) return;
       const local = data.days[k];
-      if (!local || (day.reviews || 0) > local.reviews) {
+      if (!local || count(day.reviews) > local.reviews || count(day.gotit) > local.gotit) {
+        const reviews = Math.max(count(day.reviews), local ? local.reviews : 0);
         data.days[k] = {
-          reviews: Math.max(day.reviews || 0, local ? local.reviews : 0),
-          gotit: Math.max(day.gotit || 0, local ? local.gotit : 0)
+          reviews,
+          gotit: Math.min(reviews, Math.max(count(day.gotit), local ? local.gotit : 0))
         };
         changed = true;
       }
     });
     const have = new Set(data.exams.map(e => e.t));
-    (remote.exams || []).forEach(e => {
-      if (e && e.t && !have.has(e.t)) { data.exams.push(e); changed = true; }
+    (Array.isArray(remote.exams) ? remote.exams : []).forEach(e => {
+      if (validExam(e) && !have.has(e.t)) { have.add(e.t); data.exams.push(e); changed = true; }
     });
     if (changed) {
       data.exams.sort((a, b) => a.t - b.t);
@@ -142,7 +151,7 @@ const Stats = (() => {
   function heatmap() {
     load();
     const WEEKS = 26, CELL = 10, GAP = 2;
-    const W = WEEKS * (CELL + GAP) + 30, H = 7 * (CELL + GAP) + 18;
+    const W = (WEEKS + 1) * (CELL + GAP) + 30, H = 7 * (CELL + GAP) + 18;
     // Start on the Monday at least 26 weeks back.
     const start = new Date();
     start.setDate(start.getDate() - (WEEKS * 7 - 1));
@@ -181,7 +190,8 @@ const Stats = (() => {
     const buckets = new Array(7).fill(0);
     Object.values(deck.srs || {}).forEach(s => {
       if (!s || !s.due) return;
-      const idx = s.due <= now ? 0 : Math.floor((s.due - now) / DAY) + 1;
+      const today = new Date(now), due = new Date(s.due);
+      const idx = Math.max(0, Math.round((Date.UTC(due.getFullYear(), due.getMonth(), due.getDate()) - Date.UTC(today.getFullYear(), today.getMonth(), today.getDate())) / DAY));
       if (idx < 7) buckets[idx] += 1;
     });
     if (!buckets.some(n => n)) return '';
@@ -294,5 +304,5 @@ const Stats = (() => {
       FX.countUp(el, parseInt(el.dataset.count, 10) || 0, { duration: 800 }));
   }
 
-  return { recordReview, recordExam, render, streak, mergeRemote };
+  return { recordReview, recordExam, render, streak, mergeRemote, snapshot: () => JSON.parse(JSON.stringify(load())) };
 })();

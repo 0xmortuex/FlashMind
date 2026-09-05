@@ -21,10 +21,10 @@ const Search = (() => {
     });
   }
 
-  function reset() { if (input) input.value = ''; if (clearBtn) clearBtn.style.display = 'none'; close(); }
+  function reset() { clearTimeout(debounce); if (input) input.value = ''; if (clearBtn) clearBtn.style.display = 'none'; close(); }
   function close() { if (results) { results.style.display = 'none'; results.innerHTML = ''; } }
   function norm(s) { return String(s == null ? '' : s).toLocaleLowerCase('tr'); }
-  function esc(s) { const d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; }
+  function esc(s) { const d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML.replace(/"/g, '&quot;'); }
 
   // Build the searchable index from the active study set.
   function collect() {
@@ -74,7 +74,8 @@ const Search = (() => {
 
   // Highlight the matched span inside a windowed snippet.
   function highlight(text, query) {
-    const i = text.toLowerCase().indexOf(query.toLowerCase());
+    text = String(text ?? '');
+    const i = norm(text).indexOf(norm(query));
     if (i < 0) return esc(text.slice(0, 140)) + (text.length > 140 ? '…' : '');
     const start = Math.max(0, i - 50);
     const before = (start > 0 ? '…' : '') + text.slice(start, i);

@@ -41,6 +41,8 @@ const puppeteer = require('puppeteer');
 
   await step('tab indicator exists and is positioned', async () => {
     await page.waitForSelector('.tab-indicator', { timeout: 2000 });
+    // Its width transitions from zero when the previously hidden view opens.
+    await page.waitForFunction(() => document.querySelector('.tab-indicator').getBoundingClientRect().width >= 10, { timeout: 2000 });
     const w = await page.$eval('.tab-indicator', el => el.getBoundingClientRect().width);
     if (w < 10) throw new Error('indicator width ' + w);
   });

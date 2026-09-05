@@ -490,15 +490,20 @@ const App = (() => {
   }
 
   function getGenerationConfig() {
+    const amount = (id, fallback) => {
+      const input = document.getElementById(id);
+      const value = Number.parseInt(input.value, 10);
+      return Number.isFinite(value) ? Math.min(Number(input.max) || 100, Math.max(Number(input.min) || 0, value)) : fallback;
+    };
     return {
       flashcardConfig: {
-        easy: parseInt(document.getElementById('fc-easy').value) || 10,
-        medium: parseInt(document.getElementById('fc-medium').value) || 15,
-        hard: parseInt(document.getElementById('fc-hard').value) || 10
+        easy: amount('fc-easy', 10),
+        medium: amount('fc-medium', 15),
+        hard: amount('fc-hard', 10)
       },
       quizConfig: {
-        multipleChoice: parseInt(document.getElementById('quiz-mc').value) || 15,
-        openEnded: parseInt(document.getElementById('quiz-open').value) || 8
+        multipleChoice: amount('quiz-mc', 15),
+        openEnded: amount('quiz-open', 8)
       }
     };
   }
@@ -513,6 +518,8 @@ const App = (() => {
 
   async function generate() {
     const btn = document.getElementById('generate-btn');
+    if (btn.disabled) return;
+    const targetData = studyData, targetAppend = appendMode;
     const textEl = btn.querySelector('.btn-generate-text');
     const loadingEl = btn.querySelector('.btn-generate-loading');
     const elapsedEl = document.getElementById('elapsed-time');
@@ -560,8 +567,19 @@ const App = (() => {
         raw = null; // streaming unavailable — fall back to the plain request
       }
       if (!raw) raw = await API.generate(text, flashcardConfig, quizConfig);
-      const data = Parser.parseGenerate(raw);
-      commitStudyData(data, text);
+      const data = Parser.parseGenerate(raw, {
+        requireFlashcards: Object.values(flashcardConfig).some(n => n > 0),
+        requireQuiz: Object.values(quizConfig).some(n => n > 0)
+      });
+      if (studyData === targetData && appendMode === targetAppend) commitStudyData(data, text);
+      else {
+        // Navigation during generation must not append to a different deck.
+        const previous = Decks.getActive();
+        Decks.save(data, text);
+        if (previous) Decks.setActive(previous.id);
+        Library.render();
+        showToast(i18n.getLang() === 'tr' ? 'Oluşturulan materyaller yeni deste olarak kaydedildi.' : 'Generated materials saved as a new deck.', 'success');
+      }
     } catch (err) {
       showToast(i18n.t('genFailed') + ' ' + err.message, 'error');
     }
@@ -636,21 +654,7 @@ const App = (() => {
   // ===== Deck helpers (normalize / merge / import) =====
   // A study set is { title, notes:{summary,sections,...}, flashcards[], quiz[] }.
   function normalizeDeck(d) {
-    d = d && typeof d === 'object' ? d : {};
-    let notes = (d.notes && typeof d.notes === 'object') ? d.notes : {};
-    if (typeof d.notes === 'string') notes = { summary: d.notes };
-    return {
-      title: typeof d.title === 'string' && d.title.trim() ? d.title : i18n.t('importedSet'),
-      notes: {
-        summary: notes.summary || '',
-        sections: Array.isArray(notes.sections) ? notes.sections : [],
-        importantDates: Array.isArray(notes.importantDates) ? notes.importantDates : [],
-        commonMistakes: Array.isArray(notes.commonMistakes) ? notes.commonMistakes : [],
-        diagrams: Array.isArray(notes.diagrams) ? notes.diagrams : []
-      },
-      flashcards: Array.isArray(d.flashcards) ? d.flashcards : [],
-      quiz: Array.isArray(d.quiz) ? d.quiz : []
-    };
+    return Parser.normalizeStudyData(d);
   }
 
   // Does a parsed JSON object look like a FlashMind study set we can import?
@@ -676,7 +680,15 @@ const App = (() => {
       flashcards: [...b.flashcards, ...e.flashcards],
       quiz: [...b.quiz, ...e.quiz]
     };
-    merged.flashcards.forEach((c, i) => { if (c) c.id = i + 1; });
+    // Keep the original IDs: their schedules are keyed by these values.
+    const used = new Set(b.flashcards.map(c => String(c.id)));
+    let next = 1;
+    merged.flashcards = [...b.flashcards, ...e.flashcards.map(c => {
+      while (used.has(String(next))) next++;
+      const id = next++;
+      used.add(String(id));
+      return { ...c, id };
+    })];
     merged.quiz.forEach((q, i) => { if (q) q.id = i + 1; });
     return merged;
   }
@@ -779,7 +791,8 @@ const App = (() => {
       modal.style.display = 'none';
       if (releaseShareTrap) { releaseShareTrap(); releaseShareTrap = null; }
     };
-    modal._trap = () => { releaseShareTrap = FX.trapFocus(modal.querySelector('.share-modal')); };
+    modal._close = closeShare;
+    modal._trap = () => { if (releaseShareTrap) releaseShareTrap(); releaseShareTrap = FX.trapFocus(modal.querySelector('.share-modal')); };
     shareBtn.addEventListener('click', openShareModal);
     closeBtn.addEventListener('click', closeShare);
     modal.addEventListener('click', (e) => { if (e.target === modal) closeShare(); });
@@ -832,12 +845,12 @@ const App = (() => {
     try {
       const response = await API.share({ studyData, originalText });
       const code = response.code;
-      document.getElementById('share-link-input').value = `https://0xmortuex.github.io/FlashMind/?s=${code}`;
+      document.getElementById('share-link-input').value = `${window.location.origin}${window.location.pathname}?s=${encodeURIComponent(code)}`;
       loading.style.display = 'none';
       result.style.display = 'block';
       showToast(i18n.t('shareCreated'), 'success');
     } catch (err) {
-      modal.style.display = 'none';
+      modal._close();
       showToast(i18n.t('shareFailed') + ' ' + err.message, 'error');
     }
   }
@@ -928,7 +941,17 @@ const App = (() => {
 
   // Thin wrapper so external modules (palette.js, sync.js) can refresh the
   // deck library through App's public surface.
-  function refreshLibrary() { Library.render(); }
+  function refreshLibrary(reloadActive = false) {
+    if (reloadActive && activeDeckId) {
+      if (Decks.get(activeDeckId)) openDeck(activeDeckId, true);
+      else {
+        activeDeckId = null; studyData = null;
+        Quiz.setQuestions([]); Flashcards.setCards([]);
+        exitAppendMode(); backToInput();
+      }
+    }
+    Library.render();
+  }
 
   // ===== Demo Deck =====
   function setupDemo() {

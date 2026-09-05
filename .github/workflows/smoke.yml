@@ -34,3 +34,8 @@ jobs:
 
       - name: Run smoke test
         run: node tests/smoke.js
+
+      - name: Run data and browser regressions
+        run: |
+          node --test tests/regression.js
+          node tests/browser-regression.js

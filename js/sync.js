@@ -11,6 +11,8 @@ const Sync = (() => {
   function load() {
     if (!cfg) {
       try { cfg = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { cfg = {}; }
+      if (!cfg || typeof cfg !== 'object' || Array.isArray(cfg)) cfg = {};
+      if (typeof cfg.code !== 'string') delete cfg.code;
     }
     return cfg;
   }
@@ -38,81 +40,93 @@ const Sync = (() => {
     load();
     if (!cfg.code) return false;
     const remote = await API.syncPull(cfg.code);
+    const active = Decks.getActive();
     const changedDecks = Decks.mergeRemote(remote.decks);
     Stats.mergeRemote(remote.stats);
     cfg.lastSync = Date.now();
     save();
-    if (changedDecks && typeof App !== 'undefined') App.refreshLibrary();
+    if (changedDecks && typeof App !== 'undefined') App.refreshLibrary(active && active !== Decks.get(active.id));
     return changedDecks;
   }
 
-  // Called from Decks/Stats persist(); batches rapid changes into one push.
-  function schedulePush() {
-    if (!enabled() || syncing) return;
+  let pendingPush = false;
+  let operation = null;
+  let disabling = false;
+
+  async function runSync(action) {
+    if (syncing || disabling) return;
     clearTimeout(pushTimer);
-    pushTimer = setTimeout(() => { syncing = true; push().catch(() => {}).finally(() => { syncing = false; }); }, 4000);
+    syncing = true;
+    operation = (async () => action())();
+    try { return await operation; }
+    finally {
+      operation = null;
+      syncing = false;
+      if (pendingPush && !disabling) { pendingPush = false; schedulePush(); }
+      renderModalBody();
+    }
+  }
+
+  // A local edit made during an in-flight upload must get its own upload.
+  function schedulePush() {
+    if (!enabled() || disabling) return;
+    if (syncing) { pendingPush = true; return; }
+    clearTimeout(pushTimer);
+    pushTimer = setTimeout(() => {
+      runSync(async () => { await pull(); await push(); }).catch(() => {});
+    }, 4000);
   }
 
   async function syncNow() {
-    if (syncing) return;
-    syncing = true;
+    if (!enabled()) return;
     try {
-      await pull();
-      await push();
+      await runSync(async () => { await pull(); await push(); });
       App.showToast(i18n.t('syncDone'), 'success');
-    } catch (e) {
-      App.showToast(i18n.t('syncFailed') + ' ' + e.message, 'error');
-    }
-    syncing = false;
-    renderModalBody();
+    } catch (e) { App.showToast(i18n.t('syncFailed') + ' ' + e.message, 'error'); }
   }
 
   async function enable() {
-    if (syncing) return;
-    syncing = true;
     try {
-      await push();
+      await runSync(push);
       App.showToast(i18n.t('syncEnabled'), 'success');
-    } catch (e) {
-      App.showToast(i18n.t('syncFailed') + ' ' + e.message, 'error');
-    }
-    syncing = false;
-    renderModalBody();
+    } catch (e) { App.showToast(i18n.t('syncFailed') + ' ' + e.message, 'error'); }
   }
 
   async function enterCode() {
+    if (syncing || disabling) return;
     const code = (prompt(i18n.t('syncEnterPrompt')) || '').trim().toLowerCase();
     if (!code) return;
-    load();
-    const prevCode = cfg.code;
-    cfg.code = code;
-    syncing = true;
+    const prevCode = load().code;
     try {
-      await pull();
-      save();
+      await runSync(async () => {
+        cfg.code = code;
+        try { await pull(); }
+        catch (e) { cfg.code = prevCode; throw e; }
+        await push();
+      });
       App.showToast(i18n.t('syncDone'), 'success');
-    } catch (e) {
-      cfg.code = prevCode; // invalid code — roll back
-      App.showToast(i18n.t('syncCodeInvalid'), 'error');
-    }
-    syncing = false;
-    renderModalBody();
+    } catch (e) { App.showToast(i18n.t('syncFailed') + ' ' + e.message, 'error'); }
   }
 
   async function disable() {
-    load();
-    clearTimeout(pushTimer); // no pending push may recreate the cloud copy
-    if (cfg.code) {
-      try { await API.syncDelete(cfg.code); } catch (e) { /* offline — local disable still proceeds */ }
-    }
-    cfg = {};
-    save();
-    App.showToast(i18n.t('syncDisabled'), 'info');
-    renderModalBody();
+    if (disabling) return;
+    disabling = true;
+    clearTimeout(pushTimer);
+    try {
+      // Wait for any upload to settle before deleting its cloud copy.
+      if (operation) await operation.catch(() => {});
+      if (load().code) await API.syncDelete(cfg.code);
+      cfg = {};
+      save();
+      pendingPush = false;
+      App.showToast(i18n.t('syncDisabled'), 'info');
+    } catch (e) {
+      App.showToast(i18n.t('syncFailed') + ' ' + e.message, 'error');
+    } finally { disabling = false; renderModalBody(); }
   }
 
   // ----- Modal UI -----
-  function esc(str) { const d = document.createElement('div'); d.textContent = str || ''; return d.innerHTML; }
+  function esc(str) { const d = document.createElement('div'); d.textContent = str || ''; return d.innerHTML.replace(/"/g, '&quot;'); }
 
   function buildModal() {
     if (modal) return;
@@ -184,7 +198,7 @@ const Sync = (() => {
 
   function init() {
     // Pull once per app load so another device's changes appear.
-    if (enabled()) setTimeout(() => { pull().catch(() => { /* offline — fine */ }); }, 800);
+    if (enabled()) setTimeout(() => { if (enabled()) runSync(async () => { await pull(); await push(); }).catch(() => {}); }, 800);
   }
 
   return { init, enabled, schedulePush, syncNow, openModal };

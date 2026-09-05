@@ -8,46 +8,58 @@ const Decks = (() => {
   const LEGACY_TEXT = 'flashmind_text';
 
   let store = null; // { decks: {id: deck}, activeId }
+  const record = v => v && typeof v === 'object' && !Array.isArray(v);
+  const safeId = id => typeof id === 'string' && /^[a-zA-Z0-9_-]+$/.test(id) && !['__proto__', 'constructor', 'prototype'].includes(id);
 
   function load() {
     if (store) return store;
     try {
       store = JSON.parse(localStorage.getItem(STORE_KEY)) || null;
     } catch (e) { store = null; }
-    if (!store || typeof store.decks !== 'object') store = { decks: {}, activeId: null };
-    if (!store.deleted || typeof store.deleted !== 'object') store.deleted = {};
+    if (!record(store) || !record(store.decks)) store = { decks: {}, activeId: null };
+    if (!record(store.deleted)) store.deleted = {};
+    Object.entries(store.decks).forEach(([id, deck]) => {
+      if (!safeId(id) || !record(deck) || !record(deck.data)) { delete store.decks[id]; return; }
+      deck.id = id;
+      deck.data = Parser.normalizeStudyData(deck.data);
+      if (!record(deck.srs)) deck.srs = {};
+    });
     migrateLegacy();
     return store;
   }
 
   function migrateLegacy() {
-    const legacy = localStorage.getItem(LEGACY_DATA);
+    let legacy;
+    try { legacy = localStorage.getItem(LEGACY_DATA); } catch { return; }
     if (!legacy) return;
     try {
       const data = JSON.parse(legacy);
       if (data && data.title) {
         const deck = createDeck(data, localStorage.getItem(LEGACY_TEXT) || '');
         store.activeId = deck.id;
-        persist();
+        if (!persist()) return;
       }
     } catch (e) { /* corrupt legacy data — drop it */ }
-    localStorage.removeItem(LEGACY_DATA);
-    localStorage.removeItem(LEGACY_TEXT);
+    try {
+      localStorage.removeItem(LEGACY_DATA);
+      localStorage.removeItem(LEGACY_TEXT);
+    } catch { /* Storage can be unavailable in private or restricted contexts. */ }
   }
 
   function persist() {
     try {
       localStorage.setItem(STORE_KEY, JSON.stringify(store));
     } catch (e) {
-      // Quota exceeded — drop the oldest non-active deck and retry once.
-      const oldest = list().filter(d => d.id !== store.activeId).pop();
-      if (oldest) {
-        delete store.decks[oldest.id];
-        try { localStorage.setItem(STORE_KEY, JSON.stringify(store)); } catch (e2) { /* give up */ }
-      }
+      // Never discard study material to make room. Keep the in-memory copy
+      // available for export and explain that this write was not durable.
+      if (typeof App !== 'undefined') App.showToast(i18n.getLang() === 'tr'
+        ? 'Kaydedilemedi. Tarayıcı depolaması dolu veya kullanılamıyor. Ayrılmadan önce materyallerinizi dışa aktarın.'
+        : 'Could not save: browser storage is full or unavailable. Export your material before leaving.', 'error');
+      return false;
     }
     // Device sync rides every persist (debounced inside Sync).
     if (typeof Sync !== 'undefined' && Sync.schedulePush) Sync.schedulePush();
+    return true;
   }
 
   // Merge a remote deck store (device sync): per deck, newer updatedAt wins.
@@ -64,20 +76,21 @@ const Decks = (() => {
     let remote;
     try { remote = typeof remoteJson === 'string' ? JSON.parse(remoteJson) : remoteJson; }
     catch (e) { return false; }
-    if (!remote || typeof remote.decks !== 'object') return false;
+    if (!record(remote) || !record(remote.decks)) return false;
     let changed = false;
     // Merge tombstone maps first: newest deletion time per deck id wins.
     Object.entries(remote.deleted || {}).forEach(([id, t]) => {
+      if (!safeId(id) || !Number.isFinite(t) || t <= 0) return;
       if (!store.deleted[id] || t > store.deleted[id]) { store.deleted[id] = t; changed = true; }
     });
     Object.values(remote.decks).forEach(rd => {
-      if (!rd || !rd.id) return;
+      if (!record(rd) || !safeId(rd.id) || !record(rd.data) || !Number.isFinite(rd.updatedAt)) return;
       const tomb = store.deleted[rd.id];
       if (tomb && tomb >= (rd.updatedAt || 0)) return; // deleted elsewhere — handled below
       if (tomb) { delete store.deleted[rd.id]; changed = true; } // edited after deletion — revive
       const local = store.decks[rd.id];
       if (!local || (rd.updatedAt || 0) > (local.updatedAt || 0)) {
-        store.decks[rd.id] = rd;
+        store.decks[rd.id] = { ...rd, data: Parser.normalizeStudyData(rd.data), srs: record(rd.srs) ? rd.srs : {} };
         changed = true;
       }
     });
@@ -111,6 +124,7 @@ const Decks = (() => {
   // place (append flow); otherwise a new deck is created. Returns the deck.
   function save(data, originalText, deckId) {
     load();
+    data = Parser.normalizeStudyData(data);
     let deck = deckId && store.decks[deckId];
     if (deck) {
       deck.data = data;
@@ -124,8 +138,9 @@ const Decks = (() => {
     return deck;
   }
 
-  function get(id) { load(); return store.decks[id] || null; }
+  function get(id) { load(); return Object.hasOwn(store.decks, id) ? store.decks[id] : null; }
   function getActive() { load(); return store.activeId ? store.decks[store.activeId] : null; }
+  function snapshot() { return JSON.parse(JSON.stringify(load())); }
   function setActive(id) { load(); if (store.decks[id]) { store.activeId = id; persist(); } }
 
   // Decks sorted most-recently-updated first.
@@ -191,6 +206,7 @@ const Decks = (() => {
       const k = mistakeKey(q);
       if (!seen.has(k)) { seen.add(k); deck.mistakes.push(JSON.parse(JSON.stringify(q))); }
     });
+    deck.updatedAt = Math.max(Date.now(), (deck.updatedAt || 0) + 1);
     persist();
   }
 
@@ -199,6 +215,7 @@ const Decks = (() => {
     if (!deck || !Array.isArray(deck.mistakes) || !questions || !questions.length) return;
     const done = new Set(questions.map(mistakeKey));
     deck.mistakes = deck.mistakes.filter(q => !done.has(mistakeKey(q)));
+    deck.updatedAt = Math.max(Date.now(), (deck.updatedAt || 0) + 1);
     persist();
   }
 
@@ -312,6 +329,6 @@ const Decks = (() => {
   return {
     save, get, getActive, setActive, list, remove, touch, rename, duplicate,
     getSrs, review, dueCards, statusOf,
-    addMistakes, resolveMistakes, getMistakes, mergeRemote
+    addMistakes, resolveMistakes, getMistakes, mergeRemote, snapshot
   };
 })();

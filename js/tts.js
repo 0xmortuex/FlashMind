@@ -25,6 +25,13 @@ const TTS = (() => {
     const chunks = [];
     let cur = '';
     parts.forEach(p => {
+      while (p.length > 220) {
+        if (cur.trim()) { chunks.push(cur.trim()); cur = ''; }
+        const space = p.lastIndexOf(' ', 220);
+        const end = space > 0 ? space : 220;
+        chunks.push(p.slice(0, end).trim());
+        p = p.slice(end).trimStart();
+      }
       if ((cur + p).length > 220 && cur) { chunks.push(cur.trim()); cur = ''; }
       cur += p;
     });
