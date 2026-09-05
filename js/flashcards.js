@@ -89,6 +89,8 @@ const Flashcards = (() => {
           <button class="btn-ghost" id="generate-more-cards-btn" onclick="Flashcards.generateMore()" ${generatingMore ? 'disabled' : ''}>${generatingMore ? T('generatingMore') : T('generateMore')}</button>
           ${weakCategories().length ? `<button class="btn-ghost" onclick="Flashcards.generateWeakSpots()" ${generatingMore ? 'disabled' : ''}>&#127919; ${T('targetWeak')}</button>` : ''}
           ${clozeCandidates().length ? `<button class="btn-ghost" onclick="Flashcards.addClozeCards()">&#9998; ${T('clozeBtn')}</button>` : ''}
+          <button class="btn-ghost" onclick="Flashcards.openEditor()">&#65291; ${T('addCard')}</button>
+          ${cards.length ? `<button class="btn-ghost" onclick="Flashcards.startStudy('cram')" title="${T('cramHint')}">&#9889; ${T('cramBtn')}</button>` : ''}
           ${dueCount > 0 ? `<button class="btn-ghost review-due-btn" onclick="Flashcards.startStudy('due')">${T('reviewDue', { n: dueCount })}</button>` : ''}
           <button class="start-study-btn" onclick="Flashcards.startStudy('all')">${T('startStudy')}</button>
         </div>
@@ -97,14 +99,21 @@ const Flashcards = (() => {
       <div class="cards-grid">`;
 
     filtered.forEach((card, idx) => {
+      const srs = typeof Decks !== 'undefined' ? Decks.getSrs(card.id) : null;
+      const struggling = srs && srs.lapses >= 2;
       html += `
-        <div class="flashcard diff-${card.difficulty}${animate ? ' fade-up' : ''}" style="--i:${Math.min(idx, 18)}" role="button" tabindex="0" aria-pressed="false" onclick="Flashcards.flipCard(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();Flashcards.flipCard(this)}" data-id="${card.id}">
+        <div class="flashcard diff-${card.difficulty}${animate ? ' fade-up' : ''}" style="--i:${Math.min(idx, 18)}" role="button" tabindex="0" aria-pressed="false" onclick="Flashcards.flipCard(this)" onkeydown="if(event.target===this&&(event.key==='Enter'||event.key===' ')){event.preventDefault();Flashcards.flipCard(this)}" data-id="${card.id}">
           <div class="flashcard-inner">
             <div class="flashcard-front">
+              ${card.img ? `<img class="flashcard-img" src="${esc(card.img)}" alt="">` : ''}
               <p class="flashcard-text">${esc(card.front)}</p>
               <div class="flashcard-meta">
                 <span class="difficulty-badge ${card.difficulty}">${T('filter' + card.difficulty.charAt(0).toUpperCase() + card.difficulty.slice(1))}</span>
                 <span class="card-category">${esc(card.category)}</span>
+                <span class="card-tools">
+                  ${struggling ? `<button class="card-tool-btn" title="${T('mnemonicBtn')}" onclick="event.stopPropagation();Flashcards.mnemonic('${card.id}')">&#128161;</button>` : ''}
+                  <button class="card-tool-btn" title="${T('editCard')}" onclick="event.stopPropagation();Flashcards.openEditor('${card.id}')">&#9998;</button>
+                </span>
               </div>
             </div>
             <div class="flashcard-back">
@@ -265,6 +274,187 @@ const Flashcards = (() => {
     App.showToast(i18n.t('clozeAdded', { n: fresh.length }), 'success');
   }
 
+  // ===== Card editor (add / edit / delete, optional image) =====
+  let editorEl = null, editorCardId = null, editorImg = null, releaseEditorTrap = null;
+
+  function buildEditor() {
+    if (editorEl) return;
+    const T = i18n.t;
+    editorEl = document.createElement('div');
+    editorEl.className = 'shortcuts-backdrop';
+    editorEl.style.display = 'none';
+    editorEl.innerHTML = `<div class="shortcuts-card card-editor" role="dialog" aria-modal="true">
+        <h3 id="card-editor-title"></h3>
+        <label class="editor-label">${esc(T('question'))}</label>
+        <textarea id="card-edit-front" class="editor-textarea" rows="3"></textarea>
+        <label class="editor-label">${esc(T('answer'))}</label>
+        <textarea id="card-edit-back" class="editor-textarea" rows="3"></textarea>
+        <div class="editor-row">
+          <div>
+            <label class="editor-label">${esc(T('difficultyLabel'))}</label>
+            <select id="card-edit-diff" class="editor-select">
+              <option value="easy">${esc(T('filterEasy'))}</option>
+              <option value="medium">${esc(T('filterMedium'))}</option>
+              <option value="hard">${esc(T('filterHard'))}</option>
+            </select>
+          </div>
+          <div>
+            <label class="editor-label">${esc(T('categoryLabel'))}</label>
+            <input type="text" id="card-edit-cat" class="editor-input" autocomplete="off">
+          </div>
+        </div>
+        <div class="editor-img-row">
+          <button class="btn-ghost" id="card-edit-img-btn">&#128247; ${esc(T('cardImage'))}</button>
+          <input type="file" id="card-edit-img-input" accept="image/*" hidden>
+          <img id="card-edit-img-preview" class="editor-img-preview" style="display:none" alt="">
+          <button class="btn-ghost" id="card-edit-img-remove" style="display:none">${esc(T('remove'))}</button>
+        </div>
+        <div class="editor-actions">
+          <button class="btn-ghost editor-danger" id="card-edit-delete" style="display:none">${esc(T('deleteCard'))}</button>
+          <span class="editor-actions-spacer"></span>
+          <button class="btn-ghost" id="card-edit-cancel">${esc(T('cancel'))}</button>
+          <button class="btn-primary" id="card-edit-save">${esc(T('saveCard'))}</button>
+        </div>
+      </div>`;
+    document.body.appendChild(editorEl);
+    editorEl.addEventListener('click', e => { if (e.target === editorEl) closeEditor(); });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && editorEl.style.display !== 'none') closeEditor();
+    });
+    editorEl.querySelector('#card-edit-cancel').addEventListener('click', closeEditor);
+    editorEl.querySelector('#card-edit-save').addEventListener('click', saveEditor);
+    editorEl.querySelector('#card-edit-delete').addEventListener('click', deleteFromEditor);
+    editorEl.querySelector('#card-edit-img-btn').addEventListener('click', () =>
+      editorEl.querySelector('#card-edit-img-input').click());
+    editorEl.querySelector('#card-edit-img-input').addEventListener('change', async function () {
+      if (!this.files[0]) return;
+      try {
+        editorImg = await downscaleImage(this.files[0]);
+        showEditorImg();
+      } catch (e) { App.showToast(i18n.t('imageFailed'), 'error'); }
+      this.value = '';
+    });
+    editorEl.querySelector('#card-edit-img-remove').addEventListener('click', () => {
+      editorImg = null;
+      showEditorImg();
+    });
+  }
+
+  function showEditorImg() {
+    const prev = editorEl.querySelector('#card-edit-img-preview');
+    const rm = editorEl.querySelector('#card-edit-img-remove');
+    prev.style.display = editorImg ? '' : 'none';
+    rm.style.display = editorImg ? '' : 'none';
+    if (editorImg) prev.src = editorImg;
+  }
+
+  // Downscale to a small JPEG data URL so cards stay lightweight enough for
+  // localStorage and sync payloads.
+  function downscaleImage(file) {
+    return new Promise((resolve, reject) => {
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = () => {
+        URL.revokeObjectURL(url);
+        const MAX = 512;
+        const scale = Math.min(1, MAX / Math.max(img.width, img.height));
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.round(img.width * scale);
+        canvas.height = Math.round(img.height * scale);
+        canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+        resolve(canvas.toDataURL('image/jpeg', 0.8));
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('bad image')); };
+      img.src = url;
+    });
+  }
+
+  function openEditor(cardId) {
+    buildEditor();
+    const T = i18n.t;
+    editorCardId = cards.find(c => String(c.id) === String(cardId))?.id ?? null;
+    const card = editorCardId != null ? cards.find(c => c.id === editorCardId) : null;
+    editorEl.querySelector('#card-editor-title').textContent = card ? T('editCard') : T('addCard');
+    editorEl.querySelector('#card-edit-front').value = card ? card.front : '';
+    editorEl.querySelector('#card-edit-back').value = card ? card.back : '';
+    editorEl.querySelector('#card-edit-diff').value = card ? card.difficulty : 'medium';
+    editorEl.querySelector('#card-edit-cat').value = card ? (card.category || '') : '';
+    editorEl.querySelector('#card-edit-delete').style.display = card ? '' : 'none';
+    editorImg = card && card.img ? card.img : null;
+    showEditorImg();
+    editorEl.style.display = 'flex';
+    releaseEditorTrap = FX.trapFocus(editorEl);
+    editorEl.querySelector('#card-edit-front').focus();
+  }
+
+  function closeEditor() {
+    if (!editorEl) return;
+    editorEl.style.display = 'none';
+    if (releaseEditorTrap) { releaseEditorTrap(); releaseEditorTrap = null; }
+  }
+
+  function saveEditor() {
+    const front = editorEl.querySelector('#card-edit-front').value.trim();
+    const back = editorEl.querySelector('#card-edit-back').value.trim();
+    if (!front || !back) { App.showToast(i18n.t('cardNeedsBoth'), 'error'); return; }
+    const difficulty = editorEl.querySelector('#card-edit-diff').value;
+    const category = editorEl.querySelector('#card-edit-cat').value.trim() || 'General';
+    if (editorCardId != null) {
+      const card = cards.find(c => c.id === editorCardId);
+      if (card) {
+        card.front = front; card.back = back;
+        card.difficulty = difficulty; card.category = category;
+        if (editorImg) card.img = editorImg; else delete card.img;
+        if (typeof App !== 'undefined' && App.persistActiveDeck) App.persistActiveDeck();
+        render(false);
+        App.showToast(i18n.t('cardSaved'), 'success');
+      }
+    } else {
+      const fresh = { front, back, difficulty, category };
+      if (editorImg) fresh.img = editorImg;
+      addCards([fresh]);
+      App.showToast(i18n.t('cardAdded'), 'success');
+    }
+    closeEditor();
+  }
+
+  function deleteFromEditor() {
+    if (editorCardId == null) return;
+    if (!confirm(i18n.t('deleteCardConfirm'))) return;
+    const idx = cards.findIndex(c => c.id === editorCardId);
+    if (idx >= 0) cards.splice(idx, 1);
+    if (typeof App !== 'undefined' && App.persistActiveDeck) App.persistActiveDeck();
+    refreshStatus();
+    render(false);
+    closeEditor();
+    App.showToast(i18n.t('cardDeleted'), 'info');
+  }
+
+  // ===== AI mnemonic for a struggling card (2+ lapses) =====
+  async function mnemonic(cardId) {
+    const card = cards.find(c => String(c.id) === String(cardId));
+    if (!card) return;
+    App.showToast(i18n.t('mnemonicLoading'), 'info');
+    try {
+      const raw = await API.chat(
+        `Create ONE short, vivid mnemonic (memory hook) to remember this flashcard. ` +
+        `Question: "${card.front}" Answer: "${card.back}". ` +
+        `Answer with only the mnemonic itself, in the same language as the card, max 2 sentences.`,
+        App.getOriginalText());
+      const data = Parser.parseChat(raw);
+      const text = (data.answer || '').trim();
+      if (!text) throw new Error('empty');
+      if (confirm(i18n.t('mnemonicConfirm', { m: text }))) {
+        card.back += '\n\n💡 ' + text;
+        if (typeof App !== 'undefined' && App.persistActiveDeck) App.persistActiveDeck();
+        render(false);
+        App.showToast(i18n.t('mnemonicAdded'), 'success');
+      }
+    } catch (err) {
+      App.showToast(i18n.t('chatError'), 'error');
+    }
+  }
+
   // ===== STUDY MODE =====
   function setupStudyMode() {
     const card = document.getElementById('study-card');
@@ -294,6 +484,12 @@ const Flashcards = (() => {
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && document.getElementById('deck-complete-overlay').style.display === 'flex') { exitStudy(); return; }
       if (!studyState) return;
+      // Don't hijack keys while typing an answer (typed-recall mode).
+      const tag = (e.target.tagName || '').toLowerCase();
+      if (tag === 'input' || tag === 'textarea') {
+        if (e.code === 'Escape') exitStudy();
+        return;
+      }
       if (e.code === 'Space') { e.preventDefault(); if (!studyState.flipped) flipStudyCard(); }
       else if (e.key === '1' && studyState.flipped) rateCard('again');
       else if (e.key === '2' && studyState.flipped) rateCard('hard');
@@ -302,6 +498,73 @@ const Flashcards = (() => {
     });
 
     setupDrag(card);
+    setupTypedRecall();
+  }
+
+  // ===== Typed recall =====
+  // Optional mode: type the answer before flipping; the card flips and shows
+  // a correct/close/miss verdict, then the usual rating buttons apply.
+  let typedMode = localStorage.getItem('flashmind_typed') === '1';
+
+  function setupTypedRecall() {
+    const toggle = document.getElementById('study-typed-toggle');
+    const input = document.getElementById('study-typed-input');
+    const check = document.getElementById('study-typed-check');
+    if (!toggle || !input || !check) return;
+    toggle.classList.toggle('active', typedMode);
+    toggle.addEventListener('click', () => {
+      typedMode = !typedMode;
+      localStorage.setItem('flashmind_typed', typedMode ? '1' : '0');
+      toggle.classList.toggle('active', typedMode);
+      if (studyState && !studyState.flipped) applyTypedVisibility();
+    });
+    const submit = () => {
+      if (!studyState || studyState.flipped) return;
+      checkTypedAnswer(input.value.trim());
+    };
+    check.addEventListener('click', submit);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') submit(); });
+  }
+
+  function normalizeAnswer(s) {
+    return String(s == null ? '' : s)
+      .toLocaleLowerCase('tr')
+      .replace(/[.,;:!?'"`´()\[\]{}]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function checkTypedAnswer(typed) {
+    const card = studyState.deck[studyState.index];
+    const want = normalizeAnswer(card.back);
+    const got = normalizeAnswer(typed);
+    let verdict = 'miss';
+    if (got && got === want) verdict = 'correct';
+    else if (got.length > 2 && (want.includes(got) || got.includes(want))) verdict = 'close';
+    studyState.typedVerdict = typed ? verdict : null;
+    flipStudyCard();
+  }
+
+  function applyTypedVisibility() {
+    const row = document.getElementById('study-typed');
+    const input = document.getElementById('study-typed-input');
+    const hint = document.getElementById('study-flip-hint');
+    if (!row) return;
+    const show = typedMode && studyState && !studyState.flipped;
+    row.style.display = show ? 'flex' : 'none';
+    if (hint && show) hint.style.display = 'none';
+    if (show && input) { input.value = ''; input.classList.remove('correct', 'close', 'miss'); input.focus(); }
+  }
+
+  function showTypedVerdict() {
+    const el = document.getElementById('study-typed-verdict');
+    if (!el) return;
+    const v = studyState.typedVerdict;
+    if (!v) { el.style.display = 'none'; return; }
+    const T = i18n.t;
+    el.textContent = v === 'correct' ? '✓ ' + T('typedCorrect') : v === 'close' ? '≈ ' + T('typedClose') : '✗ ' + T('typedMiss');
+    el.className = 'typed-verdict ' + v;
+    el.style.display = '';
   }
 
   // Drag the flipped card with mouse or finger (Pointer Events): it follows
@@ -359,11 +622,15 @@ const Flashcards = (() => {
     if (!cards.length) return;
     clearTimeout(rateTimer);
     ratingLock = false;
-    sessionMode = mode === 'due' ? 'due' : 'all';
+    sessionMode = mode === 'due' ? 'due' : mode === 'cram' ? 'cram' : 'all';
     let deck;
     if (sessionMode === 'due') {
       deck = typeof Decks !== 'undefined' ? Decks.dueCards(cards).slice() : [];
       if (deck.length === 0) { App.showToast(i18n.t('noDue'), 'info'); return; }
+    } else if (sessionMode === 'cram') {
+      // Cram: everything, regardless of schedule — FSRS is left untouched.
+      deck = cards.slice();
+      if (deck.length === 0) return;
     } else {
       deck = cards.filter(c => cardStatus[c.id] !== 'mastered');
       if (deck.length === 0) deck = cards.slice(); // all mastered — review everything
@@ -372,6 +639,31 @@ const Flashcards = (() => {
       const j = Math.floor(Math.random() * (i + 1));
       [deck[i], deck[j]] = [deck[j], deck[i]];
     }
+    // Cram is for the night before the exam: hardest material first.
+    if (sessionMode === 'cram') {
+      const rank = { hard: 0, medium: 1, easy: 2 };
+      deck.sort((a, b) => (rank[a.difficulty] ?? 1) - (rank[b.difficulty] ?? 1));
+      App.showToast(i18n.t('cramStarted'), 'info');
+    }
+    beginSession(deck);
+  }
+
+  // Cross-deck queue (the "Today" review): items are card copies tagged with
+  // _deckId so each rating lands in the right deck's FSRS state.
+  function startQueue(items) {
+    if (!items || !items.length) { App.showToast(i18n.t('noDue'), 'info'); return; }
+    sessionMode = 'queue';
+    const deck = items.slice();
+    for (let i = deck.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
+    beginSession(deck);
+  }
+
+  function beginSession(deck) {
+    clearTimeout(rateTimer);
+    ratingLock = false;
     studyState = { deck, index: 0, flipped: false, startTime: Date.now(), mastered: 0, reviewed: 0 };
     document.getElementById('study-mode-overlay').style.display = 'flex';
     if (releaseStudyTrap) releaseStudyTrap();
@@ -387,11 +679,25 @@ const Flashcards = (() => {
     const total = deck.length;
     document.getElementById('study-card-front-text').textContent = card.front;
     document.getElementById('study-card-back-text').textContent = card.back;
+    const imgEl = document.getElementById('study-card-img');
+    if (imgEl) {
+      imgEl.style.display = card.img ? '' : 'none';
+      if (card.img) imgEl.src = card.img;
+    }
+    // Cross-deck sessions show which deck the card came from.
+    const deckHint = document.getElementById('study-deck-hint');
+    if (deckHint) {
+      deckHint.textContent = card._deckTitle || '';
+      deckHint.style.display = card._deckTitle ? '' : 'none';
+    }
     document.getElementById('study-progress-text').textContent = `${index + 1} / ${total}`;
     document.getElementById('study-progress-fill').style.width = `${((index) / total) * 100}%`;
     document.getElementById('study-flip-hint').style.display = '';
     document.getElementById('study-mode-actions').style.display = 'none';
     studyState.flipped = false;
+    studyState.typedVerdict = null;
+    applyTypedVisibility();
+    showTypedVerdict();
     const cardEl = document.getElementById('study-card');
     cardEl.classList.remove('flipped', 'fly-right', 'fly-left', 'fly-up', 'spring-back', 'dragging', 'drag-right', 'drag-left', 'drag-up', 'card-enter', 'drag-hint');
     cardEl.style.transform = '';
@@ -405,6 +711,9 @@ const Flashcards = (() => {
     cardEl.classList.add('flipped');
     document.getElementById('study-flip-hint').style.display = 'none';
     document.getElementById('study-mode-actions').style.display = 'flex';
+    const typedRow = document.getElementById('study-typed');
+    if (typedRow) typedRow.style.display = 'none';
+    showTypedVerdict();
     Sound.play('flip');
     Sound.haptic(8);
     // First flip of the session: nudge the card sideways so the drag gesture
@@ -439,13 +748,21 @@ const Flashcards = (() => {
     const { deck, index } = studyState;
     const card = deck[index];
     // Map the three buttons to SM-2 quality scores and persist scheduling.
+    // Cram sessions deliberately skip FSRS — last-minute reps shouldn't wreck
+    // long-term schedules. Cross-deck queue ratings land in the card's own deck.
     const quality = rating === 'gotit' ? 5 : rating === 'hard' ? 3 : 1;
-    if (typeof Decks !== 'undefined') Decks.review(card.id, quality);
+    if (typeof Decks !== 'undefined' && sessionMode !== 'cram') {
+      if (card._deckId) Decks.reviewIn(card._deckId, card.id, quality);
+      else Decks.review(card.id, quality);
+    }
     if (typeof Stats !== 'undefined') Stats.recordReview(rating);
 
-    if (rating === 'gotit') { cardStatus[card.id] = 'mastered'; studyState.mastered++; }
-    else if (rating === 'hard') { cardStatus[card.id] = 'reviewing'; studyState.reviewed++; }
-    else { cardStatus[card.id] = 'reviewing'; studyState.reviewed++; deck.push(card); }
+    // cardStatus mirrors the ACTIVE deck's grid — foreign-deck cards from the
+    // Today queue must not touch it (their ids can collide with local ones).
+    const local = !card._deckId;
+    if (rating === 'gotit') { if (local && sessionMode !== 'cram') cardStatus[card.id] = 'mastered'; studyState.mastered++; }
+    else if (rating === 'hard') { if (local && sessionMode !== 'cram') cardStatus[card.id] = 'reviewing'; studyState.reviewed++; }
+    else { if (local && sessionMode !== 'cram') cardStatus[card.id] = 'reviewing'; studyState.reviewed++; deck.push(card); }
     studyState.index++;
     if (studyState.index >= deck.length) showDeckComplete();
     else showStudyCard();
@@ -471,7 +788,13 @@ const Flashcards = (() => {
       document.getElementById('deck-complete-overlay').style.display = 'none';
       if (releaseStudyTrap) { releaseStudyTrap(); releaseStudyTrap = null; }
       document.body.style.overflow = '';
-      startStudy(sessionMode);
+      if (sessionMode === 'queue') {
+        const due = Decks.dueAcrossDecks().map(d => Object.assign({}, d.card, { _deckId: d.deckId, _deckTitle: d.deckTitle }));
+        if (!due.length) { exitStudy(); return; }
+        startQueue(due);
+      } else {
+        startStudy(sessionMode);
+      }
     };
     document.getElementById('dc-take-quiz').onclick = () => {
       document.getElementById('deck-complete-overlay').style.display = 'none';
@@ -492,14 +815,20 @@ const Flashcards = (() => {
     document.getElementById('deck-complete-overlay').style.display = 'none';
     document.body.style.overflow = '';
     render();
+    // Refresh due counts + app badge (matters after a Today-queue session).
+    if (typeof App !== 'undefined' && App.refreshLibrary) App.refreshLibrary();
   }
 
   function esc(str) {
     if (!str) return '';
     const div = document.createElement('div');
     div.textContent = str;
-    return div.innerHTML;
+    return div.innerHTML.replace(/"/g, '&quot;');
   }
 
-  return { init, setCards, addCards, render, setFilter, flipCard, startStudy, generateMore, generateWeakSpots, addClozeCards };
+  return {
+    init, setCards, addCards, render, setFilter, flipCard,
+    startStudy, startQueue, generateMore, generateWeakSpots, addClozeCards,
+    openEditor, mnemonic
+  };
 })();

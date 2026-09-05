@@ -13,11 +13,12 @@
 Give FlashMind some material and it generates a complete study set in one streamed call — you watch the stage checklist tick off and the flashcard counter climb while it writes:
 
 - **📝 Notes** — a clean summary with sections, key terms, important dates, common mistakes, and simple diagrams. Read-aloud (TTS) included.
-- **🃏 Flashcards** — 3D flip-card deck with a drag-to-rate study mode (swipe right = Got it, left = Again, up = Hard) scheduled by **FSRS**, plus one-click **cloze cards** built from your notes' key terms.
-- **📋 Exam (Turkish style)** — mixed-format exam with two modes: **Practice** (per-question feedback, optional timer) and **Simulation (deneme sınavı)** — one overall countdown, optik-form question navigator, results only at the end.
-- **📕 Mistake notebook (yanlış defteri)** — every wrong answer is filed automatically; retake just your mistakes, and correct answers clear them.
-- **📊 Stats** — day streak, review charts, a 6-month activity heatmap, a 7-day due forecast, and exam-score history.
-- **💬 Ask AI** — a tutor with your material as context; one click on any wrong exam answer asks it "explain this".
+- **🃏 Flashcards** — 3D flip-card deck with a drag-to-rate study mode (swipe right = Got it, left = Again, up = Hard) scheduled by **FSRS**, plus one-click **cloze cards** built from your notes' key terms. Add, edit, and delete cards by hand (with an optional image), study in **typed-recall mode** (type the answer, get a verdict before rating), or hit **⚡ Cram** the night before — hardest cards first, schedules untouched.
+- **📋 Exam (Turkish style)** — mixed-format exam with two modes: **Practice** (per-question feedback, optional timer) and **Simulation (deneme sınavı)** — one overall countdown, optik-form question navigator, results only at the end. Results include a **per-topic accuracy breakdown**, and the **question bank only grows**: generate more questions any time (deduped automatically).
+- **📕 Mistake notebook (yanlış defteri)** — every wrong answer is filed automatically; retake just your mistakes, ask the AI for a **harder retake** built from them, and correct answers clear them.
+- **📊 Stats** — day streak with **streak freezes** (earned every 7 study days, auto-bridge a missed day), review charts, a 6-month activity heatmap, a 7-day due forecast, exam-score history, and an **AI weekly report**.
+- **💬 Ask AI** — a tutor with your material as context; one click on any wrong exam answer asks it "explain this". **Feynman mode** flips the roles: you explain the topic, the AI grades your explanation and lists what's missing. Struggling cards (2+ lapses) get a one-click **AI mnemonic**.
+- **☀️ Today queue** — one session that pulls every due card from **all** your decks, with a home-screen banner, PWA app-icon badge, and an opt-in daily reminder notification.
 
 Not sure? Hit **Try an example** on the home screen for an instant sample deck — no waiting, no API call.
 
@@ -25,9 +26,11 @@ Not sure? Hit **Try an example** on the home screen for an instant sample deck �
 
 - **Paste** text (notes, a transcript, a textbook chapter).
 - **Upload a PDF** — text extracted client-side with PDF.js.
+- **A photo** — point your camera at a textbook page or your notes; text is extracted client-side with Tesseract.js OCR (English + Turkish).
 - **Upload JSON** — re-import a FlashMind export, or load any JSON as raw text.
 - **Upload CSV/TSV** — flashcards from our export, Anki exports, or any front/back sheet.
 - **A URL** — the backend fetches the page and extracts its readable text.
+- **A YouTube link** — the backend pulls the video's caption transcript (prefers your UI language, falls back to English/auto-generated).
 - **Just a topic** — type "Photosynthesis" and it teaches the subject.
 
 ## Turkish-style exam (Türk sınav sistemi)
@@ -45,10 +48,12 @@ Not sure? Hit **Try an example** on the home screen for an instant sample deck �
 ## Study features
 
 - **🧠 FSRS spaced repetition** — the modern scheduler (FSRS-4.5) plans each card's optimal review date; lapses feed **weak-spot targeting**, which generates new cards for the categories you struggle with.
-- **📚 Deck library** — every set is saved locally; rename, duplicate, search, export, delete; mastery rings and due counts at a glance.
+- **🎚️ Difficulty dial** — generate the same material as *Simple*, *Standard*, or *Advanced* (exam-prep depth).
+- **📚 Deck library** — every set is saved locally; rename, duplicate, search, export, delete, group into **folders**, or **merge decks** (review progress carries over); mastery rings and due counts at a glance.
 - **🔁 Device sync** — account-less: enable sync, enter the private code on another device, and decks/stats merge (deletions propagate too). Disabling wipes the cloud copy.
 - **💾 Backup** — one file backs up the whole library including schedules, stats, and mistake banks; drop it on any FlashMind to restore.
 - **🔍 Search, 🔗 permanent share links, 📤 exports** (Markdown, PDF, Anki-compatible CSV, printable exam, JSON).
+- **🌍 Community gallery** — optionally list a shared deck publicly; the home screen shows the latest community decks, one tap to open.
 
 ## Interface
 
@@ -64,8 +69,8 @@ Not sure? Hit **Try an example** on the home screen for an instant sample deck �
 - **Frontend** — vanilla HTML/CSS/JS, no framework, no build step. Hosted on GitHub Pages.
 - **Backend** — a Cloudflare Worker ([`flashmind-worker`](https://github.com/0xmortuex/flashmind-worker)) that proxies generation/grading to [OpenRouter](https://openrouter.ai) (Claude) with SSE streaming, stores shares and sync blobs in KV, extracts text from URLs, and rate-limits per IP. The API key lives only as a Worker secret.
 - **Storage** — decks, FSRS schedules, mistake banks, and stats persist in `localStorage`; sync/share blobs in Worker KV under random bearer codes.
-- **Charts & scheduling** — hand-rolled: inline-SVG charts, canvas confetti, and an FSRS-4.5 implementation — no libraries.
-- **CI** — a 24-step Puppeteer smoke test plus data and browser regression suites runs on every push (badge above).
+- **Charts & scheduling** — hand-rolled: inline-SVG charts, canvas confetti, and an FSRS-4.5 implementation — no libraries. The only CDN dependencies are PDF.js and (lazy-loaded, only when you drop a photo) Tesseract.js for OCR.
+- **CI** — Puppeteer smoke checks plus data and browser regression suites run on every push (badge above).
 
 ## Run locally
 

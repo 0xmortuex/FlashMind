@@ -49,6 +49,8 @@ const App = (() => {
     });
     setupDemo();
     Library.render();
+    if (typeof Today !== 'undefined') Today.init();
+    if (typeof Gallery !== 'undefined') Gallery.init();
     registerServiceWorker();
     checkShareLink() || checkSavedData();
   }
@@ -78,10 +80,17 @@ const App = (() => {
     document.querySelector('.btn-generate-text').textContent = T('generateBtn');
     document.querySelector('.generate-hint').textContent = T('ctrlEnter');
     document.getElementById('study-title').textContent = T('studyMaterials');
-    document.getElementById('share-btn').textContent = T('share');
-    document.getElementById('export-btn').textContent = T('export_');
-    document.getElementById('new-material-btn').textContent = T('newMaterial');
-    document.getElementById('add-material-btn').textContent = T('addMaterials');
+    // Topbar buttons carry an icon — translate only the label span.
+    const setBtnLabel = (id, text) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const label = el.querySelector('.btn-label');
+      if (label) label.textContent = text; else el.textContent = text;
+    };
+    setBtnLabel('share-btn', T('share'));
+    setBtnLabel('export-btn', T('export_'));
+    setBtnLabel('new-material-btn', T('newMaterial'));
+    setBtnLabel('add-material-btn', T('addMaterials'));
     document.getElementById('append-cancel-btn').textContent = T('cancel');
 
     // Export menu items
@@ -107,6 +116,8 @@ const App = (() => {
 
     // Study mode overlay
     document.getElementById('study-mode-close').title = T('exitStudy');
+    const typedCheck = document.getElementById('study-typed-check');
+    if (typedCheck) typedCheck.textContent = T('checkAnswer');
     document.getElementById('study-flip-hint').textContent = T('flipHint');
     document.querySelector('.study-btn.again').textContent = T('again');
     document.querySelector('.study-btn.hard').textContent = T('hard');
@@ -127,6 +138,8 @@ const App = (() => {
 
     // Share modal
     document.querySelector('.share-modal-header h3').textContent = T('shareTitle');
+    const pubBtn = document.getElementById('share-publish-btn');
+    if (pubBtn) pubBtn.textContent = '🌍 ' + T('publishToGallery');
     document.querySelector('.share-label').textContent = T('shareLabel');
     document.getElementById('share-copy-btn').textContent = T('copyLink');
     document.querySelector('.share-expires').textContent = T('shareExpiry');
@@ -135,6 +148,14 @@ const App = (() => {
     // Demo button
     const demoBtn = document.getElementById('demo-btn');
     if (demoBtn) demoBtn.textContent = T('tryExample');
+
+    // Generation difficulty dial
+    const levelLabel = document.getElementById('gen-level-label');
+    if (levelLabel) levelLabel.textContent = T('genLevelLabel');
+    const levelKeys = { simple: 'genLevelSimple', standard: 'genLevelStandard', advanced: 'genLevelAdvanced' };
+    document.querySelectorAll('#gen-level-options .timer-option').forEach(btn => {
+      if (levelKeys[btn.dataset.level]) btn.textContent = T(levelKeys[btn.dataset.level]);
+    });
 
     // Lang switcher active state
     document.querySelectorAll('.lang-btn').forEach(btn => {
@@ -320,7 +341,7 @@ const App = (() => {
   }
 
   // Route an uploaded file: JSON → import a study set (or use as text),
-  // CSV/TSV → flashcard import, else PDF.
+  // CSV/TSV → flashcard import, image → OCR, else PDF.
   async function processFile(file) {
     if (/\.json$/i.test(file.name) || file.type === 'application/json') {
       return importJSONFile(file);
@@ -328,7 +349,44 @@ const App = (() => {
     if (/\.(csv|tsv)$/i.test(file.name) || file.type === 'text/csv') {
       return importCSVFile(file);
     }
+    if (/^image\//.test(file.type) || /\.(png|jpe?g|webp|bmp)$/i.test(file.name)) {
+      return processImage(file);
+    }
     return processPDF(file);
+  }
+
+  // Photo → text via client-side OCR (tesseract.js, lazy-loaded). Reuses the
+  // PDF preview/progress UI, so the extracted text lands in the same flow.
+  async function processImage(file) {
+    const dropzone = document.getElementById('pdf-dropzone');
+    const preview = document.getElementById('pdf-preview');
+    const progressEl = document.getElementById('pdf-progress');
+    const progressFill = document.getElementById('pdf-progress-fill');
+    const progressText = document.getElementById('pdf-progress-text');
+
+    document.getElementById('pdf-filename').textContent = file.name;
+    dropzone.style.display = 'none';
+    preview.style.display = '';
+    progressEl.style.display = '';
+    progressFill.style.width = '0%';
+    progressText.textContent = i18n.t('ocrLoading');
+    document.getElementById('pdf-text-preview').value = '';
+    document.getElementById('pdf-pages').textContent = '';
+
+    try {
+      const text = await OCR.extractText(file, (p) => {
+        progressFill.style.width = (p * 100).toFixed(0) + '%';
+        progressText.textContent = i18n.t('ocrProgress', { p: Math.round(p * 100) });
+      });
+      progressEl.style.display = 'none';
+      document.getElementById('pdf-text-preview').value = text;
+      if (!text) showToast(i18n.t('ocrEmpty'), 'info');
+    } catch (err) {
+      progressEl.style.display = 'none';
+      showToast(i18n.t('ocrFailed') + ' ' + err.message, 'error');
+      dropzone.style.display = '';
+      preview.style.display = 'none';
+    }
   }
 
   // CSV/TSV → a flashcards-only deck (our export, Anki exports, any
@@ -470,6 +528,14 @@ const App = (() => {
   }
 
   // ===== Settings Panel =====
+  // Generation difficulty level ("difficulty dial"): simple / standard /
+  // advanced — persisted, appended as an instruction to the generation input.
+  let genLevel = localStorage.getItem('flashmind_genlevel') || 'standard';
+  const LEVEL_HINTS = {
+    simple: 'Explain everything as simply as possible, for a beginner: short sentences, everyday examples, minimal jargon, easier questions.',
+    advanced: 'Target an advanced student preparing for a competitive exam: deeper detail, tricky distinctions, and noticeably harder questions.'
+  };
+
   function setupSettings() {
     const toggle = document.getElementById('settings-toggle');
     const panel = document.getElementById('settings-panel');
@@ -485,6 +551,16 @@ const App = (() => {
         const total = ['fc-easy', 'fc-medium', 'fc-hard']
           .reduce((sum, id) => sum + (parseInt(document.getElementById(id).value) || 0), 0);
         document.getElementById('fc-total').textContent = `Total: ${total}`;
+      });
+    });
+
+    document.querySelectorAll('#gen-level-options .timer-option').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.level === genLevel);
+      btn.addEventListener('click', () => {
+        genLevel = btn.dataset.level;
+        localStorage.setItem('flashmind_genlevel', genLevel);
+        document.querySelectorAll('#gen-level-options .timer-option').forEach(b =>
+          b.classList.toggle('active', b === btn));
       });
     });
   }
@@ -535,6 +611,7 @@ const App = (() => {
 
     if (!text) { showToast(i18n.t('noInput'), 'error'); return; }
     if (text.length > 15000) { text = text.substring(0, 15000); showToast(i18n.t('truncated'), 'info'); }
+    if (LEVEL_HINTS[genLevel]) text += '\n\n[Difficulty instruction: ' + LEVEL_HINTS[genLevel] + ']';
 
     btn.disabled = true;
     textEl.style.display = 'none';
@@ -822,6 +899,22 @@ const App = (() => {
       window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
     });
 
+    // Opt-in gallery listing for the share code that was just created.
+    const publishBtn = document.getElementById('share-publish-btn');
+    if (publishBtn) publishBtn.addEventListener('click', async () => {
+      if (!lastShareCode || publishBtn.disabled) return;
+      publishBtn.disabled = true;
+      try {
+        await API.publishShare(lastShareCode);
+        publishBtn.textContent = '✓ ' + i18n.t('publishedToGallery');
+        showToast(i18n.t('publishedToGallery'), 'success');
+        if (typeof Gallery !== 'undefined') Gallery.load().catch(() => {});
+      } catch (err) {
+        publishBtn.disabled = false;
+        showToast(i18n.t('publishFailed') + ' ' + err.message, 'error');
+      }
+    });
+
     discordBtn.addEventListener('click', () => {
       const url = document.getElementById('share-link-input').value;
       const title = studyData ? studyData.title : '';
@@ -845,6 +938,12 @@ const App = (() => {
     try {
       const response = await API.share({ studyData, originalText });
       const code = response.code;
+      lastShareCode = code;
+      const publishBtn = document.getElementById('share-publish-btn');
+      if (publishBtn) {
+        publishBtn.disabled = false;
+        publishBtn.textContent = '🌍 ' + i18n.t('publishToGallery');
+      }
       document.getElementById('share-link-input').value = `${window.location.origin}${window.location.pathname}?s=${encodeURIComponent(code)}`;
       loading.style.display = 'none';
       result.style.display = 'block';
@@ -853,6 +952,18 @@ const App = (() => {
       modal._close();
       showToast(i18n.t('shareFailed') + ' ' + err.message, 'error');
     }
+  }
+
+  // The most recent share code minted in this session (gallery publishing).
+  let lastShareCode = null;
+
+  // Open a shared deck by code (community gallery cards) — same pipeline as
+  // an incoming ?s= link.
+  function openSharedCode(code) {
+    if (!code) return;
+    const overlay = document.getElementById('share-load-overlay');
+    overlay.style.display = 'flex';
+    loadSharedMaterials(code, overlay);
   }
 
   // ===== Share Link Detection =====
@@ -977,7 +1088,12 @@ const App = (() => {
     const container = document.getElementById('toast-container');
     const toast = document.createElement('div');
     toast.className = `toast ${type}`;
-    toast.textContent = message;
+    // Type icon (styled circle) ahead of the message text.
+    const icon = document.createElement('span');
+    icon.className = 'toast-icon';
+    icon.textContent = type === 'success' ? '✓' : type === 'error' ? '✕' : 'i';
+    toast.appendChild(icon);
+    toast.appendChild(document.createTextNode(message));
     // Auto-dismiss progress bar along the bottom edge.
     const progress = document.createElement('span');
     progress.className = 'toast-progress';
@@ -1003,6 +1119,7 @@ const App = (() => {
     toggleTheme: (originEl) => Shell.toggleTheme(originEl),
     toggleShortcuts: (force) => Shell.toggleShortcuts(force),
     refreshLibrary,
-    persistActiveDeck
+    persistActiveDeck,
+    openSharedCode
   };
 })();

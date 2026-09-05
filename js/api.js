@@ -173,6 +173,32 @@ const API = (() => {
     return typeof json.result === 'string' ? JSON.parse(json.result) : json.result;
   }
 
+  // Opt-in: list an existing share code in the public community gallery.
+  async function publishShare(code) {
+    const res = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'publishShare', code, lang: i18n.getLang() })
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ error: 'Publish failed' }));
+      throw new Error(err.error || `HTTP ${res.status}`);
+    }
+    return (await res.json()).result;
+  }
+
+  // Latest publicly listed decks (code, title, counts, lang).
+  async function gallery() {
+    const res = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'gallery' })
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const list = (await res.json()).result;
+    return Array.isArray(list) ? list : [];
+  }
+
   async function load(code) {
     const res = await fetch(WORKER_URL, {
       method: 'POST',
@@ -189,5 +215,5 @@ const API = (() => {
     return typeof json.result === 'string' ? JSON.parse(json.result) : json.result;
   }
 
-  return { generate, generateStream, chat, grade, share, load, syncPush, syncPull, syncDelete, fetchUrl };
+  return { generate, generateStream, chat, grade, share, load, publishShare, gallery, syncPush, syncPull, syncDelete, fetchUrl };
 })();

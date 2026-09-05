@@ -53,6 +53,9 @@ const Palette = (() => {
           section: T('paletteNav'), label: T(key), run: () => App.switchTab(tab)
         }));
       items.push({ section: T('paletteActions'), label: T('startStudy'), run: () => { App.switchTab('flashcards'); Flashcards.startStudy('all'); } });
+      items.push({ section: T('paletteActions'), label: T('addCard'), run: () => { App.switchTab('flashcards'); Flashcards.openEditor(); } });
+      items.push({ section: T('paletteActions'), label: T('cramBtn'), run: () => { App.switchTab('flashcards'); Flashcards.startStudy('cram'); } });
+      items.push({ section: T('paletteActions'), label: T('feynmanBtn'), run: () => { App.switchTab('chat'); Chat.startFeynman(); } });
       items.push({ section: T('paletteActions'), label: T('startExam'), run: () => App.switchTab('quiz') });
       items.push({ section: T('paletteActions'), label: T('share'), run: () => click('share-btn') });
       items.push({ section: T('paletteActions'), label: T('allJson'), run: () => Export.allJSON() });
@@ -62,6 +65,9 @@ const Palette = (() => {
       items.push({ section: T('paletteActions'), label: T('tryExample'), run: () => click('demo-btn') });
     }
 
+    if (typeof Today !== 'undefined' && Today.dueItems().length) {
+      items.push({ section: T('paletteActions'), label: T('todayReview') + ` (${Today.dueItems().length})`, run: () => Today.start() });
+    }
     items.push({ section: T('paletteActions'), label: T('cmdToggleTheme'), run: () => App.toggleTheme() });
     items.push({ section: T('paletteActions'), label: T('cmdToggleSound'), run: () => Sound.toggle() });
     items.push({ section: T('paletteActions'), label: T('shortcutsTitle'), hint: '?', run: () => App.toggleShortcuts(true) });

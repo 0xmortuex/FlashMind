@@ -1,0 +1,497 @@
+/* ===== JUICE — color, motion & delight layer =====
+   Loaded after fx.css: everything here is decorative enrichment on top of
+   the base design. Rules of the layer:
+   - colors come from tokens (main.css), so both themes stay consistent
+   - animations are transform/opacity/background-position only (GPU-cheap)
+   - the global prefers-reduced-motion rule in main.css freezes all of it */
+
+/* ---------- Animated conic ring around the input card ---------- */
+@property --jangle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.input-card {
+  position: relative;
+  isolation: isolate;
+}
+
+.input-card::before {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  z-index: -1;
+  border-radius: inherit;
+  background: conic-gradient(from var(--jangle),
+    transparent 0 68%, var(--primary) 82%, var(--secondary) 90%, var(--accent-pink) 94%, transparent 100%);
+  opacity: 0.55;
+  animation: juiceSpin 7s linear infinite;
+}
+
+@keyframes juiceSpin { to { --jangle: 360deg; } }
+
+/* Browsers without @property: keep a static soft gradient rim instead. */
+@supports not (background: conic-gradient(from var(--jangle), red, blue)) {
+  .input-card::before {
+    background: var(--grad-brand);
+    opacity: 0.25;
+    animation: none;
+  }
+}
+
+/* ---------- Logo: float, glow, living gradient ---------- */
+.logo { position: relative; }
+
+.logo::after {
+  content: '';
+  position: absolute;
+  inset: -30px -60px;
+  z-index: -1;
+  background: radial-gradient(closest-side, var(--primary-glow), transparent 75%);
+  animation: logoBreathe 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes logoBreathe {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.12); }
+}
+
+.logo-icon {
+  animation: logoFloat 6s ease-in-out infinite;
+  transition: transform 0.35s var(--ease-spring, ease);
+}
+
+.logo:hover .logo-icon { transform: rotate(-8deg) scale(1.08); }
+
+@keyframes logoFloat {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -5px; }
+}
+
+/* Brand text: 3-hue gradient that slowly drifts. */
+.logo-text {
+  background: linear-gradient(120deg,
+    var(--primary) 0%, var(--secondary) 35%, var(--accent-pink) 70%, var(--primary) 100%);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: brandDrift 9s ease-in-out infinite alternate;
+}
+
+@keyframes brandDrift {
+  from { background-position: 0% 50%; }
+  to { background-position: 100% 50%; }
+}
+
+.tagline {
+  background: linear-gradient(90deg, var(--text-muted), var(--text), var(--text-muted));
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: taglineSheen 6s ease-in-out infinite;
+}
+
+@keyframes taglineSheen {
+  0%, 100% { background-position: 110% 0; }
+  50% { background-position: -10% 0; }
+}
+
+/* ---------- Generate button: living gradient + shine sweep ---------- */
+.btn-generate {
+  background: linear-gradient(120deg,
+    var(--primary), var(--accent-pink), var(--secondary), var(--primary));
+  background-size: 300% 100%;
+  animation: genDrift 8s ease-in-out infinite;
+}
+
+@keyframes genDrift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.btn-generate::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  left: -80%;
+  width: 55%;
+  background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  transform: skewX(-18deg);
+  transition: left 0.7s ease;
+  pointer-events: none;
+}
+
+.btn-generate:hover:not(:disabled)::after { left: 130%; }
+
+.btn-generate:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px var(--primary-glow), 0 2px 10px var(--secondary-glow);
+}
+
+/* ---------- Primary/study CTAs: lift + colored glow ---------- */
+.btn-primary,
+.start-study-btn,
+.start-quiz-btn,
+.today-review-btn {
+  background-image: var(--grad-brand);
+  background-size: 160% 100%;
+  transition: transform var(--transition), box-shadow var(--transition), background-position 0.4s ease;
+}
+
+.btn-primary:hover,
+.start-study-btn:hover,
+.start-quiz-btn:hover,
+.today-review-btn:hover {
+  /* Base-layer :hover rules set the `background` shorthand, which would
+     reset background-image — restore the gradient explicitly. */
+  background-image: var(--grad-brand);
+  background-size: 160% 100%;
+  background-position: 90% 0;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px var(--primary-glow);
+}
+
+/* Ghost buttons wake up on hover instead of just changing border. */
+.btn-ghost:hover {
+  background: var(--primary-tint);
+  border-color: var(--primary);
+  color: var(--text);
+  transform: translateY(-1px);
+}
+
+/* ---------- Study tabs: one identity hue each + icon pop ---------- */
+.study-tab { transition: color var(--transition), transform var(--transition); }
+.study-tab:hover { transform: translateY(-1px); }
+.study-tab .study-tab-icon { transition: transform 0.3s var(--ease-spring, ease); }
+.study-tab:hover .study-tab-icon { transform: translateY(-2px) rotate(-4deg); }
+
+.study-tab[data-tab="notes"].active { color: var(--primary); }
+.study-tab[data-tab="flashcards"].active { color: var(--secondary); }
+.study-tab[data-tab="quiz"].active { color: var(--accent-pink); }
+.study-tab[data-tab="stats"].active { color: var(--accent-orange); }
+.study-tab[data-tab="chat"].active { color: var(--accent-lime); }
+
+.study-tab.active .study-tab-icon { animation: iconPop 0.45s var(--ease-spring, ease); }
+
+@keyframes iconPop {
+  0% { transform: scale(0.6) rotate(-10deg); }
+  60% { transform: scale(1.25) rotate(3deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+
+/* The sliding indicator picks up the full accent journey. */
+.tab-indicator {
+  height: 3px;
+  background: linear-gradient(90deg,
+    var(--primary), var(--secondary), var(--accent-pink), var(--accent-orange), var(--accent-lime));
+  background-size: 500% 100%;
+  animation: indicatorDrift 10s linear infinite alternate;
+}
+
+@keyframes indicatorDrift {
+  from { background-position: 0% 0; }
+  to { background-position: 100% 0; }
+}
+
+/* Mobile bottom-nav active tab: soft tinted pill in its own hue. */
+@media (max-width: 768px) {
+  .study-tab.active { text-shadow: 0 0 18px currentColor; }
+}
+
+/* ---------- Corner toggles: playful icons ---------- */
+.theme-toggle svg, .sound-toggle svg { transition: transform 0.45s var(--ease-spring, ease); }
+.theme-toggle:hover svg { transform: rotate(40deg) scale(1.1); }
+.sound-toggle:hover svg { transform: rotate(-12deg) scale(1.12); }
+
+/* ---------- Topbar action buttons: icon + label ---------- */
+.topbar-actions .btn-ghost,
+.topbar-actions .btn-share {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.topbar-actions .btn-ghost svg,
+.topbar-actions .btn-share svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+/* ---------- Export & deck menus: emoji icons via CSS ---------- */
+/* ::before survives the i18n textContent swap that would wipe inline icons. */
+.export-menu button::before,
+.deck-menu button::before {
+  margin-right: 8px;
+  font-size: 0.9em;
+}
+
+.export-menu [data-export="notes-md"]::before { content: '📝'; }
+.export-menu [data-export="notes-pdf"]::before { content: '📄'; }
+.export-menu [data-export="cards-csv"]::before { content: '🃏'; }
+.export-menu [data-export="quiz-text"]::before { content: '📋'; }
+.export-menu [data-export="exam-pdf"]::before { content: '🖨️'; }
+.export-menu [data-export="all-json"]::before { content: '📦'; }
+
+.deck-menu [data-act="rename"]::before { content: '✏️'; }
+.deck-menu [data-act="duplicate"]::before { content: '📑'; }
+.deck-menu [data-act="folder"]::before { content: '📁'; }
+.deck-menu [data-act="merge"]::before { content: '🔀'; }
+.deck-menu [data-act="export"]::before { content: '📦'; }
+.deck-menu [data-act="delete"]::before { content: '🗑️'; }
+
+/* ---------- Toasts: type icons ---------- */
+.toast { display: flex; align-items: center; gap: 10px; }
+
+.toast-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+  animation: iconPop 0.4s var(--ease-spring, ease);
+}
+
+.toast.success .toast-icon { background: var(--correct); }
+.toast.error .toast-icon { background: var(--wrong); }
+.toast.info .toast-icon { background: var(--secondary); }
+
+/* ---------- Stat tiles: hue-coded, lifted, gradient numbers ---------- */
+.stat-tile {
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.stat-tile::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--tile-hue, var(--grad-brand));
+}
+
+.stat-tile:nth-child(1) { --tile-hue: linear-gradient(90deg, var(--accent-orange), var(--accent-pink)); }
+.stat-tile:nth-child(2) { --tile-hue: linear-gradient(90deg, var(--accent-sky), var(--secondary)); }
+.stat-tile:nth-child(3) { --tile-hue: linear-gradient(90deg, var(--primary), var(--accent-pink)); }
+.stat-tile:nth-child(4) { --tile-hue: linear-gradient(90deg, var(--accent-lime), var(--secondary)); }
+.stat-tile:nth-child(5) { --tile-hue: linear-gradient(90deg, var(--secondary), var(--primary)); }
+
+.stat-tile:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18), 0 2px 8px var(--primary-tint);
+}
+
+/* ---------- Deck cards: physical hover + living ring + pulsing due ---------- */
+.deck-card {
+  transition: transform 0.25s var(--ease-spring, ease), box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.deck-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22), 0 4px 14px var(--primary-glow);
+}
+
+.deck-card:hover .deck-ring-fill { filter: drop-shadow(0 0 4px var(--primary-glow)); }
+
+.deck-card-due {
+  animation: duePulse 2.4s ease-in-out infinite;
+}
+
+@keyframes duePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+
+/* ---------- Today banner: drifting gradient + glowing edge ---------- */
+.today-banner {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(120deg,
+    var(--primary-tint), rgba(244, 114, 182, 0.10), rgba(34, 211, 238, 0.10), var(--primary-tint));
+  background-size: 300% 100%;
+  animation: bannerDrift 9s ease-in-out infinite alternate;
+  border-color: var(--primary);
+}
+
+@keyframes bannerDrift {
+  from { background-position: 0% 0; }
+  to { background-position: 100% 0; }
+}
+
+.today-banner-text { animation: bannerBeat 3s ease-in-out infinite; }
+
+@keyframes bannerBeat {
+  0%, 90%, 100% { transform: translateX(0); }
+  93% { transform: translateX(2px); }
+  96% { transform: translateX(-1px); }
+}
+
+/* ---------- Quiz options: slide + gradient letter chips ---------- */
+.quiz-option { transition: transform var(--transition), border-color var(--transition), background var(--transition), box-shadow var(--transition); }
+
+.quiz-option:hover:not(.disabled) {
+  transform: translateX(5px);
+  box-shadow: -3px 0 0 0 var(--primary);
+}
+
+.opt-letter { transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease; }
+
+.quiz-option:hover:not(.disabled) .opt-letter {
+  background-image: var(--grad-brand);
+  color: #fff;
+  transform: scale(1.1);
+}
+
+/* ---------- Difficulty badges: gradient pills with status dot ---------- */
+.difficulty-badge { position: relative; padding-left: 16px; }
+
+.difficulty-badge::before {
+  content: '';
+  position: absolute;
+  left: 6px; top: 50%;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  background: currentColor;
+  box-shadow: 0 0 6px currentColor;
+}
+
+.difficulty-badge.easy { background: linear-gradient(120deg, rgba(34, 197, 94, 0.22), rgba(163, 230, 53, 0.14)); }
+.difficulty-badge.medium { background: linear-gradient(120deg, rgba(251, 191, 36, 0.22), rgba(251, 146, 60, 0.14)); }
+.difficulty-badge.hard { background: linear-gradient(120deg, rgba(239, 68, 68, 0.22), rgba(244, 114, 182, 0.14)); }
+
+/* ---------- Flashcard grid: colored hover glow per difficulty ---------- */
+.flashcard { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.flashcard.diff-easy:hover { box-shadow: 0 10px 26px rgba(34, 197, 94, 0.16); }
+.flashcard.diff-medium:hover { box-shadow: 0 10px 26px rgba(251, 191, 36, 0.16); }
+.flashcard.diff-hard:hover { box-shadow: 0 10px 26px rgba(239, 68, 68, 0.18); }
+
+/* ---------- Study rating buttons: glow in their own color ---------- */
+.study-btn.again:hover { box-shadow: 0 4px 16px rgba(239, 68, 68, 0.35); }
+.study-btn.hard:hover { box-shadow: 0 4px 16px rgba(251, 191, 36, 0.35); }
+.study-btn.got-it:hover { box-shadow: 0 4px 16px rgba(34, 197, 94, 0.35); }
+
+/* ---------- Heatmap: cells pop under the cursor ---------- */
+.heat-cell {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.15s ease;
+}
+
+.heat-cell:hover { transform: scale(1.4); }
+
+/* ---------- Chat: gradient send + lively starters ---------- */
+.btn-send {
+  background-image: var(--grad-brand);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.btn-send:hover:not(:disabled) {
+  transform: translateY(-2px) rotate(-6deg);
+  box-shadow: 0 4px 14px var(--primary-glow);
+}
+
+.chat-starter { transition: transform var(--transition), border-color var(--transition), background var(--transition); }
+
+.chat-starter:hover {
+  transform: translateY(-2px);
+  border-color: var(--secondary);
+  background: rgba(34, 211, 238, 0.08);
+}
+
+.chat-starter-feynman {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    var(--grad-warm) border-box;
+}
+
+.chat-starter-feynman:hover {
+  border-color: transparent;
+  background:
+    linear-gradient(var(--card-raised), var(--card-raised)) padding-box,
+    var(--grad-warm) border-box;
+  box-shadow: 0 4px 14px rgba(244, 114, 182, 0.25);
+}
+
+/* ---------- Empty states drift gently ---------- */
+.empty-state svg {
+  animation: emptyFloat 5s ease-in-out infinite;
+  color: var(--primary);
+  opacity: 0.7;
+}
+
+@keyframes emptyFloat {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -7px; }
+}
+
+/* ---------- Section titles: gradient ink ---------- */
+.stat-card-title,
+.quiz-breakdown-title,
+.deck-library-title {
+  background: var(--grad-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  width: fit-content;
+}
+
+/* The sync-status line inside the gradient title must stay plain. */
+.deck-library-title .sync-status {
+  -webkit-text-fill-color: var(--text-muted);
+  background: none;
+}
+
+/* ---------- Scrollbar: brand gradient thumb ---------- */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--primary), var(--secondary));
+}
+
+/* ---------- Score ring + grade: glow ---------- */
+.quiz-score-ring .ring-fill { filter: drop-shadow(0 0 6px var(--primary-glow)); }
+
+.quiz-grade {
+  position: relative;
+  overflow: hidden;
+}
+
+.quiz-grade::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  left: -80%;
+  width: 50%;
+  background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: skewX(-18deg);
+  animation: gradeShine 2.6s ease-in-out 0.8s infinite;
+  pointer-events: none;
+}
+
+@keyframes gradeShine {
+  0% { left: -80%; }
+  40%, 100% { left: 130%; }
+}
+
+/* ---------- Card tools & typed verdict: springy entrances ---------- */
+.card-tool-btn { transition: opacity var(--transition), background var(--transition), transform 0.2s var(--ease-spring, ease); }
+.card-tool-btn:hover { transform: scale(1.2); }
+
+.typed-verdict { animation: iconPop 0.4s var(--ease-spring, ease); }
+
+/* ---------- Light theme: soften the glow intensity ---------- */
+:root[data-theme="light"] .logo::after { opacity: 0.35; }
+:root[data-theme="light"] .stat-tile:hover { box-shadow: 0 10px 24px rgba(24, 27, 38, 0.10); }
+:root[data-theme="light"] .deck-card:hover { box-shadow: 0 14px 30px rgba(24, 27, 38, 0.12); }

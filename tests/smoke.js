@@ -262,6 +262,75 @@ const puppeteer = require('puppeteer');
     await new Promise(r => setTimeout(r, 300));
   });
 
+  await step('card editor adds and persists a card', async () => {
+    await page.evaluate(() => { App.openDeck(Decks.list()[0].id); App.switchTab('flashcards'); });
+    await new Promise(r => setTimeout(r, 400));
+    const before = await page.evaluate(() => App.getStudyData().flashcards.length);
+    await page.evaluate(() => Flashcards.openEditor());
+    await page.waitForSelector('#card-edit-front', { visible: true, timeout: 2000 });
+    await page.type('#card-edit-front', 'Smoke card front?');
+    await page.type('#card-edit-back', 'Smoke card back');
+    await page.click('#card-edit-save');
+    await new Promise(r => setTimeout(r, 300));
+    const counts = await page.evaluate(() => [App.getStudyData().flashcards.length, Decks.getActive().data.flashcards.length]);
+    if (counts[0] !== before + 1) throw new Error('card not added');
+    if (counts[1] !== counts[0]) throw new Error('card not persisted to deck');
+  });
+
+  await step('cram + add-card + typed-recall controls present', async () => {
+    const html = await page.$eval('#tab-flashcards', el => el.innerHTML);
+    if (!html.includes("startStudy('cram')")) throw new Error('no cram button');
+    if (!html.includes('Flashcards.openEditor()')) throw new Error('no add-card button');
+    if (!await page.$('#study-typed-toggle')) throw new Error('no typed-recall toggle');
+  });
+
+  await step('question bank + harder-retake controls on exam ready screen', async () => {
+    await page.evaluate(() => { App.switchTab('quiz'); Quiz.renderReady(); });
+    await page.waitForSelector('#gen-more-q-btn', { timeout: 2000 });
+  });
+
+  await step('exam results include accuracy breakdown', async () => {
+    // Earlier steps left simulation mode selected — back to practice so the
+    // per-question next-button flow applies.
+    await page.click('[data-mode="practice"]');
+    await new Promise(r => setTimeout(r, 200));
+    // Deterministic mini-exam: two types so the breakdown has >= 2 groups.
+    await page.evaluate(() => Quiz.startQuiz([
+      { id: 9001, type: 'multiple-choice', question: 'Smoke MC?', options: ['a', 'b', 'c', 'd', 'e'], correct: 0, explanation: '' },
+      { id: 9002, type: 'true-false', question: 'Smoke TF?', correct: true, explanation: '' },
+    ]));
+    await page.waitForSelector('#quiz-body', { timeout: 2000 });
+    for (let i = 0; i < 4 && !(await page.$('.quiz-score-ring')); i++) {
+      if (await page.$('.quiz-options:not(.tf-options) .quiz-option')) await page.click('.quiz-options:not(.tf-options) .quiz-option');
+      else if (await page.$('.tf-option')) await page.click('.tf-option');
+      await new Promise(r => setTimeout(r, 300));
+      const next = await page.$('#quiz-next-btn');
+      if (next) await next.click();
+      await new Promise(r => setTimeout(r, 300));
+    }
+    await page.waitForSelector('.quiz-breakdown', { timeout: 2000 });
+    await page.evaluate(() => Quiz.renderReady());
+  });
+
+  await step('deck menu has folder + merge actions', async () => {
+    await page.click('#back-to-input');
+    await page.waitForSelector('#deck-library .deck-card', { timeout: 2000 });
+    if (!await page.$('.deck-menu [data-act="folder"]')) throw new Error('no folder action');
+    if (!await page.$('.deck-menu [data-act="merge"]')) throw new Error('no merge action');
+  });
+
+  await step('Today queue module wired (badge + due aggregation)', async () => {
+    const ok = await page.evaluate(() => {
+      const deck = Decks.list()[0];
+      const card = deck.data.flashcards[0];
+      deck.srs[card.id] = { stab: 1, diff: 5, reps: 1, lapses: 0, due: Date.now() - 1000, last: Date.now() - 86400000 };
+      return Today.dueItems().length > 0;
+    });
+    if (!ok) throw new Error('dueAcrossDecks empty after forcing a due card');
+    await page.evaluate(() => Library.render());
+    await page.waitForSelector('#today-review-btn', { timeout: 2000 });
+  });
+
   console.log(errors.length ? 'ERRORS:\n' + errors.join('\n') : 'NO CONSOLE/PAGE ERRORS');
   console.log(failCount ? failCount + ' step(s) failed' : 'ALL STEPS PASSED');
   await browser.close();

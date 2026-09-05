@@ -49,8 +49,21 @@ const Chat = (() => {
     starters.forEach(s => {
       html += `<button class="chat-starter" onclick="Chat.sendMessage('${s.replace(/'/g, "\\'")}')">${s}</button>`;
     });
+    html += `<button class="chat-starter chat-starter-feynman" onclick="Chat.startFeynman()">&#127891; ${T('feynmanBtn')}</button>`;
     html += '</div>';
     messagesEl.innerHTML = html;
+  }
+
+  // ===== Feynman mode =====
+  // The student explains the topic in their own words; the AI grades the
+  // explanation against the study material and lists gaps.
+  let feynmanArmed = false;
+
+  function startFeynman() {
+    feynmanArmed = true;
+    addAIMessage({ answer: i18n.t('feynmanIntro'), tip: null, followUps: [] });
+    inputEl.placeholder = i18n.t('feynmanHolder');
+    inputEl.focus();
   }
 
   function addUserMessage(text) {
@@ -142,9 +155,21 @@ const Chat = (() => {
     addUserMessage(text);
     showLoading();
 
+    // Feynman: the visible message is the student's explanation; the request
+    // wraps it in a grading instruction.
+    let toSend = text;
+    if (feynmanArmed) {
+      feynmanArmed = false;
+      inputEl.placeholder = i18n.t('chatHolder');
+      toSend = 'FEYNMAN TECHNIQUE CHECK. The student is explaining the topic in their own words below. ' +
+        'Compare it against the study material and answer with: 1) what they got right, 2) what is wrong, ' +
+        '3) which important points are missing, then an understanding score out of 100 and one concrete study tip. ' +
+        'Answer in the same language as the explanation.\n\nStudent explanation:\n"""' + text + '"""';
+    }
+
     try {
       const context = App.getOriginalText() || JSON.stringify(source);
-      const raw = await API.chat(text, context);
+      const raw = await API.chat(toSend, context);
       if (requestSession !== session || source !== App.getStudyData()) return;
       removeLoading();
       const data = Parser.parseChat(raw);
@@ -187,5 +212,5 @@ const Chat = (() => {
 
   function esc(str) { if (!str) return ''; const d = document.createElement('div'); d.textContent = str; return d.innerHTML; }
 
-  return { init, setup, sendMessage, addFlashcards, addQuizQuestions };
+  return { init, setup, sendMessage, addFlashcards, addQuizQuestions, startFeynman };
 })();

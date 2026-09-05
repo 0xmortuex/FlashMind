@@ -81,3 +81,7 @@ These are larger design improvements, not claims that the current tests establis
 - **Review curriculum and grading separately.** Bundled curriculum labels and AI/keyword grading need an educational-content review; software tests cannot establish their accuracy. The offline keyword grader should remain visibly distinguishable from AI grading.
 - **Make deployment artifacts explicit.** The Wrangler assets directory points at the repository root. A dedicated static deployment directory would make the publishable file set easier to verify across GitHub Pages and Cloudflare.
 - **Automate cache versioning and asset inventory.** The cache name and shell list are maintained manually; a small build/check script could prevent stale updates or omitted offline assets without introducing a frontend framework.
+
+## Integration before push
+
+The push encountered two newer commits on `origin/main`. They were merged, retaining the card editor, cram/typed-recall sessions, Today queue, folders, exam bank, OCR, AI study modes, YouTube input and gallery features. Combined validation passed 30 smoke checks, 13 data regressions and 11 browser regressions. The service-worker cache was advanced to v10. Card-editor actions were adapted to preserved string IDs, and image attributes retain escaping.

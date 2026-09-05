@@ -201,5 +201,7 @@ const Sync = (() => {
     if (enabled()) setTimeout(() => { if (enabled()) runSync(async () => { await pull(); await push(); }).catch(() => {}); }, 800);
   }
 
-  return { init, enabled, schedulePush, syncNow, openModal };
+  function lastSyncTime() { return load().lastSync || 0; }
+
+  return { init, enabled, schedulePush, syncNow, openModal, lastSyncTime };
 })();

@@ -15,8 +15,8 @@ const i18n = (() => {
       pasteHolder: 'Paste your notes, textbook content, lecture transcript, or any study material...',
       charCount: '{n} characters',
       clear: 'Clear',
-      dropText: 'Drop a PDF, JSON, or CSV file here, or click to browse',
-      dropHint: 'Text-based PDFs, FlashMind JSON, and CSV/TSV flashcards (e.g. Anki exports)',
+      dropText: 'Drop a PDF, photo, JSON, or CSV file here, or click to browse',
+      dropHint: 'Text PDFs, photos of notes/pages (OCR), FlashMind JSON, and CSV/TSV flashcards (e.g. Anki exports)',
       extracting: 'Extracting text...',
       extractingPage: 'Extracting text... Page {c}/{t}',
       useText: 'Use this text',
@@ -325,11 +325,18 @@ const i18n = (() => {
       syncCodeInvalid: 'That sync code was not found',
 
       // URL import
-      urlHolder: 'https://... (import text from a web page)',
+      urlHolder: 'https://... (web page or YouTube video)',
       urlFetch: 'Fetch',
       urlFetching: 'Fetching...',
       urlFetched: 'Page text imported — review it, then generate',
       urlFailed: 'Could not import that page:',
+
+      // Community gallery
+      galleryTitle: 'Community gallery',
+      galleryHint: 'Decks other students chose to share publicly',
+      publishToGallery: 'Add to public gallery',
+      publishedToGallery: 'Listed in the community gallery',
+      publishFailed: 'Could not publish:',
 
       // Stats extras
       forecastTitle: 'Upcoming reviews — next 7 days',
@@ -349,6 +356,88 @@ const i18n = (() => {
       scAnswer: 'Answer option (exam)',
       scNext: 'Next question (exam)',
 
+      // Card editor
+      addCard: 'Add card',
+      editCard: 'Edit card',
+      deleteCard: 'Delete card',
+      deleteCardConfirm: 'Delete this card? Its review history goes with it.',
+      saveCard: 'Save',
+      cardSaved: 'Card updated',
+      cardAdded: 'Card added',
+      cardDeleted: 'Card deleted',
+      cardNeedsBoth: 'A card needs both a question and an answer',
+      difficultyLabel: 'Difficulty',
+      categoryLabel: 'Category',
+      cardImage: 'Image',
+      imageFailed: 'Could not read that image',
+
+      // Typed recall + cram
+      typedCorrect: 'Correct!',
+      typedClose: 'Close — check the details',
+      typedMiss: 'Not quite',
+      cramBtn: 'Cram',
+      cramHint: 'Review everything now — does not touch your schedule',
+      cramStarted: 'Cram session: hardest cards first, schedules untouched',
+
+      // Mnemonics
+      mnemonicBtn: 'Get a memory hook',
+      mnemonicLoading: 'Asking for a mnemonic...',
+      mnemonicConfirm: 'Mnemonic:\n\n{m}\n\nAdd it to the back of the card?',
+      mnemonicAdded: 'Mnemonic added to the card',
+
+      // Today queue + reminders
+      todayDue: '{n} cards to review today across your decks',
+      todayReview: 'Review now',
+      notifyTitle: 'Daily reminder when cards are due',
+      notifyOn: "Reminders on — you'll get a notification when reviews are waiting",
+      notifyOff: 'Reminders off',
+      notifyDenied: 'Notifications are blocked by the browser',
+      notifyUnsupported: 'This browser does not support notifications',
+
+      // Library: folders, merge, sync status
+      justNow: 'just now',
+      minsAgo: '{n} min ago',
+      hoursAgo: '{n} h ago',
+      moveToFolder: 'Move to folder…',
+      folderPrompt: 'Folder name (leave empty to remove from folders):',
+      folderPromptExisting: 'Folder name (existing: {list} — leave empty to remove):',
+      movedToFolder: 'Moved to "{f}"',
+      removedFromFolder: 'Removed from its folder',
+      mergeDeck: 'Merge into…',
+      mergeNoOthers: 'No other deck to merge into',
+      mergePrompt: 'Merge "{title}" into which deck? Enter its number:',
+      mergeInvalidPick: 'That was not a valid deck number',
+      mergeConfirm: 'Merge "{a}" into "{b}"? "{a}" will be deleted after merging.',
+      mergeDone: 'Decks merged — review progress carried over',
+
+      // Exam: question bank + breakdown
+      genMoreQs: 'Generate more questions',
+      harderMistakes: 'Harder retake (AI)',
+      questionsAddedN: '{n} new questions added to the bank',
+      breakdownTitle: 'Accuracy by topic',
+
+      // Generation difficulty level
+      genLevelLabel: 'Difficulty level',
+      genLevelSimple: 'Simple',
+      genLevelStandard: 'Standard',
+      genLevelAdvanced: 'Advanced',
+
+      // OCR (photo input)
+      ocrLoading: 'Loading OCR engine...',
+      ocrProgress: 'Reading text from the image... {p}%',
+      ocrEmpty: 'No readable text found in that image',
+      ocrFailed: 'Could not read the image:',
+
+      // Feynman mode
+      feynmanBtn: 'Feynman mode: explain it yourself',
+      feynmanIntro: "Explain the topic in your own words, as if teaching a friend. I'll tell you what you got right, what's wrong, and what's missing.",
+      feynmanHolder: 'Write your own explanation of the topic...',
+
+      // Stats: freezes + weekly report
+      statFreezes: 'Streak freezes',
+      weeklyTitle: 'AI weekly report',
+      weeklyBtn: "Generate this week's report",
+
       // Language
       langEn: 'EN',
       langTr: 'TR',
@@ -363,8 +452,8 @@ const i18n = (() => {
       pasteHolder: 'Notlarinizi, ders kitabi icerigini, ders yazisini veya herhangi bir calisma materyalini yapistirin...',
       charCount: '{n} karakter',
       clear: 'Temizle',
-      dropText: 'Bir PDF, JSON veya CSV dosyasini buraya birakin',
-      dropHint: "Metin tabanli PDF'ler, FlashMind JSON ve CSV/TSV kartlar (orn. Anki)",
+      dropText: 'Bir PDF, fotoğraf, JSON veya CSV dosyasını buraya bırakın',
+      dropHint: "Metin tabanlı PDF'ler, not/sayfa fotoğrafları (OCR), FlashMind JSON ve CSV/TSV kartlar (örn. Anki)",
       extracting: 'Metin cikariliyor...',
       extractingPage: 'Metin cikariliyor... Sayfa {c}/{t}',
       useText: 'Bu metni kullan',
@@ -673,11 +762,18 @@ const i18n = (() => {
       syncCodeInvalid: 'Bu senkron kodu bulunamadı',
 
       // URL import
-      urlHolder: 'https://... (web sayfasından metin al)',
+      urlHolder: 'https://... (web sayfası veya YouTube videosu)',
       urlFetch: 'Getir',
       urlFetching: 'Getiriliyor...',
       urlFetched: 'Sayfa metni alındı — kontrol et, sonra oluştur',
       urlFailed: 'Sayfa alınamadı:',
+
+      // Community gallery
+      galleryTitle: 'Topluluk galerisi',
+      galleryHint: 'Diğer öğrencilerin herkese açık paylaştığı desteler',
+      publishToGallery: 'Herkese açık galeriye ekle',
+      publishedToGallery: 'Topluluk galerisinde listelendi',
+      publishFailed: 'Yayınlanamadı:',
 
       // Stats extras
       forecastTitle: 'Yaklaşan tekrarlar — 7 gün',
@@ -696,6 +792,88 @@ const i18n = (() => {
       backupRestored: 'Yedek geri yüklendi — desteler ve istatistikler birleştirildi',
       scAnswer: 'Şıkkı işaretle (sınav)',
       scNext: 'Sonraki soru (sınav)',
+
+      // Card editor
+      addCard: 'Kart ekle',
+      editCard: 'Kartı düzenle',
+      deleteCard: 'Kartı sil',
+      deleteCardConfirm: 'Bu kart silinsin mi? Tekrar geçmişi de silinir.',
+      saveCard: 'Kaydet',
+      cardSaved: 'Kart güncellendi',
+      cardAdded: 'Kart eklendi',
+      cardDeleted: 'Kart silindi',
+      cardNeedsBoth: 'Kartın hem sorusu hem cevabı olmalı',
+      difficultyLabel: 'Zorluk',
+      categoryLabel: 'Kategori',
+      cardImage: 'Görsel',
+      imageFailed: 'Görsel okunamadı',
+
+      // Typed recall + cram
+      typedCorrect: 'Doğru!',
+      typedClose: 'Çok yaklaştın — detaylara bak',
+      typedMiss: 'Olmadı',
+      cramBtn: 'Kampa gir',
+      cramHint: 'Her şeyi şimdi tekrar et — programını etkilemez',
+      cramStarted: 'Kamp modu: önce en zor kartlar, program etkilenmez',
+
+      // Mnemonics
+      mnemonicBtn: 'Hafıza kancası al',
+      mnemonicLoading: 'Hafıza kancası isteniyor...',
+      mnemonicConfirm: 'Hafıza kancası:\n\n{m}\n\nKartın arkasına eklensin mi?',
+      mnemonicAdded: 'Hafıza kancası karta eklendi',
+
+      // Today queue + reminders
+      todayDue: 'Bugün tüm destelerinde {n} kartın tekrar zamanı',
+      todayReview: 'Şimdi tekrar et',
+      notifyTitle: 'Kart biriktiğinde günlük hatırlatma',
+      notifyOn: 'Hatırlatmalar açık — tekrar bekleyen kart olunca bildirim alacaksın',
+      notifyOff: 'Hatırlatmalar kapalı',
+      notifyDenied: 'Tarayıcı bildirimleri engelliyor',
+      notifyUnsupported: 'Bu tarayıcı bildirimleri desteklemiyor',
+
+      // Library: folders, merge, sync status
+      justNow: 'az önce',
+      minsAgo: '{n} dk önce',
+      hoursAgo: '{n} sa önce',
+      moveToFolder: 'Klasöre taşı…',
+      folderPrompt: 'Klasör adı (klasörden çıkarmak için boş bırak):',
+      folderPromptExisting: 'Klasör adı (mevcut: {list} — çıkarmak için boş bırak):',
+      movedToFolder: '"{f}" klasörüne taşındı',
+      removedFromFolder: 'Klasöründen çıkarıldı',
+      mergeDeck: 'Başka desteyle birleştir…',
+      mergeNoOthers: 'Birleştirilecek başka deste yok',
+      mergePrompt: '"{title}" hangi desteyle birleştirilsin? Numarasını gir:',
+      mergeInvalidPick: 'Geçerli bir deste numarası değil',
+      mergeConfirm: '"{a}", "{b}" destesine katılsın mı? Birleştirme sonrası "{a}" silinir.',
+      mergeDone: 'Desteler birleştirildi — tekrar ilerlemesi korundu',
+
+      // Exam: question bank + breakdown
+      genMoreQs: 'Daha fazla soru oluştur',
+      harderMistakes: 'Daha zor tekrar (AI)',
+      questionsAddedN: 'Soru bankasına {n} yeni soru eklendi',
+      breakdownTitle: 'Konuya göre başarı',
+
+      // Generation difficulty level
+      genLevelLabel: 'Zorluk seviyesi',
+      genLevelSimple: 'Basit',
+      genLevelStandard: 'Standart',
+      genLevelAdvanced: 'İleri',
+
+      // OCR (photo input)
+      ocrLoading: 'OCR motoru yükleniyor...',
+      ocrProgress: 'Görseldeki metin okunuyor... %{p}',
+      ocrEmpty: 'Görselde okunabilir metin bulunamadı',
+      ocrFailed: 'Görsel okunamadı:',
+
+      // Feynman mode
+      feynmanBtn: 'Feynman modu: kendin anlat',
+      feynmanIntro: 'Konuyu bir arkadaşına öğretir gibi kendi cümlelerinle anlat. Neyi doğru bildiğini, neyi yanlış bildiğini ve neyi atladığını söyleyeceğim.',
+      feynmanHolder: 'Konuyu kendi cümlelerinle yaz...',
+
+      // Stats: freezes + weekly report
+      statFreezes: 'Seri dondurma',
+      weeklyTitle: 'AI haftalık rapor',
+      weeklyBtn: 'Bu haftanın raporunu oluştur',
 
       // Language
       langEn: 'EN',

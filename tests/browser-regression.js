@@ -79,7 +79,10 @@ const puppeteer = require('puppeteer');
         App.openDeck(d.id);
         Flashcards.addCards([{front:'new',back:'answer',difficulty:'medium',category:'test'}]);
         const cards = App.getStudyData().flashcards;
-        return cards.length === 2 && Number.isFinite(cards[1].id);
+        Flashcards.openEditor('card_A');
+        const editorWorks = document.getElementById('card-edit-front').value === 'Q';
+        document.getElementById('card-edit-cancel').click();
+        return editorWorks && cards.length === 2 && Number.isFinite(cards[1].id);
       }), true);
     });
     await check('empty flashcard decks do not crash study mode', async () => {
