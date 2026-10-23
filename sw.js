@@ -1,6 +1,6 @@
 // FlashMind service worker — app-shell caching for offline study of saved decks.
 // Bump CACHE when any shell asset changes so clients pick up the new version.
-const CACHE = 'flashmind-v10';
+const CACHE = 'flashmind-v11';
 
 // Same-origin shell assets. Third-party (PDF.js CDN) and API/worker calls are
 // intentionally excluded — they fall through to the network.
@@ -17,6 +17,7 @@ const SHELL = [
   './css/library.css',
   './css/fx.css',
   './css/juice.css',
+  './css/studio.css',
   './js/i18n.js',
   './js/fx.js',
   './js/sound.js',
@@ -31,7 +32,14 @@ const SHELL = [
   './js/pdf.js',
   './js/ocr.js',
   './js/today.js',
+  './js/sources.js',
+  './js/math.js',
+  './js/mindmap.js',
+  './js/audio.js',
   './js/notes.js',
+  './js/occlusion.js',
+  './js/planner.js',
+  './js/focus.js',
   './js/flashcards.js',
   './js/quiz.js',
   './js/chat.js',
@@ -69,6 +77,20 @@ self.addEventListener('fetch', (event) => {
   if (req.method !== 'GET') return;
 
   const url = new URL(req.url);
+  // KaTeX (math typesetting) is versioned and immutable: cache-first so
+  // formulas still render offline once they've been seen.
+  if (url.origin === 'https://cdnjs.cloudflare.com' && url.pathname.startsWith('/ajax/libs/KaTeX/')) {
+    event.respondWith(
+      caches.open(CACHE).then(async (cache) => {
+        const cached = await cache.match(req);
+        if (cached) return cached;
+        const res = await fetch(req);
+        if (res && (res.ok || res.type === 'opaque')) event.waitUntil(cache.put(req, res.clone()).catch(() => {}));
+        return res;
+      })
+    );
+    return;
+  }
   // Only serve same-origin GETs from cache; let everything else hit the network
   // (API generation/sharing, CDN scripts) so we never serve stale API data.
   if (url.origin !== self.location.origin) return;

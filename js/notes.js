@@ -1,9 +1,17 @@
 // ===== Notes Module =====
 const Notes = (() => {
   let container;
+  let view = 'notes'; // 'notes' | 'map' | 'audio'
 
   function init() {
+    if (container) return;
     container = document.getElementById('tab-notes');
+    container.addEventListener('click', e => {
+      const v = e.target.closest('[data-notes-view]');
+      if (v) { showView(v.dataset.notesView); return; }
+      const src = e.target.closest('[data-section-src]');
+      if (src) toggleSectionSource(+src.dataset.sectionSrc);
+    });
   }
 
   function render(data) {
@@ -14,6 +22,16 @@ const Notes = (() => {
 
     let html = `<div class="notes-container">`;
 
+    // Sources the set was built from + the Notes / Mind map / Audio switcher.
+    if (typeof Sources !== 'undefined' && Array.isArray(data.sources) && data.sources.length) html += Sources.barHtml(data);
+    const viewBtn = (v, icon, label) => `<button class="notes-view-btn${view === v ? ' active' : ''}" data-notes-view="${v}" role="tab" aria-selected="${view === v}">${icon} ${label}</button>`;
+    html += `<div class="notes-viewbar" role="tablist">
+      ${viewBtn('notes', '&#128221;', T('viewNotes'))}
+      ${typeof Mindmap !== 'undefined' ? viewBtn('map', '&#129504;', T('viewMindmap')) : ''}
+      ${typeof AudioOverview !== 'undefined' ? viewBtn('audio', '&#127911;', T('viewAudio')) : ''}
+    </div>`;
+    html += `<div class="notes-pane" data-pane="notes"${view === 'notes' ? '' : ' hidden'}>`;
+
     // Header
     html += `<div class="notes-header">
       <h1 class="notes-title">${esc(title)}</h1>
@@ -21,9 +39,11 @@ const Notes = (() => {
     </div>`;
 
     // Sections (scroll-revealed with a slight cascade — see FX.observe below)
+    const hasSources = Array.isArray(data.sources) && data.sources.length > 0;
     notes.sections.forEach((section, idx) => {
       html += `<div class="notes-section reveal" style="--i:${idx % 3}">
-        <h2 class="notes-section-title">${esc(section.title)}</h2>
+        <h2 class="notes-section-title">${esc(section.title)}${hasSources ? `<button class="section-src-btn" data-section-src="${idx}" title="${T('srcShowPassage')}">&#128206; ${T('srcSource')}</button>` : ''}</h2>
+        <div class="section-src" data-section-src-box="${idx}" hidden></div>
         <p class="notes-section-content">${esc(section.content)}</p>`;
 
       if (section.keyTerms && section.keyTerms.length > 0) {
@@ -81,9 +101,48 @@ const Notes = (() => {
       ${(typeof TTS !== 'undefined' && TTS.supported()) ? `<button class="btn-ghost" id="notes-tts-btn" onclick="Notes.readAloud(this)">&#128266; ${T('readAloud')}</button>` : ''}
     </div>`;
 
+    html += `</div>`; // notes pane
+    html += `<div class="notes-pane" data-pane="map"${view === 'map' ? '' : ' hidden'}></div>`;
+    html += `<div class="notes-pane" data-pane="audio"${view === 'audio' ? '' : ' hidden'}></div>`;
     html += `</div>`;
     container.innerHTML = html;
     if (typeof FX !== 'undefined') FX.observe(container);
+    renderPane(data);
+  }
+
+  // Mind map / audio panes render lazily, only while visible.
+  function renderPane(data) {
+    if (view === 'map' && typeof Mindmap !== 'undefined') Mindmap.render(container.querySelector('[data-pane="map"]'), data);
+    if (view === 'audio' && typeof AudioOverview !== 'undefined') AudioOverview.render(container.querySelector('[data-pane="audio"]'), data);
+  }
+
+  function showView(v) {
+    if (!container) init();
+    view = ['notes', 'map', 'audio'].includes(v) ? v : 'notes';
+    container.querySelectorAll('.notes-view-btn').forEach(b => {
+      const on = b.dataset.notesView === view;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-selected', String(on));
+    });
+    container.querySelectorAll('.notes-pane').forEach(p => { p.hidden = p.dataset.pane !== view; });
+    const data = App.getStudyData();
+    if (data) renderPane(data);
+  }
+
+  // Inline "where does this come from?" passage for a notes section.
+  function toggleSectionSource(idx) {
+    const box = container.querySelector(`[data-section-src-box="${idx}"]`);
+    const data = App.getStudyData();
+    if (!box || !data) return;
+    if (!box.hidden) { box.hidden = true; return; }
+    const section = data.notes.sections[idx];
+    const hit = section && Sources.bestPassage(section.title + ' ' + section.content + ' ' + (section.bulletPoints || []).join(' '), data);
+    const T = i18n.t;
+    box.innerHTML = hit
+      ? `<blockquote class="section-src-quote no-math">${esc(hit.source.text.slice(hit.start, hit.end).trim())}</blockquote>
+         <button class="btn-ghost" data-src-act="view" data-src="${esc(hit.source.id)}" data-start="${hit.start}" data-end="${hit.end}">${esc(T('srcOpenIn', { name: hit.source.name.length > 32 ? hit.source.name.slice(0, 31) + '…' : hit.source.name }))}</button>`
+      : `<p class="section-src-none">${T('srcNoPassage')}</p>`;
+    box.hidden = false;
   }
 
   // ===== SVG Diagram Rendering =====
@@ -196,5 +255,5 @@ const Notes = (() => {
   function esc(str) { if (!str) return ''; const d = document.createElement('div'); d.textContent = str; return d.innerHTML; }
   function escSvg(str) { if (!str) return ''; return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 
-  return { init, render, readAloud };
+  return { init, render, readAloud, showView };
 })();

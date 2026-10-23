@@ -28,6 +28,12 @@ const App = (() => {
     if (typeof Search !== 'undefined') Search.init();
     if (typeof Profile !== 'undefined') Profile.init();
     Chat.init();
+    if (typeof Sources !== 'undefined') Sources.init();
+    if (typeof Mindmap !== 'undefined') Mindmap.init();
+    if (typeof AudioOverview !== 'undefined') AudioOverview.init();
+    if (typeof Planner !== 'undefined') Planner.init();
+    if (typeof Focus !== 'undefined') Focus.init();
+    if (typeof MathRender !== 'undefined') MathRender.init();
     if (typeof Sound !== 'undefined') Sound.init();
     if (typeof Palette !== 'undefined') Palette.init();
     if (typeof Sync !== 'undefined') Sync.init();
@@ -92,6 +98,11 @@ const App = (() => {
     setBtnLabel('new-material-btn', T('newMaterial'));
     setBtnLabel('add-material-btn', T('addMaterials'));
     document.getElementById('append-cancel-btn').textContent = T('cancel');
+    ['paste-source-btn', 'pdf-source-btn'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) { el.textContent = '+ ' + T('srcAddAs'); el.title = T('srcAddAsHint'); }
+    });
+    document.querySelectorAll('.focus-toggle').forEach(el => { el.title = T('focusTitle'); el.setAttribute('aria-label', T('focusTitle')); });
 
     // Export menu items
     const exportItems = document.querySelectorAll('#export-menu button');
@@ -221,6 +232,17 @@ const App = (() => {
     });
 
     setupUrlImport(textarea, charCount, clearBtn);
+
+    // Stage the paste box as one source of a multi-source set.
+    const pasteSource = document.getElementById('paste-source-btn');
+    if (pasteSource) pasteSource.addEventListener('click', () => {
+      const text = textarea.value.trim();
+      const meta = Sources.currentPasteSource(text);
+      if (!Sources.stage(meta.name, meta.kind, text)) return;
+      textarea.value = '';
+      charCount.textContent = i18n.t('charCount', { n: 0 });
+      clearBtn.style.display = 'none';
+    });
   }
 
   // ===== Import text from a URL (worker fetches + strips the page) =====
@@ -240,6 +262,7 @@ const App = (() => {
       try {
         const pageText = await API.fetchUrl(url);
         textarea.value = pageText;
+        if (typeof Sources !== 'undefined') Sources.setPasteMeta({ name: Sources.nameFromUrl(url), kind: Sources.kindFromUrl(url), text: pageText });
         charCount.textContent = i18n.t('charCount', { n: pageText.length.toLocaleString() });
         clearBtn.style.display = '';
         showToast(i18n.t('urlFetched'), 'success');
@@ -337,6 +360,14 @@ const App = (() => {
       dropzone.style.display = '';
       preview.style.display = 'none';
       fileInput.value = '';
+    });
+
+    const pdfSource = document.getElementById('pdf-source-btn');
+    if (pdfSource) pdfSource.addEventListener('click', () => {
+      const name = document.getElementById('pdf-filename').textContent || '';
+      if (Sources.stage(name, Sources.kindFromName(name), document.getElementById('pdf-text-preview').value)) {
+        document.getElementById('pdf-clear-btn').click();
+      }
     });
   }
 
@@ -536,6 +567,11 @@ const App = (() => {
     advanced: 'Target an advanced student preparing for a competitive exam: deeper detail, tricky distinctions, and noticeably harder questions.'
   };
 
+  // Formulas come back as LaTeX so MathRender can typeset them.
+  const MATH_HINT = 'If the material contains math, physics or chemistry formulas, write them in LaTeX between $...$ ' +
+    '(or $$...$$ for a displayed equation), e.g. $x^2 + y^2 = r^2$ or $\\frac{a}{b}$, escaping backslashes as JSON requires. ' +
+    'Use plain text for everything else.';
+
   function setupSettings() {
     const toggle = document.getElementById('settings-toggle');
     const panel = document.getElementById('settings-panel');
@@ -601,17 +637,33 @@ const App = (() => {
     const elapsedEl = document.getElementById('elapsed-time');
 
     let text = '';
+    let sources = [];
     const activeTab = document.querySelector('.input-tab.active').dataset.inputTab;
-    if (activeTab === 'paste') text = document.getElementById('paste-input').value.trim();
-    else if (activeTab === 'pdf') text = document.getElementById('pdf-text-preview').value.trim();
-    else if (activeTab === 'topic') {
+    if (activeTab === 'paste') {
+      text = document.getElementById('paste-input').value.trim();
+      if (text) { const m = Sources.currentPasteSource(text); sources = [Sources.make(m.name, m.kind, text)]; }
+    } else if (activeTab === 'pdf') {
+      text = document.getElementById('pdf-text-preview').value.trim();
+      const name = document.getElementById('pdf-filename').textContent || '';
+      if (text) sources = [Sources.make(name, Sources.kindFromName(name), text)];
+    } else if (activeTab === 'topic') {
       text = document.getElementById('topic-input').value.trim();
       if (text) text = `Generate comprehensive study materials about: ${text}`;
+    }
+    // Staged sources (multi-source set): everything goes into one generation,
+    // each source keeping a share of the input budget.
+    const staged = Sources.staged();
+    if (staged.length) {
+      const extra = activeTab === 'topic' ? [] : sources.filter(x => !staged.some(t => t.text === x.text));
+      sources = staged.concat(extra);
+      text = Sources.forGeneration(sources);
+      if (sources.reduce((n, x) => n + x.text.length, 0) > Sources.GEN_BUDGET) showToast(i18n.t('truncated'), 'info');
     }
 
     if (!text) { showToast(i18n.t('noInput'), 'error'); return; }
     if (text.length > 15000) { text = text.substring(0, 15000); showToast(i18n.t('truncated'), 'info'); }
     if (LEVEL_HINTS[genLevel]) text += '\n\n[Difficulty instruction: ' + LEVEL_HINTS[genLevel] + ']';
+    text += '\n\n[Formatting instruction: ' + MATH_HINT + ']';
 
     btn.disabled = true;
     textEl.style.display = 'none';
@@ -648,6 +700,8 @@ const App = (() => {
         requireFlashcards: Object.values(flashcardConfig).some(n => n > 0),
         requireQuiz: Object.values(quizConfig).some(n => n > 0)
       });
+      if (staged.length) Sources.clearTray();
+      if (sources.length) data.sources = sources;
       if (studyData === targetData && appendMode === targetAppend) commitStudyData(data, text);
       else {
         // Navigation during generation must not append to a different deck.
@@ -757,6 +811,15 @@ const App = (() => {
       flashcards: [...b.flashcards, ...e.flashcards],
       quiz: [...b.quiz, ...e.quiz]
     };
+    // Sources: a legacy single-text base becomes its first source.
+    if (Array.isArray(e.sources) && e.sources.length) {
+      if (!(Array.isArray(b.sources) && b.sources.length)) Sources.adoptLegacy(b, originalText);
+      const seen = new Set((b.sources || []).map(x => x.id));
+      merged.sources = [...(b.sources || []), ...e.sources.map((x, i) => seen.has(x.id) ? { ...x, id: x.id + '_' + i } : x)];
+    } else if (Array.isArray(b.sources) && b.sources.length) merged.sources = b.sources;
+    if (b.media || e.media) merged.media = Object.assign({}, b.media, e.media);
+    if (b.notes.mindmap) merged.notes.mindmap = b.notes.mindmap;
+    if (b.audio) merged.audio = b.audio;
     // Keep the original IDs: their schedules are keyed by these values.
     const used = new Set(b.flashcards.map(c => String(c.id)));
     let next = 1;
@@ -776,7 +839,7 @@ const App = (() => {
     const incoming = normalizeDeck(data);
     if (appendMode && studyData) {
       studyData = mergeStudyData(studyData, incoming);
-      if (sourceText) originalText = [originalText, sourceText].filter(Boolean).join('\n\n');
+      if (sourceText && !(studyData.sources && studyData.sources.length)) originalText = [originalText, sourceText].filter(Boolean).join('\n\n');
       showToast(i18n.t('materialsAdded'), 'success');
     } else {
       studyData = incoming;
@@ -1004,6 +1067,7 @@ const App = (() => {
       if (!usable) throw new Error('Invalid');
       originalText = text;
       studyData = normalizeDeck(shared);
+      Sources.adoptLegacy(studyData, originalText);
       const deck = Decks.save(studyData, text, null);
       activeDeckId = deck.id;
       overlay.style.display = 'none';
@@ -1044,6 +1108,7 @@ const App = (() => {
     activeDeckId = id;
     studyData = normalizeDeck(deck.data);
     originalText = deck.originalText || '';
+    Sources.adoptLegacy(studyData, originalText);
     if (!silent) showToast(i18n.t('deckOpened', { title: studyData.title }), 'info');
     else showToast(i18n.t('restored'), 'info');
     showStudyView(studyData);
@@ -1105,7 +1170,21 @@ const App = (() => {
 
   // ===== Getters =====
   function getStudyData() { return studyData; }
-  function getOriginalText() { return originalText; }
+  // AI context: the set's enabled sources, else the legacy source string.
+  function getOriginalText() {
+    const fromSources = studyData && typeof Sources !== 'undefined' ? Sources.contextText(studyData) : '';
+    if (fromSources) return fromSources;
+    const hasSources = studyData && Array.isArray(studyData.sources) && studyData.sources.length;
+    if (originalText && !hasSources) return originalText;
+    // No material (demo/topic/shared set, or every source toggled off): the
+    // notes and cards, without images, audio scripts or source texts.
+    if (!studyData) return '';
+    return JSON.stringify({
+      title: studyData.title,
+      notes: { ...studyData.notes, mindmap: undefined },
+      flashcards: (studyData.flashcards || []).map(c => ({ front: c.front, back: c.back }))
+    });
+  }
 
   document.addEventListener('DOMContentLoaded', init);
 

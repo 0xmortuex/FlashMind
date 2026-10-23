@@ -16,7 +16,7 @@ const Demo = (() => {
             { term: 'Stomata', definition: 'Pores on the leaf that let CO2 in and O2 out.' }
           ],
           bulletPoints: [
-            'Overall equation: 6CO2 + 6H2O + light -> C6H12O6 + 6O2',
+            'Overall equation: $6CO_2 + 6H_2O \\xrightarrow{\\text{light}} C_6H_{12}O_6 + 6O_2$',
             'Two stages: light-dependent reactions and the Calvin cycle.',
             'Oxygen comes from splitting water, not from carbon dioxide.'
           ]
@@ -48,7 +48,7 @@ const Demo = (() => {
       { id: 4, front: 'Name the two main stages of photosynthesis.', back: 'Light-dependent reactions and the Calvin cycle', difficulty: 'medium', category: 'Process' },
       { id: 5, front: 'Where does the oxygen released actually come from?', back: 'From splitting water molecules (photolysis)', difficulty: 'medium', category: 'Process' },
       { id: 6, front: 'What two products of the light reactions power the Calvin cycle?', back: 'ATP and NADPH', difficulty: 'hard', category: 'Process' },
-      { id: 7, front: 'Write the overall equation for photosynthesis.', back: '6CO2 + 6H2O + light -> C6H12O6 + 6O2', difficulty: 'hard', category: 'Chemistry' }
+      { id: 7, front: 'Write the overall equation for photosynthesis.', back: '$6CO_2 + 6H_2O \\xrightarrow{\\text{light}} C_6H_{12}O_6 + 6O_2$', difficulty: 'hard', category: 'Chemistry' }
     ],
     quiz: [
       { id: 1, type: 'multiple-choice', question: 'Which of the following is a product of photosynthesis?', options: ['Carbon dioxide', 'Oxygen', 'Nitrogen', 'Methane', 'Hydrogen'], correct: 1, explanation: 'Photosynthesis produces glucose and releases oxygen.' },
@@ -77,7 +77,7 @@ const Demo = (() => {
             { term: 'Stoma', definition: 'Yaprakta CO2 girisi ve O2 cikisini saglayan gozenekler.' }
           ],
           bulletPoints: [
-            'Genel denklem: 6CO2 + 6H2O + isik -> C6H12O6 + 6O2',
+            'Genel denklem: $6CO_2 + 6H_2O \\xrightarrow{\\text{ışık}} C_6H_{12}O_6 + 6O_2$',
             'Iki asama: isiga bagli tepkimeler ve Calvin dongusu.',
             'Oksijen, karbondioksitten degil suyun parcalanmasindan gelir.'
           ]
@@ -109,7 +109,7 @@ const Demo = (() => {
       { id: 4, front: 'Fotosentezin iki ana asamasini soyleyin.', back: 'Isiga bagli tepkimeler ve Calvin dongusu', difficulty: 'medium', category: 'Surec' },
       { id: 5, front: 'Aciga cikan oksijen gercekte nereden gelir?', back: 'Su molekullerinin parcalanmasindan (fotoliz)', difficulty: 'medium', category: 'Surec' },
       { id: 6, front: 'Isik tepkimelerinin hangi iki urunu Calvin dongusunu calistirir?', back: 'ATP ve NADPH', difficulty: 'hard', category: 'Surec' },
-      { id: 7, front: 'Fotosentezin genel denklemini yazin.', back: '6CO2 + 6H2O + isik -> C6H12O6 + 6O2', difficulty: 'hard', category: 'Kimya' }
+      { id: 7, front: 'Fotosentezin genel denklemini yazin.', back: '$6CO_2 + 6H_2O \\xrightarrow{\\text{ışık}} C_6H_{12}O_6 + 6O_2$', difficulty: 'hard', category: 'Kimya' }
     ],
     quiz: [
       { id: 1, type: 'multiple-choice', question: 'Asagidakilerden hangisi fotosentezin bir urunudur?', options: ['Karbondioksit', 'Oksijen', 'Azot', 'Metan', 'Hidrojen'], correct: 1, explanation: 'Fotosentez glikoz uretir ve oksijen aciga cikarir.' },

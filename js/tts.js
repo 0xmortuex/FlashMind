@@ -4,6 +4,7 @@
 // because Chrome silently stops long single utterances (~15s bug).
 const TTS = (() => {
   let session = 0; // bumping this cancels any in-flight chunk queue
+  let pendingEnd = null; // onEnd of the utterance queue currently speaking
 
   function supported() {
     return 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
@@ -17,6 +18,25 @@ const TTS = (() => {
     const voices = speechSynthesis.getVoices() || [];
     const prefix = tag.slice(0, 2);
     return voices.find(v => v.lang === tag) || voices.find(v => v.lang && v.lang.startsWith(prefix)) || null;
+  }
+
+  // Every installed voice for the UI language, exact locale first (used to
+  // give the two audio-overview hosts different voices).
+  function voicesForLang() {
+    if (!supported()) return [];
+    const tag = langTag(), prefix = tag.slice(0, 2);
+    const voices = speechSynthesis.getVoices() || [];
+    return voices.filter(v => v.lang === tag).concat(voices.filter(v => v.lang !== tag && v.lang && v.lang.startsWith(prefix)));
+  }
+
+  // Speech-friendly text: formula delimiters and LaTeX commands are noise.
+  function speakable(text) {
+    return String(text)
+      .replace(/\\[()[\]]|\$+/g, ' ')
+      .replace(/\\(frac|dfrac)\{([^}]*)\}\{([^}]*)\}/g, '$2 / $3')
+      .replace(/\\(cdot|times)/g, ' × ')
+      .replace(/\\([a-zA-Z]+)/g, '$1')
+      .replace(/[{}^_]/g, ' ');
   }
 
   // Split into ~220-char chunks on sentence boundaries.
@@ -39,24 +59,35 @@ const TTS = (() => {
     return chunks.filter(Boolean);
   }
 
-  function speak(text, onEnd) {
-    if (!supported() || !text) { if (onEnd) onEnd(); return; }
+  // onEnd(cancelled) runs once: when the text finishes, or with `true` when
+  // another speak()/stop() cuts it off. opts: { voice, pitch, rate }.
+  function speak(text, onEnd, opts) {
+    if (!supported() || !text) { if (onEnd) onEnd(false); return; }
     stop();
     const mySession = ++session;
     const tag = langTag();
-    const voice = pickVoice(tag);
-    const chunks = chunk(text);
+    const o = opts || {};
+    const voice = o.voice || pickVoice(tag);
+    const chunks = chunk(speakable(text));
     let idx = 0;
+    pendingEnd = onEnd || null;
+    const finish = () => {
+      if (mySession !== session) return;
+      const cb = pendingEnd;
+      pendingEnd = null;
+      if (cb) cb(false);
+    };
 
     function next() {
       if (mySession !== session) return; // cancelled
-      if (idx >= chunks.length) { if (onEnd) onEnd(); return; }
+      if (idx >= chunks.length) { finish(); return; }
       const u = new SpeechSynthesisUtterance(chunks[idx++]);
       u.lang = tag;
       if (voice) u.voice = voice;
-      u.rate = 1;
+      u.rate = o.rate || 1;
+      u.pitch = o.pitch || 1;
       u.onend = next;
-      u.onerror = () => { if (mySession === session && onEnd) onEnd(); };
+      u.onerror = finish;
       speechSynthesis.speak(u);
     }
     next();
@@ -64,12 +95,15 @@ const TTS = (() => {
 
   function stop() {
     session++;
+    const cb = pendingEnd;
+    pendingEnd = null;
     if (supported()) speechSynthesis.cancel();
+    if (cb) cb(true);
   }
 
   function isSpeaking() {
     return supported() && speechSynthesis.speaking;
   }
 
-  return { supported, speak, stop, isSpeaking };
+  return { supported, speak, stop, isSpeaking, voicesForLang, speakable };
 })();

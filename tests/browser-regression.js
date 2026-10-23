@@ -24,7 +24,7 @@ const puppeteer = require('puppeteer');
         btn.click();
         await Promise.resolve();
         API.chat = api;
-        return btn.textContent === payload && !btn.hasAttribute('onclick') && !document.querySelector('#chat-messages img') && sent === payload && !window.injected;
+        return btn.textContent === payload && !btn.hasAttribute('onclick') && !document.querySelector('#chat-messages img') && sent.split('\n\n[Grounding:')[0] === payload && !window.injected;
       }), true);
     });
     await check('old chat response cannot populate a different deck', async () => {
