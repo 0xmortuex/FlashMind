@@ -91,6 +91,10 @@ const Chat = (() => {
       });
       html += `</div>`;
     }
+    // Citations are checked against the actual material before display.
+    if (data.citations && data.citations.length && typeof Sources !== 'undefined') {
+      html += Sources.citationsHtml(data.citations, App.getStudyData());
+    }
     msg.innerHTML = html;
     msg.querySelectorAll('.chat-followup').forEach(btn => btn.addEventListener('click', () => sendMessage(btn.textContent)));
     messagesEl.appendChild(msg);
@@ -166,6 +170,12 @@ const Chat = (() => {
         '3) which important points are missing, then an understanding score out of 100 and one concrete study tip. ' +
         'Answer in the same language as the explanation.\n\nStudent explanation:\n"""' + text + '"""';
     }
+
+    // Grounding: ask for verbatim supporting quotes, which addAIMessage then
+    // looks up in the sources so made-up claims are visibly flagged.
+    toSend += '\n\n[Grounding: in your JSON reply also include "citations": an array of 1-3 short quotes ' +
+      '(each under 30 words) copied word-for-word from the study material that support your answer. ' +
+      'Use [] if the material does not cover it, and say so in the answer.]';
 
     try {
       const context = App.getOriginalText() || JSON.stringify(source);

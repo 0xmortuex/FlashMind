@@ -19,6 +19,7 @@ const Stats = (() => {
     Object.entries(data.days).forEach(([k, d]) => {
       if (!/^\d{4}-\d{2}-\d{2}$/.test(k) || !record(d)) { delete data.days[k]; return; }
       data.days[k] = { reviews: count(d.reviews), gotit: Math.min(count(d.reviews), count(d.gotit)) };
+      if (count(d.focus)) data.days[k].focus = count(d.focus);
     });
     // Streak freezes: earned every 7 studied days, consumed automatically to
     // bridge a single missed day so one quiet day doesn't zero the streak.
@@ -45,12 +46,14 @@ const Stats = (() => {
     Object.entries(remote.days || {}).forEach(([k, day]) => {
       if (!record(day) || !/^\d{4}-\d{2}-\d{2}$/.test(k)) return;
       const local = data.days[k];
-      if (!local || count(day.reviews) > local.reviews || count(day.gotit) > local.gotit) {
+      if (!local || count(day.reviews) > local.reviews || count(day.gotit) > local.gotit || count(day.focus) > (local.focus || 0)) {
         const reviews = Math.max(count(day.reviews), local ? local.reviews : 0);
         data.days[k] = {
           reviews,
           gotit: Math.min(reviews, Math.max(count(day.gotit), local ? local.gotit : 0))
         };
+        const focus = Math.max(count(day.focus), local ? (local.focus || 0) : 0);
+        if (focus) data.days[k].focus = focus;
         changed = true;
       }
     });
@@ -90,6 +93,40 @@ const Stats = (() => {
       }
     }
     persist();
+  }
+
+  // A finished focus (Pomodoro) block: minutes add to today's total and,
+  // like a review, make today a studied day for the streak.
+  function recordFocus(minutes) {
+    load();
+    const mins = count(minutes);
+    if (!mins) return;
+    const k = dayKey(Date.now());
+    const firstToday = !data.days[k];
+    const day = data.days[k] || { reviews: 0, gotit: 0 };
+    day.focus = (day.focus || 0) + mins;
+    data.days[k] = day;
+    if (firstToday) {
+      data.freezeMeter += 1;
+      if (data.freezeMeter >= 7) {
+        data.freezeMeter = 0;
+        if (data.freezes < 2) data.freezes += 1;
+      }
+    }
+    persist();
+  }
+
+  // Focus minutes over the last `days` days (today included).
+  function focusMinutes(days) {
+    load();
+    let total = 0;
+    const d = new Date();
+    for (let i = 0; i < days; i++) {
+      const day = data.days[dayKey(d.getTime())];
+      if (day && day.focus) total += day.focus;
+      d.setDate(d.getDate() - 1);
+    }
+    return total;
   }
 
   function recordExam(pct, grade, title) {
@@ -278,8 +315,10 @@ const Stats = (() => {
     const due = Decks.dueCards(cards).length;
     const reviews = totalReviews();
     const exams = data.exams;
+    const focusWeek = focusMinutes(7);
+    const plan = typeof Planner !== 'undefined' ? Planner.statsCard() : '';
 
-    if (reviews === 0 && exams.length === 0) {
+    if (reviews === 0 && exams.length === 0 && !focusWeek && !plan) {
       container.innerHTML = `
         <div class="stats-container">
           <div class="empty-state">
@@ -310,7 +349,9 @@ const Stats = (() => {
           ${tile(`<span data-count="${reviews}">0</span>`, T('statReviews'))}
           ${tile(`<span data-count="${due}">0</span>`, T('statDue'))}
           ${tile(`<span data-count="${exams.length}">0</span>`, T('statExams'))}
+          ${focusWeek ? tile(`&#9201; <span data-count="${focusWeek}">0</span>`, T('statFocus')) : ''}
         </div>
+        ${plan}
         <div class="stat-card">
           <h3 class="stat-card-title">${T('reviewsLast14')}</h3>
           ${barChart(14)}
@@ -393,5 +434,5 @@ const Stats = (() => {
     }
   }
 
-  return { recordReview, recordExam, render, streak, freezes, mergeRemote, snapshot: () => JSON.parse(JSON.stringify(load())) };
+  return { recordReview, recordExam, recordFocus, focusMinutes, render, streak, freezes, mergeRemote, snapshot: () => JSON.parse(JSON.stringify(load())) };
 })();

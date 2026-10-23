@@ -46,6 +46,9 @@ const Library = (() => {
       </div>`;
     }
 
+    // Decks with an exam date coming up, nearest first.
+    if (typeof Planner !== 'undefined') html += Planner.libraryStrip();
+
     // Last-synced line builds trust in the account-less sync.
     const lastSync = (typeof Sync !== 'undefined' && Sync.enabled && Sync.enabled()) ? Sync.lastSyncTime() : 0;
     html += `<div class="deck-library-head">
@@ -114,6 +117,7 @@ const Library = (() => {
               <span>&middot;</span>
               <span>${T('questionsN', { n: qs })}</span>
               ${due ? `<span class="deck-card-due">${T('dueN', { n: due })}</span>` : ''}
+              ${typeof Planner !== 'undefined' ? Planner.deckBadge(d) : ''}
             </div>
           </div>
           <button class="deck-card-menu-btn" data-menu="${d.id}" aria-label="${T('deckActions')}" title="${T('deckActions')}" aria-haspopup="menu">&#8943;</button>
@@ -121,6 +125,7 @@ const Library = (() => {
             <button data-act="rename" data-id="${d.id}" role="menuitem">${T('renameDeck')}</button>
             <button data-act="duplicate" data-id="${d.id}" role="menuitem">${T('duplicateDeck')}</button>
             <button data-act="folder" data-id="${d.id}" role="menuitem">${T('moveToFolder')}</button>
+            <button data-act="exam" data-id="${d.id}" role="menuitem">&#128197; ${T('planSetDate')}</button>
             <button data-act="merge" data-id="${d.id}" role="menuitem">${T('mergeDeck')}</button>
             <button data-act="export" data-id="${d.id}" role="menuitem">${T('allJson')}</button>
             <button data-act="delete" data-id="${d.id}" class="deck-menu-danger" role="menuitem">${T('deleteDeck')}</button>
@@ -207,6 +212,8 @@ const Library = (() => {
       Decks.setFolder(id, folder);
       render();
       showToast(folder.trim() ? T('movedToFolder', { f: folder.trim() }) : T('removedFromFolder'), 'success');
+    } else if (act === 'exam') {
+      if (typeof Planner !== 'undefined') Planner.openDatePicker(id);
     } else if (act === 'merge') {
       const others = Decks.list().filter(d => d.id !== id);
       if (!others.length) { showToast(T('mergeNoOthers'), 'info'); return; }

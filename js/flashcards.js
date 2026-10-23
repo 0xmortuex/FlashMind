@@ -74,7 +74,7 @@ const Flashcards = (() => {
     const stats = getStats();
     const dueCount = typeof Decks !== 'undefined' ? Decks.dueCards(cards).length : 0;
 
-    let html = `
+    let html = `${typeof Planner !== 'undefined' ? Planner.flashcardsBar() : ''}
       <div class="cards-header">
         <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
           <span class="cards-count">${T('flashcardCount', { n: cards.length })}</span>
@@ -90,6 +90,7 @@ const Flashcards = (() => {
           ${weakCategories().length ? `<button class="btn-ghost" onclick="Flashcards.generateWeakSpots()" ${generatingMore ? 'disabled' : ''}>&#127919; ${T('targetWeak')}</button>` : ''}
           ${clozeCandidates().length ? `<button class="btn-ghost" onclick="Flashcards.addClozeCards()">&#9998; ${T('clozeBtn')}</button>` : ''}
           <button class="btn-ghost" onclick="Flashcards.openEditor()">&#65291; ${T('addCard')}</button>
+          ${typeof Occlusion !== 'undefined' ? `<button class="btn-ghost" onclick="Occlusion.open()">&#128444;&#65039; ${T('occlBtn')}</button>` : ''}
           ${cards.length ? `<button class="btn-ghost" onclick="Flashcards.startStudy('cram')" title="${T('cramHint')}">&#9889; ${T('cramBtn')}</button>` : ''}
           ${dueCount > 0 ? `<button class="btn-ghost review-due-btn" onclick="Flashcards.startStudy('due')">${T('reviewDue', { n: dueCount })}</button>` : ''}
           <button class="start-study-btn" onclick="Flashcards.startStudy('all')">${T('startStudy')}</button>
@@ -105,7 +106,7 @@ const Flashcards = (() => {
         <div class="flashcard diff-${card.difficulty}${animate ? ' fade-up' : ''}" style="--i:${Math.min(idx, 18)}" role="button" tabindex="0" aria-pressed="false" onclick="Flashcards.flipCard(this)" onkeydown="if(event.target===this&&(event.key==='Enter'||event.key===' ')){event.preventDefault();Flashcards.flipCard(this)}" data-id="${card.id}">
           <div class="flashcard-inner">
             <div class="flashcard-front">
-              ${card.img ? `<img class="flashcard-img" src="${esc(card.img)}" alt="">` : ''}
+              ${card.occlusion && typeof Occlusion !== 'undefined' ? Occlusion.html(card, 'front') : card.img ? `<img class="flashcard-img" src="${esc(card.img)}" alt="">` : ''}
               <p class="flashcard-text">${esc(card.front)}</p>
               <div class="flashcard-meta">
                 <span class="difficulty-badge ${card.difficulty}">${T('filter' + card.difficulty.charAt(0).toUpperCase() + card.difficulty.slice(1))}</span>
@@ -117,6 +118,7 @@ const Flashcards = (() => {
               </div>
             </div>
             <div class="flashcard-back">
+              ${card.occlusion && typeof Occlusion !== 'undefined' ? Occlusion.html(card, 'back') : ''}
               <p class="flashcard-text">${esc(card.back)}</p>
             </div>
           </div>
@@ -680,10 +682,17 @@ const Flashcards = (() => {
     document.getElementById('study-card-front-text').textContent = card.front;
     document.getElementById('study-card-back-text').textContent = card.back;
     const imgEl = document.getElementById('study-card-img');
+    const occl = card.occlusion && typeof Occlusion !== 'undefined';
     if (imgEl) {
-      imgEl.style.display = card.img ? '' : 'none';
-      if (card.img) imgEl.src = card.img;
+      imgEl.style.display = card.img && !occl ? '' : 'none';
+      if (card.img && !occl) imgEl.src = card.img;
     }
+    // Image-occlusion cards: masked image on the front, revealed on the back.
+    const occlFront = document.getElementById('study-card-occl-front');
+    const occlBack = document.getElementById('study-card-occl-back');
+    if (occlFront) occlFront.innerHTML = occl ? Occlusion.html(card, 'front') : '';
+    if (occlBack) occlBack.innerHTML = occl ? Occlusion.html(card, 'back') : '';
+    document.getElementById('study-card').classList.toggle('has-occlusion', !!occl);
     // Cross-deck sessions show which deck the card came from.
     const deckHint = document.getElementById('study-deck-hint');
     if (deckHint) {

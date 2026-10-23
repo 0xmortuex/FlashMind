@@ -122,6 +122,7 @@ const Search = (() => {
   function jumpToNotes(snippet) {
     close();
     App.switchTab('notes');
+    if (typeof Notes !== 'undefined' && Notes.showView) Notes.showView('notes');
     const needle = norm(snippet);
     setTimeout(() => {
       const root = document.getElementById('tab-notes');

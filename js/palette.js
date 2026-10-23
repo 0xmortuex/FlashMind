@@ -56,6 +56,11 @@ const Palette = (() => {
       items.push({ section: T('paletteActions'), label: T('addCard'), run: () => { App.switchTab('flashcards'); Flashcards.openEditor(); } });
       items.push({ section: T('paletteActions'), label: T('cramBtn'), run: () => { App.switchTab('flashcards'); Flashcards.startStudy('cram'); } });
       items.push({ section: T('paletteActions'), label: T('feynmanBtn'), run: () => { App.switchTab('chat'); Chat.startFeynman(); } });
+      items.push({ section: T('paletteActions'), label: T('viewMindmap'), run: () => { App.switchTab('notes'); Notes.showView('map'); } });
+      items.push({ section: T('paletteActions'), label: T('audioTitle'), run: () => { App.switchTab('notes'); Notes.showView('audio'); } });
+      items.push({ section: T('paletteActions'), label: T('occlTitle'), run: () => { App.switchTab('flashcards'); Occlusion.open(); } });
+      const active = Decks.getActive();
+      if (active) items.push({ section: T('paletteActions'), label: T('planSetDate'), run: () => Planner.openDatePicker(active.id) });
       items.push({ section: T('paletteActions'), label: T('startExam'), run: () => App.switchTab('quiz') });
       items.push({ section: T('paletteActions'), label: T('share'), run: () => click('share-btn') });
       items.push({ section: T('paletteActions'), label: T('allJson'), run: () => Export.allJSON() });
@@ -68,6 +73,7 @@ const Palette = (() => {
     if (typeof Today !== 'undefined' && Today.dueItems().length) {
       items.push({ section: T('paletteActions'), label: T('todayReview') + ` (${Today.dueItems().length})`, run: () => Today.start() });
     }
+    items.push({ section: T('paletteActions'), label: T('focusTitle'), run: () => Focus.toggle() });
     items.push({ section: T('paletteActions'), label: T('cmdToggleTheme'), run: () => App.toggleTheme() });
     items.push({ section: T('paletteActions'), label: T('cmdToggleSound'), run: () => Sound.toggle() });
     items.push({ section: T('paletteActions'), label: T('shortcutsTitle'), hint: '?', run: () => App.toggleShortcuts(true) });

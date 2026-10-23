@@ -106,6 +106,10 @@ const Decks = (() => {
     return changed;
   }
 
+  function hasSources(data) {
+    return !!(data && Array.isArray(data.sources) && data.sources.length);
+  }
+
   function newId() {
     return 'd' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
   }
@@ -113,7 +117,9 @@ const Decks = (() => {
   function createDeck(data, originalText) {
     load();
     const now = Date.now();
-    const deck = { id: newId(), createdAt: now, updatedAt: now, data, originalText: originalText || '', srs: {} };
+    // Multi-source decks keep their material in data.sources; the legacy
+    // single originalText string is only stored for decks without sources.
+    const deck = { id: newId(), createdAt: now, updatedAt: now, data, originalText: hasSources(data) ? '' : (originalText || ''), srs: {} };
     store.decks[deck.id] = deck;
     return deck;
   }
@@ -128,7 +134,7 @@ const Decks = (() => {
     let deck = deckId && store.decks[deckId];
     if (deck) {
       deck.data = data;
-      deck.originalText = originalText || deck.originalText;
+      deck.originalText = hasSources(data) ? '' : (originalText || deck.originalText);
       deck.updatedAt = Date.now();
     } else {
       deck = createDeck(data, originalText);
@@ -187,6 +193,38 @@ const Decks = (() => {
     return deck;
   }
 
+  // ----- Exam date (exam-aware scheduling + study plan) -----
+  // deck.examDate is a local calendar day 'YYYY-MM-DD'; empty clears it.
+  function setExamDate(id, date) {
+    load();
+    const deck = store.decks[id];
+    if (!deck) return null;
+    if (date && /^\d{4}-\d{2}-\d{2}$/.test(date) && examStart(date)) deck.examDate = date;
+    else delete deck.examDate;
+    deck.updatedAt = Date.now();
+    persist();
+    return deck;
+  }
+
+  // Midnight (local) at the start of the exam day, or null.
+  function examStart(date) {
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date || '');
+    if (!m) return null;
+    const t = new Date(+m[1], +m[2] - 1, +m[3]).getTime();
+    return Number.isFinite(t) ? t : null;
+  }
+
+  // FSRS optimizes for long-term retention; with an exam coming, a card whose
+  // next review would land after the exam is pulled forward so it gets one
+  // last review the day before (or on exam morning if that day has begun).
+  function capForExam(examDate, due, now) {
+    const exam = examStart(examDate);
+    if (!exam || now >= exam) return due;
+    const lastDay = exam - DAY;
+    if (due <= lastDay) return due;
+    return now < lastDay ? lastDay : exam;
+  }
+
   function folders() {
     load();
     const set = new Set();
@@ -229,10 +267,19 @@ const Decks = (() => {
         if (Array.isArray(sd.notes[k]) && sd.notes[k].length) dd.notes[k] = (dd.notes[k] || []).concat(sd.notes[k]);
       });
     }
+    // Sources and occlusion images travel with the merged cards.
+    if (hasSources(sd) || hasSources(dd)) {
+      const asSources = (deck, data) => hasSources(data) ? data.sources
+        : (deck.originalText ? [{ id: 's1', name: (data.title || 'Source'), kind: 'paste', text: deck.originalText, enabled: true, addedAt: deck.createdAt || 0 }] : []);
+      const merged = asSources(dst, dd).concat(asSources(src, sd));
+      dd.sources = merged.map((x, i) => ({ ...x, id: 's' + (i + 1) }));
+    }
+    if (sd.media && typeof sd.media === 'object') dd.media = Object.assign({}, dd.media || {}, sd.media);
     if (Array.isArray(src.mistakes) && src.mistakes.length) {
       dst.mistakes = (Array.isArray(dst.mistakes) ? dst.mistakes : []).concat(src.mistakes);
     }
-    dst.originalText = [dst.originalText, src.originalText].filter(Boolean).join('\n\n');
+    dst.originalText = hasSources(dd) ? '' : [dst.originalText, src.originalText].filter(Boolean).join('\n\n');
+    dst.data = Parser.normalizeStudyData(dd);
     dst.updatedAt = Date.now();
     delete store.decks[srcId];
     store.deleted[srcId] = Date.now();
@@ -353,7 +400,8 @@ const Decks = (() => {
         reps: 1,
         lapses: g === 1 ? 1 : 0,
         due: 0,
-        last: now
+        last: now,
+        first: now
       };
     } else {
       const elapsed = Math.max(0, (now - (s.last || now)) / DAY);
@@ -377,7 +425,7 @@ const Decks = (() => {
     }
 
     // At 0.9 requested retention the FSRS-4.5 curve gives interval = stability.
-    s.due = g === 1 ? now : now + Math.max(1, Math.round(s.stab)) * DAY;
+    s.due = g === 1 ? now : capForExam(deck.examDate, now + Math.max(1, Math.round(s.stab)) * DAY, now);
     deck.srs[cardId] = s;
     deck.updatedAt = Date.now();
     persist();
@@ -422,7 +470,7 @@ const Decks = (() => {
 
   return {
     save, get, getActive, setActive, list, remove, touch, rename, duplicate,
-    setFolder, folders, mergeInto,
+    setFolder, folders, mergeInto, setExamDate, examStart, capForExam, retrievability,
     getSrs, review, reviewIn, dueCards, dueAcrossDecks, statusOf,
     addMistakes, resolveMistakes, getMistakes, mergeRemote, snapshot
   };

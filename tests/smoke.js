@@ -331,6 +331,116 @@ const puppeteer = require('puppeteer');
     await page.waitForSelector('#today-review-btn', { timeout: 2000 });
   });
 
+  // ===== Study studio features =====
+  await step('studio: open demo for studio checks', async () => {
+    await page.evaluate(() => document.getElementById('demo-btn').click());
+    await page.waitForSelector('#study-view.active', { timeout: 3000 });
+  });
+
+  await step('studio: formulas are typeset (MathRender pipeline)', async () => {
+    await page.evaluate(() => {
+      // Deterministic: stub KaTeX when the CDN copy hasn't loaded.
+      if (!window.katex) window.katex = { render(tex, el) { el.textContent = tex; } };
+      const p = document.createElement('p');
+      p.id = 'math-probe';
+      p.textContent = 'Area is $\\pi r^2$ and costs $5 or $10.';
+      document.getElementById('tab-notes').appendChild(p);
+    });
+    await page.waitForSelector('#math-probe .math-inline', { timeout: 3000 });
+    const n = await page.$$eval('#math-probe .math-inline', els => els.length);
+    if (n !== 1) throw new Error('expected exactly one formula (prices stay text), got ' + n);
+    await page.evaluate(() => document.getElementById('math-probe').remove());
+  });
+
+  await step('studio: mind map renders, expands, and builds with AI', async () => {
+    await page.click('[data-tab="notes"]');
+    await page.click('[data-notes-view="map"]');
+    await page.waitForSelector('.mm-svg [data-mm="0.0"]', { timeout: 2000 });
+    const before = await page.$$eval('.mm-node', els => els.length);
+    await page.click('[data-mm="0.0"]');
+    await page.waitForFunction(n => document.querySelectorAll('.mm-node').length > n, { timeout: 2000 }, before);
+    await page.evaluate(() => {
+      window.__chat = API.chat;
+      API.chat = async () => JSON.stringify({ type: 'mindmap', root: { label: 'Root', children: [{ label: 'Branch', detail: 'd', children: [] }] } });
+    });
+    await page.click('[data-mm-act="ai"]');
+    await page.waitForFunction(() => App.getStudyData().notes.mindmap && document.querySelector('[data-mm-act="outline"]'), { timeout: 3000 });
+    await page.evaluate(() => { API.chat = window.__chat; });
+    await page.click('[data-mm-act="outline"]');
+  });
+
+  await step('studio: audio overview (offline recap) builds a transcript', async () => {
+    await page.click('[data-notes-view="audio"]');
+    await page.click('[data-audio-format="recap"]');
+    await page.click('[data-audio-act="generate"]');
+    await page.waitForSelector('.audio-line', { timeout: 2000 });
+    if (!await page.evaluate(() => Decks.getActive().data.audio.lines.length > 2)) throw new Error('script not saved');
+    await page.click('[data-notes-view="notes"]');
+  });
+
+  await step('studio: chat citations are verified against the material', async () => {
+    await page.click('[data-tab="chat"]');
+    const classes = await page.evaluate(async () => {
+      const api = API.chat;
+      API.chat = async () => JSON.stringify({ answer: 'x', citations: ['Oxygen comes from splitting water, not from carbon dioxide.', 'Totally invented sentence about moon plants.'] });
+      await Chat.sendMessage('where does oxygen come from?');
+      API.chat = api;
+      return [...document.querySelectorAll('.citation')].map(c => c.className);
+    });
+    if (classes.length !== 2 || /unverified/.test(classes[0]) || !/unverified/.test(classes[1])) throw new Error(JSON.stringify(classes));
+  });
+
+  await step('studio: exam date drives the plan bar and stats plan', async () => {
+    await page.evaluate(() => {
+      const d = new Date(Date.now() + 5 * 86400000);
+      Decks.setExamDate(Decks.getActive().id, d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'));
+      Planner.refresh();
+    });
+    await page.click('[data-tab="flashcards"]');
+    await page.waitForSelector('.plan-bar .plan-countdown', { timeout: 2000 });
+    await page.click('[data-tab="stats"]');
+    await page.waitForSelector('.plan-card .plan-row.today', { timeout: 2000 });
+  });
+
+  await step('studio: image occlusion cards render masked and revealed', async () => {
+    await page.click('[data-tab="flashcards"]');
+    const n = await page.evaluate(() => {
+      const c = document.createElement('canvas'); c.width = 200; c.height = 100;
+      return Occlusion.buildCards(c.toDataURL('image/jpeg'), [{ x: 0.1, y: 0.1, w: 0.3, h: 0.2, label: 'A' }, { x: 0.5, y: 0.5, w: 0.3, h: 0.2, label: 'B' }], { mode: 'all' });
+    });
+    if (n !== 2) throw new Error('cards ' + n);
+    await page.waitForSelector('.flashcard .occl-box.target', { timeout: 2000 });
+    await page.waitForSelector('.flashcard .occl-box.revealed', { timeout: 2000 });
+  });
+
+  await step('studio: focus timer starts and shows the countdown', async () => {
+    await page.evaluate(() => { Focus.open(); Focus.start(); });
+    await page.waitForSelector('.focus-widget.running .focus-time', { timeout: 2000 });
+    await page.evaluate(() => Focus.close());
+  });
+
+  await step('studio: staged sources combine into one generation', async () => {
+    await page.click('#back-to-input');
+    await page.click('[data-input-tab="paste"]');
+    await page.evaluate(() => {
+      Sources.stage('A', 'paste', 'First source about mitosis.');
+      Sources.stage('B', 'url', 'Second source about meiosis.');
+    });
+    await page.waitForSelector('#source-tray .source-chip', { timeout: 2000 });
+    const ok = await page.evaluate(async () => {
+      const gs = API.generateStream;
+      let sent = '';
+      API.generateStream = async t => { sent = t; return JSON.stringify({ title: 'Combo', notes: { summary: 's' }, flashcards: [{ front: 'f', back: 'b' }], quiz: [{ question: 'q', options: ['a', 'b'], correct: 0 }] }); };
+      document.getElementById('paste-input').value = '';
+      document.getElementById('generate-btn').click();
+      await new Promise(r => setTimeout(r, 500));
+      API.generateStream = gs;
+      return sent.includes('=== Source 2: B ===') && (App.getStudyData().sources || []).length === 2;
+    });
+    if (!ok) throw new Error('sources not combined');
+    await page.waitForSelector('.sources-bar .source-chip', { timeout: 2000 });
+  });
+
   console.log(errors.length ? 'ERRORS:\n' + errors.join('\n') : 'NO CONSOLE/PAGE ERRORS');
   console.log(failCount ? failCount + ' step(s) failed' : 'ALL STEPS PASSED');
   await browser.close();

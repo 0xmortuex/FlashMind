@@ -19,6 +19,13 @@ Give FlashMind some material and it generates a complete study set in one stream
 - **📊 Stats** — day streak with **streak freezes** (earned every 7 study days, auto-bridge a missed day), review charts, a 6-month activity heatmap, a 7-day due forecast, exam-score history, and an **AI weekly report**.
 - **💬 Ask AI** — a tutor with your material as context; one click on any wrong exam answer asks it "explain this". **Feynman mode** flips the roles: you explain the topic, the AI grades your explanation and lists what's missing. Struggling cards (2+ lapses) get a one-click **AI mnemonic**.
 - **☀️ Today queue** — one session that pulls every due card from **all** your decks, with a home-screen banner, PWA app-icon badge, and an opt-in daily reminder notification.
+- **📅 Exam planner** — give a deck its exam date and FlashMind works backwards: FSRS pulls every review in before the exam, new cards are spread across the days left (the last day is kept for a final review + cram), and you get a day-by-day plan, a **readiness** score (predicted recall on exam day), a countdown on the deck, and an "Upcoming exams" strip on the home screen with one-tap **Start today's plan**.
+- **🧠 Mind map** — an interactive, collapsible concept map of the set: built instantly from the notes' outline, or **rebuilt by the AI** as a richer concept map. Click a node to expand it and read its explanation, or ask the AI about it.
+- **🎧 Audio overview** — a podcast-style recap to listen to on the go: a two-host **deep dive**, a one-host **brief**, or an offline **quick recap** of your notes. Played with your device's voices (one per host), with speed control and a clickable transcript.
+- **📎 Sources & citations** — build one set from **several sources** (a PDF + a web page + a YouTube video + your notes), toggle each in or out of the AI's context, and re-read them in a viewer. AI answers quote the passages they're based on; each quote is **checked against your actual material** and anything that can't be found is flagged. Every notes section can show the source passage it came from.
+- **∑ Math & formulas** — `$...$` / `$$...$$` LaTeX in notes, cards, exams and chat is typeset with KaTeX (lazy-loaded, cached for offline use); generation asks for formulas in LaTeX.
+- **🖼️ Image occlusion** — turn a labelled diagram into cards: draw boxes over the labels, and each box becomes a "what's hidden here?" card (hide all / hide one modes).
+- **⏱️ Focus timer** — a Pomodoro timer (25/5, 50/10, 15/3) that survives reloads; finished focus blocks are logged in Stats and count toward your streak.
 
 Not sure? Hit **Try an example** on the home screen for an instant sample deck — no waiting, no API call.
 
@@ -69,7 +76,8 @@ Not sure? Hit **Try an example** on the home screen for an instant sample deck �
 - **Frontend** — vanilla HTML/CSS/JS, no framework, no build step. Hosted on GitHub Pages.
 - **Backend** — a Cloudflare Worker ([`flashmind-worker`](https://github.com/0xmortuex/flashmind-worker)) that proxies generation/grading to [OpenRouter](https://openrouter.ai) (Claude) with SSE streaming, stores shares and sync blobs in KV, extracts text from URLs, and rate-limits per IP. The API key lives only as a Worker secret.
 - **Storage** — decks, FSRS schedules, mistake banks, and stats persist in `localStorage`; sync/share blobs in Worker KV under random bearer codes.
-- **Charts & scheduling** — hand-rolled: inline-SVG charts, canvas confetti, and an FSRS-4.5 implementation — no libraries. The only CDN dependencies are PDF.js and (lazy-loaded, only when you drop a photo) Tesseract.js for OCR.
+- **Charts & scheduling** — hand-rolled: inline-SVG charts and mind map, canvas confetti, and an FSRS-4.5 implementation with exam-date capping — no libraries. The only CDN dependencies are PDF.js, and two lazy-loaded ones: Tesseract.js for OCR (only when you drop a photo) and KaTeX (only when a formula appears).
+- **AI features without new endpoints** — mind maps, audio scripts and citations ride the Worker's existing `chat` action with structured-JSON prompts; audio is spoken by the browser's Speech Synthesis.
 - **CI** — Puppeteer smoke checks plus data and browser regression suites run on every push (badge above).
 
 ## Run locally
