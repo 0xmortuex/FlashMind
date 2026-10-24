@@ -626,6 +626,9 @@ button.citation:hover { background: var(--primary-tint); }
 .voice-mode-title { font-weight: 600; font-size: 0.9rem; }
 .voice-mode-hint { font-size: 0.74rem; color: var(--text-muted); }
 .voice-start { align-self: flex-start; }
+.voice-mic { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.voice-mic-label { font-size: 0.85rem; font-weight: 600; white-space: nowrap; }
+.voice-mic .editor-select { flex: 1; min-width: 180px; }
 .voice-status {
   display: flex;
   align-items: center;

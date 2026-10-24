@@ -11,6 +11,9 @@ const Voice = (() => {
   let mode = 'quiz';
   let session = null; // { ws, capture, playback, stream, timer, endsAt, muted, lines, current }
   let state = 'idle';  // idle | connecting | live | ended
+  let micId = '';      // chosen microphone (deviceId); '' = system default
+  let mics = [];       // [{ id, label }]
+  try { micId = localStorage.getItem('flashmind_voice_mic') || ''; } catch (e) {}
 
   function esc(str) {
     if (str == null) return '';
@@ -33,6 +36,7 @@ const Voice = (() => {
     render();
     el.style.display = 'flex';
     releaseTrap = FX.trapFocus(el);
+    refreshMics();
   }
 
   function close() {
@@ -61,7 +65,15 @@ const Voice = (() => {
       else if (act === 'copy') copyTranscript();
       else if (act === 'again') { state = 'idle'; render(); }
     });
+    el.addEventListener('change', e => {
+      if (e.target.id !== 'voice-mic-select') return;
+      micId = e.target.value;
+      try { localStorage.setItem('flashmind_voice_mic', micId); } catch (err) {}
+    });
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && el.style.display !== 'none') close(); });
+    if (navigator.mediaDevices && navigator.mediaDevices.addEventListener) {
+      navigator.mediaDevices.addEventListener('devicechange', refreshMics);
+    }
   }
 
   function render() {
@@ -77,6 +89,10 @@ const Voice = (() => {
       ${state === 'idle' ? `
         <p class="voice-intro">${T('voiceIntro')}</p>
         ${supported() ? `<div class="voice-modes">${modeBtn('quiz', '&#10067;')}${modeBtn('explain', '&#127891;')}${modeBtn('talk', '&#128172;')}</div>
+          <label class="voice-mic">
+            <span class="voice-mic-label">&#127908; ${T('voiceMic')}</span>
+            <select class="editor-select" id="voice-mic-select">${micOptions()}</select>
+          </label>
           <button class="btn-primary voice-start" data-voice-act="start">&#127908; ${T('voiceStart')}</button>
           <p class="voice-note">${T('voiceNote')}</p>`
         : `<p class="voice-note">${T('voiceUnsupported')}</p>`}` : `
@@ -94,6 +110,29 @@ const Voice = (() => {
         </div>`}
     </div>`;
     updateTimer();
+  }
+
+  function micOptions() {
+    const T = i18n.t;
+    let html = `<option value="">${esc(T('voiceMicDefault'))}</option>`;
+    mics.forEach((m, i) => {
+      html += `<option value="${esc(m.id)}"${m.id === micId ? ' selected' : ''}>${esc(m.label || T('voiceMicN', { n: i + 1 }))}</option>`;
+    });
+    return html;
+  }
+
+  // Device labels are only exposed after microphone permission is granted,
+  // so the list is refreshed after each session starts and on device changes.
+  async function refreshMics() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) return;
+    try {
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      mics = devices.filter(d => d.kind === 'audioinput' && d.deviceId && d.deviceId !== 'default' && d.deviceId !== 'communications')
+        .map(d => ({ id: d.deviceId, label: d.label }));
+    } catch (e) { mics = []; }
+    if (micId && !mics.some(m => m.id === micId)) micId = '';
+    const sel = el && el.querySelector('#voice-mic-select');
+    if (sel) sel.innerHTML = micOptions();
   }
 
   function transcriptHtml() {
@@ -147,9 +186,21 @@ const Voice = (() => {
       const playback = await startPlayback();
       if (stale()) { playback.ctx.close().catch(() => {}); return; }
       s.playback = playback;
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
+      const audio = { echoCancellation: true, noiseSuppression: true, autoGainControl: true };
+      if (micId) audio.deviceId = { exact: micId };
+      let stream;
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({ audio });
+      } catch (err) {
+        // The saved microphone was unplugged: fall back to the default one.
+        if (!micId || err.name !== 'OverconstrainedError' && err.name !== 'NotFoundError') throw err;
+        delete audio.deviceId;
+        micId = '';
+        stream = await navigator.mediaDevices.getUserMedia({ audio });
+      }
       if (stale()) { stream.getTracks().forEach(t => t.stop()); return; }
       s.stream = stream;
+      refreshMics(); // labels become available once permission is granted
       const { token, model, maxMinutes } = await API.liveToken(mode, data.title, App.getOriginalText());
       if (stale()) return;
       s.endsAt = Date.now() + (maxMinutes || 15) * 60 * 1000;

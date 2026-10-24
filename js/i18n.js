@@ -1208,7 +1208,10 @@ const i18n = (() => {
     voiceYou: 'You',
     voiceMicDenied: 'Microphone access was blocked — allow it in your browser to talk to the tutor.',
     voiceFailed: 'Voice session failed:',
-    voiceTimeUp: 'Voice session time is up'
+    voiceTimeUp: 'Voice session time is up',
+    voiceMic: 'Microphone',
+    voiceMicDefault: 'System default',
+    voiceMicN: 'Microphone {n}'
   });
 
   Object.assign(translations.tr, {
@@ -1240,7 +1243,10 @@ const i18n = (() => {
     voiceYou: 'Sen',
     voiceMicDenied: 'Mikrofon erişimi engellendi — öğretmenle konuşmak için tarayıcında izin ver.',
     voiceFailed: 'Sesli oturum başarısız:',
-    voiceTimeUp: 'Sesli oturum süresi doldu'
+    voiceTimeUp: 'Sesli oturum süresi doldu',
+    voiceMic: 'Mikrofon',
+    voiceMicDefault: 'Sistem varsayılanı',
+    voiceMicN: 'Mikrofon {n}'
   });
 
   // ===== Topic Categories =====
