@@ -1179,6 +1179,70 @@ const i18n = (() => {
     occlCategory: 'Görsel gizleme'
   });
 
+  Object.assign(translations.en, {
+    // Voice tutor (Gemini Live)
+    voiceOpen: 'Talk to tutor',
+    voiceTitle: 'Voice tutor',
+    voiceIntro: 'Talk out loud with an AI tutor about this set. It hears you, answers by voice, and everything is transcribed below.',
+    voiceMode_quiz: 'Quiz me',
+    voiceModeHint_quiz: 'It asks, you answer out loud',
+    voiceMode_explain: 'Let me explain',
+    voiceModeHint_explain: 'Teach it back; it finds your gaps',
+    voiceMode_talk: 'Free talk',
+    voiceModeHint_talk: 'Ask anything about the material',
+    voiceStart: 'Start talking',
+    voiceNote: 'Uses your microphone. Sessions end after 15 minutes. Headphones stop the tutor hearing itself.',
+    voiceUnsupported: "This browser can't run the voice tutor (it needs microphone access and Web Audio). Try Chrome, Edge, Firefox or Safari.",
+    voiceConnecting: 'Connecting...',
+    voiceListening: 'Listening — just talk',
+    voiceSpeaking: 'Tutor is speaking — talk to interrupt',
+    voiceEnded: 'Session ended',
+    voiceMute: 'Mute',
+    voiceUnmute: 'Unmute',
+    voiceEnd: 'End session',
+    voiceCopy: 'Copy transcript',
+    voiceCopied: 'Transcript copied',
+    voiceAgain: 'New session',
+    voiceTranscriptEmpty: 'The transcript appears here as you talk.',
+    voiceTutor: 'Tutor',
+    voiceYou: 'You',
+    voiceMicDenied: 'Microphone access was blocked — allow it in your browser to talk to the tutor.',
+    voiceFailed: 'Voice session failed:',
+    voiceTimeUp: 'Voice session time is up'
+  });
+
+  Object.assign(translations.tr, {
+    // Sesli öğretmen (Gemini Live)
+    voiceOpen: 'Öğretmenle konuş',
+    voiceTitle: 'Sesli öğretmen',
+    voiceIntro: 'Bu set hakkında bir AI öğretmenle sesli konuş. Seni duyar, sesli cevap verir ve her şey aşağıya yazıya dökülür.',
+    voiceMode_quiz: 'Beni sına',
+    voiceModeHint_quiz: 'O sorar, sen sesli cevaplarsın',
+    voiceMode_explain: 'Ben anlatayım',
+    voiceModeHint_explain: 'Konuyu anlat; eksiklerini bulsun',
+    voiceMode_talk: 'Serbest sohbet',
+    voiceModeHint_talk: 'Materyalle ilgili her şeyi sor',
+    voiceStart: 'Konuşmaya başla',
+    voiceNote: 'Mikrofonunu kullanır. Oturumlar 15 dakika sonra biter. Kulaklık, öğretmenin kendi sesini duymasını önler.',
+    voiceUnsupported: 'Bu tarayıcı sesli öğretmeni çalıştıramıyor (mikrofon erişimi ve Web Audio gerekir). Chrome, Edge, Firefox veya Safari dene.',
+    voiceConnecting: 'Bağlanıyor...',
+    voiceListening: 'Dinliyor — konuşman yeterli',
+    voiceSpeaking: 'Öğretmen konuşuyor — sözünü kesmek için konuş',
+    voiceEnded: 'Oturum bitti',
+    voiceMute: 'Sesi kapat',
+    voiceUnmute: 'Sesi aç',
+    voiceEnd: 'Oturumu bitir',
+    voiceCopy: 'Metni kopyala',
+    voiceCopied: 'Metin kopyalandı',
+    voiceAgain: 'Yeni oturum',
+    voiceTranscriptEmpty: 'Konuştukça metin burada görünür.',
+    voiceTutor: 'Öğretmen',
+    voiceYou: 'Sen',
+    voiceMicDenied: 'Mikrofon erişimi engellendi — öğretmenle konuşmak için tarayıcında izin ver.',
+    voiceFailed: 'Sesli oturum başarısız:',
+    voiceTimeUp: 'Sesli oturum süresi doldu'
+  });
+
   // ===== Topic Categories =====
   const topicCategories = {
     en: [

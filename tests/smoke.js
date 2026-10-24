@@ -441,6 +441,50 @@ const puppeteer = require('puppeteer');
     await page.waitForSelector('.sources-bar .source-chip', { timeout: 2000 });
   });
 
+  await step('voice tutor: token, live audio both ways, transcript, clean shutdown', async () => {
+    await page.evaluate(() => {
+      document.getElementById('demo-btn').click();
+      window.__voice = { sent: [], ws: null };
+      API.liveToken = async () => ({ token: 'auth_tokens/smoke', model: 'gemini-3.8-live', maxMinutes: 15 });
+      // A synthetic microphone: an oscillator routed into a MediaStream.
+      navigator.mediaDevices.getUserMedia = async () => {
+        const ctx = new AudioContext();
+        const osc = ctx.createOscillator();
+        const dest = ctx.createMediaStreamDestination();
+        osc.connect(dest); osc.start();
+        return dest.stream;
+      };
+      class FakeWS {
+        constructor(url) { this.url = url; this.readyState = 0; window.__voice.ws = this; setTimeout(() => { this.readyState = 1; this.onopen(); }, 10); }
+        send(raw) {
+          const m = JSON.parse(raw); window.__voice.sent.push(m);
+          const reply = o => setTimeout(() => this.onmessage && this.onmessage({ data: JSON.stringify(o) }), 5);
+          if (m.setup) reply({ setupComplete: {} });
+          if (m.clientContent) {
+            reply({ serverContent: { modelTurn: { parts: [{ inlineData: { mimeType: 'audio/pcm;rate=24000', data: btoa('\0\0'.repeat(480)) } }] }, outputTranscription: { text: 'What is photosynthesis?' } } });
+            reply({ serverContent: { turnComplete: true } });
+          }
+          if (m.realtimeInput && !this.heard) { this.heard = true; reply({ serverContent: { inputTranscription: { text: 'Plants make food from light.' } } }); }
+        }
+        close() { this.readyState = 3; this.closed = true; }
+      }
+      FakeWS.OPEN = 1;
+      window.WebSocket = FakeWS;
+    });
+    await page.waitForSelector('#study-view.active', { timeout: 3000 });
+    await page.click('[data-tab="chat"]');
+    await page.click('#voice-open-btn');
+    await page.click('[data-voice-act="start"]');
+    await page.waitForFunction(() => document.querySelectorAll('.voice-line').length === 2, { timeout: 6000 });
+    await page.waitForFunction(() => /^14:5\d$/.test(document.getElementById('voice-timer').textContent), { timeout: 4000 });
+    const audio = await page.evaluate(() => window.__voice.sent.filter(m => m.realtimeInput).map(m => m.realtimeInput.audio));
+    if (!audio.length || audio[0].mimeType !== 'audio/pcm;rate=16000' || atob(audio[0].data).length !== 1024) throw new Error('bad mic audio ' + JSON.stringify(audio[0]));
+    await page.click('[data-voice-act="stop"]');
+    await page.waitForSelector('.voice-status.ended', { timeout: 2000 });
+    if (!await page.evaluate(() => window.__voice.ws.closed)) throw new Error('socket left open');
+    await page.click('[data-voice-act="close"]');
+  });
+
   console.log(errors.length ? 'ERRORS:\n' + errors.join('\n') : 'NO CONSOLE/PAGE ERRORS');
   console.log(failCount ? failCount + ' step(s) failed' : 'ALL STEPS PASSED');
   await browser.close();

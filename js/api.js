@@ -215,5 +215,20 @@ const API = (() => {
     return typeof json.result === 'string' ? JSON.parse(json.result) : json.result;
   }
 
-  return { generate, generateStream, chat, grade, share, load, publishShare, gallery, syncPush, syncPull, syncDelete, fetchUrl };
+  // Voice tutor: a single-use Gemini Live token, locked server-side to the
+  // tutor setup for this study material. Returns { token, model, maxMinutes }.
+  async function liveToken(mode, title, context) {
+    const res = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'liveToken', mode, title, context, lang: i18n.getLang() })
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ error: 'Request failed' }));
+      throw new Error(err.error || `HTTP ${res.status}`);
+    }
+    return (await res.json()).result;
+  }
+
+  return { generate, generateStream, chat, grade, share, load, publishShare, gallery, syncPush, syncPull, syncDelete, fetchUrl, liveToken };
 })();

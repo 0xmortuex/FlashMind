@@ -596,3 +596,90 @@ button.citation:hover { background: var(--primary-tint); }
 @media (max-width: 768px) {
   .topbar-actions { flex-wrap: wrap; justify-content: flex-end; row-gap: 8px; max-width: 100%; }
 }
+
+/* ----- Voice tutor ----- */
+.voice-open-btn { margin-left: auto; padding: 5px 12px; font-size: 0.82rem; white-space: nowrap; }
+.voice-panel { max-width: 560px; width: 94%; text-align: left; display: flex; flex-direction: column; gap: 14px; max-height: 90vh; }
+.voice-head { display: flex; align-items: center; justify-content: space-between; }
+.voice-head h3 { margin: 0; }
+.voice-intro, .voice-note { color: var(--text-muted); font-size: 0.88rem; }
+.voice-note { font-size: 0.78rem; }
+.voice-modes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.voice-mode {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: flex-start;
+  text-align: left;
+  padding: 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  transition: border-color var(--transition), background var(--transition);
+}
+.voice-mode:hover { border-color: var(--border-strong); }
+.voice-mode.active { border-color: var(--primary); background: var(--primary-tint); }
+.voice-mode-icon { font-size: 1.3rem; }
+.voice-mode-title { font-weight: 600; font-size: 0.9rem; }
+.voice-mode-hint { font-size: 0.74rem; color: var(--text-muted); }
+.voice-start { align-self: flex-start; }
+.voice-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.voice-orb {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--grad-brand);
+}
+.voice-orb span {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+  opacity: 0;
+}
+.voice-status.live .voice-orb span { animation: voicePulse 1.8s ease-out infinite; }
+.voice-status.speaking .voice-orb span { border-color: var(--secondary); animation-duration: 0.9s; }
+.voice-status.connecting .voice-orb { animation: voiceSpin 1s linear infinite; background: conic-gradient(var(--primary), transparent); }
+.voice-status.ended .voice-orb { background: var(--border-strong); }
+@keyframes voicePulse { 0% { transform: scale(0.8); opacity: 0.8; } 100% { transform: scale(1.35); opacity: 0; } }
+@keyframes voiceSpin { to { transform: rotate(360deg); } }
+.voice-status-text { flex: 1; font-weight: 600; font-size: 0.9rem; }
+.voice-timer { font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-muted); }
+.voice-transcript {
+  min-height: 140px;
+  max-height: 46vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 4px 2px;
+}
+.voice-empty { color: var(--text-muted); font-size: 0.85rem; text-align: center; margin: auto; }
+.voice-line { display: flex; flex-direction: column; gap: 2px; max-width: 88%; padding: 8px 12px; border-radius: var(--radius); font-family: var(--font-content); font-size: 0.9rem; line-height: 1.5; }
+.voice-line.tutor { align-self: flex-start; background: var(--primary-tint); }
+.voice-line.you { align-self: flex-end; background: var(--surface); border: 1px solid var(--border); }
+.voice-who { font-family: var(--font-body); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
+.voice-line.tutor .voice-who { color: var(--primary); }
+.voice-controls { display: flex; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }
+.voice-end { background: var(--wrong); border-color: var(--wrong); }
+@media (max-width: 520px) {
+  .voice-modes { grid-template-columns: 1fr; }
+  .voice-mode { flex-direction: row; align-items: center; gap: 10px; }
+  .voice-mode-hint { margin-left: auto; text-align: right; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .voice-status .voice-orb, .voice-status .voice-orb span { animation: none !important; }
+}

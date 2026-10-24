@@ -25,6 +25,7 @@ Give FlashMind some material and it generates a complete study set in one stream
 - **📎 Sources & citations** — build one set from **several sources** (a PDF + a web page + a YouTube video + your notes), toggle each in or out of the AI's context, and re-read them in a viewer. AI answers quote the passages they're based on; each quote is **checked against your actual material** and anything that can't be found is flagged. Every notes section can show the source passage it came from.
 - **∑ Math & formulas** — `$...$` / `$$...$$` LaTeX in notes, cards, exams and chat is typeset with KaTeX (lazy-loaded, cached for offline use); generation asks for formulas in LaTeX.
 - **🖼️ Image occlusion** — turn a labelled diagram into cards: draw boxes over the labels, and each box becomes a "what's hidden here?" card (hide all / hide one modes).
+- **🎙️ Voice tutor** — talk out loud with an AI tutor about the open set (Gemini 3.8 Live): it quizzes you, lets you explain a topic back and finds the gaps, or answers your questions, with a live transcript of both sides. The worker mints a single-use token locked to the tutor setup, so the browser never holds the Gemini key.
 - **⏱️ Focus timer** — a Pomodoro timer (25/5, 50/10, 15/3) that survives reloads; finished focus blocks are logged in Stats and count toward your streak.
 
 Not sure? Hit **Try an example** on the home screen for an instant sample deck — no waiting, no API call.
