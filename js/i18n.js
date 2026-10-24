@@ -1211,7 +1211,13 @@ const i18n = (() => {
     voiceTimeUp: 'Voice session time is up',
     voiceMic: 'Microphone',
     voiceMicDefault: 'System default',
-    voiceMicN: 'Microphone {n}'
+    voiceMicN: 'Microphone {n}',
+    voicePause: 'Pause',
+    voiceResume: 'Continue',
+    voicePaused: 'Paused',
+    voicePausedNote: "Paused — the tutor won't hear you. The session clock keeps running; if it runs out, Continue reconnects and picks up where you left off.",
+    voiceContinue: 'Continue session',
+    voiceContinueNote: 'Continue starts a new connection and the tutor picks up from this transcript.'
   });
 
   Object.assign(translations.tr, {
@@ -1246,7 +1252,13 @@ const i18n = (() => {
     voiceTimeUp: 'Sesli oturum süresi doldu',
     voiceMic: 'Mikrofon',
     voiceMicDefault: 'Sistem varsayılanı',
-    voiceMicN: 'Mikrofon {n}'
+    voiceMicN: 'Mikrofon {n}',
+    voicePause: 'Duraklat',
+    voiceResume: 'Devam et',
+    voicePaused: 'Duraklatıldı',
+    voicePausedNote: 'Duraklatıldı — öğretmen seni duymuyor. Oturum süresi işlemeye devam eder; süre dolarsa Devam et yeniden bağlanır ve kaldığın yerden sürdürür.',
+    voiceContinue: 'Oturuma devam et',
+    voiceContinueNote: 'Devam et yeni bir bağlantı açar; öğretmen bu metinden kaldığı yerden devam eder.'
   });
 
   // ===== Topic Categories =====

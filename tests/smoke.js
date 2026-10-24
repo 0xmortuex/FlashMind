@@ -485,6 +485,34 @@ const puppeteer = require('puppeteer');
     await page.click('[data-voice-act="close"]');
   });
 
+  await step('voice tutor: pause stops the mic, continue resumes, and a dropped session continues with its transcript', async () => {
+    await page.click('#voice-open-btn');
+    await page.click('[data-voice-act="start"]');
+    await page.waitForFunction(() => document.querySelectorAll('.voice-line').length === 2, { timeout: 6000 });
+    const micCount = () => page.evaluate(() => window.__voice.sent.filter(m => m.realtimeInput).length);
+    await page.click('[data-voice-act="pause"]');
+    await page.waitForSelector('.voice-status.paused', { timeout: 2000 });
+    const atPause = await micCount();
+    await new Promise(r => setTimeout(r, 400));
+    if (await micCount() !== atPause) throw new Error('mic audio still sent while paused');
+    await page.click('[data-voice-act="resume"]');
+    await page.waitForFunction(n => window.__voice.sent.filter(m => m.realtimeInput).length > n, { timeout: 3000 }, atPause);
+    // The server drops the connection (time ran out): Continue reconnects
+    // and hands the tutor the transcript instead of starting over.
+    const firstWs = await page.evaluateHandle(() => window.__voice.ws);
+    await page.evaluate(() => { const ws = window.__voice.ws; ws.readyState = 3; ws.onclose({ code: 1000, reason: '' }); });
+    await page.waitForSelector('[data-voice-act="continue"]', { timeout: 2000 });
+    await page.evaluate(() => { window.__voice.sent = []; });
+    await page.click('[data-voice-act="continue"]');
+    await page.waitForFunction(() => window.__voice.sent.some(m => m.clientContent), { timeout: 4000 });
+    const kick = await page.evaluate(() => window.__voice.sent.find(m => m.clientContent).clientContent.turns[0].parts[0].text);
+    if (!/Transcript so far/.test(kick) || !/What is photosynthesis\?/.test(kick)) throw new Error('continue lost the transcript: ' + kick.slice(0, 120));
+    if (await page.evaluate(w => w === window.__voice.ws, firstWs)) throw new Error('continue did not reconnect');
+    if (await page.$$eval('.voice-line', l => l.length) < 2) throw new Error('earlier transcript not shown');
+    await page.click('[data-voice-act="stop"]');
+    await page.click('[data-voice-act="close"]');
+  });
+
   console.log(errors.length ? 'ERRORS:\n' + errors.join('\n') : 'NO CONSOLE/PAGE ERRORS');
   console.log(failCount ? failCount + ' step(s) failed' : 'ALL STEPS PASSED');
   await browser.close();

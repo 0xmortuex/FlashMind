@@ -8,6 +8,7 @@ class VoicePlaybackProcessor extends AudioWorkletProcessor {
     this.playing = false;
     this.port.onmessage = (e) => {
       if (e.data === 'clear') { this.queue = []; this.offset = 0; }
+      else if (e.data === 'status') this.port.postMessage(this.playing ? 'playing' : 'idle');
       else this.queue.push(e.data);
     };
   }
