@@ -33,6 +33,7 @@ const App = (() => {
     if (typeof AudioOverview !== 'undefined') AudioOverview.init();
     if (typeof Planner !== 'undefined') Planner.init();
     if (typeof Focus !== 'undefined') Focus.init();
+    if (typeof Voice !== 'undefined') Voice.init();
     if (typeof MathRender !== 'undefined') MathRender.init();
     if (typeof Sound !== 'undefined') Sound.init();
     if (typeof Palette !== 'undefined') Palette.init();
