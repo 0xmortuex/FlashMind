@@ -657,6 +657,8 @@ button.citation:hover { background: var(--primary-tint); }
 .voice-status.speaking .voice-orb span { border-color: var(--secondary); animation-duration: 0.9s; }
 .voice-status.connecting .voice-orb { animation: voiceSpin 1s linear infinite; background: conic-gradient(var(--primary), transparent); }
 .voice-status.ended .voice-orb { background: var(--border-strong); }
+.voice-status.paused .voice-orb { background: var(--highlight); }
+.voice-status.paused .voice-orb span { animation: none; }
 @keyframes voicePulse { 0% { transform: scale(0.8); opacity: 0.8; } 100% { transform: scale(1.35); opacity: 0; } }
 @keyframes voiceSpin { to { transform: rotate(360deg); } }
 .voice-status-text { flex: 1; font-weight: 600; font-size: 0.9rem; }

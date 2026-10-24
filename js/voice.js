@@ -61,6 +61,9 @@ const Voice = (() => {
       if (act === 'start') start();
       else if (act === 'stop') stop();
       else if (act === 'mute') toggleMute();
+      else if (act === 'pause') pause();
+      else if (act === 'resume') resume();
+      else if (act === 'continue') start(lastLines);
       else if (act === 'close') close();
       else if (act === 'copy') copyTranscript();
       else if (act === 'again') { state = 'idle'; render(); }
@@ -81,6 +84,7 @@ const Voice = (() => {
     const modeBtn = (key, icon) => `<button class="voice-mode${mode === key ? ' active' : ''}" data-voice-mode="${key}" aria-pressed="${mode === key}">
       <span class="voice-mode-icon">${icon}</span><span class="voice-mode-title">${T('voiceMode_' + key)}</span><span class="voice-mode-hint">${T('voiceModeHint_' + key)}</span></button>`;
     const live = state === 'live' || state === 'connecting';
+    const paused = !!(session && session.paused);
     el.innerHTML = `<div class="shortcuts-card voice-panel" role="dialog" aria-modal="true" aria-labelledby="voice-title">
       <div class="voice-head">
         <h3 id="voice-title">&#127897;&#65039; ${T('voiceTitle')}</h3>
@@ -96,17 +100,23 @@ const Voice = (() => {
           <button class="btn-primary voice-start" data-voice-act="start">&#127908; ${T('voiceStart')}</button>
           <p class="voice-note">${T('voiceNote')}</p>`
         : `<p class="voice-note">${T('voiceUnsupported')}</p>`}` : `
-        <div class="voice-status ${state}" id="voice-status">
+        <div class="voice-status ${state}${paused ? ' paused' : ''}" id="voice-status">
           <span class="voice-orb" aria-hidden="true"><span></span></span>
-          <span class="voice-status-text" id="voice-status-text">${state === 'connecting' ? T('voiceConnecting') : state === 'ended' ? T('voiceEnded') : T('voiceListening')}</span>
+          <span class="voice-status-text" id="voice-status-text">${state === 'connecting' ? T('voiceConnecting') : state === 'ended' ? T('voiceEnded') : paused ? T('voicePaused') : T('voiceListening')}</span>
           ${live ? `<span class="voice-timer" id="voice-timer"></span>` : ''}
         </div>
         <div class="voice-transcript" id="voice-transcript" aria-live="polite">${transcriptHtml()}</div>
         <div class="voice-controls">
-          ${live ? `<button class="btn-ghost" data-voice-act="mute" id="voice-mute">${session && session.muted ? '&#127908; ' + T('voiceUnmute') : '&#128263; ' + T('voiceMute')}</button>
+          ${live ? `${state === 'live' ? (paused
+              ? `<button class="btn-primary" data-voice-act="resume">&#9654; ${T('voiceResume')}</button>`
+              : `<button class="btn-ghost" data-voice-act="pause">&#10074;&#10074; ${T('voicePause')}</button>`) : ''}
+            <button class="btn-ghost" data-voice-act="mute" id="voice-mute"${paused ? ' disabled' : ''}>${session && session.muted ? '&#127908; ' + T('voiceUnmute') : '&#128263; ' + T('voiceMute')}</button>
             <button class="btn-primary voice-end" data-voice-act="stop">${T('voiceEnd')}</button>`
           : `<button class="btn-ghost" data-voice-act="copy">${T('voiceCopy')}</button>
-            <button class="btn-primary" data-voice-act="again">${T('voiceAgain')}</button>`}
+            ${lastLines.length ? `<button class="btn-primary" data-voice-act="continue">&#9654; ${T('voiceContinue')}</button>` : ''}
+            <button class="${lastLines.length ? 'btn-ghost' : 'btn-primary'}" data-voice-act="again">${T('voiceAgain')}</button>`}
+        </div>
+        ${paused ? `<p class="voice-note">${T('voicePausedNote')}</p>` : ''}${state === 'ended' && lastLines.length ? `<p class="voice-note">${T('voiceContinueNote')}</p>` : ''}
         </div>`}
     </div>`;
     updateTimer();
@@ -170,12 +180,15 @@ const Voice = (() => {
 
   // ----- Session -----
 
-  async function start() {
+  // `carry` (the transcript of an ended session) continues that
+  // conversation on a fresh connection instead of starting over.
+  async function start(carry) {
     const data = App.getStudyData();
     if (!data || state === 'connecting' || state === 'live') return;
     if (typeof TTS !== 'undefined') TTS.stop();
     if (typeof AudioOverview !== 'undefined') AudioOverview.stop();
-    const s = session = { lines: [], muted: false };
+    const previous = Array.isArray(carry) ? carry.map(l => Object.assign({}, l, { done: true })) : [];
+    const s = session = { lines: previous.slice(), carried: previous, muted: false, paused: false };
     state = 'connecting';
     render();
     // The panel can be closed while any of these awaits is pending: release
@@ -232,7 +245,7 @@ const Voice = (() => {
     const source = ctx.createMediaStreamSource(session.stream);
     source.connect(node);
     node.port.onmessage = e => {
-      if (!session || session.muted || !session.ws || session.ws.readyState !== WebSocket.OPEN) return;
+      if (!session || session.muted || session.paused || !session.ws || session.ws.readyState !== WebSocket.OPEN) return;
       send({ realtimeInput: { audio: { mimeType: 'audio/pcm;rate=16000', data: toBase64(e.data) } } });
     };
     return { ctx, node, source };
@@ -272,8 +285,8 @@ const Voice = (() => {
         if (session && Date.now() >= session.endsAt) { App.showToast(i18n.t('voiceTimeUp'), 'info'); stop(); }
       }, 1000);
       render();
-      // Let the tutor open the conversation.
-      send({ clientContent: { turns: [{ role: 'user', parts: [{ text: 'Start the session now.' }] }], turnComplete: true } });
+      // Let the tutor open the conversation, or pick up a continued one.
+      send({ clientContent: { turns: [{ role: 'user', parts: [{ text: kickoff(session.carried) }] }], turnComplete: true } });
       return;
     }
     if (msg.goAway) { App.showToast(i18n.t('voiceTimeUp'), 'info'); return; }
@@ -295,11 +308,48 @@ const Voice = (() => {
     if (session && session.ws && session.ws.readyState === WebSocket.OPEN) session.ws.send(JSON.stringify(obj));
   }
 
+  function applyMic() {
+    if (session && session.stream) session.stream.getAudioTracks().forEach(t => { t.enabled = !session.muted && !session.paused; });
+  }
+
   function toggleMute() {
     if (!session) return;
     session.muted = !session.muted;
-    if (session.stream) session.stream.getAudioTracks().forEach(t => { t.enabled = !session.muted; });
+    applyMic();
     render();
+  }
+
+  // Pause freezes the tutor mid-sentence (its audio stays queued) and stops
+  // sending the microphone; the connection stays open, so Continue carries on
+  // from the same point. Gemini still closes the connection when the
+  // session's time runs out — then Continue reconnects with the transcript.
+  function pause() {
+    if (!session || state !== 'live' || session.paused) return;
+    session.paused = true;
+    applyMic();
+    if (session.playback) session.playback.ctx.suspend().catch(() => {});
+    render();
+  }
+
+  function resume() {
+    if (!session || !session.paused) return;
+    session.paused = false;
+    applyMic();
+    render();
+    if (session.playback) {
+      session.playback.ctx.resume().catch(() => {});
+      session.playback.node.port.postMessage('status'); // re-sync "speaking" / "listening"
+    }
+  }
+
+  // First message of a session. A continued session gets the earlier
+  // transcript (most recent part, bounded) so the tutor resumes, not restarts.
+  function kickoff(previous) {
+    if (!previous || !previous.length) return 'Start the session now.';
+    let transcript = previous.map(l => `${l.who === 'tutor' ? 'Tutor' : 'Student'}: ${l.text.trim()}`).join('\n');
+    if (transcript.length > 6000) transcript = '…' + transcript.slice(-6000);
+    return 'We are continuing a session that was paused and reconnected. Do not greet again or restart; ' +
+      'briefly say you are picking up where you left off, then continue from the last point.\n\nTranscript so far:\n' + transcript;
   }
 
   function stop() {
