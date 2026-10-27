@@ -513,6 +513,84 @@ const puppeteer = require('puppeteer');
     await page.click('[data-voice-act="close"]');
   });
 
+  await step('accuracy: answer checker flags a wrong card, applies the fix, and marks exam questions', async () => {
+    await page.evaluate(() => { document.getElementById('demo-btn').click(); });
+    await page.waitForSelector('#study-view.active', { timeout: 3000 });
+    await page.evaluate(() => {
+      window.__chkChat = API.chat;
+      API.chat = async (prompt) => {
+        const refs = [...prompt.matchAll(/^\[([cq]\d+)\]/gm)].map(m => m[1]);
+        return JSON.stringify({ type: 'verify', results: refs.map(ref => ref === 'c1'
+          ? { ref, verdict: 'wrong', problem: 'Plants release oxygen.', fix: 'Oxygen (O2)' }
+          : ref === 'q1' ? { ref, verdict: 'ambiguous', problem: 'Two options fit.', fix: '' }
+          : { ref, verdict: 'ok' }) });
+      };
+    });
+    await page.click('[data-tab="flashcards"]');
+    await page.click('[data-chk-act="run"]');
+    await page.waitForSelector('.flashcard .chk-badge.wrong', { timeout: 5000 });
+    await page.click('[data-chk-act="review"]');
+    await page.waitForSelector('[data-chk-fix="c1"]', { timeout: 2000 });
+    await page.click('[data-chk-fix="c1"]');
+    const back = await page.evaluate(() => App.getStudyData().flashcards.find(c => c.id === 1).back);
+    if (back !== 'Oxygen (O2)') throw new Error('fix not applied: ' + back);
+    if (!await page.evaluate(() => Decks.getActive().data.quiz.find(q => q.id === 1).check.v === 'ambiguous')) throw new Error('question verdict not saved');
+    await page.keyboard.press('Escape');
+    await page.evaluate(() => { API.chat = window.__chkChat; });
+  });
+
+  await step('accuracy: confidence buttons flip the card and feed calibration', async () => {
+    await page.evaluate(() => Flashcards.startStudy('cram'));
+    if (await page.$eval('#study-confidence', el => el.style.display) !== 'none') throw new Error('confidence shown in cram');
+    await page.evaluate(() => { document.getElementById('study-mode-close').click(); Flashcards.startStudy('all'); });
+    await page.waitForSelector('#study-confidence', { visible: true, timeout: 2000 });
+    await page.keyboard.press('e');
+    await page.waitForSelector('#study-card.flipped', { timeout: 2000 });
+    await page.keyboard.press('1');
+    await page.waitForFunction(() => { const c = Decks.getActive().calib || {}; return Object.values(c).some(x => x.sure && x.sure[1] === 1); }, { timeout: 2000 });
+    await page.evaluate(() => document.getElementById('study-mode-close').click());
+    await page.click('[data-tab="stats"]');
+    await page.waitForSelector('[data-ins-act="study-over"]', { timeout: 2000 });
+  });
+
+  await step('accuracy: exam answers feed prediction, adaptive practice, and mistake tags', async () => {
+    await page.click('[data-tab="quiz"]');
+    await page.evaluate(() => {
+      const qs = App.getStudyData().quiz;
+      Decks.recordAnswers(qs.map((q, i) => ({ id: q.id, ok: i % 2 === 0 })));
+      Quiz.renderReady();
+    });
+    await page.waitForSelector('#adaptive-quiz-btn', { timeout: 2000 });
+    const hint = await page.$eval('.adaptive-hint', el => el.textContent);
+    if (!/\d+\/100/.test(hint)) throw new Error('no prediction: ' + hint);
+    await page.click('#adaptive-quiz-btn');
+    await page.waitForSelector('#quiz-body', { timeout: 2000 });
+    const n = await page.evaluate(() => App.getStudyData().quiz.length);
+    const label = await page.$eval('.quiz-question-number', el => el.textContent);
+    if (!label.includes(String(Math.min(15, n)))) throw new Error('adaptive set size: ' + label);
+    // Mistake tags: a two-question exam answered wrong on purpose.
+    await page.evaluate(() => Quiz.setQuestions([
+      { id: 9101, type: 'multiple-choice', question: 'Tag me 1?', options: ['right', 'wrong'], correct: 0 },
+      { id: 9102, type: 'multiple-choice', question: 'Tag me 2?', options: ['right', 'wrong'], correct: 0 }
+    ]));
+    await page.click('#start-quiz-btn');
+    for (let i = 0; i < 2; i++) {
+      await page.waitForSelector('.quiz-option:not(.disabled)', { timeout: 2000 });
+      const opts = await page.$$('.quiz-option');
+      const texts = await Promise.all(opts.map(o => o.evaluate(e => e.textContent.trim())));
+      await opts[texts.findIndex(t => t.startsWith('wrong') || t.includes('wrong'))].click();
+      await page.waitForSelector('#quiz-next-btn', { timeout: 2000 });
+      await page.click('#quiz-next-btn');
+    }
+    await page.waitForSelector('.quiz-score-ring', { timeout: 3000 });
+    await page.click('#review-btn');
+    await page.waitForSelector('.mt-tags [data-mtype="careless"]', { timeout: 2000 });
+    await page.click('.mt-tags [data-mtype="careless"]');
+    if (!await page.evaluate(() => Decks.getMistakes().some(m => m.mtype === 'careless' && '_given' in m))) throw new Error('mistake tag/answer not stored');
+    await page.click('[data-tab="stats"]');
+    await page.waitForSelector('[data-ins-act="diagnose"]', { timeout: 2000 });
+  });
+
   console.log(errors.length ? 'ERRORS:\n' + errors.join('\n') : 'NO CONSOLE/PAGE ERRORS');
   console.log(failCount ? failCount + ' step(s) failed' : 'ALL STEPS PASSED');
   await browser.close();

@@ -213,6 +213,9 @@
             </div>
           </div>
           <div class="setting-group">
+            <label class="autocheck-row"><input type="checkbox" id="autocheck-toggle" checked> <span id="autocheck-label">Double-check answers after generating</span></label>
+          </div>
+          <div class="setting-group">
             <label class="setting-group-label" id="gen-level-label">Difficulty level</label>
             <div class="timer-options" id="gen-level-options">
               <button class="timer-option" data-level="simple" type="button">Simple</button>
@@ -410,6 +413,12 @@
         <button class="btn-primary" id="study-typed-check">Check</button>
       </div>
       <span class="typed-verdict" id="study-typed-verdict" style="display:none"></span>
+      <div class="study-confidence" id="study-confidence" style="display:none" role="group" aria-label="How sure are you?">
+        <span class="study-confidence-label" id="study-confidence-label">How sure are you?</span>
+        <button class="conf-btn guess" data-conf="guess">&#128556; <span>Guess</span> <kbd>Q</kbd></button>
+        <button class="conf-btn unsure" data-conf="unsure">&#129300; <span>Unsure</span> <kbd>W</kbd></button>
+        <button class="conf-btn sure" data-conf="sure">&#128526; <span>Sure</span> <kbd>E</kbd></button>
+      </div>
       <p class="study-flip-hint" id="study-flip-hint">Click or press Space to flip</p>
     </div>
     <div class="study-mode-actions" id="study-mode-actions" style="display:none">
@@ -497,6 +506,9 @@
   <script src="js/notes.js"></script>
   <script src="js/flashcards.js"></script>
   <script src="js/occlusion.js"></script>
+  <script src="js/checker.js"></script>
+  <script src="js/adaptive.js"></script>
+  <script src="js/insights.js"></script>
   <script src="js/planner.js"></script>
   <script src="js/quiz.js"></script>
   <script src="js/chat.js"></script>

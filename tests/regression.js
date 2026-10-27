@@ -13,7 +13,7 @@ function modules(initial = {}, extras = {}) {
     localStorage: { getItem: k => storage.get(k) ?? null, setItem: (k, v) => storage.set(k, v), removeItem: k => storage.delete(k) },
     App: { showToast() {} }, ...extras
   });
-  for (const file of ['parser', 'decks', 'stats', 'api', 'sources', 'planner']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/', file + '.js'), 'utf8'), ctx);
+  for (const file of ['parser', 'decks', 'stats', 'api', 'sources', 'planner', 'adaptive', 'insights']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/', file + '.js'), 'utf8'), ctx);
   return { ctx, storage, run: code => vm.runInContext(code, ctx) };
 }
 
@@ -191,4 +191,79 @@ test('focus minutes count as a study day and survive sync merges', () => {
   const k = Object.keys(JSON.parse(storage.get('flashmind_stats_v1')).days)[0];
   run(`Stats.mergeRemote({ days: { '${k}': { reviews: 0, gotit: 0, focus: 50 } }, exams: [] })`);
   assert.equal(run(`Stats.focusMinutes(1)`), 50);
+});
+
+test('"sure" + Got it schedules as FSRS Easy, further out than a plain Got it', () => {
+  const { run } = modules();
+  const due = run(`
+    Decks.save({ title: 'x', flashcards: [{ id: 1, front: 'a', back: 'b' }, { id: 2, front: 'c', back: 'd' }] }, '');
+    const good = Decks.review(1, 5).due, easy = Decks.review(2, 6).due;
+    JSON.stringify({ good, easy });
+  `);
+  const { good, easy } = JSON.parse(due);
+  assert.ok(easy > good);
+});
+test('confidence is tallied per level and sure-but-wrong cards are listed as overconfident', () => {
+  const { run } = modules();
+  const cal = JSON.parse(run(`
+    const d = Decks.save({ title: 'x', flashcards: [{ id: 1, front: 'a', back: 'b' }, { id: 2, front: 'c', back: 'd' }] }, '');
+    Decks.recordConfidence(null, 1, 'sure', true);
+    Decks.recordConfidence(null, 2, 'sure', false);
+    Decks.recordConfidence(null, 2, 'guess', true);
+    Decks.recordConfidence(null, 2, 'bogus', true);
+    JSON.stringify(Insights.calibration(Decks.getActive()));
+  `));
+  assert.deepEqual(cal.levels.sure, [1, 1]);
+  assert.deepEqual(cal.levels.guess, [1, 0]);
+  assert.deepEqual(cal.over.map(o => o.id), ['2']);
+});
+test('adaptive practice favours missed and unseen questions over mastered ones', () => {
+  const { run } = modules();
+  const counts = JSON.parse(run(`
+    const qs = Array.from({ length: 12 }, (_, i) => ({ id: i + 1, question: 'q' + i, category: i < 6 ? 'A' : 'B' }));
+    const stats = {};
+    for (let i = 1; i <= 6; i++) stats[i] = { n: 3, ok: 3, last: 1 };   // topic A mastered
+    stats[7] = { n: 2, ok: 0, last: 0 };                                // missed
+    let seed = 1; const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+    const c = {};
+    for (let r = 0; r < 300; r++) Adaptive.pick(qs, stats, 4, { rand }).forEach(q => { c[q.id] = (c[q.id] || 0) + 1; });
+    JSON.stringify(c);
+  `));
+  assert.ok((counts[7] || 0) > (counts[1] || 0) * 3, JSON.stringify(counts));
+  assert.ok((counts[10] || 0) > (counts[2] || 0), JSON.stringify(counts));
+});
+test('score prediction needs history and reflects per-question accuracy', () => {
+  const { run } = modules();
+  assert.equal(run(`Adaptive.predict([{ id: 1 }], { 1: { n: 1, ok: 1 } })`), null);
+  const p = JSON.parse(run(`
+    const qs = Array.from({ length: 10 }, (_, i) => ({ id: i + 1, category: i < 5 ? 'Strong' : 'Weak' }));
+    const st = {}; for (let i = 1; i <= 5; i++) st[i] = { n: 4, ok: 4 }; for (let i = 6; i <= 8; i++) st[i] = { n: 4, ok: 0 };
+    JSON.stringify(Adaptive.predict(qs, st));
+  `));
+  assert.ok(p.pct > 30 && p.pct < 70, JSON.stringify(p));
+  assert.equal(p.coverage, 80);
+  assert.equal(p.weakest[0], 'Weak');
+});
+test('answer-check verdicts are kept when valid and dropped when malformed', () => {
+  const { run } = modules();
+  const d = JSON.parse(run(`JSON.stringify(Parser.normalizeStudyData({ title: 't',
+    flashcards: [{ front: 'a', back: 'b', check: { v: 'wrong', p: 'nope', f: 'c', t: 5 } }, { front: 'x', back: 'y', check: { v: 'evil' } }],
+    quiz: [{ question: 'q', options: ['a', 'b'], correct: 0, check: { v: 'ambiguous', p: 1 } }] }))`));
+  assert.deepEqual(d.flashcards[0].check, { v: 'wrong', p: 'nope', f: 'c', t: 5 });
+  assert.equal(d.flashcards[1].check, undefined);
+  assert.equal(d.quiz[0].check.v, 'ambiguous');
+  assert.equal(d.quiz[0].check.p, '');
+});
+test('mistakes can be tagged with a cause, and exam answers build per-question history', () => {
+  const { run } = modules();
+  const out = JSON.parse(run(`
+    Decks.save({ title: 'x' }, '');
+    Decks.addMistakes([{ type: 'multiple-choice', question: 'Q1' }]);
+    Decks.tagMistake({ type: 'multiple-choice', question: 'Q1' }, 'careless');
+    Decks.recordAnswers([{ id: 3, ok: false }, { id: 3, ok: true }, { id: '__proto__', ok: true }]);
+    JSON.stringify({ m: Decks.getMistakes()[0].mtype, s: Decks.getActive().qstats });
+  `));
+  assert.equal(out.m, 'careless');
+  assert.deepEqual(out.s['3'], { n: 2, ok: 1, last: 1, t: out.s['3'].t });
+  assert.equal(Object.keys(out.s).length, 1);
 });

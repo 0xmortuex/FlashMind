@@ -34,6 +34,8 @@ const App = (() => {
     if (typeof Planner !== 'undefined') Planner.init();
     if (typeof Focus !== 'undefined') Focus.init();
     if (typeof Voice !== 'undefined') Voice.init();
+    if (typeof Checker !== 'undefined') Checker.init();
+    if (typeof Insights !== 'undefined') Insights.init();
     if (typeof MathRender !== 'undefined') MathRender.init();
     if (typeof Sound !== 'undefined') Sound.init();
     if (typeof Palette !== 'undefined') Palette.init();
@@ -104,6 +106,13 @@ const App = (() => {
       if (el) { el.textContent = '+ ' + T('srcAddAs'); el.title = T('srcAddAsHint'); }
     });
     document.querySelectorAll('.focus-toggle').forEach(el => { el.title = T('focusTitle'); el.setAttribute('aria-label', T('focusTitle')); });
+    const confLabel = document.getElementById('study-confidence-label');
+    if (confLabel) {
+      confLabel.textContent = T('confAsk');
+      document.querySelectorAll('.conf-btn').forEach(b => { b.querySelector('span').textContent = T('conf_' + b.dataset.conf); });
+    }
+    const autoLabel = document.getElementById('autocheck-label');
+    if (autoLabel) autoLabel.textContent = T('chkAutoLabel');
 
     // Export menu items
     const exportItems = document.querySelectorAll('#export-menu button');
@@ -591,6 +600,12 @@ const App = (() => {
       });
     });
 
+    const autoCheck = document.getElementById('autocheck-toggle');
+    if (autoCheck && typeof Checker !== 'undefined') {
+      autoCheck.checked = Checker.autoEnabled();
+      autoCheck.addEventListener('change', () => Checker.setAuto(autoCheck.checked));
+    }
+
     document.querySelectorAll('#gen-level-options .timer-option').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.level === genLevel);
       btn.addEventListener('click', () => {
@@ -703,7 +718,11 @@ const App = (() => {
       });
       if (staged.length) Sources.clearTray();
       if (sources.length) data.sources = sources;
-      if (studyData === targetData && appendMode === targetAppend) commitStudyData(data, text);
+      if (studyData === targetData && appendMode === targetAppend) {
+        commitStudyData(data, text);
+        // Fact-check the new cards and questions in the background.
+        if (typeof Checker !== 'undefined' && Checker.autoEnabled()) Checker.run(true);
+      }
       else {
         // Navigation during generation must not append to a different deck.
         const previous = Decks.getActive();

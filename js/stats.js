@@ -352,6 +352,7 @@ const Stats = (() => {
           ${focusWeek ? tile(`&#9201; <span data-count="${focusWeek}">0</span>`, T('statFocus')) : ''}
         </div>
         ${plan}
+        ${typeof Insights !== 'undefined' ? Insights.statsCards() : ''}
         <div class="stat-card">
           <h3 class="stat-card-title">${T('reviewsLast14')}</h3>
           ${barChart(14)}

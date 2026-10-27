@@ -338,6 +338,54 @@ const Decks = (() => {
     return deck && Array.isArray(deck.mistakes) ? deck.mistakes : [];
   }
 
+  // Tag why a filed mistake happened: 'concept' | 'careless' | 'misread' | 'time'.
+  function tagMistake(q, type) {
+    const deck = getActive();
+    if (!deck || !Array.isArray(deck.mistakes)) return;
+    const k = mistakeKey(q);
+    const m = deck.mistakes.find(x => mistakeKey(x) === k);
+    if (!m) return;
+    if (['concept', 'careless', 'misread', 'time'].includes(type)) m.mtype = type; else delete m.mtype;
+    deck.updatedAt = Math.max(Date.now(), (deck.updatedAt || 0) + 1);
+    persist();
+  }
+
+  // ----- Confidence calibration -----
+  // calib[cardId] = { sure: [ok, miss], unsure: [ok, miss], guess: [ok, miss], lastSureMiss }
+  function recordConfidence(deckId, cardId, conf, ok) {
+    load();
+    const deck = deckId ? store.decks[deckId] : getActive();
+    if (!deck || !['sure', 'unsure', 'guess'].includes(conf)) return;
+    deck.calib = record(deck.calib) ? deck.calib : {};
+    const c = deck.calib[cardId] = record(deck.calib[cardId]) ? deck.calib[cardId] : {};
+    const pair = Array.isArray(c[conf]) ? c[conf] : [0, 0];
+    pair[ok ? 0 : 1]++;
+    c[conf] = pair;
+    if (conf === 'sure' && !ok) c.lastSureMiss = Date.now();
+    deck.updatedAt = Math.max(Date.now(), (deck.updatedAt || 0) + 1);
+    persist();
+  }
+
+  // ----- Per-question exam history (adaptive exams + score prediction) -----
+  // qstats[questionId] = { n, ok, last (1 right / 0 wrong), t }
+  function recordAnswers(results) {
+    const deck = getActive();
+    if (!deck || !results || !results.length) return;
+    deck.qstats = record(deck.qstats) ? deck.qstats : {};
+    const now = Date.now();
+    results.forEach(r => {
+      if (r.id == null || !safeId(String(r.id))) return;
+      const k = String(r.id);
+      const s = deck.qstats[k] = record(deck.qstats[k]) ? deck.qstats[k] : { n: 0, ok: 0 };
+      s.n += 1;
+      if (r.ok) s.ok += 1;
+      s.last = r.ok ? 1 : 0;
+      s.t = now;
+    });
+    deck.updatedAt = Math.max(now, (deck.updatedAt || 0) + 1);
+    persist();
+  }
+
   // ----- FSRS spaced repetition (replaces SM-2) -----
   // srs[cardId] = { stab (days), diff (1-10), reps, lapses, due (ms), last (ms) }
   // FSRS-4.5 with the published default weights. The three rating buttons map
@@ -387,7 +435,8 @@ const Decks = (() => {
   function applyReview(deck, cardId, quality) {
     if (!deck) return null;
     deck.srs = deck.srs || {};
-    const g = quality >= 5 ? 3 : quality >= 3 ? 2 : 1; // FSRS grade
+    // FSRS grade. quality 6 ("Got it" while sure of the answer) is Easy.
+    const g = quality >= 6 ? 4 : quality >= 5 ? 3 : quality >= 3 ? 2 : 1;
     const now = Date.now();
     let s = deck.srs[cardId] || null;
     if (s && s.ef !== undefined && s.stab === undefined) s = migrateSm2(s, now);
@@ -417,7 +466,7 @@ const Decks = (() => {
       } else {
         // Recalled: stability grows, dampened for Hard (W[15] < 1).
         const growth = Math.exp(W[8]) * (11 - s.diff) * Math.pow(s.stab, -W[9]) *
-          (Math.exp(W[10] * (1 - R)) - 1) * (g === 2 ? W[15] : 1);
+          (Math.exp(W[10] * (1 - R)) - 1) * (g === 2 ? W[15] : g === 4 ? W[16] : 1);
         s.stab = Math.min(36500, s.stab * (1 + growth));
       }
       s.reps += 1;
@@ -472,6 +521,6 @@ const Decks = (() => {
     save, get, getActive, setActive, list, remove, touch, rename, duplicate,
     setFolder, folders, mergeInto, setExamDate, examStart, capForExam, retrievability,
     getSrs, review, reviewIn, dueCards, dueAcrossDecks, statusOf,
-    addMistakes, resolveMistakes, getMistakes, mergeRemote, snapshot
+    addMistakes, resolveMistakes, getMistakes, tagMistake, recordConfidence, recordAnswers, mergeRemote, snapshot
   };
 })();
