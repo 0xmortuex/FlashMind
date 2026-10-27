@@ -158,6 +158,22 @@ const puppeteer = require('puppeteer');
         return result;
       }), true);
     });
+    await check('MEB library shows an explicit error when its data cannot load, and Retry recovers', async () => {
+      assert.deepEqual(await page.evaluate(async () => {
+        const real = window.fetch;
+        window.fetch = (u, ...a) => (/data\/meb\//.test(u) ? Promise.resolve(new Response('', { status: 503 })) : real.call(window, u, ...a));
+        await MebIndex.open();
+        const err = document.querySelector('.meb-panel .meb-error');
+        const failed = !!err && /503/.test(err.textContent) && !document.querySelector('.meb-row');
+        window.fetch = real;
+        document.querySelector('.meb-panel [data-meb-act="open"]').click();
+        for (let i = 0; i < 50 && !document.querySelector('.meb-panel .meb-row'); i++) await new Promise(r => setTimeout(r, 100));
+        const rows = document.querySelectorAll('.meb-panel .meb-row').length;
+        const links = [...document.querySelectorAll('.meb-panel .meb-open')].every(a => a.target === '_blank' && /noopener/.test(a.rel) && /^https:\/\//.test(a.href));
+        document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+        return { failed, rows: rows > 0, links, closed: document.querySelector('.meb-panel').parentElement.style.display === 'none' };
+      }), { failed: true, rows: true, links: true, closed: true });
+    });
     await check('offline navigation with a query string uses cached app shell', async () => {
       await page.evaluate(async () => { await navigator.serviceWorker.ready; });
       await page.setOfflineMode(true);

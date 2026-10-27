@@ -13,7 +13,7 @@ function modules(initial = {}, extras = {}) {
     localStorage: { getItem: k => storage.get(k) ?? null, setItem: (k, v) => storage.set(k, v), removeItem: k => storage.delete(k) },
     App: { showToast() {} }, ...extras
   });
-  for (const file of ['simspec', 'parser', 'decks', 'stats', 'api', 'sources', 'planner', 'adaptive', 'insights', 'pastpaper', 'paperreview', 'memory', 'predictor', 'concepts', 'coach', 'live-core', 'class-core']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/', file + '.js'), 'utf8'), ctx);
+  for (const file of ['simspec', 'parser', 'decks', 'stats', 'api', 'sources', 'planner', 'adaptive', 'insights', 'pastpaper', 'mebindex', 'paperreview', 'memory', 'predictor', 'concepts', 'coach', 'live-core', 'class-core']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/', file + '.js'), 'utf8'), ctx);
   return { ctx, storage, run: code => vm.runInContext(code, ctx) };
 }
 
@@ -885,3 +885,169 @@ test('revision exam picks weak-topic questions round-robin; battles take MC and 
   assert.deepEqual(b, [{ q: 'q1', o: ['a', 'b', 'c'], c: 2 }, { q: 'q2', o: ['Doğru', 'Yanlış'], c: 1 }]);
 });
 
+// ---------- MEB library ----------
+const mebItems = [
+  { id: 'a1', t: 'LGS 2025 Sözel', g: [8], s: 'Sözel', x: 'lgs', y: '2024-2025', u: 'https://cdn.eba.gov.tr/a.pdf', p: '', mb: 3.4, src: 'ods' },
+  { id: 'a2', t: 'LGS 2025 Sayısal', g: [8], s: 'Sayısal', x: 'lgs', y: '2024-2025', u: 'https://cdn.eba.gov.tr/b.pdf', p: '', mb: 4.1, src: 'ods' },
+  { id: 'a3', t: 'Coğrafya · 1. Dönem', g: [9], s: 'Coğrafya', x: 'konu', y: '2025-2026', u: 'https://cdn.eba.gov.tr/c.pdf', p: 'https://odsgm.meb.gov.tr/www/x/icerik/1474', mb: 0.4, src: 'ods' },
+  { id: 'a4', t: 'Bursluluk 9-10', g: [9, 10], s: '', x: 'bursluluk', y: '2025-2026', u: 'https://cdn.eba.gov.tr/d.pdf', p: '', mb: null, src: 'ods' },
+  { id: 'a5', t: 'Açık öğretim 1. oturum', g: [], s: '', x: 'acik', y: '2025-2026', u: 'https://cdn.eba.gov.tr/e.pdf', p: '', mb: 2, src: 'ods' }
+];
+const mebIds = (run, f) => JSON.parse(run(`JSON.stringify(MebIndex.filterItems(items, ${JSON.stringify(f)}).map(i => i.id))`));
+
+test('MEB library filters by grade, exam type, subject and accent-insensitive search', () => {
+  const { ctx, run } = modules();
+  ctx.items = mebItems;
+  assert.deepEqual(mebIds(run, {}), ['a1', 'a2', 'a3', 'a4', 'a5']);
+  assert.deepEqual(mebIds(run, { grade: 8, type: 'lgs' }), ['a1', 'a2']);
+  assert.deepEqual(mebIds(run, { grade: 9 }), ['a3', 'a4']);               // a range matches each grade in it
+  assert.deepEqual(mebIds(run, { grade: 10 }), ['a4']);
+  assert.deepEqual(mebIds(run, { grade: 12 }), []);                        // ungraded files never match a grade
+  assert.deepEqual(mebIds(run, { subject: 'Sayısal' }), ['a2']);
+  assert.deepEqual(mebIds(run, { q: 'cografya' }), ['a3']);                // Coğrafya without the ğ
+  assert.deepEqual(mebIds(run, { q: 'ACIK ogretim' }), ['a5']);            // every word must match
+  assert.deepEqual(mebIds(run, { q: 'lgs 2025 sozel' }), ['a1']);
+  assert.deepEqual(mebIds(run, { q: 'konu 2026' }), ['a3']);               // exam type code and year are searchable
+  assert.deepEqual(mebIds(run, { grade: 8, q: 'cografya' }), []);
+});
+test('MEB library facets only offer subjects and exam types that exist under the other filters', () => {
+  const { ctx, run } = modules();
+  ctx.items = mebItems;
+  assert.deepEqual(JSON.parse(run(`JSON.stringify(MebIndex.subjectsFor(items, { grade: 8 }))`)), ['Sayısal', 'Sözel']);
+  assert.deepEqual(JSON.parse(run(`JSON.stringify(MebIndex.subjectsFor(items, { grade: 8, subject: 'Sözel' }))`)), ['Sayısal', 'Sözel']);
+  assert.deepEqual(JSON.parse(run(`JSON.stringify(MebIndex.typeCounts(items, { grade: 9 }))`)), { konu: 1, bursluluk: 1 });
+});
+test('MEB library data is validated: only https MEB/EBA links, unique ids, readable topic tables', () => {
+  const { ctx, run } = modules();
+  const table = { id: 'a3', g: [9], s: 'Coğrafya', term: '1. Dönem', n: 2, rows: [['COĞ.9.1.1. Doğa', 3], ['COĞ.9.2.1. Harita', 2]] };
+  ctx.good = { items: mebItems, topics: [table] };
+  assert.equal(run('MebIndex.validate(good.items, good.topics).topics.get("a3").n'), 2);
+  const bad = (items, topics, re) => {
+    ctx.bad = { items, topics };
+    assert.throws(() => run('MebIndex.validate(bad.items, bad.topics)'), re);
+  };
+  bad([{ ...mebItems[0], u: 'https://evil.example/a.pdf' }], [], /official MEB link/);
+  bad([{ ...mebItems[0], u: 'http://cdn.eba.gov.tr/a.pdf' }], [], /official MEB link/);
+  bad([{ ...mebItems[0], u: 'https://cdn.eba.gov.tr.evil.example/a.pdf' }], [], /official MEB link/);
+  bad([mebItems[0], mebItems[0]], [], /duplicate id/);
+  bad([{ ...mebItems[0], g: ['8'] }], [], /grades/);
+  bad(mebItems, [{ ...table, id: 'zzz' }], /bad table/);
+  bad(mebItems, [{ ...table, rows: [['only one', 1]] }], /bad table/);
+  bad({}, [], /not a list/);
+});
+test('MEB topic table becomes the deck topic profile; an existing profile needs confirmation', async () => {
+  const table = { id: 'a3', g: [9], s: 'Coğrafya', term: '1. Dönem', n: 2, rows: [['COĞ.9.1.1. Doğa', 3], ['COĞ.9.2.1. Harita', 2], ['COĞ.9.3.1. İklim', 1]] };
+  const toasts = [];
+  let asked = 0, answer = true;
+  const fetched = [];
+  const { ctx, run } = modules({}, {
+    App: { showToast: (m, k) => toasts.push(k + ':' + m) },
+    confirm: () => { asked++; return answer; },
+    fetch: async url => { fetched.push(url); return { ok: true, json: async () => (/index/.test(url) ? mebItems : [table]) }; }
+  });
+  await run('MebIndex.load()');
+  await run('MebIndex.load()');
+  assert.deepEqual(fetched, ['data/meb/index.json', 'data/meb/topics.json']);   // fetched once, lazily
+  // No open deck: explicit error, nothing saved.
+  assert.equal(run('MebIndex.applyProfile("a3")'), null);
+  assert.match(toasts.pop(), /^error:mebNoDeck/);
+  run(`Decks.save({ title: 'Coğrafya' }, '')`);
+  const saved = JSON.parse(run('JSON.stringify(MebIndex.applyProfile("a3"))'));
+  assert.equal(asked, 0);
+  assert.equal(saved.topicsFrom, 'distribution');
+  assert.deepEqual(saved.topics.map(t => t.name), ['COĞ.9.1.1. Doğa', 'COĞ.9.2.1. Harita', 'COĞ.9.3.1. İklim']);
+  assert.equal(saved.topics[0].weight, 0.5);
+  assert.equal(saved.source, 'Coğrafya · 1. Dönem');
+  // The same normalisation as a pasted distribution, so topicBoost works on it.
+  assert.equal(run(`PastPaper.topicBoost(PastPaper.getProfile())({ category: 'COĞ.9.1.1. Doğa' })`), 1.5);
+  // Replacing an existing profile asks first; "cancel" keeps it and keeps the paper style.
+  run(`PastPaper.saveProfile(Object.assign({}, PastPaper.getProfile(), { style: { formats: { 'multiple-choice': 5 } }, topics: [{ name: 'Eski A', count: 1 }, { name: 'Eski B', count: 1 }] }))`);
+  answer = false;
+  assert.equal(run('MebIndex.applyProfile("a3")'), null);
+  assert.equal(asked, 1);
+  assert.deepEqual(JSON.parse(run('JSON.stringify(PastPaper.getProfile().topics.map(t => t.name))')), ['Eski A', 'Eski B']);
+  answer = true;
+  run('MebIndex.applyProfile("a3")');
+  assert.equal(asked, 2);
+  assert.equal(run('PastPaper.getProfile().topics.length'), 3);
+  assert.equal(run(`PastPaper.getProfile().style.formats['multiple-choice']`), 5);
+  assert.throws(() => run('MebIndex.applyProfile("nope")'), /Unknown topic table/);
+});
+test('MEB library load fails loudly when the data cannot be fetched', async () => {
+  const { run } = modules({}, { fetch: async () => ({ ok: false, status: 404 }) });
+  await assert.rejects(run('MebIndex.load()'), /HTTP 404/);
+  await assert.rejects(run('MebIndex.load()'), /HTTP 404/);   // not cached: Retry can succeed later
+});
+
+// ---------- MEB index generator ----------
+const mebFixture = JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures/meb-manifests.json'), 'utf8'));
+const mebGen = () => import(require('node:url').pathToFileURL(path.join(__dirname, '../scripts/build-meb-index.mjs')).href);
+
+test('MEB generator: slim entries with original URLs, deduped, failed/personnel/no-URL dropped', async () => {
+  const { build } = await mebGen();
+  const { index, topics, stats } = build(mebFixture);
+  assert.deepEqual(stats.excluded, { status: 1, personnel: 1, noUrl: 2, dup: 2 });
+  assert.equal(index.length, 11);
+  const keys = ['id', 't', 'g', 's', 'x', 'y', 'u', 'p', 'mb', 'src'];
+  for (const r of index) {
+    assert.deepEqual(Object.keys(r), keys);
+    assert.match(r.id, /^[0-9a-f]{8}$/);
+    assert.match(r.u, /^https:\/\/([a-z0-9-]+\.)*(meb\.gov\.tr|eba\.gov\.tr)\//);
+    assert.ok(r.t.length > 0 && r.t.length <= 160);
+  }
+  assert.equal(new Set(index.map(r => r.id)).size, index.length);
+  assert.equal(new Set(index.map(r => r.u)).size, index.length);
+  const byUrl = end => index.find(r => r.u.endsWith(end));
+  // redirected short link is stored under its final official URL, once
+  assert.ok(byUrl('/trlgs/a_2026_sayisal.pdf'));
+  assert.equal(index.filter(r => /meb\.ai/.test(r.u)).length, 0);
+  assert.equal(byUrl('/2025sozel.pdf').mb, 3.4);
+  assert.equal(byUrl('/2025sozel.pdf').p, 'https://odsgm.meb.gov.tr/www/x/icerik/1446');
+  assert.deepEqual(topics.map(t => t.id), [byUrl('/konusoru/cog9.pdf').id]);
+});
+test('MEB generator infers grade and subject from explicit names only', async () => {
+  const { build } = await mebGen();
+  const { index } = build(mebFixture);
+  const at = end => index.find(r => r.u.endsWith(end));
+  const gs = end => [at(end).g, at(end).s, at(end).x];
+  assert.deepEqual(gs('/2025sozel.pdf'), [[8], 'Sözel', 'lgs']);
+  assert.deepEqual(gs('/konusoru/cog9.pdf'), [[9], 'Coğrafya', 'konu']);                 // cog9
+  assert.deepEqual(gs('/9_10sinifB.pdf'), [[9, 10], '', 'bursluluk']);                  // manifest said [1]
+  assert.deepEqual(gs('/11_fiz_1.pdf'), [[11], 'Fizik', 'sinif']);
+  assert.deepEqual(gs('/1_OTURUM_AOO.pdf'), [[], '', 'acik']);                           // manifest said grade 1 / Sosyal
+  assert.deepEqual(gs('/27154611_lise.pdf'), [[], '', 'dort-beceri']);                   // manifest said Matematik
+  assert.deepEqual(gs('/KSDT/ankmeb4.xlsx'), [[], 'Biyoloji', 'konu']);                  // subject from the row title, no grade
+  assert.deepEqual(gs('/konusoru/fiz9.pdf'), [[], '', 'konu']);                          // file name says Fizik, title says Kimya: unknown
+  assert.deepEqual(gs('/fizik.pdf'), [[11, 12], 'Fizik', 'yks']);
+  assert.deepEqual(gs('/reading.pdf'), [[11, 12], 'İngilizce', 'yks']);
+  assert.equal(at('/fizik.pdf').y, '');
+  assert.equal(at('/reading.pdf').mb, null);
+});
+test('MEB generator aggregates konu-soru tables and drops unusable rows', async () => {
+  const { build } = await mebGen();
+  const { topics } = build(mebFixture);
+  assert.equal(topics.length, 1);
+  assert.deepEqual(Object.keys(topics[0]), ['id', 'g', 's', 'term', 'n', 'rows']);
+  assert.equal(topics[0].term, '1. Dönem');
+  assert.equal(topics[0].n, 2);                 // the single "toplam" row table and the header fragment are dropped
+  assert.deepEqual(topics[0].rows, [['COĞ.9.1.1. Doğa ve insan etkileşimini yorumlar', 3], ['COĞ.9.2.1. Harita bilgisini kullanır', 2], ['COĞ.9.3.1. İklim elemanlarını açıklar', 1]]);
+});
+test('MEB generator refuses non-MEB hosts and unknown exam types', async () => {
+  const { build } = await mebGen();
+  const rec = { title: 't', pageTitle: 't', examType: 'LGS', fileUrl: 'https://evil.example/a.pdf', sourcePage: 'https://odsgm.meb.gov.tr/x' };
+  assert.throws(() => build({ ods2: [rec] }), /not an official MEB\/EBA/);
+  assert.throws(() => build({ ods2: [{ ...rec, fileUrl: 'https://cdn.eba.gov.tr/a.pdf', examType: 'Mystery' }] }), /unknown examType/);
+});
+test('committed data/meb files match the generator contract and stay small', () => {
+  const dir = path.join(__dirname, '../data/meb');
+  const index = JSON.parse(fs.readFileSync(path.join(dir, 'index.json'), 'utf8'));
+  const topics = JSON.parse(fs.readFileSync(path.join(dir, 'topics.json'), 'utf8'));
+  assert.ok(fs.statSync(path.join(dir, 'index.json')).size < 400 * 1024);
+  assert.ok(fs.statSync(path.join(dir, 'topics.json')).size < 400 * 1024);
+  assert.ok(index.length > 400 && topics.length > 100);
+  const { ctx, run } = modules();
+  ctx.d = { index, topics };
+  assert.equal(run('MebIndex.validate(d.index, d.topics).items.length'), index.length);   // every link is an https MEB/EBA URL
+  assert.ok(index.every(r => !/mebi\.eba\.gov\.tr/.test(r.u)));                        // MEBİ is only linked, never listed
+  assert.ok(index.some(r => r.x === 'lgs' && r.g.includes(8)));
+});

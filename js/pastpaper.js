@@ -370,6 +370,7 @@ const PastPaper = (() => {
         <span class="meb-res-what">${T(r.what)}</span>
         <span class="meb-res-how">${T(r.how)}</span>
       </li>`).join('')}</ul>
+      ${typeof MebIndex !== 'undefined' ? `<button class="btn-ghost meb-lib-btn" data-meb-act="open">&#128218; ${T('mebOpen')}</button>` : ''}
     </div>`;
   }
 
@@ -439,6 +440,7 @@ const PastPaper = (() => {
         <div class="pp-actions">
           <button class="btn-primary" data-pp-act="analyse" ${busy ? 'disabled' : ''}>&#128269; ${T('ppAnalyse')}</button>
           <button class="btn-ghost" data-pp-act="dist" ${busy ? 'disabled' : ''}>&#9878;&#65039; ${T('ppUseDist')}</button>
+          ${typeof MebIndex !== 'undefined' ? `<button class="btn-ghost" data-meb-act="open">&#128218; ${T('mebOpen')}</button>` : ''}
         </div>
         <div class="pp-status" id="pp-status" aria-live="polite">${status ? esc(status) : ''}</div>
         <details class="pp-res-details"${p ? '' : ' open'}><summary>${T('resTitle')}</summary>${resourcesHtml(true)}</details>
@@ -576,6 +578,12 @@ const PastPaper = (() => {
     }
   }
 
+  // Re-draw whatever shows the saved profile (used when another screen changes it).
+  function refresh() {
+    if (modal && modal.isOpen()) render();
+    refreshReady();
+  }
+
   function refreshReady() {
     if (typeof Quiz !== 'undefined' && Quiz.isIdle && Quiz.isIdle() && document.getElementById('tab-quiz')) Quiz.renderReady();
   }
@@ -612,6 +620,6 @@ const PastPaper = (() => {
     normName, normalizeTopics, parseDistribution, matchTopic, topicBoost, allocate, planSlots,
     parseAnswerKey, chunkText, parseAnalysis, mergeAnalyses, sanitizeProfile, quizFrom, RESOURCES,
     // deck + UI
-    getProfile, saveProfile, resourcesHtml, readyHtml, weightNoteHtml, makeModal, open, analyse, generateStyled, useDistribution
+    getProfile, saveProfile, refresh, resourcesHtml, readyHtml, weightNoteHtml, makeModal, open, analyse, generateStyled, useDistribution
   };
 })();
