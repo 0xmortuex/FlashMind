@@ -13,7 +13,7 @@ function modules(initial = {}, extras = {}) {
     localStorage: { getItem: k => storage.get(k) ?? null, setItem: (k, v) => storage.set(k, v), removeItem: k => storage.delete(k) },
     App: { showToast() {} }, ...extras
   });
-  for (const file of ['parser', 'decks', 'stats', 'api', 'sources', 'planner', 'adaptive', 'insights', 'pastpaper', 'paperreview']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/', file + '.js'), 'utf8'), ctx);
+  for (const file of ['simspec', 'parser', 'decks', 'stats', 'api', 'sources', 'planner', 'adaptive', 'insights', 'pastpaper', 'paperreview']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/', file + '.js'), 'utf8'), ctx);
   return { ctx, storage, run: code => vm.runInContext(code, ctx) };
 }
 
@@ -401,4 +401,97 @@ test('graded-paper review: parsing, lost marks per topic, fix-first list and not
   // Notebook entries are valid exam questions after normalization.
   assert.equal(run(`Parser.normalizeStudyData({ quiz: PaperReview.toMistakes(PaperReview.parseReview(raw)) }).quiz.length`), 3);
   assert.equal(run(`PaperReview.batches('--- Page 1 ---\\na\\n\\n--- Page 2 ---\\nb').length`), 1);
+});
+
+test('lab expression evaluator follows maths precedence and supports the whitelisted functions', () => {
+  const { run } = modules();
+  const ev = (src, scope) => run(`SimSpec.evaluate(${JSON.stringify(src)}, ${JSON.stringify(scope || {})})`);
+  assert.equal(ev('1+2*3^2'), 19);
+  assert.equal(ev('-2^2'), -4);
+  assert.equal(ev('2^3^2'), 512);
+  assert.equal(ev('(1+2)*3'), 9);
+  assert.equal(ev('2x + 3(x-1)', { x: 2 }), 7);
+  assert.ok(Math.abs(ev('2pi') - 2 * Math.PI) < 1e-12);
+  assert.ok(Math.abs(ev('sin(pi/2) + cos(0) + sqrt(16) + ln(e) + exp(0) + abs(-1)') - 9) < 1e-12);
+  assert.equal(ev('max(1, 5, 3) - min(4, 2)'), 3);
+  assert.equal(ev('x > 1 and x < 5', { x: 3 }), 1);
+  assert.equal(ev('not (x > 1) or x == 0', { x: 3 }), 0);
+  assert.equal(ev('if(x > 1, 10, 20)', { x: 0 }), 20);
+  assert.equal(ev('0.1 + 0.2 == 0.3'), 1);
+  assert.equal(ev('3×4−1'), 11);
+  assert.equal(ev('2**3'), 8);
+  assert.equal(ev('1/0'), Infinity);
+});
+test('lab expression evaluator rejects anything that is not plain maths', () => {
+  const { run } = modules();
+  const bad = ['alert(1)', 'constructor', '__proto__', 'toString', 'hasOwnProperty(1)', 'x.constructor', 'Math.PI', 'this', 'window',
+    '"a"', "'a'", '`a`', 'a[0]', 'x=1', 'x => x', '{}', 'eval("1")', 'Function("return 1")()', 'globalThis', 'process.exit()',
+    '1+', '(1', 'sin()', 'min()', 'sin(1,2)', 'y', '1;2', '1 ? 2 : 3', '('.repeat(30) + '1' + ')'.repeat(30), '1' + '+1'.repeat(200), ''];
+  for (const src of bad) {
+    const r = JSON.parse(run(`JSON.stringify(SimSpec.compile(${JSON.stringify(src)}, ['x']))`));
+    assert.equal(r.ok, false, 'should reject: ' + src);
+    assert.equal(typeof r.error, 'string');
+  }
+  // Allowed names come only from the caller's whitelist.
+  assert.equal(run(`SimSpec.compile('a + b', ['a']).ok`), false);
+  assert.equal(run(`SimSpec.compile('a + b', ['a', 'b']).ok`), true);
+});
+test('lab specs are validated strictly and keep only safe, consistent parts', () => {
+  const { run } = modules();
+  const lab = JSON.parse(run(`JSON.stringify(SimSpec.sanitizeLab({
+    template: 'motion', title: 'Pendulum', goal: 'Double the period',
+    params: [{ id: 'L', label: 'Length', min: 0.1, max: 4, step: 0.05, value: 9, unit: 'm' }, { id: 'sin', min: 0, max: 1 }, { id: 'L', min: 0, max: 2 }, { id: 'bad', min: 5, max: 1 }, { id: '__proto__', min: 0, max: 1 }],
+    derived: [{ id: 'T', expr: '2*pi*sqrt(L/9.8)', unit: 's' }, { id: 'U', expr: 'alert(T)' }, { id: 'V', expr: 'nope * 2' }],
+    motion: { kind: 'pendulum', x: 'L*sin(0.3*cos(2*pi*t/T))', y: '-L*cos(0.3*cos(2*pi*t/T))', tEnd: '2*T' },
+    challenges: [{ text: 'Make T = 2 s', check: 'abs(T-2) < 0.05' }, { text: 'evil', check: 'window.close()' }, { text: '', check: 'T > 1' }],
+    solved: [0, 5, 'x']
+  }))`));
+  assert.deepEqual(lab.params.map(p => p.id), ['L']);
+  assert.equal(lab.params[0].value, 4); // clamped into range
+  assert.deepEqual(lab.derived.map(d => d.id), ['T']);
+  assert.equal(lab.challenges.length, 1);
+  assert.deepEqual(lab.solved, [0]);
+  // Unknown template, missing template block, or no valid challenge → rejected.
+  assert.equal(run(`SimSpec.sanitizeLab({ template: 'script', params: [{ id: 'a', min: 0, max: 1 }], challenges: [{ text: 'x', check: 'a > 0' }] })`), null);
+  assert.equal(run(`SimSpec.sanitizeLab({ template: 'graph', params: [{ id: 'a', min: 0, max: 1 }], challenges: [{ text: 'x', check: 'a > 0' }] })`), null);
+  assert.equal(run(`SimSpec.sanitizeLab({ template: 'graph', params: [{ id: 'a', min: 0, max: 1 }], graph: { curves: [{ expr: 'a*x' }] }, challenges: [{ text: 'x', check: 'document' }] })`), null);
+  assert.equal(run(`SimSpec.sanitizeLab({ template: 'circuit', params: [{ id: 'V', min: 1, max: 9 }], circuit: { source: 'V', resistors: ['R9'] }, challenges: [{ text: 'x', check: 'I > 0' }] })`), null);
+});
+test('lab runtime computes derived values, circuits and challenge completion', () => {
+  const { run } = modules();
+  const out = JSON.parse(run(`JSON.stringify((() => {
+    const lab = SimSpec.sanitizeLab({ template: 'circuit',
+      params: [{ id: 'V', min: 1, max: 24, step: 1, value: 12 }, { id: 'R1', min: 0, max: 100, step: 1, value: 10 }, { id: 'R2', min: 1, max: 100, step: 1, value: 20 }],
+      circuit: { source: 'V', resistors: ['R1', 'R2'], layout: 'series' },
+      derived: [{ id: 'mA', expr: 'I*1000' }],
+      challenges: [{ text: 'open', check: 'series == 1 and I == 0' }, { text: '1 A', check: 'abs(I-1) < 0.01' }] });
+    const rt = SimSpec.runtime(lab);
+    const s1 = rt.scope(null, { layout: 'series', off: {} });
+    const s2 = rt.scope({ R1: 4, R2: 8 }, { layout: 'series', off: {} });
+    const s3 = rt.scope(null, { layout: 'series', off: { R2: true } });
+    const s4 = rt.scope(null, { layout: 'parallel', off: { R2: true } });
+    return { minR1: lab.params[1].min, I1: s1.get('I'), mA: s1.get('mA'), c2: rt.checks(s2), c3: rt.checks(s3), I4: s4.get('I'), Req4: s4.get('Req') };
+  })())`));
+  assert.ok(out.minR1 > 0);
+  assert.ok(Math.abs(out.I1 - 0.4) < 1e-12);
+  assert.ok(Math.abs(out.mA - 400) < 1e-9);
+  assert.deepEqual(out.c2, [false, true]);
+  assert.deepEqual(out.c3, [true, false]);
+  assert.ok(Math.abs(out.I4 - 1.2) < 1e-12 && out.Req4 === 10);
+});
+test('labs and lesson storyboards survive normalization; malformed ones are dropped', () => {
+  const { run } = modules();
+  const d = JSON.parse(run(`JSON.stringify(Parser.normalizeStudyData({ title: 't',
+    labs: [{ template: 'graph', title: 'G', params: [{ id: 'a', min: 0, max: 2, value: 1 }], graph: { x: { min: -1, max: 1 }, curves: [{ expr: 'a*x^2' }] }, challenges: [{ text: 'c', check: 'a > 1.5' }] }, { template: 'evil' }, null],
+    lessons: [{ title: 'L', slides: [{ title: 'One', bullets: ['a', 'b', 'c', 'd'], narration: 'Hi', formula: '$E=mc^2$', diagram: { kind: 'notes', index: 0 } }, { title: 'Two', bullets: [], narration: 'Bye', diagram: { kind: 'html', index: 0 } }] }, { title: 'one slide', slides: [{ title: 'x', narration: 'y' }] }]
+  }))`));
+  assert.equal(d.labs.length, 1);
+  assert.equal(d.labs[0].graph.curves[0].expr, 'a*x^2');
+  assert.equal(d.lessons.length, 1);
+  assert.equal(d.lessons[0].slides[0].bullets.length, 3);
+  assert.equal(d.lessons[0].slides[0].formula, 'E=mc^2');
+  assert.deepEqual(d.lessons[0].slides[0].diagram, { kind: 'notes', index: 0 });
+  assert.equal(d.lessons[0].slides[1].diagram, undefined);
+  const empty = JSON.parse(run(`JSON.stringify(Parser.normalizeStudyData({ title: 't', labs: 'x', lessons: {} }))`));
+  assert.equal('labs' in empty || 'lessons' in empty, false);
 });

@@ -748,6 +748,107 @@ const puppeteer = require('puppeteer');
     });
   });
 
+  // ===== Labs + video lessons =====
+  await step('labs: AI spec renders, sliders update live, challenges complete, unsafe specs rejected', async () => {
+    await page.evaluate(() => document.getElementById('demo-btn').click());
+    await page.waitForSelector('#study-view.active', { timeout: 3000 });
+    await page.click('[data-tab="notes"]');
+    await page.click('[data-notes-view="labs"]');
+    await page.waitForSelector('[data-lab-act="generate"]', { timeout: 2000 });
+    const unsafe = await page.evaluate(() => ['alert(1)', 'constructor', 'x.y', 'a[0]', 'window', '"s"', 'Function("x")()'].map(e => SimSpec.compile(e, ['x', 'a']).ok));
+    if (unsafe.some(Boolean)) throw new Error('unsafe formula accepted: ' + unsafe);
+    await page.evaluate(() => {
+      window.__chat = API.chat;
+      window.__labPrompt = '';
+      API.chat = async (q) => { window.__labPrompt = q; return JSON.stringify({ labs: [
+        { template: 'graph', title: 'Parabola lab', goal: 'Make it steeper', params: [{ id: 'a', label: 'a', min: 0, max: 4, step: 0.5, value: 1 }],
+          derived: [{ id: 'y2', label: 'y(2)', expr: 'a*2^2' }], graph: { x: { min: -3, max: 3 }, curves: [{ expr: 'a*x^2', label: 'y' }] },
+          challenges: [{ text: 'Make y(2) equal 12', check: 'abs(y2-12) < 0.01' }, { text: 'evil', check: 'alert(1)' }] },
+        { template: 'graph', title: 'Broken', params: [], challenges: [] }
+      ] }); };
+    });
+    await page.click('[data-lab-act="generate"]');
+    await page.waitForSelector('[data-lab-curve="0"]', { timeout: 3000 });
+    await page.evaluate(() => { API.chat = window.__chat; });
+    if (!/Return ONLY JSON/.test(await page.evaluate(() => window.__labPrompt))) throw new Error('prompt shape');
+    const saved = await page.evaluate(() => { const l = Decks.getActive().data.labs; return l && l.length === 1 && l[0].challenges.length === 1; });
+    if (!saved) throw new Error('lab not sanitized/saved');
+    const d0 = await page.$eval('[data-lab-curve="0"]', el => el.getAttribute('d'));
+    if (!d0 || d0.length < 50) throw new Error('curve not drawn');
+    // Drag the slider (input events) to a = 3.
+    await page.$eval('[data-lab-param="a"]', el => { el.value = '3'; el.dispatchEvent(new Event('input', { bubbles: true })); });
+    await page.waitForFunction(d => document.querySelector('[data-lab-curve="0"]').getAttribute('d') !== d, { timeout: 2000 }, d0);
+    await page.waitForSelector('[data-lab-ch="0"].done', { timeout: 2000 });
+    const out = await page.$eval('[data-lab-ro="0"]', el => el.textContent);
+    if (!out.startsWith('12')) throw new Error('readout ' + out);
+    await page.waitForFunction(() => (Decks.getActive().data.labs[0].solved || []).includes(0), { timeout: 2000 });
+  });
+
+  await step('labs: starter circuit rewires, switches open the loop', async () => {
+    await page.click('[data-lab-act="new"]');
+    await page.click('[data-lab-preset="circuit"]');
+    await page.waitForSelector('.lab-circuit [data-lab-switch="R2"]', { timeout: 2000 });
+    const I = () => page.$eval('[data-lab-ro="1"]', el => el.textContent);
+    if (!(await I()).startsWith('0.2')) throw new Error('series current ' + await I());
+    await page.click('[data-lab-switch="R2"]');
+    await page.waitForFunction(() => document.querySelector('[data-lab-ro="1"]').textContent.startsWith('0 '), { timeout: 2000 });
+    await page.waitForSelector('[data-lab-ch="2"].done', { timeout: 2000 });
+    await page.click('[data-lab-layout="parallel"]');
+    await page.waitForFunction(() => !document.querySelector('[data-lab-ro="1"]').textContent.startsWith('0 '), { timeout: 2000 });
+    await page.click('[data-lab-act="new"]');
+    await page.click('[data-lab-preset="projectile"]');
+    await page.waitForSelector('[data-lab-ball]', { timeout: 2000 });
+    await page.click('[data-lab-act="play"]');
+    await page.waitForFunction(() => +document.querySelector('[data-lab-time]').value > 0, { timeout: 3000 });
+  });
+
+  await step('video lesson: storyboard plays, advances on TTS end, keyboard + captions', async () => {
+    await page.click('[data-notes-view="video"]');
+    await page.waitForSelector('[data-vl-act="generate"]', { timeout: 2000 });
+    await page.evaluate(() => {
+      window.__chat = API.chat;
+      const d = App.getStudyData();
+      const branch = (d.notes.mindmap || Mindmap.fromNotes(d)).children[0].label;
+      API.chat = async () => JSON.stringify({ title: 'Light lesson', slides: [
+        { title: 'Why plants need light', bullets: [], narration: 'Welcome. Today we learn photosynthesis.' },
+        { title: 'The equation', bullets: ['CO2 and water in', 'glucose and oxygen out'], formula: '$6CO_2 + 6H_2O \\to C_6H_{12}O_6 + 6O_2$', narration: 'Carbon dioxide and water become glucose and oxygen.' },
+        { title: 'Big picture', bullets: ['Two stages'], diagram: { kind: 'map', label: branch }, narration: 'Here is the big picture.' },
+        { title: 'Recap', bullets: ['Light in, sugar out'], narration: 'That is all.' }
+      ] });
+      window.__spoken = [];
+      window.__tts = { supported: TTS.supported, speak: TTS.speak, stop: TTS.stop };
+      let pending = null;
+      TTS.supported = () => true;
+      TTS.speak = (text, onEnd) => { if (pending) { const p = pending; pending = null; p(true); } window.__spoken.push(text); pending = onEnd; setTimeout(() => { if (pending === onEnd) { pending = null; onEnd(false); } }, 40); };
+      TTS.stop = () => { if (pending) { const p = pending; pending = null; p(true); } };
+    });
+    await page.click('[data-vl-act="generate"]');
+    await page.waitForSelector('.vl-slide.in', { timeout: 3000 });
+    await page.evaluate(() => { API.chat = window.__chat; });
+    if (await page.$$eval('.vl-mark', m => m.length) !== 4) throw new Error('markers');
+    await page.click('[data-vl-act="toggle"]');
+    await page.waitForFunction(() => window.__spoken.length === 4 && !VideoLesson.isPlaying(), { timeout: 6000 });
+    if (await page.evaluate(() => VideoLesson._index()) !== 3) throw new Error('did not reach last slide');
+    const spoken = await page.evaluate(() => window.__spoken.join('|'));
+    if (!spoken.startsWith('Welcome') || !spoken.endsWith('That is all.')) throw new Error('narration order ' + spoken);
+    await page.click('.vl-mark[data-vl-go="2"]');
+    await page.waitForSelector('.vl-slide.in .vl-branch', { timeout: 2000 });
+    await page.focus('[data-vl-player]');
+    await page.keyboard.press('ArrowLeft');
+    await page.waitForFunction(() => VideoLesson._index() === 1, { timeout: 2000 });
+    await page.waitForSelector('.vl-slide.in .vl-formula', { timeout: 2000 });
+    await page.keyboard.press('c');
+    if (await page.$eval('[data-vl-player]', el => el.classList.contains('cc-on'))) throw new Error('captions toggle');
+    await page.keyboard.press('c');
+    await page.keyboard.press(' ');
+    await page.waitForFunction(() => VideoLesson.isPlaying() && window.__spoken.length > 4, { timeout: 2000 });
+    await page.keyboard.press(' ');
+    if (await page.evaluate(() => VideoLesson.isPlaying())) throw new Error('pause failed');
+    if (!await page.evaluate(() => Decks.getActive().data.lessons[0].slides[1].formula.startsWith('6CO_2'))) throw new Error('lesson not saved');
+    await page.evaluate(() => Object.assign(TTS, window.__tts));
+    await page.click('[data-notes-view="notes"]');
+  });
+
   console.log(errors.length ? 'ERRORS:\n' + errors.join('\n') : 'NO CONSOLE/PAGE ERRORS');
   console.log(failCount ? failCount + ' step(s) failed' : 'ALL STEPS PASSED');
   await browser.close();
