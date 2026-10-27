@@ -259,6 +259,9 @@ const Parser = (() => {
       createdAt: Number.isFinite(d.audio.createdAt) ? d.audio.createdAt : 0
     } : null;
     const mindmap = tree(n.mindmap, 0);
+    // Interactive labs and video-lesson storyboards (validated in js/simspec.js).
+    const labs = typeof SimSpec !== 'undefined' ? SimSpec.sanitizeLabs(d.labs) : [];
+    const lessons = typeof SimSpec !== 'undefined' ? SimSpec.sanitizeLessons(d.lessons) : [];
     const quiz = ids(list(d.quiz).filter(obj).map(q => {
       q = withCheck({ ...q, question: str(q.question), explanation: str(q.explanation) });
       if (!q.question.trim()) return null;
@@ -293,7 +296,9 @@ const Parser = (() => {
       }, flashcards, quiz,
       ...(sources.length ? { sources } : {}),
       ...(Object.keys(media).length ? { media } : {}),
-      ...(audio && audio.lines.length ? { audio } : {})
+      ...(audio && audio.lines.length ? { audio } : {}),
+      ...(labs.length ? { labs } : {}),
+      ...(lessons.length ? { lessons } : {})
     };
   }
 

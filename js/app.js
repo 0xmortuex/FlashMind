@@ -31,6 +31,8 @@ const App = (() => {
     if (typeof Sources !== 'undefined') Sources.init();
     if (typeof Mindmap !== 'undefined') Mindmap.init();
     if (typeof AudioOverview !== 'undefined') AudioOverview.init();
+    if (typeof Labs !== 'undefined') Labs.init();
+    if (typeof VideoLesson !== 'undefined') VideoLesson.init();
     if (typeof Planner !== 'undefined') Planner.init();
     if (typeof Focus !== 'undefined') Focus.init();
     if (typeof Voice !== 'undefined') Voice.init();
@@ -840,6 +842,8 @@ const App = (() => {
     if (b.media || e.media) merged.media = Object.assign({}, b.media, e.media);
     if (b.notes.mindmap) merged.notes.mindmap = b.notes.mindmap;
     if (b.audio) merged.audio = b.audio;
+    if (b.labs) merged.labs = b.labs;
+    if (b.lessons) merged.lessons = b.lessons;
     // Keep the original IDs: their schedules are keyed by these values.
     const used = new Set(b.flashcards.map(c => String(c.id)));
     let next = 1;
