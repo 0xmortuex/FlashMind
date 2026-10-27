@@ -242,6 +242,14 @@ const Parser = (() => {
     }));
     const seenSrc = new Set();
     sources.forEach((x, i) => { if (seenSrc.has(x.id)) x.id = 's' + (i + 1) + '_' + i; seenSrc.add(x.id); });
+    // Where a ready-made MEB set came from (js/mebsets.js); the link is kept only if it is an official https MEB/EBA address.
+    const meta = obj(d.meta) && str(d.meta.fileId).trim() ? {
+      fileId: str(d.meta.fileId).trim().slice(0, 64),
+      ...(/^https:\/\/([a-z0-9-]+\.)*(meb\.gov\.tr|eba\.gov\.tr)(\/|$)/i.test(str(d.meta.sourceUrl)) ? { sourceUrl: str(d.meta.sourceUrl) } : {}),
+      ...Object.fromEntries(['subject', 'schoolYear', 'examType', 'kind'].filter(k => str(d.meta[k])).map(k => [k, str(d.meta[k]).slice(0, 80)])),
+      ...(Number.isInteger(d.meta.grade) || Array.isArray(d.meta.grade) ? { grade: [].concat(d.meta.grade).filter(Number.isInteger).slice(0, 8) } : {}),
+      ...(obj(d.meta.counts) ? { counts: Object.fromEntries(Object.entries(d.meta.counts).filter(([k, v]) => Number.isFinite(v) && /^[a-zA-Z]{1,12}$/.test(k)).slice(0, 8)) } : {})
+    } : null;
     // Mind map tree: { label, detail?, children[] }, bounded in depth and size.
     let nodeBudget = 400;
     const tree = (n, depth) => {
@@ -295,6 +303,7 @@ const Parser = (() => {
         ...(mindmap ? { mindmap } : {})
       }, flashcards, quiz,
       ...(sources.length ? { sources } : {}),
+      ...(meta ? { meta } : {}),
       ...(Object.keys(media).length ? { media } : {}),
       ...(audio && audio.lines.length ? { audio } : {}),
       ...(labs.length ? { labs } : {}),

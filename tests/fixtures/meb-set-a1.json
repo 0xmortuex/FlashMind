@@ -1,0 +1,103 @@
+{
+  "title": "Fixture: LGS Fen Bilimleri",
+  "meta": {
+    "fileId": "a1",
+    "grade": [
+      8
+    ],
+    "subject": "Fen Bilimleri",
+    "schoolYear": "2026-2027",
+    "examType": "LGS",
+    "kind": "exam",
+    "sourceUrl": "https://cdn.eba.gov.tr/a1.pdf",
+    "counts": {
+      "cards": 3,
+      "questions": 2,
+      "sections": 2
+    }
+  },
+  "notes": {
+    "summary": "Fixture study set for tests.",
+    "sections": [
+      {
+        "title": "Hücre",
+        "content": "Hücre canlıların temel birimidir.",
+        "bulletPoints": [
+          "Çekirdek kalıtımı yönetir"
+        ],
+        "keyTerms": [
+          {
+            "term": "Mitokondri",
+            "definition": "Enerji üretir"
+          }
+        ]
+      },
+      {
+        "title": "Işık",
+        "content": "Işık doğrusal yayılır.",
+        "bulletPoints": [
+          "Gölge oluşumu"
+        ],
+        "keyTerms": []
+      }
+    ],
+    "importantDates": [],
+    "commonMistakes": [
+      "Hücre ile dokuyu karıştırmak"
+    ],
+    "diagrams": []
+  },
+  "flashcards": [
+    {
+      "id": 1,
+      "front": "Hücrenin enerji santrali?",
+      "back": "Mitokondri",
+      "difficulty": "easy",
+      "category": "Hücre"
+    },
+    {
+      "id": 2,
+      "front": "Işık nasıl yayılır?",
+      "back": "Doğrusal",
+      "difficulty": "medium",
+      "category": "Işık"
+    },
+    {
+      "id": 3,
+      "front": "Çekirdeğin görevi?",
+      "back": "Kalıtımı yönetmek",
+      "difficulty": "hard",
+      "category": "Hücre"
+    }
+  ],
+  "quiz": [
+    {
+      "id": 1,
+      "type": "multiple-choice",
+      "question": "Enerji üreten organel hangisidir?",
+      "options": [
+        "Mitokondri",
+        "Ribozom",
+        "Koful",
+        "Çekirdek"
+      ],
+      "correct": 0,
+      "explanation": "Mitokondri."
+    },
+    {
+      "id": 2,
+      "type": "true-false",
+      "question": "Işık doğrusal yayılır.",
+      "correct": true,
+      "explanation": "Doğru."
+    }
+  ],
+  "sources": [
+    {
+      "id": "src1",
+      "name": "MEB resmî dosya",
+      "kind": "file",
+      "text": "Mitokondri hücrenin enerji santralidir. SENTINEL-OXYGEN-7421 resmî dosyadan alınan metindir."
+    }
+  ]
+}

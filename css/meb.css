@@ -25,6 +25,26 @@
 .meb-actions .btn-ghost { padding: 6px 12px; min-height: 36px; text-align: left; }
 .meb-src { color: var(--primary); font-size: 0.8rem; font-weight: 600; text-decoration: none; }
 .meb-src:hover, .meb-src:focus-visible { text-decoration: underline; }
+.meb-yearbar { display: flex; flex-wrap: wrap; gap: 6px; }
+.meb-fchip {
+  min-height: 36px; padding: 6px 12px; font: inherit; font-size: 0.8rem; font-weight: 600; cursor: pointer;
+  background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: 999px;
+}
+.meb-fchip:hover { border-color: var(--primary); }
+.meb-fchip[aria-pressed="true"] { background: var(--primary-tint); border-color: var(--primary); color: var(--text); box-shadow: inset 0 0 0 1px var(--primary); }
+.meb-fchip:focus-visible, .meb-set-btn:focus-visible, .meb-srclink:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.meb-fchip-sets { margin-left: auto; }
+.meb-year { font-weight: 700; border-color: var(--primary); }
+.meb-year.none { font-weight: 500; border-color: var(--border); color: var(--text-muted); }
+.meb-set { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.meb-set .meb-error { flex: 1 1 100%; font-size: 0.82rem; }
+.meb-set-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; min-height: 36px; }
+.meb-set-btn .spinner { width: 16px; height: 16px; }
+.meb-stats { font-size: 0.8rem; color: var(--text-muted); }
+.meb-soon { margin: 0; font-size: 0.78rem; color: var(--text-muted); font-style: italic; }
+.meb-srclink { display: inline-block; margin: 2px 0 6px; color: var(--primary); font-size: 0.82rem; font-weight: 600; text-decoration: none; }
+.meb-srclink:hover { text-decoration: underline; }
+.meb-home-btn::before { content: '📚'; }
 .meb-more { align-self: center; margin-top: 8px; }
 .meb-empty { text-align: center; color: var(--text-muted); font-size: 0.88rem; margin: 18px 0; }
 .meb-foot { margin: 4px 0 0; font-size: 0.78rem; color: var(--text-muted); }
@@ -43,5 +63,7 @@
   .meb-panel { width: 100%; max-height: 92vh; padding: 16px 14px; }
   .meb-filters { grid-template-columns: 1fr 1fr; }
   .meb-filters select:last-of-type { grid-column: 1 / -1; }
+  .meb-fchip-sets { margin-left: 0; }
+  .meb-set-btn { flex: 1 1 100%; justify-content: center; }
   .meb-actions .btn-ghost { flex: 1 1 100%; }
 }

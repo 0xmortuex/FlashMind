@@ -2,10 +2,15 @@
 // manifests. Metadata only: every entry points at the ORIGINAL official URL,
 // no PDF is copied into the repo.
 //
-//   node scripts/build-meb-index.mjs <meb-data-dir> [out-dir]
+//   node scripts/build-meb-index.mjs <meb-data-dir> [out-dir] [--sets <sets-dir>]
 //
 // <meb-data-dir> must contain ods/manifest.json, ods/manifest2.json and
 // ogm/manifest.json. out-dir defaults to data/meb in this repo.
+// --sets <sets-dir>: <sets-dir>/<id>.json are the ready-made study sets (see
+// js/mebsets.js). An entry that has one gets set:1, sz (file size, KB) and
+// nc / nq / ns (cards, questions, note sections) counted from the set itself;
+// a file whose id is not in the index, or that is not a valid set, throws.
+// Without --sets the entries carry none of these fields.
 // MEBİ (mebi.eba.gov.tr) is deliberately NOT read: its two public calendars sit
 // under a path robots.txt disallows, and the rest needs a student login, so the
 // app only links to the site.
@@ -295,6 +300,41 @@ export function build({ ods1 = [], ods2 = [], ogm = [] }) {
   return { index, topics: topicsOut, stats };
 }
 
+// Pure: adds set/sz/nc/nq/ns to the entries that have a set. `sets` maps an
+// entry id to { bytes, data } (data = the parsed set file).
+export function attachSets(index, sets) {
+  const ids = new Set(index.map(r => r.id));
+  for (const id of sets.keys()) if (!ids.has(id)) throw new Error(`set file ${id}.json has no entry in the index`);
+  for (const r of index) {
+    const s = sets.get(r.id);
+    if (!s) continue;
+    const d = s.data;
+    if (!d || typeof d !== 'object' || Array.isArray(d)) throw new Error(`${r.id}.json is not a study set object`);
+    if (d.meta && d.meta.fileId && d.meta.fileId !== r.id) throw new Error(`${r.id}.json: meta.fileId is ${d.meta.fileId}`);
+    if (!d.notes || !Array.isArray(d.flashcards) || !Array.isArray(d.quiz)) throw new Error(`${r.id}.json: missing notes, flashcards or quiz`);
+    r.set = 1;
+    r.sz = Math.max(1, Math.ceil(s.bytes / 1024));
+    r.nc = d.flashcards.length;
+    r.nq = d.quiz.length;
+    if (Array.isArray(d.notes.sections)) r.ns = d.notes.sections.length;
+  }
+  return index;
+}
+
+function readSets(dir) {
+  const sets = new Map();
+  let names;
+  try { names = fs.readdirSync(dir); } catch (err) { throw new Error(`cannot read sets dir ${dir}: ${err.message}`); }
+  for (const name of names.filter(n => n.endsWith('.json'))) {
+    const file = path.join(dir, name);
+    const raw = fs.readFileSync(file);
+    let data;
+    try { data = JSON.parse(raw.toString('utf8').replace(/^﻿/, '')); } catch (err) { throw new Error(`${file}: ${err.message}`); }
+    sets.set(name.slice(0, -5), { bytes: raw.length, data });
+  }
+  return sets;
+}
+
 const lines = arr => '[\n' + arr.map(x => JSON.stringify(x)).join(',\n') + '\n]\n';
 
 function readJson(file) {
@@ -306,14 +346,23 @@ function readJson(file) {
 }
 
 function main(argv) {
-  const [dir, outArg] = argv;
-  if (!dir) throw new Error('usage: node scripts/build-meb-index.mjs <meb-data-dir> [out-dir]');
+  const args = argv.slice();
+  const si = args.indexOf('--sets');
+  let setsDir = '';
+  if (si >= 0) {
+    setsDir = args[si + 1];
+    if (!setsDir || setsDir.startsWith('--')) throw new Error('--sets needs a directory');
+    args.splice(si, 2);
+  }
+  const [dir, outArg] = args;
+  if (!dir) throw new Error('usage: node scripts/build-meb-index.mjs <meb-data-dir> [out-dir] [--sets <sets-dir>]');
   const out = path.resolve(outArg || path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'data', 'meb'));
   const { index, topics, stats } = build({
     ods1: readJson(path.join(dir, 'ods', 'manifest.json')),
     ods2: readJson(path.join(dir, 'ods', 'manifest2.json')),
     ogm: readJson(path.join(dir, 'ogm', 'manifest.json'))
   });
+  if (setsDir) attachSets(index, readSets(setsDir));
   fs.mkdirSync(out, { recursive: true });
   const a = lines(index), b = lines(topics);
   fs.writeFileSync(path.join(out, 'index.json'), a);
@@ -322,6 +371,7 @@ function main(argv) {
   index.forEach(r => { by[r.x] = (by[r.x] || 0) + 1; });
   console.log(`index.json  ${index.length} entries, ${(Buffer.byteLength(a) / 1024).toFixed(0)} KB`, by);
   console.log(`topics.json ${topics.length} entries, ${(Buffer.byteLength(b) / 1024).toFixed(0)} KB`);
+  if (setsDir) console.log('study sets', index.filter(r => r.set).length);
   console.log('excluded', stats.excluded, '| unknown grade', index.filter(r => !r.g.length).length, '| unknown subject', index.filter(r => !r.s).length);
 }
 

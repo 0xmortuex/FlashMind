@@ -620,6 +620,6 @@ const PastPaper = (() => {
     normName, normalizeTopics, parseDistribution, matchTopic, topicBoost, allocate, planSlots,
     parseAnswerKey, chunkText, parseAnalysis, mergeAnalyses, sanitizeProfile, quizFrom, RESOURCES,
     // deck + UI
-    getProfile, saveProfile, refresh, resourcesHtml, readyHtml, weightNoteHtml, makeModal, open, analyse, generateStyled, useDistribution
+    getProfile, saveProfile, refresh, resourcesHtml, readyHtml, weightNoteHtml, makeModal, open, close: () => modal.close(), analyse, generateStyled, useDistribution
   };
 })();

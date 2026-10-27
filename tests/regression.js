@@ -13,7 +13,7 @@ function modules(initial = {}, extras = {}) {
     localStorage: { getItem: k => storage.get(k) ?? null, setItem: (k, v) => storage.set(k, v), removeItem: k => storage.delete(k) },
     App: { showToast() {} }, ...extras
   });
-  for (const file of ['simspec', 'parser', 'decks', 'stats', 'api', 'sources', 'planner', 'adaptive', 'insights', 'pastpaper', 'mebindex', 'paperreview', 'memory', 'predictor', 'concepts', 'coach', 'live-core', 'class-core']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/', file + '.js'), 'utf8'), ctx);
+  for (const file of ['simspec', 'parser', 'decks', 'stats', 'api', 'sources', 'planner', 'adaptive', 'insights', 'pastpaper', 'mebindex', 'mebsets', 'paperreview', 'memory', 'predictor', 'concepts', 'coach', 'live-core', 'class-core']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/', file + '.js'), 'utf8'), ctx);
   return { ctx, storage, run: code => vm.runInContext(code, ctx) };
 }
 
@@ -1050,4 +1050,216 @@ test('committed data/meb files match the generator contract and stay small', () 
   assert.equal(run('MebIndex.validate(d.index, d.topics).items.length'), index.length);   // every link is an https MEB/EBA URL
   assert.ok(index.every(r => !/mebi\.eba\.gov\.tr/.test(r.u)));                        // MEBİ is only linked, never listed
   assert.ok(index.some(r => r.x === 'lgs' && r.g.includes(8)));
+});
+
+// ---------- MEB study sets ----------
+const setIndex = [
+  { ...mebItems[0], y: '2025-2026' },
+  { ...mebItems[1], y: '2026-2027', set: 1, sz: 120, nc: 96, nq: 72, ns: 14 },
+  { ...mebItems[2], y: '2024-2025', set: 1, sz: 40, nc: 1, nq: 0, ns: 1 },
+  { ...mebItems[3], y: '' },
+  { ...mebItems[4], y: '2026-2027' }
+];
+const fixtureSet = id => JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures/meb-set-' + id + '.json'), 'utf8'));
+
+test('MEB library groups by school year: newest first, unstated last, default to 2026-2027 only when it exists', () => {
+  const { ctx, run } = modules();
+  ctx.items = setIndex;
+  const ids = code => JSON.parse(run('JSON.stringify(' + code + '.map(i => i.id))'));
+  assert.deepEqual(ids('MebIndex.sortByYear(items)'), ['a2', 'a5', 'a1', 'a3', 'a4']);   // stable inside a year, no year last
+  assert.deepEqual(setIndex.map(i => i.id), ['a1', 'a2', 'a3', 'a4', 'a5']);               // input not mutated
+  assert.equal(run('MebIndex.defaultYear(items)'), '2026-2027');
+  assert.equal(run('MebIndex.defaultYear(items.filter(i => i.y !== "2026-2027"))'), '');
+  assert.deepEqual(mebIds(run, { year: '2026-2027' }), ['a2', 'a5']);
+  assert.deepEqual(mebIds(run, { year: '2025-2026' }), ['a1']);
+  assert.deepEqual(mebIds(run, { year: 'earlier' }), ['a3']);                             // a stated year before 2025-2026; unstated is not "earlier"
+  assert.deepEqual(mebIds(run, {}), ['a1', 'a2', 'a3', 'a4', 'a5']);
+  assert.deepEqual(mebIds(run, { sets: true }), ['a2', 'a3']);
+  assert.deepEqual(mebIds(run, { sets: true, year: 'earlier' }), ['a3']);
+  assert.deepEqual(JSON.parse(run('JSON.stringify(MebIndex.typeCounts(items, { year: "2026-2027" }))')), { lgs: 1, acik: 1 });
+});
+test('MEB library stats line: counts, singular forms, nothing for zero', () => {
+  const { ctx, run } = modules({}, { i18n: { t: (k, p) => (p ? k + ':' + p.n : k), getLang: () => 'en' } });
+  ctx.items = setIndex;
+  assert.equal(run('MebIndex.statsLine(items[1])'), 'mebStatCards:96 · mebStatQuestions:72 · mebStatSections:14');
+  assert.equal(run('MebIndex.statsLine(items[2])'), 'mebStatCardsOne:1 · mebStatSectionsOne:1');
+  assert.equal(run('MebIndex.statsLine(items[0])'), '');
+});
+test('MEB library data validation covers the study set fields', () => {
+  const { ctx, run } = modules();
+  const bad = (items, re) => { ctx.bad = { items }; assert.throws(() => run('MebIndex.validate(bad.items, [])'), re); };
+  ctx.good = { items: setIndex };
+  assert.equal(run('MebIndex.validate(good.items, []).items.length'), 5);
+  bad([{ ...setIndex[1], set: 2 }], /study set flag/);
+  bad([{ ...setIndex[1], nc: -1 }], /bad nc/);
+  bad([{ ...setIndex[1], sz: 1.5 }], /bad sz/);
+  bad([{ ...setIndex[1], nc: 0, nq: 0 }], /without cards or questions/);
+});
+
+test('MebSets.prepare keeps provenance, trusts the index for id and link, and rejects unusable files', () => {
+  const { ctx, run } = modules();
+  ctx.entry = setIndex[0]; ctx.raw = fixtureSet('a1');
+  const d = JSON.parse(run('JSON.stringify(MebSets.prepare(raw, entry))'));
+  assert.equal(d.meta.fileId, 'a1');
+  assert.equal(d.meta.sourceUrl, 'https://cdn.eba.gov.tr/a.pdf');                          // the index link, not the file's
+  assert.equal(d.meta.schoolYear, '2026-2027');
+  assert.deepEqual(d.meta.grade, [8]);
+  assert.deepEqual([d.notes.sections.length, d.flashcards.length, d.quiz.length, d.sources.length], [2, 3, 2, 1]);
+  assert.match(d.sources[0].text, /SENTINEL-OXYGEN-7421/);
+  const bad = (mut, re) => { ctx.raw = mut(fixtureSet('a1')); assert.throws(() => run('MebSets.prepare(raw, entry)'), re); };
+  bad(r => { r.meta.fileId = 'zzz'; return r; }, /another file/);
+  bad(r => { r.sources = []; return r; }, /no source text/);
+  bad(r => ({ title: 't', meta: r.meta, sources: r.sources }), /no notes, cards or questions/);
+  bad(() => [], /not an object/);
+  // A hostile link in the file never survives: Parser only keeps official https hosts.
+  ctx.raw = fixtureSet('a1');
+  assert.equal(run('Parser.normalizeStudyData(Object.assign({}, raw, { meta: { fileId: "a1", sourceUrl: "https://evil.example/x" } })).meta.sourceUrl'), undefined);
+});
+test('deck meta survives save and lookup; the source text lives in data.sources', () => {
+  const { ctx, run } = modules();
+  ctx.entry = setIndex[0]; ctx.raw = fixtureSet('a1');
+  run('Decks.save(MebSets.prepare(raw, entry), "")');
+  assert.equal(run('Decks.getActive().data.meta.fileId'), 'a1');
+  assert.equal(run('MebSets.findDeck("a1").data.meta.sourceUrl'), 'https://cdn.eba.gov.tr/a.pdf');
+  assert.equal(run('MebSets.findDeck("nope")'), null);
+  assert.equal(run('Decks.getActive().originalText'), '');
+  assert.match(run('Sources.contextText(Decks.getActive().data)'), /SENTINEL-OXYGEN-7421/);   // what App.getOriginalText hands to Ask AI
+});
+
+function openHarness(over = {}) {
+  const log = { fetched: [], opened: [], closed: 0, asked: [] };
+  const sets = { a1: fixtureSet('a1'), a2: fixtureSet('a2') };
+  const { ctx, run } = modules({}, {
+    fetch: async url => {
+      log.fetched.push(url);
+      if (over.status) return { ok: false, status: over.status };
+      return { ok: true, json: async () => { if (over.gate) await over.gate; return sets[url.split('/').pop().replace('.json', '')]; } };
+    },
+    confirm: m => { log.asked.push(m); return over.answer !== false; },
+    App: {
+      showToast() {},
+      mergeIntoDeck: (id, data) => vm.runInContext('Decks', ctx).save(data, '', null).id,
+      openDeck: id => log.opened.push(id)
+    }
+  });
+  run('PastPaper.close = () => {}');                      // no DOM here: the modal shells are null
+  ctx.__closed = () => { log.closed++; };
+  run('MebIndex.close = __closed');
+  return { ctx, run, log };
+}
+test('MebSets.open fetches only that set, saves it as a new deck and opens it', async () => {
+  const { ctx, run, log } = openHarness();
+  ctx.e1 = setIndex[0];
+  const id = await run('MebSets.open(e1)');
+  assert.deepEqual(log.fetched, ['data/meb/sets/a1.json']);
+  assert.deepEqual(log.opened, [id]);
+  assert.equal(log.closed, 1);
+  assert.equal(run('Decks.list().length'), 1);
+  assert.equal(run('Decks.get("' + id + '").data.meta.fileId'), 'a1');
+});
+test('MebSets.open asks before duplicating: OK reopens the existing deck without a download, Cancel makes a fresh copy', async () => {
+  const h = openHarness();
+  h.ctx.e1 = setIndex[0];
+  const first = await h.run('MebSets.open(e1)');
+  h.log.fetched.length = 0;
+  assert.equal(await h.run('MebSets.open(e1)'), first);                                     // OK -> the existing deck
+  assert.equal(h.log.asked.length, 1);
+  assert.equal(h.log.fetched.length, 0);
+  assert.equal(h.run('Decks.list().length'), 1);
+  const h2 = openHarness({ answer: false });
+  h2.ctx.e1 = setIndex[0];
+  const a = await h2.run('MebSets.open(e1)');
+  const b = await h2.run('MebSets.open(e1)');                                                // Cancel -> a fresh copy
+  assert.notEqual(a, b);
+  assert.equal(h2.run('Decks.list().length'), 2);
+  assert.equal(h2.log.fetched.length, 2);
+});
+test('MebSets.open fails loudly on HTTP errors and bad input, saves nothing, and can be retried', async () => {
+  const bad = openHarness({ status: 404 });
+  bad.ctx.e1 = setIndex[0];
+  await assert.rejects(bad.run('MebSets.open(e1)'), /HTTP 404/);
+  assert.equal(bad.run('Decks.list().length'), 0);
+  assert.equal(bad.log.opened.length, 0);
+  await assert.rejects(bad.run('MebSets.open(e1)'), /HTTP 404/);                             // a failed attempt does not wedge the loader
+  await assert.rejects(bad.run('MebSets.open(null)'), /No library entry/);
+  const mismatch = openHarness();
+  mismatch.ctx.e2 = { ...setIndex[0], id: 'a2' };                                           // a2.json is a valid file for a2...
+  assert.ok(await mismatch.run('MebSets.open(e2)'));
+  mismatch.ctx.e3 = { ...setIndex[0], id: 'a3', u: 'https://cdn.eba.gov.tr/c.pdf' };         // ...but a3.json does not exist in the harness
+  await assert.rejects(mismatch.run('MebSets.open(e3)'), /./);
+  assert.equal(mismatch.run('Decks.list().length'), 1);
+});
+test('MebSets.open loads one set at a time', async () => {
+  let release;
+  const gate = new Promise(r => { release = r; });
+  const { ctx, run, log } = openHarness({ gate });
+  ctx.e1 = setIndex[0]; ctx.e2 = { ...setIndex[1] };
+  const first = run('MebSets.open(e1)');
+  await assert.rejects(run('MebSets.open(e2)'), /mebSetBusy/);
+  const same = run('MebSets.open(e1)');                                                      // the same file joins the running load
+  release();
+  const [x, y] = await Promise.all([first, same]);
+  assert.equal(x, y);
+  assert.equal(log.fetched.length, 1);
+});
+
+// ---------- generator --sets ----------
+test('MEB generator attachSets adds set/sz/nc/nq/ns only where a set exists', async () => {
+  const { build, attachSets } = await mebGen();
+  const { index } = build(mebFixture);
+  const plain = JSON.stringify(index);
+  const id = index[0].id;
+  const set = { ...fixtureSet('a1'), meta: { ...fixtureSet('a1').meta, fileId: id } };
+  attachSets(index, new Map([[id, { bytes: 2200, data: set }]]));
+  assert.deepEqual(Object.keys(index[0]), ['id', 't', 'g', 's', 'x', 'y', 'u', 'p', 'mb', 'src', 'set', 'sz', 'nc', 'nq', 'ns']);
+  assert.deepEqual([index[0].set, index[0].sz, index[0].nc, index[0].nq, index[0].ns], [1, 3, 3, 2, 2]);   // 2200 bytes -> 3 KB
+  assert.equal(index.filter(r => r.set).length, 1);
+  assert.equal(JSON.stringify(index.slice(1)), JSON.stringify(JSON.parse(plain).slice(1)));
+  assert.throws(() => attachSets(index, new Map([['ffffffff', { bytes: 1, data: set }]])), /no entry in the index/);
+  assert.throws(() => attachSets(index, new Map([[id, { bytes: 1, data: { ...set, meta: { fileId: 'other' } } }]])), /meta\.fileId/);
+  assert.throws(() => attachSets(index, new Map([[id, { bytes: 1, data: { title: 'x' } }]])), /missing notes, flashcards or quiz/);
+});
+test('MEB generator CLI: --sets <dir> writes the study set fields into index.json', async () => {
+  const { execFileSync } = require('node:child_process');
+  const os = require('node:os');
+  const { build } = await mebGen();
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'meb-gen-'));
+  try {
+    for (const [f, v] of [['ods/manifest.json', mebFixture.ods1 || []], ['ods/manifest2.json', mebFixture.ods2 || []], ['ogm/manifest.json', mebFixture.ogm || []]]) {
+      fs.mkdirSync(path.dirname(path.join(tmp, f)), { recursive: true });
+      fs.writeFileSync(path.join(tmp, f), JSON.stringify(v));
+    }
+    const id = build(mebFixture).index[0].id;
+    fs.mkdirSync(path.join(tmp, 'sets'));
+    fs.writeFileSync(path.join(tmp, 'sets', id + '.json'), JSON.stringify({ ...fixtureSet('a1'), meta: { fileId: id } }));
+    const script = path.join(__dirname, '../scripts/build-meb-index.mjs');
+    const sh = (...args) => execFileSync(process.execPath, [script, ...args], { stdio: 'pipe' });
+    sh(tmp, path.join(tmp, 'out'), '--sets', path.join(tmp, 'sets'));
+    const withSets = JSON.parse(fs.readFileSync(path.join(tmp, 'out/index.json'), 'utf8'));
+    assert.equal(withSets.filter(r => r.set).length, 1);
+    assert.deepEqual([withSets[0].nc, withSets[0].nq, withSets[0].ns], [3, 2, 2]);
+    sh(tmp, path.join(tmp, 'out2'));                                                         // default: no sets, no new fields
+    assert.ok(JSON.parse(fs.readFileSync(path.join(tmp, 'out2/index.json'), 'utf8')).every(r => !('set' in r)));
+    fs.writeFileSync(path.join(tmp, 'sets', 'deadbeef.json'), '{}');
+    assert.throws(() => sh(tmp, path.join(tmp, 'out3'), '--sets', path.join(tmp, 'sets')), /no entry in the index/);
+    assert.throws(() => sh(tmp, '--sets'), /--sets needs a directory/);
+  } finally { fs.rmSync(tmp, { recursive: true, force: true }); }
+});
+
+// ---------- service worker ----------
+test('sw.js precaches the new scripts but never a study set, and keeps only the last 12 cached sets', async () => {
+  const swSource = fs.readFileSync(path.join(__dirname, '../sw.js'), 'utf8');
+  const ctx = vm.createContext({ self: { addEventListener() {}, location: { origin: 'https://x.test' } }, URL, console });
+  vm.runInContext(swSource, ctx);
+  const shell = vm.runInContext('SHELL', ctx);
+  assert.ok(shell.includes('./js/mebsets.js') && shell.includes('./js/mebindex.js') && shell.includes('./css/meb.css'));
+  assert.ok(!shell.some(u => /data\/meb\/sets/.test(u)));
+  for (const u of shell.filter(u => u.startsWith('./js/') || u.startsWith('./css/'))) assert.ok(fs.existsSync(path.join(__dirname, '..', u)), u + ' is in SHELL but missing');
+  assert.ok(/^flashmind-v(\d+)$/.test(vm.runInContext('CACHE', ctx)));
+  const deleted = [];
+  const keys = [{ url: 'https://x.test/index.html' }, { url: 'https://x.test/data/meb/index.json' }];
+  for (let i = 0; i < 15; i++) keys.push({ url: `https://x.test/data/meb/sets/s${i}.json` });
+  ctx.cache = { keys: async () => keys, delete: async r => { deleted.push(r.url); } };
+  await vm.runInContext('trimSets(cache)', ctx);
+  assert.deepEqual(deleted, [0, 1, 2].map(i => `https://x.test/data/meb/sets/s${i}.json`));   // the three oldest of fifteen; shell and index untouched
 });

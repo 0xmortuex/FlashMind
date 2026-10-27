@@ -34,7 +34,26 @@ i18n.add('en', {
   mebNoDeck: 'Open a deck first — the topic profile is saved on a deck.',
   mebOverwrite: 'This deck already has a topic profile ({n} topics). Replace its topics with “{t}”?',
   mebApplied: 'Topic profile saved ({n} topics). Adaptive practice now follows it.',
-  mebFoot: 'MEBİ (mebi.eba.gov.tr) needs a student login, so its content is not listed here.'
+  mebFoot: 'MEBİ (mebi.eba.gov.tr) needs a student login, so its content is not listed here.',
+  mebYearLabel: 'School year',
+  mebYearAll: 'All years',
+  mebYearEarlier: 'Earlier',
+  mebYearNone: 'Year not stated',
+  mebSetsOnly: 'Study sets',
+  mebSetOpen: 'Open study set',
+  mebSetOpening: 'Opening…',
+  mebSetSize: 'Download about {n} KB',
+  mebSetSoon: 'Study set coming',
+  mebSetFail: 'Could not open the study set: {e}',
+  mebSetBusy: 'Another study set is still loading.',
+  mebSetExists: 'You already have “{t}” from this file. OK opens it (your progress is kept). Cancel creates a fresh copy.',
+  mebStatCards: '{n} cards',
+  mebStatCardsOne: '{n} card',
+  mebStatQuestions: '{n} questions',
+  mebStatQuestionsOne: '{n} question',
+  mebStatSections: '{n} sections',
+  mebStatSectionsOne: '{n} section',
+  mebSrcLink: 'Source: MEB (official file)'
 });
 
 i18n.add('tr', {
@@ -72,5 +91,24 @@ i18n.add('tr', {
   mebNoDeck: 'Önce bir deste aç — konu profili destede saklanır.',
   mebOverwrite: 'Bu destede zaten bir konu profili var ({n} konu). Konuları “{t}” ile değiştirilsin mi?',
   mebApplied: 'Konu profili kaydedildi ({n} konu). Uyarlanabilir çalışma artık bunu izliyor.',
-  mebFoot: 'MEBİ (mebi.eba.gov.tr) öğrenci girişi gerektirir; içeriği burada listelenmez.'
+  mebFoot: 'MEBİ (mebi.eba.gov.tr) öğrenci girişi gerektirir; içeriği burada listelenmez.',
+  mebYearLabel: 'Öğretim yılı',
+  mebYearAll: 'Tüm yıllar',
+  mebYearEarlier: 'Daha eski',
+  mebYearNone: 'Yıl belirtilmemiş',
+  mebSetsOnly: 'Çalışma setleri',
+  mebSetOpen: 'Çalışma setini aç',
+  mebSetOpening: 'Açılıyor…',
+  mebSetSize: 'Yaklaşık {n} KB indirilir',
+  mebSetSoon: 'Çalışma seti yakında',
+  mebSetFail: 'Çalışma seti açılamadı: {e}',
+  mebSetBusy: 'Başka bir çalışma seti hâlâ yükleniyor.',
+  mebSetExists: 'Bu dosyadan “{t}” zaten sende var. Tamam onu açar (ilerlemen korunur). İptal yeni bir kopya oluşturur.',
+  mebStatCards: '{n} kart',
+  mebStatCardsOne: '{n} kart',
+  mebStatQuestions: '{n} soru',
+  mebStatQuestionsOne: '{n} soru',
+  mebStatSections: '{n} bölüm',
+  mebStatSectionsOne: '{n} bölüm',
+  mebSrcLink: 'Kaynak: MEB (resmî dosya)'
 });

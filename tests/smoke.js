@@ -2,6 +2,8 @@
 // CI-friendly: uses full puppeteer (bundled Chromium), BASE_URL env override,
 // and exits non-zero when any step fails or console/page errors are collected.
 const puppeteer = require('puppeteer');
+const fs = require('node:fs');
+const path = require('node:path');
 
 (async () => {
   const baseUrl = process.env.BASE_URL || 'http://localhost:4173/';
@@ -680,6 +682,7 @@ const puppeteer = require('puppeteer');
     await page.waitForSelector('.pp-panel .pp-actions [data-meb-act="open"]', { timeout: 2000 });
     await page.click('.pp-panel .pp-actions [data-meb-act="open"]');
     await page.waitForSelector('.meb-panel .meb-row', { timeout: 5000 }); // lazy-loaded index
+    await page.click('.meb-panel [data-meb-year=""]'); // the library opens on 2026-2027; this check spans all years
     if (!/Files open on MEB.s own servers/.test(await page.$eval('.meb-panel .chk-intro', el => el.textContent))) throw new Error('hosting note missing');
     if (!/Past paper/.test(await page.$eval('.meb-panel .meb-tip', el => el.textContent))) throw new Error('past-paper tip missing');
     await page.select('#meb-grade', '8');
@@ -713,6 +716,86 @@ const puppeteer = require('puppeteer');
     if (!await page.$eval('.pp-panel', el => el.parentElement.style.display !== 'none')) throw new Error('past-paper modal closed with the library');
     await page.keyboard.press('Escape');
     await page.waitForSelector('.pp-weight-note', { timeout: 2000 });
+  });
+
+  await step('exams: a MEB library file opens as a ready-made study set (2026-2027 first, deck, notes, cards, quiz, Ask AI context)', async () => {
+    const fixture = JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures/meb-set-a1.json'), 'utf8'));
+    // Serve the fixture for one 2026-2027 library entry; everything else is the real index.
+    const entry = await page.evaluate(async fx => {
+      const d = await MebIndex.load();
+      const it = d.items.find(x => x.y === '2026-2027' && !x.set);
+      Object.assign(it, { set: 1, sz: 3, nc: 3, nq: 2, ns: 2 });
+      window.__setFetch = window.fetch;
+      window.__setMode = 'ok';
+      window.__setReq = [];
+      window.fetch = (u, ...a) => {
+        if (!/data\/meb\/sets\//.test(u)) return window.__setFetch.call(window, u, ...a);
+        window.__setReq.push(u);
+        if (window.__setMode === 'fail') return Promise.resolve(new Response('', { status: 503 }));
+        return Promise.resolve(new Response(JSON.stringify({ ...fx, meta: { ...fx.meta, fileId: it.id } }), { status: 200 }));
+      };
+      return { id: it.id, u: it.u };
+    }, fixture);
+    await page.evaluate(() => { window.__decks = Decks.list().length; window.__prevDeck = Decks.getActive().id; MebIndex.open(); });
+    await page.waitForSelector('.meb-panel .meb-row', { timeout: 5000 });
+    // The 2026-2027 group (the library's default on a fresh visit; an earlier step chose All years), every row badged with its school year.
+    await page.click('.meb-panel [data-meb-year="2026-2027"]');
+    await page.select('#meb-grade', '0'); await page.select('#meb-type', ''); await page.select('#meb-subject', '');
+    const lead = await page.evaluate(() => ({
+      pressed: document.querySelector('.meb-panel [aria-pressed="true"][data-meb-year]').dataset.mebYear,
+      years: [...document.querySelectorAll('.meb-panel .meb-row .meb-year')].map(e => e.textContent)
+    }));
+    if (lead.pressed !== '2026-2027' || !lead.years.length || !lead.years.every(y => y === '2026-2027')) throw new Error('default year: ' + JSON.stringify(lead).slice(0, 200));
+    // Rows with a set: primary button + stats; without: MEB link + quiet note.
+    const row = '.meb-panel [data-row="' + entry.id + '"]';
+    const stats = await page.$eval(row + ' .meb-stats', e => e.textContent);
+    if (stats !== '3 cards · 2 questions · 2 sections') throw new Error('stats line: ' + stats);
+    const plain = await page.$$eval('.meb-panel .meb-row', rs => rs.filter(r => !r.querySelector('.meb-set')).every(r => /Study set coming/.test(r.textContent) && r.querySelector('a.meb-open')));
+    if (!plain) throw new Error('rows without a set need the MEB link and the coming note');
+    await page.click('.meb-panel [data-meb-sets]');
+    const only = await page.$$eval('.meb-panel .meb-row', rs => rs.length);
+    if (only !== 1) throw new Error('Study sets chip shows ' + only);
+    // A failed download is shown in the row with Retry, and nothing is saved.
+    await page.evaluate(() => { window.__setMode = 'fail'; });
+    await page.click(row + ' [data-meb-act="set"]');
+    await page.waitForSelector(row + ' .meb-error', { timeout: 3000 });
+    const fail = await page.evaluate(r => ({ err: document.querySelector(r + ' .meb-error').textContent, btn: document.querySelector(r + ' .meb-set-btn').textContent.trim(), decks: Decks.list().length, before: window.__decks }), row);
+    if (!/503/.test(fail.err) || !/Try again/.test(fail.btn) || fail.decks !== fail.before) throw new Error('error state: ' + JSON.stringify(fail));
+    await page.evaluate(() => { window.__setMode = 'ok'; });
+    await page.click(row + ' [data-meb-act="set"]');
+    await page.waitForFunction(t => (App.getStudyData() || {}).title === t, { timeout: 5000 }, fixture.title);
+    const got = await page.evaluate(() => ({
+      decks: Decks.list().length, before: window.__decks, meta: Decks.getActive().data.meta,
+      libOpen: [...document.querySelectorAll('.shortcuts-backdrop')].some(e => e.style.display !== 'none'),
+      sections: document.querySelectorAll('#tab-notes .notes-section').length,
+      cards: App.getStudyData().flashcards.length, questions: App.getStudyData().quiz.length,
+      link: (document.querySelector('#tab-notes .meb-srclink') || {}).href, linkText: (document.querySelector('#tab-notes .meb-srclink') || {}).textContent
+    }));
+    if (got.decks !== got.before + 1 || got.meta.fileId !== entry.id || got.meta.sourceUrl !== entry.u) throw new Error('deck: ' + JSON.stringify(got).slice(0, 300));
+    if (got.libOpen) throw new Error('library modals still open');
+    if (got.sections !== 2 || got.cards !== 3 || got.questions !== 2) throw new Error('counts: ' + JSON.stringify(got));
+    if (got.link !== entry.u || !/Source: MEB \(official file\)/.test(got.linkText)) throw new Error('source link: ' + got.link);
+    await page.click('[data-tab="flashcards"]');
+    await page.waitForFunction(() => document.querySelectorAll('#tab-flashcards .flashcard').length === 3, { timeout: 3000 });
+    // Ask AI receives the set's own source text.
+    const ctxText = await page.evaluate(async () => {
+      const api = API.chat;
+      let seen = '';
+      API.chat = async (msg, context) => { seen = context; return '{"answer":"ok"}'; };
+      await Chat.sendMessage('what is in this file?');
+      API.chat = api;
+      return seen;
+    });
+    if (!/SENTINEL-OXYGEN-7421/.test(ctxText)) throw new Error('Ask AI context lacks the source text: ' + String(ctxText).slice(0, 120));
+    // Same file again: the confirm (accepted by this harness) opens the existing deck, no download, no new deck.
+    const again = await page.evaluate(async e => {
+      const n = Decks.list().length, r = window.__setReq.length;
+      const id = await MebSets.open({ id: e.id, u: e.u });
+      return { same: id === Decks.getActive().id, decks: Decks.list().length === n, noFetch: window.__setReq.length === r };
+    }, entry);
+    if (!again.same || !again.decks || !again.noFetch) throw new Error('reopen: ' + JSON.stringify(again));
+    // Leave the deck the later steps expect.
+    await page.evaluate(() => { window.fetch = window.__setFetch; Decks.remove(Decks.getActive().id); App.openDeck(window.__prevDeck); });
   });
 
   await step('exams: a photographed handwritten answer is OCRed, corrected and graded', async () => {

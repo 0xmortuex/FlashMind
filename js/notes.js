@@ -37,6 +37,7 @@ const Notes = (() => {
     // Header
     html += `<div class="notes-header">
       <h1 class="notes-title">${esc(title)}</h1>
+      ${data.meta && data.meta.sourceUrl ? `<a class="meb-srclink" href="${escSvg(data.meta.sourceUrl)}" target="_blank" rel="noopener noreferrer">${T('mebSrcLink')} <span aria-hidden="true">&#8599;</span></a>` : ''}
       <div class="notes-summary">${esc(notes.summary)}</div>
     </div>`;
 

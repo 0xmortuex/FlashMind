@@ -1,6 +1,11 @@
 // FlashMind service worker — app-shell caching for offline study of saved decks.
 // Bump CACHE when any shell asset changes so clients pick up the new version.
-const CACHE = 'flashmind-v17';
+const CACHE = 'flashmind-v18';
+
+// data/meb/sets/*.json (one study set per MEB file, up to ~450 KB each) is NOT
+// listed here: it is cached at runtime when opened, keeping the last SETS_KEEP.
+const SETS_PATH = '/data/meb/sets/';
+const SETS_KEEP = 12;
 
 // Same-origin shell assets. Third-party (PDF.js CDN) and API/worker calls are
 // intentionally excluded — they fall through to the network.
@@ -69,6 +74,7 @@ const SHELL = [
   './js/quiz.js',
   './js/pastpaper.js',
   './js/mebindex.js',
+  './js/mebsets.js',
   './js/paperreview.js',
   './js/handwrite.js',
   './js/chat.js',
@@ -90,6 +96,12 @@ const SHELL = [
   './assets/icon-512.png',
   './manifest.webmanifest'
 ];
+
+// Oldest cached study sets go first (cache keys are in insertion order).
+async function trimSets(cache) {
+  const keys = (await cache.keys()).filter((r) => new URL(r.url).pathname.includes(SETS_PATH));
+  await Promise.all(keys.slice(0, Math.max(0, keys.length - SETS_KEEP)).map((r) => cache.delete(r)));
+}
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -138,7 +150,8 @@ self.addEventListener('fetch', (event) => {
         // Runtime-cache successful same-origin responses for next time.
         if (res && res.status === 200 && res.type === 'basic') {
           const copy = res.clone();
-          event.waitUntil(cache.put(req, copy).catch(() => {}));
+          const isSet = url.pathname.includes(SETS_PATH);
+          event.waitUntil(cache.put(req, copy).then(() => isSet && trimSets(cache)).catch(() => {}));
         }
         return res;
       }).catch(async () => {
