@@ -57,6 +57,7 @@ const Palette = (() => {
       items.push({ section: T('paletteActions'), label: T('cramBtn'), run: () => { App.switchTab('flashcards'); Flashcards.startStudy('cram'); } });
       items.push({ section: T('paletteActions'), label: T('feynmanBtn'), run: () => { App.switchTab('chat'); Chat.startFeynman(); } });
       items.push({ section: T('paletteActions'), label: T('voiceOpen'), run: () => { App.switchTab('chat'); Voice.open(); } });
+      if (typeof Lecture !== 'undefined') items.push({ section: T('paletteActions'), label: T('lecOpen'), run: () => Lecture.open() });
       items.push({ section: T('paletteActions'), label: T('viewMindmap'), run: () => { App.switchTab('notes'); Notes.showView('map'); } });
       items.push({ section: T('paletteActions'), label: T('audioTitle'), run: () => { App.switchTab('notes'); Notes.showView('audio'); } });
       items.push({ section: T('paletteActions'), label: T('occlTitle'), run: () => { App.switchTab('flashcards'); Occlusion.open(); } });

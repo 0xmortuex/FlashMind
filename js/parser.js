@@ -235,7 +235,7 @@ const Parser = (() => {
     const sources = list(d.sources).filter(x => obj(x) && str(x.text).trim()).slice(0, 30).map((x, i) => ({
       id: /^[a-zA-Z0-9_-]+$/.test(str(x.id)) && !['__proto__', 'constructor', 'prototype', '__notes'].includes(x.id) ? x.id : 's' + (i + 1),
       name: str(x.name).trim().slice(0, 160) || 'Source ' + (i + 1),
-      kind: ['paste', 'pdf', 'url', 'youtube', 'image', 'file'].includes(x.kind) ? x.kind : 'paste',
+      kind: ['paste', 'pdf', 'url', 'youtube', 'image', 'file', 'lecture'].includes(x.kind) ? x.kind : 'paste',
       text: str(x.text).slice(0, 60000),
       enabled: x.enabled !== false,
       addedAt: Number.isFinite(x.addedAt) ? x.addedAt : 0
