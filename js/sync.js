@@ -24,6 +24,7 @@ const Sync = (() => {
     return {
       decks: localStorage.getItem('flashmind_decks_v1') || '{"decks":{}}',
       stats: localStorage.getItem('flashmind_stats_v1') || '{}',
+      concepts: localStorage.getItem('flashmind_concepts_v1') || '{}',
       t: Date.now()
     };
   }
@@ -43,6 +44,7 @@ const Sync = (() => {
     const active = Decks.getActive();
     const changedDecks = Decks.mergeRemote(remote.decks);
     Stats.mergeRemote(remote.stats);
+    if (remote.concepts && typeof ConceptMap !== 'undefined') ConceptMap.mergeRemote(remote.concepts);
     cfg.lastSync = Date.now();
     save();
     if (changedDecks && typeof App !== 'undefined') App.refreshLibrary(active && active !== Decks.get(active.id));

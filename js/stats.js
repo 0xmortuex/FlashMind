@@ -354,6 +354,8 @@ const Stats = (() => {
         ${plan}
         ${typeof Insights !== 'undefined' ? Insights.statsCards() : ''}
         ${typeof PaperReview !== 'undefined' ? PaperReview.statsCard() : ''}
+        ${typeof Memory !== 'undefined' ? Memory.statsCard() : ''}
+        ${typeof ConceptMap !== 'undefined' ? ConceptMap.statsCard() : ''}
         <div class="stat-card">
           <h3 class="stat-card-title">${T('reviewsLast14')}</h3>
           ${barChart(14)}

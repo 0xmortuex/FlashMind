@@ -246,14 +246,21 @@ const Decks = (() => {
     dd.quiz = Array.isArray(dd.quiz) ? dd.quiz : [];
     dst.srs = dst.srs || {};
     let maxId = dd.flashcards.reduce((m, c) => Math.max(m, c.id || 0), 0);
+    const idMap = new Map();
     (sd.flashcards || []).forEach(c => {
       const copy = JSON.parse(JSON.stringify(c));
       const oldId = copy.id;
       copy.id = ++maxId;
+      idMap.set(String(oldId), copy.id);
       dd.flashcards.push(copy);
       const s = (src.srs || {})[oldId];
       if (s) dst.srs[copy.id] = JSON.parse(JSON.stringify(s));
     });
+    // The review log follows the remapped cards (memory-model history).
+    if (Array.isArray(src.rlog) && src.rlog.length) {
+      const moved = src.rlog.filter(e => Array.isArray(e) && idMap.has(String(e[0]))).map(e => [idMap.get(String(e[0]))].concat(e.slice(1)));
+      dst.rlog = (Array.isArray(dst.rlog) ? dst.rlog : []).concat(moved).sort((a, b) => a[1] - b[1]).slice(-RLOG_CAP);
+    }
     let maxQ = dd.quiz.reduce((m, q) => Math.max(m, q.id || 0), 0);
     (sd.quiz || []).forEach(q => {
       const copy = JSON.parse(JSON.stringify(q));
@@ -296,6 +303,7 @@ const Decks = (() => {
     const copy = JSON.parse(JSON.stringify(src));
     copy.id = newId();
     copy.createdAt = copy.updatedAt = Date.now();
+    delete copy.rlog; // the review history would count twice in the memory model
     if (copy.data) copy.data.title = (copy.data.title || '') + (i18n.getLang() === 'tr' ? ' (kopya)' : ' (copy)');
     store.decks[copy.id] = copy;
     persist();
@@ -401,7 +409,17 @@ const Decks = (() => {
 
   function clamp(v, lo, hi) { return Math.min(hi, Math.max(lo, v)); }
   function initDifficulty(g) { return clamp(W[4] - Math.exp(W[5] * (g - 1)) + 1, 1, 10); }
-  function retrievability(days, stab) { return Math.pow(1 + FACTOR * days / stab, DECAY); }
+  // Personal memory model (js/memory.js): fitted initial stabilities w[0..3]
+  // and a stability multiplier c. Stored stabilities are on the default
+  // scale; c stretches them ("you forget c× slower than average").
+  function model() {
+    const P = typeof Memory !== 'undefined' && Memory.current ? Memory.current() : null;
+    return P && Array.isArray(P.w) && P.w.length === 4 && P.c > 0 ? P : null;
+  }
+  function retrievability(days, stab, c) {
+    if (c == null) { const P = model(); c = P ? P.c : 1; }
+    return Math.pow(1 + FACTOR * days / (stab * c), DECAY);
+  }
 
   function getSrs(cardId) {
     const deck = getActive();
@@ -432,6 +450,56 @@ const Decks = (() => {
     return applyReview(store.decks[deckId] || null, cardId, quality);
   }
 
+  // Pure FSRS-4.5 state transition for grade g (1-4) at time `now`. P is an
+  // optional personal model {w:[4 initial stabilities], c}; without it the
+  // published defaults apply. Returns a new state (due is left to callers).
+  function nextState(prev, g, now, P) {
+    const w0 = P && P.w ? P.w : W;
+    const c = P && P.c ? P.c : 1;
+    if (!prev || !prev.reps) {
+      return { stab: Math.max(w0[g - 1], 0.1), diff: initDifficulty(g), reps: 1, lapses: g === 1 ? 1 : 0, due: 0, last: now, first: now };
+    }
+    const s = Object.assign({}, prev);
+    const elapsed = Math.max(0, (now - (s.last || now)) / DAY);
+    const R = retrievability(elapsed, s.stab, c);
+    // Difficulty update with mean reversion toward initDifficulty(Easy).
+    const d1 = s.diff - W[6] * (g - 3);
+    s.diff = clamp(W[7] * initDifficulty(4) + (1 - W[7]) * d1, 1, 10);
+    if (g === 1) {
+      // Forgotten: post-lapse stability.
+      s.stab = Math.max(0.1,
+        W[11] * Math.pow(s.diff, -W[12]) * (Math.pow(s.stab + 1, W[13]) - 1) * Math.exp(W[14] * (1 - R)));
+      s.lapses = (s.lapses || 0) + 1;
+    } else {
+      // Recalled: stability grows, dampened for Hard (W[15] < 1).
+      const growth = Math.exp(W[8]) * (11 - s.diff) * Math.pow(s.stab, -W[9]) *
+        (Math.exp(W[10] * (1 - R)) - 1) * (g === 2 ? W[15] : g === 4 ? W[16] : 1);
+      s.stab = Math.min(36500, s.stab * (1 + growth));
+    }
+    s.reps += 1;
+    s.last = now;
+    return s;
+  }
+
+  // Days until the next review at 0.9 requested retention: with the FSRS-4.5
+  // curve that is exactly the (personal-scale) stability.
+  function intervalDays(stab, P) { return Math.max(1, Math.round(stab * (P && P.c ? P.c : 1))); }
+
+  // Compact review log for fitting the personal memory model. One entry per
+  // rated review: [cardId, minutes since epoch, grade, elapsed days, stability
+  // before, difficulty before] (stability 0 = first review). Capped per deck
+  // so the synced library stays far below the 2 MB sync limit.
+  const RLOG_CAP = 300;
+  const r2 = v => Math.round(v * 100) / 100;
+  function logReview(deck, cardId, g, now, prev) {
+    if (!Array.isArray(deck.rlog)) deck.rlog = [];
+    const seen = prev && prev.reps;
+    deck.rlog.push([cardId, Math.round(now / 60000), g,
+      seen ? r2(Math.max(0, (now - (prev.last || now)) / DAY)) : 0,
+      seen ? r2(prev.stab || 0.1) : 0, seen ? Math.round((prev.diff || 5) * 10) / 10 : 0]);
+    if (deck.rlog.length > RLOG_CAP) deck.rlog.splice(0, deck.rlog.length - RLOG_CAP);
+  }
+
   function applyReview(deck, cardId, quality) {
     if (!deck) return null;
     deck.srs = deck.srs || {};
@@ -440,41 +508,10 @@ const Decks = (() => {
     const now = Date.now();
     let s = deck.srs[cardId] || null;
     if (s && s.ef !== undefined && s.stab === undefined) s = migrateSm2(s, now);
-
-    if (!s || !s.reps) {
-      // First review of this card.
-      s = {
-        stab: Math.max(W[g - 1], 0.1),
-        diff: initDifficulty(g),
-        reps: 1,
-        lapses: g === 1 ? 1 : 0,
-        due: 0,
-        last: now,
-        first: now
-      };
-    } else {
-      const elapsed = Math.max(0, (now - (s.last || now)) / DAY);
-      const R = retrievability(elapsed, s.stab);
-      // Difficulty update with mean reversion toward initDifficulty(Easy).
-      const d1 = s.diff - W[6] * (g - 3);
-      s.diff = clamp(W[7] * initDifficulty(4) + (1 - W[7]) * d1, 1, 10);
-      if (g === 1) {
-        // Forgotten: post-lapse stability.
-        s.stab = Math.max(0.1,
-          W[11] * Math.pow(s.diff, -W[12]) * (Math.pow(s.stab + 1, W[13]) - 1) * Math.exp(W[14] * (1 - R)));
-        s.lapses = (s.lapses || 0) + 1;
-      } else {
-        // Recalled: stability grows, dampened for Hard (W[15] < 1).
-        const growth = Math.exp(W[8]) * (11 - s.diff) * Math.pow(s.stab, -W[9]) *
-          (Math.exp(W[10] * (1 - R)) - 1) * (g === 2 ? W[15] : g === 4 ? W[16] : 1);
-        s.stab = Math.min(36500, s.stab * (1 + growth));
-      }
-      s.reps += 1;
-      s.last = now;
-    }
-
-    // At 0.9 requested retention the FSRS-4.5 curve gives interval = stability.
-    s.due = g === 1 ? now : capForExam(deck.examDate, now + Math.max(1, Math.round(s.stab)) * DAY, now);
+    const P = model();
+    logReview(deck, cardId, g, now, s);
+    s = nextState(s, g, now, P);
+    s.due = g === 1 ? now : capForExam(deck.examDate, now + intervalDays(s.stab, P) * DAY, now);
     deck.srs[cardId] = s;
     deck.updatedAt = Date.now();
     persist();
@@ -519,7 +556,7 @@ const Decks = (() => {
 
   return {
     save, get, getActive, setActive, list, remove, touch, rename, duplicate,
-    setFolder, folders, mergeInto, setExamDate, examStart, capForExam, retrievability,
+    setFolder, folders, mergeInto, setExamDate, examStart, capForExam, retrievability, nextState, intervalDays, W, DAY,
     getSrs, review, reviewIn, dueCards, dueAcrossDecks, statusOf,
     addMistakes, resolveMistakes, getMistakes, tagMistake, recordConfidence, recordAnswers, mergeRemote, snapshot
   };

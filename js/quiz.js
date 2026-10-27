@@ -941,6 +941,7 @@ const Quiz = (() => {
     if (pct >= 85) { FX.celebrate(); if (state.mode !== 'sim') Sound.play('complete'); } // sim already played it on finish
     document.getElementById('review-btn').addEventListener('click', showReview);
     document.getElementById('retake-btn').addEventListener('click', () => { state = null; renderReady(); });
+    document.dispatchEvent(new CustomEvent('fm:session-end', { detail: { kind: 'exam' } }));
   }
 
   function showReview() {
@@ -1032,5 +1033,5 @@ const Quiz = (() => {
 
   function esc(str) { if (str == null) return ''; const d = document.createElement('div'); d.textContent = String(str); return d.innerHTML; }
 
-  return { init, setQuestions, addQuestions, renderReady, startQuiz, isIdle: () => !state };
+  return { init, setQuestions, addQuestions, renderReady, startQuiz, startAdaptive, isIdle: () => !state };
 })();

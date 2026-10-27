@@ -29,9 +29,10 @@ const Voice = (() => {
 
   // ----- Panel -----
 
-  function open() {
+  function open(m) {
     if (!App.getStudyData()) return;
     if (!el) build();
+    if (['quiz', 'explain', 'talk'].includes(m) && state !== 'live' && state !== 'connecting') mode = m;
     if (state !== 'live' && state !== 'connecting') { state = 'idle'; }
     render();
     el.style.display = 'flex';

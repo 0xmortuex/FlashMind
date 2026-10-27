@@ -74,6 +74,8 @@ const Palette = (() => {
     if (typeof Today !== 'undefined' && Today.dueItems().length) {
       items.push({ section: T('paletteActions'), label: T('todayReview') + ` (${Today.dueItems().length})`, run: () => Today.start() });
     }
+    if (typeof Coach !== 'undefined' && Decks.list().length) items.push({ section: T('paletteActions'), label: '🧭 ' + T('coachAsk'), run: () => Coach.go() });
+    if (inStudy && typeof ConceptMap !== 'undefined') items.push({ section: T('paletteActions'), label: T('cmTitle'), run: () => ConceptMap.open() });
     items.push({ section: T('paletteActions'), label: T('focusTitle'), run: () => Focus.toggle() });
     items.push({ section: T('paletteActions'), label: T('cmdToggleTheme'), run: () => App.toggleTheme() });
     items.push({ section: T('paletteActions'), label: T('cmdToggleSound'), run: () => Sound.toggle() });

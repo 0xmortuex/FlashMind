@@ -38,6 +38,8 @@ const App = (() => {
     if (typeof Voice !== 'undefined') Voice.init();
     if (typeof Checker !== 'undefined') Checker.init();
     if (typeof Insights !== 'undefined') Insights.init();
+    // Study brain: exam predictor, concept map, autopilot coach.
+    [typeof Predictor !== 'undefined' && Predictor, typeof ConceptMap !== 'undefined' && ConceptMap, typeof Coach !== 'undefined' && Coach].forEach(m => { if (m) m.init(); });
     if (typeof MathRender !== 'undefined') MathRender.init();
     if (typeof Sound !== 'undefined') Sound.init();
     if (typeof Palette !== 'undefined') Palette.init();

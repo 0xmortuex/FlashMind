@@ -127,6 +127,7 @@ const Planner = (() => {
     return `<div class="plan-bar${p.daysLeft >= 0 && p.daysLeft <= 3 ? ' urgent' : ''}">
       <span class="plan-countdown">&#128197; ${countdownLabel(p)}</span>
       ${todayLine(p)}
+      ${typeof Predictor !== 'undefined' ? Predictor.barHtml(deck) : ''}
       <span class="plan-bar-actions">
         ${actionButtons(deck.id, p)}
         <button class="btn-ghost" data-plan-act="date" data-deck="${esc(deck.id)}" title="${T('planEdit')}">&#9998;</button>
@@ -175,6 +176,7 @@ const Planner = (() => {
         <div class="plan-row head"><span>${T('planColDay')}</span><span>${T('planColNew')}</span><span>${T('planColReview')}</span><span></span></div>
         ${rows}
       </div>` : ''}
+      ${typeof Predictor !== 'undefined' ? Predictor.planHtml(deck) : ''}
       <div class="plan-actions">
         ${actionButtons(deck.id, p)}
         <button class="btn-ghost" data-plan-act="date" data-deck="${esc(deck.id)}">${T('planEdit')}</button>
