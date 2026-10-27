@@ -36,7 +36,7 @@
 .pred-topics-head { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
 .pred-opt { background: var(--card-raised); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
 .pred-opt-head { display: flex; justify-content: space-between; gap: 10px; font-weight: 600; font-size: 0.9rem; flex-wrap: wrap; }
-.pred-opt-gain { color: var(--correct); font-variant-numeric: tabular-nums; }
+.pred-opt-gain { color: var(--ok-text); font-variant-numeric: tabular-nums; }
 .pred-opt-row { display: flex; justify-content: space-between; gap: 10px; font-size: 0.84rem; color: var(--text-muted); }
 .pred-opt-row span:first-child { color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 .pred-opt .btn-primary { align-self: flex-start; margin-top: 4px; }

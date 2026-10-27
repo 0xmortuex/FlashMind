@@ -83,7 +83,7 @@
 
 .key-term-name {
   font-weight: 600;
-  color: var(--secondary);
+  color: var(--secondary-text);
   white-space: nowrap;
   flex-shrink: 0;
 }

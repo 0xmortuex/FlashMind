@@ -738,6 +738,7 @@ const path = require('node:path');
     }, fixture);
     await page.evaluate(() => { window.__decks = Decks.list().length; window.__prevDeck = Decks.getActive().id; MebIndex.open(); });
     await page.waitForSelector('.meb-panel .meb-row', { timeout: 5000 });
+    await new Promise(r => setTimeout(r, 600)); // the panel's entrance animation moves the chips; click once it has settled
     // The 2026-2027 group (the library's default on a fresh visit; an earlier step chose All years), every row badged with its school year.
     await page.click('.meb-panel [data-meb-year="2026-2027"]');
     await page.select('#meb-grade', '0'); await page.select('#meb-type', ''); await page.select('#meb-subject', '');
@@ -753,8 +754,7 @@ const path = require('node:path');
     const plain = await page.$$eval('.meb-panel .meb-row', rs => rs.filter(r => !r.querySelector('.meb-set')).every(r => /Study set coming/.test(r.textContent) && r.querySelector('a.meb-open')));
     if (!plain) throw new Error('rows without a set need the MEB link and the coming note');
     await page.click('.meb-panel [data-meb-sets]');
-    const only = await page.$$eval('.meb-panel .meb-row', rs => rs.length);
-    if (only !== 1) throw new Error('Study sets chip shows ' + only);
+    await page.waitForFunction(() => document.querySelectorAll('.meb-panel .meb-row').length === 1, { timeout: 2000 }).catch(() => { throw new Error('Study sets chip did not narrow the list to the one set'); });
     // A failed download is shown in the row with Retry, and nothing is saved.
     await page.evaluate(() => { window.__setMode = 'fail'; });
     await page.click(row + ' [data-meb-act="set"]');
@@ -794,8 +794,8 @@ const path = require('node:path');
       return { same: id === Decks.getActive().id, decks: Decks.list().length === n, noFetch: window.__setReq.length === r };
     }, entry);
     if (!again.same || !again.decks || !again.noFetch) throw new Error('reopen: ' + JSON.stringify(again));
-    // Leave the deck the later steps expect.
-    await page.evaluate(() => { window.fetch = window.__setFetch; Decks.remove(Decks.getActive().id); App.openDeck(window.__prevDeck); });
+    // Leave the deck and tab the later steps expect.
+    await page.evaluate(() => { window.fetch = window.__setFetch; Decks.remove(Decks.getActive().id); App.openDeck(window.__prevDeck); App.switchTab('quiz'); });
   });
 
   await step('exams: a photographed handwritten answer is OCRed, corrected and graded', async () => {

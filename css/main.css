@@ -41,6 +41,15 @@
   --accent-sky: #38bdf8;
   --grad-brand: linear-gradient(120deg, var(--primary), var(--secondary));
   --grad-warm: linear-gradient(120deg, var(--accent-pink), var(--accent-orange));
+  /* Accent colours for TEXT (tables, charts, labels): the fills above are tuned for
+     backgrounds and fall below 4.5:1 as text on a card in one theme or the other. */
+  --primary-text: #a78bfa;
+  --secondary-text: #22d3ee;
+  --highlight-text: #fbbf24;
+  --warn-text: #fb923c;
+  --ok-text: #22c55e;
+  --bad-text: #f87171;
+  --grad-brand-text: linear-gradient(120deg, var(--primary-text), var(--secondary-text));
 }
 
 :root[data-theme="light"] {
@@ -67,6 +76,12 @@
   --accent-orange: #f97316;
   --accent-lime: #84cc16;
   --accent-sky: #0ea5e9;
+  --primary-text: #6d28d9;
+  --secondary-text: #155e75;
+  --highlight-text: #92400e;
+  --warn-text: #c2410c;
+  --ok-text: #166534;
+  --bad-text: #b91c1c;
 }
 
 /* ===== Reset ===== */

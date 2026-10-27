@@ -742,7 +742,7 @@ const Quiz = (() => {
     });
     feedbackSound(gradeResult.score >= 2 ? 'correct' : 'wrong');
 
-    const scoreColor = gradeResult.score === 3 ? 'var(--correct)' : gradeResult.score === 2 ? 'var(--highlight)' : gradeResult.score === 1 ? '#f97316' : 'var(--wrong)';
+    const scoreColor = gradeResult.score === 3 ? 'var(--ok-text)' : gradeResult.score === 2 ? 'var(--highlight-text)' : gradeResult.score === 1 ? 'var(--warn-text)' : 'var(--bad-text)';
     let html = `<div class="oe-grade-result" style="animation: fadeSlideUp 0.3s ease">
       <div class="oe-score" style="color:${scoreColor}">${gradeResult.score}/${gradeResult.maxScore}</div>
       <div class="oe-feedback">${esc(gradeResult.feedback)}</div>`;
@@ -889,12 +889,12 @@ const Quiz = (() => {
         </div>
         <div class="quiz-grade ${gradeClass}">${grade}</div>
         <div class="quiz-result-stats">
-          ${objAnswers.length ? stat(dogru, T('correctCount'), 'var(--correct)') : ''}
-          ${objAnswers.length ? stat(yanlis, T('wrongCount'), 'var(--wrong)') : ''}
+          ${objAnswers.length ? stat(dogru, T('correctCount'), 'var(--ok-text)') : ''}
+          ${objAnswers.length ? stat(yanlis, T('wrongCount'), 'var(--bad-text)') : ''}
           ${objAnswers.length ? stat(bos, T('blankCount'), 'var(--text-muted)') : ''}
-          ${partial ? stat(partial, T('partialCount'), 'var(--highlight)') : ''}
-          ${mc.length ? stat(net.toFixed(2), T('netScore'), 'var(--secondary)') : ''}
-          ${oeAnswers.length ? stat(oePoints + '/' + oeMax, T('writtenPts'), 'var(--secondary)') : ''}
+          ${partial ? stat(partial, T('partialCount'), 'var(--highlight-text)') : ''}
+          ${mc.length ? stat(net.toFixed(2), T('netScore'), 'var(--secondary-text)') : ''}
+          ${oeAnswers.length ? stat(oePoints + '/' + oeMax, T('writtenPts'), 'var(--secondary-text)') : ''}
           ${stat(Math.floor(elapsed / 60) + ':' + (elapsed % 60).toString().padStart(2, '0'), T('time'))}
         </div>
         ${breakdownHtml}
@@ -972,7 +972,7 @@ const Quiz = (() => {
         html += `<div class="review-answer ${a.result === 'correct' ? 'your-correct' : 'your-wrong'}">${a.correctPairs}/${a.totalPairs} ${T('pairsCorrect')}</div>`;
         html += `<div class="review-explanation">${q.pairs.map(p => esc(p.left) + ' → ' + esc(p.right)).join('<br>')}</div>`;
       } else {
-        const scoreColor = a.score === 3 ? 'var(--correct)' : a.score === 2 ? 'var(--highlight)' : a.score === 1 ? '#f97316' : 'var(--wrong)';
+        const scoreColor = a.score === 3 ? 'var(--ok-text)' : a.score === 2 ? 'var(--highlight-text)' : a.score === 1 ? 'var(--warn-text)' : 'var(--bad-text)';
         html += `<div class="review-answer ${a.score >= 2 ? 'your-correct' : 'your-wrong'}">${T('yourAnswer')} ${esc(a.studentAnswer || '(-)')}</div>`;
         html += `<div class="oe-review-score" style="color:${scoreColor}">${T('score')} ${a.score}/${a.maxScore}</div>`;
         if (a.feedback) html += `<div class="review-explanation">${esc(a.feedback)}</div>`;

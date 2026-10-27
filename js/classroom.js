@@ -373,7 +373,7 @@ const ClassMode = (() => {
 
   function heatColor(pct) {
     const hue = Math.round(Math.max(0, Math.min(100, pct)) * 1.2); // 0 red → 120 green
-    return `hsl(${hue} 70% 45% / 0.85)`;
+    return `hsl(${hue} 70% 27%)`;
   }
 
   function renderTeacher() {

@@ -39,3 +39,6 @@ jobs:
         run: |
           node --test tests/regression.js
           node tests/browser-regression.js
+
+      - name: Check text contrast in tables and charts (WCAG AA)
+        run: node tests/contrast.js

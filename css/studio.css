@@ -302,11 +302,12 @@ button.citation:hover { background: var(--primary-tint); }
 .mm-node text { fill: var(--text); font-size: 13px; font-weight: 500; pointer-events: none; }
 .mm-node:hover rect, .mm-node:focus-visible rect { fill: color-mix(in srgb, var(--mm-c, var(--primary)) 26%, var(--card)); }
 .mm-node.selected rect { stroke-width: 3; }
-.mm-node.root rect { fill: var(--primary); stroke: var(--primary); }
+.mm-node.root rect { fill: var(--primary-hover); stroke: var(--primary-hover); }
 .mm-node.root text { fill: #fff; font-weight: 700; font-size: 14px; }
 .mm-toggle circle { fill: var(--card); stroke: var(--mm-c, var(--primary)); stroke-width: 1.5; }
-.mm-toggle text { font-size: 10px; font-weight: 700; fill: var(--mm-c, var(--primary)); }
+.mm-toggle text { font-size: 10px; font-weight: 700; fill: var(--text); }
 .mm-node.root .mm-toggle circle { fill: #fff; }
+.mm-node.root .mm-toggle text { fill: var(--primary-hover); }
 .branch-0 { --mm-c: #8b5cf6; }
 .branch-1 { --mm-c: #06b6d4; }
 .branch-2 { --mm-c: #ec4899; }
@@ -518,13 +519,13 @@ button.citation:hover { background: var(--primary-tint); }
 .plan-bar.urgent { border-left-color: var(--accent-orange); }
 .plan-bar-empty { border-left-color: var(--border-strong); color: var(--text-muted); font-size: 0.9rem; justify-content: space-between; }
 .plan-countdown { font-weight: 700; font-family: var(--font-display); }
-.plan-bar.urgent .plan-countdown { color: var(--accent-orange); }
+.plan-bar.urgent .plan-countdown { color: var(--warn-text); }
 .plan-today { font-size: 0.88rem; color: var(--text-muted); }
 .plan-today.done { color: var(--correct); font-weight: 600; }
 .plan-bar-actions { margin-left: auto; display: flex; gap: 6px; flex-wrap: wrap; }
 .plan-bar-actions .btn-primary, .plan-bar-actions .btn-ghost { padding: 6px 12px; font-size: 0.84rem; }
 .plan-card-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-.plan-card-head .plan-countdown { font-size: 0.9rem; color: var(--secondary); }
+.plan-card-head .plan-countdown { font-size: 0.9rem; color: var(--secondary-text); }
 .plan-pitch { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 12px; }
 .plan-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 12px 0; }
 .plan-metric { display: flex; flex-direction: column; padding: 10px 12px; background: var(--surface); border-radius: var(--radius-sm); }
@@ -537,9 +538,9 @@ button.citation:hover { background: var(--primary-tint); }
 .plan-row:first-child { border-top: none; }
 .plan-row.head { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); background: var(--surface); }
 .plan-row.today { background: var(--primary-tint); font-weight: 600; }
-.plan-row.final .plan-row-note { color: var(--accent-orange); }
-.plan-row.exam { grid-template-columns: 1.3fr 2.9fr; font-weight: 600; color: var(--secondary); }
-.plan-row-new { color: var(--primary); font-family: var(--font-mono); }
+.plan-row.final .plan-row-note { color: var(--warn-text); }
+.plan-row.exam { grid-template-columns: 1.3fr 2.9fr; font-weight: 600; color: var(--secondary-text); }
+.plan-row-new { color: var(--primary-text); font-family: var(--font-mono); }
 .plan-row-rev { font-family: var(--font-mono); }
 .plan-row-note { font-size: 0.8rem; }
 .plan-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
@@ -565,13 +566,13 @@ button.citation:hover { background: var(--primary-tint); }
   padding: 2px 8px;
   border-radius: 999px;
   background: color-mix(in srgb, var(--secondary) 16%, transparent);
-  color: var(--secondary);
+  color: var(--secondary-text);
 }
-.plan-strip-days.urgent { background: color-mix(in srgb, var(--accent-orange) 18%, transparent); color: var(--accent-orange); }
+.plan-strip-days.urgent { background: color-mix(in srgb, var(--accent-orange) 18%, transparent); color: var(--warn-text); }
 .plan-strip-name { font-weight: 600; flex: 1; min-width: 120px; }
 .plan-strip-row .btn-ghost { padding: 4px 12px; font-size: 0.82rem; }
-.deck-card-exam { color: var(--secondary); font-weight: 600; }
-.deck-card-exam.urgent { color: var(--accent-orange); }
+.deck-card-exam { color: var(--secondary-text); font-weight: 600; }
+.deck-card-exam.urgent { color: var(--warn-text); }
 @media (max-width: 520px) {
   .plan-metrics { grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
   .plan-metric { padding: 8px; }

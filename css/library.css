@@ -68,7 +68,7 @@
   color: var(--text-muted);
 }
 .deck-card-due {
-  color: var(--highlight);
+  color: var(--highlight-text);
   font-weight: 600;
   background: rgba(251, 191, 36, 0.12);
   padding: 1px 8px;
@@ -156,7 +156,7 @@
 }
 .exam-row-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text); }
 .exam-row-date { color: var(--text-muted); font-size: 0.8rem; }
-.exam-row-grade { font-weight: 700; font-family: var(--font-display); color: var(--secondary); }
+.exam-row-grade { font-weight: 700; font-family: var(--font-display); color: var(--secondary-text); }
 .exam-row-pct {
   text-align: right;
   font-family: var(--font-mono);
