@@ -8,7 +8,7 @@
 const Sources = (() => {
   const GEN_BUDGET = 15000;     // the generator's input limit
   const CONTEXT_BUDGET = 30000; // per AI request (chat, audio, mind map)
-  const KIND_ICON = { paste: '📝', pdf: '📄', url: '🌐', youtube: '▶️', image: '📷', file: '📎' };
+  const KIND_ICON = { paste: '📝', pdf: '📄', url: '🌐', youtube: '▶️', image: '📷', file: '📎', lecture: '🎙️' };
   let staged = [];              // input-view tray, before generation
   let pasteMeta = null;         // where the paste box text came from (URL fetch)
 

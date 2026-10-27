@@ -13,7 +13,7 @@ function modules(initial = {}, extras = {}) {
     localStorage: { getItem: k => storage.get(k) ?? null, setItem: (k, v) => storage.set(k, v), removeItem: k => storage.delete(k) },
     App: { showToast() {} }, ...extras
   });
-  for (const file of ['parser', 'decks', 'stats', 'api', 'sources', 'planner', 'adaptive', 'insights']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/', file + '.js'), 'utf8'), ctx);
+  for (const file of ['parser', 'decks', 'stats', 'api', 'sources', 'planner', 'adaptive', 'insights', 'live-core']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/', file + '.js'), 'utf8'), ctx);
   return { ctx, storage, run: code => vm.runInContext(code, ctx) };
 }
 
@@ -266,4 +266,78 @@ test('mistakes can be tagged with a cause, and exam answers build per-question h
   assert.equal(out.m, 'careless');
   assert.deepEqual(out.s['3'], { n: 2, ok: 1, last: 1, t: out.s['3'].t });
   assert.equal(Object.keys(out.s).length, 1);
+});
+
+test('camera frames go up only when they can help', () => {
+  const { run } = modules();
+  const send = o => run(`LiveCore.shouldSendFrame(${JSON.stringify(o)})`);
+  assert.equal(send({ now: 1000, lastSent: 0, changed: false, speaking: false }), true);
+  assert.equal(send({ now: 10000, lastSent: 1000, changed: false, speaking: false }), false);
+  assert.equal(send({ now: 4000, lastSent: 1000, changed: true, speaking: false }), true);
+  assert.equal(send({ now: 2000, lastSent: 1000, changed: true, speaking: false }), false);
+  assert.equal(send({ now: 2100, lastSent: 1000, changed: true, speaking: true }), true);
+  assert.equal(send({ now: 3000, lastSent: 1000, changed: false, speaking: true }), false);
+  assert.equal(send({ now: 6100, lastSent: 1000, changed: false, speaking: true }), true);
+  assert.equal(send({ now: 1600, lastSent: 1000, changed: false, speaking: true, speechStarted: true }), true);
+  assert.equal(run('LiveCore.frameDiff(new Uint8Array([10,10]), new Uint8Array([10,30]))'), 10);
+  assert.equal(run('LiveCore.frameDiff(new Uint8Array([1]), null)'), 255);
+  assert.deepEqual(JSON.parse(run('JSON.stringify(LiveCore.frameSize(1280, 720))')), { w: 640, h: 360 });
+  assert.deepEqual(JSON.parse(run('JSON.stringify(LiveCore.frameSize(720, 1280))')), { w: 360, h: 640 });
+  assert.equal(run('LiveCore.isVoice(new Int16Array(512).fill(3000))'), true);
+  assert.equal(run('LiveCore.isVoice(new Int16Array(512).fill(50))'), false);
+});
+test('lecture transcript fragments become timestamped segments and note chunks', () => {
+  const { run } = modules();
+  const segs = JSON.parse(run(`const s = []; LiveCore.addFragment(s, 'Bugün', 0); LiveCore.addFragment(s, ' hücreyi', 800); LiveCore.addFragment(s, 'işleyeceğiz', 1200); LiveCore.addFragment(s, 'Zar', 9000); JSON.stringify(s)`));
+  assert.equal(segs.length, 2);
+  assert.equal(segs[0].text, 'Bugün hücreyi işleyeceğiz');
+  assert.equal(segs[1].at, 9000);
+  assert.equal(run('LiveCore.clock(3725000)'), '1:02:05');
+  assert.equal(run(`LiveCore.transcriptText([{at:65000,text:'a '}])`), '[1:05] a');
+  const seg = (n, len) => Array.from({ length: n }, (_, i) => ({ at: i * 1000, end: i * 1000, text: 'x'.repeat(len) }));
+  const chunk = (segsArr, opts) => JSON.parse(run(`JSON.stringify(LiveCore.nextChunk(${JSON.stringify(segsArr)}, 0, ${JSON.stringify(opts)}))`));
+  assert.equal(chunk(seg(3, 300), { now: 60000, lastAt: 0 }), null);              // too early
+  assert.deepEqual(chunk(seg(3, 300), { now: 300001, lastAt: 0 }), { from: 0, to: 3, chars: 903 });
+  assert.equal(chunk(seg(1, 100), { now: 300001, lastAt: 0 }), null);              // too little
+  assert.equal(chunk(seg(1, 100), { now: 1, lastAt: 0, final: true }).to, 1);      // the rest, at the end
+  assert.equal(chunk(seg(30, 400), { now: 1, lastAt: 0 }).to, 14);                 // long: early, bounded
+});
+test('teacher cues and repetition are detected in Turkish and English', () => {
+  const { run } = modules();
+  const cues = JSON.parse(run(`JSON.stringify(LiveCore.detectCues('Arkadaşlar BU ÇOK ÖNEMLİ, sınavda kesin çıkar. Hücre zarına seçici geçirgen zar denir. Dikkat edin! Tekrar ediyorum. This will be on the exam, write that down.'))`));
+  const types = cues.map(c => c.type);
+  for (const t of ['important', 'exam', 'definition', 'attention', 'repeat']) assert.ok(types.includes(t), t);
+  assert.equal(types.filter(t => t === 'exam').length, 2);
+  assert.equal(JSON.parse(run(`JSON.stringify(LiveCore.detectCues('Bugün hava güzel, teneffüste görüşürüz.'))`)).length, 0);
+  const rep = JSON.parse(run(`JSON.stringify(LiveCore.repeatedPhrases('mitoz bölünme önemli. mitoz bölünme iki hücre verir. yine mitoz bölünme ve ve ve ve'))`));
+  assert.equal(rep[0].phrase, 'mitoz bölünme');
+  assert.equal(rep[0].count, 3);
+});
+test('lecture chunk output is bounded and typed; the prompt carries cues and known cards', () => {
+  const { ctx, run } = modules();
+  ctx.raw = { sections: [{ title: 'T', content: 'c', bulletPoints: ['a', 5], keyTerms: [{ term: 'x' }] }, { title: '', content: 'no title' }],
+    flashcards: [{ front: 'q', back: 'a', exam: true, difficulty: 'evil' }, { front: 'q2' }, ...Array(10).fill({ front: 'f', back: 'b' })],
+    examAlerts: [{ point: 'p', quote: 'bu sınavda çıkar', why: 'nope' }, { quote: 'no point' }] };
+  const out = JSON.parse(run('JSON.stringify(LiveCore.sanitizeChunk(raw))'));
+  assert.equal(out.sections.length, 1);
+  assert.deepEqual(out.sections[0].bulletPoints, ['a']);
+  assert.deepEqual(out.sections[0].keyTerms, []);
+  assert.equal(out.flashcards.length, 6);
+  assert.deepEqual(out.flashcards[0], { front: 'q', back: 'a', difficulty: 'medium', exam: true });
+  assert.deepEqual(out.examAlerts, [{ point: 'p', quote: 'bu sınavda çıkar', why: 'important' }]);
+  assert.deepEqual(JSON.parse(run('JSON.stringify(LiveCore.sanitizeChunk(null))')), { sections: [], flashcards: [], examAlerts: [] });
+  const prompt = run(`LiveCore.lecturePrompt({ transcript: '[0:01] metin', cues: [{ match: 'sınavda çıkar' }], repeated: [{ phrase: 'mitoz bölünme', count: 3 }], known: ['Eski kart'], lang: 'tr', part: 2 })`);
+  assert.match(prompt, /part 2/);
+  assert.match(prompt, /"sınavda çıkar"/);
+  assert.match(prompt, /mitoz bölünme" \(3x\)/);
+  assert.match(prompt, /- Eski kart/);
+  assert.match(prompt, /Write in Turkish/);
+  assert.match(prompt, /Return ONLY JSON/);
+});
+test('lecture transcripts survive normalization as a lecture source', () => {
+  const { run } = modules();
+  const d = JSON.parse(run(`JSON.stringify(Parser.normalizeStudyData({ title: 'x', sources: [{ id: 'slec', name: 'Ders', kind: 'lecture', text: '[0:01] merhaba' }], notes: { sections: [{ title: 'Sınav uyarıları', content: '', lectureAlerts: 'lec1' }] }, flashcards: [{ front: 'q', back: 'a', exam: true }] }))`));
+  assert.equal(d.sources[0].kind, 'lecture');
+  assert.equal(d.notes.sections[0].lectureAlerts, 'lec1');
+  assert.equal(d.flashcards[0].exam, true);
 });

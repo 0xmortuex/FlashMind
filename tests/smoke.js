@@ -591,6 +591,147 @@ const puppeteer = require('puppeteer');
     await page.waitForSelector('[data-ins-act="diagnose"]', { timeout: 2000 });
   });
 
+  // ----- Live: camera tutor + lecture companion (mocked token, socket, devices, AI) -----
+  const installLiveMocks = () => page.evaluate(() => {
+    window.__live = { sent: [], sockets: [], modes: [], tracks: [] };
+    API.liveToken = async (mode) => { window.__live.modes.push(mode); return { token: 'auth_tokens/smoke' + window.__live.modes.length, model: 'gemini-3.8-live', maxMinutes: 15 }; };
+    navigator.mediaDevices.getUserMedia = async (c) => {
+      if (c.video) {
+        // A synthetic camera whose picture keeps changing.
+        const cv = document.createElement('canvas'); cv.width = 320; cv.height = 240;
+        const g = cv.getContext('2d'); let n = 0;
+        const paint = () => { g.fillStyle = `hsl(${(n += 40) % 360},70%,50%)`; g.fillRect(0, 0, 320, 240); g.fillStyle = '#fff'; g.fillRect((n * 7) % 280, 100, 40, 40); };
+        paint(); setInterval(paint, 200);
+        const stream = cv.captureStream(10);
+        window.__live.tracks.push(...stream.getVideoTracks());
+        return stream;
+      }
+      const ctx = new AudioContext(); const osc = ctx.createOscillator(); const gain = ctx.createGain(); gain.gain.value = 0.5;
+      const dest = ctx.createMediaStreamDestination(); osc.connect(gain); gain.connect(dest); osc.start();
+      return dest.stream;
+    };
+    class FakeWS {
+      constructor(url) { this.url = url; this.readyState = 0; this.sent = []; window.__live.sockets.push(this); setTimeout(() => { this.readyState = 1; this.onopen && this.onopen(); }, 10); }
+      reply(o) { setTimeout(() => this.onmessage && this.onmessage({ data: JSON.stringify(o) }), 5); }
+      send(raw) {
+        const m = JSON.parse(raw); this.sent.push(m); window.__live.sent.push(m);
+        if (m.setup) this.reply({ setupComplete: {} });
+        if (m.clientContent) this.reply({ serverContent: { outputTranscription: { text: 'Show me your work.' }, turnComplete: true } });
+        if (m.realtimeInput && m.realtimeInput.audio && window.__live.say && !this.said) {
+          this.said = true;
+          this.reply({ serverContent: { inputTranscription: { text: window.__live.say } } });
+        }
+      }
+      close() { this.readyState = 3; this.closed = true; }
+    }
+    FakeWS.OPEN = 1;
+    window.WebSocket = FakeWS;
+  });
+
+  await step('voice tutor: "check my work" streams camera frames, pause stops them, end releases the camera', async () => {
+    await page.evaluate(() => { document.getElementById('demo-btn').click(); });
+    await page.waitForSelector('#study-view.active', { timeout: 3000 });
+    await installLiveMocks();
+    await page.click('[data-tab="chat"]');
+    await page.click('#voice-open-btn');
+    await page.click('[data-voice-mode="solve"]');
+    await page.waitForSelector('#voice-cam-select', { timeout: 2000 });
+    await page.click('[data-voice-act="start"]');
+    await page.waitForSelector('.voice-cam video', { timeout: 6000 });
+    await page.waitForFunction(() => window.__live.sent.filter(m => m.realtimeInput && m.realtimeInput.video).length >= 2, { timeout: 8000 });
+    const frame = await page.evaluate(() => window.__live.sent.find(m => m.realtimeInput && m.realtimeInput.video).realtimeInput.video);
+    if (frame.mimeType !== 'image/jpeg' || !frame.data.startsWith('/9j/')) throw new Error('bad frame ' + frame.mimeType);
+    if (!await page.evaluate(() => window.__live.modes[0] === 'solve')) throw new Error('token not minted for solve mode');
+    const frames = () => page.evaluate(() => window.__live.sent.filter(m => m.realtimeInput && m.realtimeInput.video).length);
+    await page.click('[data-voice-act="pause"]');
+    await page.waitForSelector('.voice-status.paused', { timeout: 2000 });
+    const atPause = await frames();
+    await new Promise(r => setTimeout(r, 1600));
+    if (await frames() !== atPause) throw new Error('frames still sent while paused');
+    if (await page.evaluate(() => window.__live.tracks.some(t => t.enabled))) throw new Error('camera left enabled while paused');
+    await page.click('[data-voice-act="resume"]');
+    await page.waitForFunction(n => window.__live.sent.filter(m => m.realtimeInput && m.realtimeInput.video).length > n, { timeout: 6000 }, atPause);
+    await page.click('[data-voice-act="camera"]');
+    await page.waitForFunction(() => !document.querySelector('.voice-cam video') && window.__live.tracks.every(t => t.readyState === 'ended'), { timeout: 2000 });
+    await page.click('[data-voice-act="camera"]');
+    await page.waitForSelector('.voice-cam video', { timeout: 4000 });
+    await page.click('[data-voice-act="stop"]');
+    await page.waitForSelector('.voice-status.ended', { timeout: 2000 });
+    if (!await page.evaluate(() => window.__live.tracks.length >= 2 && window.__live.tracks.every(t => t.readyState === 'ended'))) throw new Error('camera not stopped');
+    await page.click('[data-voice-act="close"]');
+  });
+
+  await step('lecture companion: live transcript, exam cue chip, token renewal, notes/cards/alerts into a new deck, summary', async () => {
+    await installLiveMocks();
+    await page.evaluate(() => {
+      window.__live.say = 'Arkadaşlar hücre zarı seçici geçirgendir, bu sınavda çıkar, dikkat edin. Madde geçişini kontrol eder ve hücreyi korur.';
+      window.__lecChat = [];
+      API.chat = async (prompt, ctx) => {
+        window.__lecChat.push(prompt);
+        return JSON.stringify({ sections: [{ title: 'Hücre zarı', content: 'Seçici geçirgendir.', bulletPoints: ['Madde geçişini kontrol eder'] }],
+          flashcards: [{ front: 'Hücre zarının özelliği nedir?', back: 'Seçici geçirgenlik', exam: true }, { front: 'Hücre zarı neyi kontrol eder?', back: 'Madde geçişini' }],
+          examAlerts: [{ point: 'Hücre zarının seçici geçirgenliği sorulacak', quote: 'bu sınavda çıkar', why: 'exam' }] });
+      };
+      window.__decksBefore = Decks.list().length;
+      Lecture.open();
+    });
+    await page.waitForSelector('.lec-panel [data-lec-target="new"]', { timeout: 2000 });
+    await page.click('[data-lec-target="new"]');
+    await page.$eval('#lec-name', e => { e.value = 'Biyoloji dersi'; });
+    await page.click('[data-lec-act="start"]');
+    await page.waitForSelector('.lec-seg', { timeout: 6000 });
+    await page.waitForSelector('.lec-chip.cue', { timeout: 2000 });
+    const first = await page.evaluate(() => ({ mode: window.__live.modes[0], start: window.__live.sockets[0].sent.some(m => m.realtimeInput && m.realtimeInput.activityStart), audio: window.__live.sockets[0].sent.some(m => m.realtimeInput && m.realtimeInput.audio) }));
+    if (first.mode !== 'lecture' || !first.start || !first.audio) throw new Error('bad lecture session ' + JSON.stringify(first));
+    // The server announces the session is ending: a fresh token and socket take over.
+    await page.evaluate(() => window.__live.sockets[0].reply({ goAway: { timeLeft: '10s' } }));
+    await page.waitForFunction(() => window.__live.sockets.length === 2 && window.__live.sockets[1].sent.some(m => m.realtimeInput && m.realtimeInput.activityStart), { timeout: 4000 });
+    if (!await page.evaluate(() => window.__live.modes.length === 2 && window.__live.sockets[0].sent.some(m => m.realtimeInput && m.realtimeInput.activityEnd))) throw new Error('renewal did not hand over');
+    await page.waitForFunction(() => window.__live.sockets[1].sent.some(m => m.realtimeInput && m.realtimeInput.audio), { timeout: 3000 });
+    // Minimize: the pill keeps the lecture visible; reopen and stop.
+    await page.click('[data-lec-act="hide"]');
+    await page.waitForSelector('.lec-pill', { visible: true, timeout: 2000 });
+    await page.click('.lec-pill');
+    await page.click('[data-lec-act="stop"]');
+    await page.waitForSelector('.lec-summary', { timeout: 8000 });
+    const summary = await page.$eval('.lec-summary-big', e => e.textContent);
+    if (!/1 notes, 2 cards, 1 exam alerts/.test(summary)) throw new Error('summary: ' + summary);
+    if (!await page.evaluate(() => window.__live.sockets.every(s => s.closed))) throw new Error('lecture socket left open');
+    const prompt = await page.evaluate(() => window.__lecChat[0]);
+    if (!/sınavda çıkar/.test(prompt) || !/Hücre zarı|hücre zarı/.test(prompt)) throw new Error('chunk prompt missing transcript/cues');
+    const deck = await page.evaluate(() => {
+      const d = Decks.list().find(x => x.data.title === 'Biyoloji dersi');
+      return d && { n: Decks.list().length - window.__decksBefore, cards: d.data.flashcards.length, exam: d.data.flashcards.filter(c => c.exam).length,
+        src: (d.data.sources || []).map(s => s.kind + ':' + s.text.slice(0, 40)), alerts: d.data.notes.sections.filter(s => s.lectureAlerts).length };
+    });
+    if (!deck || deck.n !== 1 || deck.cards !== 2 || deck.exam !== 1 || deck.alerts !== 1 || !/^lecture:\[0:0\d\] Arkadaşlar/.test(deck.src[0] || '')) throw new Error('deck: ' + JSON.stringify(deck));
+    await page.click('[data-lec-act="review"]');
+    await page.waitForFunction(() => document.getElementById('study-title').textContent === 'Biyoloji dersi' && document.querySelector('#tab-flashcards.active'), { timeout: 3000 });
+  });
+
+  await step('lecture companion: falls back to browser speech recognition when Live is unavailable', async () => {
+    await installLiveMocks();
+    await page.evaluate(() => {
+      API.liveToken = async () => { throw new Error("Voice tutor isn't set up yet"); };
+      window.__rec = [];
+      window.__realRec = [window.SpeechRecognition, window.webkitSpeechRecognition];
+      window.SpeechRecognition = window.webkitSpeechRecognition = class {
+        constructor() { window.__rec.push(this); }
+        start() { setTimeout(() => this.onresult && this.onresult({ resultIndex: 0, results: [Object.assign([{ transcript: 'Mitoz bölünmede kromozom sayısı korunur' }], { isFinal: true })] }), 20); }
+        stop() { setTimeout(() => this.onend && this.onend(), 5); }
+      };
+      Lecture.open();
+    });
+    await page.waitForSelector('[data-lec-act="start"]', { timeout: 2000 });
+    await page.click('[data-lec-act="start"]');
+    await page.waitForFunction(() => [...document.querySelectorAll('.lec-seg')].some(s => /Mitoz/.test(s.textContent)), { timeout: 5000 });
+    if (!await page.$eval('.lec-engine-badge', e => !/Gemini/.test(e.textContent))) throw new Error('engine did not switch');
+    await page.click('[data-lec-act="stop"]');
+    await page.waitForSelector('.lec-summary', { timeout: 8000 });
+    await page.click('.lec-panel [data-lec-act="review"], .lec-panel [data-lec-act="close"]');
+    await page.evaluate(() => { [window.SpeechRecognition, window.webkitSpeechRecognition] = window.__realRec; });
+  });
+
   console.log(errors.length ? 'ERRORS:\n' + errors.join('\n') : 'NO CONSOLE/PAGE ERRORS');
   console.log(failCount ? failCount + ' step(s) failed' : 'ALL STEPS PASSED');
   await browser.close();

@@ -13,7 +13,10 @@ const Voice = (() => {
   let state = 'idle';  // idle | connecting | live | ended
   let micId = '';      // chosen microphone (deviceId); '' = system default
   let mics = [];       // [{ id, label }]
+  let camChoice = 'environment'; // 'environment' | 'user' | a camera deviceId
+  let cams = [];       // [{ id, label }]
   try { micId = localStorage.getItem('flashmind_voice_mic') || ''; } catch (e) {}
+  try { camChoice = localStorage.getItem('flashmind_voice_cam') || 'environment'; } catch (e) {}
 
   function esc(str) {
     if (str == null) return '';
@@ -37,6 +40,7 @@ const Voice = (() => {
     el.style.display = 'flex';
     releaseTrap = FX.trapFocus(el);
     refreshMics();
+    refreshCams();
   }
 
   function close() {
@@ -67,8 +71,16 @@ const Voice = (() => {
       else if (act === 'close') close();
       else if (act === 'copy') copyTranscript();
       else if (act === 'again') { state = 'idle'; render(); }
+      else if (act === 'camera') toggleCamera();
+      else if (act === 'flip') flipCamera();
+      else if (act === 'lecture' && typeof Lecture !== 'undefined') { close(); Lecture.open(); }
     });
     el.addEventListener('change', e => {
+      if (e.target.id === 'voice-cam-select') {
+        camChoice = e.target.value;
+        try { localStorage.setItem('flashmind_voice_cam', camChoice); } catch (err) {}
+        return;
+      }
       if (e.target.id !== 'voice-mic-select') return;
       micId = e.target.value;
       try { localStorage.setItem('flashmind_voice_mic', micId); } catch (err) {}
@@ -76,6 +88,7 @@ const Voice = (() => {
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && el.style.display !== 'none') close(); });
     if (navigator.mediaDevices && navigator.mediaDevices.addEventListener) {
       navigator.mediaDevices.addEventListener('devicechange', refreshMics);
+      navigator.mediaDevices.addEventListener('devicechange', refreshCams);
     }
   }
 
@@ -92,19 +105,32 @@ const Voice = (() => {
       </div>
       ${state === 'idle' ? `
         <p class="voice-intro">${T('voiceIntro')}</p>
-        ${supported() ? `<div class="voice-modes">${modeBtn('quiz', '&#10067;')}${modeBtn('explain', '&#127891;')}${modeBtn('talk', '&#128172;')}</div>
+        ${supported() ? `<div class="voice-modes voice-modes-4">${modeBtn('quiz', '&#10067;')}${modeBtn('explain', '&#127891;')}${modeBtn('talk', '&#128172;')}${modeBtn('solve', '&#128247;')}</div>
           <label class="voice-mic">
             <span class="voice-mic-label">&#127908; ${T('voiceMic')}</span>
             <select class="editor-select" id="voice-mic-select">${micOptions()}</select>
           </label>
+          ${mode === 'solve' && typeof Camera !== 'undefined' && Camera.supported() ? `<label class="voice-mic">
+            <span class="voice-mic-label">&#128247; ${T('voiceCam')}</span>
+            <select class="editor-select" id="voice-cam-select">${camOptions()}</select>
+          </label>
+          <p class="voice-note">${T('voiceSolveNote')}</p>` : ''}
           <button class="btn-primary voice-start" data-voice-act="start">&#127908; ${T('voiceStart')}</button>
-          <p class="voice-note">${T('voiceNote')}</p>`
+          <p class="voice-note">${T('voiceNote')}</p>
+          ${typeof Lecture !== 'undefined' ? `<button class="voice-lecture-link" data-voice-act="lecture">&#127979; ${T('lecFromVoice')}</button>` : ''}`
         : `<p class="voice-note">${T('voiceUnsupported')}</p>`}` : `
         <div class="voice-status ${state}${paused ? ' paused' : ''}" id="voice-status">
           <span class="voice-orb" aria-hidden="true"><span></span></span>
           <span class="voice-status-text" id="voice-status-text">${state === 'connecting' ? T('voiceConnecting') : state === 'ended' ? T('voiceEnded') : paused ? T('voicePaused') : T('voiceListening')}</span>
           ${live ? `<span class="voice-timer" id="voice-timer"></span>` : ''}
         </div>
+        ${live && session && session.solve ? `<div class="voice-cam" id="voice-cam-slot">
+            ${session.camera ? `<span class="voice-cam-info" id="voice-cam-info">${camInfo()}</span>` : `<span class="voice-cam-off">${session.camPending ? T('voiceCamStarting') : T('voiceCamOff')}</span>`}
+            <div class="voice-cam-tools">
+              <button class="btn-ghost" data-voice-act="camera" aria-pressed="${!!session.camera}">${session.camera ? '&#128683; ' + T('voiceCamTurnOff') : '&#128247; ' + T('voiceCamTurnOn')}</button>
+              ${session.camera && cams.length > 1 ? `<button class="btn-ghost" data-voice-act="flip" aria-label="${esc(T('voiceCamFlip'))}">&#128260;</button>` : ''}
+            </div>
+          </div>` : ''}
         <div class="voice-transcript" id="voice-transcript" aria-live="polite">${transcriptHtml()}</div>
         <div class="voice-controls">
           ${live ? `${state === 'live' ? (paused
@@ -119,7 +145,32 @@ const Voice = (() => {
         ${paused ? `<p class="voice-note">${T('voicePausedNote')}</p>` : ''}${state === 'ended' && lastLines.length ? `<p class="voice-note">${T('voiceContinueNote')}</p>` : ''}
         </div>`}
     </div>`;
+    // The preview element survives re-renders: move it into the new slot.
+    const slot = el.querySelector('#voice-cam-slot');
+    if (slot && session && session.camera) slot.insertBefore(session.camera.video, slot.firstChild);
     updateTimer();
+  }
+
+  function camInfo() {
+    return session && session.frames ? i18n.t('voiceCamSent', { n: session.frames }) : i18n.t('voiceCamReady');
+  }
+
+  function camOptions() {
+    const T = i18n.t;
+    let html = `<option value="environment"${camChoice === 'environment' ? ' selected' : ''}>${esc(T('voiceCamBack'))}</option>` +
+      `<option value="user"${camChoice === 'user' ? ' selected' : ''}>${esc(T('voiceCamFront'))}</option>`;
+    cams.forEach((c, i) => {
+      html += `<option value="${esc(c.id)}"${c.id === camChoice ? ' selected' : ''}>${esc(c.label || T('voiceCamN', { n: i + 1 }))}</option>`;
+    });
+    return html;
+  }
+
+  async function refreshCams() {
+    if (typeof Camera === 'undefined') return;
+    cams = (await Camera.list()).filter(c => c.label); // unlabeled = no permission yet; facing options cover that
+    if (camChoice !== 'environment' && camChoice !== 'user' && !cams.some(c => c.id === camChoice)) camChoice = 'environment';
+    const sel = el && el.querySelector('#voice-cam-select');
+    if (sel) sel.innerHTML = camOptions();
   }
 
   function micOptions() {
@@ -185,10 +236,11 @@ const Voice = (() => {
   async function start(carry) {
     const data = App.getStudyData();
     if (!data || state === 'connecting' || state === 'live') return;
+    if (typeof Lecture !== 'undefined' && Lecture.isActive()) { App.showToast(i18n.t('lecBusy'), 'info'); return; }
     if (typeof TTS !== 'undefined') TTS.stop();
     if (typeof AudioOverview !== 'undefined') AudioOverview.stop();
     const previous = Array.isArray(carry) ? carry.map(l => Object.assign({}, l, { done: true })) : [];
-    const s = session = { lines: previous.slice(), carried: previous, muted: false, paused: false };
+    const s = session = { lines: previous.slice(), carried: previous, muted: false, paused: false, solve: mode === 'solve' && typeof Camera !== 'undefined' && Camera.supported() };
     state = 'connecting';
     render();
     // The panel can be closed while any of these awaits is pending: release
@@ -214,6 +266,9 @@ const Voice = (() => {
       if (stale()) { stream.getTracks().forEach(t => t.stop()); return; }
       s.stream = stream;
       refreshMics(); // labels become available once permission is granted
+      // The camera runs alongside the token request; a refusal leaves the
+      // session voice-only (the student can read steps out loud).
+      if (s.solve) startCamera(s);
       const { token, model, maxMinutes } = await API.liveToken(mode, data.title, App.getOriginalText());
       if (stale()) return;
       s.endsAt = Date.now() + (maxMinutes || 15) * 60 * 1000;
@@ -246,6 +301,11 @@ const Voice = (() => {
     source.connect(node);
     node.port.onmessage = e => {
       if (!session || session.muted || session.paused || !session.ws || session.ws.readyState !== WebSocket.OPEN) return;
+      if (session.solve && LiveCore.isVoice(new Int16Array(e.data))) {
+        const now = Date.now();
+        if (!session.voiceAt || now - session.voiceAt > 1500) session.speechStartAt = now;
+        session.voiceAt = now;
+      }
       send({ realtimeInput: { audio: { mimeType: 'audio/pcm;rate=16000', data: toBase64(e.data) } } });
     };
     return { ctx, node, source };
@@ -284,6 +344,7 @@ const Voice = (() => {
         updateTimer();
         if (session && Date.now() >= session.endsAt) { App.showToast(i18n.t('voiceTimeUp'), 'info'); stop(); }
       }, 1000);
+      if (session.solve) session.frameTimer = setInterval(frameTick, 500);
       render();
       // Let the tutor open the conversation, or pick up a continued one.
       send({ clientContent: { turns: [{ role: 'user', parts: [{ text: kickoff(session.carried) }] }], turnComplete: true } });
@@ -310,6 +371,7 @@ const Voice = (() => {
 
   function applyMic() {
     if (session && session.stream) session.stream.getAudioTracks().forEach(t => { t.enabled = !session.muted && !session.paused; });
+    if (session && session.camera) session.camera.setEnabled(!session.paused);
   }
 
   function toggleMute() {
@@ -363,6 +425,9 @@ const Voice = (() => {
     if (s) {
       lastLines = s.lines;
       clearInterval(s.timer);
+      clearInterval(s.frameTimer);
+      if (s.camera) s.camera.stop();
+      s.camera = null;
       if (s.stream) s.stream.getTracks().forEach(t => t.stop());
       [s.capture, s.playback].forEach(a => { if (a && a.ctx && a.ctx.state !== 'closed') a.ctx.close().catch(() => {}); });
       if (s.ws) {
@@ -373,6 +438,86 @@ const Voice = (() => {
     }
     state = next === 'idle' ? 'idle' : 'ended';
     if (el && el.style.display !== 'none') render();
+  }
+
+  // ----- Camera ("show your work") -----
+
+  async function startCamera(s, choice) {
+    s.camPending = true;
+    if (el && el.style.display !== 'none' && session === s) render();
+    try {
+      const cam = await Camera.open(choice || camChoice);
+      if (session !== s) { cam.stop(); return; } // the session ended meanwhile
+      s.camera = cam;
+      s.lastFrame = 0;
+      s.lastThumb = null;
+      cam.setEnabled(!s.paused);
+      refreshCams();
+    } catch (err) {
+      if (session !== s) return;
+      const denied = err && (err.name === 'NotAllowedError' || err.name === 'SecurityError');
+      App.showToast(denied ? i18n.t('voiceCamDenied') : i18n.t('voiceCamFailed') + ' ' + (err && err.message || ''), 'error');
+    }
+    s.camPending = false;
+    if (session === s && el && el.style.display !== 'none') render();
+  }
+
+  function stopCamera() {
+    if (!session || !session.camera) return;
+    session.camera.stop();
+    session.camera = null;
+    render();
+  }
+
+  function toggleCamera() {
+    if (!session || !session.solve || session.camPending) return;
+    if (session.camera) stopCamera();
+    else startCamera(session);
+  }
+
+  // Switch between the phone's back and front camera (or the next camera).
+  function flipCamera() {
+    if (!session || !session.camera || session.camPending) return;
+    const s = session;
+    let next;
+    if (cams.length > 2) {
+      const cur = s.camera.stream.getVideoTracks()[0];
+      const curId = cur && cur.getSettings ? cur.getSettings().deviceId : '';
+      const i = cams.findIndex(c => c.id === curId);
+      next = cams[(i + 1) % cams.length].id;
+    } else next = s.camera.facing === 'user' ? 'environment' : 'user';
+    s.camera.stop();
+    s.camera = null;
+    camChoice = next;
+    try { localStorage.setItem('flashmind_voice_cam', camChoice); } catch (e) {}
+    startCamera(s, next);
+  }
+
+  // Twice a second: decide whether the current camera frame is worth sending.
+  let frameBusy = false;
+  async function frameTick() {
+    const s = session;
+    if (!s || !s.camera || s.paused || state !== 'live' || frameBusy || !s.ws || s.ws.readyState !== WebSocket.OPEN) return;
+    const now = Date.now();
+    const thumb = s.camera.sample();
+    if (!thumb) return;
+    const changed = LiveCore.frameDiff(thumb, s.lastThumb) >= LiveCore.CHANGE_THRESHOLD;
+    const speaking = !!s.voiceAt && now - s.voiceAt < 1200;
+    const speechStarted = !!s.speechStartAt && s.speechStartAt > s.lastFrame;
+    if (!LiveCore.shouldSendFrame({ now, lastSent: s.lastFrame, changed, speaking, speechStarted })) return;
+    frameBusy = true;
+    try {
+      const data = await s.camera.jpeg(0.7);
+      if (!data || session !== s || s.paused || !s.camera) return;
+      send({ realtimeInput: { video: { mimeType: 'image/jpeg', data } } });
+      s.lastFrame = now;
+      s.lastThumb = thumb;
+      s.frames = (s.frames || 0) + 1;
+      const info = el && el.querySelector('#voice-cam-info');
+      if (info) info.textContent = camInfo();
+      const v = s.camera.video;
+      v.classList.remove('snap'); void v.offsetWidth; v.classList.add('snap');
+    } finally { frameBusy = false; }
   }
 
   function copyTranscript() {
