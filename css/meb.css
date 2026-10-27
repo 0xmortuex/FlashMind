@@ -1,0 +1,47 @@
+/* ===== MEB library (js/mebindex.js) ===== */
+.meb-panel { max-width: 680px; }
+.meb-tip { margin: 0; font-size: 0.84rem; color: var(--text); background: var(--primary-tint); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 12px; }
+.meb-note { margin: 0; font-size: 0.78rem; color: var(--text-muted); }
+.meb-count { font-size: 0.8rem; color: var(--text-muted); }
+.meb-lib-btn { align-self: flex-start; }
+
+.meb-filters { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.meb-q { grid-column: 1 / -1; }
+.meb-filters input, .meb-filters select {
+  width: 100%; min-width: 0; min-height: 40px;
+  background: var(--surface); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 8px 10px; font: inherit; font-size: 0.86rem;
+}
+.meb-filters input:focus, .meb-filters select:focus { outline: none; border-color: var(--primary); }
+
+.meb-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.meb-row { display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; background: var(--card-raised); border: 1px solid var(--border); border-radius: var(--radius-sm); }
+.meb-row-title { font-weight: 600; font-size: 0.9rem; overflow-wrap: anywhere; }
+.meb-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.meb-chip { font-size: 0.72rem; padding: 2px 8px; border-radius: 999px; background: var(--primary-tint); color: var(--text); border: 1px solid var(--border); }
+.meb-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.meb-open { display: inline-flex; align-items: center; gap: 4px; text-decoration: none; padding: 6px 14px; min-height: 36px; }
+.meb-actions .btn-ghost { padding: 6px 12px; min-height: 36px; text-align: left; }
+.meb-src { color: var(--primary); font-size: 0.8rem; font-weight: 600; text-decoration: none; }
+.meb-src:hover, .meb-src:focus-visible { text-decoration: underline; }
+.meb-more { align-self: center; margin-top: 8px; }
+.meb-empty { text-align: center; color: var(--text-muted); font-size: 0.88rem; margin: 18px 0; }
+.meb-foot { margin: 4px 0 0; font-size: 0.78rem; color: var(--text-muted); }
+
+.meb-topics > summary { cursor: pointer; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); }
+.meb-topics ul { list-style: none; margin: 6px 0 4px; padding: 0; display: flex; flex-direction: column; gap: 4px; font-size: 0.78rem; }
+.meb-topics li { display: flex; justify-content: space-between; gap: 10px; }
+.meb-topics li span { overflow-wrap: anywhere; min-width: 0; }
+.meb-topics li b { flex-shrink: 0; }
+
+.meb-state { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 28px 8px; text-align: center; font-size: 0.9rem; }
+.meb-state .spinner { width: 20px; height: 20px; color: var(--primary); }
+.meb-error { margin: 0; color: var(--wrong); }
+
+@media (max-width: 480px) {
+  .meb-panel { width: 100%; max-height: 92vh; padding: 16px 14px; }
+  .meb-filters { grid-template-columns: 1fr 1fr; }
+  .meb-filters select:last-of-type { grid-column: 1 / -1; }
+  .meb-actions .btn-ghost { flex: 1 1 100%; }
+}

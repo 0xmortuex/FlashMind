@@ -675,6 +675,46 @@ const puppeteer = require('puppeteer');
     await page.evaluate(() => Quiz.renderReady());
   });
 
+  await step('exams: the MEB library filters grade 8 + LGS, links out safely and applies a topic profile to the deck', async () => {
+    await page.click('[data-pp-act="open"]');
+    await page.waitForSelector('.pp-panel .pp-actions [data-meb-act="open"]', { timeout: 2000 });
+    await page.click('.pp-panel .pp-actions [data-meb-act="open"]');
+    await page.waitForSelector('.meb-panel .meb-row', { timeout: 5000 }); // lazy-loaded index
+    if (!/Files open on MEB.s own servers/.test(await page.$eval('.meb-panel .chk-intro', el => el.textContent))) throw new Error('hosting note missing');
+    if (!/Past paper/.test(await page.$eval('.meb-panel .meb-tip', el => el.textContent))) throw new Error('past-paper tip missing');
+    await page.select('#meb-grade', '8');
+    await page.select('#meb-type', 'lgs');
+    const lgs = await page.$$eval('.meb-panel .meb-row', rows => rows.map(r => r.textContent));
+    if (lgs.length < 1 || !lgs.every(t => /Grade 8/.test(t) && /LGS/.test(t))) throw new Error('grade 8 + LGS rows: ' + lgs.length);
+    const link = await page.$eval('.meb-panel .meb-row .meb-open', a => ({ href: a.href, target: a.target, rel: a.rel, text: a.textContent }));
+    if (!/^https:\/\/[a-z0-9.-]*(meb\.gov\.tr|eba\.gov\.tr)\//.test(link.href) || link.target !== '_blank' || !/noopener/.test(link.rel) || !/noreferrer/.test(link.rel) || !/Open on MEB/.test(link.text)) throw new Error('bad link ' + JSON.stringify(link));
+    await page.type('#meb-q', 'sozel');
+    const narrowed = await page.$$eval('.meb-panel .meb-row', rows => rows.length);
+    if (narrowed < 1 || narrowed >= lgs.length) throw new Error('search did not narrow: ' + narrowed + '/' + lgs.length);
+    // A konu-soru table becomes this deck's topic profile (an existing profile is replaced after the confirm, which the harness accepts).
+    await page.$eval('#meb-q', el => { el.value = ''; el.dispatchEvent(new Event('input', { bubbles: true })); });
+    await page.select('#meb-grade', '0');
+    await page.select('#meb-type', 'konu');
+    await page.select('#meb-grade', '9');
+    await page.waitForSelector('.meb-panel [data-meb-act="profile"]', { timeout: 2000 });
+    const title = await page.$eval('.meb-panel [data-meb-act="profile"]', b => b.closest('.meb-row').querySelector('.meb-row-title').textContent);
+    await page.click('.meb-panel [data-meb-act="profile"]');
+    await page.waitForFunction(t => (Decks.getActive().paperProfile || {}).source === t, { timeout: 3000 }, title);
+    const p = await page.evaluate(() => Decks.getActive().paperProfile);
+    if (p.topicsFrom !== 'distribution' || p.topics.length < 2 || Math.abs(p.topics.reduce((s, t) => s + t.weight, 0) - 1) > 0.01) throw new Error('profile: ' + JSON.stringify(p).slice(0, 300));
+    // Phone width: the screen must not scroll sideways.
+    await page.setViewport({ width: 390, height: 844 });
+    const overflow = await page.$eval('.meb-panel', el => el.scrollWidth - el.clientWidth);
+    await page.setViewport({ width: 1280, height: 900 });
+    if (overflow > 1) throw new Error('horizontal overflow at 390px: ' + overflow);
+    // Escape closes the library only; the past-paper screen under it stays.
+    await page.keyboard.press('Escape');
+    await page.waitForFunction(() => document.querySelector('.meb-panel').parentElement.style.display === 'none', { timeout: 2000 });
+    if (!await page.$eval('.pp-panel', el => el.parentElement.style.display !== 'none')) throw new Error('past-paper modal closed with the library');
+    await page.keyboard.press('Escape');
+    await page.waitForSelector('.pp-weight-note', { timeout: 2000 });
+  });
+
   await step('exams: a photographed handwritten answer is OCRed, corrected and graded', async () => {
     await page.evaluate(() => {
       window.__ex.graded = null;
