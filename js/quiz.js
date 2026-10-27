@@ -255,6 +255,7 @@ const Quiz = (() => {
             <button class="btn-ghost" id="gen-more-q-btn">&#65291; ${T('genMoreQs')}</button>
             ${typeof Checker !== 'undefined' ? Checker.toolbarHtml('question') : ''}
           </div>
+          ${typeof PastPaper !== 'undefined' ? PastPaper.readyHtml() : ''}
         </div>
       </div>`;
 
@@ -318,7 +319,9 @@ const Quiz = (() => {
   function startAdaptive() {
     const mistakes = new Set((typeof Decks !== 'undefined' ? Decks.getMistakes() : [])
       .map(m => (m.type || 'mc') + '|' + String(m.question || '').slice(0, 200)));
-    const set = Adaptive.pick(questions, deckStats(), Math.min(ADAPTIVE_N, questions.length), { mistakeKeys: mistakes });
+    // A saved konu dağılımı (past-paper mode) tilts the pick toward heavy topics.
+    const topicBoost = typeof PastPaper !== 'undefined' ? PastPaper.topicBoost(PastPaper.getProfile()) : null;
+    const set = Adaptive.pick(questions, deckStats(), Math.min(ADAPTIVE_N, questions.length), { mistakeKeys: mistakes, topicBoost });
     const shuffle = settings.shuffle;
     settings.shuffle = false; // keep the weighted order's mix as picked
     startQuiz(set);
@@ -528,6 +531,7 @@ const Quiz = (() => {
       return `<div class="open-ended-area">
           <span class="oe-badge">${T('writtenAnswer')}</span>
           <textarea class="oe-textarea" id="oe-answer" placeholder="${T('typeAnswer')}" spellcheck="false"></textarea>
+          ${typeof Handwrite !== 'undefined' ? Handwrite.buttonHtml() : ''}
           <button class="btn-primary oe-submit-btn" id="oe-submit-btn">${T('submitAnswer')}</button>
         </div>`;
     }

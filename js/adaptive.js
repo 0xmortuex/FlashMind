@@ -42,7 +42,8 @@ const Adaptive = (() => {
     const o = opts || {};
     const rand = o.rand || Math.random;
     const topicAcc = topicAccuracy(questions, qstats || {});
-    const pool = questions.map(q => ({ q, w: weight(q, (qstats || {})[q.id], topicAcc, o.mistakeKeys) }));
+    // Optional per-question multiplier, e.g. from an exam's topic distribution.
+    const pool = questions.map(q => ({ q, w: weight(q, (qstats || {})[q.id], topicAcc, o.mistakeKeys) * (o.topicBoost ? o.topicBoost(q) : 1) }));
     const out = [];
     while (out.length < n && pool.length) {
       const total = pool.reduce((a, x) => a + x.w, 0);

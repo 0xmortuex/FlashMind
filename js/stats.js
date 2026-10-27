@@ -353,6 +353,7 @@ const Stats = (() => {
         </div>
         ${plan}
         ${typeof Insights !== 'undefined' ? Insights.statsCards() : ''}
+        ${typeof PaperReview !== 'undefined' ? PaperReview.statsCard() : ''}
         <div class="stat-card">
           <h3 class="stat-card-title">${T('reviewsLast14')}</h3>
           ${barChart(14)}
