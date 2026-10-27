@@ -35,7 +35,7 @@ const Library = (() => {
 
     // Cross-deck "Today" banner: one session over everything due, anywhere.
     const dueTotal = typeof Today !== 'undefined' ? Today.dueItems().length : 0;
-    let html = '';
+    let html = typeof Coach !== 'undefined' ? Coach.homeHtml() : '';
     if (dueTotal > 0) {
       html += `<div class="today-banner">
         <span class="today-banner-text">&#128293; ${T('todayDue', { n: dueTotal })}</span>
@@ -118,6 +118,7 @@ const Library = (() => {
               <span>${T('questionsN', { n: qs })}</span>
               ${due ? `<span class="deck-card-due">${T('dueN', { n: due })}</span>` : ''}
               ${typeof Planner !== 'undefined' ? Planner.deckBadge(d) : ''}
+              ${typeof ClassMode !== 'undefined' ? ClassMode.deckBadge(d) : ''}
             </div>
           </div>
           <button class="deck-card-menu-btn" data-menu="${d.id}" aria-label="${T('deckActions')}" title="${T('deckActions')}" aria-haspopup="menu">&#8943;</button>

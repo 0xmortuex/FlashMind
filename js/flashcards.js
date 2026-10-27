@@ -90,6 +90,7 @@ const Flashcards = (() => {
           ${weakCategories().length ? `<button class="btn-ghost" onclick="Flashcards.generateWeakSpots()" ${generatingMore ? 'disabled' : ''}>&#127919; ${T('targetWeak')}</button>` : ''}
           ${clozeCandidates().length ? `<button class="btn-ghost" onclick="Flashcards.addClozeCards()">&#9998; ${T('clozeBtn')}</button>` : ''}
           <button class="btn-ghost" onclick="Flashcards.openEditor()">&#65291; ${T('addCard')}</button>
+          ${typeof Checker !== 'undefined' ? Checker.toolbarHtml('card') : ''}
           ${typeof Occlusion !== 'undefined' ? `<button class="btn-ghost" onclick="Occlusion.open()">&#128444;&#65039; ${T('occlBtn')}</button>` : ''}
           ${cards.length ? `<button class="btn-ghost" onclick="Flashcards.startStudy('cram')" title="${T('cramHint')}">&#9889; ${T('cramBtn')}</button>` : ''}
           ${dueCount > 0 ? `<button class="btn-ghost review-due-btn" onclick="Flashcards.startStudy('due')">${T('reviewDue', { n: dueCount })}</button>` : ''}
@@ -111,6 +112,7 @@ const Flashcards = (() => {
               <div class="flashcard-meta">
                 <span class="difficulty-badge ${card.difficulty}">${T('filter' + card.difficulty.charAt(0).toUpperCase() + card.difficulty.slice(1))}</span>
                 <span class="card-category">${esc(card.category)}</span>
+                ${typeof Checker !== 'undefined' ? Checker.badge(card) : ''}
                 <span class="card-tools">
                   ${struggling ? `<button class="card-tool-btn" title="${T('mnemonicBtn')}" onclick="event.stopPropagation();Flashcards.mnemonic('${card.id}')">&#128161;</button>` : ''}
                   <button class="card-tool-btn" title="${T('editCard')}" onclick="event.stopPropagation();Flashcards.openEditor('${card.id}')">&#9998;</button>
@@ -501,6 +503,41 @@ const Flashcards = (() => {
 
     setupDrag(card);
     setupTypedRecall();
+    setupConfidence();
+  }
+
+  // ===== Confidence before the flip =====
+  // Saying how sure you are before seeing the answer measures calibration:
+  // "sure" + Got it schedules the card as Easy, "sure" + Again lands it on the
+  // overconfidence list in Stats. Q / W / E pick guess / unsure / sure.
+  const CONF_KEYS = { q: 'guess', w: 'unsure', e: 'sure' };
+
+  function setupConfidence() {
+    const row = document.getElementById('study-confidence');
+    if (!row) return;
+    row.addEventListener('click', e => {
+      const b = e.target.closest('[data-conf]');
+      if (!b || !studyState || studyState.flipped) return;
+      e.stopPropagation();
+      pickConfidence(b.dataset.conf);
+    });
+    document.addEventListener('keydown', e => {
+      if (!studyState || studyState.flipped || e.ctrlKey || e.metaKey || e.altKey) return;
+      const tag = (e.target.tagName || '').toLowerCase();
+      if (tag === 'input' || tag === 'textarea') return;
+      const conf = CONF_KEYS[e.key.toLowerCase()];
+      if (conf) { e.preventDefault(); pickConfidence(conf); }
+    });
+  }
+
+  function pickConfidence(conf) {
+    studyState.conf = conf;
+    flipStudyCard();
+  }
+
+  function showConfidence(show) {
+    const row = document.getElementById('study-confidence');
+    if (row) row.style.display = show ? 'flex' : 'none';
   }
 
   // ===== Typed recall =====
@@ -705,6 +742,8 @@ const Flashcards = (() => {
     document.getElementById('study-mode-actions').style.display = 'none';
     studyState.flipped = false;
     studyState.typedVerdict = null;
+    studyState.conf = null;
+    showConfidence(sessionMode !== 'cram');
     applyTypedVisibility();
     showTypedVerdict();
     const cardEl = document.getElementById('study-card');
@@ -722,6 +761,7 @@ const Flashcards = (() => {
     document.getElementById('study-mode-actions').style.display = 'flex';
     const typedRow = document.getElementById('study-typed');
     if (typedRow) typedRow.style.display = 'none';
+    showConfidence(false);
     showTypedVerdict();
     Sound.play('flip');
     Sound.haptic(8);
@@ -759,10 +799,12 @@ const Flashcards = (() => {
     // Map the three buttons to SM-2 quality scores and persist scheduling.
     // Cram sessions deliberately skip FSRS — last-minute reps shouldn't wreck
     // long-term schedules. Cross-deck queue ratings land in the card's own deck.
-    const quality = rating === 'gotit' ? 5 : rating === 'hard' ? 3 : 1;
+    // "Got it" while sure of the answer schedules as Easy (quality 6).
+    const quality = rating === 'gotit' ? (studyState.conf === 'sure' ? 6 : 5) : rating === 'hard' ? 3 : 1;
     if (typeof Decks !== 'undefined' && sessionMode !== 'cram') {
       if (card._deckId) Decks.reviewIn(card._deckId, card.id, quality);
       else Decks.review(card.id, quality);
+      if (studyState.conf) Decks.recordConfidence(card._deckId || null, card.id, studyState.conf, rating === 'gotit');
     }
     if (typeof Stats !== 'undefined') Stats.recordReview(rating);
 
@@ -793,6 +835,7 @@ const Flashcards = (() => {
     render(false);
     Sound.play('complete');
     FX.celebrate();
+    document.dispatchEvent(new CustomEvent('fm:session-end', { detail: { kind: 'cards' } }));
     document.getElementById('dc-study-again').onclick = () => {
       document.getElementById('deck-complete-overlay').style.display = 'none';
       if (releaseStudyTrap) { releaseStudyTrap(); releaseStudyTrap = null; }
@@ -815,6 +858,7 @@ const Flashcards = (() => {
 
   function exitStudy() {
     clearTimeout(rateTimer);
+    showConfidence(false);
     if (releaseStudyTrap) { releaseStudyTrap(); releaseStudyTrap = null; }
     studyState = null;
     drag = null;

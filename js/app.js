@@ -31,9 +31,16 @@ const App = (() => {
     if (typeof Sources !== 'undefined') Sources.init();
     if (typeof Mindmap !== 'undefined') Mindmap.init();
     if (typeof AudioOverview !== 'undefined') AudioOverview.init();
+    if (typeof Labs !== 'undefined') Labs.init();
+    if (typeof VideoLesson !== 'undefined') VideoLesson.init();
     if (typeof Planner !== 'undefined') Planner.init();
     if (typeof Focus !== 'undefined') Focus.init();
     if (typeof Voice !== 'undefined') Voice.init();
+    if (typeof Lecture !== 'undefined') Lecture.init();
+    if (typeof Checker !== 'undefined') Checker.init();
+    if (typeof Insights !== 'undefined') Insights.init();
+    // Study brain: exam predictor, concept map, autopilot coach.
+    [typeof Predictor !== 'undefined' && Predictor, typeof ConceptMap !== 'undefined' && ConceptMap, typeof Coach !== 'undefined' && Coach].forEach(m => { if (m) m.init(); });
     if (typeof MathRender !== 'undefined') MathRender.init();
     if (typeof Sound !== 'undefined') Sound.init();
     if (typeof Palette !== 'undefined') Palette.init();
@@ -104,6 +111,13 @@ const App = (() => {
       if (el) { el.textContent = '+ ' + T('srcAddAs'); el.title = T('srcAddAsHint'); }
     });
     document.querySelectorAll('.focus-toggle').forEach(el => { el.title = T('focusTitle'); el.setAttribute('aria-label', T('focusTitle')); });
+    const confLabel = document.getElementById('study-confidence-label');
+    if (confLabel) {
+      confLabel.textContent = T('confAsk');
+      document.querySelectorAll('.conf-btn').forEach(b => { b.querySelector('span').textContent = T('conf_' + b.dataset.conf); });
+    }
+    const autoLabel = document.getElementById('autocheck-label');
+    if (autoLabel) autoLabel.textContent = T('chkAutoLabel');
 
     // Export menu items
     const exportItems = document.querySelectorAll('#export-menu button');
@@ -591,6 +605,12 @@ const App = (() => {
       });
     });
 
+    const autoCheck = document.getElementById('autocheck-toggle');
+    if (autoCheck && typeof Checker !== 'undefined') {
+      autoCheck.checked = Checker.autoEnabled();
+      autoCheck.addEventListener('change', () => Checker.setAuto(autoCheck.checked));
+    }
+
     document.querySelectorAll('#gen-level-options .timer-option').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.level === genLevel);
       btn.addEventListener('click', () => {
@@ -703,7 +723,11 @@ const App = (() => {
       });
       if (staged.length) Sources.clearTray();
       if (sources.length) data.sources = sources;
-      if (studyData === targetData && appendMode === targetAppend) commitStudyData(data, text);
+      if (studyData === targetData && appendMode === targetAppend) {
+        commitStudyData(data, text);
+        // Fact-check the new cards and questions in the background.
+        if (typeof Checker !== 'undefined' && Checker.autoEnabled()) Checker.run(true);
+      }
       else {
         // Navigation during generation must not append to a different deck.
         const previous = Decks.getActive();
@@ -821,6 +845,8 @@ const App = (() => {
     if (b.media || e.media) merged.media = Object.assign({}, b.media, e.media);
     if (b.notes.mindmap) merged.notes.mindmap = b.notes.mindmap;
     if (b.audio) merged.audio = b.audio;
+    if (b.labs) merged.labs = b.labs;
+    if (b.lessons) merged.lessons = b.lessons;
     // Keep the original IDs: their schedules are keyed by these values.
     const used = new Set(b.flashcards.map(c => String(c.id)));
     let next = 1;
@@ -852,6 +878,32 @@ const App = (() => {
     exitAppendMode();
     showStudyView(studyData);
     return studyData;
+  }
+
+  // Merge `extra` into a saved deck (the open set or any other) without
+  // leaving the current screen; a null `deckId` creates a new deck.
+  // `mutate(merged)` may adjust the merged set before it's saved (used by the
+  // lecture companion to keep its transcript source current). Returns the id.
+  function mergeIntoDeck(deckId, extra, mutate) {
+    const isOpen = !!(deckId && deckId === activeDeckId && studyData);
+    const deck = !isOpen && deckId ? Decks.get(deckId) : null;
+    let merged;
+    if (isOpen) merged = mergeStudyData(studyData, extra);
+    else if (deck) {
+      const base = normalizeDeck(deck.data);
+      Sources.adoptLegacy(base, deck.originalText);
+      merged = mergeStudyData(base, extra);
+    } else merged = normalizeDeck(extra);
+    if (mutate) mutate(merged);
+    const saved = Decks.save(merged, isOpen ? originalText : deck ? deck.originalText : '', isOpen ? activeDeckId : deck ? deckId : null);
+    if (isOpen) {
+      studyData = normalizeDeck(merged);
+      Notes.render(studyData);
+      Flashcards.setCards(studyData.flashcards);
+      if (typeof Stats !== 'undefined') Stats.render();
+    } else if (activeDeckId && Decks.get(activeDeckId)) Decks.setActive(activeDeckId);
+    if (currentView === 'input') Library.render();
+    return saved.id;
   }
 
   // ===== Add Materials (append mode) =====
@@ -1200,6 +1252,7 @@ const App = (() => {
     toggleShortcuts: (force) => Shell.toggleShortcuts(force),
     refreshLibrary,
     persistActiveDeck,
+    mergeIntoDeck,
     openSharedCode
   };
 })();

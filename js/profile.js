@@ -75,6 +75,7 @@ const Profile = (() => {
               </div>
             </div>`).join('')}
         </div>
+        ${typeof PastPaper !== 'undefined' ? `<div class="profile-meb">${PastPaper.resourcesHtml()}<p class="meb-res-sub">${T('resProfileHint')}</p></div>` : ''}
       </div>`;
 
     panel.querySelectorAll('.subject-topic, .profile-recent-chip').forEach(btn =>

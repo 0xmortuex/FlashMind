@@ -244,6 +244,7 @@ const Quiz = (() => {
           </div>
           <p class="sim-hint" id="sim-hint" style="display:${settings.mode === 'sim' ? 'block' : 'none'}">${T('simHint')}</p>
           <button class="start-quiz-btn" id="start-quiz-btn">${T('startExam')}</button>
+          ${adaptiveHtml()}
           ${(typeof Decks !== 'undefined' && Decks.getMistakes().length) ? `
           <div class="mistakes-row">
             <button class="btn-ghost mistakes-btn" id="retake-mistakes-btn">&#128213; ${T('retakeMistakes', { n: Decks.getMistakes().length })}</button>
@@ -252,7 +253,9 @@ const Quiz = (() => {
           </div>` : ''}
           <div class="quiz-grow-row">
             <button class="btn-ghost" id="gen-more-q-btn">&#65291; ${T('genMoreQs')}</button>
+            ${typeof Checker !== 'undefined' ? Checker.toolbarHtml('question') : ''}
           </div>
+          ${typeof PastPaper !== 'undefined' ? PastPaper.readyHtml() : ''}
         </div>
       </div>`;
 
@@ -286,8 +289,43 @@ const Quiz = (() => {
     if (mistakesBtn) mistakesBtn.addEventListener('click', () => startQuiz(Decks.getMistakes()));
     const harderBtn = document.getElementById('harder-mistakes-btn');
     if (harderBtn) harderBtn.addEventListener('click', harderFromMistakes);
+    const adaptiveBtn = document.getElementById('adaptive-quiz-btn');
+    if (adaptiveBtn) adaptiveBtn.addEventListener('click', startAdaptive);
     const moreBtn = document.getElementById('gen-more-q-btn');
     if (moreBtn) moreBtn.addEventListener('click', () => generateMoreQuestions());
+  }
+
+  // Adaptive practice: a short set weighted toward missed, unseen and
+  // weak-topic questions, plus the predicted score on the whole bank.
+  const ADAPTIVE_N = 15;
+
+  function deckStats() {
+    const deck = typeof Decks !== 'undefined' ? Decks.getActive() : null;
+    return (deck && deck.qstats) || {};
+  }
+
+  function adaptiveHtml() {
+    if (typeof Adaptive === 'undefined' || questions.length < 4) return '';
+    const T = i18n.t;
+    const p = Adaptive.predict(questions, deckStats());
+    return `<div class="adaptive-row">
+      <button class="btn-ghost adaptive-btn" id="adaptive-quiz-btn">&#127919; ${T('adaptiveBtn', { n: Math.min(ADAPTIVE_N, questions.length) })}</button>
+      <p class="adaptive-hint">${p
+        ? T('predictLine', { p: p.pct, c: p.coverage }) + (p.weakest.length ? ' ' + T('predictWeak', { t: esc(p.weakest.join(', ')) }) : '')
+        : T('predictNone')}</p>
+    </div>`;
+  }
+
+  function startAdaptive() {
+    const mistakes = new Set((typeof Decks !== 'undefined' ? Decks.getMistakes() : [])
+      .map(m => (m.type || 'mc') + '|' + String(m.question || '').slice(0, 200)));
+    // A saved konu dağılımı (past-paper mode) tilts the pick toward heavy topics.
+    const topicBoost = typeof PastPaper !== 'undefined' ? PastPaper.topicBoost(PastPaper.getProfile()) : null;
+    const set = Adaptive.pick(questions, deckStats(), Math.min(ADAPTIVE_N, questions.length), { mistakeKeys: mistakes, topicBoost });
+    const shuffle = settings.shuffle;
+    settings.shuffle = false; // keep the weighted order's mix as picked
+    startQuiz(set);
+    settings.shuffle = shuffle;
   }
 
   function bindOptionGroup(selector, onPick) {
@@ -482,8 +520,9 @@ const Quiz = (() => {
 
   // The stem: for fill-blank show the blank as a styled gap.
   function renderStem(q) {
-    if (q.type === 'fill-blank') return esc(q.question).replace(/_{2,}/, '<span class="fill-gap">_____</span>');
-    return esc(q.question);
+    const flag = typeof Checker !== 'undefined' ? Checker.badge(q) : '';
+    if (q.type === 'fill-blank') return flag + esc(q.question).replace(/_{2,}/, '<span class="fill-gap">_____</span>');
+    return flag + esc(q.question);
   }
 
   function renderBody(q) {
@@ -492,6 +531,7 @@ const Quiz = (() => {
       return `<div class="open-ended-area">
           <span class="oe-badge">${T('writtenAnswer')}</span>
           <textarea class="oe-textarea" id="oe-answer" placeholder="${T('typeAnswer')}" spellcheck="false"></textarea>
+          ${typeof Handwrite !== 'undefined' ? Handwrite.buttonHtml() : ''}
           <button class="btn-primary oe-submit-btn" id="oe-submit-btn">${T('submitAnswer')}</button>
         </div>`;
     }
@@ -550,6 +590,7 @@ const Quiz = (() => {
   }
 
   function timeOut(q) {
+    (state.timedOut = state.timedOut || new Set()).add(state.current);
     if (q.type === 'open-ended') { submitOpenEnded(); return; }
     if (q.type === 'multiple-choice') { gradeMultipleChoice(q, -1); return; }
     if (q.type === 'true-false') { recordObjective(q, 'blank'); revealTrueFalse(q, null); showNextButton(q); return; }
@@ -742,6 +783,15 @@ const Quiz = (() => {
   }
 
   // ===== Results (Turkish scoring) =====
+  function givenText(q, a) {
+    if (a.result === 'blank') return '';
+    if (a.qType === 'multiple-choice') return (q.options || [])[a.selected] || '';
+    if (a.qType === 'true-false') return a.selected ? 'True' : 'False';
+    if (a.qType === 'fill-blank') return a.answerText || '';
+    if (a.qType === 'matching') return `${a.correctPairs}/${a.totalPairs} pairs right`;
+    return a.studentAnswer || '';
+  }
+
   function objectivePoints(a) {
     // 1 point per objective question; matching gets a fraction of its pairs.
     if (a.qType === 'matching') return a.totalPairs ? a.correctPairs / a.totalPairs : 0;
@@ -858,14 +908,19 @@ const Quiz = (() => {
     // Mistake notebook (yanlış defteri): wrong/blank answers are filed for a
     // targeted retake; answering correctly clears the question from the bank.
     if (typeof Decks !== 'undefined') {
-      const wrongQs = [], rightQs = [];
+      const wrongQs = [], rightQs = [], history = [];
       answers.forEach(a => {
         const q = state.questions[a.questionIdx];
         const ok = a.qType === 'open-ended' ? a.score >= 2 : a.result === 'correct';
-        (ok ? rightQs : wrongQs).push(q);
+        // The student's own answer rides along for the mistake diagnosis.
+        (ok ? rightQs : wrongQs).push(ok ? q : Object.assign({}, q, { _given: givenText(q, a), mtype: state.timedOut && state.timedOut.has(a.questionIdx) ? 'time' : undefined }));
+        history.push({ id: q.id, ok });
       });
       Decks.addMistakes(wrongQs);
       Decks.resolveMistakes(rightQs);
+      // Mistake-notebook retakes reuse copies of questions; only bank
+      // questions feed the per-question history.
+      Decks.recordAnswers(history.filter(h => questions.some(q => q.id === h.id)));
     }
 
     // Record the result for the Stats tab (exam history + score chart).
@@ -886,6 +941,7 @@ const Quiz = (() => {
     if (pct >= 85) { FX.celebrate(); if (state.mode !== 'sim') Sound.play('complete'); } // sim already played it on finish
     document.getElementById('review-btn').addEventListener('click', showReview);
     document.getElementById('retake-btn').addEventListener('click', () => { state = null; renderReady(); });
+    document.dispatchEvent(new CustomEvent('fm:session-end', { detail: { kind: 'exam' } }));
   }
 
   function showReview() {
@@ -923,8 +979,14 @@ const Quiz = (() => {
         html += `<div class="review-answer correct-answer">${T('modelAnswer')} ${esc(a.correctAnswer)}</div>`;
       }
       if (q.explanation && a.qType !== 'open-ended') html += `<div class="review-explanation">${esc(q.explanation)}</div>`;
-      // Wrong answers get a one-click bridge to the AI tutor.
-      if (!ok) html += `<button class="btn-ghost explain-btn" data-qi="${a.questionIdx}">&#128172; ${T('explainThis')}</button>`;
+      // Wrong answers get a one-click bridge to the AI tutor, and a tag for
+      // why they happened (feeds the mistake analysis in Stats).
+      if (!ok) {
+        html += `<button class="btn-ghost explain-btn" data-qi="${a.questionIdx}">&#128172; ${T('explainThis')}</button>`;
+        const cur = mistakeTypeOf(q);
+        html += `<div class="mt-tags" data-qi="${a.questionIdx}"><span class="mt-tags-label">${T('mtWhy')}</span>${['concept', 'careless', 'misread', 'time']
+          .map(k => `<button class="mt-tag${cur === k ? ' active' : ''}" data-mtype="${k}">${T('mt_' + k)}</button>`).join('')}</div>`;
+      }
       html += `</div>`;
     });
 
@@ -941,6 +1003,16 @@ const Quiz = (() => {
         Chat.sendMessage(T('explainPrompt', { q: q.question, a: correctText }));
       });
     });
+    reviewEl.querySelectorAll('.mt-tags').forEach(row => {
+      row.addEventListener('click', e => {
+        const b = e.target.closest('[data-mtype]');
+        if (!b) return;
+        const q = qs[parseInt(row.dataset.qi)];
+        const next = b.classList.contains('active') ? '' : b.dataset.mtype;
+        Decks.tagMistake(q, next);
+        row.querySelectorAll('.mt-tag').forEach(t => t.classList.toggle('active', t.dataset.mtype === next));
+      });
+    });
     reviewEl.style.display = 'block';
     let wrongOnly = false;
     document.getElementById('show-wrong-only').addEventListener('click', function () {
@@ -952,7 +1024,14 @@ const Quiz = (() => {
     });
   }
 
+  function mistakeTypeOf(q) {
+    if (typeof Decks === 'undefined') return '';
+    const k = (q.type || 'mc') + '|' + String(q.question || '').slice(0, 200);
+    const m = Decks.getMistakes().find(x => (x.type || 'mc') + '|' + String(x.question || '').slice(0, 200) === k);
+    return (m && m.mtype) || '';
+  }
+
   function esc(str) { if (str == null) return ''; const d = document.createElement('div'); d.textContent = String(str); return d.innerHTML; }
 
-  return { init, setQuestions, addQuestions, renderReady, startQuiz };
+  return { init, setQuestions, addQuestions, renderReady, startQuiz, startAdaptive, isIdle: () => !state };
 })();

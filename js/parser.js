@@ -208,10 +208,22 @@ const Parser = (() => {
       const target = Number.isInteger(o.target) && o.target >= 0 && o.target < rects.length ? o.target : -1;
       return target < 0 ? null : { media: o.media, rects, target, mode: o.mode === 'one' ? 'one' : 'all' };
     };
+    // Answer-checker verdicts stored on cards and questions.
+    const check = c => {
+      if (!obj(c) || !['ok', 'wrong', 'unsupported', 'ambiguous'].includes(c.v)) return null;
+      const out = { v: c.v, p: str(c.p).slice(0, 400), f: str(c.f).slice(0, 600), t: Number.isFinite(c.t) ? c.t : 0 };
+      if (c.fixed === true) out.fixed = true;
+      if (c.ignored === true) out.ignored = true;
+      return out;
+    };
+    const withCheck = item => {
+      if ('check' in item) { const c = check(item.check); if (c) item.check = c; else delete item.check; }
+      return item;
+    };
     const flashcards = ids(list(d.flashcards).filter(c => obj(c) && str(c.front).trim() && str(c.back).trim()).map(c => {
       const card = { ...c, difficulty: ['easy', 'medium', 'hard'].includes(c.difficulty) ? c.difficulty : 'medium', category: str(c.category) || 'General' };
       if ('occlusion' in card) { const o = occlusion(card.occlusion); if (o) card.occlusion = o; else delete card.occlusion; }
-      return card;
+      return withCheck(card);
     }));
     // Shared images, kept only while a card still references them.
     const used = new Set(flashcards.filter(c => c.occlusion).map(c => c.occlusion.media));
@@ -223,7 +235,7 @@ const Parser = (() => {
     const sources = list(d.sources).filter(x => obj(x) && str(x.text).trim()).slice(0, 30).map((x, i) => ({
       id: /^[a-zA-Z0-9_-]+$/.test(str(x.id)) && !['__proto__', 'constructor', 'prototype', '__notes'].includes(x.id) ? x.id : 's' + (i + 1),
       name: str(x.name).trim().slice(0, 160) || 'Source ' + (i + 1),
-      kind: ['paste', 'pdf', 'url', 'youtube', 'image', 'file'].includes(x.kind) ? x.kind : 'paste',
+      kind: ['paste', 'pdf', 'url', 'youtube', 'image', 'file', 'lecture'].includes(x.kind) ? x.kind : 'paste',
       text: str(x.text).slice(0, 60000),
       enabled: x.enabled !== false,
       addedAt: Number.isFinite(x.addedAt) ? x.addedAt : 0
@@ -247,8 +259,11 @@ const Parser = (() => {
       createdAt: Number.isFinite(d.audio.createdAt) ? d.audio.createdAt : 0
     } : null;
     const mindmap = tree(n.mindmap, 0);
+    // Interactive labs and video-lesson storyboards (validated in js/simspec.js).
+    const labs = typeof SimSpec !== 'undefined' ? SimSpec.sanitizeLabs(d.labs) : [];
+    const lessons = typeof SimSpec !== 'undefined' ? SimSpec.sanitizeLessons(d.lessons) : [];
     const quiz = ids(list(d.quiz).filter(obj).map(q => {
-      q = { ...q, question: str(q.question), explanation: str(q.explanation) };
+      q = withCheck({ ...q, question: str(q.question), explanation: str(q.explanation) });
       if (!q.question.trim()) return null;
       if (q.type === 'open-ended') return { ...q, correctAnswer: str(q.correctAnswer), keyPoints: strings(q.keyPoints), maxPoints: Number.isFinite(q.maxPoints) && q.maxPoints > 0 ? q.maxPoints : 3 };
       if (q.type === 'true-false') {
@@ -281,7 +296,9 @@ const Parser = (() => {
       }, flashcards, quiz,
       ...(sources.length ? { sources } : {}),
       ...(Object.keys(media).length ? { media } : {}),
-      ...(audio && audio.lines.length ? { audio } : {})
+      ...(audio && audio.lines.length ? { audio } : {}),
+      ...(labs.length ? { labs } : {}),
+      ...(lessons.length ? { lessons } : {})
     };
   }
 

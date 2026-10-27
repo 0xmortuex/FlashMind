@@ -1261,6 +1261,124 @@ const i18n = (() => {
     voiceContinueNote: 'Devam et yeni bir bağlantı açar; öğretmen bu metinden kaldığı yerden devam eder.'
   });
 
+  Object.assign(translations.en, {
+    // Answer checker
+    chkBtn: 'Check answers',
+    chkRunning: 'Checking answers… {d}/{n}',
+    chkFlagged: '{n} flagged',
+    chkTitle: 'Answer check',
+    chkIntro: '{n} items may be wrong. Fix them before you memorize them.',
+    chkNone: 'Nothing flagged — every checked answer looks right.',
+    chkNothing: 'Nothing to check yet',
+    chkFailed: "Couldn't check the answers — try again in a moment.",
+    chkIssues: 'Answer check found {n} possible problems — review them before studying',
+    chkClean: 'Answer check: all {n} answers look right',
+    chkKeyed: 'Answer:',
+    chkSuggested: 'Suggested fix:',
+    chkApply: 'Apply fix',
+    chkIgnore: "It's correct",
+    chkDelete: 'Delete',
+    chkApplied: 'Fix applied',
+    chkDeleteConfirm: 'Delete this item?',
+    chkAutoLabel: 'Double-check answers after generating',
+    chkV_ok: 'OK',
+    chkV_wrong: 'Wrong answer',
+    chkV_unsupported: 'Not in your material',
+    chkV_ambiguous: 'Ambiguous',
+
+    // Confidence + calibration
+    confAsk: 'How sure are you?',
+    conf_guess: 'Guess',
+    conf_unsure: 'Unsure',
+    conf_sure: 'Sure',
+    calTitle: 'Confidence check',
+    calEmpty: 'Before flipping a card, tap Guess, Unsure or Sure (or press Q / W / E). FlashMind then shows how reliable your confidence is.',
+    calHint: 'When you say "Sure", you should be right almost every time — those are the answers you won\'t double-check in the exam.',
+    calOverconfident: 'You are right only {p}% of the time when you feel sure. In an exam, those are the mistakes you won\'t catch.',
+    calOverTitle: '{n} overconfident cards — you were sure and still got them wrong',
+    calStudyOver: 'Study these now',
+
+    // Mistake types
+    mtWhy: 'Why?',
+    mt_concept: "Didn't know",
+    mt_careless: 'Careless',
+    mt_misread: 'Misread',
+    mt_time: 'Out of time',
+    mtTitle: 'Mistake analysis',
+    mtUntagged: '{n} mistakes not tagged yet — tag them in the exam review ("Why?").',
+    mtAdvice_concept: 'Most of your mistakes are gaps in knowledge: re-learn those topics (ask the tutor, then make cards).',
+    mtAdvice_careless: 'Most of your mistakes are careless: slow down on the last step and re-check signs, units and negatives.',
+    mtAdvice_misread: 'You often misread questions: underline the key words ("not", "except", "always") before answering.',
+    mtAdvice_time: 'Time is costing you marks: practise in Simulation mode with a timer and skip-then-return on hard questions.',
+    mtDiagnose: 'Diagnose my misconceptions',
+    mtDiagnosing: 'Diagnosing…',
+
+    // Adaptive exam + prediction
+    adaptiveBtn: 'Adaptive practice ({n} questions)',
+    predictLine: 'Predicted score on this exam: {p}/100 (based on {c}% of questions answered).',
+    predictWeak: 'Weakest: {t}.',
+    predictNone: 'Answer a few questions and FlashMind predicts your score, then aims practice at your weak spots.'
+  });
+
+  Object.assign(translations.tr, {
+    // Cevap kontrolü
+    chkBtn: 'Cevapları kontrol et',
+    chkRunning: 'Cevaplar kontrol ediliyor… {d}/{n}',
+    chkFlagged: '{n} işaretli',
+    chkTitle: 'Cevap kontrolü',
+    chkIntro: '{n} öğe yanlış olabilir. Ezberlemeden önce düzelt.',
+    chkNone: 'İşaretli bir şey yok — kontrol edilen tüm cevaplar doğru görünüyor.',
+    chkNothing: 'Henüz kontrol edilecek bir şey yok',
+    chkFailed: 'Cevaplar kontrol edilemedi — birazdan tekrar dene.',
+    chkIssues: 'Cevap kontrolü {n} olası sorun buldu — çalışmadan önce gözden geçir',
+    chkClean: 'Cevap kontrolü: {n} cevabın hepsi doğru görünüyor',
+    chkKeyed: 'Cevap:',
+    chkSuggested: 'Önerilen düzeltme:',
+    chkApply: 'Düzeltmeyi uygula',
+    chkIgnore: 'Doğru',
+    chkDelete: 'Sil',
+    chkApplied: 'Düzeltme uygulandı',
+    chkDeleteConfirm: 'Bu öğe silinsin mi?',
+    chkAutoLabel: 'Oluşturduktan sonra cevapları kontrol et',
+    chkV_ok: 'Tamam',
+    chkV_wrong: 'Yanlış cevap',
+    chkV_unsupported: 'Materyalinde yok',
+    chkV_ambiguous: 'Belirsiz',
+
+    // Güven + kalibrasyon
+    confAsk: 'Ne kadar eminsin?',
+    conf_guess: 'Tahmin',
+    conf_unsure: 'Emin değilim',
+    conf_sure: 'Eminim',
+    calTitle: 'Güven kontrolü',
+    calEmpty: 'Kartı çevirmeden önce Tahmin, Emin değilim veya Eminim\'e dokun (ya da Q / W / E). FlashMind güveninin ne kadar isabetli olduğunu gösterir.',
+    calHint: '"Eminim" dediğinde neredeyse her zaman haklı olmalısın — sınavda tekrar kontrol etmeyeceğin cevaplar bunlar.',
+    calOverconfident: 'Emin olduğunda yalnızca %{p} oranında haklısın. Sınavda fark etmeyeceğin hatalar bunlar.',
+    calOverTitle: '{n} aşırı güvenli kart — emindin ama yine de yanlış yaptın',
+    calStudyOver: 'Bunları şimdi çalış',
+
+    // Hata türleri
+    mtWhy: 'Neden?',
+    mt_concept: 'Bilmiyordum',
+    mt_careless: 'Dikkatsizlik',
+    mt_misread: 'Yanlış okudum',
+    mt_time: 'Süre yetmedi',
+    mtTitle: 'Hata analizi',
+    mtUntagged: '{n} hata henüz etiketlenmedi — sınav incelemesinde etiketle ("Neden?").',
+    mtAdvice_concept: 'Hatalarının çoğu bilgi eksikliği: bu konuları yeniden öğren (öğretmene sor, sonra kart yap).',
+    mtAdvice_careless: 'Hatalarının çoğu dikkatsizlik: son adımda yavaşla; işaretleri, birimleri ve olumsuzlukları kontrol et.',
+    mtAdvice_misread: 'Soruları sık yanlış okuyorsun: cevaplamadan önce anahtar kelimelerin ("değildir", "hariç", "her zaman") altını çiz.',
+    mtAdvice_time: 'Süre sana puan kaybettiriyor: Deneme modunda süreyle çalış, zor soruları atla ve sonra dön.',
+    mtDiagnose: 'Kavram yanılgılarımı bul',
+    mtDiagnosing: 'İnceleniyor…',
+
+    // Uyarlanabilir sınav + tahmin
+    adaptiveBtn: 'Uyarlanabilir pratik ({n} soru)',
+    predictLine: 'Bu sınavda tahmini puanın: {p}/100 (soruların %{c}\'i cevaplandı).',
+    predictWeak: 'En zayıf: {t}.',
+    predictNone: 'Birkaç soru cevapla; FlashMind puanını tahmin etsin ve pratiği zayıf noktalarına yöneltsin.'
+  });
+
   // ===== Topic Categories =====
   const topicCategories = {
     en: [
@@ -1308,5 +1426,11 @@ const i18n = (() => {
     location.reload();
   }
 
-  return { t, getLang, setLang, getTopicCategories };
+  // Feature modules can ship their strings in their own file:
+  // i18n.add('en', {...}); i18n.add('tr', {...});
+  function add(language, strings) {
+    translations[language] = Object.assign(translations[language] || {}, strings);
+  }
+
+  return { t, getLang, setLang, getTopicCategories, add };
 })();

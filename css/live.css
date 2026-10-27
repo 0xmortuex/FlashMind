@@ -1,0 +1,163 @@
+/* ===== Camera tutor ("show your work") + lecture companion ===== */
+
+/* Long panels (camera controls, lecture setup) scroll inside the card. */
+.voice-panel { overflow-y: auto; }
+
+/* Four tutor modes: two by two. */
+.voice-modes.voice-modes-4 { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 520px) { .voice-modes.voice-modes-4 { grid-template-columns: 1fr; } }
+
+.voice-lecture-link {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--primary);
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-align: left;
+}
+.voice-lecture-link:hover { text-decoration: underline; }
+
+/* Live camera preview */
+.voice-cam {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.voice-cam-video {
+  width: 168px;
+  max-width: 45%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  background: #000;
+  outline: 2px solid transparent;
+  outline-offset: 1px;
+}
+.voice-cam-video.mirror { transform: scaleX(-1); }
+.voice-cam-video.snap { animation: voiceSnap 0.6s ease-out; }
+@keyframes voiceSnap { 0% { outline-color: var(--secondary); } 100% { outline-color: transparent; } }
+.voice-cam-off { flex: 1; font-size: 0.85rem; color: var(--text-muted); }
+.voice-cam-tools { display: flex; flex-direction: column; gap: 6px; margin-left: auto; }
+.voice-cam-tools .btn-ghost { padding: 6px 10px; font-size: 0.82rem; white-space: nowrap; }
+
+/* Lecture companion */
+.lec-entry { display: flex; justify-content: center; margin: 0 0 14px; }
+.lec-open-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 100%;
+  padding: 10px 16px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+}
+.lec-open-btn:hover { border-color: var(--primary); background: var(--primary-tint); }
+.lec-open-btn .lec-rec { animation: none; }
+.lec-entry-text { display: flex; flex-direction: column; min-width: 0; }
+.lec-entry-text b { font-size: 0.9rem; font-weight: 600; }
+.lec-entry-text small { font-size: 0.76rem; color: var(--text-muted); }
+.lec-row { display: grid; grid-template-columns: 8.5em minmax(0, 1fr); align-items: center; }
+.lec-row .editor-select { min-width: 0; width: 100%; }
+.voice-cam-info { flex: 1; font-size: 0.8rem; color: var(--text-muted); }
+.lec-panel { max-width: 620px; }
+.lec-targets { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; }
+.lec-targets .voice-mode-hint { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; }
+.lec-opts { display: flex; flex-direction: column; gap: 8px; }
+.lec-name { flex: 1; min-width: 180px; }
+.lec-rec {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--wrong);
+  flex-shrink: 0;
+  animation: lecBlink 1.4s ease-in-out infinite;
+}
+.lec-status.paused .lec-rec { background: var(--highlight); animation: none; }
+.lec-status.connecting .lec-rec, .lec-status.reconnecting .lec-rec { background: var(--text-muted); }
+@keyframes lecBlink { 50% { opacity: 0.25; } }
+.lec-elapsed { font-size: 1rem; font-weight: 600; color: var(--text); }
+.lec-counts { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 0.85rem; color: var(--text-muted); align-items: center; }
+.lec-counts b { color: var(--text); font-size: 1rem; }
+.lec-engine-badge {
+  margin-left: auto;
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+}
+.lec-alerts { display: flex; flex-wrap: wrap; gap: 6px; max-height: 120px; overflow-y: auto; }
+.lec-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 100%;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+.lec-chip.exam {
+  background: color-mix(in srgb, var(--highlight) 18%, transparent);
+  border: 1px solid color-mix(in srgb, var(--highlight) 55%, transparent);
+  color: var(--text);
+}
+.lec-chip.cue { border: 1px dashed var(--border-strong); color: var(--text-muted); }
+.lec-chip small { opacity: 0.7; font-family: var(--font-mono); white-space: nowrap; }
+.lec-transcript { min-height: 160px; max-height: 38vh; gap: 6px; }
+.lec-seg { display: flex; gap: 10px; font-family: var(--font-content); font-size: 0.88rem; line-height: 1.5; }
+.lec-seg.interim { color: var(--text-muted); font-style: italic; }
+.lec-at { flex-shrink: 0; width: 3.4em; font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); padding-top: 3px; }
+.lec-next { margin: 0; }
+.lec-summary { display: flex; flex-direction: column; gap: 8px; padding: 6px 0; }
+.lec-summary-big { font-family: var(--font-display); font-size: 1.35rem; font-weight: 700; line-height: 1.3; }
+.lec-summary-sub { color: var(--text-muted); font-size: 0.85rem; }
+.lec-summary-alerts { margin: 6px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; max-height: 34vh; overflow-y: auto; }
+.lec-summary-alerts li { display: flex; gap: 8px; align-items: flex-start; font-size: 0.88rem; }
+.lec-summary-alerts .lec-chip { padding: 2px 6px; flex-shrink: 0; }
+
+/* Floating pill while a lecture runs minimized */
+.lec-pill {
+  position: fixed;
+  right: 16px;
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  z-index: 900;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--card-raised);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.88rem;
+  box-shadow: var(--shadow-lg);
+  cursor: pointer;
+}
+.lec-pill b { font-family: var(--font-mono); font-weight: 500; }
+.lec-pill.paused .lec-rec { background: var(--highlight); animation: none; }
+
+@media (max-width: 520px) {
+  .voice-cam { flex-wrap: wrap; }
+  .voice-cam-video { width: 150px; }
+  .voice-cam-info, .voice-cam-off { order: 3; flex-basis: 100%; }
+  .lec-row { grid-template-columns: 1fr; gap: 4px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lec-rec, .voice-cam-video.snap { animation: none !important; }
+}

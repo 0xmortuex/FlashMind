@@ -230,5 +230,30 @@ const API = (() => {
     return (await res.json()).result;
   }
 
-  return { generate, generateStream, chat, grade, share, load, publishShare, gallery, syncPush, syncPull, syncDelete, fetchUrl, liveToken };
+  // Class mode (classroom.js): one entry point for every class* action.
+  async function classCall(action, payload) {
+    const res = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action, ...payload })
+    });
+    const json = await res.json().catch(() => ({ error: 'Request failed' }));
+    if (!res.ok) {
+      const err = new Error(json.error || `HTTP ${res.status}`);
+      err.status = res.status;
+      throw err;
+    }
+    return json.result;
+  }
+
+  // Quiz battles (battle.js): create a room, then talk to it over a WebSocket.
+  async function battleCreate(title, questions, seconds) {
+    return classCall('battleCreate', { title, questions, seconds });
+  }
+
+  function battleSocketUrl(code, params) {
+    return WORKER_URL.replace(/^http/, 'ws') + '/battle/' + encodeURIComponent(code) + '?' + new URLSearchParams(params);
+  }
+
+  return { generate, generateStream, chat, grade, share, load, publishShare, gallery, syncPush, syncPull, syncDelete, fetchUrl, liveToken, classCall, battleCreate, battleSocketUrl };
 })();

@@ -1,7 +1,7 @@
 // ===== Notes Module =====
 const Notes = (() => {
   let container;
-  let view = 'notes'; // 'notes' | 'map' | 'audio'
+  let view = 'notes'; // 'notes' | 'map' | 'audio' | 'labs' | 'video'
 
   function init() {
     if (container) return;
@@ -29,6 +29,8 @@ const Notes = (() => {
       ${viewBtn('notes', '&#128221;', T('viewNotes'))}
       ${typeof Mindmap !== 'undefined' ? viewBtn('map', '&#129504;', T('viewMindmap')) : ''}
       ${typeof AudioOverview !== 'undefined' ? viewBtn('audio', '&#127911;', T('viewAudio')) : ''}
+      ${typeof Labs !== 'undefined' ? viewBtn('labs', '&#129514;', T('viewLabs')) : ''}
+      ${typeof VideoLesson !== 'undefined' ? viewBtn('video', '&#127916;', T('viewVideo')) : ''}
     </div>`;
     html += `<div class="notes-pane" data-pane="notes"${view === 'notes' ? '' : ' hidden'}>`;
 
@@ -104,6 +106,8 @@ const Notes = (() => {
     html += `</div>`; // notes pane
     html += `<div class="notes-pane" data-pane="map"${view === 'map' ? '' : ' hidden'}></div>`;
     html += `<div class="notes-pane" data-pane="audio"${view === 'audio' ? '' : ' hidden'}></div>`;
+    html += `<div class="notes-pane" data-pane="labs"${view === 'labs' ? '' : ' hidden'}></div>`;
+    html += `<div class="notes-pane" data-pane="video"${view === 'video' ? '' : ' hidden'}></div>`;
     html += `</div>`;
     container.innerHTML = html;
     if (typeof FX !== 'undefined') FX.observe(container);
@@ -114,11 +118,13 @@ const Notes = (() => {
   function renderPane(data) {
     if (view === 'map' && typeof Mindmap !== 'undefined') Mindmap.render(container.querySelector('[data-pane="map"]'), data);
     if (view === 'audio' && typeof AudioOverview !== 'undefined') AudioOverview.render(container.querySelector('[data-pane="audio"]'), data);
+    if (typeof Labs !== 'undefined') { if (view === 'labs') Labs.render(container.querySelector('[data-pane="labs"]'), data); else Labs.stop(); }
+    if (typeof VideoLesson !== 'undefined') { if (view === 'video') VideoLesson.render(container.querySelector('[data-pane="video"]'), data); else VideoLesson.stop(); }
   }
 
   function showView(v) {
     if (!container) init();
-    view = ['notes', 'map', 'audio'].includes(v) ? v : 'notes';
+    view = ['notes', 'map', 'audio', 'labs', 'video'].includes(v) ? v : 'notes';
     container.querySelectorAll('.notes-view-btn').forEach(b => {
       const on = b.dataset.notesView === view;
       b.classList.toggle('active', on);
@@ -255,5 +261,5 @@ const Notes = (() => {
   function esc(str) { if (!str) return ''; const d = document.createElement('div'); d.textContent = str; return d.innerHTML; }
   function escSvg(str) { if (!str) return ''; return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 
-  return { init, render, readAloud, showView };
+  return { init, render, readAloud, showView, renderDiagram };
 })();
