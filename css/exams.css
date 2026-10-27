@@ -1,0 +1,94 @@
+/* ===== Exams from real papers: past-paper mode, MEB resources,
+   handwritten answers, graded-paper review ===== */
+
+/* Modal shell (reuses .shortcuts-card) */
+.ex-panel { max-width: 600px; width: 94%; max-height: 88vh; display: flex; flex-direction: column; gap: 10px; text-align: left; }
+.ex-panel .chk-head h3 { margin: 0; }
+.ex-scroll { overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding-right: 4px; min-height: 0; }
+
+/* Exam tab entry points */
+.ex-tools-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 14px; }
+.ex-tool-btn { border-color: var(--border-strong); }
+.pp-weight-note { margin: 8px auto 0; max-width: 520px; font-size: 0.78rem; color: var(--text-muted); text-align: center; }
+
+/* Upload + actions */
+.pp-upload { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.pp-file-btn { cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+.pp-file-btn:focus-within { outline: 2px solid var(--primary); outline-offset: 2px; }
+.pp-files { font-size: 0.8rem; color: var(--text-muted); min-width: 0; overflow-wrap: anywhere; }
+.pp-text {
+  width: 100%; resize: vertical; min-height: 84px;
+  background: var(--surface); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 10px 12px; font-family: var(--font-content); font-size: 0.86rem; line-height: 1.5;
+}
+.pp-text:focus { outline: none; border-color: var(--primary); }
+.pr-text { min-height: 150px; font-family: var(--font-mono); font-size: 0.8rem; }
+.pp-keep { display: flex; align-items: center; gap: 8px; font-size: 0.84rem; color: var(--text-muted); cursor: pointer; }
+.pp-keep input { accent-color: var(--primary); }
+.pp-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.pp-actions button:disabled, .pp-gen-row button:disabled { opacity: 0.55; cursor: default; }
+.pp-status { font-size: 0.84rem; color: var(--text); min-height: 1em; }
+.pp-status:empty { display: none; }
+
+/* Saved style profile */
+.pp-profile { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--primary); border-radius: var(--radius-sm); padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
+.pp-profile-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.pp-src { font-size: 0.76rem; color: var(--text-muted); overflow-wrap: anywhere; }
+.pp-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.pp-chip { font-size: 0.74rem; padding: 3px 9px; border-radius: 999px; background: var(--primary-tint); color: var(--text); border: 1px solid var(--border); }
+.pp-notes, .pp-explain { font-size: 0.8rem; color: var(--text-muted); }
+.pp-sub { font-size: 0.78rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.03em; margin-top: 4px; }
+.pp-topics .qb-row { margin: 5px 0; }
+.pp-patterns { margin: 0; padding-left: 18px; font-size: 0.84rem; display: flex; flex-direction: column; gap: 2px; }
+.pp-gen-row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.pp-gen-row .pp-sub { margin: 0; text-transform: none; letter-spacing: 0; font-size: 0.84rem; color: var(--text); }
+.pp-gen-row .btn-primary, .pp-gen-row .btn-ghost { padding: 6px 14px; }
+.pp-clear { margin-left: auto; }
+
+/* MEB resources */
+.pp-res-details { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 12px; }
+.pp-res-details > summary { cursor: pointer; font-size: 0.86rem; font-weight: 600; }
+.pp-res-details .meb-res-title { display: none; }
+.meb-res { display: flex; flex-direction: column; gap: 8px; }
+.meb-res.compact { margin-top: 8px; }
+.meb-res-title { font-weight: 700; font-size: 0.95rem; }
+.meb-res-sub { font-size: 0.8rem; color: var(--text-muted); }
+.meb-res-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.meb-res-item { display: flex; flex-direction: column; gap: 2px; padding: 8px 10px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); }
+.meb-res-link { color: var(--primary); font-weight: 600; text-decoration: none; align-self: flex-start; }
+.meb-res-link:hover, .meb-res-link:focus-visible { text-decoration: underline; }
+.meb-res-what { font-size: 0.84rem; color: var(--text); }
+.meb-res-how { font-size: 0.78rem; color: var(--text-muted); }
+.profile-meb { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+
+/* Handwritten answer */
+.hw-row { display: flex; justify-content: flex-start; }
+.hw-btn { font-size: 0.82rem; }
+.hw-btn:disabled { opacity: 0.55; }
+.hw-status:empty { display: none; }
+.hw-progress { display: flex; align-items: center; gap: 8px; font-size: 0.84rem; color: var(--text-muted); }
+.hw-progress .spinner { width: 16px; height: 16px; color: var(--primary); }
+.hw-result { display: flex; gap: 10px; align-items: flex-start; }
+.hw-thumb { width: 96px; max-height: 120px; object-fit: cover; border-radius: var(--radius-sm); border: 1px solid var(--border); flex-shrink: 0; }
+.hw-hint { font-size: 0.8rem; color: var(--text-muted); line-height: 1.45; }
+.hw-error { color: var(--wrong); }
+.oe-textarea.hw-filled { border-color: var(--highlight); }
+
+/* Paper review report */
+.pr-report { display: flex; flex-direction: column; gap: 8px; }
+.pr-summary { font-weight: 600; font-size: 0.95rem; }
+.pr-filed { font-size: 0.82rem; color: var(--text-muted); }
+.pr-fixes { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; font-size: 0.88rem; }
+.pr-fix-meta { display: block; font-size: 0.76rem; color: var(--text-muted); }
+.pr-items > summary { cursor: pointer; font-size: 0.86rem; font-weight: 600; margin-top: 4px; }
+.pr-item { border-top: 1px solid var(--border); padding: 8px 0; display: flex; flex-direction: column; gap: 4px; }
+.pr-q { font-size: 0.88rem; }
+.pr-stat .pr-fixes { margin: 6px 0 10px; }
+
+@media (max-width: 480px) {
+  .ex-panel { width: 100%; max-height: 92vh; padding: 16px 14px; }
+  .pp-clear { margin-left: 0; }
+  .hw-thumb { width: 72px; }
+  .pp-topics .qb-name { flex-basis: 40%; }
+}

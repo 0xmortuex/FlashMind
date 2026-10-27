@@ -13,7 +13,7 @@ function modules(initial = {}, extras = {}) {
     localStorage: { getItem: k => storage.get(k) ?? null, setItem: (k, v) => storage.set(k, v), removeItem: k => storage.delete(k) },
     App: { showToast() {} }, ...extras
   });
-  for (const file of ['parser', 'decks', 'stats', 'api', 'sources', 'planner', 'adaptive', 'insights']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/', file + '.js'), 'utf8'), ctx);
+  for (const file of ['parser', 'decks', 'stats', 'api', 'sources', 'planner', 'adaptive', 'insights', 'pastpaper', 'paperreview']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/', file + '.js'), 'utf8'), ctx);
   return { ctx, storage, run: code => vm.runInContext(code, ctx) };
 }
 
@@ -266,4 +266,139 @@ test('mistakes can be tagged with a cause, and exam answers build per-question h
   assert.equal(out.m, 'careless');
   assert.deepEqual(out.s['3'], { n: 2, ok: 1, last: 1, t: out.s['3'].t });
   assert.equal(Object.keys(out.s).length, 1);
+});
+
+// ----- Exams from real papers -----
+test('past-paper analysis applies the booklet answer key and marks AI-solved questions', () => {
+  const { ctx, run } = modules();
+  ctx.raw = JSON.stringify({
+    style: { formats: { mc: 3, 'open-ended': 1, bogus: 9 }, optionCount: 9, length: 'long', difficulty: 'weird' },
+    topics: [{ name: 'Hücre Bölünmeleri', count: 2 }, { name: 'hücre bölünmeleri', count: 1 }, { name: 'Kalıtım', count: 1 }, { name: '' }],
+    questions: [
+      { number: 1, question: 'Mitoz kaç evrede?', options: ['1', '2', '3', '4', '5'], correct: 0, keyed: 'ai', topic: 'Hücre Bölünmeleri' },
+      { number: '2', question: 'Mayoz?', options: ['a', 'b', 'c', 'd', 'e'], correct: 'B', topic: 'Kalıtım' },
+      { number: 3, type: 'open-ended', question: 'Açıklayınız.', correctAnswer: 'x', keyed: 'ai' },
+      { number: 4, question: 'no options' }
+    ]
+  });
+  const out = JSON.parse(run(`const k = PastPaper.parseAnswerKey('...\\nCEVAP ANAHTARI\\n1-C 2.A 3) E 5-D'); JSON.stringify({ k, a: PastPaper.parseAnalysis(raw, k.key) })`));
+  assert.deepEqual(out.k.key, { 1: 'C', 2: 'A', 3: 'E', 5: 'D' });
+  const a = out.a;
+  assert.equal(a.style.formats['multiple-choice'], 3);
+  assert.equal(a.style.formats['open-ended'], 1);
+  assert.equal(a.style.optionCount, 6);
+  assert.equal(a.style.difficulty, 'medium');
+  assert.equal(a.topics.length, 2);
+  assert.equal(a.topics[0].count, 3);
+  assert.equal(a.questions.length, 3);
+  assert.equal(a.questions[0].correct, 2);           // booklet key "1-C" overrides the AI
+  assert.equal(a.questions[0].aiKeyed, undefined);
+  assert.equal(a.questions[0].category, 'Hücre Bölünmeleri');
+  assert.equal(a.questions[1].correct, 0);           // booklet "2.A"
+  assert.equal(a.questions[2].aiKeyed, true);        // open-ended solved by the AI
+  assert.equal(a.questions[0].id, undefined);
+  assert.equal(a.questions[0].src, 'paper');
+});
+test('answer key needs at least three entries after a key heading', () => {
+  const { run } = modules();
+  assert.equal(run(`Object.keys(PastPaper.parseAnswerKey('1-C 2-A 3-B 4-D').key).length`), 0);
+  assert.equal(run(`Object.keys(PastPaper.parseAnswerKey('Cevap anahtarı: 1-C 2-A').key).length`), 0);
+  assert.equal(run(`Object.keys(PastPaper.parseAnswerKey('Answer key 1.B 2.C 3.D 4.Cevap').key).length`), 3);
+});
+test('chunk analyses merge into one style profile with normalized topic weights', () => {
+  const { run } = modules();
+  const m = JSON.parse(run(`JSON.stringify(PastPaper.mergeAnalyses([
+    { style: { formats: { 'multiple-choice': 8, 'true-false': 0, 'fill-blank': 0, matching: 0, 'open-ended': 0 }, optionCount: 5, length: 'long', difficulty: 'hard', notes: 'Senaryolu' },
+      topics: [{ name: 'Optik', count: 6 }], patterns: ['Grafik yorumlama'], questions: [{ type: 'true-false', question: 'q', correct: true }] },
+    { style: { formats: { 'multiple-choice': 2, 'true-false': 0, 'fill-blank': 0, matching: 0, 'open-ended': 2 }, optionCount: 4, length: 'short', difficulty: 'easy', notes: '' },
+      topics: [{ name: 'optik', count: 1 }, { name: 'Dalgalar', count: 3 }], patterns: ['grafik yorumlama', 'Tablo okuma'], questions: [] }
+  ]))`));
+  assert.equal(m.style.formats['multiple-choice'], 10);
+  assert.equal(m.style.formats['open-ended'], 2);
+  assert.equal(m.style.optionCount, 5);   // the part with more questions wins the vote
+  assert.equal(m.style.length, 'long');
+  assert.equal(m.style.notes, 'Senaryolu');
+  assert.deepEqual(m.topics.map(t => [t.name, t.weight]), [['Optik', 0.7], ['Dalgalar', 0.3]]);
+  assert.deepEqual(m.patterns, ['Grafik yorumlama', 'Tablo okuma']);
+  assert.equal(m.questions.length, 1);
+});
+test('a pasted konu dağılımı is parsed line by line', () => {
+  const { ctx, run } = modules();
+  ctx.txt = '10. Sınıf Biyoloji Konu Dağılımı\n1. Hücre Bölünmeleri ...... 4\nKalıtımın Genel İlkeleri - %40 \nEkosistem Ekolojisi: 2 soru\nToplam 10\n\nnot a row';
+  const t = JSON.parse(run('JSON.stringify(PastPaper.parseDistribution(txt))'));
+  assert.deepEqual(t.map(x => x.name), ['Kalıtımın Genel İlkeleri', 'Hücre Bölünmeleri', 'Ekosistem Ekolojisi']);
+  assert.equal(t[1].count, 4);
+  assert.equal(Math.round(t.reduce((s, x) => s + x.weight, 0) * 100), 100);
+});
+test('topic weights boost adaptive picks for heavy topics, explainably clamped', () => {
+  const { ctx, run } = modules();
+  ctx.profile = { topics: [{ name: 'Optik', weight: 0.6 }, { name: 'Dalgalar', weight: 0.3 }, { name: 'Basınç', weight: 0.1 }] };
+  run('var boost = PastPaper.topicBoost(profile)');
+  assert.equal(run(`boost({ category: 'optik' })`), 1.8);
+  assert.equal(run(`boost({ category: 'Dalgalar ve Ses' })`), 0.9);   // containment match
+  assert.equal(run(`boost({ category: 'Basinc' })`), 0.5);            // accent-insensitive, clamped at 0.5×
+  assert.equal(run(`boost({ category: 'Kimya' })`), 1);               // not in the distribution
+  assert.equal(run(`PastPaper.topicBoost({ topics: [{ name: 'x', weight: 1 }] })`), null);
+  // With a deterministic rand the first pick follows the weights.
+  const first = run(`(() => {
+    const qs = [{ id: 1, category: 'Basınç' }, { id: 2, category: 'Optik' }];
+    return Adaptive.pick(qs, {}, 1, { rand: () => 0.3, topicBoost: boost })[0].id;
+  })()`);
+  assert.equal(first, 2);
+  const noBoost = run(`Adaptive.pick([{ id: 1, category: 'Basınç' }, { id: 2, category: 'Optik' }], {}, 1, { rand: () => 0.3 })[0].id`);
+  assert.equal(noBoost, 1);
+});
+test('generation slots follow topic weights and the paper format mix', () => {
+  const { run } = modules();
+  const slots = JSON.parse(run(`JSON.stringify(PastPaper.planSlots(10, {
+    topics: [{ name: 'A', weight: 0.5 }, { name: 'B', weight: 0.3 }, { name: 'C', weight: 0.2 }],
+    style: { formats: { 'multiple-choice': 8, 'open-ended': 2 } } }))`));
+  assert.equal(slots.length, 10);
+  const count = (k, v) => slots.filter(s => s[k] === v).length;
+  assert.deepEqual([count('topic', 'A'), count('topic', 'B'), count('topic', 'C')], [5, 3, 2]);
+  assert.deepEqual([count('type', 'multiple-choice'), count('type', 'open-ended')], [8, 2]);
+  assert.deepEqual(run('JSON.stringify(PastPaper.allocate(3, [0, 0]))'), '[2,1]');
+});
+test('the deck-level paper profile is sanitized and survives a reload', () => {
+  const { run, storage } = modules();
+  run(`Decks.save({ title: 'Fizik' }, ''); PastPaper.saveProfile({ style: { formats: { 'multiple-choice': 5 } }, topics: [{ name: 'Optik', count: 2 }, { name: '<b>x</b>', count: 1 }], topicsFrom: 'evil', patterns: [1, 'p'], source: 'kitapcik.pdf' })`);
+  const again = modules(Object.fromEntries(storage));
+  const p = JSON.parse(again.run('JSON.stringify(PastPaper.getProfile())'));
+  assert.equal(p.style.formats['multiple-choice'], 5);
+  assert.equal(p.topicsFrom, 'paper');
+  assert.deepEqual(p.patterns, ['p']);
+  assert.equal(p.topics.length, 2);
+  assert.equal(again.run('PastPaper.sanitizeProfile({ style: {} , topics: [] })'), null);
+  assert.equal(again.run('PastPaper.sanitizeProfile("x")'), null);
+});
+test('graded-paper review: parsing, lost marks per topic, fix-first list and notebook entries', () => {
+  const { ctx, run } = modules();
+  ctx.raw = JSON.stringify({ items: [
+    { n: 1, topic: 'Optik', question: 'Q1', given: 'a', wrong: true, lost: 4, max: 10, correct: 'b', concept: 'Kırılma', mtype: 'concept' },
+    { n: 2, topic: 'Optik', question: 'Q2', given: 'c', wrong: true, lost: '2', max: 10, correct: 'd', concept: 'kırılma', mtype: 'nope' },
+    { n: 3, topic: 'Dalgalar', question: 'Q3', given: 'e', wrong: 'true', correct: 'f', concept: 'Rezonans', mtype: 'careless',
+      options: ['x', 'y', 'z'], correctIndex: 1 },
+    { n: 4, topic: 'Dalgalar', question: 'Q4', given: 'ok', wrong: false, max: 10 },
+    { question: '' }, null
+  ] });
+  const out = JSON.parse(run('const it = PaperReview.parseReview(raw); JSON.stringify({ it, rep: PaperReview.buildReport(it), m: PaperReview.toMistakes(it) })'));
+  assert.equal(out.it.length, 4);
+  assert.equal(out.it[1].mtype, 'concept');           // unknown type → concept
+  assert.equal(out.it[2].lost, 1);                    // wrong without readable marks counts 1
+  assert.equal(out.rep.totalLost, 7);
+  assert.equal(out.rep.totalMax, 0);                  // not every question shows its max
+  assert.deepEqual(out.rep.topics.map(t => [t.topic, t.lost]), [['Optik', 6], ['Dalgalar', 1]]);
+  assert.equal(out.rep.fixes[0].concept, 'Kırılma');  // grouped case-insensitively
+  assert.equal(out.rep.fixes[0].n, 2);
+  assert.equal(out.rep.wrongN, 3);
+  assert.equal(out.m.length, 3);
+  assert.equal(out.m[0].type, 'open-ended');
+  assert.equal(out.m[0]._given, 'a');
+  assert.equal(out.m[0].correctAnswer, 'b');
+  assert.equal(out.m[2].type, 'multiple-choice');
+  assert.equal(out.m[2].correct, 1);
+  assert.equal(out.m[2].mtype, 'careless');
+  // Notebook entries are valid exam questions after normalization.
+  assert.equal(run(`Parser.normalizeStudyData({ quiz: PaperReview.toMistakes(PaperReview.parseReview(raw)) }).quiz.length`), 3);
+  assert.equal(run(`PaperReview.batches('--- Page 1 ---\\na\\n\\n--- Page 2 ---\\nb').length`), 1);
 });

@@ -591,6 +591,163 @@ const puppeteer = require('puppeteer');
     await page.waitForSelector('[data-ins-act="diagnose"]', { timeout: 2000 });
   });
 
+  // ----- Exams from real papers (OCR, PDF.js and the AI are mocked) -----
+  const exFiles = (() => {
+    const fs = require('fs'), os = require('os'), path = require('path');
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'fm-exams-'));
+    const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==', 'base64');
+    const f = name => { const p = path.join(dir, name); fs.writeFileSync(p, name.endsWith('.png') ? png : '%PDF-1.4 stub'); return p; };
+    return { pdf: f('ornek-kitapcik.pdf'), p1: f('page1.png'), p2: f('page2.png') };
+  })();
+
+  await step('exams: MEB resource links in the 10th-grade profile open safely in a new tab', async () => {
+    const links = await page.$$eval('#profile-panel .meb-res-link', as => as.map(a => [a.href, a.target, a.rel]));
+    if (links.length !== 3) throw new Error('expected 3 links, got ' + links.length);
+    const hosts = links.map(l => new URL(l[0]).host).join(',');
+    if (hosts !== 'odsgm.meb.gov.tr,ogmmateryal.eba.gov.tr,mebi.eba.gov.tr') throw new Error('hosts ' + hosts);
+    if (!links.every(l => l[1] === '_blank' && /noopener/.test(l[2]))) throw new Error('unsafe link attrs');
+  });
+
+  await step('exams: past-paper mode analyses a booklet PDF, files its questions and generates in its style', async () => {
+    await page.evaluate(() => {
+      window.__ex = { chat: API.chat, grade: API.grade, ocr: OCR.extractText, pdf: PDF.extractText, prompts: [] };
+      PDF.extractText = async (f, onP) => { onP && onP(1, 1); return { pages: 2, text: 'FİZİK 10. SINIF ÖRNEK SORU KİTAPÇIĞI\n\n1. Işık hangi ortamda en hızlıdır? A) Su B) Cam C) Boşluk D) Hava E) Elmas\n\n2. Ses boşlukta yayılır mı?\n\nCEVAP ANAHTARI\n1-C 2-B 3-A' }; };
+      API.chat = async (prompt) => {
+        window.__ex.prompts.push(prompt);
+        if (/strict fact-checker/.test(prompt)) {
+          const refs = [...prompt.matchAll(/^\[([cq]\d+)\]/gm)].map(m => m[1]);
+          return JSON.stringify({ type: 'verify', results: refs.map(ref => ({ ref, verdict: 'ok' })) });
+        }
+        if (/Analyse it/.test(prompt)) return JSON.stringify({
+          style: { formats: { 'multiple-choice': 1, 'true-false': 1 }, optionCount: 5, length: 'medium', difficulty: 'medium', notes: 'Kısa kökler' },
+          topics: [{ name: 'Optik', count: 1 }, { name: 'Dalgalar', count: 1 }], patterns: ['Hangisidir sorusu'],
+          questions: [
+            { number: 1, type: 'multiple-choice', question: 'Işık hangi ortamda en hızlıdır?', options: ['Su', 'Cam', 'Boşluk', 'Hava', 'Elmas'], correct: 0, keyed: 'ai', topic: 'Optik' },
+            { number: 2, type: 'true-false', question: 'Ses boşlukta yayılır.', correct: false, keyed: 'ai', topic: 'Dalgalar' }
+          ] });
+        if (/Write NEW exam questions/.test(prompt)) {
+          const rows = [...prompt.matchAll(/^(\d+)\. (\S+)(?: — topic: (.*))?$/gm)];
+          return JSON.stringify({ type: 'quiz', quiz: rows.map(r => ({ type: 'multiple-choice', question: 'Stil sorusu ' + Math.random(), options: ['a', 'b', 'c', 'd', 'e'], correct: 1, category: r[3] || '' })) });
+        }
+        if (/topic distribution table/.test(prompt)) return '{"topics":[]}';
+        return '{"answer":"?"}';
+      };
+      // Earlier steps swapped in throwaway question lists; use the deck's bank.
+      Quiz.setQuestions(App.getStudyData().quiz);
+      App.switchTab('quiz');
+    });
+    await page.waitForSelector('[data-pp-act="open"]', { timeout: 2000 });
+    await page.click('[data-pp-act="open"]');
+    await page.waitForSelector('.pp-panel #pp-files', { timeout: 2000 });
+    if (!await page.$('.pp-panel .meb-res-link[href="https://odsgm.meb.gov.tr"]')) throw new Error('resources missing in past-paper mode');
+    const before = await page.evaluate(() => App.getStudyData().quiz.length);
+    const input = await page.$('#pp-files');
+    await input.uploadFile(exFiles.pdf);
+    await page.waitForFunction(() => /ornek-kitapcik\.pdf/.test(document.querySelector('.pp-files').textContent), { timeout: 2000 });
+    await page.click('[data-pp-act="analyse"]');
+    await page.waitForSelector('.pp-profile', { timeout: 5000 });
+    const r = await page.evaluate(() => {
+      const d = Decks.getActive();
+      const qs = App.getStudyData().quiz.filter(q => q.src === 'paper');
+      return { p: d.paperProfile, qs, saved: d.data.quiz.filter(q => q.src === 'paper').length };
+    });
+    if (!r.p || r.p.topics.length !== 2 || r.p.style.formats['multiple-choice'] !== 1) throw new Error('profile not saved: ' + JSON.stringify(r.p));
+    if (r.qs.length !== 2 || r.saved !== 2) throw new Error('booklet questions not filed: ' + r.qs.length + '/' + r.saved);
+    const mc = r.qs.find(q => q.type === 'multiple-choice');
+    if (mc.correct !== 2 || mc.aiKeyed) throw new Error('answer key not applied');
+    if (!r.qs.find(q => q.type === 'true-false').aiKeyed) throw new Error('AI-solved question not marked');
+    await page.waitForFunction(() => App.getStudyData().quiz.filter(q => q.src === 'paper').every(q => q.check), { timeout: 4000 });
+    // Generate 10 in the paper's style.
+    await page.click('[data-pp-act="gen"][data-n="10"]');
+    await page.waitForFunction(n => App.getStudyData().quiz.length >= n + 12, { timeout: 5000 }, before);
+    const cats = await page.evaluate(() => App.getStudyData().quiz.filter(q => q.src === 'paper-style').map(q => q.category));
+    if (cats.filter(c => c === 'Optik').length !== 5) throw new Error('topic split off: ' + cats.join(','));
+    // A pasted konu dağılımı takes over the topic weights.
+    await page.$eval('#pp-text', el => { el.value = 'Optik 6\nDalgalar 3\nBasınç ve Kaldırma Kuvveti 1'; });
+    await page.click('[data-pp-act="dist"]');
+    await page.waitForFunction(() => (Decks.getActive().paperProfile || {}).topicsFrom === 'distribution', { timeout: 3000 });
+    const w = await page.evaluate(() => Decks.getActive().paperProfile.topics.map(t => t.weight).join(','));
+    if (w !== '0.6,0.3,0.1') throw new Error('weights ' + w);
+    await page.keyboard.press('Escape');
+    await page.waitForSelector('.pp-weight-note', { timeout: 2000 });
+    await page.click('#adaptive-quiz-btn');
+    await page.waitForSelector('#quiz-body', { timeout: 2000 });
+    await page.evaluate(() => Quiz.renderReady());
+  });
+
+  await step('exams: a photographed handwritten answer is OCRed, corrected and graded', async () => {
+    await page.evaluate(() => {
+      window.__ex.graded = null;
+      OCR.extractText = async (f, onP) => { onP && onP(0.5); await new Promise(r => setTimeout(r, 50)); return 'Isik kirilir cunku hiz degisir'; };
+      API.grade = async (answer) => { window.__ex.graded = answer; return JSON.stringify({ score: 3, maxScore: 3, feedback: 'Doğru', missedPoints: [] }); };
+      Quiz.setQuestions([{ id: 9201, type: 'open-ended', question: 'Kırılma neden olur?', correctAnswer: 'Hız değişir', keyPoints: ['hız'], maxPoints: 3 }]);
+    });
+    await page.click('[data-mode="practice"]');
+    await page.click('#start-quiz-btn');
+    await page.waitForSelector('[data-hw-act="photo"]', { timeout: 2000 });
+    const inp = await page.$('.hw-file');
+    await inp.uploadFile(exFiles.p1);
+    await page.waitForSelector('.hw-thumb', { timeout: 3000 });
+    const val = await page.$eval('#oe-answer', el => el.value);
+    if (val !== 'Isik kirilir cunku hiz degisir') throw new Error('OCR text not in answer box: ' + val);
+    await page.$eval('#oe-answer', el => { el.value = 'Işık kırılır çünkü hız değişir'; });
+    await page.click('#oe-submit-btn');
+    await page.waitForSelector('.oe-score', { timeout: 3000 });
+    if (await page.evaluate(() => window.__ex.graded) !== 'Işık kırılır çünkü hız değişir') throw new Error('corrected text not graded');
+    await page.evaluate(() => { Quiz.setQuestions(App.getStudyData().quiz); });
+  });
+
+  await step('exams: graded paper photos → mistake notebook, report, flashcards and practice', async () => {
+    await page.evaluate(() => {
+      let n = 0;
+      OCR.extractText = async (f, onP) => { onP && onP(1); n++; return n === 1 ? '1) Işık kırılması ... X -4/10' : '2) Rezonans ... -2/10\n3) Doğru ✓'; };
+      API.chat = async (prompt) => {
+        window.__ex.prompts.push(prompt);
+        if (/MARKED school exam paper/.test(prompt)) return JSON.stringify({ items: [
+          { n: 1, topic: 'Optik', question: 'Işık neden kırılır?', given: 'Renk değişir', wrong: true, lost: 4, max: 10, correct: 'Hız değişir', concept: 'Kırılma: ortam değişince hız değişir', mtype: 'concept' },
+          { n: 2, topic: 'Dalgalar', question: 'Rezonans nedir?', given: 'Yankı', wrong: true, lost: 2, max: 10, correct: 'Doğal frekansla titreşim', concept: 'Rezonans', mtype: 'misread' },
+          { n: 3, topic: 'Dalgalar', question: 'Ses boşlukta yayılmaz.', given: 'D', wrong: false, lost: 0, max: 10 }
+        ] });
+        if (/"type":"flashcards"/.test(prompt)) return JSON.stringify({ type: 'flashcards', flashcards: [{ front: 'Kırılma neden olur?', back: 'Hız değişir' }, { front: 'Rezonans?', back: 'Doğal frekans' }] });
+        if (/2 NEW similar exam/.test(prompt)) return JSON.stringify({ type: 'quiz', quiz: [
+          { type: 'multiple-choice', question: 'Benzer soru 1?', options: ['a', 'b', 'c', 'd', 'e'], correct: 0, category: 'Optik' },
+          { type: 'true-false', question: 'Benzer soru 2.', correct: true, category: 'Dalgalar' }] });
+        return '{"answer":"?"}';
+      };
+      App.switchTab('quiz'); Quiz.renderReady();
+    });
+    await page.click('[data-pr-act="open"]');
+    await page.waitForSelector('#pr-files', { timeout: 2000 });
+    const inp = await page.$('#pr-files');
+    await inp.uploadFile(exFiles.p1, exFiles.p2);
+    await page.waitForFunction(() => /Page 2/.test((document.getElementById('pr-text') || {}).value || ''), { timeout: 3000 });
+    await page.waitForSelector('[data-pr-act="analyse"]:not([disabled])', { timeout: 2000 });
+    await page.click('[data-pr-act="analyse"]');
+    await page.waitForSelector('.pr-report', { timeout: 4000 });
+    const rows = await page.$$eval('.pr-report .qb-row', els => els.map(e => e.textContent.replace(/\s+/g, ' ').trim()));
+    if (rows.length !== 2 || !/Optik.*-4/.test(rows[0])) throw new Error('per-topic rows ' + rows.join(' | '));
+    if ((await page.$$('.pr-fixes li')).length !== 2) throw new Error('fix list');
+    const ms = await page.evaluate(() => Decks.getMistakes().filter(m => m.src === 'paper-review'));
+    if (ms.length !== 2 || ms[0]._given !== 'Renk değişir' || ms[1].mtype !== 'misread') throw new Error('mistakes ' + JSON.stringify(ms));
+    const cardsBefore = await page.evaluate(() => App.getStudyData().flashcards.length);
+    await page.click('[data-pr-act="cards"]');
+    await page.waitForSelector('#tab-flashcards.active', { timeout: 3000 });
+    const cardsAfter = await page.evaluate(() => [App.getStudyData().flashcards.length, Decks.getActive().data.flashcards.length]);
+    if (cardsAfter[0] !== cardsBefore + 2 || cardsAfter[1] !== cardsAfter[0]) throw new Error('cards ' + cardsBefore + ' → ' + cardsAfter);
+    await page.click('[data-tab="stats"]');
+    await page.waitForSelector('.pr-stat [data-pr-act="last"]', { timeout: 2000 });
+    await page.click('.pr-stat [data-pr-act="last"]');
+    await page.waitForSelector('[data-pr-act="practise"]', { timeout: 2000 });
+    await page.click('[data-pr-act="practise"]');
+    await page.waitForSelector('#tab-quiz.active #quiz-body', { timeout: 3000 });
+    const label = await page.$eval('.quiz-question-number', el => el.textContent);
+    if (!/\b2\b/.test(label)) throw new Error('practice set size: ' + label);
+    await page.evaluate(() => {
+      API.chat = window.__ex.chat; API.grade = window.__ex.grade; OCR.extractText = window.__ex.ocr; PDF.extractText = window.__ex.pdf;
+      Quiz.renderReady();
+    });
+  });
+
   console.log(errors.length ? 'ERRORS:\n' + errors.join('\n') : 'NO CONSOLE/PAGE ERRORS');
   console.log(failCount ? failCount + ' step(s) failed' : 'ALL STEPS PASSED');
   await browser.close();
