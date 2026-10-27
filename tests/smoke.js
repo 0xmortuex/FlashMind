@@ -591,6 +591,149 @@ const puppeteer = require('puppeteer');
     await page.waitForSelector('[data-ins-act="diagnose"]', { timeout: 2000 });
   });
 
+  await step('class mode: create, push, join, keep progress across versions, report, dashboard, revision exam', async () => {
+    await page.evaluate(() => {
+      const srv = window.__cls = { items: [], report: null, calls: [] };
+      const pub = () => srv.items.map(({ id, title, ver, due, cards, qs, t }) => ({ id, title, ver, due, cards, qs, t }));
+      API.classCall = async (a, p) => {
+        srv.calls.push(a);
+        if (a === 'classCreate') return { join: 'abcd234', teacher: 't'.repeat(20), name: p.name };
+        if (a === 'classPush') {
+          const prev = srv.items.find(i => i.id === p.id);
+          const ver = (prev ? prev.ver : 0) + 1;
+          srv.items = [{ id: p.id, ver, title: p.data.title, due: p.due || null, cards: p.data.flashcards.length, qs: p.data.quiz.length, t: Date.now(), data: p.data }, ...srv.items.filter(i => i.id !== p.id)];
+          return { id: p.id, ver };
+        }
+        if (a === 'classJoin') return { sid: 's1', key: 'k'.repeat(20), name: '10-A', items: pub() };
+        if (a === 'classState') return { name: '10-A', closed: false, items: pub(), member: true };
+        if (a === 'classItem') { const it = srv.items.find(i => i.id === p.id); return { studyData: it.data, ver: it.ver }; }
+        if (a === 'classReport') { srv.report = p.report; return { ok: true }; }
+        if (a === 'classDashboard') return { name: '10-A', items: pub(), students: srv.report ? [{ sid: 's1', nick: 'Ayşe', joined: 1, t: Date.now(), r: srv.report }] : [] };
+        return { ok: true };
+      };
+      API.chat = async () => JSON.stringify({ type: 'quiz', quiz: [{ type: 'multiple-choice', question: 'New revision Q?', options: ['a', 'b', 'c', 'd', 'e'], correct: 1, category: 'Light' }] });
+      document.getElementById('back-to-input').click();
+    });
+    await page.waitForSelector('#class-section [data-cls-act="create"]', { visible: true, timeout: 2000 });
+    // Teacher: create a class and push the demo deck with a due date.
+    await page.evaluate(() => document.querySelector('[data-cls-act="create"]').click());
+    await page.waitForSelector('#cls-name', { visible: true, timeout: 2000 });
+    await page.type('#cls-name', '10-A');
+    await page.click('[data-cls-act="do-create"]');
+    await page.waitForFunction(() => /ABCD234/.test(document.querySelector('#cls-body').textContent), { timeout: 2000 });
+    await page.click('#cls-body [data-cls-act="open-teacher"]');
+    await page.waitForSelector('#cls-push-deck', { timeout: 2000 });
+    const demoId = await page.evaluate(() => Decks.list().find(d => /Photosynthesis/.test(d.data.title)).id);
+    await page.select('#cls-push-deck', demoId);
+    await page.evaluate(() => { document.getElementById('cls-push-due').value = '2030-05-01'; });
+    await page.click('[data-cls-act="push"]');
+    await page.waitForFunction(() => window.__cls.items.length === 1 && document.querySelector('.cls-items .cls-item'), { timeout: 2000 });
+    if (await page.evaluate(() => window.__cls.items[0].due) !== '2030-05-01') throw new Error('due date not pushed');
+    await page.evaluate(() => ClassMode.closeModal());
+    // Student (same browser): join with the code + nickname.
+    await page.evaluate(() => ClassMode.open({ name: 'join', code: 'abcd234' }));
+    await page.waitForSelector('#cls-nick', { visible: true, timeout: 2000 });
+    await page.type('#cls-nick', 'Ayşe');
+    await page.click('[data-cls-act="do-join"]');
+    await page.waitForFunction(() => Decks.list().some(d => d.cls && d.cls.join === 'abcd234'), { timeout: 2000 });
+    await page.waitForSelector('#deck-library .cls-badge', { timeout: 2000 });
+    const before = await page.evaluate(() => {
+      const d = Decks.list().find(x => x.cls);
+      if (d.examDate !== '2030-05-01') throw new Error('due date not applied: ' + d.examDate);
+      const card = d.data.flashcards[1];
+      Decks.reviewIn(d.id, card.id, 5);
+      const q = d.data.quiz[0];
+      d.qstats = { [q.id]: { n: 4, ok: 1, last: 0, t: Date.now() } };
+      Decks.touch(d.id);
+      return { front: card.front, q: q.question };
+    });
+    // Teacher pushes v2 with the cards reordered: progress must follow the card.
+    await page.evaluate(async () => {
+      const it = window.__cls.items[0];
+      const data = JSON.parse(JSON.stringify(it.data));
+      data.flashcards = data.flashcards.reverse().map((c, i) => ({ ...c, id: i + 1 }));
+      data.title += ' v2';
+      await API.classCall('classPush', { id: it.id, data });
+      await ClassMode.refreshAll();
+    });
+    const after = await page.evaluate(f => {
+      const d = Decks.list().find(x => x.cls);
+      const card = d.data.flashcards.find(c => c.front === f.front);
+      return { title: d.data.title, ver: d.cls.ver, reps: (d.srs[card.id] || {}).reps, n: Decks.list().filter(x => x.cls).length };
+    }, before);
+    if (!/v2$/.test(after.title) || after.ver !== 2 || after.reps !== 1 || after.n !== 1) throw new Error('class update lost progress: ' + JSON.stringify(after));
+    const rep = await page.evaluate(() => window.__cls.report);
+    const deckRep = rep && Object.values(rep.decks)[0];
+    if (!deckRep || deckRep.n !== 4 || JSON.stringify(rep).includes('Ayşe')) throw new Error('bad report: ' + JSON.stringify(rep));
+    // Teacher dashboard: heatmap + weakest topics + one-click revision exam.
+    await page.evaluate(() => document.querySelector('[data-cls-act="open-teacher"]').click());
+    await page.waitForSelector('.cls-heat .cls-cell', { timeout: 3000 });
+    await page.click('[data-cls-act="revision"]');
+    await page.waitForFunction(() => window.__cls.items.length === 2, { timeout: 4000 });
+    const rev = await page.evaluate(() => window.__cls.items[0]);
+    if (!rev.data.quiz.some(q => q.question === 'New revision Q?') || rev.data.quiz.length < 2) throw new Error('revision exam: ' + JSON.stringify(rev.data.quiz.map(q => q.question)));
+    if (await page.evaluate(() => Decks.getActive() && /Revision/.test(Decks.getActive().data.title))) throw new Error('revision exam stole the active deck');
+    await page.evaluate(() => ClassMode.closeModal());
+  });
+
+  await step('quiz battle: host room + player answers over a mocked WebSocket', async () => {
+    await page.evaluate(() => {
+      window.__btl = [];
+      window.qrcode = () => ({ addData() {}, make() {}, createSvgTag: () => '<svg viewBox="0 0 4 4"></svg>' });
+      window.WebSocket = class {
+        constructor(url) { this.url = url; this.readyState = 0; this.sent = []; window.__btl.push(this); setTimeout(() => { this.readyState = 1; this.onopen && this.onopen(); }, 5); }
+        send(m) { this.sent.push(JSON.parse(m)); }
+        close(code) { this.readyState = 3; this.onclose && this.onclose({ code: code || 1000 }); }
+        emit(m) { this.onmessage && this.onmessage({ data: JSON.stringify(m) }); }
+      };
+      window.__btlCreate = null;
+      API.battleCreate = async (title, questions, secs) => { window.__btlCreate = { title, questions, secs }; return { code: '123456', hostKey: 'hk' }; };
+      Battle.openHost(Decks.list().find(d => /Photosynthesis/.test(d.data.title)).id);
+    });
+    await page.waitForSelector('[data-btl-setup="create"]', { visible: true, timeout: 2000 });
+    await page.click('[data-btl-setup="create"]');
+    await page.waitForSelector('.btl-overlay', { timeout: 2000 });
+    await page.waitForFunction(() => window.__btl[0] && window.__btl[0].readyState === 1, { timeout: 2000 });
+    const created = await page.evaluate(() => window.__btlCreate);
+    if (!created.questions.length || created.questions.some(q => !Array.isArray(q.o) || !Number.isInteger(q.c))) throw new Error('bad battle questions');
+    if (!/\/battle\/123456\?role=host&key=hk$/.test(await page.evaluate(() => window.__btl[0].url))) throw new Error('host url');
+    const view = { t: 'state', hostOnline: true, title: 'Demo', total: 2, limitMs: 20000, dist: null, role: 'host', answered: 0, leaderboard: [] };
+    await page.evaluate(v => window.__btl[0].emit({ ...v, phase: 'lobby', qi: -1, remainMs: 0, question: null, players: [{ pid: 'p1', name: 'Ayşe', score: 0, connected: true }] }), view);
+    await page.waitForSelector('.btl-code-big', { timeout: 2000 });
+    await page.click('[data-btl="start"]');
+    if (!await page.evaluate(() => window.__btl[0].sent.some(m => m.t === 'start'))) throw new Error('start not sent');
+    await page.evaluate(v => window.__btl[0].emit({ ...v, phase: 'question', qi: 0, remainMs: 15000, question: { q: 'Q1?', o: ['a', 'b'] }, players: [] }), view);
+    await page.waitForSelector('.btl-role-host .btl-timer', { timeout: 2000 });
+    await page.evaluate(v => window.__btl[0].emit({ ...v, phase: 'reveal', qi: 0, remainMs: 0, question: { q: 'Q1?', o: ['a', 'b'], c: 1 }, dist: [0, 1], players: [], leaderboard: [{ name: 'Ayşe', score: 900 }] }), view);
+    await page.waitForSelector('.btl-chart .btl-bar-col.btl-right', { timeout: 2000 });
+    await page.evaluate(() => Battle.exit());
+    if (await page.$('.btl-overlay')) throw new Error('host overlay stayed open');
+    // Player: join by code, answer with a big button, see the result.
+    await page.evaluate(() => Battle.openJoin('123456'));
+    await page.waitForSelector('#btl-name', { visible: true, timeout: 2000 });
+    await page.type('#btl-name', 'Ayşe');
+    await page.click('[data-btl-setup="join"]');
+    await page.waitForFunction(() => window.__btl.length === 2 && window.__btl[1].readyState === 1, { timeout: 2000 });
+    if (!/role=player&name=Ay%C5%9Fe/.test(await page.evaluate(() => window.__btl[1].url))) throw new Error('player url');
+    const pv = { t: 'state', hostOnline: true, title: 'Demo', total: 2, limitMs: 20000, dist: null, role: 'player', players: 1, leaderboard: [] };
+    await page.evaluate(v => { const ws = window.__btl[1]; ws.emit({ t: 'joined', pid: 'p1', token: 'tok' }); ws.emit({ ...v, phase: 'question', qi: 0, remainMs: 9000, question: { q: 'Q1?', o: ['a', 'b'] }, me: { name: 'Ayşe', score: 0, rank: 1, answered: false, choice: null } }); }, pv);
+    await page.waitForSelector('.btl-options-big .btl-opt.btl-c0', { timeout: 2000 });
+    // Left column: toasts from earlier steps can sit over the right one.
+    await page.click('.btl-options-big .btl-opt.btl-c0');
+    await page.waitForSelector('.btl-locked', { timeout: 2000 });
+    const sent = await page.evaluate(() => window.__btl[1].sent.filter(m => m.t === 'answer'));
+    if (sent.length !== 1 || sent[0].qi !== 0 || sent[0].c !== 0) throw new Error('answer: ' + JSON.stringify(sent));
+    await page.evaluate(v => window.__btl[1].emit({ ...v, phase: 'reveal', qi: 0, remainMs: 0, question: { q: 'Q1?', o: ['a', 'b'], c: 0 }, dist: [1, 0], result: { qi: 0, choice: 0, ok: true, pts: 940 }, me: { name: 'Ayşe', score: 940, rank: 1, answered: true, choice: 0 } }), pv);
+    await page.waitForSelector('.btl-result-ok .btl-pts', { timeout: 2000 });
+    // A dropped connection reconnects with the saved seat token.
+    await page.evaluate(() => window.__btl[1].onclose({ code: 1006 }));
+    await page.waitForFunction(() => window.__btl.length === 3, { timeout: 3000 });
+    if (!/pid=p1&token=tok/.test(await page.evaluate(() => window.__btl[2].url))) throw new Error('rejoin url');
+    await page.evaluate(() => window.__btl[2].emit({ t: 'error', code: 'kicked' }));
+    await page.waitForFunction(() => /removed you/.test(document.querySelector('.btl-overlay').textContent), { timeout: 2000 });
+    await page.evaluate(() => Battle.exit());
+  });
+
   console.log(errors.length ? 'ERRORS:\n' + errors.join('\n') : 'NO CONSOLE/PAGE ERRORS');
   console.log(failCount ? failCount + ' step(s) failed' : 'ALL STEPS PASSED');
   await browser.close();

@@ -62,6 +62,8 @@ Not sure? Hit **Try an example** on the home screen for an instant sample deck �
 - **💾 Backup** — one file backs up the whole library including schedules, stats, and mistake banks; drop it on any FlashMind to restore.
 - **🔍 Search, 🔗 permanent share links, 📤 exports** (Markdown, PDF, Anki-compatible CSV, printable exam, JSON).
 - **🌍 Community gallery** — optionally list a shared deck publicly; the home screen shows the latest community decks, one tap to open.
+- **🏫 Class mode** — account-less classes: a teacher gets a public join code and a private teacher code, sends decks/exams (with an optional due date) to the class, and sees a students × topics heatmap, the weakest topics, who's behind, and a one-click revision exam on the weakest topics. Students join with the code and a nickname; class decks stay updated without losing their own FSRS progress, and only small aggregated progress reports are sent.
+- **⚔️ Quiz battles** — Kahoot-style live games on a deck's exam questions: the host shows a room code, link and QR; players join on their phones, everyone gets the same question with a countdown, faster correct answers score more, with a live leaderboard and a podium. Timing, scoring and the answer key stay on the server (a Cloudflare Durable Object per room).
 
 ## Interface
 
