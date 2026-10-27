@@ -13,7 +13,7 @@ function modules(initial = {}, extras = {}) {
     localStorage: { getItem: k => storage.get(k) ?? null, setItem: (k, v) => storage.set(k, v), removeItem: k => storage.delete(k) },
     App: { showToast() {} }, ...extras
   });
-  for (const file of ['simspec', 'parser', 'decks', 'stats', 'api', 'sources', 'planner', 'adaptive', 'insights', 'pastpaper', 'paperreview', 'memory', 'predictor', 'concepts', 'coach', 'live-core']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/', file + '.js'), 'utf8'), ctx);
+  for (const file of ['simspec', 'parser', 'decks', 'stats', 'api', 'sources', 'planner', 'adaptive', 'insights', 'pastpaper', 'paperreview', 'memory', 'predictor', 'concepts', 'coach', 'live-core', 'class-core']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/', file + '.js'), 'utf8'), ctx);
   return { ctx, storage, run: code => vm.runInContext(code, ctx) };
 }
 
@@ -804,3 +804,84 @@ test('lecture transcripts survive normalization as a lecture source', () => {
   assert.equal(d.notes.sections[0].lectureAlerts, 'lec1');
   assert.equal(d.flashcards[0].exam, true);
 });
+
+test('class decks keep FSRS progress and history by content when the teacher pushes a new version', () => {
+  const { run } = modules();
+  const out = JSON.parse(run(`JSON.stringify(ClassCore.remapProgress(
+    { data: { flashcards: [{ id: 1, front: 'Mitoz', back: 'a' }, { id: 2, front: 'Mayoz', back: 'b' }, { id: 3, front: 'Gone', back: 'c' }],
+              quiz: [{ id: 1, question: 'Q one' }, { id: 2, question: 'Q two', type: 'true-false' }] },
+      srs: { 1: { reps: 3 }, 2: { reps: 1 }, 3: { reps: 9 } }, qstats: { 1: { n: 2, ok: 1 }, 2: { n: 1, ok: 1 } }, calib: { 2: { sure: [1, 0] } } },
+    { flashcards: [{ id: 1, front: 'New card', back: 'x' }, { id: 2, front: '  mitoz ', back: 'edited' }, { id: 3, front: 'Mayoz', back: 'b' }],
+      quiz: [{ id: 1, question: 'Q two', type: 'true-false' }, { id: 2, question: 'Q one' }] }))`));
+  assert.deepEqual(out.srs, { 2: { reps: 3 }, 3: { reps: 1 } });
+  assert.deepEqual(out.qstats, { 1: { n: 1, ok: 1 }, 2: { n: 2, ok: 1 } });
+  assert.deepEqual(out.calib, { 3: { sure: [1, 0] } });
+});
+
+test('upsertClassDeck refreshes the same deck, keeps progress and leaves the active deck alone', () => {
+  const { run } = modules();
+  const r = JSON.parse(run(`
+    const mine = Decks.save({ title: 'mine', flashcards: [{ id: 1, front: 'f', back: 'b' }] }, '');
+    const cls = { join: 'abcdefg', id: 'd1', ver: 1 };
+    const a = Decks.upsertClassDeck(cls, { title: 'Class v1', flashcards: [{ id: 1, front: 'Mitoz', back: 'a' }] });
+    Decks.reviewIn(a.id, 1, 5);
+    const b = Decks.upsertClassDeck({ ...cls, ver: 2 }, { title: 'Class v2', flashcards: [{ id: 7, front: 'Other', back: 'z' }, { id: 8, front: 'Mitoz', back: 'a2' }] },
+      (old, data) => ClassCore.remapProgress(old, data));
+    const dup = Decks.duplicate(b.id);
+    JSON.stringify({ same: a.id === b.id, title: b.data.title, ver: b.cls.ver, srs: Object.keys(b.srs), active: Decks.getActive().id === mine.id,
+      count: Decks.list().length, dupCls: dup.cls === undefined });
+  `));
+  assert.deepEqual(r, { same: true, title: 'Class v2', ver: 2, srs: ['8'], active: true, count: 3, dupCls: true });
+});
+
+test('class progress report is small and aggregated per deck and topic', () => {
+  const { ctx, run } = modules();
+  ctx.now = 1_000_000;
+  const r = JSON.parse(run(`JSON.stringify(ClassCore.buildReport([
+    { cls: { join: 'abcdefg', id: 'd1' }, data: { flashcards: [{ id: 1 }, { id: 2 }], quiz: [{ id: 1, category: 'Hücre' }, { id: 2, category: 'Hücre' }, { id: 3 }] },
+      srs: { 1: { reps: 2, due: now + 5 }, 2: { reps: 1, due: now - 5 }, 9: { reps: 1, due: now + 5 } },
+      qstats: { 1: { n: 2, ok: 2 }, 2: { n: 2, ok: 0 }, 3: { n: 1, ok: 1 } }, mistakes: [{ category: 'Hücre' }, {}] },
+    { cls: { join: 'other00', id: 'd2' }, data: { flashcards: [] } },
+    { data: { flashcards: [] } }
+  ], 'abcdefg', now))`));
+  assert.deepEqual(r, { decks: { d1: { m: 50, seen: 2, n: 5, acc: 60, topics: { 'Hücre': [2, 4], General: [1, 1] }, mis: { 'Hücre': 1, General: 1 } } } });
+});
+
+test('dashboard aggregation finds weakest topics and students who are behind', () => {
+  const { ctx, run } = modules();
+  ctx.now = 30 * 86400000;
+  ctx.students = [
+    { sid: 'a', nick: 'Ayşe', t: ctx.now - 1000, r: { decks: { d1: { m: 80, topics: { Hücre: [9, 10], Mitoz: [2, 6] }, mis: { Mitoz: 2 } } } } },
+    { sid: 'b', nick: 'Mert', t: ctx.now - 9 * 86400000, r: { decks: { d1: { m: 20, topics: { Hücre: [1, 4], Mitoz: [1, 4] }, mis: {} } } } },
+    { sid: 'c', nick: 'Ece', t: 0, r: null }
+  ];
+  const agg = JSON.parse(run('JSON.stringify(ClassCore.aggregate(students, now))'));
+  assert.deepEqual(agg.topics.map(t => t.name), ['Mitoz', 'Hücre']);
+  assert.deepEqual(agg.weakest.map(t => [t.name, t.pct]), [['Mitoz', 30], ['Hücre', 71]]);
+  assert.equal(agg.rows[0].cells.Mitoz.pct, 33);
+  assert.equal(agg.avgMastery, 50);
+  assert.deepEqual(agg.behind, [
+    { sid: 'b', nick: 'Mert', why: ['inactive', 'lowMastery', 'lowAccuracy'] },
+    { sid: 'c', nick: 'Ece', why: ['noReport'] }
+  ]);
+});
+
+test('revision exam picks weak-topic questions round-robin; battles take MC and true/false only', () => {
+  const { run } = modules();
+  const rev = JSON.parse(run(`JSON.stringify(ClassCore.revisionQuestions([
+    [{ id: 1, question: 'm1', category: 'Mitoz' }, { id: 2, question: 'm2', category: 'Mitoz' }, { id: 3, question: 'm3', category: 'Mitoz' }, { id: 4, question: 'h1', category: 'Hücre' }],
+    [{ id: 1, question: 'm1', category: 'Mitoz' }, { id: 9, question: 'x', category: 'Other' }]
+  ], ['Mitoz', 'Hücre'], 3, () => 0.5))`));
+  assert.equal(rev.length, 3);
+  assert.deepEqual(rev.map(q => q.id), [1, 2, 3]);
+  assert.deepEqual(rev.map(q => q.category).sort(), ['Hücre', 'Mitoz', 'Mitoz']);
+  const b = JSON.parse(run(`JSON.stringify(ClassCore.battleQuestions([
+    { type: 'multiple-choice', question: 'q1', options: ['a', 'b', 'c'], correct: 2 },
+    { type: 'true-false', question: 'q2', correct: false },
+    { type: 'multiple-choice', question: 'q3', options: ['1', '2', '3', '4', '5', '6'], correct: 0 },
+    { type: 'fill-blank', question: 'q4', answers: ['x'] },
+    { type: 'open-ended', question: 'q5' }
+  ], { t: 'Doğru', f: 'Yanlış' }, 50))`));
+  assert.deepEqual(b, [{ q: 'q1', o: ['a', 'b', 'c'], c: 2 }, { q: 'q2', o: ['Doğru', 'Yanlış'], c: 1 }]);
+});
+

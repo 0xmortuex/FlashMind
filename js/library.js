@@ -118,6 +118,7 @@ const Library = (() => {
               <span>${T('questionsN', { n: qs })}</span>
               ${due ? `<span class="deck-card-due">${T('dueN', { n: due })}</span>` : ''}
               ${typeof Planner !== 'undefined' ? Planner.deckBadge(d) : ''}
+              ${typeof ClassMode !== 'undefined' ? ClassMode.deckBadge(d) : ''}
             </div>
           </div>
           <button class="deck-card-menu-btn" data-menu="${d.id}" aria-label="${T('deckActions')}" title="${T('deckActions')}" aria-haspopup="menu">&#8943;</button>

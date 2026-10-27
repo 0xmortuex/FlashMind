@@ -302,12 +302,30 @@ const Decks = (() => {
     if (!src) return null;
     const copy = JSON.parse(JSON.stringify(src));
     copy.id = newId();
+    delete copy.cls; // a copy is the student's own, not a class deck
     copy.createdAt = copy.updatedAt = Date.now();
     delete copy.rlog; // the review history would count twice in the memory model
     if (copy.data) copy.data.title = (copy.data.title || '') + (i18n.getLang() === 'tr' ? ' (kopya)' : ' (copy)');
     store.decks[copy.id] = copy;
     persist();
     return copy;
+  }
+
+  // ----- Class decks (classroom.js) -----
+  // Create or refresh a deck a teacher pushed, without changing the active
+  // deck. `keep(oldDeck, newData)` returns the progress fields to carry over.
+  function upsertClassDeck(cls, data, keep) {
+    load();
+    data = Parser.normalizeStudyData(data);
+    let deck = Object.values(store.decks).find(d => d.cls && d.cls.join === cls.join && d.cls.id === cls.id);
+    if (deck) {
+      Object.assign(deck, keep ? keep(deck, data) : {});
+      deck.data = data;
+      deck.updatedAt = Math.max(Date.now(), (deck.updatedAt || 0) + 1);
+    } else deck = createDeck(data, '');
+    deck.cls = { ...cls };
+    persist();
+    return deck;
   }
 
   // ----- Mistake notebook (yanlış defteri) -----
@@ -558,6 +576,6 @@ const Decks = (() => {
     save, get, getActive, setActive, list, remove, touch, rename, duplicate,
     setFolder, folders, mergeInto, setExamDate, examStart, capForExam, retrievability, nextState, intervalDays, W, DAY,
     getSrs, review, reviewIn, dueCards, dueAcrossDecks, statusOf,
-    addMistakes, resolveMistakes, getMistakes, tagMistake, recordConfidence, recordAnswers, mergeRemote, snapshot
+    upsertClassDeck, addMistakes, resolveMistakes, getMistakes, tagMistake, recordConfidence, recordAnswers, mergeRemote, snapshot
   };
 })();
