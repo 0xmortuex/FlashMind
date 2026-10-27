@@ -56,6 +56,10 @@ Not sure? Hit **Try an example** on the home screen for an instant sample deck �
 ## Study features
 
 - **🧠 FSRS spaced repetition** — the modern scheduler (FSRS-4.5) plans each card's optimal review date; lapses feed **weak-spot targeting**, which generates new cards for the categories you struggle with.
+- **🧬 Personal memory model** — every review is logged (compact, capped per deck); after 200 spaced reviews FlashMind fits your own initial stabilities and forgetting rate by maximum likelihood and schedules with them. Stats shows predicted vs actual recall and a per-topic forecast for exam day.
+- **🎯 Exam predictor** — for decks with an exam date: predicted score with a 90% range, plus "the next 2 hours that gain the most marks" (cards ranked by expected marks per minute).
+- **🕸️ Concept map** — one graph across all decks from key terms and categories, with mastery per concept and prerequisite gaps ("you keep missing X because you haven't mastered Y"); an optional AI pass adds links.
+- **🧭 Autopilot coach** — "What should I do now?" picks and launches your best next 20 minutes (reviews, high-yield cards, mistakes retake, adaptive exam, voice quiz, mind map) and suggests the next step afterwards.
 - **🎚️ Difficulty dial** — generate the same material as *Simple*, *Standard*, or *Advanced* (exam-prep depth).
 - **📚 Deck library** — every set is saved locally; rename, duplicate, search, export, delete, group into **folders**, or **merge decks** (review progress carries over); mastery rings and due counts at a glance.
 - **🔁 Device sync** — account-less: enable sync, enter the private code on another device, and decks/stats merge (deletions propagate too). Disabling wipes the cloud copy.

@@ -13,7 +13,7 @@ function modules(initial = {}, extras = {}) {
     localStorage: { getItem: k => storage.get(k) ?? null, setItem: (k, v) => storage.set(k, v), removeItem: k => storage.delete(k) },
     App: { showToast() {} }, ...extras
   });
-  for (const file of ['parser', 'decks', 'stats', 'api', 'sources', 'planner', 'adaptive', 'insights']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/', file + '.js'), 'utf8'), ctx);
+  for (const file of ['parser', 'decks', 'stats', 'api', 'sources', 'planner', 'adaptive', 'insights', 'memory', 'predictor', 'concepts', 'coach']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/', file + '.js'), 'utf8'), ctx);
   return { ctx, storage, run: code => vm.runInContext(code, ctx) };
 }
 
@@ -266,4 +266,239 @@ test('mistakes can be tagged with a cause, and exam answers build per-question h
   assert.equal(out.m, 'careless');
   assert.deepEqual(out.s['3'], { n: 2, ok: 1, last: 1, t: out.s['3'].t });
   assert.equal(Object.keys(out.s).length, 1);
+});
+
+// ===== Study brain: memory model, predictor, concept map, coach =====
+// Synthetic review history: cards reviewed on the default schedule while the
+// "true" learner forgets with multiplier cTrue (deterministic LCG).
+const SYNTH = `
+function synthDeck(id, cTrue, nCards, seed) {
+  let x = seed; const rnd = () => { x = (x * 1103515245 + 12345) % 2147483648; return x / 2147483648; };
+  const DAY = 864e5, rlog = [], truth = { w: Decks.W.slice(0, 4), c: cTrue };
+  for (let i = 0; i < nCards; i++) {
+    let t = Date.UTC(2026, 0, 1) + i * 3600e3, sched = null, tru = null;
+    for (let k = 0; k < 6; k++) {
+      let g;
+      if (!sched) g = rnd() < 0.2 ? 1 : 3;
+      else g = rnd() < Math.pow(1 + 19 / 81 * ((t - tru.last) / DAY) / (tru.stab * cTrue), -0.5) ? 3 : 1;
+      rlog.push([i + 1, Math.round(t / 60000), g, sched ? Math.round((t - sched.last) / DAY * 100) / 100 : 0, sched ? sched.stab : 0, sched ? sched.diff : 0]);
+      sched = Decks.nextState(sched, g, t, null);
+      tru = Decks.nextState(tru, g, t, truth);
+      t += Decks.intervalDays(sched.stab, null) * DAY;
+    }
+  }
+  return { id, rlog, data: { flashcards: [] }, srs: {} };
+}`;
+test('reviews are logged compactly per deck and the log is capped', () => {
+  const { run } = modules();
+  const out = JSON.parse(run(`
+    Decks.save({ title: 'x', flashcards: [{ id: 1, front: 'a', back: 'b' }] }, '');
+    Decks.review(1, 5); Decks.review(1, 1);
+    const d = Decks.getActive();
+    const first = JSON.stringify(d.rlog);
+    for (let i = 0; i < 400; i++) Decks.review(1, 5);
+    JSON.stringify({ first: JSON.parse(first), len: d.rlog.length });
+  `));
+  assert.equal(out.first.length, 2);
+  assert.deepEqual(out.first[0].slice(2), [3, 0, 0, 0]);          // first review: no prior state
+  assert.equal(out.first[1][2], 1);                               // grade Again
+  assert.ok(out.first[1][4] > 0 && out.first[1][5] > 0);          // stability/difficulty before
+  assert.equal(out.len, 300);
+});
+test('golden-section search finds the minimum of a unimodal function', () => {
+  const { run } = modules();
+  assert.ok(Math.abs(run(`Memory.golden(x => (x - 1.3) ** 2 + 2, -5, 5)`) - 1.3) < 1e-3);
+});
+test('memory model fit recovers slower and faster forgetting and is deterministic', () => {
+  const { run } = modules();
+  const out = JSON.parse(run(SYNTH + `
+    const slow = Memory.sequences([synthDeck('a', 2, 70, 7)]);
+    const fast = Memory.sequences([synthDeck('b', 0.5, 70, 11)]);
+    const A = Memory.fit(slow), A2 = Memory.fit(slow), B = Memory.fit(fast);
+    JSON.stringify({ A, A2, B });
+  `));
+  // Effective stability after a first "Good" (w3 × c) vs the default 3.71 days.
+  assert.ok(out.A.w[2] * out.A.c > 5, 'slow forgetter ' + JSON.stringify(out.A));
+  assert.ok(out.B.w[2] * out.B.c < 3, 'fast forgetter ' + JSON.stringify(out.B));
+  assert.ok(out.A.c > 1 && out.B.c < 1);
+  assert.ok(out.A.ll > out.A.llDefault && out.B.ll > out.B.llDefault);
+  assert.deepEqual(out.A, out.A2);
+});
+test('personal params kick in only past the threshold and then drive scheduling and recall', () => {
+  const { run } = modules();
+  const out = JSON.parse(run(SYNTH + `
+    const few = Memory.ensure([synthDeck('a', 2, 10, 3)]);
+    const many = Memory.ensure([synthDeck('a', 2, 70, 7)]);
+    Decks.save({ title: 'x', flashcards: [{ id: 1, front: 'a', back: 'b' }] }, '');
+    const s = Decks.review(1, 5);
+    JSON.stringify({ few, many, cur: Memory.current(), stab: s.stab, gap: (s.due - s.last) / 864e5,
+      r: Decks.retrievability(10, 5), rDefault: Decks.retrievability(10, 5, 1) });
+  `));
+  assert.equal(out.few.fitted, false);
+  assert.ok(out.few.n < 200);
+  assert.equal(out.many.fitted, true);
+  assert.equal(out.cur.c, out.many.c);
+  assert.equal(out.stab, out.many.w[2]);
+  assert.equal(out.gap, Math.max(1, Math.round(out.many.w[2] * out.many.c)));
+  assert.ok(out.r > out.rDefault);
+});
+test('memory forecast: per-topic recall at the horizon, stop-now never beats keep-up', () => {
+  const { run } = modules();
+  const f = JSON.parse(run(`
+    const now = Date.UTC(2026, 9, 1), DAY = 864e5;
+    const deck = { id: 'd', examDate: '2026-10-13', data: { flashcards: [
+      { id: 1, category: 'Cells' }, { id: 2, category: 'Cells' }, { id: 3, category: 'Genes' }, { id: 4, category: 'Genes' }] },
+      srs: { 1: { stab: 2, diff: 5, reps: 2, last: now - DAY, due: now + DAY }, 2: { stab: 30, diff: 4, reps: 4, last: now - DAY, due: now + 29 * DAY },
+             3: { stab: 1, diff: 7, reps: 1, last: now - 3 * DAY, due: now - 2 * DAY } } };
+    JSON.stringify(Memory.forecast(deck, now + 12 * DAY, Memory.defaults(), now));
+  `));
+  assert.equal(f.total.n, 4);
+  assert.equal(f.total.seen, 3);
+  f.topics.forEach(t => assert.ok(t.keep >= t.stop - 1e-9, JSON.stringify(t)));
+  const genes = f.topics.find(t => t.name === 'Genes');
+  assert.ok(genes.stop < 0.5);                                   // one forgotten-ish card + one unseen
+  assert.ok(genes.keep > 0.8);                                   // keeping up learns and reviews both
+  assert.equal(f.topics[0].name, 'Genes');                       // weakest first
+});
+test('marks-per-minute ranking favours unlearned, heavily weighted material and respects the budget', () => {
+  const { run } = modules();
+  const r = JSON.parse(run(`
+    const now = Date.UTC(2026, 9, 1), DAY = 864e5;
+    const cards = [];
+    for (let i = 1; i <= 40; i++) cards.push({ id: i, category: i <= 20 ? 'Heavy' : 'Light' });
+    const quiz = [];
+    for (let i = 1; i <= 10; i++) quiz.push({ id: i, category: i <= 8 ? 'Heavy' : 'Light' });
+    const srs = {};
+    for (let i = 1; i <= 40; i++) if (i % 2) srs[i] = { stab: 40, diff: 4, reps: 5, last: now - DAY, due: now + 39 * DAY };
+    const deck = { id: 'd', examDate: '2026-10-11', data: { flashcards: cards, quiz }, srs };
+    const a = Predictor.rank(deck, now, Memory.defaults(), 10), b = Predictor.rank(deck, now, Memory.defaults(), 10);
+    JSON.stringify({ a, same: JSON.stringify(a) === JSON.stringify(b) });
+  `));
+  assert.ok(r.same);
+  assert.equal(r.a.items[0].topic, 'Heavy');
+  assert.equal(r.a.items[0].seen, false);
+  for (let i = 1; i < r.a.items.length; i++) assert.ok(r.a.items[i - 1].mpm >= r.a.items[i].mpm);
+  assert.ok(r.a.minutes >= 10 && r.a.minutes < 11);
+  assert.ok(r.a.marks > 0);
+  const strong = r.a.items.find(x => x.seen);
+  assert.ok(strong.gain < 0.1);                                  // well-learned cards gain little
+});
+test('exam prediction gives an honest range that narrows with evidence', () => {
+  const { run } = modules();
+  const out = JSON.parse(run(`
+    const now = Date.UTC(2026, 9, 1), DAY = 864e5;
+    const mk = (answers) => {
+      const quiz = [], qstats = {};
+      for (let i = 1; i <= 10; i++) { quiz.push({ id: i, category: i <= 5 ? 'A' : 'B' }); if (answers) qstats[i] = { n: answers, ok: i <= 5 ? answers : Math.floor(answers / 2), t: now }; }
+      const cards = [1, 2, 3, 4].map(id => ({ id, category: id <= 2 ? 'A' : 'B' }));
+      const srs = { 1: { stab: 20, diff: 4, reps: 3, last: now - DAY, due: now + 19 * DAY }, 3: { stab: 3, diff: 6, reps: 2, last: now - DAY, due: now + 2 * DAY } };
+      return { id: 'd', examDate: '2026-10-11', data: { flashcards: cards, quiz }, srs, qstats };
+    };
+    JSON.stringify({ few: Predictor.predict(mk(1), now, Memory.defaults()), lots: Predictor.predict(mk(6), now, Memory.defaults()),
+      none: Predictor.predict({ id: 'x', data: {} }, now),
+      blank: Predictor.predict(Object.assign(mk(0), { srs: {} }), now, Memory.defaults()) });
+  `));
+  assert.equal(out.none, null);
+  assert.equal(out.blank.insufficient, true);                  // no evidence: no number shown
+  assert.equal(out.few.insufficient, false);
+  for (const p of [out.few, out.lots]) {
+    assert.ok(p.low <= p.score && p.score <= p.high, JSON.stringify(p));
+    assert.ok(p.stop <= p.score);
+    assert.equal(p.topics[0].name, 'B');                         // weakest topic first
+  }
+  assert.ok(out.lots.high - out.lots.low < out.few.high - out.few.low);
+  assert.equal(out.lots.daysLeft, 10);
+});
+test('concept graph links decks through shared terms and finds prerequisite gaps', () => {
+  const { run } = modules();
+  const out = JSON.parse(run(`
+    const now = Date.UTC(2026, 9, 1), DAY = 864e5;
+    const bio = { id: 'bio', data: { notes: { sections: [{ title: 'Cells', keyTerms: [
+        { term: 'Mitosis', definition: 'Division of a cell nucleus after DNA replication.' },
+        { term: 'DNA replication', definition: 'Copying the genome before division.' }] }] },
+      flashcards: [{ id: 1, front: 'What is mitosis?', back: 'Nuclear division', category: 'Cells' },
+                   { id: 2, front: 'When does DNA replication happen?', back: 'S phase', category: 'Cells' }],
+      quiz: [{ id: 1, question: 'Mitosis produces?', options: ['2 cells', '4 cells'], category: 'Cells' }] },
+      srs: { 1: { stab: 1, diff: 8, reps: 4, lapses: 3, last: now - 5 * DAY }, 2: { stab: 1, diff: 8, reps: 3, lapses: 2, last: now - 6 * DAY } },
+      qstats: { 1: { n: 3, ok: 0, last: 0 } }, mistakes: [{ question: 'Mitosis produces?' }] };
+    const chem = { id: 'chem', data: { flashcards: [{ id: 1, front: 'Which enzyme drives DNA replication?', back: 'Polymerase', category: 'Enzymes' }] }, srs: {} };
+    const g = ConceptMap.build([bio, chem], ConceptMap.sanitize({ e: [['mitosis', 'cells', 'r', 5], ['__proto__', 'x', 'p', 1], ['a', 'a', 'p', 1]] }));
+    const an = ConceptMap.analyse(g, [bio, chem], now, 1);
+    JSON.stringify({ rep: g.nodes.get('dna replication'), edges: g.edges, gaps: an.gaps, weak: an.weak.map(n => n.key) });
+  `));
+  assert.deepEqual(out.rep.decks.sort(), ['bio', 'chem']);       // cross-deck link via the term
+  assert.ok(out.edges.some(e => e.a === 'mitosis' && e.b === 'dna replication' && e.type === 'pre' && e.src === 'def'));
+  assert.ok(out.edges.some(e => e.src === 'ai' && e.type === 'rel'));
+  assert.equal(out.gaps[0].a, 'mitosis');
+  assert.equal(out.gaps[0].b, 'dna replication');
+  assert.ok(out.weak.includes('mitosis'));
+});
+test('stored concept edges are sanitized and merge as a union with deletions', () => {
+  const { run, storage } = modules();
+  run(`ConceptMap.mergeRemote({ e: [['a', 'b', 'p', 10], ['a', 'b', 'p', 11], ['constructor', 'b', 'p', 1], ['x', 'y', 'bad', 1]] })`);
+  let st = JSON.parse(storage.get('flashmind_concepts_v1'));
+  assert.deepEqual(st.e, [['a', 'b', 'p', 10]]);
+  run(`ConceptMap.mergeRemote(JSON.stringify({ e: [['c', 'd', 'r', 20]], cleared: 15 }))`);
+  st = JSON.parse(storage.get('flashmind_concepts_v1'));
+  assert.deepEqual(st.e, [['c', 'd', 'r', 20]]);
+  assert.equal(st.cleared, 15);
+});
+test('coach decision is deterministic and follows the situation', () => {
+  const { run } = modules();
+  const out = JSON.parse(run(`
+    const now = Date.UTC(2026, 9, 1), DAY = 864e5;
+    const base = { title: 'T', daysLeft: null, cards: 40, unseen: 0, due: 0, todayNew: 0, questions: 0, mistakes: 0,
+      lastPractice: 0, sureN: 0, sureAcc: 1, over: 0, hasMap: true, gain20: 0 };
+    const d = o => Object.assign({}, base, o);
+    const dec = (decks, extra) => Coach.decide(Object.assign({ now, decks, caps: { voice: false }, recent: [] }, extra || {}));
+    JSON.stringify({
+      none: dec([]),
+      rest: dec([d({ id: 'a' })]),
+      review: dec([d({ id: 'a', due: 45 }), d({ id: 'b', unseen: 5 })]),
+      examTomorrow: dec([d({ id: 'a', due: 45 }), d({ id: 'b', daysLeft: 1, gain20: 6 })]),
+      mistakes: dec([d({ id: 'a', mistakes: 14 }), d({ id: 'b', due: 6 })]),
+      adaptive: dec([d({ id: 'a', daysLeft: 6, questions: 30, lastPractice: now - 9 * DAY, gain20: 0.5 })]),
+      voice: dec([d({ id: 'a', sureN: 20, sureAcc: 0.5, over: 4 })], { caps: { voice: true } }),
+      over: dec([d({ id: 'a', sureN: 20, sureAcc: 0.5, over: 4 })]),
+      map: dec([d({ id: 'a', unseen: 3 })], { recent: [{ k: 'new', d: 'a' }, { k: 'review', d: null }] }),
+      again: dec([d({ id: 'a', due: 20 }), d({ id: 'b', unseen: 20 })], { recent: [{ k: 'review', d: null }] }),
+      fresh: dec([d({ id: 'a', due: 20 }), d({ id: 'b', unseen: 20 })]),
+      tie1: dec([d({ id: 'b', unseen: 20 }), d({ id: 'a', unseen: 20 })]),
+      tie2: dec([d({ id: 'a', unseen: 20 }), d({ id: 'b', unseen: 20 })])
+    });
+  `));
+  assert.equal(out.none.kind, 'none');
+  assert.equal(out.rest.kind, 'rest');
+  assert.equal(out.review.kind, 'review');
+  assert.deepEqual([out.examTomorrow.kind, out.examTomorrow.deckId, out.examTomorrow.why.key], ['marks', 'b', 'coachWhyMarksUrgent']);
+  assert.deepEqual([out.mistakes.kind, out.mistakes.deckId], ['mistakes', 'a']);
+  assert.equal(out.adaptive.kind, 'adaptive');
+  assert.equal(out.voice.kind, 'voice');
+  assert.equal(out.over.kind, 'over');
+  assert.equal(out.map.kind, 'mindmap');
+  assert.equal(out.fresh.kind, 'review');
+  assert.equal(out.again.kind, 'new');                           // just reviewed: don't repeat straight away
+  assert.deepEqual(out.tie1, out.tie2);                          // input order doesn't matter
+});
+test('coach summary reads exam date, due load, practice age and calibration from a deck', () => {
+  const { run } = modules();
+  const s = JSON.parse(run(`
+    const now = Date.now(), DAY = 864e5;
+    const dt = new Date(now + 5 * DAY);
+    const key = dt.getFullYear() + '-' + String(dt.getMonth() + 1).padStart(2, '0') + '-' + String(dt.getDate()).padStart(2, '0');
+    const deck = { id: 'd', examDate: key, data: { title: 'Bio', flashcards: [{ id: 1, category: 'A' }, { id: 2, category: 'A' }], quiz: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }] },
+      srs: { 1: { stab: 1, diff: 5, reps: 2, last: now - 3 * DAY, due: now - DAY } },
+      qstats: { 1: { n: 1, ok: 1, t: now - 2 * DAY } }, mistakes: [{ question: 'q' }],
+      calib: { 1: { sure: [1, 3], lastSureMiss: now } } };
+    JSON.stringify(Coach.summarize(deck, now, null));
+  `));
+  assert.equal(s.daysLeft, 5);
+  assert.equal(s.due, 1);
+  assert.equal(s.unseen, 1);
+  assert.equal(s.questions, 4);
+  assert.equal(s.mistakes, 1);
+  assert.equal(s.sureN, 4);
+  assert.equal(s.sureAcc, 0.25);
+  assert.equal(s.over, 1);
+  assert.ok(s.gain20 > 0);
 });

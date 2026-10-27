@@ -835,6 +835,7 @@ const Flashcards = (() => {
     render(false);
     Sound.play('complete');
     FX.celebrate();
+    document.dispatchEvent(new CustomEvent('fm:session-end', { detail: { kind: 'cards' } }));
     document.getElementById('dc-study-again').onclick = () => {
       document.getElementById('deck-complete-overlay').style.display = 'none';
       if (releaseStudyTrap) { releaseStudyTrap(); releaseStudyTrap = null; }

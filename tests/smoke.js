@@ -591,6 +591,73 @@ const puppeteer = require('puppeteer');
     await page.waitForSelector('[data-ins-act="diagnose"]', { timeout: 2000 });
   });
 
+  await step('study brain: memory model, exam predictor and concept map render on Stats', async () => {
+    await page.evaluate(() => {
+      const deck = Decks.getActive();
+      const d = new Date(Date.now() + 6 * 864e5);
+      Decks.setExamDate(deck.id, d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'));
+      deck.data.flashcards.slice(0, 3).forEach(c => Decks.review(c.id, 5));
+      App.switchTab('flashcards');
+    });
+    await page.waitForSelector('#tab-flashcards .plan-bar', { timeout: 2000 });
+    await page.click('[data-tab="stats"]');
+    await page.waitForSelector('#memory-card', { timeout: 2000 });
+    await page.waitForSelector('.plan-card .pred-block', { timeout: 2000 });
+    if (!await page.evaluate(() => Decks.getActive().rlog.length >= 3)) throw new Error('reviews not logged');
+    await page.waitForSelector('#concept-card .cm-node', { timeout: 2000 });
+    await page.evaluate(() => document.querySelector('#concept-card .cm-node circle').dispatchEvent(new MouseEvent('click', { bubbles: true })));
+    await page.waitForSelector('#cm-detail [data-cm-act="ask"]', { timeout: 2000 });
+    const study = await page.$('#cm-detail [data-cm-act="study"]');
+    if (study) {
+      await study.click();
+      await page.waitForSelector('#study-mode-overlay', { visible: true, timeout: 2000 });
+      await page.evaluate(() => document.getElementById('study-mode-close').click());
+    }
+  });
+
+  await step('study brain: AI concept linking is batched, parsed and stored (mocked)', async () => {
+    await page.evaluate(() => {
+      window.__cmChat = API.chat;
+      window.__cmCalls = 0;
+      API.chat = async () => { window.__cmCalls++; return 'Sure: {"pre":[[1,2],[2,99]],"rel":[[3,1]]}'; };
+      App.switchTab('stats');
+    });
+    await page.waitForSelector('[data-cm-act="ai"]', { timeout: 2000 });
+    await page.click('[data-cm-act="ai"]');
+    await page.waitForFunction(() => (JSON.parse(localStorage.getItem('flashmind_concepts_v1') || '{}').e || []).length >= 2, { timeout: 3000 });
+    await page.waitForSelector('[data-cm-act="ai"]:not([disabled])', { timeout: 3000 });
+    await page.evaluate(() => { API.chat = window.__cmChat; });
+    if (!await page.evaluate(() => window.__cmCalls >= 1)) throw new Error('no AI call');
+  });
+
+  await step('autopilot coach: "What now?" launches a session and suggests the next step', async () => {
+    await page.waitForSelector('#study-view .coach-btn', { timeout: 2000 });
+    await page.click('#study-view .coach-btn');
+    await page.waitForFunction(() => { const s = JSON.parse(localStorage.getItem('flashmind_coach_v1') || '{}'); return s.recent && s.recent.length; }, { timeout: 2000 });
+    const kind = await page.evaluate(() => JSON.parse(localStorage.getItem('flashmind_coach_v1')).recent[0].k);
+    if (!['review', 'marks', 'new', 'mistakes', 'adaptive', 'voice', 'over', 'mindmap'].includes(kind)) throw new Error('bad kind ' + kind);
+    await page.evaluate(() => {
+      const ov = document.getElementById('study-mode-overlay');
+      if (ov.style.display === 'flex') document.getElementById('study-mode-close').click();
+      if (typeof Voice !== 'undefined') Voice.close();
+      document.dispatchEvent(new CustomEvent('fm:session-end'));
+    });
+    await page.waitForSelector('.coach-next', { visible: true, timeout: 2000 });
+    const go = await page.$('.coach-next [data-coach-act="next"]');
+    if (go) await go.click(); else await page.click('.coach-next [data-coach-act="dismiss"]');
+    await page.waitForFunction(() => document.querySelector('.coach-next').style.display === 'none', { timeout: 2000 });
+    await page.evaluate(() => {
+      const ov = document.getElementById('study-mode-overlay');
+      if (ov.style.display === 'flex') document.getElementById('study-mode-close').click();
+      if (typeof Voice !== 'undefined') Voice.close();
+    });
+    await page.keyboard.down('Control'); await page.keyboard.press('k'); await page.keyboard.up('Control');
+    await page.waitForSelector('.palette-backdrop', { visible: true, timeout: 2000 });
+    const labels = await page.$$eval('.palette-list *', els => els.map(e => e.textContent).join('|'));
+    await page.keyboard.press('Escape');
+    if (!labels.includes('🧭')) throw new Error('coach missing from palette');
+  });
+
   console.log(errors.length ? 'ERRORS:\n' + errors.join('\n') : 'NO CONSOLE/PAGE ERRORS');
   console.log(failCount ? failCount + ' step(s) failed' : 'ALL STEPS PASSED');
   await browser.close();
