@@ -1,6 +1,6 @@
 // FlashMind service worker — app-shell caching for offline study of saved decks.
 // Bump CACHE when any shell asset changes so clients pick up the new version.
-const CACHE = 'flashmind-v23';
+const CACHE = 'flashmind-v24';
 
 // data/meb/sets/*.json (one study set per MEB file, up to ~450 KB each) is NOT
 // listed here: it is cached at runtime when opened, keeping the last SETS_KEEP.

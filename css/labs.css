@@ -288,3 +288,41 @@
   .vl-bullets li { transform: none; transition: opacity 0.2s; transition-delay: 0s; }
   .lab-ch.pop .lab-ch-box { animation: none; }
 }
+
+/* Video lessons: another version, "I didn't understand", voice panel */
+.vl-versions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.vl-version { width: auto; max-width: 100%; }
+.vl-confused {
+  position: absolute; z-index: 3; left: 2cqw; top: 2cqw; min-height: 28px; padding: 3px 10px; border-radius: 999px;
+  background: rgba(11, 13, 20, 0.8); color: #fff; border: 1px solid rgba(255, 255, 255, 0.4); font: inherit; font-size: 0.75rem; cursor: pointer;
+}
+.vl-confused:hover { background: #0b0d14; border-color: #fff; }
+.vl-confused:focus-visible { outline: 2px solid var(--highlight); outline-offset: 2px; }
+.vl-panel { display: flex; flex-direction: column; gap: 8px; padding: 14px; background: var(--card); color: var(--text); border-top: 1px solid var(--border); }
+.vl-panel[hidden], .vl-revbar[hidden], .vl-notice[hidden] { display: none; }
+.vl-panel-title { font-family: var(--font-display); font-size: 1rem; margin: 0; outline: none; }
+.vl-chips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.vl-chip {
+  min-height: 40px; padding: 8px 12px; border-radius: var(--radius); background: var(--card-raised); color: var(--text);
+  border: 1px solid var(--border-strong); font: inherit; font-size: 0.86rem; text-align: left; cursor: pointer;
+}
+.vl-chip:hover { border-color: var(--primary); background: var(--primary-tint); }
+.vl-chip:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.vl-panel textarea { resize: vertical; min-height: 56px; }
+.vl-panel-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.vl-panel-busy { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+.vl-panel-error { color: var(--bad-text); margin: 0; line-height: 1.45; }
+.vl-spin { width: 20px; height: 20px; border-radius: 50%; border: 3px solid var(--border-strong); border-top-color: var(--primary); animation: vl-spin 0.8s linear infinite; }
+@keyframes vl-spin { to { transform: rotate(360deg); } }
+.vl-speed { width: 100%; accent-color: var(--primary); }
+.vl-revbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: var(--text-muted); font-size: 0.86rem; }
+.vl-notice { padding: 14px; border-radius: var(--radius); background: var(--card); border: 1px solid var(--warn-text); color: var(--text); display: flex; flex-direction: column; gap: 8px; }
+.vl-notice p { margin: 0; line-height: 1.5; font-size: 0.9rem; color: var(--text-muted); }
+.vl-player:fullscreen .vl-panel { position: absolute; z-index: 5; left: 0; right: 0; bottom: 0; max-height: 75vh; overflow: auto; }
+@media (max-width: 560px) {
+  .vl-chips { grid-template-columns: 1fr; }
+  .vl-confused { left: 6px; top: 6px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vl-spin { animation-duration: 3s; }
+}

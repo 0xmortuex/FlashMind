@@ -413,32 +413,45 @@ const SimSpec = (() => {
 
   // ----- Video lesson storyboards -----
 
+  // One slide; a revised slide carries the slide it replaced as "orig" (one level).
+  function sanitizeSlide(sl, nested) {
+    if (!obj(sl)) return null;
+    const out = {
+      title: str(sl.title, 120),
+      bullets: list(sl.bullets).map(b => str(b, 220)).filter(Boolean).slice(0, 3),
+      narration: str(sl.narration, 1500)
+    };
+    // Formula is stored as bare TeX; the player adds the delimiters.
+    const f = str(sl.formula, 240).replace(/^\s*(\$\$?|\\\[|\\\()|(\$\$?|\\\]|\\\))\s*$/g, '').replace(/\$/g, '').trim();
+    if (f) out.formula = f;
+    if (obj(sl.diagram)) {
+      if (sl.diagram.kind === 'notes' && Number.isInteger(sl.diagram.index) && sl.diagram.index >= 0 && sl.diagram.index < 50) out.diagram = { kind: 'notes', index: sl.diagram.index };
+      else if (sl.diagram.kind === 'map' && str(sl.diagram.label, 140)) out.diagram = { kind: 'map', label: str(sl.diagram.label, 140) };
+    }
+    if (!out.title || !(out.narration || out.bullets.length)) return null;
+    if (!out.narration) out.narration = [out.title, ...out.bullets].join('. ');
+    if (!nested && obj(sl.orig)) {
+      const o = sanitizeSlide(sl.orig, true);
+      if (o) out.orig = o;
+    }
+    return out;
+  }
+
   function sanitizeLesson(raw, idx) {
     if (!obj(raw)) return null;
-    const slides = list(raw.slides).filter(obj).slice(0, 14).map(sl => {
-      const out = {
-        title: str(sl.title, 120),
-        bullets: list(sl.bullets).map(b => str(b, 220)).filter(Boolean).slice(0, 3),
-        narration: str(sl.narration, 1500)
-      };
-      // Formula is stored as bare TeX; the player adds the delimiters.
-      const f = str(sl.formula, 240).replace(/^\s*(\$\$?|\\\[|\\\()|(\$\$?|\\\]|\\\))\s*$/g, '').replace(/\$/g, '').trim();
-      if (f) out.formula = f;
-      if (obj(sl.diagram)) {
-        if (sl.diagram.kind === 'notes' && Number.isInteger(sl.diagram.index) && sl.diagram.index >= 0 && sl.diagram.index < 50) out.diagram = { kind: 'notes', index: sl.diagram.index };
-        else if (sl.diagram.kind === 'map' && str(sl.diagram.label, 140)) out.diagram = { kind: 'map', label: str(sl.diagram.label, 140) };
-      }
-      return out;
-    }).filter(sl => sl.title && (sl.narration || sl.bullets.length));
+    const slides = list(raw.slides).filter(obj).slice(0, 14).map(sl => sanitizeSlide(sl)).filter(Boolean);
     if (slides.length < 2) return null;
-    slides.forEach(sl => { if (!sl.narration) sl.narration = [sl.title, ...sl.bullets].join('. '); });
-    return {
+    const out = {
       id: /^[a-z0-9_-]{1,24}$/i.test(str(raw.id, 24)) ? str(raw.id, 24) : 'v' + ((idx || 0) + 1),
       title: str(raw.title, 120) || slides[0].title,
       topic: str(raw.topic, 120),
       slides,
       createdAt: Number.isFinite(raw.createdAt) ? raw.createdAt : 0
     };
+    // Another version of a lesson: "base" is the id of the original, "label" names the perspective.
+    if (/^[a-z0-9_-]{1,24}$/i.test(str(raw.base, 24))) out.base = str(raw.base, 24);
+    if (str(raw.label, 60)) out.label = str(raw.label, 60);
+    return out;
   }
 
   function sanitizeLessons(v) {
@@ -453,5 +466,5 @@ const SimSpec = (() => {
     return out;
   }
 
-  return { compile, evaluate, parse, sanitizeLab, sanitizeLabs, runtime, circuit, niceStep, sanitizeLesson, sanitizeLessons, TEMPLATES, FUNCS: Object.keys(FUNCS) };
+  return { compile, evaluate, parse, sanitizeLab, sanitizeLabs, runtime, circuit, niceStep, sanitizeSlide, sanitizeLesson, sanitizeLessons, TEMPLATES, FUNCS: Object.keys(FUNCS) };
 })();

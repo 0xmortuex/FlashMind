@@ -1701,3 +1701,196 @@ test('every committed scenario with a bank composes: exact exam counts, valid in
   }
   assert.ok(composed > 0);
 });
+
+// ===== Voice (TTS) and video-lesson regressions =====
+function ttsEnv(voices, { lang = 'en', saved = {} } = {}) {
+  const spoken = [];
+  const storage = new Map(Object.entries(saved));
+  const ctx = vm.createContext({
+    console,
+    i18n: { t: (k, p) => k + (p && p.lang ? ':' + p.lang : ''), getLang: () => lang },
+    localStorage: { getItem: k => storage.get(k) ?? null, setItem: (k, v) => storage.set(k, v), removeItem: k => storage.delete(k) },
+    toasts: [], spoken,
+    speechSynthesis: { getVoices: () => voices, cancel() {}, speaking: false, speak(u) { spoken.push(u); if (u.onend) u.onend(); } },
+    SpeechSynthesisUtterance: class { constructor(text) { this.text = text; } }
+  });
+  ctx.window = ctx;
+  ctx.App = { showToast: (m) => ctx.toasts.push(m) };
+  for (const file of ['simspec', 'tts', 'lesson']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/', file + '.js'), 'utf8'), ctx);
+  return { ctx, storage, spoken, run: code => vm.runInContext(code, ctx) };
+}
+const V = (name, lang, uri) => ({ name, lang, voiceURI: uri || name });
+const TR_TEXT = 'Fotosentez bitkilerin ışığı kullanarak besin üretmesidir. Bu olay yaprakların içinde gerçekleşir.';
+
+test('language detection reads the text, not the app language', () => {
+  const { run } = ttsEnv([]);
+  assert.equal(run(`TTS.detectLang('Işık enerjisi kimyasal enerjiye dönüşür ve bu çok önemlidir.')`), 'tr');
+  assert.equal(run(`TTS.detectLang('The cell is the basic unit of life and it divides.')`), 'en');
+  assert.equal(run(`TTS.detectLang('Light')`), null);
+  assert.equal(run(`TTS.detectLang('')`), null);
+});
+
+test('voices are ranked: natural/online first, compact/espeak/desktop last, exact locale before prefix', () => {
+  const { run } = ttsEnv([
+    V('eSpeak Turkish', 'tr'), V('Microsoft Tolga - Turkish (Turkey) Desktop', 'tr-TR'), V('Microsoft Emel Online (Natural) - Turkish (Turkey)', 'tr-TR'),
+    V('Google Türkçe', 'tr-TR'), V('Compact Turkish', 'tr-TR'), V('Microsoft Zira', 'en-US')
+  ]);
+  const names = JSON.parse(run(`JSON.stringify(TTS.voicesForLang('tr').map(v => v.name))`));
+  assert.equal(names[0], 'Microsoft Emel Online (Natural) - Turkish (Turkey)');
+  assert.equal(names[1], 'Google Türkçe');
+  assert.equal(names[names.length - 1], 'eSpeak Turkish');
+  assert.ok(!names.includes('Microsoft Zira'));
+  const { run: run2 } = ttsEnv([V('Prefix only', 'tr'), V('Exact', 'tr-TR')]);
+  assert.equal(run2(`TTS.pickVoice('tr').name`), 'Exact');
+});
+
+test('English UI + Turkish text speaks with the Turkish voice and lang tr-TR', () => {
+  const { run, spoken } = ttsEnv([V('Microsoft Zira', 'en-US'), V('Microsoft Tolga', 'tr-TR'), V('Microsoft Emel Online (Natural)', 'tr-TR')], { lang: 'en' });
+  run(`TTS.speak(${JSON.stringify(TR_TEXT)}, null)`);
+  assert.ok(spoken.length >= 1);
+  spoken.forEach(u => { assert.equal(u.lang, 'tr-TR'); assert.equal(u.voice.name, 'Microsoft Emel Online (Natural)'); assert.equal(u.rate, 0.95); });
+});
+
+test('no voice for the text language: nothing is spoken, the caller is told (no wrong-language voice)', () => {
+  const { run, spoken, ctx } = ttsEnv([V('Microsoft Zira', 'en-US')], { lang: 'en' });
+  run(`var missing = null, ended = null; TTS.speak(${JSON.stringify(TR_TEXT)}, c => { ended = c; }, { onNoVoice: l => { missing = l; } })`);
+  assert.equal(spoken.length, 0);
+  assert.equal(ctx.missing, 'tr');
+  assert.equal(ctx.ended, false);
+  // Without a handler a toast explains it, once.
+  run(`TTS.speak(${JSON.stringify(TR_TEXT)}); TTS.speak(${JSON.stringify(TR_TEXT)})`);
+  assert.equal(ctx.toasts.length, 1);
+  assert.equal(spoken.length, 0);
+  // A voice list that has not loaded yet (empty) is not "missing".
+  const empty = ttsEnv([]);
+  empty.run(`TTS.speak(${JSON.stringify(TR_TEXT)})`);
+  assert.ok(empty.spoken.length >= 1);
+  assert.equal(empty.spoken[0].lang, 'tr-TR');
+});
+
+test('mixed text is voiced per sentence and the chosen voice only applies to its own language', () => {
+  const { run, spoken } = ttsEnv([V('Microsoft Zira', 'en-US'), V('Microsoft Emel Online (Natural)', 'tr-TR')], { lang: 'tr' });
+  run(`TTS.speak('Fotosentez bitkilerde olur ve çok önemlidir. The leaf is green and it is the place of the process.', null, { voice: TTS.pickVoice('tr') })`);
+  assert.deepEqual(spoken.map(u => u.lang), ['tr-TR', 'en-US']);
+  assert.equal(spoken[1].voice.name, 'Microsoft Zira');
+});
+
+test('the student’s voice choice is remembered per language', () => {
+  const voices = [V('Microsoft Emel Online (Natural)', 'tr-TR', 'emel'), V('Microsoft Tolga', 'tr-TR', 'tolga')];
+  const a = ttsEnv(voices);
+  assert.equal(a.run(`TTS.pickVoice('tr').voiceURI`), 'emel');
+  a.run(`TTS.setVoice('tr', TTS.voicesForLang('tr').find(v => v.voiceURI === 'tolga'))`);
+  assert.equal(JSON.parse(a.storage.get('flashmind_tts_voices')).tr, 'tolga');
+  // A fresh page load with the same storage gets the same voice.
+  const b = ttsEnv(voices, { saved: { flashmind_tts_voices: a.storage.get('flashmind_tts_voices') } });
+  assert.equal(b.run(`TTS.pickVoice('tr').voiceURI`), 'tolga');
+  b.run(`TTS.speak('Bu çok önemlidir ve bir kuraldır.', null)`);
+  assert.equal(b.spoken[0].voice.voiceURI, 'tolga');
+  // A saved voice that is no longer installed falls back to the best one.
+  const c = ttsEnv([voices[0]], { saved: { flashmind_tts_voices: '{"tr":"tolga"}' } });
+  assert.equal(c.run(`TTS.pickVoice('tr').voiceURI`), 'emel');
+  // Automatic forgets the choice; the speed is stored and defaults to 0.95.
+  b.run(`TTS.setVoice('tr', null); TTS.setRate(1.1)`);
+  assert.equal(JSON.parse(b.storage.get('flashmind_tts_voices')).tr, undefined);
+  assert.equal(b.run('TTS.getRate()'), 1.1);
+  assert.equal(a.run('TTS.getRate()'), 0.95);
+});
+
+test('speakable says formulas and symbols in the text language', () => {
+  const { run, ctx } = ttsEnv([]);
+  const say = (t, l) => { ctx.t = t; ctx.l = l; return run('TTS.speakable(t, l)'); };
+  const tr = say('$f(x) = x^2 + \\frac{a}{b}$ ve \\sqrt{x}, %25, 30°, \\leq 5, \\pi, vb. örn. **kalın**', 'tr');
+  for (const w of ['x kare', 'a bölü b', 'karekök x', 'yüzde 25', '30 derece', 'küçük eşit 5', 'pi', 've benzeri', 'örneğin', 'artı', 'eşittir']) assert.ok(tr.includes(w), `${w} in: ${tr}`);
+  assert.ok(!/[$\\{}*^_]/.test(tr), tr);
+  assert.ok(say('H_2O ve CO_2, x_1', 'tr').includes('CO 2'));
+  assert.ok(say('x_1', 'tr').includes('x indis 1'));
+  assert.ok(say('2-3 gün ve a - b', 'tr').includes('2-3 gün'));
+  assert.ok(say('2-3 gün ve a - b', 'tr').includes('a eksi b'));
+  const en = say('$x^2 + \\frac{1}{2}$, 25%, e.g. 5 m/s', 'en');
+  for (const w of ['x squared', '1 over 2', '25 percent', 'for example', 'm divided by s']) assert.ok(en.includes(w), `${w} in: ${en}`);
+  // Abbreviation dots do not end a sentence chunk.
+  run(`TTS.speak('Örn. bu bir kuraldır ve çok önemlidir.', null)`);
+  assert.equal(ctx.spoken.length, 1);
+  assert.ok(ctx.spoken[0].text.startsWith('Örneğin bu bir'));
+});
+
+test('slide revisions keep the original, undo restores it, and the lesson survives', () => {
+  const { run, ctx } = ttsEnv([]);
+  ctx.lesson = { id: 'v1', title: 'L', slides: [
+    { title: 'One', bullets: ['a'], narration: 'First.', formula: 'x^2', diagram: { kind: 'map', label: 'M' } },
+    { title: 'Two', bullets: [], narration: 'Second.' }
+  ] };
+  ctx.rev1 = JSON.parse(run(`JSON.stringify(SimSpec.sanitizeSlide({ title: 'One simply', bullets: ['b', 'c', 'd', 'e'], narration: 'Simpler.', formula: '$y$', orig: { title: 'evil' } }))`));
+  assert.equal(ctx.rev1.bullets.length, 3);
+  assert.equal(ctx.rev1.formula, 'y');
+  assert.equal(run(`SimSpec.sanitizeSlide({ title: 'x', narration: '' })`), null);
+  assert.equal(run(`SimSpec.sanitizeSlide('nope')`), null);
+  run(`var stack = []; VideoLesson._test.reviseSlide(lesson, 0, rev1, stack)`);
+  const after = JSON.parse(run('JSON.stringify(lesson.slides[0])'));
+  assert.equal(after.title, 'One simply');
+  assert.equal(after.orig.title, 'One');
+  assert.deepEqual(after.diagram, { kind: 'map', label: 'M' });
+  assert.equal(after.orig.orig, undefined);
+  // A second revision keeps the FIRST original.
+  ctx.rev2 = { title: 'One again', bullets: [], narration: 'Again.' };
+  run('VideoLesson._test.reviseSlide(lesson, 0, rev2, stack)');
+  assert.equal(run('lesson.slides[0].orig.title'), 'One');
+  assert.equal(run('lesson.slides[1].title'), 'Two');
+  // Undo steps back one revision at a time, then falls back to the stored original.
+  assert.equal(run('VideoLesson._test.undoSlide(lesson, 0, stack)'), true);
+  assert.equal(run('lesson.slides[0].title'), 'One simply');
+  assert.equal(run('VideoLesson._test.undoSlide(lesson, 0, stack)'), true);
+  assert.equal(run('lesson.slides[0].title'), 'One');
+  assert.equal(run('VideoLesson._test.undoSlide(lesson, 0, stack)'), false);
+  // After a reload the stack is empty: undo restores slide.orig.
+  run('VideoLesson._test.reviseSlide(lesson, 1, rev2, []); var empty = []');
+  assert.equal(run('VideoLesson._test.undoSlide(lesson, 1, empty)'), true);
+  assert.equal(run('lesson.slides[1].title'), 'Two');
+  // The revised slide and its original persist through normalization.
+  const kept = JSON.parse(run(`JSON.stringify(SimSpec.sanitizeLessons([{ title: 'L', slides: [{ title: 'A', narration: 'a', orig: { title: 'O', narration: 'o', orig: { title: 'deep', narration: 'd' } } }, { title: 'B', narration: 'b' }], base: 'v1', label: 'Shorter' }]))`));
+  assert.equal(kept[0].slides[0].orig.title, 'O');
+  assert.equal(kept[0].slides[0].orig.orig, undefined);
+  assert.equal(kept[0].base, 'v1');
+  assert.equal(kept[0].label, 'Shorter');
+});
+
+test('lesson versions: grouped by original, capped at 8, the original is never dropped', () => {
+  const { run, ctx } = ttsEnv([]);
+  const mk = (id, base) => ({ id, title: id, slides: [], ...(base ? { base } : {}) });
+  ctx.list = [mk('v1'), mk('v2', 'v1'), mk('v3'), mk('v4', 'v3')];
+  assert.deepEqual(JSON.parse(run(`JSON.stringify(VideoLesson._test.versionsOf(list, list[1]).map(l => l.id))`)), ['v1', 'v2']);
+  assert.deepEqual(JSON.parse(run(`JSON.stringify(VideoLesson._test.versionsOf(list, list[2]).map(l => l.id))`)), ['v3', 'v4']);
+  // Fill to the limit with versions of v1, then add one more.
+  ctx.full = [mk('v1')];
+  for (let i = 2; i <= 8; i++) ctx.full.push(mk('v' + i, 'v1'));
+  ctx.fresh = mk('v9', 'v1');
+  const ids = JSON.parse(run(`JSON.stringify(VideoLesson._test.trimLessons(full.concat([fresh]), fresh).map(l => l.id))`));
+  assert.equal(ids.length, 8);
+  assert.equal(ids[0], 'v1');
+  assert.ok(!ids.includes('v2'));
+  assert.equal(ids[ids.length - 1], 'v9');
+  // Eight originals: the oldest unrelated lesson goes, the family's original stays.
+  ctx.orig = []; for (let i = 1; i <= 8; i++) ctx.orig.push(mk('o' + i));
+  ctx.ver = mk('o9', 'o5');
+  const ids2 = JSON.parse(run(`JSON.stringify(VideoLesson._test.trimLessons(orig.concat([ver]), ver).map(l => l.id))`));
+  assert.equal(ids2.length, 8);
+  assert.ok(ids2.includes('o5') && ids2.includes('o9') && !ids2.includes('o1'));
+  // sanitizeLessons also stops at 8.
+  assert.equal(run(`SimSpec.sanitizeLessons(Array.from({ length: 12 }, (_, i) => ({ title: 'T' + i, slides: [{ title: 'a', narration: 'a' }, { title: 'b', narration: 'b' }] }))).length`), 8);
+});
+
+test('quick lesson from teacher-voice notes uses the paragraphs as narration (30-70 words); old sets keep the old builder', () => {
+  const { run, ctx } = ttsEnv([]);
+  const words = n => Array.from({ length: n }, (_, i) => 'kelime' + i).join(' ') + '.';
+  ctx.teacher = { title: 'Set', notes: { summary: 'Özet.', sections: [{ title: 'Bölüm', content: [words(40), words(10), words(12), [30, 30, 30, 30, 30].map(words).join(' ')].join('\n'), bulletPoints: [], keyTerms: [] }] } };
+  const l = JSON.parse(run('JSON.stringify(VideoLesson.fromNotes(teacher))'));
+  const body = l.slides.slice(1, -1);
+  assert.ok(body.length >= 3);
+  body.forEach(s => { const n = s.narration.split(/\s+/).length; assert.ok(n >= 22 && n <= 70, `${n} words`); assert.deepEqual(s.bullets, []); });
+  assert.equal(body[0].title, 'Bölüm');
+  assert.equal(body[1].title, 'Bölüm · 2');
+  ctx.old = { title: 'Set', notes: { summary: 'S.', sections: [{ title: 'Eski', content: 'Metin.', bulletPoints: ['b1', 'b2'], keyTerms: [] }] } };
+  const o = JSON.parse(run('JSON.stringify(VideoLesson.fromNotes(old))'));
+  assert.deepEqual(o.slides[1].bullets, ['b1', 'b2']);
+  assert.equal(o.slides[1].narration, 'Metin.');
+});

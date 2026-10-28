@@ -1108,6 +1108,100 @@ const path = require('node:path');
     await page.click('[data-notes-view="notes"]');
   });
 
+  await step('video lesson: Turkish voice for Turkish text, "I didn\'t understand" rewrites + speaks the slide, another version saved and switchable, no-voice message', async () => {
+    await page.evaluate(() => { VideoLesson.stop(); delete App.getStudyData().lessons; });
+    await page.click('[data-notes-view="video"]');
+    await page.evaluate(() => {
+      window.__sv = { chat: API.chat, speak: speechSynthesis.speak, cancel: speechSynthesis.cancel, voices: speechSynthesis.getVoices, utt: window.SpeechSynthesisUtterance };
+      window.__utt = [];
+      window.__asked = [];
+      window.__voices = [{ name: 'Microsoft Zira', lang: 'en-US', voiceURI: 'zira' }, { name: 'Microsoft Tolga', lang: 'tr-TR', voiceURI: 'tolga' }, { name: 'Microsoft Emel Online (Natural)', lang: 'tr-TR', voiceURI: 'emel' }];
+      speechSynthesis.getVoices = () => window.__voices;
+      speechSynthesis.cancel = () => {};
+      speechSynthesis.speak = u => { window.__utt.push({ text: u.text, lang: u.lang, voice: u.voice && u.voice.name }); setTimeout(() => u.onend && u.onend(), window.__delay || 30); };
+      window.SpeechSynthesisUtterance = function (t) { this.text = t; };
+      const lesson = (title, label) => JSON.stringify({ title, slides: [
+        { title: 'Fotosentez nedir', bullets: [], narration: 'Fotosentez bitkilerin ışığı kullanarak besin üretmesidir. Bu olay yaprakların içinde gerçekleşir ve çok önemlidir.' },
+        { title: 'Denklem', bullets: ['Işık gerekir'], formula: 'x^2 + 1', narration: 'Denklemde x kare artı bir vardır. Burada x bilinmeyen sayıdır.' },
+        { title: 'Özet', bullets: ['Işık ve su'], narration: 'Özetle bitkiler ışık ve suyla besin üretir. Bu kadar basit.' }
+      ] });
+      window.__mode = 'ok';
+      API.chat = async q => {
+        window.__asked.push(q);
+        if (window.__mode === 'rate') throw new Error('HTTP 429');
+        if (window.__mode === 'junk') return 'not json at all';
+        if (/did not understand ONE slide/.test(q)) return JSON.stringify({ title: 'Daha basit anlatım', bullets: ['Bitki ışıkla besin yapar'], formula: '$x^2$', narration: 'Şöyle düşün. Bitki güneş ışığını alır ve kendine besin yapar. Tıpkı bir mutfak gibi çalışır.' });
+        return /beginners/.test(q) ? lesson('Basit versiyon') : lesson('Fotosentez dersi');
+      };
+    });
+    if (await page.$('[data-vl-act="list"]')) await page.click('[data-vl-act="list"]');
+    await page.waitForSelector('[data-vl-act="generate"]', { timeout: 2000 });
+    await page.click('[data-vl-act="generate"]');
+    await page.waitForSelector('.vl-slide.in', { timeout: 3000 });
+    const origId = await page.evaluate(() => Decks.getActive().data.lessons.slice(-1)[0].id);
+    // The app is not in Turkish, the text is: the voice must be the best Turkish one.
+    await page.click('[data-vl-act="toggle"]');
+    await page.waitForFunction(() => window.__utt.length >= 1, { timeout: 3000 });
+    const first = await page.evaluate(() => window.__utt[0]);
+    if (first.lang !== 'tr-TR' || first.voice !== 'Microsoft Emel Online (Natural)') throw new Error('wrong voice ' + JSON.stringify(first));
+    // I didn't understand: key H pauses and opens the panel.
+    await page.focus('[data-vl-player]');
+    await page.keyboard.press('h');
+    await page.waitForSelector('.vl-panel:not([hidden]) [data-vl-fix="simple"]', { timeout: 2000 });
+    if (await page.evaluate(() => VideoLesson.isPlaying())) throw new Error('H did not pause');
+    const at = await page.evaluate(() => VideoLesson._index());
+    // Worker unreachable / rate limit / junk: explicit error, lesson untouched.
+    await page.evaluate(() => { window.__mode = 'rate'; });
+    await page.click('[data-vl-fix="simple"]');
+    await page.waitForSelector('.vl-panel-error', { timeout: 2000 });
+    if (!/minute/.test(await page.$eval('.vl-panel-error', el => el.textContent))) throw new Error('rate limit text');
+    await page.evaluate(() => { window.__mode = 'junk'; window.__asked.length = 0; });
+    await page.click('[data-vl-act="panel-retry"]');
+    await page.waitForFunction(() => document.querySelector('.vl-panel-error') && /not usable/.test(document.querySelector('.vl-panel-error').textContent), { timeout: 3000 });
+    if (await page.evaluate(() => window.__asked.length) !== 2) throw new Error('invalid JSON was not retried exactly once');
+    if (await page.evaluate(i => !!Decks.getActive().data.lessons.slice(-1)[0].slides[i].orig, at)) throw new Error('failed request changed the lesson');
+    await page.evaluate(() => { window.__mode = 'ok'; window.__utt.length = 0; window.__delay = 500; });
+    await page.click('[data-vl-act="panel-retry"]');
+    await page.waitForFunction(i => Decks.getActive().data.lessons.slice(-1)[0].slides[i].orig, { timeout: 3000 }, at);
+    await page.waitForFunction(() => window.__utt.some(u => /mutfak/.test(u.text)), { timeout: 3000 });
+    const spoken = await page.evaluate(() => window.__utt.find(u => /mutfak/.test(u.text)));
+    if (spoken.lang !== 'tr-TR') throw new Error('revised slide not spoken in Turkish');
+    await page.waitForFunction(() => document.querySelector('.vl-slide.in:not(.leaving) .vl-slide-title').textContent === 'Daha basit anlatım', { timeout: 2000 });
+    const saved = await page.evaluate(i => { const s = Decks.getActive().data.lessons.slice(-1)[0].slides[i]; return s.orig.title + '|' + s.formula; }, at);
+    if (!saved.endsWith('|x^2')) throw new Error('revision not sanitized/saved ' + saved);
+    // Show original / undo.
+    await page.waitForSelector('[data-vl-revbar]:not([hidden]) [data-vl-act="orig"]', { timeout: 2000 });
+    await page.click('[data-vl-act="orig"]');
+    await page.waitForFunction(() => document.querySelector('.vl-slide.in:not(.leaving) .vl-slide-title').textContent !== 'Daha basit anlatım', { timeout: 2000 });
+    await page.click('[data-vl-act="orig"]');
+    await page.click('[data-vl-act="undo"]');
+    await page.waitForFunction(i => !Decks.getActive().data.lessons.slice(-1)[0].slides[i].orig, { timeout: 2000 }, at);
+    await page.evaluate(() => VideoLesson.stop());
+    // Another version: saved next to the original, switchable, original untouched.
+    await page.click('[data-vl-act="version"]');
+    await page.click('[data-vl-persp="simple"]');
+    await page.waitForSelector('[data-vl-version]', { timeout: 3000 });
+    const v = await page.evaluate(() => { const L = Decks.getActive().data.lessons; return L.length + '|' + L[L.length - 1].base + '|' + L[L.length - 1].label + '|' + L[L.length - 1].title; });
+    if (v !== `2|${origId}|Simpler (for beginners)|Basit versiyon`) throw new Error('version ' + v);
+    if (await page.$$eval('[data-vl-version] option', o => o.length) !== 2) throw new Error('version dropdown');
+    await page.select('[data-vl-version]', origId);
+    await page.waitForFunction(() => document.querySelector('.vl-name').textContent === 'Fotosentez dersi', { timeout: 2000 });
+    if (await page.evaluate(() => Decks.getActive().data.lessons[0].title) !== 'Fotosentez dersi') throw new Error('original overwritten');
+    // No Turkish voice installed: explicit message, then continue silently.
+    await page.evaluate(() => { window.__voices = [window.__voices[0]]; window.__utt.length = 0; });
+    await page.click('[data-vl-act="toggle"]');
+    await page.waitForSelector('[data-vl-notice]:not([hidden]) [data-vl-act="silent"]', { timeout: 2000 });
+    if (await page.evaluate(() => window.__utt.length) !== 0) throw new Error('spoke with the wrong voice');
+    await page.click('[data-vl-act="silent"]');
+    await page.waitForFunction(() => VideoLesson.isPlaying() && document.querySelector('[data-vl-notice]').hidden, { timeout: 2000 });
+    await page.evaluate(() => {
+      VideoLesson.stop();
+      const s = window.__sv;
+      API.chat = s.chat; speechSynthesis.speak = s.speak; speechSynthesis.cancel = s.cancel; speechSynthesis.getVoices = s.voices; window.SpeechSynthesisUtterance = s.utt;
+    });
+    await page.click('[data-notes-view="notes"]');
+  });
+
   await step('study brain: memory model, exam predictor and concept map render on Stats', async () => {
     await page.evaluate(() => {
       const deck = Decks.getActive();

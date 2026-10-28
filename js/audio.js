@@ -119,8 +119,13 @@ const AudioOverview = (() => {
 
   // ----- Playback -----
 
-  function voices() {
-    const list = typeof TTS !== 'undefined' ? TTS.voicesForLang() : [];
+  // The script's own language picks the voices (not the app language).
+  function scriptLang(script) {
+    return typeof TTS !== 'undefined' ? TTS.detectLang(script.lines.map(l => l.text).join(' ')) : null;
+  }
+
+  function voices(lang) {
+    const list = typeof TTS !== 'undefined' ? TTS.voicesForLang(lang) : [];
     const a = list[0] || null;
     const b = list.find(v => v !== a && !/compact/i.test(v.name)) || null;
     // One voice only: tell the hosts apart by pitch.
@@ -138,14 +143,15 @@ const AudioOverview = (() => {
     playing = true;
     const my = ++token;
     const line = script.lines[index];
-    const v = voices()[line.speaker === 'B' ? 'B' : 'A'];
+    const lang = scriptLang(script);
+    const v = voices(lang)[line.speaker === 'B' ? 'B' : 'A'];
     refresh();
     scrollCurrent();
     TTS.speak(line.text, cancelled => {
       if (my !== token) return;
       if (cancelled) { playing = false; refresh(); return; }
       playFrom(index + 1);
-    }, { voice: v.voice, pitch: v.pitch, rate });
+    }, { voice: v.voice, pitch: v.pitch, rate, lang });
   }
 
   function scrollCurrent() {
