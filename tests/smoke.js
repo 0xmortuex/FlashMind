@@ -465,12 +465,13 @@ const path = require('node:path');
     await page.click('[data-tab="chat"]');
     const classes = await page.evaluate(async () => {
       const api = API.chat;
-      API.chat = async () => JSON.stringify({ answer: 'x', citations: ['Oxygen comes from splitting water, not from carbon dioxide.', 'Totally invented sentence about moon plants.'] });
+      API.chat = async q => { window.__chatQ = q; return JSON.stringify({ answer: 'x', citations: ['Oxygen comes from splitting water, not from carbon dioxide.', 'Totally invented sentence about moon plants.'] }); };
       await Chat.sendMessage('where does oxygen come from?');
       API.chat = api;
       return [...document.querySelectorAll('.citation')].map(c => c.className);
     });
     if (classes.length !== 2 || /unverified/.test(classes[0]) || !/unverified/.test(classes[1])) throw new Error(JSON.stringify(classes));
+    if (!await page.evaluate(() => /like a teacher explaining to a student/.test(window.__chatQ) && /Grounding/.test(window.__chatQ))) throw new Error('chat style note missing');
   });
 
   await step('studio: exam date drives the plan bar and stats plan', async () => {
@@ -1095,7 +1096,32 @@ const path = require('node:path');
     await page.click('#oe-submit-btn');
     await page.waitForSelector('.oe-score', { timeout: 3000 });
     if (await page.evaluate(() => window.__ex.graded) !== 'Işık kırılır çünkü hız değişir') throw new Error('corrected text not graded');
+    if (await page.$('[data-oe-act="where"]')) throw new Error('"Where did I go wrong?" offered on a full-mark answer');
     await page.evaluate(() => { Quiz.setQuestions(App.getStudyData().quiz); });
+  });
+
+  await step('exams: "Where did I go wrong?" marks the student\'s own sentences right or wrong with a note', async () => {
+    await page.evaluate(() => {
+      window.__wk = { chat: API.chat, grade: API.grade };
+      API.grade = async () => JSON.stringify({ score: 1, maxScore: 3, feedback: 'Eksik', missedPoints: ['hız'] });
+      API.chat = async (q, ctx) => { window.__wkCtx = ctx; return JSON.stringify({ type: 'working', lines: [{ ref: 1, ok: true, note: '' }, { ref: 2, ok: false, note: 'Işık yavaşlar, durmaz.' }], summary: 'Hız değişimini anlatmadın.' }); };
+      Quiz.setQuestions([{ id: 9202, type: 'open-ended', question: 'Kırılma neden olur?', correctAnswer: 'Işığın hızı ortamda değişir', keyPoints: ['hız'], maxPoints: 3 }]);
+    });
+    try {
+      await page.$eval('[data-mode="practice"]', b => b.click());
+      await page.$eval('#start-quiz-btn', b => b.click());
+      await page.waitForSelector('#oe-answer', { timeout: 3000 });
+      await page.$eval('#oe-answer', el => { el.value = 'Işık kırılır. Çünkü ışık ortamda durur.'; });
+      await page.$eval('#oe-submit-btn', b => b.click());
+      await page.waitForSelector('[data-oe-act="where"]', { timeout: 3000 });
+      await page.$eval('[data-oe-act="where"]', b => b.click());
+      await page.waitForSelector('.oe-working li.bad', { timeout: 3000 });
+      const r = await page.evaluate(() => ({ items: [...document.querySelectorAll('.oe-working li')].map(li => li.className + ':' + li.textContent.replace(/\s+/g, ' ').trim()), summary: document.querySelector('.oe-w-summary').textContent, ctx: window.__wkCtx }));
+      if (r.items.length !== 2 || !/^ok:.*Işık kırılır\./.test(r.items[0]) || !/^bad:.*Çünkü ışık ortamda durur\..*Işık yavaşlar/.test(r.items[1])) throw new Error('marks ' + JSON.stringify(r.items));
+      if (!/\[1\] Işık kırılır\.\n\[2\] Çünkü ışık ortamda durur\./.test(r.ctx) || !/hız/.test(r.summary) && !/Hız/.test(r.summary)) throw new Error('what was sent ' + r.ctx);
+    } finally {
+      await page.evaluate(() => { API.chat = window.__wk.chat; API.grade = window.__wk.grade; Quiz.setQuestions(App.getStudyData().quiz); });
+    }
   });
 
   await step('exams: graded paper photos → mistake notebook, report, flashcards and practice', async () => {
@@ -1460,6 +1486,14 @@ const path = require('node:path');
       if (await checks() !== '{"1":"wrong"}') throw new Error('result not saved: ' + await checks());
       await click('[data-vl-act="check-next"]');
       await page.waitForFunction(() => window.__spoken.some(t => /That is all/.test(t)) && !VideoLesson.isPlaying(), { timeout: 4000 });
+      // Weak spots: the wrong answer is offered as practice; it adds one card and one question and starts a quiz on them.
+      await page.waitForSelector('[data-vl-weak]:not([hidden]) [data-vl-act="weak-practice"]', { timeout: 2000 });
+      await click('[data-vl-act="weak-practice"]');
+      await page.waitForFunction(() => App.getStudyData().quiz.some(q => q.src === 'lesson-check' && q.question === 'What do plants need to make food?') && App.getStudyData().flashcards.some(c => c.front === 'What do plants need to make food?' && /Light/.test(c.back)), { timeout: 3000 });
+      await page.waitForSelector('#quiz-body', { timeout: 2000 });
+      await click('[data-tab="notes"]');
+      await click('[data-notes-view="video"]');
+      await page.waitForSelector('.vl-mark[data-vl-go="1"]', { timeout: 3000 });
       // B: replay slide 2: a wrong answer is asked again; "Explain it again" rewrites the slide, plays it and asks again; skipping saves "skipped".
       await click('.vl-mark[data-vl-go="1"]');
       await click('[data-vl-act="toggle"]');

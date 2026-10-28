@@ -448,6 +448,7 @@ const VideoLesson = (() => {
         <div class="vl-panel" data-vl-panel hidden></div>
       </div>
       <div class="vl-revbar" data-vl-revbar hidden></div>
+      <div class="vl-weak" data-vl-weak${weakSlides(l).length ? '' : ' hidden'}>${weakHtml(l)}</div>
       <div class="vl-notice" data-vl-notice role="alert" ${noVoice ? '' : 'hidden'}>${noticeHtml()}</div>
       <p class="vl-note" data-vl-silentnote ${ttsOk() && !silent ? 'hidden' : ''}>${T('vlNoTtsPlayer')}</p>
       <ol class="vl-outline">${l.slides.map((s, i) => `<li><button class="vl-outline-item" data-vl-go="${i}">${esc(s.title)}</button></li>`).join('')}</ol>
@@ -565,6 +566,7 @@ const VideoLesson = (() => {
   function saveCheck(l, i, result) {
     l.checks = { ...(l.checks || {}), [i]: result };
     App.persistActiveDeck();
+    drawWeak();
   }
 
   function drawCheckpoint() {
@@ -643,6 +645,51 @@ const VideoLesson = (() => {
   function askAboutSlide() {
     hideCheckpoint();
     openPanel('help');
+  }
+
+  // ----- Weak spots: slides answered wrong or marked "lost" become practice -----
+
+  // Slide indexes the student found hard (they still carry their question).
+  function weakSlides(l) {
+    return Object.keys(l.checks || {}).filter(k => ['wrong', 'lost'].includes(l.checks[k]) && l.slides[+k] && l.slides[+k].check).map(Number).sort((a, b) => a - b);
+  }
+
+  function weakHtml(l) {
+    const w = l ? weakSlides(l) : [];
+    if (!w.length) return '';
+    const T = i18n.t;
+    return `<span class="vl-weak-text">&#127919; ${T('vlWeakTitle', { n: w.length })}</span>
+      <button class="btn-primary" data-vl-act="weak-practice">${T('vlWeakGo')}</button>`;
+  }
+
+  function drawWeak() {
+    const el = host && host.querySelector('[data-vl-weak]');
+    if (!el) return;
+    el.innerHTML = weakHtml(lesson());
+    el.hidden = !el.innerHTML;
+  }
+
+  // One flashcard and one multiple-choice question per weak slide, then a quiz on them.
+  function practiseWeak() {
+    const l = lesson();
+    if (!l) return;
+    const T = i18n.t;
+    const w = weakSlides(l);
+    if (!w.length) return;
+    const data = App.getStudyData();
+    const have = new Set((data.flashcards || []).map(c => c.front));
+    const cat = l.topic || l.title;
+    const cards = [], qs = [];
+    w.forEach(i => {
+      const c = l.slides[i].check;
+      if (!have.has(c.q)) cards.push({ front: c.q, back: [c.options[c.correct], c.why].filter(Boolean).join(' — '), difficulty: 'medium', category: cat });
+      qs.push({ type: 'multiple-choice', question: c.q, options: c.options.slice(), correct: c.correct, explanation: c.why || c.options[c.correct], difficulty: 'medium', category: cat, src: 'lesson-check' });
+    });
+    if (cards.length) Flashcards.addCards(cards);
+    Quiz.addQuestions(qs);
+    App.showToast(T('vlWeakAdded', { c: cards.length, q: qs.length }), 'success');
+    App.switchTab('quiz');
+    Quiz.startQuiz(qs);
   }
 
   // "Preparing voice…" next to the controls while a natural-voice clip downloads.
@@ -1036,6 +1083,7 @@ const VideoLesson = (() => {
       else if (act === 'check-next' || act === 'check-skip') continueAfterCheck();
       else if (act === 'check-again') explainAgain();
       else if (act === 'check-ask') askAboutSlide();
+      else if (act === 'weak-practice') practiseWeak();
       else if (act === 'persp-go') {
         const text = panelText('#vl-persp-text');
         if (text) makeVersion('', text); else host.querySelector('#vl-persp-text').focus();
@@ -1147,5 +1195,5 @@ const VideoLesson = (() => {
     if (b) { b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on)); }
   }
 
-  return { init, render, stop, fromNotes, isPlaying: () => playing, _index: () => index, _test: { versionsOf, trimLessons, reviseSlide, undoSlide, paragraphSlides, materialFor, prompt } };
+  return { init, render, stop, fromNotes, isPlaying: () => playing, _index: () => index, _test: { versionsOf, trimLessons, reviseSlide, undoSlide, paragraphSlides, materialFor, prompt, weakSlides } };
 })();

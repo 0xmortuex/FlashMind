@@ -316,6 +316,10 @@
 .vl-panel textarea { resize: vertical; min-height: 56px; }
 .vl-panel-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 
+.vl-weak { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 10px 14px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); }
+.vl-weak[hidden] { display: none; }
+.vl-weak-text { flex: 1 1 200px; font-size: 0.9rem; }
+
 /* "Did you get this?" card under the player bar */
 .vl-checkpoint { padding: 14px; background: var(--card); color: var(--text); border-top: 1px solid var(--border); }
 .vl-checkpoint[hidden] { display: none; }

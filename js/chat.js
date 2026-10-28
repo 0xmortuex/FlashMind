@@ -177,6 +177,9 @@ const Chat = (() => {
     toSend += '\n\n[Grounding: in your JSON reply also include "citations": an array of 1-3 short quotes ' +
       '(each under 30 words) copied word-for-word from the study material that support your answer. ' +
       'Use [] if the material does not cover it, and say so in the answer.]';
+    // The notes are written like a teacher talking; the answers should be too.
+    toSend += '\n\n[Style: answer like a teacher explaining to a student, in flowing friendly sentences: build the idea, give one concrete example and name the typical trap. ' +
+      'No headings, no bullet lists and no numbered instructions unless the student asks for them. Keep it short.]';
 
     try {
       let context = App.getOriginalText() || JSON.stringify(source);
