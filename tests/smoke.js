@@ -1623,6 +1623,8 @@ const path = require('node:path');
       window.__topicDeck = deck.id;
       App.openDeck(deck.id);
       App.switchTab('notes');
+      // An earlier step may have left the Notes tab on its Labs or Video view.
+      const toNotes = document.querySelector('[data-notes-view="notes"]'); if (toNotes) toNotes.click();
     });
     await page.waitForSelector('#tab-notes .topic-btn');
     const open = async () => { await page.click('#tab-notes .topic-btn[data-topic="0"]'); await page.waitForSelector('.topic-menu [role="menuitem"]'); };
