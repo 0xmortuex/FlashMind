@@ -193,16 +193,6 @@ const puppeteer = require('puppeteer');
           const iw = window.innerWidth;
           const over = [...document.querySelectorAll('body *')].filter(e => { const b = e.getBoundingClientRect(); return b.width && b.right > iw + 1 && getComputedStyle(e).position !== 'fixed'; })
             .slice(0, 6).map(e => `${e.tagName.toLowerCase()}${e.id ? '#' + e.id : ''}.${String(e.className).trim().split(/\s+/).join('.')} right=${Math.round(e.getBoundingClientRect().right)}`);
-          // Pseudo-elements and zero-size boxes are not in the list above: hide each element in turn and name those whose removal fixes the width.
-          if (document.documentElement.scrollWidth > iw) {
-            for (const e of document.querySelectorAll('body *')) {
-              const prev = e.style.display;
-              e.style.display = 'none';
-              if (document.documentElement.scrollWidth <= iw) over.push(`hiding ${e.tagName.toLowerCase()}${e.id ? '#' + e.id : ''}.${String(e.className).trim().split(/\s+/).join('.')} (${getComputedStyle(e).position}) fixes it`);
-              e.style.display = prev;
-              if (over.length > 12) break;
-            }
-          }
           return { sw: document.documentElement.scrollWidth, iw, over };
         });
         assert.ok(m.sw <= m.iw, `${name}: scrollWidth ${m.sw} > innerWidth ${m.iw}; wider than the viewport: ${m.over.join(' | ')}`);
@@ -216,6 +206,8 @@ const puppeteer = require('puppeteer');
         for (const tab of ['notes', 'quiz', 'stats']) {
           await page.evaluate(t => App.switchTab(t), tab);
           await new Promise(r => setTimeout(r, 300));
+          // The new tab slides in from 26 px to the right (tabSlideLeft); measure once every finite animation has ended, not after a fixed delay.
+          await page.waitForFunction(() => document.getAnimations().every(a => a.effect.getComputedTiming().iterations === Infinity || a.playState === 'finished'), { timeout: 5000 });
           await wide(`${tab} (${theme})`);
         }
         for (const t of ['files', 'scen']) {
