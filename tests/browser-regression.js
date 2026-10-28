@@ -189,8 +189,13 @@ const puppeteer = require('puppeteer');
       await page.evaluate(() => { if (!document.querySelector('#input-view.active')) document.getElementById('back-to-input').click(); });
       await page.setViewport({ width: 390, height: 844 });
       const wide = async name => {
-        const m = await page.evaluate(() => ({ sw: document.documentElement.scrollWidth, iw: window.innerWidth }));
-        assert.ok(m.sw <= m.iw, `${name}: scrollWidth ${m.sw} > innerWidth ${m.iw}`);
+        const m = await page.evaluate(() => {
+          const iw = window.innerWidth;
+          const over = [...document.querySelectorAll('body *')].filter(e => { const b = e.getBoundingClientRect(); return b.width && b.right > iw + 1 && getComputedStyle(e).position !== 'fixed'; })
+            .slice(0, 6).map(e => `${e.tagName.toLowerCase()}${e.id ? '#' + e.id : ''}.${String(e.className).trim().split(/\s+/).join('.')} right=${Math.round(e.getBoundingClientRect().right)}`);
+          return { sw: document.documentElement.scrollWidth, iw, over };
+        });
+        assert.ok(m.sw <= m.iw, `${name}: scrollWidth ${m.sw} > innerWidth ${m.iw}; wider than the viewport: ${m.over.join(' | ')}`);
       };
       const themes = t => page.evaluate(t => { if (t === 'light') document.documentElement.dataset.theme = 'light'; else delete document.documentElement.dataset.theme; }, t);
       for (const theme of ['dark', 'light']) { await themes(theme); await wide('home (' + theme + ')'); }
