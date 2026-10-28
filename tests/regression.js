@@ -1079,6 +1079,36 @@ test('MEB generator infers grade and subject from explicit names only', async ()
   assert.equal(at('/fizik.pdf').y, '');
   assert.equal(at('/reading.pdf').mb, null);
 });
+test('MEB generator: identical titles get a friendly suffix (unit, readable file-name words, else (2), (3)), never an opaque stem', async () => {
+  const { disambiguate } = await mebGen();
+  const run = (x, rows) => {
+    const index = rows.map(([stem, unit], i) => ({ id: 'e' + i, t: 'Başlık', g: [9], s: 'Fizik', x }));
+    disambiguate(index, new Map(rows.map(([stem, unit], i) => ['e' + i, { stem, unit: unit || '' }])));
+    return index.map(r => r.t);
+  };
+  assert.deepEqual(run('ogm-kazanim-bazli', [['2mfwtdyc51h', 'Isı'], ['llwv3xo5fby', 'Elektrik']]), ['Başlık — Isı', 'Başlık — Elektrik']);
+  assert.deepEqual(run('ogm-kazanim-bazli', [['2mfwtdyc51h', 'Isı'], ['llwv3xo5fby', 'Isı'], ['05prucgpsol', 'Isı']]), ['Başlık', 'Başlık (2)', 'Başlık (3)']);
+  assert.deepEqual(run('ortak', [['7S_Turkce_Sabah_Cevap'], ['7S_Turkce_ogle_Cevap'], ['7S_Turkce_Mazeret_Sabah_Cevap']]), ['Başlık — Sabah', 'Başlık — Öğle', 'Başlık — Mazeret Sabah']);
+  assert.deepEqual(run('konu', [['dkab_lise2'], ['dkab_orta3']]), ['Başlık — Lise', 'Başlık — Orta']);
+  assert.deepEqual(run('lgs', [['a_2026_sayisal'], ['b_2026_sayisal']]), ['Başlık — A', 'Başlık — B']);
+  assert.deepEqual(run('acik', [['6a60828016fd_x1y2z3q4w5'], ['9b60828016fd_x1y2z3q4w6']]), ['Başlık', 'Başlık (2)']);   // random-looking stems carry no words
+  assert.deepEqual(run('konu', [['cydem_ing5_2'], ['cydem_ing6_2']]), ['Başlık', 'Başlık (2)']);                    // bare numbers say nothing
+  assert.deepEqual(run('sinif', [['x']]), ['Başlık']);                                                              // a unique title is left alone
+  // a long title keeps its suffix
+  const long = [{ id: 'a', t: 'U'.repeat(158), g: [], s: '', x: 'ortak' }, { id: 'b', t: 'U'.repeat(158), g: [], s: '', x: 'ortak' }];
+  disambiguate(long, new Map([['a', { stem: 'Sabah', unit: '' }], ['b', { stem: 'Ogle', unit: '' }]]));
+  assert.ok(long.every(r => r.t.length <= 160) && long[0].t.endsWith(' — Sabah') && long[1].t.endsWith(' — Öğle'));
+});
+test('committed MEB index: no two titles of one type + grade + subject are identical and no title ends in an opaque file stem', () => {
+  const index = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/meb/index.json'), 'utf8'));
+  const keys = index.map(r => [r.x, r.g.join(','), r.s, r.t].join('|'));
+  assert.equal(new Set(keys).size, keys.length);
+  const opaque = r => { const m = r.t.match(/ — ([a-z0-9]{6,})$/); return !!m && /\d/.test(m[1]) && !/^[a-z]+\d{0,2}$/.test(m[1]) && !/^\d{4}[a-z]+$/.test(m[1]) && !/^\d[a-z]{3,}\d?$/.test(m[1]); };
+  const bad = index.filter(opaque);
+  console.log('      titles ending in a random-looking stem: ' + bad.length);
+  assert.deepEqual(bad.map(r => r.t), []);
+  assert.deepEqual(index.filter(r => r.x === 'ogm-kazanim-bazli' && / — /.test(r.t)).map(r => r.t), []);   // the OGM titles carry the activity name, ' (2)' or the unit, never a file stem
+});
 test('MEB generator: an entry without a grade takes it from its konu sheet names or its study set, never from a guess', async () => {
   const { build, setGrades } = await mebGen();
   assert.deepEqual(setGrades({ grade: [9, 10, 11, 12] }, 'x'), [9, 10, 11, 12]);

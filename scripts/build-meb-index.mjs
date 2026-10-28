@@ -275,6 +275,66 @@ function aggregateTopics(tables) {
   return { n: kept.length, rows };
 }
 
+// ---- identical titles ---------------------------------------------------------
+// Two entries of one type + grade + subject never share a title. The first of an
+// identical group keeps the plain title; the rest are told apart by
+//   ogm-kazanim-bazli  the unit name (rec.unit) when the group's units differ, else (2), (3) in file order
+//   everything else    the words of the file name that the group does not share (Sabah, Öğle,
+//                      lise, ortaokul, A, B...), else (2), (3) in file order
+// An opaque file stem is never printed.
+const FRIENDLY = {
+  sabah: 'Sabah', ogle: 'Öğle', maz: 'Mazeret', mazeret: 'Mazeret', cevap: 'Cevap', cvp: 'Cevap', cev: 'Cevap',
+  lise: 'Lise', ortaokul: 'Ortaokul', ilkokul: 'İlkokul', oturum: 'Oturum', ogretmen: 'Öğretmen', ogrenci: 'Öğrenci'
+};
+const wordsOf = stem => stem.split(/[_\-\s.()]+/).filter(Boolean).flatMap(tok => {
+  // random-looking stems (letters, digit, letters, digit...) carry no words
+  if (/\d[a-z]+\d/i.test(tok) && /^[a-z0-9]{8,}$/i.test(tok)) return [];
+  return tok.match(/[A-Za-zÇĞİÖŞÜçğıöşü]+|\d+/g) || [];
+});
+const wordKey = w => fold(w);
+const wordText = w => FRIENDLY[wordKey(w)] || (/^\d/.test(w) ? w : w[0].toLocaleUpperCase(TR) + w.slice(1).toLocaleLowerCase(TR));
+
+function labelsFor(group, extra) {
+  const kz = group[0].x === 'ogm-kazanim-bazli';
+  if (kz) {
+    const units = group.map(r => extra.get(r.id).unit);
+    return units.every(Boolean) && new Set(units).size > 1 ? units : group.map(() => '');
+  }
+  const words = group.map(r => wordsOf(extra.get(r.id).stem));
+  const shared = words[0].filter(w => words.every(ws => ws.some(v => wordKey(v) === wordKey(w)))).map(wordKey);
+  return words.map(ws => {
+    const own = [...new Map(ws.filter(w => !shared.includes(wordKey(w))).map(w => [wordKey(w), w])).values()];
+    return own.filter(w => /^[^\d]+$/.test(w)).map(wordText).join(' ');   // bare numbers (5, 01) say nothing: ordinals instead
+  });
+}
+
+// index = entries in file order; extra = Map id -> { stem, unit }.
+export function disambiguate(index, extra) {
+  const groups = new Map();
+  index.forEach(r => {
+    const k = [r.x, r.g.join(','), r.s, r.t].join('|');
+    if (!groups.has(k)) groups.set(k, []);
+    groups.get(k).push(r);
+  });
+  for (const group of groups.values()) {
+    if (group.length < 2) continue;
+    const base = group[0].t, labels = labelsFor(group, extra), used = new Set();
+    group.forEach((r, i) => {
+      const head = labels[i] ? shorten(base, 160 - labels[i].length - 4) +' — ' + labels[i] : base;
+      let t = head;
+      for (let n = 2; used.has(t); n++) t = shorten(head, 160 - 6) + ' (' + n + ')';
+      used.add(t);
+      r.t = t;
+    });
+  }
+  const seen = new Set();
+  index.forEach(r => {
+    const k = [r.x, r.g.join(','), r.s, r.t].join('|');
+    if (seen.has(k)) throw new Error('title is still not unique: ' + r.t);
+    seen.add(k);
+  });
+}
+
 const ORDER = ['lgs', 'bursluluk', 'ortak', 'konu', 'yks', 'acik', 'sinif', 'kilavuz', 'dort-beceri', 'ogm-yazili', 'ogm-kazanim', 'ogm-kazanim-bazli'];
 
 // OGM yazılı / kazanım record -> entry fields (id comes from the pdf file name).
@@ -347,7 +407,7 @@ export function build({ ods1 = [], ods2 = [], ogm = [], ogmYazili = [], ogmKazan
     r.fileUrls.forEach(u => add(r, 'ogm', checkUrl(u, 'ogm-kazanim-bazli'), 'ogm-kazanim-bazli'));
   });
 
-  const index = [], topicsOut = [], ids = new Map();
+  const index = [], topicsOut = [], ids = new Map(), extra = new Map();
   for (const { rec, src, url, x } of byUrl.values()) {
     const prep = x.startsWith('ogm-') ? ogmPrep(rec, x) : null;
     const id = prep ? prep.id : sha(url);
@@ -372,18 +432,13 @@ export function build({ ods1 = [], ods2 = [], ogm = [], ogmYazili = [], ogmKazan
       p = rec.sourcePage ? checkUrl(rec.sourcePage, 'ods sourcePage') : '';
     }
     index.push({ id, t, g, s, x, y, u: url, p, mb: sizeMb(rec.sizeBytes), src });
+    extra.set(id, { stem, unit: clean(rec.unit) });
     if (x === 'konu' && Array.isArray(rec.topicDistribution)) {
       const agg = aggregateTopics(rec.topicDistribution);
       if (agg) topicsOut.push({ id, g, s, term: termOf(rec.pageTitle), n: agg.n, rows: agg.rows });
     }
   }
-  const seen = new Map();
-  index.forEach(r => seen.set(r.t, (seen.get(r.t) || 0) + 1));
-  index.forEach(r => {
-    if (seen.get(r.t) < 2) return;
-    const stem = stemOf(r.u).replace(/_+/g, ' ');
-    r.t = shorten(r.t.endsWith(stem) ? r.t + ' (' + r.p.split('/').pop() + ')' : r.t + ' — ' + stem, 160);
-  });
+  disambiguate(index, extra);
   const rank = r => ORDER.indexOf(r.x);
   index.sort((a, b) => rank(a) - rank(b) || b.y.localeCompare(a.y) || (a.g[0] || 99) - (b.g[0] || 99) || a.t.localeCompare(b.t, TR) || a.id.localeCompare(b.id));
   const pos = new Map(index.map((r, i) => [r.id, i]));
