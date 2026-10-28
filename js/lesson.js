@@ -48,6 +48,8 @@ const VideoLesson = (() => {
   let rate = 0.95;
   let captions = true;
   let silent = false;    // the student chose to continue without a voice
+  let voiceWait = false; // a natural-voice clip is downloading
+  let heardFrac = null; // how much of the current slide's narration the voice has spoken (null = unknown, estimate)
   let checkpoint = null; // { i, picked } while a "Did you get this?" card is open (picked = chosen option or null)
   let noVoice = '';      // language ('tr'/'en') the text needs but the device has no voice for
   let showOrig = false;  // showing the original of a revised slide
@@ -189,11 +191,30 @@ const VideoLesson = (() => {
     return typeof Mindmap !== 'undefined' ? Mindmap.fromNotes(data) : null;
   }
 
+  // What the lesson is written from: the notes (the teaching) first. Library sets
+  // carry the exam paper itself as their source, so the source text only follows
+  // as a short, labelled reference and never as the main material.
+  function noteText(s) {
+    const bullets = (s.bulletPoints || []).map(b => '- ' + b).join('\n');
+    const terms = (s.keyTerms || []).map(k => `${k.term}: ${k.definition}`).join('\n');
+    return [`## ${s.title || ''}`, s.content, bullets, terms, s.example ? 'Example: ' + s.example : ''].filter(Boolean).join('\n');
+  }
+
+  function materialFor(data, sec) {
+    const sections = (data.notes && data.notes.sections) || [];
+    const taught = [sec ? '' : (data.notes && data.notes.summary) || '', ...(sec ? [sec] : sections).map(noteText)].filter(Boolean).join('\n\n');
+    const hasSources = Array.isArray(data.sources) && data.sources.length > 0;
+    const src = hasSources ? App.getOriginalText() : '';
+    if (!taught) return String(App.getOriginalText() || '').slice(0, 40000);
+    return (taught.slice(0, 32000) + (src ? `\n\nReference text (it may be an exam paper or a question table: never teach its format, only use it for facts about the subject):\n${src.slice(0, 6000)}` : '')).slice(0, 40000);
+  }
+
   function prompt(data, topic, focus, style) {
     const diagrams = ((data.notes && data.notes.diagrams) || []).map((g, i) => `${i}: ${g.title}`).slice(0, 10);
     const tree = mapTree(data);
     const branches = tree ? (tree.children || []).map(c => c.label).slice(0, 12) : [];
     return `Write the storyboard of a short narrated video lesson (6-10 slides) that teaches ${topic ? `"${topic}"` : 'the main ideas of this study material'} to a student revising for an exam. ` +
+      'TEACH THE SUBJECT ITSELF: its concepts, definitions, rules, worked examples and the typical mistakes. The material may mention an exam, a question table or scoring: never spend slides on how many questions come from which topic, on the exam format, timing or scoring; at most use it as a hint of which ideas matter most. ' +
       'Slide 1 is a title slide with a hook; then build the idea step by step with a concrete example; the last slide recaps the 3 key takeaways. ' +
       'Each slide: "title" (max 8 words), "bullets": 1-3 short points (max 12 words each; may be empty on the title slide), optional "formula": one key formula in LaTeX without $ delimiters, ' +
       'optional "diagram" to show an existing picture: ' + (diagrams.length ? `{"kind":"notes","index":N} for one of these notes diagrams [${diagrams.join('; ')}], or ` : '') +
@@ -213,8 +234,7 @@ const VideoLesson = (() => {
     busy = true;
     refresh();
     try {
-      const ctx = App.getOriginalText();
-      const raw = await API.chat(prompt(data, sec ? sec.title : '', focus), sec ? `${sec.title}\n${sec.content}\n\n${ctx}`.slice(0, 40000) : ctx);
+      const raw = await API.chat(prompt(data, sec ? sec.title : '', focus), materialFor(data, sec));
       const obj = Parser.safeParseJSON(raw);
       if (App.getStudyData() !== data) return;
       const l = SimSpec.sanitizeLesson({ ...(obj || {}), id: undefined, topic: sec ? sec.title : data.title, createdAt: Date.now() });
@@ -292,7 +312,7 @@ const VideoLesson = (() => {
       '"narration": spoken like a teacher talking to the student: 2-5 short natural sentences (40-90 words), formulas and symbols said in words, no markdown, no LaTeX. ' +
       'Write it in the same language as the lesson. Return ONLY JSON, no other text: {"title":"...","bullets":["..."],"formula":"","narration":"..."}';
     const context = `Lesson: ${l.title}\n${near(index - 1, 'Previous slide')}Slide to rewrite: ${slide(l.slides[index].orig || l.slides[index])}\n${near(index + 1, 'Next slide')}\n` +
-      `Study material:\n${App.getOriginalText()}`.slice(0, 12000);
+      `Study material:\n${materialFor(data, (data.notes.sections || []).find(s => s.title === l.topic))}`.slice(0, 12000);
     try {
       const rev = await askJson(question, context, obj => SimSpec.sanitizeSlide(obj), my);
       if (!rev || my !== reqToken) return;
@@ -337,8 +357,7 @@ const VideoLesson = (() => {
     const style = [key ? PERSP_PROMPT[key] : '', text ? `The student asks for this kind of version: "${text}".` : ''].filter(Boolean).join(' ');
     const sec = (data.notes.sections || []).find(s => s.title === l.topic);
     try {
-      const ctx = App.getOriginalText();
-      const nl = await askJson(prompt(data, sec ? sec.title : '', '', style), sec ? `${sec.title}\n${sec.content}\n\n${ctx}`.slice(0, 40000) : ctx,
+      const nl = await askJson(prompt(data, sec ? sec.title : '', '', style), materialFor(data, sec),
         obj => SimSpec.sanitizeLesson({ ...obj, id: undefined, topic: l.topic, base: l.base || l.id, label, createdAt: Date.now() }), my);
       if (!nl || my !== reqToken) return;
       if (App.getStudyData() !== data) { panelBusy = false; return; }
@@ -642,6 +661,7 @@ const VideoLesson = (() => {
 
   // "Preparing voice…" next to the controls while a natural-voice clip downloads.
   function setVoiceBusy(on) {
+    voiceWait = !!on;
     const el = host && host.querySelector('[data-vl-voicestatus]');
     if (el) el.textContent = on ? i18n.t('vlVoiceLoading') : '';
     const p = host && host.querySelector('[data-vl-player]');
@@ -720,6 +740,7 @@ const VideoLesson = (() => {
     const stage = host && host.querySelector('[data-vl-stage]');
     if (!l || !stage) return;
     const s = view(l, index);
+    heardFrac = null;
     const el = document.createElement('div');
     el.className = 'vl-slide' + (dir > 0 ? ' from-right' : dir < 0 ? ' from-left' : '');
     el.dataset.vlSlide = String(index);
@@ -767,10 +788,15 @@ const VideoLesson = (() => {
     const total = l.slides.reduce((s, x) => s + duration(x), 0);
     const before = l.slides.slice(0, index).reduce((s, x) => s + duration(x), 0);
     const spent = (elapsed + (playing ? performance.now() - slideStart : 0)) / 1000;
-    const within = ended ? duration(l.slides[index]) : Math.min(spent, duration(l.slides[index]) * 0.97);
+    // The voice's real position when it reports one (it speaks slower or faster than the estimate); otherwise the estimate.
+    const heard = playing && ttsOk() ? TTS.progress() : null;
+    if (heard !== null) heardFrac = heard;
+    // While the first clip downloads nothing has been said yet: hold at the start instead of racing ahead.
+    const within = ended ? duration(l.slides[index]) : heardFrac !== null ? heardFrac * duration(l.slides[index]) : voiceWait ? 0 : Math.min(spent, duration(l.slides[index]) * 0.97);
     fill.style.width = ((before + within) / total * 100).toFixed(2) + '%';
-    // Captions follow the narration by estimated time, one sentence group at a time.
-    const frac = ended ? 1 : within / duration(l.slides[index]);
+    // Captions follow the narration, one sentence group at a time.
+    const frac = ended ? 1 : heardFrac !== null ? heardFrac : within / duration(l.slides[index]);
+    // (frac is 0 while waiting for the voice, so the first caption stays up.)
     let i = 0;
     while (i < capChunks.length - 1 && capChunks[i].end < frac) i++;
     if (i !== capShown) {
@@ -815,6 +841,7 @@ const VideoLesson = (() => {
     clearTimeout(timer);
     slideStart = performance.now();
     elapsed = 0;
+    heardFrac = null;
     const s = view(l, index);
     const done = () => {
       if (my !== token || !playing) return;
@@ -1134,5 +1161,5 @@ const VideoLesson = (() => {
     if (b) { b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on)); }
   }
 
-  return { init, render, stop, fromNotes, isPlaying: () => playing, _index: () => index, _test: { versionsOf, trimLessons, reviseSlide, undoSlide, paragraphSlides } };
+  return { init, render, stop, fromNotes, isPlaying: () => playing, _index: () => index, _test: { versionsOf, trimLessons, reviseSlide, undoSlide, paragraphSlides, materialFor, prompt } };
 })();

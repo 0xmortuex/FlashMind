@@ -275,6 +275,7 @@ const TTS = (() => {
   let audioUrl = null;
   let naturalBlocked = ''; // set when the server says it has no key: no point asking again this page load
   let lastFailToast = 0;
+  let progressFn = null; // () => fraction (0-1) of the text spoken so far, or null when unknown
 
   function naturalOn() {
     try { return localStorage.getItem(NATURAL_KEY) !== '0'; } catch (e) { return true; }
@@ -357,8 +358,13 @@ const TTS = (() => {
     pendingEnd = onEnd || null;
 
     // Device voices, from queue[start]. Refuses (never the wrong language) when a language has no voice.
-    function speakDevice(queue, start) {
+    function speakDevice(queue, start, track) {
       const rest = queue.slice(start);
+      const lens = rest.map(q => q.text.length);
+      const total = lens.reduce((a, b) => a + b, 0) || 1;
+      let cur = 0, charAt = 0, tracked = false;
+      // Word-boundary events give the real position; a voice without them reports null (the caller estimates).
+      if (track) progressFn = () => tracked ? Math.min(1, (lens.slice(0, cur).reduce((a, b) => a + b, 0) + charAt) / total) : null;
       const absent = [...new Set(rest.map(q => q.lang))].find(missingVoice);
       if (!supported() || absent) {
         if (absent) { if (o.onNoVoice) o.onNoVoice(absent); else notifyMissing(absent); }
@@ -370,7 +376,10 @@ const TTS = (() => {
         if (mySession !== session) return; // cancelled
         if (idx >= rest.length) { finish(); return; }
         const q = rest[idx++];
+        cur = idx - 1;
+        charAt = 0;
         const u = new SpeechSynthesisUtterance(q.text);
+        u.onboundary = e => { tracked = true; charAt = e.charIndex || 0; };
         u.lang = langTag(q.lang);
         // A caller-chosen voice only counts when it speaks this chunk's language.
         const voice = o.voice && o.voice.lang && o.voice.lang.slice(0, 2).toLowerCase() === q.lang ? o.voice : pickVoice(q.lang);
@@ -384,9 +393,11 @@ const TTS = (() => {
       next();
     }
 
-    if (!useNatural) { speakDevice(plan(text, o.lang), 0); return; }
+    if (!useNatural) { speakDevice(plan(text, o.lang), 0, true); return; }
 
     const queue = plan(text, o.lang, NATURAL_CHUNK);
+    const lens = queue.map(q => q.text.length);
+    const total = lens.reduce((a, b) => a + b, 0) || 1;
     const voiceName = o.nvoice || naturalVoice();
     const loading = on => { if (o.onLoading && mySession === session) o.onLoading(on); };
     unlockAudio();
@@ -394,6 +405,7 @@ const TTS = (() => {
     const fallBack = (err, from) => {
       if (mySession !== session) return;
       loading(false);
+      progressFn = null; // the device voice reads the rest; the caller estimates until it reports its own position
       if (err && err.status === 503) naturalBlocked = err.message;
       notifyNaturalFailed(err);
       // The device voices read the rest of the text in their own, smaller chunks.
@@ -415,13 +427,22 @@ const TTS = (() => {
       audioEl.onerror = () => fallBack(new Error('audio could not be played'), at);
       audioEl.src = audioUrl;
       audioEl.defaultPlaybackRate = audioEl.playbackRate = o.rate || getRate(); // a new src resets the rate to the default
+      // Position in the whole text: the finished passages plus how far this clip has played.
+      const done = lens.slice(0, at).reduce((a, b) => a + b, 0);
+      progressFn = () => Math.min(1, (done + (audioEl.duration > 0 ? Math.min(1, audioEl.currentTime / audioEl.duration) : 0) * lens[at]) / total);
       try { await audioEl.play(); } catch (err) { fallBack(err, at); }
     };
     step();
   }
 
+  // Fraction (0-1) of the text being spoken that has been heard, or null when it is not known.
+  function progress() {
+    return progressFn ? progressFn() : null;
+  }
+
   function stop() {
     session++;
+    progressFn = null;
     const cb = pendingEnd;
     pendingEnd = null;
     releaseAudio();
@@ -435,6 +456,6 @@ const TTS = (() => {
 
   return {
     supported, speak, stop, isSpeaking, voicesForLang, speakable, detectLang, pickVoice, savedVoiceFor, setVoice, getRate, setRate, missingVoice, langTag,
-    naturalOn, setNatural, naturalVoice, setNaturalVoice, naturalAvailable, prefetch, NVOICES
+    naturalOn, setNatural, naturalVoice, setNaturalVoice, naturalAvailable, prefetch, NVOICES, progress
   };
 })();

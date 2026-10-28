@@ -1327,9 +1327,11 @@ const path = require('node:path');
       speechSynthesis.speak = u => { window.__utt.push({ text: u.text, lang: u.lang }); setTimeout(() => u.onend && u.onend(), 30); };
       window.SpeechSynthesisUtterance = function (t) { this.text = t; };
       API.tts = (text, voice) => { window.__clips.push({ text, voice }); return new Promise((res, rej) => setTimeout(() => (window.__ttsFail ? rej(new Error('Rate limited — try again later')) : res(new Blob(['x'], { type: 'audio/wav' }))), 700)); };
-      window.Audio = class { constructor() { this.paused = true; } play() { this.paused = false; window.__plays.push({ src: this.src, rate: this.playbackRate }); setTimeout(() => this.onended && this.onended(), 40); return Promise.resolve(); } pause() { this.paused = true; } };
+      // The test sets the playback position (__ct of a 20 s clip) and holds the clip open (__hold) to check the captions follow it.
+      window.__hold = true; window.__ct = 0;
+      window.Audio = class { constructor() { this.paused = true; window.__audioEl = this; } get duration() { return 20; } get currentTime() { return window.__ct; } set currentTime(v) {} play() { this.paused = false; window.__plays.push({ src: this.src, rate: this.playbackRate }); if (!window.__hold) setTimeout(() => this.onended && this.onended(), 40); return Promise.resolve(); } pause() { this.paused = true; } };
       API.chat = async () => JSON.stringify({ title: 'Doğal ses dersi', slides: [
-        { title: 'Fotosentez nedir', bullets: [], narration: 'Fotosentez bitkilerin ışığı kullanarak besin üretmesidir. Bu olay yaprakların içinde gerçekleşir.' },
+        { title: 'Fotosentez nedir', bullets: [], narration: 'Fotosentez, bitkilerin güneş ışığını kullanarak kendi besinini üretmesi olayıdır ve yaşam için çok önemlidir. Bu olay yaprakların içindeki kloroplast adı verilen küçük yapılarda gerçekleşir ve oksijen açığa çıkarır.' },
         { title: 'Özet', bullets: ['Işık ve su'], narration: 'Özetle bitkiler ışık ve suyla besin üretir. Bu kadar basit.' }
       ] });
     });
@@ -1344,7 +1346,16 @@ const path = require('node:path');
       await page.waitForSelector('.vl-slide.in', { timeout: 3000 });
       await page.$eval('[data-vl-act="toggle"]', b => b.click());
       await page.waitForFunction(() => document.querySelector('.vl-player').classList.contains('voice-loading') && /voice/i.test(document.querySelector('[data-vl-voicestatus]').textContent), { timeout: 3000, polling: 20 });
-      // Both slides are narrated by the natural voice; the device voice stays silent.
+      // Captions follow the audio's real position, not a time estimate: 75% in shows the second sentence, back at 10% the first again.
+      await page.waitForFunction(() => window.__plays.some(p => /^blob:/.test(p.src)), { timeout: 5000 });
+      const caption = () => page.$eval('[data-vl-caption]', c => c.textContent);
+      await page.evaluate(() => { window.__ct = 15; });
+      await page.waitForFunction(() => document.querySelector('[data-vl-caption]').textContent.startsWith('Bu olay'), { timeout: 2000 });
+      await page.evaluate(() => { window.__ct = 2; });
+      await page.waitForFunction(() => document.querySelector('[data-vl-caption]').textContent.startsWith('Fotosentez,'), { timeout: 2000 });
+      if (!/^Fotosentez,/.test(await caption())) throw new Error('caption did not follow the audio back');
+      // Release the clip: both slides are narrated by the natural voice; the device voice stays silent.
+      await page.evaluate(() => { window.__hold = false; window.__ct = 0; window.__audioEl.onended(); });
       await page.waitForFunction(() => window.__plays.filter(p => /^blob:/.test(p.src)).length >= 2 && !VideoLesson.isPlaying(), { timeout: 8000 });
       const r = await page.evaluate(() => ({ voices: window.__clips.map(c => c.voice), plays: window.__plays.filter(p => /^blob:/.test(p.src)).map(p => p.rate), utt: window.__utt.length, busy: document.querySelector('.vl-player').classList.contains('voice-loading') }));
       if (r.voices.some(v => v !== 'Kore') || r.plays.some(x => x !== 0.95) || r.utt !== 0 || r.busy) throw new Error('natural playback ' + JSON.stringify(r));
