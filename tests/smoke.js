@@ -1459,6 +1459,111 @@ const path = require('node:path');
     await page.evaluate(() => Battle.exit());
   });
 
+  await step('topics: a notes topic opens a 3-option menu; bookmark persists across reload; Ask AI and the audio overview work (mocked API and TTS)', async () => {
+    await page.evaluate(() => {
+      const deck = Decks.save({
+        title: 'Topic Notebook', meta: { fileId: 'fxtopic1', kind: 'scenario', scenario: 1 },
+        notes: { summary: 's', sections: [
+          { title: 'Section A', content: 'Alpha content SENTINEL-TOPIC-A.', bulletPoints: ['a1'], keyTerms: [] },
+          { title: 'Section B', content: 'Beta content.', bulletPoints: [], keyTerms: [] }] },
+        flashcards: [], quiz: []
+      }, '');
+      window.__topicDeck = deck.id;
+      App.openDeck(deck.id);
+      App.switchTab('notes');
+    });
+    await page.waitForSelector('#tab-notes .topic-btn');
+    const open = async () => { await page.click('#tab-notes .topic-btn[data-topic="0"]'); await page.waitForSelector('.topic-menu [role="menuitem"]'); };
+    await open();
+    const items = await page.$$eval('.topic-menu [role="menuitem"]', els => els.map(e => e.textContent.trim()));
+    if (items.length !== 3 || !/Bookmark this topic/.test(items[0]) || !/Ask AI/.test(items[1]) || !/Audio overview/.test(items[2])) throw new Error('menu: ' + JSON.stringify(items));
+    if (await page.$eval('#tab-notes .topic-btn', b => b.getAttribute('aria-haspopup') + b.getAttribute('aria-expanded')) !== 'menutrue') throw new Error('aria attrs');
+    // Keyboard: arrows move, Escape closes and returns focus to the title.
+    await page.keyboard.press('ArrowDown');
+    if (await page.evaluate(() => document.activeElement.dataset.topicAct) !== 'ask') throw new Error('arrow down');
+    await page.keyboard.press('Escape');
+    if (await page.$('.topic-menu')) throw new Error('escape did not close');
+    if (!await page.evaluate(() => document.activeElement.classList.contains('topic-btn'))) throw new Error('focus not restored');
+    // Outside click closes.
+    await open();
+    await page.mouse.click(5, 5);
+    if (await page.$('.topic-menu')) throw new Error('outside click did not close');
+    // Bookmark, then the menu shows the Bookmarked / Remove state.
+    await open();
+    await page.click('.topic-menu [data-topic-act="bookmark"]');
+    const saved = await page.evaluate(() => ({ n: Decks.getActive().data.bookmarks.length, cls: document.querySelector('#tab-notes .topic-btn').className, count: document.querySelector('.topic-saved-count').textContent }));
+    if (saved.n !== 1 || !/bookmarked/.test(saved.cls) || saved.count !== '1') throw new Error('bookmark: ' + JSON.stringify(saved));
+    await open();
+    if (!/Bookmarked.*Remove/.test(await page.$eval('.topic-menu [data-topic-act="bookmark"]', b => b.textContent))) throw new Error('remove state');
+    await page.keyboard.press('Escape');
+    // Reload: the bookmark is still there and listed under Saved topics.
+    await page.reload({ waitUntil: 'networkidle2' });
+    await page.evaluate(() => { App.openDeck(Decks.list().find(d => d.data.title === 'Topic Notebook').id); App.switchTab('notes'); });
+    await page.waitForSelector('#tab-notes .topic-btn.bookmarked');
+    await page.click('.topic-saved-btn');
+    const listed = await page.$$eval('.topic-menu [data-topic-act="goto"]', els => els.map(e => e.lastElementChild.textContent.trim()));
+    if (listed.join() !== 'Section A') throw new Error('saved list: ' + listed);
+    await page.click('.topic-menu [data-topic-act="goto"]');
+    if (await page.$('.topic-menu')) throw new Error('saved menu stayed open');
+    // Ask AI: the chat opens with the topic and sends it once, with the section text as extra context.
+    await page.evaluate(() => { window.__asks = []; API.chat = async (msg, ctx) => { window.__asks.push({ msg, ctx }); return '{"answer":"ok"}'; }; });
+    await open();
+    await page.click('.topic-menu [data-topic-act="ask"]');
+    await page.waitForFunction(() => window.__asks.length === 1 && document.querySelector('#tab-chat.active .chat-message.ai'), { timeout: 3000 });
+    const ask = await page.evaluate(() => ({ asks: window.__asks, bubble: document.querySelector('#chat-messages .chat-message.user .chat-bubble').textContent }));
+    if (ask.bubble !== 'Explain this topic to me like a teacher: Section A' || !ask.asks[0].msg.startsWith(ask.bubble) || !/SENTINEL-TOPIC-A/.test(ask.asks[0].ctx)) throw new Error('ask: ' + JSON.stringify(ask));
+    // Audio overview: loading, then playback through (mocked) TTS with the pause and stop controls.
+    await page.evaluate(() => {
+      App.switchTab('notes');
+      window.__spoken = [];
+      TTS.supported = () => true;
+      TTS.stop = () => { const cb = window.__ttsCb; window.__ttsCb = null; if (cb) cb(true); };
+      TTS.speak = (text, cb) => { window.__spoken.push(text); window.__ttsCb = cb; };
+      window.__audioMode = 'slow';
+      API.chat = (msg) => new Promise((res, rej) => {
+        window.__audioPrompt = msg;
+        window.__audioFinish = () => window.__audioMode === 'fail' ? rej(new Error('HTTP 429')) : res(JSON.stringify({ type: 'audio', title: 'About A', lines: [{ speaker: 'A', text: 'Line one.' }, { speaker: 'B', text: 'Line two.' }] }));
+      });
+    });
+    await open();
+    await page.click('.topic-menu [data-topic-act="audio"]');
+    await page.waitForSelector('[data-topic-audio-box="0"] .topic-spin');
+    await page.evaluate(() => window.__audioFinish());
+    await page.waitForSelector('[data-topic-audio-box="0"] [data-topic-audio-act="pause"]', { timeout: 3000 });
+    if (!await page.evaluate(() => /Section A/.test(window.__audioPrompt) && window.__spoken[0] === 'Line one.')) throw new Error('audio did not start');
+    await page.evaluate(() => window.__ttsCb(false)); // line one ends: line two starts
+    await page.waitForFunction(() => window.__spoken[1] === 'Line two.');
+    await page.click('[data-topic-audio-act="pause"]');
+    await page.waitForSelector('[data-topic-audio-act="play"]');
+    await page.click('[data-topic-audio-act="stop"]');
+    await page.waitForSelector('[data-topic-audio-act="play"]');
+    const cached = await page.evaluate(() => Object.keys(Decks.getActive().data.topicAudio || {}).length);
+    if (cached !== 1) throw new Error('script not cached on the deck');
+    // Close it, then try the other topic with a rate-limited AI, then retry.
+    await page.click('[data-topic-audio-act="close"]');
+    await page.evaluate(() => { window.__audioMode = 'fail'; });
+    await page.click('#tab-notes .topic-btn[data-topic="1"]');
+    await page.waitForSelector('.topic-menu [role="menuitem"]');
+    await page.click('.topic-menu [data-topic-act="audio"]');
+    await page.evaluate(() => window.__audioFinish());
+    await page.waitForSelector('[data-topic-audio-box="1"] [role="alert"]', { timeout: 3000 });
+    if (!/rate limited/.test(await page.$eval('[data-topic-audio-box="1"] [role="alert"]', el => el.textContent))) throw new Error('rate limit message');
+    await page.evaluate(() => { window.__audioMode = 'slow'; });
+    await page.click('[data-topic-audio-act="retry"]');
+    await page.waitForSelector('[data-topic-audio-box="1"] .topic-spin');
+    await page.evaluate(() => window.__audioFinish());
+    await page.waitForSelector('[data-topic-audio-box="1"] [data-topic-audio-act="pause"]', { timeout: 3000 });
+    // Phone width: the menu is a bottom sheet inside the viewport.
+    await page.setViewport({ width: 390, height: 844 });
+    await page.$eval('#tab-notes .topic-btn[data-topic="1"]', b => b.click()); // a toast can sit over the title at this width
+    await page.waitForSelector('.topic-menu [role="menuitem"]');
+    const sheet = await page.$eval('.topic-menu', m => { const r = m.getBoundingClientRect(); return { left: r.left, right: r.right, bottom: r.bottom, w: document.documentElement.scrollWidth }; });
+    await page.keyboard.press('Escape');
+    await page.setViewport({ width: 1280, height: 900 });
+    if (sheet.left !== 0 || sheet.right !== 390 || Math.abs(sheet.bottom - 844) > 1 || sheet.w > 390) throw new Error('sheet: ' + JSON.stringify(sheet));
+    await page.evaluate(() => { TTS.stop(); Decks.remove(window.__topicDeck); });
+  });
+
   console.log(errors.length ? 'ERRORS:\n' + errors.join('\n') : 'NO CONSOLE/PAGE ERRORS');
   console.log(failCount ? failCount + ' step(s) failed' : 'ALL STEPS PASSED');
   await browser.close();

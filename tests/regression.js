@@ -1701,3 +1701,49 @@ test('every committed scenario with a bank composes: exact exam counts, valid in
   }
   assert.ok(composed > 0);
 });
+
+test('topic bookmarks and per-topic audio survive normalization, reload, merge and snapshot; junk is dropped', () => {
+  const { run, storage } = modules();
+  const raw = {
+    title: 'T', notes: { summary: '', sections: [{ title: 'Cells', content: 'c' }, { title: 'DNA', content: 'd' }] },
+    bookmarks: [
+      { id: 'tab1', title: ' Cells ', sectionIndex: 0, createdAt: 5 },
+      { id: 'tab1', title: 'dup', sectionIndex: 1, createdAt: 6 },
+      { id: '__bad id', title: 'x', sectionIndex: 0 }, { id: 'tnot', title: '' }, null,
+      { id: 'tab2', title: 'DNA', sectionIndex: -3, createdAt: 'x' }
+    ],
+    topicAudio: {
+      tab1: { format: 'brief', title: 'Cells', lines: [{ speaker: 'B', text: 'hi' }, { text: '' }], createdAt: 9 },
+      'bad key!': { lines: [{ text: 'no' }] }, tab2: { lines: [] }
+    }
+  };
+  const norm = JSON.parse(run(`JSON.stringify(Parser.normalizeStudyData(${JSON.stringify(raw)}))`));
+  assert.deepEqual(norm.bookmarks, [
+    { id: 'tab1', title: 'Cells', sectionIndex: 0, createdAt: 5 },
+    { id: 'tab2', title: 'DNA', sectionIndex: 0, createdAt: 0 }
+  ]);
+  assert.deepEqual(Object.keys(norm.topicAudio), ['tab1']);
+  assert.equal(norm.topicAudio.tab1.lines.length, 1);
+  assert.equal(norm.topicAudio.tab1.lines[0].speaker, 'B');
+  // A second pass changes nothing (export -> import round trip).
+  assert.deepEqual(JSON.parse(run(`JSON.stringify(Parser.normalizeStudyData(${JSON.stringify(norm)}))`)), norm);
+  // No bookmarks / topic audio: the keys are absent, not empty.
+  const bare = JSON.parse(run(`JSON.stringify(Parser.normalizeStudyData({title:'x', bookmarks: 'no', topicAudio: []}))`));
+  assert.equal('bookmarks' in bare, false);
+  assert.equal('topicAudio' in bare, false);
+  // Saved in a deck, persisted, reloaded from storage, snapshotted and merged from a remote device.
+  run(`Decks.save(${JSON.stringify(norm)}, 'orig')`);
+  const stored = JSON.parse(storage.get('flashmind_decks_v1'));
+  const id = Object.keys(stored.decks)[0];
+  assert.equal(stored.decks[id].data.bookmarks.length, 2);
+  const m2 = modules(Object.fromEntries(storage));
+  assert.equal(m2.run(`Decks.get(${JSON.stringify(id)}).data.bookmarks[1].title`), 'DNA');
+  assert.equal(m2.run(`Decks.get(${JSON.stringify(id)}).data.topicAudio.tab1.lines[0].text`), 'hi');
+  assert.equal(m2.run(`Decks.snapshot().decks[${JSON.stringify(id)}].data.bookmarks.length`), 2);
+  const remote = JSON.parse(JSON.stringify(stored));
+  remote.decks[id].updatedAt = Date.now() + 1000;
+  remote.decks[id].data.bookmarks = [remote.decks[id].data.bookmarks[0]];
+  assert.equal(m2.run(`Decks.mergeRemote(${JSON.stringify(remote)})`), true);
+  assert.equal(m2.run(`Decks.get(${JSON.stringify(id)}).data.bookmarks.length`), 1);
+  assert.equal(m2.run(`Decks.get(${JSON.stringify(id)}).data.topicAudio.tab1.title`), 'Cells');
+});
