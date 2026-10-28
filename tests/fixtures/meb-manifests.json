@@ -32,5 +32,10 @@
   ],
   "ogmKazanim": [
     { "grade": 9, "course": "Matematik", "title": "9. Sınıf Matematik - Kazanım Kavrama", "url": "", "localFile": "C:\\data\\ogm\\kazanim\\9_Matematik_k1.pdf", "sizeBytes": null }
+  ],
+  "ogmKazanimBazli": [
+    {"grade":"11. Sınıf","gradeNo":11,"curriculumLabel":null,"course":"Biyoloji","unit":"İnsan Fizyolojisi","outcome":"11.1.5.2.","activityTitle":"SOLUNUM SİSTEMİ","itemPage":"https://ogmmateryal.eba.gov.tr/kazanim-bazli-kazanim-kavrama-etkinlikleri","fileUrls":["https://ogmmateryal.eba.gov.tr/panel/upload/yardimci-kitap/ihxeahee10o.pdf"],"type":"pdf","seqInCourse":1,"localFile":"11_Biyoloji_02_SOLUNUM-SISTEMI.pdf","sizeBytes":323650,"status":"downloaded","notes":"http 200","sharedFile":false},
+    {"grade":"11. Sınıf","gradeNo":11,"curriculumLabel":null,"course":"Biyoloji","unit":"İnsan Fizyolojisi","outcome":"11.1.5.3.","activityTitle":"SOLUNUM SİSTEMİ","itemPage":"https://ogmmateryal.eba.gov.tr/kazanim-bazli-kazanim-kavrama-etkinlikleri","fileUrls":["https://ogmmateryal.eba.gov.tr/panel/upload/yardimci-kitap/ihxeahee10o.pdf"],"type":"pdf","seqInCourse":2,"localFile":"11_Biyoloji_02_SOLUNUM-SISTEMI.pdf","sizeBytes":694983,"status":"downloaded","notes":"http 200","sharedFile":true},
+    {"grade":"9. Sınıf (2017-23 Müfredatı)","gradeNo":9,"curriculumLabel":"2017-23 Müfredatı","course":"Türk Dili ve Edebiyatı","unit":"Dil ve Anlatım","outcome":"T.9.1.1.","activityTitle":"HİKAYE ÇÖZÜMLEME","itemPage":"https://ogmmateryal.eba.gov.tr/kazanim-bazli-kazanim-kavrama-etkinlikleri","fileUrls":["https://ogmmateryal.eba.gov.tr/panel/upload/yardimci-kitap/hk9cozum01.pdf"],"type":"pdf","seqInCourse":1,"localFile":"9_TurkDiliveEdebiyati_01_HIKAYE-COZUMLEME.pdf","sizeBytes":323650,"status":"downloaded","notes":"http 200","sharedFile":false}
   ]
 }
