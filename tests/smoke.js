@@ -718,11 +718,12 @@ const path = require('node:path');
     await page.waitForSelector('.pp-weight-note', { timeout: 2000 });
   });
 
-  await step('exams: the OGM written-exam prep type lists its rows with an unstated year', async () => {
+  await step('exams: the OGM written-exam prep and unit-activity types list their rows with an unstated year', async () => {
     // If the committed index has no such entry yet, one is added to the loaded copy.
     await page.evaluate(async () => {
       const d = await MebIndex.load();
       if (!d.items.some(x => x.x === 'ogm-yazili')) d.items.push({ id: 'ogmfx001', t: '10. Sınıf Biyoloji - 1. Dönem 1. Yazılı', g: [10], s: 'Biyoloji', x: 'ogm-yazili', y: '', u: 'https://ogm-large-cdn.eba.gov.tr/materyal/x/pdf.pdf', p: 'https://ogmmateryal.eba.gov.tr/yaziliya-hazirlaniyorum', mb: 1.2, src: 'ogm' });
+      if (!d.items.some(x => x.x === 'ogm-kazanim-bazli')) d.items.push({ id: 'ogmfx002', t: '11. Sınıf Biyoloji - SOLUNUM SİSTEMİ', g: [11], s: 'Biyoloji', x: 'ogm-kazanim-bazli', y: '', u: 'https://ogmmateryal.eba.gov.tr/panel/upload/yardimci-kitap/x.pdf', p: 'https://ogmmateryal.eba.gov.tr/kazanim-bazli-kazanim-kavrama-etkinlikleri', mb: 0.3, src: 'ogm' });
       MebIndex.open();
     });
     await page.waitForSelector('.meb-panel .meb-row', { timeout: 5000 });
@@ -731,6 +732,9 @@ const path = require('node:path');
     await page.select('#meb-type', 'ogm-yazili');
     const rows = await page.$$eval('.meb-panel .meb-row', rs => rs.map(r => r.textContent));
     if (rows.length < 1 || !rows.every(t => /OGM written-exam prep/.test(t) && /Year not stated/.test(t))) throw new Error('ogm-yazili rows: ' + rows.length);
+    await page.select('#meb-type', 'ogm-kazanim-bazli');
+    const kb = await page.$$eval('.meb-panel .meb-row', rs => rs.map(r => r.textContent));
+    if (kb.length < 1 || !kb.every(t => /OGM unit activity/.test(t) && /Year not stated/.test(t))) throw new Error('ogm-kazanim-bazli rows: ' + kb.length);
     await page.select('#meb-type', '');
     await page.evaluate(() => MebIndex.close());
   });

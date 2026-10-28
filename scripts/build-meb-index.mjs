@@ -7,7 +7,9 @@
 // <meb-data-dir> must contain ods/manifest.json, ods/manifest2.json and
 // ogm/manifest.json; ogm/yazili/manifest.json (OGM "Yazılıya Hazırlanıyorum"
 // sample written exams) and ogm/kazanim/manifest.json (Kazanım Kavrama
-// activities) are read when present. out-dir defaults to data/meb in this repo.
+// activities) and ogm/kazanim-bazli/manifest.json (Kazanım Bazlı Kazanım Kavrama
+// Etkinlikleri, one record per outcome) are read when present. out-dir defaults
+// to data/meb in this repo.
 // --sets <sets-dir>: <sets-dir>/<id>.json are the ready-made study sets (see
 // js/mebsets.js). An entry that has one gets set:1, sz (file size, KB) and
 // nc / nq / ns (cards, questions, note sections) counted from the set itself;
@@ -20,7 +22,10 @@
 // become x 'ogm-yazili' / 'ogm-kazanim' with the stated grade and subject and no
 // year (the site states none). Their id is the first 8 hex of the sha1 of the
 // pdf file name (basename of localFile), not of the URL; a record without a
-// public url is skipped and listed in stats.noPublicUrl.
+// public url is skipped and listed in stats.noPublicUrl. The kazanım-bazlı records
+// (grade from gradeNo, file addresses in fileUrls, several outcomes may share one
+// file) give one 'ogm-kazanim-bazli' entry per distinct file address, titled with
+// the first record's activity.
 // MEBİ (mebi.eba.gov.tr) is deliberately NOT read: its two public calendars sit
 // under a path robots.txt disallows, and the rest needs a student login, so the
 // app only links to the site.
@@ -85,7 +90,7 @@ export const TYPES = {
   'Sinav Takvimi': 'kilavuz',
   'Dort Beceride Turkce Dil Sinavi': 'dort-beceri'
 };
-const OGM_PREP = { 'ogm-yazili': 'https://ogmmateryal.eba.gov.tr/yaziliya-hazirlaniyorum', 'ogm-kazanim': '' };
+const OGM_PREP = { 'ogm-yazili': 'https://ogmmateryal.eba.gov.tr/yaziliya-hazirlaniyorum', 'ogm-kazanim': '', 'ogm-kazanim-bazli': 'https://ogmmateryal.eba.gov.tr/kazanim-bazli-kazanim-kavrama-etkinlikleri' };
 const TYPE_LABEL = { lgs: 'LGS', bursluluk: 'Bursluluk (İOKBS)', ortak: 'Ortak yazılı', acik: 'Açık öğretim' };
 
 const TDE = 'Türkçe / Edebiyat';
@@ -239,27 +244,30 @@ function aggregateTopics(tables) {
   return { n: kept.length, rows };
 }
 
-const ORDER = ['lgs', 'bursluluk', 'ortak', 'konu', 'yks', 'acik', 'sinif', 'kilavuz', 'dort-beceri', 'ogm-yazili', 'ogm-kazanim'];
+const ORDER = ['lgs', 'bursluluk', 'ortak', 'konu', 'yks', 'acik', 'sinif', 'kilavuz', 'dort-beceri', 'ogm-yazili', 'ogm-kazanim', 'ogm-kazanim-bazli'];
 
 // OGM yazılı / kazanım record -> entry fields (id comes from the pdf file name).
 function ogmPrep(rec, x) {
-  const what = x + ' ' + clean(rec.title);
+  const what = x + ' ' + clean(rec.title || rec.activityTitle);
   if (!rec.localFile) throw new Error(what + ': missing localFile (the id comes from the pdf file name)');
   // The kazanım manifest writes the grade as '9. Sinif' and the course without Turkish letters.
-  const grade = typeof rec.grade === 'number' ? rec.grade : /^\d{1,2}\.\s*S[iıİI]n[iıİI]f$/i.test(clean(rec.grade)) ? parseInt(rec.grade, 10) : NaN;
+  const grade = x === 'ogm-kazanim-bazli' ? rec.gradeNo : typeof rec.grade === 'number' ? rec.grade : /^\d{1,2}\.\s*S[iıİI]n[iıİI]f$/i.test(clean(rec.grade)) ? parseInt(rec.grade, 10) : NaN;
   if (!gradeOk(grade, 1, 12)) throw new Error(what + ': bad grade ' + rec.grade);
   const subject = OGM_SUBJECTS[rec.course] || Object.entries(OGM_SUBJECTS).find(([k]) => fold(k) === fold(rec.course))?.[1];
   if (!subject) throw new Error(what + ': unknown course ' + rec.course);
   const id = crypto.createHash('sha1').update(path.win32.basename(rec.localFile)).digest('hex').slice(0, 8);
   // The kazanım manifest titles are ASCII; the page labels grades 9 and 10 as the 2017-2023 curriculum.
-  const t = x === 'ogm-kazanim'
+  if (x === 'ogm-kazanim-bazli' && !clean(rec.activityTitle)) throw new Error(what + ': missing activityTitle');
+  const t = x === 'ogm-kazanim-bazli'
+    ? shorten(`${grade}. Sınıf ${subject} - ${clean(rec.activityTitle)}${grade <= 10 ? ' (2017-2023 müfredatı)' : ''}`, 160)
+    : x === 'ogm-kazanim'
     ? `${grade}. Sınıf ${subject} - Kazanım Kavrama Etkileşimli Kitap${grade <= 10 ? ' (2017-2023 müfredatı)' : ''}`
     : shorten(rec.title, 160);
   return { id, g: [grade], s: subject, t, p: rec.sourceUrl ? checkUrl(rec.sourceUrl, x + ' sourceUrl') : OGM_PREP[x] };
 }
 
 // Pure: manifests in, { index, topics, stats } out.
-export function build({ ods1 = [], ods2 = [], ogm = [], ogmYazili = [], ogmKazanim = [] }) {
+export function build({ ods1 = [], ods2 = [], ogm = [], ogmYazili = [], ogmKazanim = [], ogmKazanimBazli = [] }) {
   const stats = { excluded: { status: 0, personnel: 0, noUrl: 0, dup: 0 }, noPublicUrl: [] };
   const byUrl = new Map();
   const alias = new Map();
@@ -299,6 +307,13 @@ export function build({ ods1 = [], ods2 = [], ogm = [], ogmYazili = [], ogmKazan
     if (!raw) { stats.noPublicUrl.push(x + ': ' + clean(r.title)); return; }
     add(r, 'ogm', checkUrl(raw, x), x);
   }));
+
+  // The kazanım-bazlı manifest lists the file addresses in fileUrls; several records can point at one file.
+  ogmKazanimBazli.forEach(r => {
+    if (!Array.isArray(r.fileUrls)) throw new Error('ogm-kazanim-bazli ' + clean(r.activityTitle) + ': fileUrls is not an array');
+    if (!r.fileUrls.length) stats.noPublicUrl.push('ogm-kazanim-bazli: ' + clean(r.activityTitle));
+    r.fileUrls.forEach(u => add(r, 'ogm', checkUrl(u, 'ogm-kazanim-bazli'), 'ogm-kazanim-bazli'));
+  });
 
   const index = [], topicsOut = [], ids = new Map();
   for (const { rec, src, url, x } of byUrl.values()) {
@@ -416,7 +431,8 @@ function main(argv) {
     ods2: readJson(path.join(dir, 'ods', 'manifest2.json')),
     ogm: readJson(path.join(dir, 'ogm', 'manifest.json')),
     ogmYazili: readOptional(path.join(dir, 'ogm', 'yazili', 'manifest.json')),
-    ogmKazanim: readOptional(path.join(dir, 'ogm', 'kazanim', 'manifest.json'))
+    ogmKazanim: readOptional(path.join(dir, 'ogm', 'kazanim', 'manifest.json')),
+    ogmKazanimBazli: readOptional(path.join(dir, 'ogm', 'kazanim-bazli', 'manifest.json'))
   });
   if (setsDir) attachSets(index, readSets(setsDir));
   fs.mkdirSync(out, { recursive: true });

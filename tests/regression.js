@@ -986,8 +986,8 @@ const mebGen = () => import(require('node:url').pathToFileURL(path.join(__dirnam
 test('MEB generator: slim entries with original URLs, deduped, failed/personnel/no-URL dropped', async () => {
   const { build } = await mebGen();
   const { index, topics, stats } = build(mebFixture);
-  assert.deepEqual(stats.excluded, { status: 1, personnel: 1, noUrl: 2, dup: 2 });
-  assert.equal(index.length, 12);
+  assert.deepEqual(stats.excluded, { status: 1, personnel: 1, noUrl: 2, dup: 3 });
+  assert.equal(index.length, 14);
   const keys = ['id', 't', 'g', 's', 'x', 'y', 'u', 'p', 'mb', 'src'];
   for (const r of index) {
     assert.deepEqual(Object.keys(r), keys);
@@ -1032,6 +1032,34 @@ test('MEB generator: OGM yazılı records become ogm-yazili entries, id from the
   assert.ok(run('MebIndex.TYPES.includes("ogm-yazili") && MebIndex.TYPES.includes("ogm-kazanim")'));
   assert.deepEqual(JSON.parse(run('JSON.stringify(MebIndex.typeCounts(d.index, {}))')), { 'ogm-yazili': 1 });
   assert.deepEqual(JSON.parse(run('JSON.stringify(MebIndex.filterItems(d.index, { type: "ogm-yazili", grade: 10 }).map(i => i.id))')), ['675fa374']);
+});
+test('MEB generator: OGM kazanım-bazlı records give one entry per distinct file, id from the file name', async () => {
+  const { build } = await mebGen();
+  const { index, stats } = build(mebFixture);
+  const kb = index.filter(r => r.x === 'ogm-kazanim-bazli');
+  assert.equal(mebFixture.ogmKazanimBazli.length, 3);                                              // three records, two distinct files
+  assert.deepEqual(kb.map(r => r.id).sort(), ['5e73c2cc', 'd9540c86']);
+  const base = 'https://ogmmateryal.eba.gov.tr/panel/upload/yardimci-kitap/';
+  const p = 'https://ogmmateryal.eba.gov.tr/kazanim-bazli-kazanim-kavrama-etkinlikleri';
+  assert.deepEqual(kb.find(r => r.g[0] === 11), { id: 'd9540c86', t: '11. Sınıf Biyoloji - SOLUNUM SİSTEMİ', g: [11], s: 'Biyoloji', x: 'ogm-kazanim-bazli', y: '',
+    u: base + 'ihxeahee10o.pdf', p, mb: 0.3, src: 'ogm' });                                          // shared pair: first record kept, 11th grade has no curriculum suffix
+  assert.deepEqual(kb.find(r => r.g[0] === 9), { id: '5e73c2cc', t: '9. Sınıf Türkçe / Edebiyat - HİKAYE ÇÖZÜMLEME (2017-2023 müfredatı)', g: [9], s: 'Türkçe / Edebiyat', x: 'ogm-kazanim-bazli', y: '',
+    u: base + 'hk9cozum01.pdf', p, mb: 0.3, src: 'ogm' });
+  assert.equal(build({ ogmKazanimBazli: mebFixture.ogmKazanimBazli }).stats.excluded.dup, 1);       // the second outcome of the shared file
+  const rec = mebFixture.ogmKazanimBazli[0];
+  assert.throws(() => build({ ogmKazanimBazli: [{ ...rec, fileUrls: ['https://evil.example/x.pdf'] }] }), /not an official MEB\/EBA/);
+  assert.throws(() => build({ ogmKazanimBazli: [{ ...rec, fileUrls: ['http://ogmmateryal.eba.gov.tr/x.pdf'] }] }), /not an official MEB\/EBA/);
+  assert.throws(() => build({ ogmKazanimBazli: [{ ...rec, course: 'Mystery' }] }), /unknown course/);
+  assert.throws(() => build({ ogmKazanimBazli: [{ ...rec, gradeNo: 'on' }] }), /bad grade/);
+  assert.throws(() => build({ ogmKazanimBazli: [{ ...rec, gradeNo: undefined }] }), /bad grade/);
+  assert.throws(() => build({ ogmKazanimBazli: [{ ...rec, localFile: '' }] }), /missing localFile/);
+  assert.throws(() => build({ ogmKazanimBazli: [{ ...rec, activityTitle: ' ' }] }), /missing activityTitle/);
+  assert.throws(() => build({ ogmKazanimBazli: [{ ...rec, fileUrls: 'x' }] }), /fileUrls is not an array/);
+  // two different files claiming one local file name would share an id
+  assert.throws(() => build({ ogmKazanimBazli: [rec, { ...rec, fileUrls: [base + 'other.pdf'] }] }), /id collision d9540c86/);
+  // one record with two file addresses has one local file name, so the second would share the id
+  assert.throws(() => build({ ogmKazanimBazli: [{ ...rec, fileUrls: [base + 'a.pdf', base + 'b.pdf'] }] }), /id collision/);
+  assert.deepEqual(build({ ogmKazanimBazli: [{ ...rec, fileUrls: [] }] }).stats.noPublicUrl, ['ogm-kazanim-bazli: SOLUNUM SİSTEMİ']);
 });
 test('MEB generator infers grade and subject from explicit names only', async () => {
   const { build } = await mebGen();
@@ -1261,7 +1289,8 @@ test('MEB generator CLI: --sets <dir> writes the study set fields into index.jso
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'meb-gen-'));
   try {
     for (const [f, v] of [['ods/manifest.json', mebFixture.ods1 || []], ['ods/manifest2.json', mebFixture.ods2 || []], ['ogm/manifest.json', mebFixture.ogm || []],
-      ['ogm/yazili/manifest.json', mebFixture.ogmYazili || []], ['ogm/kazanim/manifest.json', mebFixture.ogmKazanim || []]]) {
+      ['ogm/yazili/manifest.json', mebFixture.ogmYazili || []], ['ogm/kazanim/manifest.json', mebFixture.ogmKazanim || []],
+      ['ogm/kazanim-bazli/manifest.json', mebFixture.ogmKazanimBazli || []]]) {
       fs.mkdirSync(path.dirname(path.join(tmp, f)), { recursive: true });
       fs.writeFileSync(path.join(tmp, f), JSON.stringify(v));
     }
