@@ -208,7 +208,7 @@ function auditInPage(rootSel, scopeRe, track) {
 
 // What counts as a table or chart: classes that draw data (bars, grids, heat cells, rows of
 // numbers, SVG charts). Anything else on the page is reported separately, not failed.
-const SCOPE_RE = '(chart|heat|bar|cal-|cal\\.|table|-row|-cell|grid|plan-|pred-|mem-|cm-|stat-|qb-|btl-|cls-|exam-|mt-|meb-topics|forecast|lab-|mm-|svg|tl-|tr-|ln-|tx-)';
+const SCOPE_RE = '(chart|heat|bar|cal-|cal\\.|table|-row|-cell|grid|plan-|pred-|mem-|cm-|stat-|qb-|btl-|cls-|exam-|mt-|meb-topics|meb-tab|scen-|forecast|lab-|mm-|svg|tl-|tr-|ln-|tx-)';
 
 (async () => {
   let browser;
@@ -330,6 +330,12 @@ const SCOPE_RE = '(chart|heat|bar|cal-|cal\\.|table|-row|-cell|grid|plan-|pred-|
       const sel = document.getElementById('meb-type'); sel.value = 'konu'; sel.dispatchEvent(new Event('change', { bubbles: true }));
     });
     await page.evaluate(() => document.querySelectorAll('.meb-panel .meb-topics').forEach(d => { d.open = true; }));
+    await sleep(300);
+  });
+  screen('meb-scenarios', '.meb-panel', async () => {
+    await page.evaluate(() => { document.querySelectorAll('.shortcuts-backdrop').forEach(e => { e.style.display = 'none'; }); MebIndex.open({ tab: 'scen' }); });
+    await page.waitForSelector('.meb-panel .scen-row');
+    await page.evaluate(() => document.querySelector('.meb-panel [data-scen-grade="0"]').click());
     await sleep(300);
   });
   screen('mind-map', '#tab-notes', async () => {

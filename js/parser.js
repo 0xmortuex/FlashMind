@@ -246,7 +246,8 @@ const Parser = (() => {
     const meta = obj(d.meta) && str(d.meta.fileId).trim() ? {
       fileId: str(d.meta.fileId).trim().slice(0, 64),
       ...(/^https:\/\/([a-z0-9-]+\.)*(meb\.gov\.tr|eba\.gov\.tr)(\/|$)/i.test(str(d.meta.sourceUrl)) ? { sourceUrl: str(d.meta.sourceUrl) } : {}),
-      ...Object.fromEntries(['subject', 'schoolYear', 'examType', 'kind'].filter(k => str(d.meta[k])).map(k => [k, str(d.meta[k]).slice(0, 80)])),
+      ...Object.fromEntries(['subject', 'schoolYear', 'examType', 'kind', 'bank', 'sheet', 'exam'].filter(k => str(d.meta[k])).map(k => [k, str(d.meta[k]).slice(0, 80)])),
+      ...(Number.isInteger(d.meta.scenario) && d.meta.scenario > 0 ? { scenario: d.meta.scenario } : {}),
       ...(Number.isInteger(d.meta.grade) || Array.isArray(d.meta.grade) ? { grade: [].concat(d.meta.grade).filter(Number.isInteger).slice(0, 8) } : {}),
       ...(obj(d.meta.counts) ? { counts: Object.fromEntries(Object.entries(d.meta.counts).filter(([k, v]) => Number.isFinite(v) && /^[a-zA-Z]{1,12}$/.test(k)).slice(0, 8)) } : {})
     } : null;

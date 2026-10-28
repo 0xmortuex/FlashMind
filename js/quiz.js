@@ -188,6 +188,7 @@ const Quiz = (() => {
     const objCount = questions.filter(isObjective).length;
     const oeCount = questions.filter(q => q.type === 'open-ended').length;
     const filtered = getFilteredQuestions();
+    const scenarioN = questions.filter(q => q.scenarioExam).length;
 
     container.innerHTML = `
       <div class="quiz-container">
@@ -243,6 +244,7 @@ const Quiz = (() => {
             </div>
           </div>
           <p class="sim-hint" id="sim-hint" style="display:${settings.mode === 'sim' ? 'block' : 'none'}">${T('simHint')}</p>
+          ${scenarioN ? `<button class="start-quiz-btn" id="start-scen-exam-btn">${T('scenStartExam', { n: scenarioN })}</button>` : ''}
           <button class="start-quiz-btn" id="start-quiz-btn">${T('startExam')}</button>
           ${adaptiveHtml()}
           ${(typeof Decks !== 'undefined' && Decks.getMistakes().length) ? `
@@ -285,6 +287,8 @@ const Quiz = (() => {
       container.querySelector('.quiz-info').textContent = T('quizInfo', { n: f.length, mc: objCount, oe: oeCount });
     });
     document.getElementById('start-quiz-btn').addEventListener('click', () => startQuiz());
+    const scenBtn = document.getElementById('start-scen-exam-btn');
+    if (scenBtn) scenBtn.addEventListener('click', startScenarioExam);
     const mistakesBtn = document.getElementById('retake-mistakes-btn');
     if (mistakesBtn) mistakesBtn.addEventListener('click', () => startQuiz(Decks.getMistakes()));
     const harderBtn = document.getElementById('harder-mistakes-btn');
@@ -325,6 +329,14 @@ const Quiz = (() => {
     const shuffle = settings.shuffle;
     settings.shuffle = false; // keep the weighted order's mix as picked
     startQuiz(set);
+    settings.shuffle = shuffle;
+  }
+
+  // A MEB scenario notebook (js/scenarioset.js): only the exam block, in the table's order.
+  function startScenarioExam() {
+    const shuffle = settings.shuffle;
+    settings.shuffle = false;
+    startQuiz(questions.filter(q => q.scenarioExam));
     settings.shuffle = shuffle;
   }
 

@@ -29,9 +29,9 @@ const MebSets = (() => {
     return data;
   }
 
-  // The saved deck made from this library file, if any.
+  // The saved deck made from this library file, if any (a scenario notebook shares the file id but is not the file's own set).
   function findDeck(fileId) {
-    return Decks.list().find(d => d.data && d.data.meta && d.data.meta.fileId === fileId) || null;
+    return Decks.list().find(d => d.data && d.data.meta && d.data.meta.fileId === fileId && d.data.meta.kind !== 'scenario') || null;
   }
 
   // ---------- open ----------

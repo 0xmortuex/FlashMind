@@ -123,10 +123,16 @@ const MebIndex = (() => {
     const table = data && data.topics.get(id);
     const item = data && data.items.find(it => it.id === id);
     if (!table || !item) throw new Error('Unknown topic table ' + id);
+    return storeProfile(profileTopics(table), item.t);
+  }
+
+  // topics = [{name, count}], title = what the user sees in the overwrite question and as the profile's source.
+  // Also used by the Senaryolar tab (js/mebscen.js).
+  function storeProfile(topics, title) {
     if (typeof Decks === 'undefined' || !Decks.getActive()) { App.showToast(i18n.t('mebNoDeck'), 'error'); return null; }
     const old = PastPaper.getProfile();
-    if (old && old.topics.length && !confirm(i18n.t('mebOverwrite', { n: old.topics.length, t: item.t }))) return null;
-    const saved = PastPaper.saveProfile(Object.assign({}, old || {}, { topics: profileTopics(table), topicsFrom: 'distribution', source: item.t }));
+    if (old && old.topics.length && !confirm(i18n.t('mebOverwrite', { n: old.topics.length, t: title }))) return null;
+    const saved = PastPaper.saveProfile(Object.assign({}, old || {}, { topics, topicsFrom: 'distribution', source: title }));
     if (!saved) throw new Error('Topic profile was not saved');
     App.showToast(i18n.t('mebApplied', { n: saved.topics.length }), 'success');
     PastPaper.refresh();
@@ -139,7 +145,7 @@ const MebIndex = (() => {
 
   const modal = typeof document !== 'undefined' ? PastPaper.makeModal('meb-panel') : null;
   // busy: id of the study set being fetched; err: { id, msg } of the last failure.
-  const state = { f: { grade: 0, type: '', subject: '', q: '', year: '', sets: false }, shown: PAGE, yearSet: false, busy: null, err: null };
+  const state = { f: { grade: 0, type: '', subject: '', q: '', year: '', sets: false }, shown: PAGE, yearSet: false, busy: null, err: null, tab: 'files' };
 
   const gradeLabel = g => T('mebGradeN', { n: g.length > 1 ? g[0] + '–' + g[g.length - 1] : g[0] });
 
@@ -203,8 +209,21 @@ const MebIndex = (() => {
       <div class="ex-scroll">${body}</div>`);
   }
 
+  // Files = the indexed official files; Senaryolar = one notebook per ortak yazılı scenario (js/mebscen.js).
+  function tabsHtml() {
+    if (typeof MebScen === 'undefined') return '';
+    return `<div class="meb-tabs" role="tablist">${[['files', T('mebTabFiles')], ['scen', T('scenTab')]]
+      .map(([v, label]) => `<button type="button" class="meb-tab" role="tab" data-meb-tab="${v}" aria-selected="${state.tab === v}">${esc(label)}</button>`).join('')}</div>`;
+  }
+
   function renderReady() {
+    if (state.tab === 'scen' && typeof MebScen !== 'undefined') {
+      shell(`${tabsHtml()}<div id="meb-scen"></div>`);
+      MebScen.render(modal.el.querySelector('#meb-scen'));
+      return;
+    }
     shell(`
+      ${tabsHtml()}
       <p class="chk-intro">${T('mebIntro')}</p>
       <p class="meb-tip">&#128161; ${T('mebTip')}</p>
       <div class="meb-filters">
@@ -261,8 +280,10 @@ const MebIndex = (() => {
 
   function renderState(html) { shell(`<div class="meb-state" id="meb-state">${html}</div>`); }
 
-  async function open() {
+  // opts.tab = 'scen' opens on the Senaryolar tab.
+  async function open(opts) {
     if (!modal) return;
+    if (opts && opts.tab) state.tab = opts.tab === 'scen' ? 'scen' : 'files';
     if (data) { defaultFilters(); renderReady(); return; }
     renderState(`<div class="spinner" aria-hidden="true"></div> ${T('mebLoading')}`);
     try {
@@ -281,6 +302,8 @@ const MebIndex = (() => {
       if (e.key === 'Escape' && modal.isOpen()) { e.stopImmediatePropagation(); modal.close(); }
     }, true);
     document.addEventListener('click', e => {
+      const tab = e.target.closest('[data-meb-tab]');
+      if (tab && modal.el && modal.el.contains(tab)) { state.tab = tab.dataset.mebTab; renderReady(); modal.el.querySelector('[data-meb-tab][aria-selected="true"]')?.focus(); return; }
       const chip = e.target.closest('[data-meb-year], [data-meb-sets]');
       if (chip && modal.el && modal.el.contains(chip)) {
         if (chip.hasAttribute('data-meb-sets')) state.f.sets = !state.f.sets;
@@ -316,6 +339,6 @@ const MebIndex = (() => {
 
   return {
     filterItems, subjectsFor, typeCounts, validate, profileTopics, sortByYear, defaultYear, statsLine, YEAR_NOW, YEAR_PREV, GRADES, TYPES,
-    load, open, close: () => modal && modal.close(), applyProfile
+    load, open, close: () => modal && modal.close(), applyProfile, storeProfile
   };
 })();

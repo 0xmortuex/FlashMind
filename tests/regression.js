@@ -13,7 +13,7 @@ function modules(initial = {}, extras = {}) {
     localStorage: { getItem: k => storage.get(k) ?? null, setItem: (k, v) => storage.set(k, v), removeItem: k => storage.delete(k) },
     App: { showToast() {} }, ...extras
   });
-  for (const file of ['simspec', 'parser', 'decks', 'stats', 'api', 'sources', 'planner', 'adaptive', 'insights', 'pastpaper', 'mebindex', 'mebsets', 'paperreview', 'memory', 'predictor', 'concepts', 'coach', 'live-core', 'class-core']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/', file + '.js'), 'utf8'), ctx);
+  for (const file of ['simspec', 'parser', 'decks', 'stats', 'api', 'sources', 'planner', 'adaptive', 'insights', 'pastpaper', 'mebindex', 'mebsets', 'scenarioset', 'mebscen', 'paperreview', 'memory', 'predictor', 'concepts', 'coach', 'live-core', 'class-core']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/', file + '.js'), 'utf8'), ctx);
   return { ctx, storage, run: code => vm.runInContext(code, ctx) };
 }
 
@@ -1298,4 +1298,341 @@ test('MEB generator marks alias entries with the primary id, version and its cou
   const ctxm = modules();
   ctxm.ctx.items = index;
   assert.equal(ctxm.run('MebIndex.validate(items, []).items.length'), index.length);
+});
+
+// ---------- MEB scenario notebooks ----------
+const scenFx = JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures/scen-fixture.json'), 'utf8'));
+const scenRun = (opts, mutate, ei = 0, si = 0) => {
+  const { ctx, run } = modules();
+  const bank = JSON.parse(JSON.stringify(scenFx.bank));
+  if (mutate) mutate(bank);
+  ctx.bank = bank; ctx.spec = scenFx.spec; ctx.opts = opts;
+  return () => run(`JSON.stringify(ScenarioSet.compose(bank, ScenarioSet.withFile(spec, 0), ${ei}, ${si}, opts))`);
+};
+const scenCompose = (opts, mutate, ei, si) => JSON.parse(scenRun(opts, mutate, ei, si)());
+
+test('scenario compose: exactly the table count per kazanım in the exam block, the rest of each pool as extras', () => {
+  const set = scenCompose();                                              // Senaryo 1: FX.1 x1, FX.2 x3
+  const exam = set.quiz.filter(q => q.scenarioExam), extra = set.quiz.filter(q => !q.scenarioExam);
+  assert.equal(exam.length, 4);
+  assert.deepEqual(exam.map(q => q.category), ['Senaryo sınavı: Hücre Yapısı', 'Senaryo sınavı: Doku Çeşitleri', 'Senaryo sınavı: Doku Çeşitleri', 'Senaryo sınavı: Doku Çeşitleri']);
+  assert.equal(extra.filter(q => q.category === 'Ek alıştırma: Hücre Yapısı').length, 8 - 1);
+  assert.equal(extra.filter(q => q.category === 'Ek alıştırma: Doku Çeşitleri').length, 6 - 3);
+  assert.equal(extra.length, 10);                                         // FX.3 / FX.4 are not asked in this scenario: no extras for them
+  assert.ok(set.quiz.slice(0, 4).every(q => q.scenarioExam) && set.quiz.slice(4).every(q => !q.scenarioExam));   // exam block first
+  const texts = set.quiz.map(q => q.question);
+  assert.equal(new Set(texts).size, texts.length);                        // no question twice
+  assert.deepEqual(set.meta.counts, { exam: 4, extra: 10, trimmed: 0, kazanim: 2 });
+});
+test('scenario compose: the pick is deterministic and mixes difficulties', () => {
+  const a = scenCompose(), b = scenCompose();
+  assert.deepEqual(a, b);
+  const s2 = scenCompose(undefined, null, 0, 1);                          // Senaryo 2: FX.1 x3
+  const fx1 = s2.quiz.filter(q => q.scenarioExam && /Hücre/.test(q.category)).map(q => q.difficulty).sort();
+  assert.deepEqual(fx1, ['easy', 'hard', 'medium']);                      // 3 asked out of a pool of easy/medium/hard: one of each
+  assert.notDeepEqual(s2.quiz.filter(q => q.scenarioExam).map(q => q.question), a.quiz.filter(q => q.scenarioExam).map(q => q.question));
+});
+test('scenario compose: a pool smaller than the count, an unknown item and a bad total throw clear errors', () => {
+  const err = (mutate, ei, si, opts) => scenRun(opts, mutate, ei, si);
+  assert.throws(err(b => { b.kazanimlar[0].questions = b.kazanimlar[0].questions.slice(0, 2); }, 0, 1), /FX\.1: Senaryo 2 bu kazanımdan 3 soru istiyor, bankada 2 soru var/);
+  assert.throws(err(b => { b.kazanimlar.splice(1, 1); }, 0, 0), /has no kazanım FX\.2/);
+  assert.throws(err(b => { b.kazanimlar[1].note.content = ' '; }, 0, 0), /FX\.2 has no note/);
+  assert.throws(err(b => { b.kazanimlar[1].questions[0].correct = 9; }, 0, 0), /not a valid question/);
+  assert.throws(err(b => { b.meta.sheet = '10. SINIF'; }, 0, 0), /is for sheet "10\. SINIF"/);
+  assert.throws(err(null, 1, 0), /ülke geneli ortak yazılı, senaryo yok/);
+  assert.throws(err(null, 0, 7), /no scenario 7/);
+  assert.throws(err(null, 5, 0), /no exam 5/);
+  // A kazanım this scenario does not ask may be missing from the bank without blocking it.
+  assert.equal(JSON.parse(err(b => { b.kazanimlar.splice(2, 2); }, 0, 0)()).meta.counts.exam, 4);
+  const { ctx, run } = modules();
+  ctx.spec = JSON.parse(JSON.stringify(scenFx.spec)); ctx.spec.sheets[0].exams[0].scenarios[0].total = 9;
+  assert.throws(() => run('ScenarioSet.validateSpec(spec)'), /add up to 4, the table says 9/);
+  ctx.spec = JSON.parse(JSON.stringify(scenFx.spec)); ctx.spec.sheets[0].exams[0].scenarios[0].items[0].id = 'NOPE';
+  assert.throws(() => run('ScenarioSet.validateSpec(spec)'), /kazanım NOPE is not in the sheet/);
+  ctx.bank = scenFx.bank; ctx.sheet = { ...scenFx.spec.sheets[0], fileId: 'fx000001' };
+  assert.equal(run('ScenarioSet.validateBank(bank, sheet) === bank'), true);   // whole-sheet check: every pool covers its biggest count
+  ctx.bank = JSON.parse(JSON.stringify(scenFx.bank)); ctx.bank.kazanimlar[3].questions.length = 1;
+  assert.throws(() => run('ScenarioSet.validateBank(bank, sheet)'), /kazanım FX\.4 has 1 questions, a scenario asks 2/);
+});
+test('scenario compose: kazanım with count 0 are left out of notes and cards and listed in the last section', () => {
+  const set = scenCompose();
+  assert.equal(set.notes.sections.filter(s => /^FX\.[34] ·/.test(s.title)).length, 0);
+  const skipped = set.notes.sections.find(s => s.title === 'Bu senaryoda sorulmayan konular');
+  assert.deepEqual(skipped.bulletPoints, ['FX.3 · Organ Sistemleri', 'FX.4 · Enerji dönüşümünü yorumlayabilme']);   // a missing topic falls back to the outcome text
+  assert.deepEqual([...new Set(set.flashcards.map(c => c.category))], ['Doku Çeşitleri', 'Hücre Yapısı']);
+  assert.equal(set.flashcards.length, 8);
+});
+test('scenario compose: sections and cards are ordered by question count, the exam keeps table order', () => {
+  const set = scenCompose(undefined, null, 0, 1);                         // FX.1 x3, FX.2 x1, FX.4 x2
+  assert.deepEqual(set.notes.sections.slice(0, 3).map(s => s.title.split(' · ')[0]), ['FX.1', 'FX.4', 'FX.2']);
+  assert.match(set.notes.sections[0].content, /^Bu senaryoda 3 soru\./);
+  assert.match(set.notes.sections[0].content, /Örnek: FX\.1 örneği/);
+  assert.match(set.notes.sections[0].content, /Sınavda nasıl sorulur: FX\.1 sınav ipucu/);
+  assert.deepEqual([...new Set(set.flashcards.map(c => c.category))], ['Hücre Yapısı', 'Enerji dönüşümünü yorumlayabilme', 'Doku Çeşitleri']);
+  const order = [];
+  set.quiz.filter(q => q.scenarioExam).forEach(q => { if (order[order.length - 1] !== q.category) order.push(q.category); });
+  assert.deepEqual(order, ['Senaryo sınavı: Hücre Yapısı', 'Senaryo sınavı: Doku Çeşitleri', 'Senaryo sınavı: Enerji dönüşümünü yorumlayabilme']);
+  assert.equal(set.quiz.filter(q => q.scenarioExam).length, 6);
+});
+test('scenario compose: the summary carries the computed numbers, the table source and the metadata', () => {
+  const set = scenCompose(undefined, null, 0, 1);                         // total 6: FX.1 3 (50 %), FX.4 2 (33,3 %), FX.2 1 (16,7 %)
+  const s = set.notes.summary;
+  assert.match(s, /Biyoloji 9\. sınıf · 1\. Dönem 1\. Ortak Yazılı Sınav · Senaryo 2/);
+  assert.match(s, /toplam 6 soru ve 3 kazanım var; diğer 1 kazanım bu senaryoda sorulmuyor/);
+  assert.match(s, /- ÜNİTE 1: 4 soru \(%66,7\)\n- ÜNİTE 2: 2 soru \(%33,3\)/);
+  assert.match(s, /1\. FX\.1 · Hücre Yapısı: 3 soru \(%50\)\n2\. FX\.4 · .*: 2 soru \(%33,3\)\n3\. FX\.2 · Doku Çeşitleri: 1 soru \(%16,7\)/);
+  const mins = [...s.matchAll(/^- FX\.\d: (\d+) dk$/gm)].map(m => +m[1]);
+  assert.deepEqual(mins, [60, 40, 20]);
+  assert.equal(mins.reduce((a, b) => a + b, 0), 120);
+  assert.match(s, /tam 6 soru içerir/);
+  assert.match(s, /Ders özeti:\nBiyoloji 9 banka özeti\./);
+  assert.equal(set.title, 'Biyoloji 9 · 1. Dönem 1. Ortak Yazılı · Senaryo 2');
+  assert.deepEqual(set.meta, { kind: 'scenario', fileId: 'fx000001', bank: 'b-fx000001-9', sheet: '9. SINIF', subject: 'Biyoloji', grade: 9, exam: '1. Dönem 1. Ortak Yazılı Sınav', scenario: 2, schoolYear: '2026-2027', sourceUrl: scenFx.spec.sourceUrl, counts: set.meta.counts });
+  const src = set.sources[0].text;
+  assert.match(src, /ÜNİTE 1 \| FX\.1 \| Hücre Yapısı \| FX\.1\. Hücrenin yapısını açıklayabilme \| 3/);
+  assert.match(src, /ÜNİTE 2 \| FX\.4 \| - \| FX\.4\. Enerji dönüşümünü yorumlayabilme \| 2/);
+  assert.match(src, /toplam 6 soru, 3 kazanım/);
+  assert.match(src, /sorulmayan kazanımlar: FX\.3/);
+  assert.deepEqual(set.notes.commonMistakes, ['Hata 1', 'Hata 2']);
+  assert.ok(set.notes.sections.some(x => x.title === 'Çalışma ipuçları'));
+  assert.equal(set.notes.mindmap.label, 'Biyoloji 9');
+});
+test('scenario compose: a notebook over the size limit loses extras only, spread over every kazanım', () => {
+  const full = scenCompose({ maxBytes: Infinity }, null, 0, 1);
+  const size = o => Buffer.byteLength(JSON.stringify(o));
+  const small = scenCompose({ maxBytes: size(full) - 1500 }, null, 0, 1);
+  assert.ok(size(small) <= size(full) - 1500);
+  assert.equal(small.quiz.filter(q => q.scenarioExam).length, 6);          // the exam is never trimmed
+  assert.ok(small.meta.counts.trimmed > 0 && small.meta.counts.extra + small.meta.counts.trimmed === full.meta.counts.extra);
+  assert.equal(small.meta.counts.extra, small.quiz.length - 6);
+  assert.equal(new Set(small.quiz.filter(q => !q.scenarioExam).map(q => q.category)).size, 3);   // every asked kazanım still has extras
+  assert.equal(full.meta.counts.trimmed, 0);
+  assert.throws(scenRun({ maxBytes: 500 }, null, 0, 1), /the exam block alone is .* KB over the 0 KB limit/);
+});
+test('scenario compose output passes Parser.normalizeStudyData with its meta, exam flag and table source', () => {
+  const { ctx, run } = modules();
+  ctx.bank = scenFx.bank; ctx.spec = scenFx.spec;
+  const d = JSON.parse(run('JSON.stringify(Parser.normalizeStudyData(ScenarioSet.compose(bank, ScenarioSet.withFile(spec, 0), 0, 0)))'));
+  assert.equal(d.meta.kind, 'scenario'); assert.equal(d.meta.scenario, 1); assert.equal(d.meta.exam, '1. Dönem 1. Ortak Yazılı Sınav'); assert.equal(d.meta.sheet, '9. SINIF');
+  assert.deepEqual(d.meta.grade, [9]);
+  assert.equal(d.quiz.filter(q => q.scenarioExam).length, 4);
+  assert.equal(d.sources.length, 1);
+  assert.equal(d.notes.sections.length, 2 + 2);                           // FX.2, FX.1, the unasked topics, the study tips
+});
+
+// ---------- scenario library (index, loader, profile) ----------
+const scenEntries = (() => {
+  const base = { fileId: 'fx000001', si: 0, sheet: '9. SINIF', subject: 'Biyoloji', grade: 9, variant: '', bank: 'b-fx000001-9', hasBank: true };
+  return [
+    { ...base, ei: 0, exam: '1. Dönem 1. Ortak Yazılı Sınav', n: 1, total: 4, kazanimCount: 2, d: [1, 3], national: 0 },
+    { ...base, ei: 0, exam: '1. Dönem 1. Ortak Yazılı Sınav', n: 2, total: 6, kazanimCount: 3, d: [3, 1, 2], national: 0 },
+    { ...base, ei: 1, exam: '1. Dönem 2. Ortak Yazılı Sınav', n: 0, total: 0, kazanimCount: 0, d: [], national: 1 },
+    { fileId: 'fx000002', si: 1, sheet: '10. SINIF', subject: 'Fizik', grade: 10, variant: '4 saat', bank: null, hasBank: false, ei: 0, exam: '1. Dönem 1. Ortak Yazılı Sınav', n: 1, total: 2, kazanimCount: 1, d: [2], national: 0 }
+  ];
+})();
+test('MebScen.validateIndex rejects entries the UI could not open safely', () => {
+  const { ctx, run } = modules();
+  ctx.good = scenEntries;
+  assert.equal(run('MebScen.validateIndex(good).length'), 4);
+  const bad = (mut, re) => { ctx.bad = scenEntries.map(e => ({ ...e })); mut(ctx.bad); assert.throws(() => run('MebScen.validateIndex(bad)'), re); };
+  bad(l => { l[0].fileId = '../x'; }, /bad fileId/);
+  bad(l => { l[0].d = [1, 2]; }, /does not add up/);
+  bad(l => { l[0].hasBank = false; }, /hasBank/);
+  bad(l => { l[3].bank = '../b'; l[3].hasBank = true; }, /bad bank id/);
+  bad(l => { l[2].total = 3; }, /national exam has no scenario/);
+  bad(l => { l[1].n = l[0].n; }, /duplicate/);
+  bad(l => { l[0].grade = '9'; }, /bad numbers/);
+  assert.throws(() => run('MebScen.validateIndex({})'), /not a list/);
+});
+test('MebScen groups the index into courses and filters by grade and subject', () => {
+  const { ctx, run } = modules();
+  ctx.items = scenEntries;
+  run('var sheets = MebScen.sheetsOf(items)');
+  assert.deepEqual(JSON.parse(run('JSON.stringify(sheets.map(s => [s.key, s.subject, s.grade, s.exams.map(x => [x.ei, x.national, x.scenarios.length])]))')),
+    [['fx000001.0', 'Biyoloji', 9, [[0, false, 2], [1, true, 0]]], ['fx000002.1', 'Fizik', 10, [[0, false, 1]]]]);
+  assert.deepEqual(JSON.parse(run('JSON.stringify(MebScen.filterSheets(sheets, { grade: 10, subject: "" }).map(s => s.key))')), ['fx000002.1']);
+  assert.deepEqual(JSON.parse(run('JSON.stringify(MebScen.filterSheets(sheets, { grade: 0, subject: "Biyoloji" }).map(s => s.key))')), ['fx000001.0']);
+  assert.deepEqual(JSON.parse(run('JSON.stringify(MebScen.subjectsOf(sheets, 9))')), ['Biyoloji']);
+  assert.deepEqual(JSON.parse(run('JSON.stringify(MebScen.gradesOf(sheets))')), [9, 10]);
+  // The default grade is the open deck's, when it states one.
+  assert.equal(run('MebScen.activeGrade()'), 0);
+  run(`Decks.save({ title: 'x', meta: { fileId: 'f', grade: [10] } }, '')`);
+  assert.equal(run('MebScen.activeGrade()'), 10);
+  run(`Decks.save({ title: 'y', meta: { fileId: 'f', grade: [3] } }, '')`);
+  assert.equal(run('MebScen.activeGrade()'), 0);                           // a grade MEB has no ortak yazılı for is ignored
+});
+const scenLoader = (extra = {}) => {
+  const fetched = [];
+  let fail = false, answer = true, asked = 0;
+  const toasts = [];
+  const files = { 'data/meb/scen/spec/fx000001.json': scenFx.spec, 'data/meb/scen/bank/b-fx000001-9.json': scenFx.bank };
+  const env = modules({}, {
+    fetch: async url => { fetched.push(url); return fail || !files[url] ? { ok: false, status: 503 } : { ok: true, json: async () => JSON.parse(JSON.stringify(files[url])) }; },
+    confirm: () => { asked++; return answer; },
+    App: { showToast: (m, k) => toasts.push(k + ':' + m), mergeIntoDeck: (id, data) => vm.runInContext('Decks', env.ctx).save(data, '', null).id, openDeck() {} },
+    ...extra
+  });
+  env.run('PastPaper.close = () => {}; MebIndex.close = () => {}');
+  return { ...env, fetched, toasts, setFail: v => { fail = v; }, setAnswer: v => { answer = v; }, asked: () => asked };
+};
+test('MebScen.open composes the scenario into a new deck, fetching spec and bank once', async () => {
+  const L = scenLoader();
+  L.ctx.e = scenEntries[1];
+  const id = await L.run('MebScen.open(e)');
+  assert.deepEqual(L.fetched, ['data/meb/scen/spec/fx000001.json', 'data/meb/scen/bank/b-fx000001-9.json']);
+  const deck = JSON.parse(L.run(`JSON.stringify(Decks.get("${id}").data)`));
+  assert.equal(deck.title, 'Biyoloji 9 · 1. Dönem 1. Ortak Yazılı · Senaryo 2');
+  assert.equal(deck.quiz.filter(q => q.scenarioExam).length, 6);
+  assert.equal(deck.meta.scenario, 2);
+  // The same scenario again: the confirm opens the existing deck, nothing is fetched or created.
+  const again = await L.run('MebScen.open(e)');
+  assert.equal(again, id); assert.equal(L.run('Decks.list().length'), 1); assert.equal(L.fetched.length, 2); assert.equal(L.asked(), 1);
+  // Declined: a second copy, from the cached spec and bank. Another scenario is its own deck without asking.
+  L.setAnswer(false);
+  const copy = await L.run('MebScen.open(e)');
+  assert.notEqual(copy, id); assert.equal(L.run('Decks.list().length'), 2); assert.equal(L.fetched.length, 2);
+  L.ctx.e1 = scenEntries[0];
+  await L.run('MebScen.open(e1)');
+  assert.equal(L.run('Decks.list().length'), 3); assert.equal(L.asked(), 2);
+  // The library's own findDeck for the same file id ignores scenario notebooks.
+  assert.equal(L.run('MebSets.findDeck("fx000001")'), null);
+});
+test('MebScen.open fails loudly: no bank, a national exam, a failed download (retry works), a busy loader', async () => {
+  const L = scenLoader();
+  L.ctx.nobank = scenEntries[3]; L.ctx.nat = scenEntries[2]; L.ctx.e = scenEntries[0]; L.ctx.e2 = scenEntries[1];
+  await assert.rejects(L.run('MebScen.open(nobank)'), /scenSoon/);
+  await assert.rejects(L.run('MebScen.open(nat)'), /No scenario given/);
+  L.setFail(true);
+  await assert.rejects(L.run('MebScen.open(e)'), /HTTP 503/);
+  assert.equal(L.run('Decks.list().length'), 0);
+  L.setFail(false);
+  await L.run('MebScen.open(e)');
+  assert.equal(L.run('Decks.list().length'), 1);
+  const first = L.run('MebScen.open(e2)');
+  await assert.rejects(L.run('MebScen.open(e)'), /scenBusy/);
+  L.setAnswer(false);
+  await first;
+});
+test('MebScen.open on full storage keeps the deck in memory and shows the existing save-failed toast', async () => {
+  const L = scenLoader();
+  L.run(`localStorage.setItem = () => { throw new Error('quota'); }`);
+  L.ctx.e = scenEntries[0];
+  const id = await L.run('MebScen.open(e)');
+  assert.ok(L.toasts.some(t => /^error:Could not save: browser storage is full/.test(t)));
+  assert.equal(L.run(`Decks.get("${id}").data.quiz.length`) > 0, true);
+});
+test('MebScen.applyProfile saves the scenario table as the deck topic profile', async () => {
+  const L = scenLoader();
+  L.ctx.e = scenEntries[1];
+  assert.equal(await L.run('MebScen.applyProfile(e)'), null);              // no open deck: explicit toast, nothing saved
+  assert.match(L.toasts.pop(), /^error:mebNoDeck/);
+  L.run(`Decks.save({ title: 'Biyoloji' }, '')`);
+  const saved = JSON.parse(JSON.stringify(await L.run('MebScen.applyProfile(e)')));
+  assert.equal(saved.topicsFrom, 'distribution');
+  assert.deepEqual(saved.topics.map(t => [t.name, t.count]), [['Hücre Yapısı', 3], ['Enerji dönüşümünü yorumlayabilme', 2], ['Doku Çeşitleri', 1]]);
+  assert.equal(saved.source, 'Biyoloji 9 · 1. Dönem 1. Ortak Yazılı Sınav · scenRowTitle');
+  // The scenario exam's own categories match those topic names, so adaptive practice weights them.
+  assert.equal(L.run(`PastPaper.topicBoost(PastPaper.getProfile())({ category: 'Senaryo sınavı: Hücre Yapısı' })`), 1.5);
+  assert.equal(L.asked(), 0);
+});
+
+// ---------- scenario data generator ----------
+const scenGen = () => import(require('node:url').pathToFileURL(path.join(__dirname, '../scripts/build-meb-scenarios.mjs')).href);
+test('scenario generator: index, slim spec and slim bank from the fixture', async () => {
+  const { build } = await scenGen();
+  const r = build({ files: [{ fileId: 'fx000001', data: scenFx.spec }], banks: [{ name: 'b.json', data: scenFx.bank }] });
+  assert.deepEqual(r.skipped, []);
+  assert.deepEqual(r.index.map(e => [e.si, e.ei, e.n, e.total, e.kazanimCount, e.d, e.bank, e.hasBank, e.national, e.sheet]), [
+    [0, 0, 1, 4, 2, [1, 3], 'b-fx000001-9', true, 0, '9. SINIF'],
+    [0, 0, 2, 6, 3, [3, 1, 2], 'b-fx000001-9', true, 0, '9. SINIF'],
+    [0, 1, 0, 0, 0, [], 'b-fx000001-9', true, 1, '9. SINIF']]);
+  const spec = r.specs.get('fx000001');
+  assert.deepEqual(Object.keys(spec.sheets[0].exams[0].scenarios[0].items[0]), ['id', 'count']);
+  assert.match(spec.sheets[0].exams[1].notes, /Ülke Geneli/);
+  assert.deepEqual(Object.keys(r.banks.get('b-fx000001-9').kazanimlar[0]), ['id', 'note', 'cards', 'questions']);
+  assert.ok(!('outcome' in r.banks.get('b-fx000001-9').kazanimlar[0]));
+});
+test('scenario generator: a bank that cannot serve every scenario is skipped and reported, never half used', async () => {
+  const { build } = await scenGen();
+  const files = [{ fileId: 'fx000001', data: scenFx.spec }];
+  const short = JSON.parse(JSON.stringify(scenFx.bank)); short.kazanimlar[0].questions.length = 2;
+  let r = build({ files, banks: [{ name: 'short.json', data: short }] });
+  assert.equal(r.banks.size, 0);
+  assert.match(r.skipped[0].reason, /FX\.1 has 2 questions, a scenario asks 3/);
+  assert.ok(r.index.every(e => e.bank === null && e.hasBank === false));
+  const other = JSON.parse(JSON.stringify(scenFx.bank)); other.meta.sheet = '12. SINIF';
+  assert.match(build({ files, banks: [{ name: 'o.json', data: other }] }).skipped[0].reason, /no sheet "12\. SINIF"/);
+  assert.match(build({ files, banks: [{ name: 'n.json', data: { meta: { fileId: 'fx000001' } } }] }).skipped[0].reason, /meta\.bank/);
+  assert.throws(() => build({ files, banks: [{ name: 'a.json', data: scenFx.bank }, { name: 'b.json', data: scenFx.bank }] }), /two banks for fx000001\|9\. SINIF/);
+  assert.throws(() => build({ files: [{ fileId: 'zz', data: scenFx.spec }], banks: [] }), /file says fileId fx000001/);
+});
+test('scenario generator CLI is idempotent and drops files it did not write', async () => {
+  const { execFileSync } = require('node:child_process');
+  const os = require('node:os');
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'scen-gen-'));
+  try {
+    fs.mkdirSync(path.join(tmp, 'scenarios')); fs.mkdirSync(path.join(tmp, 'banks'));
+    fs.writeFileSync(path.join(tmp, 'scenarios/fx000001.json'), JSON.stringify(scenFx.spec));
+    fs.writeFileSync(path.join(tmp, 'scenarios/index.json'), '[]');            // the flat index / summary are not workbooks
+    fs.writeFileSync(path.join(tmp, 'banks/b-fx000001-9.json'), JSON.stringify(scenFx.bank));
+    const script = path.join(__dirname, '../scripts/build-meb-scenarios.mjs'), out = path.join(tmp, 'out');
+    const sh = () => execFileSync(process.execPath, [script, tmp, out], { stdio: 'pipe' }).toString();
+    const snap = () => Object.fromEntries(['index.json', 'spec/fx000001.json', 'bank/b-fx000001-9.json'].map(f => [f, fs.readFileSync(path.join(out, 'scen', f), 'utf8')]));
+    assert.match(sh(), /index\.json  3 entries \(2 with a bank, 1 national\)/);
+    const first = snap();
+    sh();
+    assert.deepEqual(snap(), first);
+    fs.writeFileSync(path.join(out, 'scen/bank/stale.json'), '{}');
+    fs.writeFileSync(path.join(tmp, 'banks/broken.json'), JSON.stringify({ meta: { bank: 'b-x', kind: 'bank', fileId: 'fx000001', sheet: 'none' } }));
+    assert.match(sh(), /SKIPPED broken\.json: no sheet "none"/);
+    assert.ok(!fs.existsSync(path.join(out, 'scen/bank/stale.json')));
+    assert.deepEqual(snap(), first);
+  } finally { fs.rmSync(tmp, { recursive: true, force: true }); }
+});
+
+// ---------- service worker: scenario banks ----------
+test('sw.js precaches the scenario scripts, never scenario data, and keeps the last 12 cached banks', async () => {
+  const swSource = fs.readFileSync(path.join(__dirname, '../sw.js'), 'utf8');
+  const handlers = {}, puts = [], deleted = [];
+  const keys = [{ url: 'https://x.test/data/meb/sets/s1.json' }, { url: 'https://x.test/data/meb/scen/index.json' }];
+  for (let i = 0; i < 15; i++) keys.push({ url: `https://x.test/data/meb/scen/bank/b${i}.json` });
+  const cache = { match: async () => undefined, put: async (r) => { puts.push(r.url); keys.push({ url: r.url }); }, keys: async () => keys, delete: async r => { deleted.push(r.url); } };
+  const ctx = vm.createContext({
+    self: { addEventListener: (t, f) => { handlers[t] = f; }, location: { origin: 'https://x.test' } }, URL, console,
+    caches: { open: async () => cache }, fetch: async () => ({ status: 200, type: 'basic', clone() { return this; } })
+  });
+  vm.runInContext(swSource, ctx);
+  const shell = vm.runInContext('SHELL', ctx);
+  for (const f of ['./js/scenarioset.js', './js/mebscen.js', './js/i18n-scen.js']) assert.ok(shell.includes(f), f);
+  assert.ok(!shell.some(u => /data\/meb\/scen/.test(u)));
+  const wait = [];
+  let reply;
+  handlers.fetch({ request: { method: 'GET', url: 'https://x.test/data/meb/scen/bank/new.json', mode: 'cors' }, respondWith: p => { reply = p; }, waitUntil: p => wait.push(p) });
+  await reply; await Promise.all(wait);
+  assert.deepEqual(puts, ['https://x.test/data/meb/scen/bank/new.json']);
+  assert.deepEqual(deleted, [0, 1, 2, 3].map(i => `https://x.test/data/meb/scen/bank/b${i}.json`));   // 16 banks cached, the 4 oldest go; sets and the index stay
+});
+
+test('every committed scenario with a bank composes: exact exam counts, valid index, notebook under the size limit', () => {
+  const dir = path.join(__dirname, '../data/meb/scen');
+  const items = JSON.parse(fs.readFileSync(path.join(dir, 'index.json'), 'utf8'));
+  const { ctx, run } = modules();
+  ctx.items = items;
+  assert.equal(run('MebScen.validateIndex(items).length'), items.length);
+  const read = f => JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'));
+  const specs = new Map(), banks = new Map();
+  let composed = 0;
+  for (const e of items) {
+    assert.equal(e.hasBank, !!e.bank && fs.existsSync(path.join(dir, 'bank', e.bank + '.json')));
+    if (!e.hasBank || e.national) continue;
+    if (!specs.has(e.fileId)) specs.set(e.fileId, read(`spec/${e.fileId}.json`));
+    if (!banks.has(e.bank)) banks.set(e.bank, read(`bank/${e.bank}.json`));
+    ctx.spec = specs.get(e.fileId); ctx.bank = banks.get(e.bank);
+    const k = ctx.spec.sheets[e.si].exams[e.ei].scenarios.findIndex(s => s.n === e.n);
+    const set = JSON.parse(run(`JSON.stringify(Parser.normalizeStudyData(ScenarioSet.compose(bank, ScenarioSet.withFile(spec, ${e.si}), ${e.ei}, ${k})))`));
+    assert.equal(set.quiz.filter(q => q.scenarioExam).length, e.total, `${e.bank} ${e.exam} S${e.n}`);
+    assert.ok(Buffer.byteLength(JSON.stringify(set)) <= 350 * 1024, `${e.bank} S${e.n} over 350 KB`);
+    composed++;
+  }
+  assert.ok(composed > 0);
 });
