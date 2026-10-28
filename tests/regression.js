@@ -2290,6 +2290,55 @@ test('natural clips are kept on the device: reused after a reload, played offlin
   await assert.rejects(f.run('TTS.saveForOffline(texts, { lang: "tr" })'), /ttsNoCache/);
 });
 
+test('progress report: numbers, weak topics, lesson checks, exam countdown, 7-day window, text and HTML', () => {
+  const ctx = vm.createContext({ console, i18n: { getLang: () => 'en', t: (k, p) => k + (p ? ' ' + JSON.stringify(p) : '') } });
+  vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/report.js'), 'utf8') + '; this.Report = Report;', ctx);
+  const R = ctx.Report;
+  const DAY = 86400000;
+  const now = new Date(2026, 9, 28, 12).getTime(); // 28 Oct 2026, noon local time
+  const key = t => { const d = new Date(t); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+  const days = {};
+  [[0, 20, 15, 0], [1, 25, 20, 10], [2, 0, 0, 0], [3, 5, 5, 0], [9, 99, 99, 0]].forEach(([ago, reviews, gotit, focus]) => { days[key(now - ago * DAY)] = { reviews, gotit, ...(focus ? { focus } : {}) }; });
+  const stats = { days, exams: [{ t: now - 2 * DAY, title: 'Fizik deneme', pct: 70, grade: 'B' }, { t: now - 10 * DAY, title: 'Old', pct: 10, grade: 'F' }] };
+  const decks = [{
+    id: 'd1', title: 'Fizik', examDate: key(now + 12 * DAY),
+    data: {
+      title: 'Fizik', flashcards: [{}, {}, {}],
+      quiz: [{ id: 1, category: 'Optik' }, { id: 2, category: 'Optik' }, { id: 3, category: 'Optik' }, { id: 4, category: 'Dalgalar' }, { id: 5, category: 'Az' }, { id: 6 }],
+      lessons: [{ title: 'Işık', checks: { 1: 'right', 2: 'wrong', 3: 'lost', 4: 'skipped' } }, { title: 'Boş', checks: {} }]
+    },
+    qstats: { 1: { n: 2, ok: 0 }, 2: { n: 1, ok: 0 }, 3: { n: 1, ok: 1 }, 4: { n: 5, ok: 5 }, 5: { n: 2, ok: 0 }, 6: { n: 9, ok: 0 } },
+    rlog: [[1, Math.round((now - DAY) / 60000), 3, 0, 0, 0], [2, Math.round((now - 9 * DAY) / 60000), 3, 0, 0, 0], 'junk']
+  }];
+  const plain = v => JSON.parse(JSON.stringify(v)); // arrays made inside the VM are not deep-equal to ours
+  const r = plain(R.build(decks, stats, now, 20, { d1: 4 }));
+  assert.equal(r.reviews, 50, 'the 9-day-old day is outside the window');
+  assert.equal(r.studiedDays, 3, 'a day with only focus time counts as studied, an empty one does not');
+  assert.equal(r.remembered, 80);
+  assert.equal(r.focusMinutes, 10);
+  assert.equal(r.goalDays, 2, 'days with at least 20 reviews');
+  assert.equal(r.days.length, 7);
+  assert.deepEqual(r.exams.map(e => e.title), ['Fizik deneme'], 'only this week\'s exams');
+  assert.deepEqual(r.weak.map(w => [w.topic, w.pct, w.n]), [['Optik', 25, 4]], 'a topic needs 3 answers and under 65% right; uncategorised questions are ignored');
+  assert.deepEqual(r.lessons, [{ deck: 'Fizik', title: 'Işık', right: 1, wrong: 1, lost: 1, skipped: 1 }]);
+  assert.equal(r.decks[0].cards, 3);
+  assert.equal(r.decks[0].cardsWeek, 1, 'reviews older than a week and junk log entries are not counted');
+  assert.equal(r.decks[0].due, 4);
+  assert.equal(r.decks[0].daysToExam, 12);
+  // No activity at all: no division by zero, no weak topics.
+  const empty = R.build([], { days: {}, exams: [] }, now, 0, {});
+  assert.equal(empty.reviews, 0); assert.equal(empty.remembered, null); assert.equal(empty.goalDays, 0);
+  // A past exam date is not a countdown.
+  assert.equal(R.build([{ id: 'x', examDate: key(now - 5 * DAY), data: { title: 'Old' } }], stats, now, 0, {}).decks[0].daysToExam, null);
+  const text = R.toText(r);
+  for (const part of ['repTitle', 'repStudied {"d":3,"c":50}', 'repRemembered {"p":80}', 'repGoal {"d":2,"g":20}', 'Fizik deneme: 70/100 (B)', 'Optik (Fizik): repWeakLine {"p":25,"n":4}', 'Işık: repLessonLine {"r":1,"w":1,"l":1}', 'Fizik: repDaysLeft {"n":12}']) assert.ok(text.includes(part), part + ' in:\n' + text);
+  const html = R.toHtml(r);
+  assert.ok(html.includes('rep-days') && html.includes('Optik') && !/<script/i.test(html));
+  // Everything that came from the data is escaped.
+  decks[0].data.title = '<img src=x onerror=alert(1)>';
+  assert.ok(!R.toHtml(R.build(decks, stats, now, 20, {})).includes('<img'));
+});
+
 test('speech progress follows the real audio position (natural) and word boundaries (device), and is unknown otherwise', async () => {
   const nat = naturalEnv([V('Microsoft Zira', 'en-US')]);
   assert.equal(nat.run('TTS.progress()'), null, 'nothing is being spoken');

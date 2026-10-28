@@ -536,6 +536,38 @@ const path = require('node:path');
     await page.$eval('[data-tab="notes"]', b => b.click());
   });
 
+  await step('stats: the progress report opens, shows the week, copies as text, prints in its own layout and closes', async () => {
+    await page.evaluate(() => {
+      App.switchTab('stats');
+      window.__rep = { write: navigator.clipboard && navigator.clipboard.writeText, print: window.print };
+      Object.defineProperty(navigator, 'clipboard', { value: { writeText: async t => { window.__copied = t; } }, configurable: true });
+      window.print = () => { window.__printing = document.body.classList.contains('printing-report'); };
+      Object.defineProperty(navigator, 'share', { value: async d => { window.__sent = d; }, configurable: true, writable: true });
+    });
+    try {
+      await page.waitForSelector('.rep-card [data-report-act="open"]', { timeout: 2000 });
+      await page.$eval('.rep-card [data-report-act="open"]', b => b.click());
+      await page.waitForSelector('.report-modal .rep-days', { timeout: 2000 });
+      const shown = await page.evaluate(() => ({ lead: document.querySelector('.rep-lead').textContent, bars: document.querySelectorAll('.rep-day').length, title: document.getElementById('report-title').textContent }));
+      if (shown.bars !== 7 || !/Studied on \d of the last 7 days, \d+ cards reviewed/.test(shown.lead) || !/weekly progress report/.test(shown.title)) throw new Error('report ' + JSON.stringify(shown));
+      await page.$eval('[data-report-act="copy"]', b => b.click());
+      await page.waitForFunction(() => window.__copied && /weekly progress report/.test(window.__copied) && /Cards per day:/.test(window.__copied), { timeout: 2000 });
+      await page.$eval('[data-report-act="send"]', b => b.click());
+      await page.waitForFunction(() => window.__sent && /Cards per day/.test(window.__sent.text), { timeout: 2000 });
+      await page.$eval('[data-report-act="print"]', b => b.click());
+      if (!await page.evaluate(() => window.__printing) || await page.evaluate(() => document.body.classList.contains('printing-report'))) throw new Error('print layout was not applied only while printing');
+      await page.keyboard.press('Escape');
+      await page.waitForFunction(() => !document.querySelector('.report-modal'), { timeout: 2000 });
+    } finally {
+      await page.evaluate(() => {
+        if (window.__rep.write) Object.defineProperty(navigator, 'clipboard', { value: { writeText: window.__rep.write }, configurable: true }); else delete navigator.clipboard;
+        window.print = window.__rep.print; delete navigator.share;
+        const m = document.querySelector('.report-backdrop'); if (m) m.remove();
+      });
+      await page.$eval('[data-tab="notes"]', b => b.click());
+    }
+  });
+
   await step('studio: image occlusion cards render masked and revealed', async () => {
     await page.click('[data-tab="flashcards"]');
     const n = await page.evaluate(() => {
