@@ -1263,3 +1263,39 @@ test('sw.js precaches the new scripts but never a study set, and keeps only the 
   await vm.runInContext('trimSets(cache)', ctx);
   assert.deepEqual(deleted, [0, 1, 2].map(i => `https://x.test/data/meb/sets/s${i}.json`));   // the three oldest of fifteen; shell and index untouched
 });
+
+// ---------- alias set files ----------
+test('MebSets.open follows one alias level, keeps the entry as the deck owner and shows the version letter', async () => {
+  const sets = { a2: { alias: 'a1', version: 'B' }, a1: fixtureSet('a1'), a3: { alias: 'a2' }, a4: { alias: 'a4' } };
+  const fetched = [];
+  const { ctx, run } = modules({}, {
+    fetch: async url => { fetched.push(url); const id = url.split('/').pop().replace('.json', ''); return sets[id] ? { ok: true, json: async () => sets[id] } : { ok: false, status: 404 }; },
+    confirm: () => true,
+    App: { showToast() {}, mergeIntoDeck: (id, data) => vm.runInContext('Decks', ctx).save(data, '', null).id, openDeck() {} }
+  });
+  run('PastPaper.close = () => {}; MebIndex.close = () => {}');
+  ctx.e2 = { ...setIndex[0], id: 'a2', u: 'https://cdn.eba.gov.tr/b.pdf' };
+  const id = await run('MebSets.open(e2)');
+  assert.deepEqual(fetched, ['data/meb/sets/a2.json', 'data/meb/sets/a1.json']);
+  const deck = JSON.parse(run('JSON.stringify(Decks.get("' + id + '").data)'));
+  assert.equal(deck.meta.fileId, 'a2');                                                     // tied to the opened entry
+  assert.equal(deck.meta.sourceUrl, 'https://cdn.eba.gov.tr/b.pdf');
+  assert.match(deck.title, /\(B\)$/);
+  assert.match(deck.sources[0].text, /SENTINEL-OXYGEN-7421/);
+  ctx.e3 = { ...setIndex[0], id: 'a3' };                                                    // alias -> alias is refused
+  await assert.rejects(run('MebSets.open(e3)'), /points to another alias/);
+  ctx.e4 = { ...setIndex[0], id: 'a4' };
+  await assert.rejects(run('MebSets.open(e4)'), /bad alias target/);
+});
+test('MEB generator marks alias entries with the primary id, version and its counts', async () => {
+  const { build, attachSets } = await mebGen();
+  const { index } = build(mebFixture);
+  const [p, q] = [index[0].id, index[1].id];
+  const set = { ...fixtureSet('a1'), meta: { fileId: p } };
+  attachSets(index, new Map([[p, { bytes: 2200, data: set }], [q, { bytes: 40, data: { alias: p, version: 'B' }, alias: p, version: 'B' }]]));
+  assert.deepEqual([index[1].set, index[1].alias, index[1].ver, index[1].nc, index[1].nq, index[1].ns, index[1].sz], [1, p, 'B', 3, 2, 2, 3]);
+  assert.throws(() => attachSets(build(mebFixture).index, new Map([[q, { bytes: 40, data: {}, alias: p, version: 'B' }]])), /not a full set/);
+  const ctxm = modules();
+  ctxm.ctx.items = index;
+  assert.equal(ctxm.run('MebIndex.validate(items, []).items.length'), index.length);
+});

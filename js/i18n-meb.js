@@ -53,7 +53,8 @@ i18n.add('en', {
   mebStatQuestionsOne: '{n} question',
   mebStatSections: '{n} sections',
   mebStatSectionsOne: '{n} section',
-  mebSrcLink: 'Source: MEB (official file)'
+  mebSrcLink: 'Source: MEB (official file)',
+  mebVersionN: 'Version {v}'
 });
 
 i18n.add('tr', {
@@ -110,5 +111,6 @@ i18n.add('tr', {
   mebStatQuestionsOne: '{n} soru',
   mebStatSections: '{n} bölüm',
   mebStatSectionsOne: '{n} bölüm',
-  mebSrcLink: 'Kaynak: MEB (resmî dosya)'
+  mebSrcLink: 'Kaynak: MEB (resmî dosya)',
+  mebVersionN: '{v} kitapçığı'
 });

@@ -682,7 +682,7 @@ const path = require('node:path');
     await page.waitForSelector('.pp-panel .pp-actions [data-meb-act="open"]', { timeout: 2000 });
     await page.click('.pp-panel .pp-actions [data-meb-act="open"]');
     await page.waitForSelector('.meb-panel .meb-row', { timeout: 5000 }); // lazy-loaded index
-    await page.click('.meb-panel [data-meb-year=""]'); // the library opens on 2026-2027; this check spans all years
+    await page.$eval('.meb-panel [data-meb-year=""]', b => b.click()); // the library opens on 2026-2027; this check spans all years
     if (!/Files open on MEB.s own servers/.test(await page.$eval('.meb-panel .chk-intro', el => el.textContent))) throw new Error('hosting note missing');
     if (!/Past paper/.test(await page.$eval('.meb-panel .meb-tip', el => el.textContent))) throw new Error('past-paper tip missing');
     await page.select('#meb-grade', '8');
@@ -738,9 +738,9 @@ const path = require('node:path');
     }, fixture);
     await page.evaluate(() => { window.__decks = Decks.list().length; window.__prevDeck = Decks.getActive().id; MebIndex.open(); });
     await page.waitForSelector('.meb-panel .meb-row', { timeout: 5000 });
-    await new Promise(r => setTimeout(r, 600)); // the panel's entrance animation moves the chips; click once it has settled
     // The 2026-2027 group (the library's default on a fresh visit; an earlier step chose All years), every row badged with its school year.
-    await page.click('.meb-panel [data-meb-year="2026-2027"]');
+    // Toasts from earlier steps stack over the panel's right side, so the chips are clicked in the page, not by pointer.
+    await page.$eval('.meb-panel [data-meb-year="2026-2027"]', b => b.click());
     await page.select('#meb-grade', '0'); await page.select('#meb-type', ''); await page.select('#meb-subject', '');
     const lead = await page.evaluate(() => ({
       pressed: document.querySelector('.meb-panel [aria-pressed="true"][data-meb-year]').dataset.mebYear,
@@ -753,7 +753,7 @@ const path = require('node:path');
     if (stats !== '3 cards · 2 questions · 2 sections') throw new Error('stats line: ' + stats);
     const plain = await page.$$eval('.meb-panel .meb-row', rs => rs.filter(r => !r.querySelector('.meb-set')).every(r => /Study set coming/.test(r.textContent) && r.querySelector('a.meb-open')));
     if (!plain) throw new Error('rows without a set need the MEB link and the coming note');
-    await page.click('.meb-panel [data-meb-sets]');
+    await page.$eval('.meb-panel [data-meb-sets]', b => b.click());
     await page.waitForFunction(() => document.querySelectorAll('.meb-panel .meb-row').length === 1, { timeout: 2000 }).catch(() => { throw new Error('Study sets chip did not narrow the list to the one set'); });
     // A failed download is shown in the row with Retry, and nothing is saved.
     await page.evaluate(() => { window.__setMode = 'fail'; });

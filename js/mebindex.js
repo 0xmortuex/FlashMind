@@ -76,6 +76,8 @@ const MebIndex = (() => {
       if (it.set != null && it.set !== 1) bad('bad study set flag');
       ['sz', 'nc', 'nq', 'ns'].forEach(k => { if (it[k] != null && !(Number.isInteger(it[k]) && it[k] >= 0)) bad('bad ' + k); });
       if (it.set && !(it.nc > 0 || it.nq > 0)) bad('study set without cards or questions');
+      if (it.alias != null && (typeof it.alias !== 'string' || !it.set || !items.some(o => o && o.id === it.alias))) bad('bad alias');
+      if (it.ver != null && typeof it.ver !== 'string') bad('bad ver');
     });
     const map = new Map();
     topics.forEach((t, i) => {
@@ -144,7 +146,7 @@ const MebIndex = (() => {
   function rowHtml(it) {
     const table = data.topics.get(it.id);
     const chips = `<span class="meb-chip meb-year${it.y ? '' : ' none'}">${esc(it.y || T('mebYearNone'))}</span>` +
-      [T('mebType_' + it.x), it.g.length ? gradeLabel(it.g) : '', it.s, it.mb != null ? T('mebSizeMb', { n: it.mb }) : '']
+      [T('mebType_' + it.x), it.ver ? T('mebVersionN', { v: it.ver }) : '', it.g.length ? gradeLabel(it.g) : '', it.s, it.mb != null ? T('mebSizeMb', { n: it.mb }) : '']
         .filter(Boolean).map(c => `<span class="meb-chip">${esc(c)}</span>`).join('');
     const busy = state.busy === it.id, failed = state.err && state.err.id === it.id;
     const setHtml = it.set ? `<div class="meb-set">

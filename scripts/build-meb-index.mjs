@@ -10,6 +10,9 @@
 // js/mebsets.js). An entry that has one gets set:1, sz (file size, KB) and
 // nc / nq / ns (cards, questions, note sections) counted from the set itself;
 // a file whose id is not in the index, or that is not a valid set, throws.
+// <id>.alias.json ({"alias":"<primaryId>","version":"B"}) marks an edition that
+// shares another entry's set: it gets set:1, alias:<primaryId>, ver and the
+// primary's counts; the primary must be a full set in the same directory.
 // Without --sets the entries carry none of these fields.
 // MEBİ (mebi.eba.gov.tr) is deliberately NOT read: its two public calendars sit
 // under a path robots.txt disallows, and the rest needs a student login, so the
@@ -308,6 +311,16 @@ export function attachSets(index, sets) {
   for (const r of index) {
     const s = sets.get(r.id);
     if (!s) continue;
+    if (s.alias) {
+      const p = sets.get(s.alias);
+      if (!p || p.alias) throw new Error(`${r.id}.alias.json: ${s.alias} is not a full set in the sets directory`);
+      if (!ids.has(s.alias)) throw new Error(`${r.id}.alias.json: ${s.alias} has no entry in the index`);
+      const [x] = attachSets([{ id: s.alias }], new Map([[s.alias, p]])); // validates the primary and counts it
+      Object.assign(r, { set: 1, sz: x.sz, nc: x.nc, nq: x.nq, ...(x.ns != null ? { ns: x.ns } : {}) });
+      r.alias = s.alias;
+      if (s.version) r.ver = s.version;
+      continue;
+    }
     const d = s.data;
     if (!d || typeof d !== 'object' || Array.isArray(d)) throw new Error(`${r.id}.json is not a study set object`);
     if (d.meta && d.meta.fileId && d.meta.fileId !== r.id) throw new Error(`${r.id}.json: meta.fileId is ${d.meta.fileId}`);
@@ -330,7 +343,11 @@ function readSets(dir) {
     const raw = fs.readFileSync(file);
     let data;
     try { data = JSON.parse(raw.toString('utf8').replace(/^﻿/, '')); } catch (err) { throw new Error(`${file}: ${err.message}`); }
-    sets.set(name.slice(0, -5), { bytes: raw.length, data });
+    const m = name.match(/^(.+).alias.json$/);
+    if (m) {
+      if (typeof data.alias !== 'string' || !data.alias) throw new Error(`${file}: missing "alias"`);
+      sets.set(m[1], { bytes: raw.length, data, alias: data.alias, version: typeof data.version === 'string' ? data.version : '' });
+    } else sets.set(name.slice(0, -5), { bytes: raw.length, data });
   }
   return sets;
 }
