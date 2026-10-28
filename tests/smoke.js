@@ -754,7 +754,11 @@ const path = require('node:path');
     const plain = await page.$$eval('.meb-panel .meb-row', rs => rs.filter(r => !r.querySelector('.meb-set')).every(r => /Study set coming/.test(r.textContent) && r.querySelector('a.meb-open')));
     if (!plain) throw new Error('rows without a set need the MEB link and the coming note');
     await page.$eval('.meb-panel [data-meb-sets]', b => b.click());
-    await page.waitForFunction(() => document.querySelectorAll('.meb-panel .meb-row').length === 1, { timeout: 2000 }).catch(() => { throw new Error('Study sets chip did not narrow the list to the one set'); });
+    // The committed index now ships real sets, so the chip leaves every row that has a set, this step's entry among them.
+    await page.waitForFunction(id => {
+      const rows = [...document.querySelectorAll('.meb-panel .meb-row')];
+      return rows.length >= 1 && rows.every(r => r.querySelector('.meb-set')) && rows.some(r => r.dataset.row === id);
+    }, { timeout: 2000 }, entry.id).catch(() => { throw new Error('Study sets chip did not narrow the list to rows with a set'); });
     // A failed download is shown in the row with Retry, and nothing is saved.
     await page.evaluate(() => { window.__setMode = 'fail'; });
     await page.click(row + ' [data-meb-act="set"]');
