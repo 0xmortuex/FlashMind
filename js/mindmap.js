@@ -472,9 +472,10 @@ const Mindmap = (() => {
       '{"type":"mindmap","root":{"label":"central topic","detail":"one-sentence overview","children":[{"label":"main idea (max 5 words)","detail":"one-sentence explanation","children":[]}]}}. ' +
       'Rules: 4-7 main branches; each branch has 2-5 sub-nodes; at most 3 levels below the root; labels at most 6 words; ' +
       'every node has a short "detail" sentence; connect related ideas the way a teacher would draw them on the board. ' +
+      'Map the subject itself (concepts, rules, examples, mistakes); never make branches about the exam format, question counts or scoring. ' +
       'Write it in the language of the material.';
     try {
-      const raw = await API.chat(prompt, App.getOriginalText() || JSON.stringify({ title: data.title, notes: data.notes }));
+      const raw = await API.chat(prompt, Material.forStudy(data) || JSON.stringify({ title: data.title, notes: data.notes }));
       const obj = Parser.safeParseJSON(raw);
       const root = obj && (obj.root || obj.mindmap || (obj.label ? obj : null));
       if (App.getStudyData() !== data) return;

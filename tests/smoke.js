@@ -365,13 +365,18 @@ const path = require('node:path');
     const before = await page.$$eval('.mm-node', els => els.length);
     await page.click('[data-mm="0.0"]');
     await page.waitForFunction(n => document.querySelectorAll('.mm-node').length > n, { timeout: 2000 }, before);
+    // A set whose source is an exam paper: the AI must be given the notes first, the paper only as a short labelled reference.
     await page.evaluate(() => {
       window.__chat = API.chat;
-      API.chat = async () => JSON.stringify({ type: 'mindmap', root: { label: 'Root', children: [{ label: 'Branch', detail: 'd', children: [] }] } });
+      window.__srcBak = App.getStudyData().sources;
+      App.getStudyData().sources = [{ id: 'sx', name: 'Exam paper', kind: 'file', text: 'SORU DAGILIMI TARIH 3 SORU. '.repeat(800), enabled: true, addedAt: 0 }];
+      API.chat = async (q, ctx) => { window.__mm = { q, ctx }; return JSON.stringify({ type: 'mindmap', root: { label: 'Root', children: [{ label: 'Branch', detail: 'd', children: [] }] } }); };
     });
     await page.click('[data-mm-act="ai"]');
     await page.waitForFunction(() => App.getStudyData().notes.mindmap && document.querySelector('[data-mm-act="outline"]'), { timeout: 3000 });
-    await page.evaluate(() => { API.chat = window.__chat; });
+    const sent = await page.evaluate(() => ({ head: window.__mm.ctx.slice(0, 40), ref: window.__mm.ctx.indexOf('Reference text'), notes: window.__mm.ctx.indexOf('## '), len: window.__mm.ctx.length, rule: /never make branches about the exam format/.test(window.__mm.q) }));
+    await page.evaluate(() => { API.chat = window.__chat; App.getStudyData().sources = window.__srcBak; App.persistActiveDeck(); });
+    if (sent.head.startsWith('SORU') || sent.notes < 0 || sent.ref < sent.notes || sent.len > 40000 || !sent.rule) throw new Error('mind map material ' + JSON.stringify(sent));
     await page.click('[data-mm-act="outline"]');
   });
 
@@ -431,6 +436,29 @@ const path = require('node:path');
     await page.waitForSelector('.audio-line', { timeout: 2000 });
     if (!await page.evaluate(() => Decks.getActive().data.audio.lines.length > 2)) throw new Error('script not saved');
     await page.click('[data-notes-view="notes"]');
+  });
+
+  await step('studio: the AI audio overview is written from the notes; an exam-paper source is only a short reference', async () => {
+    await page.$eval('[data-notes-view="audio"]', b => b.click());
+    await page.waitForSelector('[data-audio-act="new"], [data-audio-act="generate"]', { timeout: 2000 });
+    if (await page.$('[data-audio-act="new"]')) await page.$eval('[data-audio-act="new"]', b => b.click());
+    await page.evaluate(() => {
+      window.__chat = API.chat;
+      window.__srcBak = App.getStudyData().sources;
+      App.getStudyData().sources = [{ id: 'sx', name: 'Exam paper', kind: 'file', text: 'SORU DAGILIMI TARIH 3 SORU. '.repeat(800), enabled: true, addedAt: 0 }];
+      API.chat = async (q, ctx) => { window.__au = { q, ctx }; return JSON.stringify({ type: 'audio', title: 'Episode', lines: [{ speaker: 'A', text: 'Hello there.' }, { speaker: 'B', text: 'Tell me more.' }] }); };
+    });
+    try {
+      await page.$eval('[data-audio-format="deep"]', b => b.click());
+      await page.$eval('[data-audio-act="generate"]', b => b.click());
+      await page.waitForFunction(() => window.__au, { timeout: 3000 });
+      const sent = await page.evaluate(() => ({ head: window.__au.ctx.slice(0, 40), ref: window.__au.ctx.indexOf('Reference text'), notes: window.__au.ctx.indexOf('## '), len: window.__au.ctx.length, rule: /TEACH THE SUBJECT ITSELF/.test(window.__au.q) }));
+      if (sent.head.startsWith('SORU') || sent.notes < 0 || sent.ref < sent.notes || sent.len > 40000 || !sent.rule) throw new Error('audio material ' + JSON.stringify(sent));
+      await page.waitForSelector('.audio-line', { timeout: 3000 });
+    } finally {
+      await page.evaluate(() => { API.chat = window.__chat; App.getStudyData().sources = window.__srcBak; App.persistActiveDeck(); });
+      await page.$eval('[data-notes-view="notes"]', b => b.click());
+    }
   });
 
   await step('studio: chat citations are verified against the material', async () => {
