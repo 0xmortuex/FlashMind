@@ -214,20 +214,20 @@ const TTS = (() => {
     return s.replace(/\\/g, ' ').replace(/[{}^_]/g, ' ').replace(/[ \t]+/g, ' ').trim();
   }
 
-  // Split into ~220-char chunks on sentence boundaries.
-  function chunk(text) {
+  // Split into ~`max`-char chunks on sentence boundaries (220 for device voices).
+  function chunk(text, max = 220) {
     const parts = String(text).replace(/\s+/g, ' ').match(/[^.!?…]+[.!?…]*/g) || [String(text)];
     const chunks = [];
     let cur = '';
     parts.forEach(p => {
-      while (p.length > 220) {
+      while (p.length > max) {
         if (cur.trim()) { chunks.push(cur.trim()); cur = ''; }
-        const space = p.lastIndexOf(' ', 220);
-        const end = space > 0 ? space : 220;
+        const space = p.lastIndexOf(' ', max);
+        const end = space > 0 ? space : max;
         chunks.push(p.slice(0, end).trim());
         p = p.slice(end).trimStart();
       }
-      if ((cur + p).length > 220 && cur) { chunks.push(cur.trim()); cur = ''; }
+      if ((cur + p).length > max && cur) { chunks.push(cur.trim()); cur = ''; }
       cur += p;
     });
     if (cur.trim()) chunks.push(cur.trim());
@@ -238,7 +238,7 @@ const TTS = (() => {
   // and neighbouring sentences of one language are chunked together. An
   // undetermined sentence keeps the previous one's language, the first one falls
   // back to `hint`, then the language of the whole text, then the UI language.
-  function plan(text, hint) {
+  function plan(text, hint, max) {
     const protectedText = String(text).replace(ABBR_RE, (m, pre, a) => pre + a.split('.').join(DOT)).replace(/\s+/g, ' ');
     let prev = hint || detectLang(text) || uiLang();
     const groups = [];
@@ -248,7 +248,7 @@ const TTS = (() => {
       const last = groups[groups.length - 1];
       if (last && last.lang === lang) last.text += sent; else groups.push({ lang, text: sent });
     });
-    return groups.flatMap(g => chunk(g.text).map(c => ({ text: speakable(c, g.lang), lang: g.lang }))).filter(p => p.text);
+    return groups.flatMap(g => chunk(g.text, max).map(c => ({ text: speakable(c, g.lang), lang: g.lang }))).filter(p => p.text);
   }
 
   function notifyMissing(lang) {
@@ -257,61 +257,184 @@ const TTS = (() => {
     App.showToast(i18n.t('ttsNoVoice', { lang: i18n.t(lang === 'tr' ? 'ttsLangTr' : 'ttsLangEn') }), 'error');
   }
 
+  // ----- Natural voice (Gemini TTS through the flashmind-tts worker) -----
+  // Opt-in per call (opts.natural) so read-aloud of every flashcard does not
+  // spend the server quota. Clips are fetched a passage at a time and played
+  // through one shared <audio> element (an element the student's tap has
+  // unlocked keeps playing the following clips on iOS, which refuses new ones
+  // outside a tap). If a clip cannot be fetched the student is told why and
+  // the rest of the text is read with the device voice.
+
+  const NATURAL_KEY = 'flashmind_tts_natural'; // '0' = the student turned it off
+  const NVOICE_KEY = 'flashmind_tts_nvoice';
+  const NVOICES = ['Kore', 'Puck', 'Charon', 'Fenrir', 'Aoede', 'Leda', 'Orus', 'Zephyr'];
+  const NATURAL_CHUNK = 600;
+  const SILENCE = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=';
+  const clips = new Map(); // "voice|text" -> Promise<Blob>, newest last
+  let audioEl = null;
+  let audioUrl = null;
+  let naturalBlocked = ''; // set when the server says it has no key: no point asking again this page load
+  let lastFailToast = 0;
+
+  function naturalOn() {
+    try { return localStorage.getItem(NATURAL_KEY) !== '0'; } catch (e) { return true; }
+  }
+
+  function setNatural(on) {
+    try { localStorage.setItem(NATURAL_KEY, on ? '1' : '0'); } catch (e) {}
+  }
+
+  function naturalVoice() {
+    try { const v = localStorage.getItem(NVOICE_KEY); return NVOICES.includes(v) ? v : NVOICES[0]; } catch (e) { return NVOICES[0]; }
+  }
+
+  function setNaturalVoice(v) {
+    if (!NVOICES.includes(v)) return;
+    try { localStorage.setItem(NVOICE_KEY, v); } catch (e) {}
+  }
+
+  // True when natural speech can be tried right now.
+  function naturalAvailable() {
+    return naturalOn() && !naturalBlocked && typeof API !== 'undefined' && (typeof navigator === 'undefined' || navigator.onLine !== false);
+  }
+
+  function fetchClip(text, voice) {
+    const key = voice + '|' + text;
+    if (!clips.has(key)) {
+      const p = API.tts(text, voice);
+      p.catch(() => clips.delete(key)); // a failed clip is retried next time
+      clips.set(key, p);
+      if (clips.size > 24) clips.delete(clips.keys().next().value);
+    }
+    return clips.get(key);
+  }
+
+  // Start fetching the clips of a passage the student is about to hear (the next
+  // slide). Failures are not reported here: the real playback asks again and
+  // reports them.
+  function prefetch(text, opts) {
+    const o = opts || {};
+    if (!text || !naturalAvailable()) return;
+    plan(text, o.lang, NATURAL_CHUNK).forEach(q => fetchClip(q.text, o.nvoice || naturalVoice()).catch(() => {}));
+  }
+
+  // Call from a tap handler: lets the shared element play later without a tap.
+  function unlockAudio() {
+    if (!audioEl) audioEl = new Audio();
+    if (audioEl.src) return;
+    audioEl.src = SILENCE;
+    audioEl.play().catch(() => { /* locked: the clip's own play() reports it */ });
+  }
+
+  function releaseAudio() {
+    if (audioEl) { audioEl.onended = null; audioEl.onerror = null; audioEl.pause(); }
+    if (audioUrl) { URL.revokeObjectURL(audioUrl); audioUrl = null; }
+  }
+
+  function notifyNaturalFailed(err) {
+    if (typeof App === 'undefined' || !App.showToast || Date.now() - lastFailToast < 30000) return;
+    lastFailToast = Date.now();
+    App.showToast(i18n.t('ttsNaturalFailed', { why: err && err.message ? err.message : String(err) }), 'error');
+  }
+
   // onEnd(cancelled) runs once: when the text finishes, or with `true` when
   // another speak()/stop() cuts it off. opts: { lang (fallback), voice, pitch,
-  // rate, onNoVoice(lang) }. If a language of the text has no installed voice
-  // nothing is spoken (never the wrong-language voice): onNoVoice(lang) is
-  // called, or a toast explains it, and onEnd(false) runs.
+  // rate, natural, nvoice, onNoVoice(lang), onLoading(bool) }. If a language of
+  // the text has no installed voice nothing is spoken (never the wrong-language
+  // voice): onNoVoice(lang) is called, or a toast explains it, and onEnd(false) runs.
   function speak(text, onEnd, opts) {
-    if (!supported() || !text) { if (onEnd) onEnd(false); return; }
+    const o = opts || {};
+    const useNatural = !!o.natural && naturalAvailable();
+    if ((!supported() && !useNatural) || !text) { if (onEnd) onEnd(false); return; }
     stop();
     const mySession = ++session;
-    const o = opts || {};
-    const queue = plan(text, o.lang);
-    const absent = [...new Set(queue.map(q => q.lang))].find(missingVoice);
-    if (absent) {
-      if (o.onNoVoice) o.onNoVoice(absent); else notifyMissing(absent);
-      if (onEnd) onEnd(false);
-      return;
-    }
-    let idx = 0;
-    pendingEnd = onEnd || null;
     const finish = () => {
       if (mySession !== session) return;
       const cb = pendingEnd;
       pendingEnd = null;
       if (cb) cb(false);
     };
+    pendingEnd = onEnd || null;
 
-    function next() {
-      if (mySession !== session) return; // cancelled
-      if (idx >= queue.length) { finish(); return; }
-      const q = queue[idx++];
-      const u = new SpeechSynthesisUtterance(q.text);
-      u.lang = langTag(q.lang);
-      // A caller-chosen voice only counts when it speaks this chunk's language.
-      const voice = o.voice && o.voice.lang && o.voice.lang.slice(0, 2).toLowerCase() === q.lang ? o.voice : pickVoice(q.lang);
-      if (voice) u.voice = voice;
-      u.rate = o.rate || getRate();
-      u.pitch = o.pitch || 1;
-      u.onend = next;
-      u.onerror = finish;
-      speechSynthesis.speak(u);
+    // Device voices, from queue[start]. Refuses (never the wrong language) when a language has no voice.
+    function speakDevice(queue, start) {
+      const rest = queue.slice(start);
+      const absent = [...new Set(rest.map(q => q.lang))].find(missingVoice);
+      if (!supported() || absent) {
+        if (absent) { if (o.onNoVoice) o.onNoVoice(absent); else notifyMissing(absent); }
+        finish();
+        return;
+      }
+      let idx = 0;
+      const next = () => {
+        if (mySession !== session) return; // cancelled
+        if (idx >= rest.length) { finish(); return; }
+        const q = rest[idx++];
+        const u = new SpeechSynthesisUtterance(q.text);
+        u.lang = langTag(q.lang);
+        // A caller-chosen voice only counts when it speaks this chunk's language.
+        const voice = o.voice && o.voice.lang && o.voice.lang.slice(0, 2).toLowerCase() === q.lang ? o.voice : pickVoice(q.lang);
+        if (voice) u.voice = voice;
+        u.rate = o.rate || getRate();
+        u.pitch = o.pitch || 1;
+        u.onend = next;
+        u.onerror = finish;
+        speechSynthesis.speak(u);
+      };
+      next();
     }
-    next();
+
+    if (!useNatural) { speakDevice(plan(text, o.lang), 0); return; }
+
+    const queue = plan(text, o.lang, NATURAL_CHUNK);
+    const voiceName = o.nvoice || naturalVoice();
+    const loading = on => { if (o.onLoading && mySession === session) o.onLoading(on); };
+    unlockAudio();
+    let idx = 0;
+    const fallBack = (err, from) => {
+      if (mySession !== session) return;
+      loading(false);
+      if (err && err.status === 503) naturalBlocked = err.message;
+      notifyNaturalFailed(err);
+      // The device voices read the rest of the text in their own, smaller chunks.
+      speakDevice(plan(queue.slice(from).map(q => q.text).join(' '), o.lang), 0);
+    };
+    const step = async () => {
+      if (mySession !== session) return;
+      if (idx >= queue.length) { finish(); return; }
+      const at = idx++;
+      let blob;
+      loading(true);
+      try { blob = await fetchClip(queue[at].text, voiceName); } catch (err) { fallBack(err, at); return; }
+      if (mySession !== session) return;
+      loading(false);
+      if (queue[idx]) fetchClip(queue[idx].text, voiceName).catch(() => {}); // prefetch; a failure resurfaces on its own turn
+      if (audioUrl) URL.revokeObjectURL(audioUrl);
+      audioUrl = URL.createObjectURL(blob);
+      audioEl.onended = step;
+      audioEl.onerror = () => fallBack(new Error('audio could not be played'), at);
+      audioEl.src = audioUrl;
+      audioEl.defaultPlaybackRate = audioEl.playbackRate = o.rate || getRate(); // a new src resets the rate to the default
+      try { await audioEl.play(); } catch (err) { fallBack(err, at); }
+    };
+    step();
   }
 
   function stop() {
     session++;
     const cb = pendingEnd;
     pendingEnd = null;
+    releaseAudio();
     if (supported()) speechSynthesis.cancel();
     if (cb) cb(true);
   }
 
   function isSpeaking() {
-    return supported() && speechSynthesis.speaking;
+    return (!!audioEl && !!audioUrl && !audioEl.paused && !audioEl.ended) || (supported() && speechSynthesis.speaking);
   }
 
-  return { supported, speak, stop, isSpeaking, voicesForLang, speakable, detectLang, pickVoice, savedVoiceFor, setVoice, getRate, setRate, missingVoice, langTag };
+  return {
+    supported, speak, stop, isSpeaking, voicesForLang, speakable, detectLang, pickVoice, savedVoiceFor, setVoice, getRate, setRate, missingVoice, langTag,
+    naturalOn, setNatural, naturalVoice, setNaturalVoice, naturalAvailable, prefetch, NVOICES
+  };
 })();

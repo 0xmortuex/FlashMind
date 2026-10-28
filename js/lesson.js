@@ -48,6 +48,7 @@ const VideoLesson = (() => {
   let rate = 0.95;
   let captions = true;
   let silent = false;    // the student chose to continue without a voice
+  let checkpoint = null; // { i, picked } while a "Did you get this?" card is open (picked = chosen option or null)
   let noVoice = '';      // language ('tr'/'en') the text needs but the device has no voice for
   let showOrig = false;  // showing the original of a revised slide
   let panel = null;      // open panel over the player: 'help' | 'version' | 'voice'
@@ -67,7 +68,7 @@ const VideoLesson = (() => {
     d.textContent = String(str);
     return d.innerHTML.replace(/"/g, '&quot;');
   }
-  const ttsOk = () => typeof TTS !== 'undefined' && TTS.supported();
+  const ttsOk = () => typeof TTS !== 'undefined' && (TTS.supported() || TTS.naturalAvailable());
 
   function lesson() {
     const data = App.getStudyData();
@@ -198,6 +199,8 @@ const VideoLesson = (() => {
       'optional "diagram" to show an existing picture: ' + (diagrams.length ? `{"kind":"notes","index":N} for one of these notes diagrams [${diagrams.join('; ')}], or ` : '') +
       (branches.length ? `{"kind":"map","label":"..."} for one of these mind-map branches [${branches.join('; ')}]. ` : 'none available. ') +
       '"narration": what the teacher says over the slide, spoken like a teacher talking to the student: 2-4 short natural sentences (30-70 words), formulas and symbols said in words (e.g. "x kare", "a bölü b" or "x squared", "a over b"), no markdown, no LaTeX, no symbols. ' +
+      'On 2-4 slides in the middle of the lesson (never the first or the last) add "check": the quick question a teacher asks to see whether the student got THAT slide: ' +
+      '{"q":"one clear question","options":["...","...","..."],"correct":0,"why":"one short sentence that explains the right answer"} with 3 options, exactly one correct, plausible wrong ones, and the correct option in varying positions. ' +
       'Write everything in the same language as the material (if it is Turkish, write natural spoken Turkish). At most 10 slides. ' + (focus ? `Focus especially on: ${focus}. ` : '') +
       (style ? `${style} (this overrides the slide count above). ` : '') +
       'Return ONLY JSON, no other text: {"title":"lesson title","slides":[{"title":"...","bullets":["..."],"formula":"E = mc^2","narration":"..."}]}';
@@ -237,6 +240,7 @@ const VideoLesson = (() => {
     lessonId = l.id;
     mode = 'player';
     index = 0;
+    silent = false; // a new lesson speaks again, whatever the student chose in the last one
   }
 
   // ----- AI edits: rewrite one slide, make another version -----
@@ -293,6 +297,8 @@ const VideoLesson = (() => {
       const rev = await askJson(question, context, obj => SimSpec.sanitizeSlide(obj), my);
       if (!rev || my !== reqToken) return;
       if (App.getStudyData() !== data || lesson() !== l) { panelBusy = false; return; }
+      // The question stays, so the student is asked again after the new explanation.
+      if (l.slides[i].check && !rev.check) rev.check = l.slides[i].check;
       reviseSlide(l, i, rev, undoStack);
       App.persistActiveDeck();
       panel = null;
@@ -425,6 +431,7 @@ const VideoLesson = (() => {
             <button class="vl-btn vl-btn-main" data-vl-act="toggle" aria-label="${esc(T('vlPlay'))}" title="${esc(T('vlPlay'))} (Space)">&#9654;</button>
             <button class="vl-btn" data-vl-act="next" aria-label="${esc(T('vlNext'))}" title="${esc(T('vlNext'))} (→)">&#9197;</button>
             <span class="vl-count" data-vl-count></span>
+            <span class="vl-voice-status" data-vl-voicestatus role="status"></span>
             <span class="vl-spacer"></span>
             ${ttsOk() ? `<button class="vl-btn" data-vl-act="voice" aria-label="${esc(T('vlVoiceBtn'))}" title="${esc(T('vlVoiceBtn'))}">&#128266;</button>` : ''}
             <button class="vl-btn vl-rate" data-vl-act="rate" title="${esc(T('vlSpeed'))}">${rate}&times;</button>
@@ -432,6 +439,7 @@ const VideoLesson = (() => {
             <button class="vl-btn" data-vl-act="full" aria-label="${esc(T('vlFull'))}" title="${esc(T('vlFull'))} (F)">&#x26F6;</button>
           </div>
         </div>
+        <div class="vl-checkpoint" data-vl-check hidden></div>
         <div class="vl-panel" data-vl-panel hidden></div>
       </div>
       <div class="vl-revbar" data-vl-revbar hidden></div>
@@ -470,8 +478,13 @@ const VideoLesson = (() => {
       const lang = (l && lessonLang(l)) || (i18n.getLang() === 'tr' ? 'tr' : 'en');
       const list = TTS.voicesForLang(lang), saved = TTS.savedVoiceFor(lang);
       const none = !list.length && TTS.missingVoice(lang);
+      const natural = TTS.naturalOn();
       return `<h4 class="vl-panel-title" tabindex="-1">${T('vlVoiceBtn')}</h4>
-        <label class="vl-label" for="vl-voice">${T('vlVoice')}</label>
+        <label class="vl-check"><input type="checkbox" data-vl-natural${natural ? ' checked' : ''}> ${T('vlNatural')}</label>
+        <p class="vl-note">${T('vlNaturalNote')}</p>
+        ${natural ? `<label class="vl-label" for="vl-nvoice">${T('vlNaturalVoice')}</label>
+        <select id="vl-nvoice" class="editor-input" data-vl-nvoice>${TTS.NVOICES.map(v => `<option value="${v}"${TTS.naturalVoice() === v ? ' selected' : ''}>${v}</option>`).join('')}</select>` : ''}
+        <label class="vl-label" for="vl-voice">${natural ? T('vlVoiceDevice') : T('vlVoice')}</label>
         <select id="vl-voice" class="editor-input" data-vl-voice="${lang}"${none ? ' disabled' : ''}>
           <option value="">${esc(T('vlVoiceAuto'))}</option>
           ${list.map(v => `<option value="${esc(v.voiceURI)}"${saved && saved.voiceURI === v.voiceURI ? ' selected' : ''}>${esc(v.name)} (${esc(v.lang)})</option>`).join('')}
@@ -534,6 +547,105 @@ const VideoLesson = (() => {
     return `<strong>${esc(T('vlNoVoiceTitle', { lang: name }))}</strong>
       <p>${esc(T('vlNoVoiceHow', { lang: name }))}</p>
       <div class="vl-panel-actions"><button class="btn-primary" data-vl-act="silent">${T('vlSilent')}</button><button class="btn-ghost" data-vl-act="recheck">${T('vlRecheck')}</button></div>`;
+  }
+
+  // ----- "Did you get this?" checkpoints -----
+  // A slide with a `check` question pauses the lesson after its narration. The
+  // student answers (or skips), may ask for the slide to be explained again or
+  // type a question, then continues. Slides answered right or skipped are not
+  // asked again on replay; wrong and "lost" ones are.
+
+  const needsCheck = (l, i) => !!l.slides[i].check && !['right', 'skipped'].includes((l.checks || {})[i]);
+
+  function saveCheck(l, i, result) {
+    l.checks = { ...(l.checks || {}), [i]: result };
+    App.persistActiveDeck();
+  }
+
+  function drawCheckpoint() {
+    const el = host && host.querySelector('[data-vl-check]');
+    if (!el) return;
+    const l = lesson();
+    const c = checkpoint && l && l.slides[checkpoint.i] && view(l, checkpoint.i).check;
+    if (!c) { el.hidden = true; el.innerHTML = ''; return; }
+    const T = i18n.t;
+    const answered = checkpoint.picked !== null;
+    const ok = checkpoint.picked === c.correct;
+    el.innerHTML = `<div class="vl-check-card" role="group" aria-labelledby="vl-check-title">
+      <strong class="vl-check-title" id="vl-check-title">&#9995; ${T('vlCheckTitle')}</strong>
+      <p class="vl-check-q">${esc(c.q)}</p>
+      <div class="vl-opts">${c.options.map((o, k) => {
+        const state = !answered ? '' : k === c.correct ? ' right' : k === checkpoint.picked ? ' wrong' : '';
+        return `<button class="vl-opt${state}" data-vl-opt="${k}"${answered ? ' disabled' : ''}>${esc(o)}</button>`;
+      }).join('')}</div>
+      ${answered ? `<p class="vl-check-why" role="status"><strong>${ok ? '&#9989; ' + T('vlCheckRight') : '&#10060; ' + T('vlCheckWrong')}</strong> ${esc(c.why)}</p>` : ''}
+      <div class="vl-check-actions">
+        ${answered ? `<button class="btn-primary" data-vl-act="check-next">${T('vlCheckNext')}</button>` : `<button class="btn-ghost" data-vl-act="check-skip">${T('vlCheckGot')}</button>`}
+        <button class="btn-ghost" data-vl-act="check-again">&#128257; ${T('vlCheckAgain')}</button>
+        <button class="btn-ghost" data-vl-act="check-ask">&#128172; ${T('vlCheckAsk')}</button>
+      </div></div>`;
+    el.hidden = false;
+    if (!answered) el.scrollIntoView({ block: 'nearest' });
+  }
+
+  function openCheckpoint(i) {
+    pause();
+    checkpoint = { i, picked: null };
+    drawCheckpoint();
+  }
+
+  function hideCheckpoint() {
+    if (!checkpoint) return;
+    checkpoint = null;
+    drawCheckpoint();
+  }
+
+  function pickOption(k) {
+    const l = lesson();
+    if (!checkpoint || checkpoint.picked !== null || !l) return;
+    const c = view(l, checkpoint.i).check;
+    if (!c || !c.options[k]) return;
+    checkpoint.picked = k;
+    saveCheck(l, checkpoint.i, k === c.correct ? 'right' : 'wrong');
+    drawCheckpoint();
+  }
+
+  // Close the card and go on with the next slide (skipping counts as "I got it").
+  function continueAfterCheck() {
+    const l = lesson();
+    if (!checkpoint || !l) return;
+    const i = checkpoint.i;
+    if (checkpoint.picked === null) saveCheck(l, i, 'skipped');
+    hideCheckpoint();
+    if (i >= l.slides.length - 1) { ended = true; elapsed = duration(l.slides[i]) * 1000; syncControls(); drawProgress(); return; }
+    go(i + 1);
+    play();
+  }
+
+  // "Explain it again": the slide is rewritten more simply, played, and checked again.
+  function explainAgain() {
+    const l = lesson();
+    if (!checkpoint || !l) return;
+    saveCheck(l, checkpoint.i, 'lost');
+    hideCheckpoint();
+    panel = 'help';
+    panelBusy = false;
+    panelErr = '';
+    drawPanel();
+    rewriteSlide('simple', '');
+  }
+
+  function askAboutSlide() {
+    hideCheckpoint();
+    openPanel('help');
+  }
+
+  // "Preparing voice…" next to the controls while a natural-voice clip downloads.
+  function setVoiceBusy(on) {
+    const el = host && host.querySelector('[data-vl-voicestatus]');
+    if (el) el.textContent = on ? i18n.t('vlVoiceLoading') : '';
+    const p = host && host.querySelector('[data-vl-player]');
+    if (p) p.classList.toggle('voice-loading', !!on);
   }
 
   function drawNotice() {
@@ -706,6 +818,8 @@ const VideoLesson = (() => {
     const s = view(l, index);
     const done = () => {
       if (my !== token || !playing) return;
+      // A slide with a question stops here until the student answers.
+      if (needsCheck(l, index)) { openCheckpoint(index); return; }
       // Short beat between slides, then the next one.
       timer = setTimeout(() => {
         if (my !== token || !playing) return;
@@ -716,14 +830,24 @@ const VideoLesson = (() => {
     if (ttsOk() && !silent) {
       // The narration is spoken in the language of the lesson, whatever the app language.
       if (noVoice) { noVoice = ''; drawNotice(); }
+      let heard = false;
       TTS.speak(s.narration, cancelled => {
+        setVoiceBusy(false);
         if (my !== token) return;
         if (cancelled) { playing = false; syncControls(); return; }
         done();
       }, {
-        rate, lang: lessonLang(l),
-        onNoVoice: lang => { playing = false; noVoice = lang; syncControls(); drawNotice(); }
+        rate, lang: lessonLang(l), natural: true,
+        onNoVoice: lang => { playing = false; noVoice = lang; syncControls(); drawNotice(); },
+        onLoading: on => {
+          if (my !== token) return;
+          setVoiceBusy(on);
+          // The slide's clock starts when its audio does, not while the clip downloads.
+          if (!on && !heard) { heard = true; slideStart = performance.now(); elapsed = 0; }
+        }
       });
+      // Have the next slide's audio ready so the lesson does not stall between slides.
+      if (index < l.slides.length - 1) TTS.prefetch(view(l, index + 1).narration, { lang: lessonLang(l) });
     } else {
       // No speech: advance on the estimated reading time.
       timer = setTimeout(done, duration(s) * 1000);
@@ -733,6 +857,7 @@ const VideoLesson = (() => {
   function play() {
     const l = lesson();
     if (!l) return;
+    if (checkpoint) { continueAfterCheck(); return; } // pressing play on the question card skips it
     if (playing) return;
     if (ended) { index = 0; showSlide(-1); }
     playing = true;
@@ -755,6 +880,7 @@ const VideoLesson = (() => {
   function go(i) {
     const l = lesson();
     if (!l) return;
+    hideCheckpoint();
     const to = Math.max(0, Math.min(l.slides.length - 1, i));
     const dir = to > index ? 1 : to < index ? -1 : 0;
     token++;
@@ -769,6 +895,7 @@ const VideoLesson = (() => {
   function stop() {
     cancelAnimationFrame(progRaf);
     clearTimeout(timer);
+    hideCheckpoint();
     if (!playing) return;
     token++;
     playing = false;
@@ -855,6 +982,8 @@ const VideoLesson = (() => {
         refresh();
         return;
       }
+      const opt = e.target.closest('[data-vl-opt]');
+      if (opt) { pickOption(+opt.dataset.vlOpt); return; }
       const fix = e.target.closest('[data-vl-fix]');
       if (fix) { rewriteSlide(fix.dataset.vlFix, panelText('#vl-fix-text')); return; }
       const persp = e.target.closest('[data-vl-persp]');
@@ -891,6 +1020,9 @@ const VideoLesson = (() => {
       else if (act === 'panel-close' || act === 'panel-cancel') closePanel();
       else if (act === 'panel-retry') { if (lastReq && lastReq.kind === 'version') makeVersion(lastReq.choice, lastReq.text); else if (lastReq) rewriteSlide(lastReq.choice, lastReq.text); }
       else if (act === 'fix-go') rewriteSlide('', panelText('#vl-fix-text'));
+      else if (act === 'check-next' || act === 'check-skip') continueAfterCheck();
+      else if (act === 'check-again') explainAgain();
+      else if (act === 'check-ask') askAboutSlide();
       else if (act === 'persp-go') {
         const text = panelText('#vl-persp-text');
         if (text) makeVersion('', text); else host.querySelector('#vl-persp-text').focus();
@@ -927,6 +1059,11 @@ const VideoLesson = (() => {
       } else if (e.target.matches('[data-vl-voice]')) {
         const lang = e.target.dataset.vlVoice;
         TTS.setVoice(lang, TTS.voicesForLang(lang).find(v => v.voiceURI === e.target.value) || null);
+      } else if (e.target.matches('[data-vl-natural]')) {
+        TTS.setNatural(e.target.checked);
+        drawPanel();
+      } else if (e.target.matches('[data-vl-nvoice]')) {
+        TTS.setNaturalVoice(e.target.value);
       }
     });
     document.addEventListener('input', e => {
@@ -940,7 +1077,7 @@ const VideoLesson = (() => {
       if (tag === 'input' || tag === 'textarea' || tag === 'select' || e.target.isContentEditable) return;
       if (document.querySelector('.shortcuts-backdrop[style*="flex"]')) return;
       const k = e.key;
-      if (panel) return;
+      if (panel || checkpoint) return;
       if (k === ' ' || k === 'k' || k === 'K') { e.preventDefault(); playing ? pause() : play(); }
       else if (k === 'ArrowRight' || k === 'l' || k === 'L') { e.preventDefault(); go(index + 1); }
       else if (k === 'ArrowLeft' || k === 'j' || k === 'J') { e.preventDefault(); go(index - 1); }
@@ -973,16 +1110,18 @@ const VideoLesson = (() => {
     if (!l || !ttsOk()) return;
     pause();
     const lang = lessonLang(l) || (i18n.getLang() === 'tr' ? 'tr' : 'en');
-    TTS.speak(lang === 'tr' ? 'Merhaba! Ders anlatımı bu sesle okunacak. Beni net anlayabiliyor musun?' : 'Hello! The lesson will be read with this voice. Can you hear me clearly?', null, { rate, lang });
+    TTS.speak(lang === 'tr' ? 'Merhaba! Ders anlatımı bu sesle okunacak. Beni net anlayabiliyor musun?' : 'Hello! The lesson will be read with this voice. Can you hear me clearly?', () => setVoiceBusy(false), { rate, lang, natural: true, onLoading: setVoiceBusy });
   }
 
   // Forget panels, notices and "show original" when leaving a lesson.
   function resetUi() {
     reqToken++;
+    checkpoint = null;
     panel = null;
     panelBusy = false;
     panelErr = '';
     noVoice = '';
+    silent = false; // "continue silently" applies to the lesson the student chose it in
     showOrig = false;
   }
 

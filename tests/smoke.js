@@ -23,11 +23,15 @@ const path = require('node:path');
   const errors = [];
   page.on('console', m => { if (m.type() === 'error') errors.push('console: ' + m.text()); });
   page.on('pageerror', e => errors.push('pageerror: ' + e.message));
-
   let failCount = 0;
   const step = async (name, fn) => {
     try { await fn(); console.log('PASS  ' + name); }
-    catch (e) { failCount++; console.log('FAIL  ' + name + ' — ' + e.message); }
+    catch (e) {
+      failCount++;
+      // Toasts sitting over a button are the usual reason a click misses: say which ones were showing.
+      const toasts = await page.evaluate(() => [...document.querySelectorAll('.toast')].map(t => t.textContent.trim().slice(0, 70))).catch(() => []);
+      console.log('FAIL  ' + name + ' — ' + e.message + (toasts.length ? ' [toasts: ' + toasts.join(' | ') + ']' : ''));
+    }
   };
 
   await page.goto(baseUrl, { waitUntil: 'networkidle2' });
@@ -369,6 +373,55 @@ const path = require('node:path');
     await page.waitForFunction(() => App.getStudyData().notes.mindmap && document.querySelector('[data-mm-act="outline"]'), { timeout: 3000 });
     await page.evaluate(() => { API.chat = window.__chat; });
     await page.click('[data-mm-act="outline"]');
+  });
+
+  await step('studio: mind map search opens and highlights matches, Focus keeps one branch, arrow keys walk the tree, Fit and Ctrl+wheel zoom, no sideways scroll at 390px', async () => {
+    await page.$eval('[data-notes-view="map"]', b => b.click());
+    await page.waitForSelector('.mm-svg [data-mm="0.0"]', { timeout: 2000 });
+    // Search: a word of a leaf opens its branch, marks it, dims the rest, and reports the count.
+    const word = await page.evaluate(() => {
+      const t = Mindmap.fromNotes(App.getStudyData());
+      return t.children.find(c => c.children.length).children[0].label.split(' ')[0];
+    });
+    await page.$eval('[data-mm-act="collapse-all"]', b => b.click());
+    await page.focus('[data-mm-search]');
+    await page.keyboard.type(word);
+    await page.waitForSelector('.mm-node.match', { timeout: 2000 });
+    const found = await page.evaluate(() => ({ dim: document.querySelectorAll('.mm-node.dim').length, text: document.querySelector('[data-mm-count]').textContent }));
+    if (!found.dim || !/\d/.test(found.text)) throw new Error('search ' + JSON.stringify(found));
+    await page.keyboard.press('Escape');
+    await page.waitForFunction(() => !document.querySelector('.mm-node.match') && !document.querySelector('.mm-node.dim'), { timeout: 2000 });
+    // Focus: only the chosen branch stays open.
+    await page.$eval('[data-mm-act="expand-all"]', b => b.click());
+    const branches = await page.evaluate(() => Mindmap.fromNotes(App.getStudyData()).children.map((c, i) => c.children.length ? i : -1).filter(i => i >= 0));
+    if (branches.length < 2) throw new Error('the demo deck needs two branches with children');
+    await page.$eval(`[data-mm="0.${branches[0]}"]`, g => g.dispatchEvent(new MouseEvent('dblclick', { bubbles: true })));
+    await page.waitForFunction(b => !document.querySelector(`[data-mm^="0.${b}."]`), { timeout: 2000 }, branches[1]);
+    if (!await page.$(`[data-mm^="0.${branches[0]}."]`)) throw new Error('the focused branch lost its children');
+    // Arrow keys: → first child, ↓ next sibling, ← back to the parent.
+    await page.$eval('[data-mm-act="collapse-all"]', b => b.click());
+    await page.$eval('[data-mm="0"]', g => g.focus());
+    const selected = () => page.$eval('.mm-node.selected', g => g.dataset.mm);
+    await page.keyboard.press('ArrowRight');
+    if (await selected() !== '0.0') throw new Error('ArrowRight went to ' + await selected());
+    await page.keyboard.press('ArrowDown');
+    if (await selected() !== '0.1') throw new Error('ArrowDown went to ' + await selected());
+    await page.keyboard.press('ArrowLeft');
+    if (await selected() !== '0') throw new Error('ArrowLeft went to ' + await selected());
+    // Fit shows the whole map; Ctrl + wheel zooms.
+    await page.$eval('[data-mm-act="expand-all"]', b => b.click());
+    await page.$eval('[data-mm-act="fit"]', b => b.click());
+    const fitted = await page.evaluate(() => ({ svg: +document.querySelector('.mm-svg').getAttribute('width'), box: document.querySelector('.mm-canvas').clientWidth }));
+    if (fitted.svg > fitted.box + 1) throw new Error('fit ' + JSON.stringify(fitted));
+    await page.evaluate(() => document.querySelector('.mm-canvas').dispatchEvent(new WheelEvent('wheel', { deltaY: -300, ctrlKey: true, clientX: 200, clientY: 200, bubbles: true, cancelable: true })));
+    const zoomed = await page.evaluate(() => +document.querySelector('.mm-svg').getAttribute('width'));
+    if (zoomed <= fitted.svg) throw new Error('ctrl+wheel did not zoom: ' + fitted.svg + ' -> ' + zoomed);
+    // Phone width: the page must not scroll sideways with the map open.
+    await page.setViewport({ width: 390, height: 844 });
+    const wide = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+    await page.setViewport({ width: 1280, height: 900 });
+    if (wide > 0) throw new Error('mind map is ' + wide + 'px wider than a 390px screen');
+    await page.$eval('[data-mm-act="collapse-all"]', b => b.click());
   });
 
   await step('studio: audio overview (offline recap) builds a transcript', async () => {
@@ -1123,6 +1176,7 @@ const path = require('node:path');
     await page.click('[data-notes-view="video"]');
     await page.waitForSelector('[data-vl-act="generate"]', { timeout: 2000 });
     await page.evaluate(() => {
+      localStorage.setItem('flashmind_tts_natural', '0'); // these steps test the device voice; the next lesson step covers the natural one
       window.__chat = API.chat;
       const d = App.getStudyData();
       const branch = (d.notes.mindmap || Mindmap.fromNotes(d)).children[0].label;
@@ -1258,6 +1312,140 @@ const path = require('node:path');
       API.chat = s.chat; speechSynthesis.speak = s.speak; speechSynthesis.cancel = s.cancel; speechSynthesis.getVoices = s.voices; window.SpeechSynthesisUtterance = s.utt;
     });
     await page.click('[data-notes-view="notes"]');
+  });
+
+  await step('video lesson: natural voice plays clip by clip with a "preparing" state, the panel switch and voice persist, a failed clip says why and the device voice takes over (mocked API.tts and audio)', async () => {
+    await page.evaluate(() => {
+      VideoLesson.stop(); delete App.getStudyData().lessons;
+      localStorage.setItem('flashmind_tts_natural', '1');
+      localStorage.removeItem('flashmind_tts_nvoice');
+      window.__nat = { chat: API.chat, tts: API.tts, Audio: window.Audio, speak: speechSynthesis.speak, cancel: speechSynthesis.cancel, voices: speechSynthesis.getVoices, utt: window.SpeechSynthesisUtterance };
+      window.__clips = []; window.__plays = []; window.__utt = []; window.__ttsFail = false;
+      window.__voices = [{ name: 'Microsoft Emel Online (Natural)', lang: 'tr-TR', voiceURI: 'emel' }];
+      speechSynthesis.getVoices = () => window.__voices;
+      speechSynthesis.cancel = () => {};
+      speechSynthesis.speak = u => { window.__utt.push({ text: u.text, lang: u.lang }); setTimeout(() => u.onend && u.onend(), 30); };
+      window.SpeechSynthesisUtterance = function (t) { this.text = t; };
+      API.tts = (text, voice) => { window.__clips.push({ text, voice }); return new Promise((res, rej) => setTimeout(() => (window.__ttsFail ? rej(new Error('Rate limited — try again later')) : res(new Blob(['x'], { type: 'audio/wav' }))), 700)); };
+      window.Audio = class { constructor() { this.paused = true; } play() { this.paused = false; window.__plays.push({ src: this.src, rate: this.playbackRate }); setTimeout(() => this.onended && this.onended(), 40); return Promise.resolve(); } pause() { this.paused = true; } };
+      API.chat = async () => JSON.stringify({ title: 'Doğal ses dersi', slides: [
+        { title: 'Fotosentez nedir', bullets: [], narration: 'Fotosentez bitkilerin ışığı kullanarak besin üretmesidir. Bu olay yaprakların içinde gerçekleşir.' },
+        { title: 'Özet', bullets: ['Işık ve su'], narration: 'Özetle bitkiler ışık ve suyla besin üretir. Bu kadar basit.' }
+      ] });
+    });
+    try {
+      // Clicked directly: after the earlier steps the page is scrolled and the header's Share button can sit over this tab button.
+      await page.$eval('[data-notes-view="video"]', b => b.click());
+      await page.waitForSelector('[data-vl-act="generate"], [data-vl-act="list"]', { timeout: 3000 });
+      // Toasts from earlier steps can sit over these buttons: click them directly.
+      if (await page.$('[data-vl-act="list"]')) await page.$eval('[data-vl-act="list"]', b => b.click());
+      await page.waitForSelector('[data-vl-act="generate"]', { timeout: 2000 });
+      await page.$eval('[data-vl-act="generate"]', b => b.click());
+      await page.waitForSelector('.vl-slide.in', { timeout: 3000 });
+      await page.$eval('[data-vl-act="toggle"]', b => b.click());
+      await page.waitForFunction(() => document.querySelector('.vl-player').classList.contains('voice-loading') && /voice/i.test(document.querySelector('[data-vl-voicestatus]').textContent), { timeout: 3000, polling: 20 });
+      // Both slides are narrated by the natural voice; the device voice stays silent.
+      await page.waitForFunction(() => window.__plays.filter(p => /^blob:/.test(p.src)).length >= 2 && !VideoLesson.isPlaying(), { timeout: 8000 });
+      const r = await page.evaluate(() => ({ voices: window.__clips.map(c => c.voice), plays: window.__plays.filter(p => /^blob:/.test(p.src)).map(p => p.rate), utt: window.__utt.length, busy: document.querySelector('.vl-player').classList.contains('voice-loading') }));
+      if (r.voices.some(v => v !== 'Kore') || r.plays.some(x => x !== 0.95) || r.utt !== 0 || r.busy) throw new Error('natural playback ' + JSON.stringify(r));
+      if (!(await page.evaluate(() => window.__clips.every(c => /[ğışöüç]/i.test(c.text))))) throw new Error('clip text is not the Turkish narration');
+      // Panel: the switch is on, choosing another voice persists, switching it off hides the picker.
+      await page.$eval('[data-vl-act="voice"]', b => b.click());
+      await page.waitForSelector('.vl-panel:not([hidden]) [data-vl-natural]:checked', { timeout: 2000 });
+      await page.select('[data-vl-nvoice]', 'Puck');
+      if (await page.evaluate(() => localStorage.getItem('flashmind_tts_nvoice')) !== 'Puck') throw new Error('voice not saved');
+      // A failing clip (new voice, so not cached): the reason is shown and the device voice reads the sample.
+      await page.evaluate(() => { window.__ttsFail = true; window.__utt.length = 0; });
+      await page.$eval('[data-vl-act="voice-test"]', b => b.click());
+      await page.waitForFunction(() => window.__utt.length >= 1 && [...document.querySelectorAll('.toast')].some(t => /natural voice is unavailable \(Rate limited/.test(t.textContent)), { timeout: 4000 });
+      await page.$eval('[data-vl-natural]', b => b.click());
+      if (await page.evaluate(() => localStorage.getItem('flashmind_tts_natural')) !== '0') throw new Error('switch not saved');
+      if (await page.$('[data-vl-nvoice]')) throw new Error('picker still shown with the natural voice off');
+    } catch (e) {
+      const st = await page.evaluate(() => JSON.stringify({ clips: window.__clips.length, plays: window.__plays.length, utt: window.__utt.length, playing: VideoLesson.isPlaying(), idx: VideoLesson._index(), busy: document.querySelector('.vl-player') && document.querySelector('.vl-player').className, avail: TTS.naturalAvailable(), sup: TTS.supported(), nat: localStorage.getItem('flashmind_tts_natural') }));
+      throw new Error(e.message + ' | ' + st);
+    } finally {
+      await page.evaluate(() => {
+        VideoLesson.stop();
+        const s = window.__nat;
+        API.chat = s.chat; API.tts = s.tts; window.Audio = s.Audio; speechSynthesis.speak = s.speak; speechSynthesis.cancel = s.cancel; speechSynthesis.getVoices = s.voices; window.SpeechSynthesisUtterance = s.utt;
+        localStorage.setItem('flashmind_tts_natural', '0');
+      });
+      await page.$eval('[data-notes-view="notes"]', b => b.click());
+      // The failure toast must be gone before the next step clicks where it sits.
+      await page.waitForFunction(() => !document.querySelector('.toast'), { timeout: 6000 });
+    }
+  });
+
+  await step('video lesson: "Did you get this?" pauses after the slide, grades the answer, explains the slide again and re-asks, can be skipped, and is not asked again once passed', async () => {
+    await page.evaluate(() => {
+      VideoLesson.stop(); delete App.getStudyData().lessons;
+      localStorage.setItem('flashmind_tts_natural', '0');
+      window.__chk = { chat: API.chat, supported: TTS.supported, speak: TTS.speak, stop: TTS.stop };
+      window.__spoken = [];
+      let pending = null;
+      TTS.supported = () => true;
+      TTS.speak = (text, onEnd) => { if (pending) { const p = pending; pending = null; p(true); } window.__spoken.push(text); pending = onEnd; setTimeout(() => { if (pending === onEnd) { pending = null; onEnd(false); } }, 40); };
+      TTS.stop = () => { if (pending) { const p = pending; pending = null; p(true); } };
+      const check = { q: 'What do plants need to make food?', options: ['Light', 'Sand', 'Salt'], correct: 0, why: 'Light drives photosynthesis.' };
+      API.chat = async q => /did not understand ONE slide/.test(q)
+        ? JSON.stringify({ title: 'Light, simply', bullets: [], narration: 'Plants use light to make food. That is the whole idea.' })
+        : JSON.stringify({ title: 'Check lesson', slides: [
+          { title: 'Intro', bullets: [], narration: 'Welcome to the lesson.' },
+          { title: 'Light', bullets: ['Light in'], narration: 'Plants take in light to make food.', check },
+          { title: 'Recap', bullets: [], narration: 'That is all for today.' }
+        ] });
+    });
+    const click = sel => page.$eval(sel, b => b.click());
+    const spokenHas = re => page.evaluate(s => window.__spoken.some(t => new RegExp(s).test(t)), re.source);
+    const card = '[data-vl-check]:not([hidden]) [data-vl-opt]';
+    const checks = () => page.evaluate(() => JSON.stringify(App.getStudyData().lessons.slice(-1)[0].checks || {}));
+    try {
+      await click('[data-notes-view="video"]');
+      await page.waitForSelector('[data-vl-act="generate"], [data-vl-act="list"]', { timeout: 3000 });
+      if (await page.$('[data-vl-act="list"]')) await click('[data-vl-act="list"]');
+      await page.waitForSelector('[data-vl-act="generate"]', { timeout: 2000 });
+      await click('[data-vl-act="generate"]');
+      await page.waitForSelector('.vl-slide.in', { timeout: 3000 });
+      // A: play, the lesson stops after slide 2 and asks; a wrong answer is graded and saved, Continue goes on.
+      await click('[data-vl-act="toggle"]');
+      await page.waitForSelector(card, { timeout: 4000 });
+      if (await page.evaluate(() => VideoLesson.isPlaying() || VideoLesson._index() !== 1)) throw new Error('lesson did not pause on slide 2');
+      if (await spokenHas(/That is all/)) throw new Error('it kept playing past the question');
+      await click('[data-vl-opt="1"]');
+      await page.waitForSelector('.vl-opt.right', { timeout: 2000 });
+      if (!await page.$('.vl-opt.wrong') || !/Light drives/.test(await page.$eval('.vl-check-why', e => e.textContent))) throw new Error('feedback missing');
+      if (await checks() !== '{"1":"wrong"}') throw new Error('result not saved: ' + await checks());
+      await click('[data-vl-act="check-next"]');
+      await page.waitForFunction(() => window.__spoken.some(t => /That is all/.test(t)) && !VideoLesson.isPlaying(), { timeout: 4000 });
+      // B: replay slide 2: a wrong answer is asked again; "Explain it again" rewrites the slide, plays it and asks again; skipping saves "skipped".
+      await click('.vl-mark[data-vl-go="1"]');
+      await click('[data-vl-act="toggle"]');
+      await page.waitForSelector(card, { timeout: 4000 });
+      await click('[data-vl-act="check-again"]');
+      await page.waitForFunction(() => window.__spoken.some(t => /whole idea/.test(t)), { timeout: 5000 });
+      await page.waitForSelector(card, { timeout: 4000 });
+      if (!await page.evaluate(() => App.getStudyData().lessons.slice(-1)[0].slides[1].orig)) throw new Error('slide was not rewritten');
+      if (!/lost/.test(await checks())) throw new Error('"lost" not recorded: ' + await checks());
+      await click('[data-vl-act="check-skip"]');
+      await page.waitForFunction(() => window.__spoken.filter(t => /That is all/.test(t)).length >= 2 && !VideoLesson.isPlaying(), { timeout: 4000 });
+      if (await checks() !== '{"1":"skipped"}') throw new Error('skip not saved: ' + await checks());
+      // C: a skipped slide is not asked again.
+      await page.evaluate(() => { window.__spoken.length = 0; });
+      await click('.vl-mark[data-vl-go="1"]');
+      await click('[data-vl-act="toggle"]');
+      await page.waitForFunction(() => window.__spoken.some(t => /That is all/.test(t)) && !VideoLesson.isPlaying(), { timeout: 4000 });
+      if (await page.$(card)) throw new Error('asked again after skipping');
+    } finally {
+      await page.evaluate(() => {
+        VideoLesson.stop();
+        const s = window.__chk;
+        API.chat = s.chat; TTS.supported = s.supported; TTS.speak = s.speak; TTS.stop = s.stop;
+      });
+      await click('[data-notes-view="notes"]');
+      await page.evaluate(() => window.scrollTo(0, 0)); // the question card scrolls itself into view; the next step clicks the header
+      await page.waitForFunction(() => !document.querySelector('.toast'), { timeout: 6000 });
+    }
   });
 
   await step('study brain: memory model, exam predictor and concept map render on Stats', async () => {

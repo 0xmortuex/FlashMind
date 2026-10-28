@@ -428,6 +428,14 @@ const SimSpec = (() => {
       if (sl.diagram.kind === 'notes' && Number.isInteger(sl.diagram.index) && sl.diagram.index >= 0 && sl.diagram.index < 50) out.diagram = { kind: 'notes', index: sl.diagram.index };
       else if (sl.diagram.kind === 'map' && str(sl.diagram.label, 140)) out.diagram = { kind: 'map', label: str(sl.diagram.label, 140) };
     }
+    // "Did you get this?" question the player asks after the slide: 2-4 options, exactly one correct.
+    if (obj(sl.check)) {
+      const raw = list(sl.check.options).map(o => str(o, 120));
+      const q = str(sl.check.q, 240);
+      if (q && raw.length >= 2 && raw.length <= 4 && raw.every(Boolean) && new Set(raw).size === raw.length && Number.isInteger(sl.check.correct) && sl.check.correct >= 0 && sl.check.correct < raw.length) {
+        out.check = { q, options: raw, correct: sl.check.correct, why: str(sl.check.why, 300) };
+      }
+    }
     if (!out.title || !(out.narration || out.bullets.length)) return null;
     if (!out.narration) out.narration = [out.title, ...out.bullets].join('. ');
     if (!nested && obj(sl.orig)) {
@@ -451,6 +459,14 @@ const SimSpec = (() => {
     // Another version of a lesson: "base" is the id of the original, "label" names the perspective.
     if (/^[a-z0-9_-]{1,24}$/i.test(str(raw.base, 24))) out.base = str(raw.base, 24);
     if (str(raw.label, 60)) out.label = str(raw.label, 60);
+    // How the student did on the slides' checks: { "<slide index>": "right" | "wrong" | "lost" | "skipped" }.
+    if (obj(raw.checks)) {
+      const checks = {};
+      Object.keys(raw.checks).forEach(k => {
+        if (/^\d{1,2}$/.test(k) && +k < slides.length && ['right', 'wrong', 'lost', 'skipped'].includes(raw.checks[k])) checks[k] = raw.checks[k];
+      });
+      if (Object.keys(checks).length) out.checks = checks;
+    }
     return out;
   }
 
