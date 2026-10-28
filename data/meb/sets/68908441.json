@@ -1,0 +1,2134 @@
+{
+ "title": "10. Sınıf Biyoloji - 2. Dönem 2. Yazılı (OGM Yazılıya Hazırlanıyorum)",
+ "meta": {
+  "fileId": "68908441",
+  "grade": [
+   10
+  ],
+  "subject": "Biyoloji",
+  "schoolYear": "",
+  "examType": "ogm-yazili",
+  "kind": "booklet",
+  "sourceUrl": "https://ogm-large-cdn.eba.gov.tr/materyal/Etkilesimlikitap/f6a193ce-e953-4fb9-abd3-6231779192c4/pdf.pdf",
+  "counts": {
+   "sections": 13,
+   "cards": 106,
+   "questions": 73,
+   "sourceQuestions": 6,
+   "skippedNeedingFigure": 1,
+   "flashcards": 106,
+   "quiz": 73
+  }
+ },
+ "notes": {
+  "summary": "Bu set, MEB OGM \"Yazılıya Hazırlanıyorum\" serisindeki 10. Sınıf Biyoloji 2. Dönem 2. Yazılı örneğini çalıştırır. Sınav 4 senaryodan ve 7 alt sorudan oluşur, toplam 100 puandır: (1) kapalı yaşam sistemi (fanus) ve madde döngüleri, iki bilimsel model (1.1: 15, 1.2: 15), (2) Türkiye'nin elektrik üretiminde yenilenebilir ve yenilenemeyen kaynaklar, ekolojik sürdürülebilirlik (2.1: 15, 2.2: 15), (3) Kızılçam Vadisi'nde 1995-2025 değişimi, sürdürülebilirliği kısıtlayan durumlar (3.1: 10, 3.2: 10), (4) iki ailenin ekolojik ayak izi karşılaştırması (20).\n\nDosyada 7 alt soru var. Metni ve verisi bulunan 6 soru (1.1, 2.1, 2.2, 3.1, 3.2, 4) açık uçlu quiz maddesine çevrildi. 1.2 (Model 1 ve Model 2 şemalarının karşılaştırması) şema okları çıkarılan metinde olmadığı için atlandı; şemadan rubrikle model içeriği yeniden kurulmadı. Aynı beceri (madde döngüsü modellerini değerlendirme) notlarda ve \"Benzer soru\" maddelerinde genel olarak çalıştırıldı.\n\nBu dosyadan sınavda ne beklemeli / nasıl çalışmalı:\n1) Kapalı sistemde dengenin bozulmasını ayrıştırıcı yokluğu, mineral dönüşümünün durması ve atık birikimi üçlüsüyle açıkla.\n2) Karbon, azot, su ve fosfor döngüsünü ana halkalarıyla yaz; ayrıştırıcıların hepsinde rolü olduğunu belirt.\n3) Sürdürülebilirlik sorularında tabloyu önce oku (artış/azalış yönünü doğru yaz), sonra sürdürülebilirlik kavramıyla ilişkilendir.\n4) Saha verisi sorularında her veriyi bir ekolojik kavramla eşleştir: parçalanma-habitat parçalanması, toprak kaybı-erozyon, kurşun/kadmiyum-kimyasal kirlilik/biyolojik birikim, tür kaybı-biyoçeşitlilik kaybı.\n5) Ayak izi sorusunda dört etkenin her biri için ayrı gerekçe yaz; hangi aile olduğunu söyle.\n6) Cevapları kendi cümlelerinle yaz; metindeki cümleyi kopyalamak kısmî puandır.\n7) \"Benzer soru\" maddelerini önce kendin yanıtla, sonra anahtar noktalarla karşılaştır.",
+  "sections": [
+   {
+    "title": "Madde döngüleri: genel ilke",
+    "content": "Ekosistemde enerji tek yönlü akar, madde ise döngüsel dolaşır. Karbon, azot, fosfor, su gibi maddeler üreticiler, tüketiciler ve ayrıştırıcılar aracılığıyla canlı ve cansız çevre arasında sürekli yer değiştirir. Ayrıştırıcılar ölü organik maddeyi parçalayıp mineralleri tekrar üreticilerin kullanabileceği biçime getirir. Kapalı bir sistemde (fanus gibi) dışarıdan madde girişi çıkışı yoktur; bu yüzden döngü tamamlanamazsa denge bozulur.",
+    "bulletPoints": [
+     "Enerji sisteme ışıkla girer, ısıyla çıkar; madde ise sistemde döner.",
+     "Üretici: inorganik maddeyi organiğe çevirir. Tüketici: organiği aktarır. Ayrıştırıcı: organiği tekrar inorganiğe çevirir.",
+     "Ayrıştırıcı olmazsa mineraller geri dönmez, atıklar birikir.",
+     "Kapalı sistemde madde dışarıdan gelmez; mineral eksilmesi ve atık birikmesi dengeyi bozar.",
+     "Madde döngülerinin ortak ilkesi: canlı-cansız arasında sürekli geçiş ve ayrıştırıcıların rolü.",
+     "\"Döngüler arasında ilişki kurma\" rubrikte aranan beceridir (örn. karbon-azot-su birlikte çalışır)."
+    ],
+    "keyTerms": [
+     {
+      "term": "Madde döngüsü",
+      "definition": "Bir elementin canlı ve cansız çevre arasında dolaşması."
+     },
+     {
+      "term": "Kapalı sistem",
+      "definition": "Dışarıyla madde alışverişi olmayan sistem."
+     }
+    ]
+   },
+   {
+    "title": "Karbon ve oksijen döngüsü",
+    "content": "Karbon atmosferde CO2 olarak bulunur. Üreticiler fotosentezle CO2'yi organik maddeye (glikoz) çevirir ve O2 verir. Tüketiciler besinle karbonu alır. Hem üreticiler hem tüketiciler solunumla organik maddeyi yıkarak CO2 geri verir. Ayrıştırıcılar ölü kalıntılardan CO2 açığa çıkarır. Fosil yakıtların yanması da atmosfere CO2 ekler. Oksijen ise fotosentezle üretilir ve solunumda kullanılır.",
+    "bulletPoints": [
+     "Fotosentez: CO2 alınır, O2 verilir (üretici).",
+     "Solunum: O2 alınır, CO2 verilir (tüm canlılar).",
+     "Ayrıştırıcılar ölü organik maddeden CO2 üretir.",
+     "Fosil yakıt yanması atmosferdeki CO2'yi artırır.",
+     "Kapalı fanusta karbon ayrıştırıcı olmadan döngüye katılamaz.",
+     "Gaz dengesi (O2-CO2) yalnızca bitki-hayvan dengesine değil ayrıştırıcılara da bağlıdır."
+    ],
+    "keyTerms": [
+     {
+      "term": "Fotosentez",
+      "definition": "CO2 ve H2O'dan organik madde sentezi."
+     },
+     {
+      "term": "Fosil yakıt",
+      "definition": "Kömür, petrol, doğal gaz gibi yenilenemeyen karbon kaynakları."
+     }
+    ]
+   },
+   {
+    "title": "Azot döngüsü",
+    "content": "Atmosferin büyük kısmı azot gazıdır (N2) ama bitkiler N2'yi doğrudan kullanamaz. Azot bağlayıcı bakteriler N2'yi amonyağa çevirir. Ayrıştırıcılar ölü organik maddedeki azotlu bileşikleri amonyağa dönüştürür (amonifikasyon). Nitrifikasyon bakterileri amonyağı nitrit ve nitrata çevirir; bitkiler nitratı alır ve proteinlerini yapar. Bazı bakteriler nitratı tekrar N2'ye çevirerek atmosfere verir (denitrifikasyon).",
+    "bulletPoints": [
+     "N2 bağlama: bakteriler N2'yi bitkinin kullanabileceği bileşiklere çevirir.",
+     "Amonifikasyon: ayrıştırıcılar azotlu atıktan amonyak üretir.",
+     "Nitrifikasyon: amonyak → nitrit → nitrat (kemosentetik bakteriler).",
+     "Bitkiler nitratı alır ve protein yapar; tüketiciler proteini besinle alır.",
+     "Denitrifikasyon: nitrat → N2 (atmosfere dönüş).",
+     "Kapalı fanusta ayrıştırıcı ve nitrifikasyon bakterileri yoksa azotlu atıklar minerale dönüşemez, bitkiler azot alamaz."
+    ],
+    "keyTerms": [
+     {
+      "term": "Azot bağlama",
+      "definition": "N2'nin canlıların kullanabileceği bileşiklere çevrilmesi."
+     },
+     {
+      "term": "Nitrifikasyon",
+      "definition": "Amonyağın nitrat gibi bileşiklere oksitlenmesi."
+     },
+     {
+      "term": "Denitrifikasyon",
+      "definition": "Nitratın N2 gazına çevrilmesi."
+     }
+    ]
+   },
+   {
+    "title": "Su ve fosfor döngüleri",
+    "content": "Su döngüsünde güneş enerjisiyle yüzey suları buharlaşır, bitkiler terleme yapar; su buharı yoğunlaşır, yağış olarak yeryüzüne döner, toprağa sızar veya akarsulara karışır. Fosfor döngüsünde ise atmosferik bir gaz evresi önemli değildir; fosfor kayaçlardan aşınma ve erozyonla toprağa ve suya geçer, bitkiler tarafından alınır, besin zinciriyle tüketicilere aktarılır; ayrıştırıcılar ölü kalıntıdan fosforu tekrar toprağa verir.",
+    "bulletPoints": [
+     "Su döngüsü: buharlaşma, terleme, yoğunlaşma, yağış, sızma.",
+     "Fosfor: kayaç → toprak/su → bitki → tüketici → ayrıştırıcı → toprak.",
+     "Fosfor döngüsünde atmosfer rolü çok sınırlıdır (azot ve karbondan farklı).",
+     "Mineral kayıpları (yıkanma, erozyon) fosfor döngüsünü etkiler.",
+     "Kapalı fanusta su döngüsü kısmen devam eder (cam yüzeyde yoğunlaşma) ama mineral döngüsü ayrıştırıcıya bağlıdır.",
+     "Su döngüsü tüm canlı yaşamı ve diğer döngüleri taşıyıcı olarak destekler."
+    ],
+    "keyTerms": [
+     {
+      "term": "Terleme",
+      "definition": "Bitkilerin yapraklarından su buharı vermesi."
+     },
+     {
+      "term": "Erozyon",
+      "definition": "Toprağın su veya rüzgârla taşınması."
+     }
+    ]
+   },
+   {
+    "title": "Kapalı yaşam sistemi: dengenin bozulma nedenleri (1.1)",
+    "content": "Ece'nin fanusunda su, balık, su bitkisi ve salyangoz vardır; hava almaz biçimde kapatılmış ve yalnızca ışık alır. Başlangıçta sağlıklı görünen sistemde zamanla dışkı ve çürüyen yapraklar birikir, su bulanır ve canlılar ölür. Rubrik, madde döngüleriyle ilişkilendirilen iki bilimsel gerekçeyi tam puanla ödüllendirir: ayrıştırıcıların yokluğu ve bunun sonuçları.",
+    "bulletPoints": [
+     "Neden 1: Ayrıştırıcı yok → dışkı ve ölü kalıntılar parçalanmaz, birikir.",
+     "Neden 2: Azotlu atıklar minerale dönüşemez (azot döngüsü işlemez) → bitkiler mineral alamaz, fotosentez azalır.",
+     "Neden 3: Fotosentez azalınca O2 azalır, O2-CO2 dengesi bozulur.",
+     "Neden 4: Kapalı sistemde atık uzaklaştırılamaz, zehirli maddeler birikir.",
+     "Neden 5: Karbon ayrışmadan döngüye katılamaz.",
+     "Kısmî puan: tek gerekçe veya ayrıştırıcıların rolünü açıklamamak."
+    ],
+    "keyTerms": [
+     {
+      "term": "Mineralizasyon",
+      "definition": "Organik maddedeki elementlerin ayrıştırıcılarca inorganik biçime çevrilmesi."
+     },
+     {
+      "term": "Atık birikimi",
+      "definition": "Parçalanamayan dışkı ve kalıntıların yığılması."
+     }
+    ]
+   },
+   {
+    "title": "Madde döngüsü modellerini değerlendirme ölçütleri",
+    "content": "Bir madde döngüsü modelinin bilimsel olup olmadığına bakarken şu ölçütler kullanılır: üretici-tüketici-ayrıştırıcı ilişkisi gösterilmiş mi, azot ve mineraller bitkiye geri dönüyor mu, gaz alışverişi (O2, CO2) doğru yönde mi, su döngüsü ve ayrıştırıcıların rolü yer alıyor mu. Eksik ve yüzeysel modeller yalnızca bir gaz alışverişini (O2-CO2) gösterir.",
+    "bulletPoints": [
+     "Daha bilimsel model: üretici + tüketici + ayrıştırıcı + mineraller ve azotlu bileşikler.",
+     "Zayıf model: yalnızca O2-CO2 alışverişi, ayrıştırıcı ve azot döngüsü yok.",
+     "Mineraller bitkiye geri dönmüyorsa model eksiktir.",
+     "Su döngüsü ve ayrıştırıcı rolünün yüzeysel gösterilmesi de eksikliktir.",
+     "Karşılaştırma yazarken hem artıları hem eksikleri bilimsel modele kıyasla yaz.",
+     "Bu set 1.2'nin şeması çıkarılan metinde olmadığı için bu soruyu içermez; ölçütler genel biçimde verilmiştir."
+    ],
+    "keyTerms": [
+     {
+      "term": "Model",
+      "definition": "Bir sistemi basitleştirilmiş gösteren temsil."
+     },
+     {
+      "term": "Bilimsel model",
+      "definition": "Gözlem ve verilerle uyumlu, bileşenleri doğru gösteren model."
+     }
+    ]
+   },
+   {
+    "title": "Ekolojik sürdürülebilirlik",
+    "content": "Ekolojik sürdürülebilirlik, doğal kaynakların gelecek nesillerin ihtiyacını da karşılayacak biçimde kullanılması ve ekosistemlerin dengesinin korunmasıdır. Sürdürülebilirliği kısıtlayan durumlar: habitat kaybı ve parçalanması, kirlilik, erozyon ve toprak kaybı, biyoçeşitlilik kaybı, doğal kaynakların aşırı kullanımı, iklim değişikliği. Sürdürülebilirlik hem çevre hem gelecek nesil güvencesi açısından önemlidir.",
+    "bulletPoints": [
+     "Doğal kaynakların tükenmeden gelecek nesillere aktarılması.",
+     "Ekosistem dengesinin ve biyoçeşitliliğin korunması.",
+     "Yenilenebilir kaynak kullanımı, geri dönüşüm, tasarruf.",
+     "Kısıtlayıcılar: habitat parçalanması, kirlilik, erozyon, tür kaybı, aşırı kullanım.",
+     "Cevaplarda \"gelecek nesil\" ve \"ekosistem dengesi\" kavramlarını yaz.",
+     "Sürdürülebilirlik soruları veri yorumu ile birleştirilir."
+    ],
+    "keyTerms": [
+     {
+      "term": "Sürdürülebilirlik",
+      "definition": "Kaynakların gelecek nesilleri de düşünerek kullanılması."
+     },
+     {
+      "term": "Yenilenebilir kaynak",
+      "definition": "Doğada kendini yenileyen kaynak (güneş, rüzgâr, jeotermal)."
+     }
+    ]
+   },
+   {
+    "title": "Yenilenebilir enerji ve tablo yorumlama (2.1 ve 2.2)",
+    "content": "Soruda Türkiye'nin elektrik üretiminde 2010'da yenilenemeyen kaynakların oranı %75, yenilenebilirlerin %25 iken 2024'te yenilenemeyenler %58, yenilenebilirler %42'dir. Yenilenemeyen kaynaklar (kömür, doğal gaz) tükenir ve karbon salınımını artırır; yenilenebilir kaynaklar (güneş, rüzgâr, jeotermal) tükenmez ve karbon salınımını azaltır. Tabloyu doğru okumak yorumun ilk adımıdır: yenilenemeyenler azalmış, yenilenebilirler artmıştır.",
+    "bulletPoints": [
+     "Tablo: yenilenemeyen 75 → 58 (azalma); yenilenebilir 25 → 42 (artış).",
+     "Madde 1: yenilenemeyen azalması karbon salınımını düşürür, iklim değişikliğiyle mücadeleye katkı sağlar.",
+     "Madde 2: yenilenebilirler tükenmez, gelecek nesillerin enerji ihtiyacını güvence altına alır.",
+     "Yorum: çevresel kirlilik riski azalır, doğal kaynaklar korunur, ekosistem dengesi sağlanır.",
+     "Kısmî puan: yalnızca sayısal değişimi yazmak veya bağlamdaki cümleyi aynen kopyalamak.",
+     "Cevapta hem \"ne değişti\" hem \"neden önemli\" yer almalı."
+    ],
+    "keyTerms": [
+     {
+      "term": "Karbon salınımı",
+      "definition": "Atmosfere CO2 verilmesi."
+     },
+     {
+      "term": "Yenilenemeyen kaynak",
+      "definition": "Tükenen kaynak (kömür, doğal gaz)."
+     }
+    ]
+   },
+   {
+    "title": "Sürdürülebilirliği kısıtlayan durumlar: saha verisi (3.1)",
+    "content": "Kızılçam Vadisi'nde 1995'te tek parça orman, verimli toprak, doğal sınırlar içindeki kimyasal ölçümler ve 120 tür bulunurken; 2025'te orman küçük ağaç kümelerine bölünmüş, verimli üst toprak kaybolmuş, topraktaki kurşun, kadmiyum ve endüstriyel atık %400 artmış, tür sayısı 12'ye düşmüştür. Her verinin karşılığı bir ekolojik kavramdır.",
+    "bulletPoints": [
+     "Kesintisiz orman → küçük ağaç kümeleri: habitat parçalanması.",
+     "Verimli üst toprak kaybı, kayalık zemin: erozyon ve toprak bozunumu.",
+     "Kurşun, kadmiyum, endüstriyel atık %400 artış: kimyasal kirlilik.",
+     "120 → 12 tür (108 tür kaybı): biyoçeşitlilik kaybı.",
+     "Her kavramı saha verisiyle birlikte yaz (yüzdeler, tür sayıları).",
+     "Kısmî puan: kavramları doğru adlandırıp verilerle ilişki kuramamak ya da yalnızca iki durumu açıklamak."
+    ],
+    "keyTerms": [
+     {
+      "term": "Habitat parçalanması",
+      "definition": "Kesintisiz yaşam alanının küçük parçalara bölünmesi."
+     },
+     {
+      "term": "Erozyon",
+      "definition": "Verimli toprağın su veya rüzgârla taşınması."
+     },
+     {
+      "term": "Biyoçeşitlilik",
+      "definition": "Bir bölgedeki tür çeşitliliği."
+     }
+    ]
+   },
+   {
+    "title": "Gelecek tahmini: biyoçeşitlilik ve besin ağı (3.2)",
+    "content": "Değişimler sürerse habitat parçalanması canlıların hareket alanını daraltır, popülasyonlar küçülür ve izole kalır; zamanla türler yok olur, biyoçeşitlilik ve ekosistemin direnci geri dönülmez biçimde azalır. Kurşun ve kadmiyum gibi ağır metaller besin zinciri boyunca üreticilerden tüketicilere taşınarak üst trofik basamaklarda artan oranlarda birikir (biyolojik birikim) ve toksik etki yapar; bu zehirlenmelere ve besin ağının çökmesine neden olur.",
+    "bulletPoints": [
+     "Boyut 1 (canlı çeşitliliği): habitat parçalanması → alan daralır → tür kaybı → biyoçeşitlilik ve direnç azalır.",
+     "Boyut 2 (beslenme ilişkileri): ağır metal üreticiden tüketiciye taşınır → üst basamaklarda birikir → zehirlenme → besin ağı çöker.",
+     "Her iki boyut da yazılmalı; biri eksikse kısmî puan.",
+     "Akademik kavramlar kullanılmalı: habitat parçalanması, biyolojik birikim, besin ağı, trofik basamak.",
+     "Genel ifadelerle (\"doğa zarar görür\") yazmak kısmî puandır.",
+     "Sonuç: çeşitlilik ve beslenme ilişkileri birlikte çöker."
+    ],
+    "keyTerms": [
+     {
+      "term": "Biyolojik birikim",
+      "definition": "Zararlı maddenin besin zinciriyle üst basamaklarda yoğunlaşması."
+     },
+     {
+      "term": "Ekosistem direnci",
+      "definition": "Ekosistemin bozulmalara karşı dengesini koruma gücü."
+     }
+    ]
+   },
+   {
+    "title": "Ekolojik ayak izi",
+    "content": "Ekolojik ayak izi, bir kişinin veya topluluğun tükettiği kaynakları sağlamak ve ürettiği atıkları yok etmek için gereken toplam doğal alan miktarıdır. Gıda, konut ve enerji, ulaşım ve atık gibi etkenlerle ölçülür. Ayak izi büyüdükçe doğanın kendini yenileme kapasitesi daha çok zorlanır.",
+    "bulletPoints": [
+     "Ayak izini büyüten: fosil yakıt, sık uçak yolculuğu, işlenmiş ve ithal gıda, atığı ayrıştırmama.",
+     "Ayak izini küçülten: yenilenebilir enerji, toplu taşıma/bisiklet/elektrikli araç, yerel mevsimlik beslenme, geri dönüşüm.",
+     "Etken türleri: enerji, ulaşım, beslenme, atık.",
+     "Ayak izi doğanın kendini yenileme kapasitesiyle karşılaştırılır.",
+     "Her etken için \"hangi aile neden daha etkili\" yaz.",
+     "Sonuç cümlesi: 2. aile sürdürülebilirlik ilkeleriyle daha uyumludur."
+    ],
+    "keyTerms": [
+     {
+      "term": "Ekolojik ayak izi",
+      "definition": "Tüketimin doğadan talep ettiği toplam alan."
+     },
+     {
+      "term": "Geri dönüşüm",
+      "definition": "Atığın ham madde olarak yeniden kullanılması."
+     }
+    ]
+   },
+   {
+    "title": "Ayak izini küçültme: dört etkenin analizi (soru 4)",
+    "content": "Soruda 1. ailenin fosil yakıtlı ısınma ve yüksek klima kullanımı, iki benzinli/dizel araç ve sık uçak yolculuğu, paketli-işlenmiş-ithal gıda ve ayrıştırılmamış çöp tercihlerine karşılık 2. aile çatı güneş paneli, elektrikli araç/toplu taşıma/bisiklet, yerel ve mevsimsel beslenme ve kaynakta ayrıştırma yapar. Rubrik dört etkeni ayrı ayrı analiz etmeni ister.",
+    "bulletPoints": [
+     "Enerji: fosil yakıt CO2 salınımını artırır; güneş enerjisi ayak izini küçültür.",
+     "Ulaşım: içten yanmalı araç ve uçak yüksek karbon salınımı; elektrikli araç, toplu taşıma, bisiklet daha az fosil yakıt ve hava kirliliği.",
+     "Beslenme: paketli, işlenmiş, ithal gıda taşıma ve paketleme enerjisi gerektirir; yerel ve mevsimsel gıda enerji tasarrufu sağlar ve biyoçeşitliliği destekler.",
+     "Atık: ayrıştırılmamış çöp depolama alanlarına gider ve kaynak israfı olur; ayrıştırma geri dönüşümü sağlar, ham madde ihtiyacını azaltır.",
+     "Genel sonuç: 2. aile her etkende ayak izini daha çok küçültür.",
+     "Tam puan: dört etkenin hepsi için bilimsel analiz; bazılarını yazmak kısmî puan getirir."
+    ],
+    "keyTerms": [
+     {
+      "term": "Yerel gıda",
+      "definition": "Yakın bölgede üretilen, kısa taşıma gerektiren gıda."
+     },
+     {
+      "term": "Karbon ayak izi",
+      "definition": "Bir etkinliğin atmosfere saldığı CO2 miktarı."
+     }
+    ]
+   },
+   {
+    "title": "Yazılı sınav tekniği: veri, kavram, sonuç",
+    "content": "Bu sınavın soruları veri okuma, kavram eşleme ve sonuç çıkarmayı birleştirir. Tabloları doğru yönde oku (artış-azalış), her veriyi bir ekolojik kavramla eşle, cevabını kendi cümlelerinle bir sonuç cümlesine bağla. Kendi cümlelerini kullanmak rubrikte açıkça aranır; metni aynen kopyalamak kısmî puandır.",
+    "bulletPoints": [
+     "Tabloyu önce bir cümleyle oku: \"Yenilenebilir %25'ten %42'ye çıkmıştır.\"",
+     "Her veriyi bir kavramla eşle (habitat parçalanması, erozyon, kimyasal kirlilik, biyoçeşitlilik kaybı).",
+     "Gelecek tahmini sorularında iki boyutu yaz: canlı çeşitliliği ve beslenme ilişkileri.",
+     "Tahmin cümlelerinde \"çünkü\" ve \"bu nedenle\" ile neden-sonuç kur.",
+     "Sürdürülebilirlik cevabında gelecek nesil vurgusu önemlidir.",
+     "Çok etkenli sorularda her etkeni ayrı başlık gibi yaz (Enerji, Ulaşım, Beslenme, Atık)."
+    ],
+    "keyTerms": [
+     {
+      "term": "Gözleme dayalı tahmin",
+      "definition": "Verilen gözlemden gelecekteki durumu çıkarma."
+     },
+     {
+      "term": "Yorumlama",
+      "definition": "Veriyi anlamlandırıp sonuç çıkarma."
+     }
+    ]
+   }
+  ],
+  "importantDates": [],
+  "commonMistakes": [
+   "Kapalı sistemde sorunu yalnızca \"oksijen bitti\" diye açıklamak: ayrıştırıcı yokluğu, mineral dönüşümü ve atık birikimini yaz.",
+   "Ayrıştırıcıların rolünü atlamak: tüm madde döngülerinde ayrıştırıcılar kilit halkadır.",
+   "Azotu bitkilerin doğrudan N2 olarak aldığını sanmak: bitkiler nitrat gibi bileşikleri alır.",
+   "Enerji ve madde akışını karıştırmak: enerji tek yönlü, madde döngüseldir.",
+   "Tablodaki değişimin yönünü ters okumak (yenilenebilirlerin azaldığını yazmak) sıfır puan getirir.",
+   "Tabloda yalnızca sayıları yazıp sürdürülebilirlikle ilişkilendirmemek.",
+   "Bağlamdaki cümleyi aynen kopyalamak: rubrik kendi cümlelerini ister.",
+   "Saha verilerini kavramla eşlememek: kesintisiz ormanın bölünmesi habitat parçalanmasıdır.",
+   "Habitat parçalanması ile erozyonu karıştırmak: ilki yaşam alanının bölünmesi, ikincisi toprak kaybıdır.",
+   "Biyolojik birikimi yalnızca \"zehirlenme\" diye geçmek: trofik basamakta artan birikim kavramını yaz.",
+   "3.2'de yalnızca canlı çeşitliliğini ya da yalnızca beslenme ilişkilerini yazmak.",
+   "Ayak izi sorusunda dört etkenden yalnızca bazılarını analiz etmek: hepsi için ayrı gerekçe gerekir.",
+   "Elektrikli aracı \"ayak izi sıfırdır\" diye yazmak: fosil yakıtlı araca göre daha azdır; enerji kaynağı da önemlidir."
+  ],
+  "diagrams": [],
+  "mindmap": {
+   "label": "10. Sınıf Biyoloji 2. Dönem 2. Yazılı",
+   "children": [
+    {
+     "label": "Madde döngüleri",
+     "children": [
+      {
+       "label": "Karbon-oksijen",
+       "children": []
+      },
+      {
+       "label": "Azot (bağlama, amonifikasyon, nitrifikasyon, denitrifikasyon)",
+       "children": []
+      },
+      {
+       "label": "Su",
+       "children": []
+      },
+      {
+       "label": "Fosfor",
+       "children": []
+      },
+      {
+       "label": "Ayrıştırıcıların rolü",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Kapalı yaşam sistemi",
+     "children": [
+      {
+       "label": "Ayrıştırıcı yok → atık birikir",
+       "children": []
+      },
+      {
+       "label": "Mineral dönüşümü durur",
+       "children": []
+      },
+      {
+       "label": "O2-CO2 dengesi bozulur",
+       "children": []
+      },
+      {
+       "label": "Model değerlendirme ölçütleri",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Ekolojik sürdürülebilirlik",
+     "children": [
+      {
+       "label": "Gelecek nesil güvencesi",
+       "children": []
+      },
+      {
+       "label": "Yenilenebilir enerji",
+       "children": []
+      },
+      {
+       "label": "Karbon salınımı azalması",
+       "children": []
+      },
+      {
+       "label": "Tablo yorumlama: 75→58, 25→42",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Kısıtlayan durumlar",
+     "children": [
+      {
+       "label": "Habitat parçalanması",
+       "children": []
+      },
+      {
+       "label": "Erozyon, toprak kaybı",
+       "children": []
+      },
+      {
+       "label": "Kimyasal kirlilik (%400)",
+       "children": []
+      },
+      {
+       "label": "Biyoçeşitlilik kaybı (120→12)",
+       "children": []
+      },
+      {
+       "label": "Biyolojik birikim",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Ekolojik ayak izi",
+     "children": [
+      {
+       "label": "Enerji kaynağı",
+       "children": []
+      },
+      {
+       "label": "Ulaşım",
+       "children": []
+      },
+      {
+       "label": "Beslenme",
+       "children": []
+      },
+      {
+       "label": "Atık yönetimi",
+       "children": []
+      },
+      {
+       "label": "2. aile daha etkili",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Yazılı tekniği",
+     "children": [
+      {
+       "label": "Veri → kavram → sonuç",
+       "children": []
+      },
+      {
+       "label": "Kendi cümlelerin",
+       "children": []
+      },
+      {
+       "label": "Her etkene ayrı gerekçe",
+       "children": []
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "flashcards": [
+  {
+   "front": "Madde döngüsü nedir?",
+   "back": "Bir elementin canlı ve cansız çevre arasında sürekli dolaşması.",
+   "category": "Madde döngüleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Enerji ve madde akışı farkı?",
+   "back": "Enerji tek yönlü akar ve ısı olarak kaybolur; madde döngüsel dolaşır.",
+   "category": "Madde döngüleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Ayrıştırıcıların madde döngüsündeki görevi?",
+   "back": "Ölü organik maddeyi parçalayıp mineralleri üreticilerin kullanacağı inorganik biçime çevirmek.",
+   "category": "Madde döngüleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kapalı sistem nedir?",
+   "back": "Dışarıyla madde alışverişi olmayan sistem (örn. hava almayan fanus).",
+   "category": "Madde döngüleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kapalı sistemde ayrıştırıcı yoksa ne olur?",
+   "back": "Dışkı ve ölü kalıntılar birikir, mineraller geri dönmez, denge bozulur.",
+   "category": "Madde döngüleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Karbon atmosferde hangi biçimde bulunur?",
+   "back": "CO2 olarak.",
+   "category": "Madde döngüleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Karbonu organik maddeye çeviren olay?",
+   "back": "Fotosentez.",
+   "category": "Madde döngüleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Karbonu atmosfere geri veren üç olay?",
+   "back": "Solunum, ayrıştırıcıların faaliyeti, fosil yakıtların yanması.",
+   "category": "Madde döngüleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Oksijen hangi olayla atmosfere verilir?",
+   "back": "Fotosentezle (suyun parçalanmasından).",
+   "category": "Madde döngüleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Solunum O2-CO2 yönü?",
+   "back": "O2 alınır, CO2 verilir.",
+   "category": "Madde döngüleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Atmosferdeki azot gazı formülü?",
+   "back": "N2.",
+   "category": "Madde döngüleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Bitkiler N2'yi doğrudan kullanabilir mi?",
+   "back": "Hayır; azot bağlayıcı bakteriler N2'yi bitkinin kullanabileceği bileşiklere çevirir.",
+   "category": "Madde döngüleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Amonifikasyon nedir?",
+   "back": "Ayrıştırıcıların organik azotlu bileşikleri amonyağa dönüştürmesi.",
+   "category": "Madde döngüleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Nitrifikasyon nedir?",
+   "back": "Amonyağın nitrit ve nitrata oksitlenmesi (nitrifikasyon bakterileri).",
+   "category": "Madde döngüleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Denitrifikasyon nedir?",
+   "back": "Nitratın bakterilerce N2 gazına çevrilerek atmosfere verilmesi.",
+   "category": "Madde döngüleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Bitkiler azotu hangi biçimde alır?",
+   "back": "Başlıca nitrat (ve amonyum) biçiminde, topraktan.",
+   "category": "Madde döngüleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Su döngüsünün temel evreleri?",
+   "back": "Buharlaşma, terleme, yoğunlaşma, yağış, sızma.",
+   "category": "Madde döngüleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Terleme nedir?",
+   "back": "Bitkilerin yapraklarından su buharı vermesi.",
+   "category": "Madde döngüleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Fosfor döngüsünün atmosferden farkı?",
+   "back": "Atmosferik gaz evresi önemli değildir; fosfor kayaç, toprak ve su arasında dolaşır.",
+   "category": "Madde döngüleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Fosfor bitkiye nasıl ulaşır?",
+   "back": "Kayaçların aşınmasıyla toprağa/suya geçer, bitki kökleriyle alınır.",
+   "category": "Madde döngüleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Fosforu toprağa geri veren canlılar?",
+   "back": "Ayrıştırıcılar.",
+   "category": "Madde döngüleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Fanustaki (Ece) dengenin bozulmasının ilk nedeni?",
+   "back": "Ayrıştırıcı olmaması nedeniyle dışkı ve ölü kalıntıların parçalanamaması.",
+   "category": "Kapalı sistem",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Fanusta ikinci neden?",
+   "back": "Azotlu atıkların minerale dönüşmemesi; bitkiler mineral alamaz, fotosentez azalır.",
+   "category": "Kapalı sistem",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Fanusta üçüncü olası neden?",
+   "back": "Fotosentez azalınca O2 azalır, O2-CO2 dengesi bozulur.",
+   "category": "Kapalı sistem",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Fanusta atıklar neden zararlıdır?",
+   "back": "Uzaklaştırılamayıp birikir, suyu bulandırır ve zehirli bileşikler oluşturur.",
+   "category": "Kapalı sistem",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Fanustaki azot döngüsü neden işlemez?",
+   "back": "Atıkları minerale çeviren ayrıştırıcı ve nitrifikasyon bakterileri yoktur.",
+   "category": "Kapalı sistem",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Kapalı sistem tek başına sürdürülebilir olabilmesi için ne gerekir?",
+   "back": "Üretici, tüketici ve ayrıştırıcı dengesi ile ışık girişi.",
+   "category": "Kapalı sistem",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Bilimsel madde döngüsü modelinde neler olmalı?",
+   "back": "Üretici, tüketici, ayrıştırıcı; mineraller ve azotlu bileşiklerin bitkiye dönüşü; gaz alışverişi; su döngüsü.",
+   "category": "Kapalı sistem",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Zayıf modelin eksikleri?",
+   "back": "Yalnızca O2-CO2 gösterir; ayrıştırıcı ve azot döngüsü yoktur.",
+   "category": "Kapalı sistem",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Ekolojik sürdürülebilirlik nedir?",
+   "back": "Kaynakların gelecek nesillerin ihtiyacını da düşünerek kullanılması ve ekosistem dengesinin korunması.",
+   "category": "Sürdürülebilirlik",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Yenilenebilir kaynak örnekleri?",
+   "back": "Güneş, rüzgâr, jeotermal.",
+   "category": "Sürdürülebilirlik",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Yenilenemeyen kaynak örnekleri?",
+   "back": "Kömür, doğal gaz, petrol.",
+   "category": "Sürdürülebilirlik",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Yenilenemeyen kaynak kullanımının azalmasının etkisi?",
+   "back": "Karbon salınımı azalır, iklim değişikliğiyle mücadeleye katkı sağlanır.",
+   "category": "Sürdürülebilirlik",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yenilenebilir kaynakların gelecek açısından önemi?",
+   "back": "Tükenmedikleri için gelecek nesillerin enerji ihtiyacını güvence altına alırlar.",
+   "category": "Sürdürülebilirlik",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Türkiye 2010 yenilenemeyen kaynak oranı?",
+   "back": "%75.",
+   "category": "Sürdürülebilirlik",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Türkiye 2024 yenilenemeyen kaynak oranı?",
+   "back": "%58.",
+   "category": "Sürdürülebilirlik",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Türkiye 2010 yenilenebilir kaynak oranı?",
+   "back": "%25.",
+   "category": "Sürdürülebilirlik",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Türkiye 2024 yenilenebilir kaynak oranı?",
+   "back": "%42.",
+   "category": "Sürdürülebilirlik",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Tablodaki değişimin yönü?",
+   "back": "Yenilenemeyenler 75'ten 58'e azalmış; yenilenebilirler 25'ten 42'ye artmış.",
+   "category": "Sürdürülebilirlik",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Yenilenebilir artışı yaklaşık kaç puan?",
+   "back": "17 puan (25 → 42).",
+   "category": "Sürdürülebilirlik",
+   "difficulty": "medium"
+  },
+  {
+   "front": "2.2 cevabında tabloyu nasıl kullanırsın?",
+   "back": "Değişimin yönünü kendi cümlenle yaz ve sürdürülebilir gelecek / yaşam güvencesiyle ilişkilendir.",
+   "category": "Sürdürülebilirlik",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Sürdürülebilirliği kısıtlayan beş durum?",
+   "back": "Habitat parçalanması, kirlilik, erozyon, biyoçeşitlilik kaybı, aşırı kaynak kullanımı.",
+   "category": "Sürdürülebilirlik",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kayıt: Kızılçam Vadisi 1995 orman yapısı?",
+   "back": "Ekosistem bütünlüğünü koruyan tek parça kesintisiz orman.",
+   "category": "Kızılçam Vadisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kızılçam Vadisi 2025 orman yapısı?",
+   "back": "Viyadüklü yol ve teknoloji bölgesiyle birbirinden kopuk küçük ağaç kümeleri.",
+   "category": "Kızılçam Vadisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Orman yapısındaki değişimin kavramı?",
+   "back": "Habitat parçalanması.",
+   "category": "Kızılçam Vadisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Toprak analizindeki değişim 2025'te?",
+   "back": "Verimli üst tabaka kaybı, kayalık zemin açığa çıkması, yağmur sonrası çamurlu yüzey akışının artması.",
+   "category": "Kızılçam Vadisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Toprak analizindeki değişimin kavramı?",
+   "back": "Erozyon ve toprak bozunumu.",
+   "category": "Kızılçam Vadisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kimyasal ölçümde 2025 değişimi?",
+   "back": "Kurşun, kadmiyum ve endüstriyel atık konsantrasyonu doğal sınırları aşıp %400 artmış.",
+   "category": "Kızılçam Vadisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kimyasal ölçümün kavramı?",
+   "back": "Kimyasal kirlilik (ağır metal kirliliği).",
+   "category": "Kızılçam Vadisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Fauna gözleminde tür sayısı değişimi?",
+   "back": "120'den 12'ye düşmüş; 108 tür gözlenememiş.",
+   "category": "Kızılçam Vadisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Fauna değişiminin kavramı?",
+   "back": "Biyoçeşitlilik kaybı.",
+   "category": "Kızılçam Vadisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "2025'te geriye kalan türlerin özelliği?",
+   "back": "Kentsel yaşama ve kirliliğe uyum sağlayabilen sınırlı sayıda tür.",
+   "category": "Kızılçam Vadisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Habitat parçalanması canlıları nasıl etkiler?",
+   "back": "Hareket alanını daraltır, popülasyonları küçültüp izole eder; tür kaybı ve direnç düşüşü olur.",
+   "category": "Kızılçam Vadisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Biyolojik birikim nedir?",
+   "back": "Zararlı maddenin (ağır metal gibi) besin zinciriyle üst basamaklarda yoğunlaşması.",
+   "category": "Kızılçam Vadisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Biyolojik birikim hangi canlıları daha çok etkiler?",
+   "back": "Besin zincirinin üst trofik basamağındaki canlıları.",
+   "category": "Kızılçam Vadisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kurşun ve kadmiyum nasıl taşınır?",
+   "back": "Üreticilerden tüketicilere besin zinciri boyunca.",
+   "category": "Kızılçam Vadisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Ağır metaller neden tehlikelidir?",
+   "back": "Vücutta birikir, toksik etki yapar, zehirlenmeye ve besin ağının çökmesine yol açabilir.",
+   "category": "Kızılçam Vadisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Biyoçeşitlilik kaybı ekosistemi nasıl etkiler?",
+   "back": "Direnç azalır, besin ağı basitleşir ve bozulmalara dayanıklılık düşer.",
+   "category": "Kızılçam Vadisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Erozyon toprağı nasıl etkiler?",
+   "back": "Verimli üst tabakayı taşır, bitki örtüsü yeniden gelişemez.",
+   "category": "Kızılçam Vadisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Bitki örtüsünün koruyucu rolü?",
+   "back": "Kökler toprağı tutar, yağmurun doğrudan çarpmasını azaltır.",
+   "category": "Kızılçam Vadisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Ekolojik ayak izi nedir?",
+   "back": "Bir kişi/toplumun tükettiği kaynakları sağlamak ve atıklarını yok etmek için gereken doğal alan miktarı.",
+   "category": "Ekolojik ayak izi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Ekolojik ayak izini oluşturan etkenler?",
+   "back": "Gıda, konut ve enerji, ulaşım, atık.",
+   "category": "Ekolojik ayak izi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "1. ailenin enerji tercihi?",
+   "back": "Fosil yakıtlı ısınma ve yüksek klima kullanımı.",
+   "category": "Ekolojik ayak izi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "2. ailenin enerji tercihi?",
+   "back": "Çatı güneş paneliyle elektrik ve ısı üretimi.",
+   "category": "Ekolojik ayak izi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Hangi aile enerjide daha etkili ve neden?",
+   "back": "2. aile; yenilenebilir enerji karbon salınımını azaltır.",
+   "category": "Ekolojik ayak izi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "1. ailenin ulaşım tercihi?",
+   "back": "İki dizel/benzinli araç, günlük bireysel ulaşım, sık uçak yolculuğu.",
+   "category": "Ekolojik ayak izi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "2. ailenin ulaşım tercihi?",
+   "back": "Bir elektrikli araç, toplu taşıma/bisiklet, nadir uçak yolculuğu.",
+   "category": "Ekolojik ayak izi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Ulaşımda 2. aile neden daha etkili?",
+   "back": "Fosil yakıt tüketimi, karbon salınımı ve hava kirliliği azalır; kişi başına enerji tüketimi düşer.",
+   "category": "Ekolojik ayak izi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "1. ailenin beslenme tercihi?",
+   "back": "Paketli, işlenmiş ve ithal gıda.",
+   "category": "Ekolojik ayak izi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "2. ailenin beslenme tercihi?",
+   "back": "Yerel ve mevsimsel beslenme.",
+   "category": "Ekolojik ayak izi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Beslenmede 2. aile neden daha etkili?",
+   "back": "Taşıma ve paketleme enerjisi azalır, biyoçeşitlilik desteklenir.",
+   "category": "Ekolojik ayak izi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "1. ailenin atık yönetimi?",
+   "back": "Çöpler ayrıştırılmadan tek poşette atılır.",
+   "category": "Ekolojik ayak izi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "2. ailenin atık yönetimi?",
+   "back": "Metal, plastik, cam ve organik atıklar kaynağında ayrıştırılır.",
+   "category": "Ekolojik ayak izi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Atıkta 2. aile neden daha etkili?",
+   "back": "Atıklar geri dönüşüme katılır, ham madde ihtiyacı azalır, depolama alanına giden atık azalır.",
+   "category": "Ekolojik ayak izi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Geri dönüşüm neye katkı sağlar?",
+   "back": "Ham madde ve enerji tasarrufu, atık miktarının azalması.",
+   "category": "Ekolojik ayak izi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Ayak izini küçültmenin dört yolu?",
+   "back": "Yenilenebilir enerji, düşük emisyonlu ulaşım, yerel beslenme, atık ayrıştırma/geri dönüşüm.",
+   "category": "Ekolojik ayak izi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "\"Doğanın kendini yenileme kapasitesi\" neyi anlatır?",
+   "back": "Ekosistemin tüketilen kaynakları ve atıkları dengeleme gücü; ayak izi bunu aşarsa sürdürülemez olur.",
+   "category": "Ekolojik ayak izi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Elektrikli araç neden daha az ayak izi bırakır?",
+   "back": "Fosil yakıt tüketimi ve egzoz salınımı azalır; yenilenebilir enerjiyle şarj edilirse daha da azalır.",
+   "category": "Ekolojik ayak izi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Sık uçak yolculuğu neden ayak izini büyütür?",
+   "back": "Yüksek fosil yakıt tüketimi ve CO2 salınımı nedeniyle.",
+   "category": "Ekolojik ayak izi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yerel beslenme neden enerji tasarrufu sağlar?",
+   "back": "Taşıma mesafesi ve soğuk zincir/paketleme ihtiyacı azalır.",
+   "category": "Ekolojik ayak izi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Karbon salınımını azaltmanın küresel faydası?",
+   "back": "İklim değişikliğiyle mücadele ve ekosistem dengesinin korunması.",
+   "category": "Sürdürülebilirlik",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuzak: Enerji de madde gibi döngüseldir. Doğru mu?",
+   "back": "Yanlış; enerji tek yönlüdür.",
+   "category": "Tuzaklar",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Tuzak: Bitkiler N2'yi doğrudan alır. Doğru mu?",
+   "back": "Yanlış; azot bağlama ve nitrifikasyon gerekir.",
+   "category": "Tuzaklar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuzak: Fosfor döngüsünde atmosfer ana depodur. Doğru mu?",
+   "back": "Yanlış; ana depo kayaç ve çökeltidir.",
+   "category": "Tuzaklar",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Tuzak: Ayrıştırıcılar olmasa da kapalı sistem dengede kalır. Doğru mu?",
+   "back": "Yanlış; atık birikir, mineral dönüşümü durur.",
+   "category": "Tuzaklar",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Tuzak: Yenilenebilir enerji oranı arttıysa karbon salınımı artmıştır. Doğru mu?",
+   "back": "Yanlış; yenilenebilirler karbon salınımını azaltır.",
+   "category": "Tuzaklar",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Tuzak: Habitat parçalanması ve erozyon aynı kavramdır. Doğru mu?",
+   "back": "Yanlış; biri yaşam alanının bölünmesi, diğeri toprak kaybıdır.",
+   "category": "Tuzaklar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuzak: Ağır metaller yalnızca toprakta kalır. Doğru mu?",
+   "back": "Yanlış; besin zinciriyle taşınır ve biyolojik birikim yapar.",
+   "category": "Tuzaklar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuzak: Ekolojik ayak izi yalnızca atıktan oluşur. Doğru mu?",
+   "back": "Yanlış; enerji, ulaşım, beslenme ve atık birlikte belirler.",
+   "category": "Tuzaklar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuzak: Tür sayısı 120'den 12'ye düşmüş, yani 12 tür kaybolmuştur. Doğru mu?",
+   "back": "Yanlış; 108 tür kaybolmuş, 12 tür kalmıştır.",
+   "category": "Tuzaklar",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Tuzak: Elektrikli araç ayak izini sıfırlar. Doğru mu?",
+   "back": "Yanlış; azaltır ama enerji kaynağı ve üretim etkisi vardır.",
+   "category": "Tuzaklar",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Yazılı: 1.1'de tam puan için kaç gerekçe?",
+   "back": "Madde döngüleriyle ilişkili iki bilimsel gerekçe (15 puan).",
+   "category": "Yazılı tekniği",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yazılı: 2.1'de kaç madde istenir?",
+   "back": "Sürdürülebilirliğin önemi açısından iki madde (15 puan).",
+   "category": "Yazılı tekniği",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yazılı: 2.2'de ne istenir?",
+   "back": "Tablodaki değişimi kendi cümlelerinle, sürdürülebilirliğin önemiyle ilişkilendirerek açıklamak.",
+   "category": "Yazılı tekniği",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yazılı: 3.1'de kaç durum ilişkilendirilir?",
+   "back": "Dört: habitat parçalanması, erozyon/toprak bozunumu, kimyasal kirlilik, biyoçeşitlilik kaybı.",
+   "category": "Yazılı tekniği",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yazılı: 3.2'de iki boyut nedir?",
+   "back": "Canlı çeşitliliğine etki + beslenme ilişkilerine etki.",
+   "category": "Yazılı tekniği",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yazılı: 4. soruda kaç etken var?",
+   "back": "Dört: enerji kaynağı, ulaşım, beslenme, atık yönetimi (20 puan).",
+   "category": "Yazılı tekniği",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kısmî puan nedir?",
+   "back": "İstenenlerin bir kısmının doğru yazılması.",
+   "category": "Yazılı tekniği",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kendi cümlelerinle yazmak neden önemli?",
+   "back": "Rubrik, bağlamdaki cümleleri aynen kopyalamayı kısmî puana düşürür.",
+   "category": "Yazılı tekniği",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Gözleme dayalı tahmin yaparken hangi kalıp?",
+   "back": "\"Veri → kavram → gelecekteki sonuç\" ve neden-sonuç bağlacı.",
+   "category": "Yazılı tekniği",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yağmur sonrası çamurlu yüzey akışı artışı neyin işareti?",
+   "back": "Bitki örtüsü kaybı ve erozyonun.",
+   "category": "Kızılçam Vadisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Teknoloji geliştirme bölgesi ve viyadüklü yol neye yol açar?",
+   "back": "Yapılaşma ile orman parçalanması, kirlilik ve tür kaybı.",
+   "category": "Kızılçam Vadisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kentsel yaşama uyum sağlayan türler neden kalır?",
+   "back": "Kirliliğe ve parçalanmış alana dayanıklı olduklarından.",
+   "category": "Kızılçam Vadisi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Bir ekosistem direnci düşünce ne olur?",
+   "back": "Bozulmalara karşı denge koruma gücü azalır; küçük etkiler büyük çöküşlere yol açabilir.",
+   "category": "Kızılçam Vadisi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Fanus örneği hangi beceriyle ilgili?",
+   "back": "Madde döngüleri ile bilimsel model oluşturma (BİY.10.2.4).",
+   "category": "Yazılı tekniği",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Ekolojik ayak izi sorusu hangi beceriyle ilgili?",
+   "back": "Ayak izini küçültme yollarını bilimsel olarak sorgulama (BİY.10.2.7).",
+   "category": "Yazılı tekniği",
+   "difficulty": "hard"
+  }
+ ],
+ "quiz": [
+  {
+   "type": "open-ended",
+   "question": "Fen Bilimleri Kulübü'ne katılan Ece, kendi kendini sürdürebilen kapalı bir yaşam sistemi tasarlamak ister. Cam bir fanusun içine su, küçük balıklar, su bitkileri ve birkaç salyangoz yerleştirir. Fanusun ağzını hava almayacak şekilde kapatır ve sistemi yalnızca güneş ışığı alan bir ortamda gözlemler. İlk günlerde canlılar sağlıklı görünür. Bir süre sonra fanusun dibinde balık dışkılarının ve çürüyen bitki yapraklarının biriktiğini, ekosistem modelindeki dengenin bozulduğunu, suyun bulanıklaştığını ve canlı ölümlerinin başladığını fark eder. 1.1. Ece'nin oluşturduğu kapalı yaşam sisteminde zamanla ekolojik dengenin bozulmasının olası iki nedenini madde döngülerinin işleyişiyle ilişkilendirerek gerekçeleri ile açıklayınız. (15 puan)",
+   "correctAnswer": "1) Sistemde ayrıştırıcılar bulunmadığı için balık dışkıları ve ölü bitki kalıntıları parçalanamaz, birikir; atık maddeler kapalı sistemde uzaklaştırılamadığı için su bulanır ve zehirli bileşikler birikir. 2) Ayrıştırıcılar ve azot döngüsünde görevli canlılar eksik olduğundan azotlu atıklar minerale dönüştürülemez; bitkiler ihtiyaç duydukları mineralleri alamaz, mineraller zamanla azalır, fotosentez durur/yavaşlar, oksijen azalır ve O2-CO2 dengesi bozulur. Karbon da ayrışma olmadığı için döngüye katılamaz.",
+   "keyPoints": [
+    "Ayrıştırıcı yok → atıklar parçalanmaz, birikir",
+    "Azotlu atıklar minerale dönüşmez → bitkiler mineral alamaz, fotosentez azalır",
+    "Oksijen azalır, O2-CO2 dengesi bozulur",
+    "Kapalı sistemde atık uzaklaşamaz",
+    "Karbon ayrışmadan döngüye katılamaz"
+   ],
+   "maxPoints": 15,
+   "explanation": "Adım adım: (1) Sistemi sınıfla: üretici (bitki), tüketici (balık, salyangoz) var, ayrıştırıcı yok. (2) Birinci gerekçe: ayrıştırıcı yokluğu → dışkı ve ölü yaprak birikimi → atıkların uzaklaştırılamaması. (3) İkinci gerekçe: azot döngüsü işlemez → azotlu atıklar minerale çevrilemez → bitkiler mineral alamaz → fotosentez azalır → O2 azalır → denge bozulur. (4) Gerekçelerin döngülerle bağını (azot, karbon, oksijen) kur. Rubrik kısmî puan: yalnızca bir doğru gerekçe, iki gerekçeden birinin hatalı olması, döngüler arası ilişkinin kurulamaması ya da ayrıştırıcıların rolünün açıklanamaması.",
+   "category": "Kapalı sistem ve madde döngüleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Türkiye'nin elektrik üretiminde kullanılan kaynaklar son yıllarda ekolojik sürdürülebilirlik hedefleri doğrultusunda değişmiştir. 2010'da elektrik ihtiyacının büyük kısmı kömür ve doğal gaz gibi yenilenemeyen kaynaklardan karşılanırken, 2024'te rüzgâr, güneş ve jeotermal gibi yenilenebilir kaynakların kullanım oranı artmıştır. Tablo: 2010 yılı kullanım oranı: yenilenemeyen kaynaklar %75, yenilenebilir kaynaklar %25. 2024 yılı kullanım oranı: yenilenemeyen kaynaklar %58, yenilenebilir kaynaklar %42. 2.1. Türkiye'nin elektrik üretimi için yenilenemeyen ve yenilenebilir enerji kaynaklarının kullanım oranlarındaki değişimin ekolojik sürdürülebilirlik üzerindeki etkisini, sürdürülebilirliğin önemi açısından iki madde hâlinde açıklayınız. (15 puan)",
+   "correctAnswer": "1) Yenilenemeyen kaynak kullanımının azaltılması karbon salınımını düşürür; bu da iklim değişikliğiyle mücadeleye katkı sağlar ve ekosistemin dengesini korur. 2) Yenilenebilir kaynaklar tükenmez olduğundan enerji sürekliliği sağlar ve gelecek nesillerin enerji ihtiyacını güvence altına alır.",
+   "keyPoints": [
+    "Yenilenemeyen kaynak azalır → karbon salınımı düşer → iklim değişikliğiyle mücadele",
+    "Yenilenebilir kaynaklar tükenmez → gelecek nesillerin enerji ihtiyacı güvence altında",
+    "Her madde bilimsel gerekçeyle yazılır"
+   ],
+   "maxPoints": 15,
+   "explanation": "Her madde için \"değişim → bilimsel sonuç → sürdürülebilirlik\" zincirini kur. Madde 1 çevre ve iklim açısından, madde 2 kaynak sürekliliği ve gelecek nesil açısından olsun. Rubrik kısmî puan: yalnızca bir maddeyi doğru gerekçelendirmek ya da iki maddeyi de yüzeysel (bilimsel derinlikten uzak) yazmak.",
+   "category": "Sürdürülebilirlik ve yenilenebilir enerji",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "2.2. Türkiye'de 2010 ve 2024 yılları arasında enerji kaynaklarının kullanım oranlarında meydana gelen değişimi (yenilenemeyen %75 → %58, yenilenebilir %25 → %42), ekolojik sürdürülebilirliğin önemi ile ilişkilendirerek kendi cümlelerinizle açıklayınız. (15 puan)",
+   "correctAnswer": "Tabloda yenilenebilir kaynakların kullanım oranı %25'ten %42'ye çıkmış, yenilenemeyenlerinki %75'ten %58'e düşmüştür. Bu, Türkiye'nin çevresel kirlilik riskinin yüksek olduğu bir süreçten uzaklaştığını gösterir. Doğal kaynakların korunması, ekosistem dengesinin sağlanması ve gelecek kuşakların enerji ihtiyacının karşılanması açısından sürdürülebilirlik için büyük önem taşır.",
+   "keyPoints": [
+    "Değişimi doğru okur: yenilenemeyen azalmış, yenilenebilir artmış",
+    "Çevresel kirlilik riskinin azaldığını belirtir",
+    "Doğal kaynakların korunması ve ekosistem dengesi",
+    "Gelecek kuşakların enerji ihtiyacı / yaşam güvencesi",
+    "Kendi cümleleriyle yazar"
+   ],
+   "maxPoints": 15,
+   "explanation": "Üç adım: (1) Tabloyu sayılarla oku (artış-azalış yönünü ters yazma, aksi sıfır puandır). (2) Bunun sürdürülebilirlik için ne anlama geldiğini yaz (kirlilik riski, doğal kaynakların korunması). (3) Gelecek nesil / yaşam güvencesi vurgusunu ekle. Rubrik kısmî puan: yalnızca birine değinmek, sadece sayısal artış-azalışı yazmak, gelecek nesil vurgusunu eksik bırakmak ya da bağlamdaki cümleleri aynen kopyalamak.",
+   "category": "Sürdürülebilirlik ve yenilenebilir enerji",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir araştırma ekibi \"Kızılçam Vadisi\"nde 1995 ve 2025 yıllarında saha çalışması yapmıştır. Bu sürede bölgede bir teknoloji geliştirme bölgesi kurulmuş ve vadinin içinden geniş bir viyadüklü yol geçirilmiştir. Orman yapısı: 1995'te ekosistem bütünlüğünü koruyan, tek parça hâlinde kesintisiz ormanlık alan; 2025'te birbirinden kopuk küçük ağaç kümeleri. Toprak: 1995'te bitki köklerinin tuttuğu verimli üst tabaka; 2025'te koruyucu bitki örtüsünün yok olmasıyla verimli üst tabaka kaybolmuş, kayalık zemin açığa çıkmış, yağmur sonrası yüzey akışına geçen çamurlu su miktarı artmıştır. Kimyasal ölçüm: 1995'te kimyasal bileşenler ekosistemin doğal sınırları içinde; 2025'te topraktaki kurşun, kadmiyum ve endüstriyel atık konsantrasyonu doğal sınırları aşarak %400 artmıştır. Fauna: 1995'te 120 farklı kuş ve memeli türü; 2025'te tür sayısı 12'ye düşmüş, kalan 108 tür gözlenememiştir. 3.1. Saha araştırma verilerine göre Kızılçam Vadisi'nde ekolojik sürdürülebilirliği kısıtlayan durumların neler olduğunu belirleyiniz ve bu durumları vadideki değişimlerle ilişkilendirerek açıklayınız. (10 puan)",
+   "correctAnswer": "Viyadüklü yol ve yapılaşma nedeniyle ormanın birbirinden kopuk küçük ağaç kümelerine dönüşmesi habitat parçalanmasıdır. Bitki örtüsü kaybı sonucu verimli üst tabakanın yok olması ve kayalık zeminin açığa çıkması erozyon ve toprak bozunumudur. Topraktaki kurşun, kadmiyum ve endüstriyel atığın %400 artarak doğal sınırları aşması kimyasal kirliliktir. Tür sayısının 120'den 12'ye düşmesi ve yerel popülasyonların silinmesi biyoçeşitlilik kaybıdır.",
+   "keyPoints": [
+    "Habitat parçalanması (kesintisiz ormanın küçük kümelere bölünmesi)",
+    "Erozyon ve toprak bozunumu (verimli üst tabaka kaybı, kayalık zemin)",
+    "Kimyasal kirlilik (kurşun, kadmiyum, endüstriyel atık %400 artış)",
+    "Biyoçeşitlilik kaybı (120 → 12 tür)"
+   ],
+   "maxPoints": 10,
+   "explanation": "Tabloyu satır satır oku ve her satıra bir kavram ver: Orman yapısı → habitat parçalanması; Toprak → erozyon; Kimyasal ölçüm → kimyasal kirlilik; Fauna → biyoçeşitlilik kaybı. Her kavramı veriyle (%400, 120 → 12, kayalık zemin) destekle. Kısmî puan: kavramları doğru adlandırıp veriyle ilişkilendirememek veya yalnızca iki durumu eksiksiz açıklamak.",
+   "category": "Sürdürülebilirliği kısıtlayan durumlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "3.2. Vadideki bu değişimlerin (habitat parçalanması, kimyasal kirlilik vb.) devam etmesi hâlinde, bölgedeki canlı çeşitliliğinin ve beslenme ilişkilerinin gelecekte bu durumdan nasıl etkileneceğini açıklayınız. (10 puan)",
+   "correctAnswer": "Orman bütünlüğünün bozulması (habitat parçalanması) canlıların hareket alanını daraltır; zamanla türlerin yok olmasına yol açarak biyoçeşitliliği ve ekosistemin direncini geri dönülmez biçimde azaltır. Topraktaki kurşun ve kadmiyum gibi ağır metaller besin zinciri boyunca üreticilerden tüketicilere taşınır, üst trofik basamaklardaki canlıların dokularında artan oranlarda birikir (biyolojik birikim) ve toksik etki yaratır; bu zehirlenmelere ve besin ağının tamamen çökmesine neden olur.",
+   "keyPoints": [
+    "Habitat parçalanması → hareket alanı daralır → tür kaybı → biyoçeşitlilik ve direnç azalır",
+    "Ağır metaller besin zinciriyle taşınır, üst basamaklarda birikir (biyolojik birikim)",
+    "Toksik etki, zehirlenme, besin ağının çökmesi",
+    "Akademik kavramlar kullanılır"
+   ],
+   "maxPoints": 10,
+   "explanation": "İki ayrı boyut yaz: (a) canlı çeşitliliği: habitat parçalanması → tür kaybı; (b) beslenme ilişkileri: ağır metal → besin zinciri → biyolojik birikim → besin ağı çöküşü. Kısmî puan: yalnızca bir boyutu yazmak ya da bilimsel kavramlara girmeden genel ifadelerle açıklamak.",
+   "category": "Sürdürülebilirliği kısıtlayan durumlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Lise öğrencisi Ezel iki farklı ailenin ekolojik ayak izini oluşturan etkenlere ait temel tüketim verilerini karşılaştırarak bir tablo hazırlamıştır. Enerji kaynağı: 1. aile fosil yakıtlı (kömür/doğal gaz) ısınma ve yüksek klima kullanımı; 2. aile çatı tipi güneş panelleriyle elektrik ve ısı enerjisi üretimi. Ulaşım: 1. aile 2 adet dizel/benzinli araçla her gün bireysel ulaşım ve sık uçak yolculukları; 2. aile 1 elektrikli araç, yoğun toplu taşıma/bisiklet kullanımı ve nadir uçak yolculuğu. Beslenme: 1. aile paketli, işlenmiş ve ithal gıda; 2. aile yerel ve mevsimsel beslenme. Atık yönetimi: 1. aile çöplerin ayrıştırılmadan tek poşette atılması; 2. aile metal, plastik, cam ve organik atıkların kaynağında ayrıştırılması. Tablodaki verilere göre hangi ailenin yaşam tarzının ekolojik ayak izini küçültme konusunda daha etkili olduğunu her bir etken için gerekçesiyle açıklayınız (Enerji Kaynağı, Ulaşım Tercihi, Beslenme Tarzı, Atık Yönetimi). (20 puan)",
+   "correctAnswer": "2. aile her etkende daha etkilidir. Enerji kaynağı: 1. aile fosil yakıta bağımlıdır, karbon salınımını artırır; 2. aile güneş paneliyle yenilenebilir enerji kullanır, bu ayak izini küçülten önemli bir faktördür. Ulaşım: 1. aile içten yanmalı araç ve uçakla yüksek karbon salınımı yapar; 2. aile elektrikli araç, toplu taşıma ve bisiklet ile fosil yakıt tüketimini, birey başına enerji tüketimini ve hava kirliliğini azaltır. Beslenme: 1. aile'nin paketli, işlenmiş, ithal gıdası ulaşım ve paketleme enerjisini artırır; 2. aile'nin yerel ve mevsimsel beslenmesi enerji tasarrufu sağlar ve biyolojik çeşitliliği destekler. Atık: 1. aile atıkları ayrıştırmadığı için tümü depolama alanına gider ve kaynak israfı olur; 2. aile kaynağında ayrıştırarak geri dönüşümü sağlar, ham madde ihtiyacını azaltır. Sonuç: 2. aile yenilenebilir enerji, düşük emisyonlu ulaşım, yerel tüketim ve geri dönüşümle doğanın kendini yenileme kapasitesine çok daha az zarar verir.",
+   "keyPoints": [
+    "Enerji: 2. aile (güneş), 1. aile fosil yakıt → karbon salınımı",
+    "Ulaşım: 2. aile elektrikli araç/toplu taşıma/bisiklet; 1. aile içten yanmalı araç ve uçak",
+    "Beslenme: 2. aile yerel ve mevsimsel; 1. aile paketli, işlenmiş, ithal",
+    "Atık: 2. aile kaynağında ayrıştırma ve geri dönüşüm; 1. aile ayrıştırmama",
+    "Sonuç: 2. ailenin yaşam tarzı sürdürülebilirlikle uyumludur"
+   ],
+   "maxPoints": 20,
+   "explanation": "Dört başlık aç ve her birinde \"1. aile → sorun, 2. aile → çözüm, sonuç\" yaz. Her başlığa yaklaşık 5 puan düşer; dört etkenden yalnızca bazılarını analiz edersen kısmî puan alırsın. Ayak izini yalnızca \"çok/az\" diye değil karbon salınımı, enerji tüketimi, hava kirliliği, geri dönüşüm gibi bilimsel kavramlarla açıkla.",
+   "category": "Ekolojik ayak izi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir bahçede yaprak yığınları toprak üstünde birikmiştir. Ayrıştırıcı canlılar ortamdan uzaklaştırılırsa karbon ve azot döngüleri açısından ne olacağını açıklayınız. (5 puan)",
+   "correctAnswer": "Ayrıştırıcılar olmazsa yaprak kalıntıları parçalanamaz. Karbon organik madde içinde kalır, CO2 olarak döngüye geri dönemez. Azotlu organik bileşikler amonyağa ve sonra nitrata dönüşemez; bitkiler mineral azot bulamaz, büyümesi yavaşlar. Madde döngüsü kesilir.",
+   "keyPoints": [
+    "Kalıntılar parçalanmaz",
+    "Karbon döngüye CO2 olarak dönemez",
+    "Azotlu bileşikler nitrata dönüşmez",
+    "Bitkiler mineral alamaz"
+   ],
+   "maxPoints": 5,
+   "explanation": "Her iki döngüde ayrıştırıcıların ara halka olduğunu göster.",
+   "category": "Benzer soru: Madde döngüleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Azot döngüsünde amonifikasyon, nitrifikasyon ve denitrifikasyon olaylarını sırayla tanımlayınız. (6 puan)",
+   "correctAnswer": "Amonifikasyon: ayrıştırıcıların ölü organik maddedeki azotlu bileşikleri amonyağa çevirmesi. Nitrifikasyon: nitrifikasyon bakterilerinin amonyağı nitrite ve nitrata oksitlemesi; bitkiler nitratı alır. Denitrifikasyon: bazı bakterilerin nitratı N2 gazına çevirerek atmosfere vermesi.",
+   "keyPoints": [
+    "Amonifikasyon: organik azot → amonyak",
+    "Nitrifikasyon: amonyak → nitrit → nitrat",
+    "Denitrifikasyon: nitrat → N2"
+   ],
+   "maxPoints": 6,
+   "explanation": "Sıra: amonyak oluşur → nitrata oksitlenir → N2 olur. Her olayda hangi bakteri grubunun rol aldığını ve ürününü yaz.",
+   "category": "Benzer soru: Madde döngüleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Baklagil bitkilerinin köklerindeki azot bağlayıcı bakterilerin bitki ve toprak açısından yararını açıklayınız. (3 puan)",
+   "correctAnswer": "Bakteriler atmosferdeki N2'yi bitkinin kullanabileceği azotlu bileşiklere çevirir. Bitki bu bileşiklerle protein yapar; bakteri de bitkiden organik madde ve barınak alır. Bu ilişki mutualizmdir ve toprağın azot bakımından zenginleşmesini sağlar.",
+   "keyPoints": [
+    "N2 bağlama",
+    "Bitki protein yapar",
+    "Mutualizm",
+    "Toprak azot zenginleşir"
+   ],
+   "maxPoints": 3,
+   "explanation": "N2'yi bitki kullanamaz; bakteri onu kullanılır hale getirir.",
+   "category": "Benzer soru: Madde döngüleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Fosil yakıt kullanımının karbon döngüsüne etkisini açıklayınız ve atmosferdeki CO2 miktarının artmasının ekosistem üzerindeki bir sonucunu belirtiniz. (4 puan)",
+   "correctAnswer": "Fosil yakıtlar yakılınca uzun süre yer altında depolanmış karbon hızla CO2 olarak atmosfere verilir; döngü dengesi bozulur ve atmosferdeki CO2 artar. Artan CO2 küresel ısınma ve iklim değişikliğine yol açabilir; bu da canlıların yaşam alanlarını ve çeşitliliğini etkiler.",
+   "keyPoints": [
+    "Depolanmış karbon CO2 olarak atmosfere gider",
+    "CO2 artar",
+    "İklim değişikliği",
+    "Ekosistem etkisi"
+   ],
+   "maxPoints": 4,
+   "explanation": "Döngünün yapay olarak hızlandırılması: depolanan karbonun hızla serbest kalması.",
+   "category": "Benzer soru: Madde döngüleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Su döngüsünün aşamalarını sırayla yazınız ve bitkilerin bu döngüdeki rolünü belirtiniz. (4 puan)",
+   "correctAnswer": "Güneş enerjisiyle yüzey suları buharlaşır; bitkiler terleme yaparak su buharı verir; su buharı yoğunlaşıp bulut oluşturur; yağış olarak yeryüzüne döner; bir kısmı toprağa sızar ve bitkilerce kökle alınır, bir kısmı akarsu ve göllere karışır. Bitkiler su alıp terlemeyle atmosfere geri vererek döngüye katılır.",
+   "keyPoints": [
+    "Buharlaşma",
+    "Yoğunlaşma",
+    "Yağış ve sızma",
+    "Bitkiler: su alma ve terleme"
+   ],
+   "maxPoints": 4,
+   "explanation": "Sıralama: buharlaşma → yoğunlaşma → yağış → sızma/akış; terleme buharlaşmaya ek bir kaynak.",
+   "category": "Benzer soru: Madde döngüleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Fosfor döngüsünün azot ve karbon döngülerinden temel farkını açıklayınız. (3 puan)",
+   "correctAnswer": "Azot ve karbon döngülerinde atmosferik gaz evresi (N2, CO2) önemlidir; fosfor döngüsünde ise atmosferik gaz evresi çok sınırlıdır. Fosfor kayaçlardan aşınma ve erozyonla toprağa ve suya geçer, bitkiler tarafından alınır ve ayrıştırıcılarla tekrar toprağa döner.",
+   "keyPoints": [
+    "Gaz evresi önemli değil",
+    "Kaynak kayaç",
+    "Bitki alır, ayrıştırıcı geri verir"
+   ],
+   "maxPoints": 3,
+   "explanation": "Fosforun kaynağı kayaçlar olduğundan erozyon fosfor kaybı/taşınması demektir.",
+   "category": "Benzer soru: Madde döngüleri",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Üç farklı döngünün (karbon, azot, su) birbiriyle ilişkisine bir örnek veriniz. (3 puan)",
+   "correctAnswer": "Bitkiler kökle su ile birlikte nitrat alır (su ve azot döngüsü), fotosentezde CO2 ve suyu kullanıp glikoz yapar (karbon ve su döngüsü). Bu nedenle bir döngüdeki aksama (örn. kuraklık) diğerlerini etkiler.",
+   "keyPoints": [
+    "Su ve azot birlikte alınır",
+    "Fotosentezde CO2 ve su",
+    "Bir döngü aksarsa diğerleri etkilenir"
+   ],
+   "maxPoints": 3,
+   "explanation": "Rubrik, döngüler arası ilişkiyi aradığı için bir ortak olayı (fotosentez, bitkinin beslenmesi) örnekle.",
+   "category": "Benzer soru: Madde döngüleri",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir göletin dibinde çok miktarda ölü bitki birikmesi ve oksijenin azalması arasındaki ilişkiyi karbon döngüsü ve ayrıştırıcılar açısından açıklayınız. (4 puan)",
+   "correctAnswer": "Ölü bitkiler ayrıştırıcılar tarafından parçalanırken ayrıştırıcılar solunum için oksijen kullanır; ölü madde çoksa oksijen tüketimi artar ve suda oksijen azalır. Oksijenin azalması su canlılarını olumsuz etkiler.",
+   "keyPoints": [
+    "Ayrıştırıcılar solunumla O2 kullanır",
+    "Ölü madde çok → O2 tüketimi artar",
+    "Suda O2 azalır",
+    "Su canlıları etkilenir"
+   ],
+   "maxPoints": 4,
+   "explanation": "Ayrıştırıcılar da solunum yapar; bu yüzden büyük ölü madde yükü O2 azlığına yol açabilir.",
+   "category": "Benzer soru: Madde döngüleri",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir öğrenci kapalı bir terraryum tasarlıyor: toprak, bitki, birkaç böcek ve ışık. Sistemin uzun süre dengede kalması için ekleyeceği üç öğeyi ve nedenlerini açıklayınız. (5 puan)",
+   "correctAnswer": "Ayrıştırıcılar (toprak bakterileri, mantarlar) eklenmelidir: ölü kalıntıları minerale çevirirler. Yeterli ışık sağlanmalıdır: fotosentez için enerji gerekir. Üretici-tüketici sayı dengesi kurulmalıdır: tüketici çok olursa O2 azalır, besin yetmez.",
+   "keyPoints": [
+    "Ayrıştırıcılar",
+    "Işık",
+    "Üretici-tüketici dengesi",
+    "Her öğenin nedeni"
+   ],
+   "maxPoints": 5,
+   "explanation": "Kapalı sistem enerji almalı ama madde dışarı vermemeli; maddenin döngüde kalması için ayrıştırıcı şarttır.",
+   "category": "Benzer soru: Kapalı sistem",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Ece'nin fanusunda yalnızca bitki ve ışık olsaydı (balık ve salyangoz olmadan) sistem daha uzun süre dengede kalır mıydı? Sınırlamalarıyla birlikte tartışınız. (4 puan)",
+   "correctAnswer": "Daha uzun süre kalabilirdi çünkü atık üreten tüketici olmazdı ve bitki fotosentezle O2 üretirdi. Ancak bitkinin ölü kısımları da ayrıştırıcı olmadan birikir, mineraller tükenir; bu nedenle sistem sonsuza dek sürmez.",
+   "keyPoints": [
+    "Atık üreten tüketici yok",
+    "Fotosentez O2 üretir",
+    "Ölü kısımlar birikir",
+    "Mineral tükenir"
+   ],
+   "maxPoints": 4,
+   "explanation": "Bu soru ayrıştırıcıların hâlâ gerekli olduğunu gösterir: tek başına üretici de ölü madde bırakır.",
+   "category": "Benzer soru: Kapalı sistem",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir fanusta bitkiler sararmış ve su bulanıklaşmıştır. Gözlemlerden yola çıkarak mineral ve azot döngüleri hakkında iki çıkarım yazınız. (4 puan)",
+   "correctAnswer": "Bitkilerin sararması mineral (özellikle azot) eksikliğini düşündürür: azotlu bileşikler dönüşemediği için bitkilere ulaşmıyor. Suyun bulanması parçalanmamış atıkların biriktiğini gösterir: ayrıştırıcılar yetersiz.",
+   "keyPoints": [
+    "Sararma mineral/azot eksikliği",
+    "Azot döngüsü işlemiyor",
+    "Bulanıklık atık birikimi",
+    "Ayrıştırıcı yetersiz"
+   ],
+   "maxPoints": 4,
+   "explanation": "Gözlemden çıkarım yaparken her gözlem için bir neden kur.",
+   "category": "Benzer soru: Kapalı sistem",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Madde döngüsü modeli çizerken bir öğrenci yalnızca O2 ve CO2 oklarını göstermiştir. Modelin eksiklerini sayıp bir geliştirme önerisi yapınız. (4 puan)",
+   "correctAnswer": "Model ayrıştırıcıları, azot döngüsünü, mineralleri ve su döngüsünü içermez. Geliştirme: üretici-tüketici-ayrıştırıcı ilişkilerini, ölü kalıntıdan minerallerin bitkiye geri dönüşünü ve azotlu bileşikleri ekleyerek modeli bilimsel modele yaklaştırmak.",
+   "keyPoints": [
+    "Ayrıştırıcı yok",
+    "Azot döngüsü yok",
+    "Mineral dönüşü yok",
+    "Geliştirme önerisi"
+   ],
+   "maxPoints": 4,
+   "explanation": "Modelin eksiklerini bilimsel modele kıyasla yaz ve somut ekleme öner.",
+   "category": "Benzer soru: Kapalı sistem",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir ülkede yenilenebilir elektrik oranı %30'dan %55'e çıkmıştır. Bu değişimin ekolojik sürdürülebilirlik açısından üç olumlu sonucunu yazınız. (4 puan)",
+   "correctAnswer": "Fosil yakıt kullanımı azaldığı için karbon salınımı düşer ve iklim değişikliğiyle mücadele güçlenir. Yenilenebilir kaynaklar tükenmediği için enerji sürekliliği ve gelecek nesillerin enerji güvencesi artar. Hava ve çevre kirliliği azalır; doğal kaynaklar ve ekosistem dengesi korunur.",
+   "keyPoints": [
+    "Karbon salınımı azalır",
+    "Enerji sürekliliği",
+    "Gelecek nesil güvencesi",
+    "Kirlilik azalır, ekosistem korunur"
+   ],
+   "maxPoints": 4,
+   "explanation": "Üç ayrı sonuç yaz: iklim, kaynak sürekliliği, kirlilik.",
+   "category": "Benzer soru: Sürdürülebilirlik",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir öğrenci \"Yenilenebilir enerjinin hiçbir çevresel etkisi yoktur\" demiştir. Bu ifadeyi sürdürülebilirlik bakış açısıyla değerlendiriniz. (3 puan)",
+   "correctAnswer": "İfade fazla kesindir. Yenilenebilir kaynaklar fosil yakıtlara göre karbon salınımını çok azaltır ve tükenmez; ancak tesis kurulumu (örn. rüzgâr türbini yeri, baraj, panel üretimi) arazi kullanımı ve habitat üzerinde etki yapabilir. Bu nedenle etkileri en aza indirecek planlama gerekir.",
+   "keyPoints": [
+    "İfade fazla kesin",
+    "Karbon salınımı düşük, tükenmez",
+    "Arazi/habitat etkisi olabilir",
+    "Planlama gerekir"
+   ],
+   "maxPoints": 3,
+   "explanation": "Bilimsel yorum, olumlu etkiyi ve sınırlılıkları birlikte verir.",
+   "category": "Benzer soru: Sürdürülebilirlik",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki tabloyu yorumlayınız: Bir şehirde 2015'te kişi başına günlük atık 1,4 kg ve geri dönüşüm oranı %10; 2025'te kişi başına atık 1,1 kg ve geri dönüşüm oranı %35. Sürdürülebilirlik açısından değerlendiriniz. (4 puan)",
+   "correctAnswer": "Kişi başına atık 1,4 kg'dan 1,1 kg'a azalmış, geri dönüşüm oranı %10'dan %35'e artmıştır. Bu, ham madde ve enerji tasarrufu sağlar, depolama alanına giden atığı ve kirliliği azaltır, doğal kaynakların korunmasına ve gelecek nesillere aktarılmasına katkı sağlar.",
+   "keyPoints": [
+    "Verileri doğru okur",
+    "Atık azalması, geri dönüşüm artışı",
+    "Ham madde/enerji tasarrufu",
+    "Kirlilik azalır, gelecek nesil"
+   ],
+   "maxPoints": 4,
+   "explanation": "Önce yönleri oku, sonra çevresel anlamını yaz.",
+   "category": "Benzer soru: Sürdürülebilirlik",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Doğal kaynakları gelecek nesillere aktarmak için bir bireyin gündelik hayatta yapabileceği dört davranışı ve her birinin ekolojik gerekçesini yazınız. (4 puan)",
+   "correctAnswer": "Toplu taşıma/bisiklet kullanmak fosil yakıt tüketimini ve karbon salınımını azaltır. Atıkları ayrıştırmak geri dönüşümü artırır. Yerel ve mevsimsel besin tüketmek taşıma enerjisini azaltır. Enerji ve su tasarrufu doğal kaynakların tükenmesini yavaşlatır.",
+   "keyPoints": [
+    "Ulaşım",
+    "Atık ayrıştırma",
+    "Yerel beslenme",
+    "Tasarruf"
+   ],
+   "maxPoints": 4,
+   "explanation": "Her davranışın bir ekolojik gerekçesi olmalı.",
+   "category": "Benzer soru: Sürdürülebilirlik",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Fosil yakıtlarla üretilen bir elektriğin yenilenebilirle değiştirilmesi iklim değişikliğini azaltırken biyoçeşitlilik üzerinde nasıl dolaylı bir yarar sağlar? (3 puan)",
+   "correctAnswer": "Karbon salınımı azalınca iklim değişimi yavaşlar; sıcaklık ve yağış rejimi daha kararlı kalır. Canlıların yaşam alanları daha az bozulur, türlerin yok olma riski azalır ve biyoçeşitlilik korunur.",
+   "keyPoints": [
+    "CO2 azalır",
+    "İklim değişimi yavaşlar",
+    "Yaşam alanları korunur",
+    "Tür kaybı azalır"
+   ],
+   "maxPoints": 3,
+   "explanation": "İklim → habitat → tür kaybı zincirini kur.",
+   "category": "Benzer soru: Sürdürülebilirlik",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir kıyı bölgesinde 2000 yılında kesintisiz bir sazlık alanı vardı; 2024'te sazlık alanı yol ve sitelerle üç parçaya bölünmüş, kıyıdaki su bitkileri yarıya inmiş, sudaki fosfat derişimi 3 katına çıkmış ve kuş türü sayısı 60'tan 25'e düşmüştür. Verileri ekolojik kavramlarla ilişkilendirerek sürdürülebilirliği kısıtlayan üç durumu belirtiniz. (6 puan)",
+   "correctAnswer": "Sazlığın yol ve sitelerle üç parçaya bölünmesi habitat parçalanmasıdır. Sudaki fosfat derişiminin 3 katına çıkması (gübre veya atık kaynaklı) kimyasal/besin kirliliğidir (ötrofikasyon riski). Kuş türü sayısının 60'tan 25'e ve su bitkilerinin yarıya düşmesi biyoçeşitlilik kaybıdır.",
+   "keyPoints": [
+    "Habitat parçalanması",
+    "Kirlilik (fosfat artışı)",
+    "Biyoçeşitlilik kaybı",
+    "Verilerle ilişki"
+   ],
+   "maxPoints": 6,
+   "explanation": "Her veriyi bir kavramla eşle ve sayıyı cevaba kat.",
+   "category": "Benzer soru: Kısıtlayan durumlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Dik bir yamaçta orman kesilmiş ve yağmurdan sonra dereler çamurlu akmaya başlamıştır. Bu durumu erozyon kavramıyla açıklayınız ve bitki örtüsünün koruyucu rolünü belirtiniz. (4 puan)",
+   "correctAnswer": "Ağaçlar ve kökleri toprağı tutar ve yağmurun toprağa doğrudan çarpmasını azaltır. Orman kesilince koruyucu örtü kalkar, yağmur verimli üst toprağı sürükler (erozyon); dereler çamurlu akar. Verimli toprak kaybı bitkilerin yeniden gelişmesini zorlaştırır.",
+   "keyPoints": [
+    "Kökler toprağı tutar",
+    "Örtü kalkınca erozyon",
+    "Verimli üst toprak taşınır",
+    "Bitki gelişimi zorlaşır"
+   ],
+   "maxPoints": 4,
+   "explanation": "Erozyon: toprağın su/rüzgârla taşınması. Bitki örtüsü bunun doğal engelidir.",
+   "category": "Benzer soru: Kısıtlayan durumlar",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir nehir kıyısında fabrika atıkları sebebiyle suya ağır metaller karışmıştır. Algler → küçük balıklar → büyük balıklar → su kuşları zincirinde bu metalin etkisini biyolojik birikim kavramıyla açıklayınız. (5 puan)",
+   "correctAnswer": "Algler suyla metali bünyesine alır. Küçük balıklar çok sayıda algi yiyerek metali daha yoğun biriktirir. Büyük balıklar çok sayıda küçük balık yer ve daha yoğun biriktirir. Su kuşlarında metal en yüksek derişime ulaşır ve zehirlenme riski en fazladır. Metaller atılamadığı için basamak yükseldikçe birikim artar.",
+   "keyPoints": [
+    "Üreticide başlar",
+    "Basamak yükseldikçe birikim artar",
+    "Su kuşlarında en yüksek",
+    "Atılamadığı için birikir"
+   ],
+   "maxPoints": 5,
+   "explanation": "Biyolojik birikimde derişim üst basamakta artar; çünkü her tüketici çok sayıda av yer.",
+   "category": "Benzer soru: Kısıtlayan durumlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Habitat parçalanması ile habitat kaybı arasındaki farkı örnekle açıklayınız ve parçalanmanın büyük gövdeli memeliler için sonucunu yazınız. (4 puan)",
+   "correctAnswer": "Habitat kaybı yaşam alanının tamamen yok olmasıdır (örn. ormanın tarlaya dönüşmesi). Habitat parçalanması ise alanın küçük, birbirinden kopuk parçalara bölünmesidir (örn. yolla ikiye bölünen orman). Büyük gövdeli memeliler geniş alana ihtiyaç duyduğundan parçalanma hareket ve eş bulmayı kısıtlar, popülasyonlar küçülür ve izole olur.",
+   "keyPoints": [
+    "Kayıp: tamamen yok olma",
+    "Parçalanma: bölünme",
+    "Büyük memeliler geniş alan ister",
+    "Popülasyonlar izole olur"
+   ],
+   "maxPoints": 4,
+   "explanation": "İki kavramı ayrı örneklerle ver ve sonucu belirt.",
+   "category": "Benzer soru: Kısıtlayan durumlar",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir adada ortama dışarıdan getirilen yabancı bir tür yerli türlerin besin ve barınaklarını tüketmiştir. Biyoçeşitlilik ve ekosistem direnci açısından olası sonuçları yazınız. (4 puan)",
+   "correctAnswer": "Yerli türler rekabet ve avlanma nedeniyle azalır veya yok olur, biyoçeşitlilik düşer. Besin ağı basitleşir ve ekosistemin bozulmalara karşı direnci azalır.",
+   "keyPoints": [
+    "Yerli tür azalır",
+    "Biyoçeşitlilik düşer",
+    "Besin ağı basitleşir",
+    "Direnç azalır"
+   ],
+   "maxPoints": 4,
+   "explanation": "Yabancı tür etkisini rekabet ve avlanma üzerinden açıkla.",
+   "category": "Benzer soru: Kısıtlayan durumlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir ormanda bir fabrikanın kurşun içeren tozu yıllarca topraktaki bitkilere yerleşmiştir. Otçul, etçil ve ayrıştırıcı canlılar açısından kurşunun olası etkilerini sırayla yazınız. (5 puan)",
+   "correctAnswer": "Bitkiler kurşunu bünyesine alır. Otçullar bitkilerle beslenince kurşun vücutlarında birikir. Etçiller çok sayıda otçul yiyerek daha yüksek derişimde alır; en yüksek birikim üst basamaklarda olur ve zehirlenme görülür. Ayrıştırıcılar da ölü kalıntıdaki kurşundan etkilenir; faaliyetleri azalırsa madde döngüsü yavaşlar.",
+   "keyPoints": [
+    "Bitki kurşunu alır",
+    "Otçul birikim",
+    "Etçilde daha yüksek",
+    "Ayrıştırıcı faaliyeti azalabilir"
+   ],
+   "maxPoints": 5,
+   "explanation": "Zinciri baştan sona yaz: üretici → otçul → etçil → ayrıştırıcı.",
+   "category": "Benzer soru: Kısıtlayan durumlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir vadide tür sayısı 80'den 20'ye düşmüştür. \"Geriye 20 tür kalmıştır, sorun büyük değil\" diyen bir öğrenciye ekolojik açıdan nasıl yanıt verirsiniz? (4 puan)",
+   "correctAnswer": "60 tür kaybolmuştur; bu, türlerin %75'idir ve büyük bir biyoçeşitlilik kaybıdır. Kayıp türlerle birlikte besin ağı halkaları ve türler arası etkileşimler de kaybolur; kalan türler genellikle baskın ve uyumlu türlerdir. Ekosistemin direnci düşer, bozulmalara karşı kırılganlık artar.",
+   "keyPoints": [
+    "60 tür kaybı (%75)",
+    "Besin ağı halkaları kaybolur",
+    "Direnç azalır",
+    "Kırılganlık artar"
+   ],
+   "maxPoints": 4,
+   "explanation": "Sayıları işleyip oran vermek yorumu güçlendirir: 60/80 = %75.",
+   "category": "Benzer soru: Kısıtlayan durumlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Kızılçam Vadisi verilerinde kimyasal kirleticilerin %400 artışı ile kuş türü sayısındaki düşüş arasında olası bir neden-sonuç ilişkisi kurunuz. (3 puan)",
+   "correctAnswer": "Ağır metaller ve atıklar toprak ve suda birikerek besin zinciriyle kuşlara ulaşır; biyolojik birikimle zehirlenme ve üreme başarısı düşüşü görülebilir. Besin kaynakları (böcek, bitki) da azaldığı için kuş türleri bölgeyi terk eder veya yok olur.",
+   "keyPoints": [
+    "Kirletici besin zincirine girer",
+    "Birikim ve zehirlenme",
+    "Besin kaynağı azalır",
+    "Tür kaybı"
+   ],
+   "maxPoints": 3,
+   "explanation": "Korelasyondan nedensellik çıkarırken \"olası\" ifadesini kullanman gerekir; mekanizmayı (biyolojik birikim) açıkla.",
+   "category": "Benzer soru: Kısıtlayan durumlar",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Üç kişilik bir aile eve çatı güneş paneli takmış, arabasını satıp bisiklet ve toplu taşıma kullanmaya başlamıştır. Bu iki değişikliğin ekolojik ayak izini nasıl küçülttüğünü açıklayınız. (4 puan)",
+   "correctAnswer": "Güneş paneli fosil yakıtla üretilen elektrik ihtiyacını azaltır; karbon salınımı düşer. Araç kullanımının bırakılması fosil yakıt tüketimini ve egzoz kaynaklı hava kirliliğini azaltır; toplu taşımada kişi başına enerji tüketimi daha düşüktür. Böylece ayak izi küçülür.",
+   "keyPoints": [
+    "Güneş paneli → fosil yakıt azalır",
+    "Karbon salınımı düşer",
+    "Araç yok → yakıt ve kirlilik azalır",
+    "Toplu taşıma kişi başı enerji düşük"
+   ],
+   "maxPoints": 4,
+   "explanation": "Her değişiklik için \"azalan şey\" ve \"sonuç\" yaz.",
+   "category": "Benzer soru: Ekolojik ayak izi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "İki öğrenci yemek alışkanlıklarını karşılaştırıyor: A öğrencisi uzak ülkelerden gelen paketli meyveleri, B öğrencisi mahallesindeki üreticinin mevsim sebzelerini tüketiyor. Hangi öğrencinin ayak izi daha küçüktür? Üç gerekçe yazınız. (4 puan)",
+   "correctAnswer": "B'nin ayak izi daha küçüktür. Taşıma mesafesi kısa olduğu için yakıt tüketimi ve karbon salınımı düşüktür. Paketleme ve soğuk zincir enerjisi daha azdır. Yerel ve mevsimsel üretim, yerel biyoçeşitlilik ve ekonomiyi destekler.",
+   "keyPoints": [
+    "B daha küçük",
+    "Taşıma yakıtı",
+    "Paketleme/soğutma enerjisi",
+    "Yerel biyoçeşitlilik"
+   ],
+   "maxPoints": 4,
+   "explanation": "Gerekçeleri ayrı ayrı yaz; \"daha çevreci\" demek yetmez.",
+   "category": "Benzer soru: Ekolojik ayak izi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir ailenin çöpünü ayrıştırmaması ile ayrıştırması arasındaki farkı, ham madde ihtiyacı ve atık depolama alanı açısından karşılaştırınız. (4 puan)",
+   "correctAnswer": "Ayrıştırılmayan çöp birlikte depolama alanına gider; geri kazanılabilecek madde israf olur, yeni ham madde çıkarılması gerekir ve depolama alanı hızla dolar. Ayrıştırılan atık geri dönüşüme verilir; ham madde ve enerji tasarrufu sağlanır, depolanan atık azalır.",
+   "keyPoints": [
+    "Ayrıştırmama: israf",
+    "Yeni ham madde ihtiyacı",
+    "Ayrıştırma: geri dönüşüm",
+    "Depolama alanı azalır"
+   ],
+   "maxPoints": 4,
+   "explanation": "İki durumu yan yana verip sonucu ham madde ve depolama alanı üzerinden yaz.",
+   "category": "Benzer soru: Ekolojik ayak izi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir ailenin ayak izi büyükse bunun doğanın kendini yenileme kapasitesi ile ilişkisini açıklayınız. (3 puan)",
+   "correctAnswer": "Ayak izi, tüketilen kaynakları ve atıkları dengelemek için gereken doğal alanı gösterir. Ayak izi doğanın kendini yenileme kapasitesini aşarsa kaynaklar yeniden oluşmadan tükenir, atıklar birikir ve ekosistem bozulur; yaşam tarzı sürdürülemez hale gelir.",
+   "keyPoints": [
+    "Ayak izi tüketim ölçüsü",
+    "Yenileme kapasitesi aşılır",
+    "Kaynaklar tükenir, atık birikir",
+    "Sürdürülemez"
+   ],
+   "maxPoints": 3,
+   "explanation": "Kavramı iki tarafla kur: tüketim ve doğanın yenileme gücü.",
+   "category": "Benzer soru: Ekolojik ayak izi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Elektrikli araç kullanan bir kişi, elektriği kömürle üretilen bir şebekeden şarj ediyorsa ayak izi küçülmesinin sınırlı olmasının nedenini açıklayınız. (3 puan)",
+   "correctAnswer": "Elektrikli araç egzoz salmaz ama elektrik kömürle üretiliyorsa karbon salınımı santral tarafında gerçekleşir. Bu nedenle ayak izindeki azalma sınırlıdır; elektrik yenilenebilir kaynaklardan gelirse azalma çok daha büyük olur.",
+   "keyPoints": [
+    "Egzoz yok",
+    "Elektrik kaynağı kömür",
+    "Salınım santralde",
+    "Yenilenebilirle daha büyük azalma"
+   ],
+   "maxPoints": 3,
+   "explanation": "Ayak izi ürün zincirinin tamamıyla ilgilidir; yalnızca aracın kendisiyle değil.",
+   "category": "Benzer soru: Ekolojik ayak izi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir okul ayak izini küçültmek için dört etkinlik planlıyor: atık ayrıştırma kutuları, bisiklet park alanı, çatıya güneş paneli, yerel üreticiden kantin alışverişi. Her etkinliğin hangi ayak izi etkenine (enerji, ulaşım, beslenme, atık) karşılık geldiğini yazıp birer gerekçe veriniz. (5 puan)",
+   "correctAnswer": "Atık ayrıştırma kutuları: atık (geri dönüşüm). Bisiklet park alanı: ulaşım (fosil yakıt kullanımını azaltır). Çatı güneş paneli: enerji (yenilenebilir elektrik, karbon salınımını azaltır). Yerel üreticiden alışveriş: beslenme (taşıma enerjisi azalır, yerel ekonomi desteklenir).",
+   "keyPoints": [
+    "Ayrıştırma → atık",
+    "Bisiklet → ulaşım",
+    "Güneş paneli → enerji",
+    "Yerel alışveriş → beslenme"
+   ],
+   "maxPoints": 5,
+   "explanation": "Dört etkeni eşleştir ve her biri için bir gerekçe yaz.",
+   "category": "Benzer soru: Ekolojik ayak izi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir öğrenci 2.2 için \"Tabloda yenilenebilir enerji artmış, yenilenemeyen azalmıştır.\" yazmıştır. Bu cevap neden kısmî puan alır? Nasıl tamamlanır? (3 puan)",
+   "correctAnswer": "Cevap yalnızca sayısal artış-azalışı belirtiyor, sürdürülebilirliğin önemi ve gelecek nesil/yaşam güvencesi ile ilişkilendirmiyor. Tamamlamak için \"Bu değişim çevresel kirlilik riskini azaltır, doğal kaynakları ve ekosistem dengesini korur ve gelecek kuşakların enerji ihtiyacının karşılanması için önemlidir\" eklenmelidir.",
+   "keyPoints": [
+    "Yalnızca veri okuma",
+    "Sürdürülebilirlik bağlantısı eksik",
+    "Gelecek nesil vurgusu eksik"
+   ],
+   "maxPoints": 3,
+   "explanation": "Tam puan: veri + kavram + sonuç. Kendi cümlelerinle yaz.",
+   "category": "Benzer soru: Yazılı tekniği",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "3.1 gibi \"verilerle ilişkilendirerek açıklayınız\" sorularında kavramı adlandırmak neden tek başına yetmez? Rubrik mantığına göre örnekle açıklayınız. (3 puan)",
+   "correctAnswer": "Rubrik, kavramın saha verisiyle ilişkilendirilmesini ister. Örneğin yalnızca \"erozyon\" yazmak kısmî puandır; \"verimli üst tabakanın kaybolup kayalık zeminin açığa çıkması erozyondur\" demek veriyle kavramı bağlar ve tam puan getirir.",
+   "keyPoints": [
+    "Kavram + veri",
+    "Yalnızca isim kısmî",
+    "Örnek ilişkilendirme"
+   ],
+   "maxPoints": 3,
+   "explanation": "Her kavramın yanına sahadaki veriyi yaz.",
+   "category": "Benzer soru: Yazılı tekniği",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir öğrencinin 3.2 cevabı: \"Doğa zarar görür ve hayvanlar ölür.\" Rubrik bu cevaba neden düşük puan verir ve nasıl geliştirilir? (3 puan)",
+   "correctAnswer": "Cevap genel ifadeler içeriyor, habitat parçalanması, biyolojik birikim, besin ağı, trofik basamak gibi bilimsel kavramlar kullanılmıyor ve iki boyut (canlı çeşitliliği, beslenme ilişkileri) açıklanmıyor. Geliştirme: habitat parçalanması → tür kaybı → biyoçeşitlilik ve direnç azalması; ağır metal → besin zinciri → biyolojik birikim → besin ağı çöküşü.",
+   "keyPoints": [
+    "Genel ifade",
+    "Kavram eksikliği",
+    "İki boyut eksik",
+    "Geliştirilmiş cevap"
+   ],
+   "maxPoints": 3,
+   "explanation": "Bilimsel kavram + neden-sonuç = tam puan.",
+   "category": "Benzer soru: Yazılı tekniği",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Kapalı bir akvaryumda dengenin bozulmasının en olası nedeni aşağıdakilerden hangisidir?",
+   "options": [
+    "Işık miktarının fazla olması",
+    "Ayrıştırıcıların bulunmaması nedeniyle atıkların birikmesi",
+    "Suyun çok berrak olması",
+    "Balıkların çok az hareket etmesi"
+   ],
+   "correct": 1,
+   "explanation": "Ayrıştırıcı olmadan atıklar parçalanmaz, mineraller bitkilere dönmez ve denge bozulur.",
+   "category": "Madde döngüleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Atmosferdeki azot gazını bitkinin kullanabileceği bileşiklere çeviren canlılar hangileridir?",
+   "options": [
+    "Azot bağlayıcı bakteriler",
+    "Mantarlar",
+    "Otçullar",
+    "Alglerin tamamı"
+   ],
+   "correct": 0,
+   "explanation": "N2 bitkiler tarafından doğrudan kullanılamaz; bağlayıcı bakteriler onu kullanılabilir biçime çevirir.",
+   "category": "Madde döngüleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Amonyağın nitrit ve nitrata oksitlenmesi olayının adı aşağıdakilerden hangisidir?",
+   "options": [
+    "Denitrifikasyon",
+    "Amonifikasyon",
+    "Fotosentez",
+    "Nitrifikasyon"
+   ],
+   "correct": 3,
+   "explanation": "Nitrifikasyon bakterileri amonyağı nitrata çevirir; bitkiler nitratı kullanır.",
+   "category": "Madde döngüleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Ayrıştırıcılar ölü organik maddeyi parçalayarak ekosisteme ne kazandırır?",
+   "options": [
+    "Fazladan enerji",
+    "Güneş ışığı",
+    "Mineralleri üreticilerin kullanabileceği biçimde döngüye",
+    "Oksijen yerine karbon monoksit"
+   ],
+   "correct": 2,
+   "explanation": "Ayrıştırıcılar mineralizasyonla maddeyi döngüye geri verir; enerji eklemez.",
+   "category": "Madde döngüleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Fosfor döngüsü için aşağıdakilerden hangisi doğrudur?",
+   "options": [
+    "Ana depo atmosferdir",
+    "Atmosferik gaz evresi azot ve karbona göre sınırlıdır",
+    "Fotosentezle doğrudan oluşur",
+    "Yalnızca hayvanlarda döner"
+   ],
+   "correct": 1,
+   "explanation": "Fosfor kayaç, toprak ve su arasında dolaşır; gaz evresi önemsizdir.",
+   "category": "Madde döngüleri",
+   "difficulty": "hard"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Su döngüsünde bitkilerin atmosfere su buharı vermesine ne ad verilir?",
+   "options": [
+    "Terleme",
+    "Yoğunlaşma",
+    "Sızma",
+    "Erozyon"
+   ],
+   "correct": 0,
+   "explanation": "Terleme yapraklardan su buharı çıkışıdır.",
+   "category": "Madde döngüleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Yenilenemeyen kaynak kullanımının azalmasının doğrudan bir sonucu hangisidir?",
+   "options": [
+    "Karbon salınımının artması",
+    "Enerji ihtiyacının sonsuz artması",
+    "Yağış miktarının sıfırlanması",
+    "Karbon salınımının azalması"
+   ],
+   "correct": 3,
+   "explanation": "Kömür ve doğal gaz yakılmadığında atmosfere salınan CO2 azalır.",
+   "category": "Sürdürülebilirlik",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi yenilenebilir enerji kaynağıdır?",
+   "options": [
+    "Kömür",
+    "Doğal gaz",
+    "Rüzgâr",
+    "Petrol"
+   ],
+   "correct": 2,
+   "explanation": "Rüzgâr, güneş ve jeotermal doğada kendini yenileyen kaynaklardır.",
+   "category": "Sürdürülebilirlik",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Bir tabloda yenilenebilir kaynak oranı %25'ten %42'ye çıkmışsa aşağıdakilerden hangisi doğru yorumdur?",
+   "options": [
+    "Yenilenebilir pay azalmıştır",
+    "Yenilenebilir kaynakların payı 17 puan artmıştır",
+    "Pay değişmemiştir",
+    "Pay 42 puan artmıştır"
+   ],
+   "correct": 1,
+   "explanation": "Payın değişimi son değerden ilk değer çıkarılarak bulunur: 42 - 25 = 17 puanlık artış vardır.",
+   "category": "Sürdürülebilirlik",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Kesintisiz bir ormanın yolla bölünüp küçük ağaç kümelerine dönüşmesi hangi kavramı ifade eder?",
+   "options": [
+    "Habitat parçalanması",
+    "Erozyon",
+    "Biyolojik birikim",
+    "Madde döngüsü"
+   ],
+   "correct": 0,
+   "explanation": "Yaşam alanının birbirinden kopuk parçalara ayrılmasıdır.",
+   "category": "Kısıtlayan durumlar",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Verimli üst toprağın kaybolup kayalık zeminin açığa çıkması hangi kavramla ilişkilidir?",
+   "options": [
+    "Biyoçeşitlilik artışı",
+    "Mutualizm",
+    "Fotosentez",
+    "Erozyon ve toprak bozunumu"
+   ],
+   "correct": 3,
+   "explanation": "Bitki örtüsü kaybı ve su akışı sonucu toprak taşınır.",
+   "category": "Kısıtlayan durumlar",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Ağır metallerin besin zincirinde üst basamaklara doğru yoğunlaşmasına ne denir?",
+   "options": [
+    "Nitrifikasyon",
+    "Terleme",
+    "Biyolojik birikim",
+    "Habitat parçalanması"
+   ],
+   "correct": 2,
+   "explanation": "Atılamayan zararlı maddeler basamak yükseldikçe birikir.",
+   "category": "Kısıtlayan durumlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Bir bölgede tür sayısı 120'den 12'ye düşmüştür. Kaç tür gözlenememektedir?",
+   "options": [
+    "12",
+    "108",
+    "120",
+    "132"
+   ],
+   "correct": 1,
+   "explanation": "Kaybolan tür sayısı ilk sayıdan kalan sayı çıkarılarak bulunur: 120 - 12 = 108 tür kaybolmuştur.",
+   "category": "Kısıtlayan durumlar",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi ekolojik ayak izini küçültür?",
+   "options": [
+    "Atıkların kaynağında ayrıştırılması",
+    "Sık uçak yolculuğu",
+    "Ayrıştırılmamış çöp",
+    "İthal işlenmiş gıdaların artması"
+   ],
+   "correct": 0,
+   "explanation": "Atık ayrıştırma geri dönüşümü sağlar; ham madde ve depolama ihtiyacını azaltır.",
+   "category": "Ekolojik ayak izi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Yerel ve mevsimsel beslenmenin ayak izini küçültmesinin temel nedeni nedir?",
+   "options": [
+    "Yemeklerin daha tatlı olması",
+    "Fiyatların her zaman düşmesi",
+    "Su kullanımının sıfırlanması",
+    "Taşıma ve paketleme enerjisinin azalması"
+   ],
+   "correct": 3,
+   "explanation": "Yakın üretim, kısa taşıma ve az paketleme demektir.",
+   "category": "Ekolojik ayak izi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Ekolojik ayak izi ile ilgili aşağıdakilerden hangisi doğrudur?",
+   "options": [
+    "Yalnızca çöp miktarını ölçer",
+    "Yalnızca enerji kullanımını ölçer",
+    "Tüketimin doğadan talep ettiği toplam alanı gösterir",
+    "Doğanın yenileme kapasitesiyle ilgili değildir"
+   ],
+   "correct": 2,
+   "explanation": "Ayak izi enerji, ulaşım, beslenme ve atık gibi etkenlerin toplam alan olarak karşılığıdır.",
+   "category": "Ekolojik ayak izi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "true-false",
+   "question": "Enerji, madde gibi ekosistemde döngüsel olarak dolaşır.",
+   "correct": false,
+   "explanation": "Enerji tek yönlüdür ve ısı olarak kaybolur; maddeler döngüsel dolaşır.",
+   "category": "Madde döngüleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Kapalı bir sistemde ayrıştırıcı olmazsa mineraller bitkilere geri dönemez.",
+   "correct": true,
+   "explanation": "Ayrıştırıcılar mineralizasyonu yapar; yoksa mineraller geri dönüşemez.",
+   "category": "Madde döngüleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Habitat parçalanması türlerin hareket alanını daraltır.",
+   "correct": true,
+   "explanation": "Parçalara bölünen alanda popülasyonlar küçülüp izole olur.",
+   "category": "Kısıtlayan durumlar",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Yenilenebilir kaynaklar tükenmez ve fosil yakıtlara göre karbon salınımını azaltır.",
+   "correct": true,
+   "explanation": "Güneş, rüzgâr, jeotermal doğada yenilenir ve düşük karbon salınımı yapar.",
+   "category": "Sürdürülebilirlik",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Elektrikli araç kullanımı ekolojik ayak izini tamamen sıfırlar.",
+   "correct": false,
+   "explanation": "Ayak izini azaltır ama elektrik üretimi ve araç üretimi etkileri vardır.",
+   "category": "Ekolojik ayak izi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "true-false",
+   "question": "Bitkiler atmosferdeki N2 gazını doğrudan kullanabilir.",
+   "correct": false,
+   "explanation": "Bitkiler azotu nitrat gibi bileşiklerden alır; N2 önce bağlanmalıdır.",
+   "category": "Madde döngüleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Ağır metallerin besin zincirinde üst basamaklarda birikmesine ____ birikim denir.",
+   "answers": [
+    "biyolojik"
+   ],
+   "explanation": "Atılamayan zararlı maddeler basamak yükseldikçe yoğunlaşır.",
+   "category": "Kısıtlayan durumlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Ayrıştırıcıların ölü organik maddeyi parçalayıp mineralleri toprağa vermesi madde ____ içindeki kilit işlevdir.",
+   "answers": [
+    "döngüsü",
+    "döngülerinin",
+    "döngüsünün"
+   ],
+   "explanation": "Ayrıştırıcılar maddenin ekosistemde yeniden kullanılmasını sağlar.",
+   "category": "Madde döngüleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Atıkları kaynağında ayırarak ham madde ihtiyacını azaltan uygulamaya ____ denir.",
+   "answers": [
+    "geri dönüşüm"
+   ],
+   "explanation": "Geri dönüşüm atığı yeniden ham madde olarak kullanır.",
+   "category": "Ekolojik ayak izi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Verimli üst toprağın su veya rüzgârla taşınmasına ____ denir.",
+   "answers": [
+    "erozyon"
+   ],
+   "explanation": "Bitki örtüsü kaybı erozyonu hızlandırır.",
+   "category": "Kısıtlayan durumlar",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Güneş, rüzgâr ve jeotermal gibi kaynaklara ____ enerji kaynakları denir.",
+   "answers": [
+    "yenilenebilir"
+   ],
+   "explanation": "Güneş, rüzgâr ve jeotermal doğada sürekli yenilenen, tükenmeyen kaynaklardır.",
+   "category": "Sürdürülebilirlik",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir çiftlikte aşırı gübre yağmurla göle karışmış, gölde algler hızla çoğalmış ve sonra göldeki balıklar ölmüştür. Fosfor ve azot döngüleri ile ayrıştırıcıların oksijen kullanımını ilişkilendirerek olayı açıklayınız. (5 puan)",
+   "correctAnswer": "Gübredeki fosfor ve azot göle karışınca algler aşırı çoğalır. Algler ölünce ayrıştırıcılar bunları parçalarken solunum için suyun oksijenini çok miktarda kullanır; oksijen azalır ve balıklar ölür. Mineral döngüsünün aşırı yüklenmesi dengeyi bozmuştur.",
+   "keyPoints": [
+    "Fosfor/azot göle karışır",
+    "Algler aşırı çoğalır",
+    "Ölü algler ayrıştırıcılarca parçalanır",
+    "O2 azalır, balıklar ölür"
+   ],
+   "maxPoints": 5,
+   "explanation": "Zinciri sırayla yaz: mineral artışı, alg çoğalması, ayrıştırıcı O2 tüketimi, balık ölümü.",
+   "category": "Benzer soru: Madde döngüleri",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir ormanın ortasından geçen otoyol bölgedeki küçük memelilerin karşıdan karşıya geçmesini engellemektedir. Habitat parçalanmasının bu memeli popülasyonlarına üç olası etkisini yazınız. (4 puan)",
+   "correctAnswer": "Popülasyonlar iki parçaya bölünüp küçülür. Eş bulma ve besin arama alanı daralır, gen alışverişi azalır. Küçük izole popülasyonlar hastalık ve çevresel değişimlere karşı kırılgan olur ve yok olma riski artar.",
+   "keyPoints": [
+    "Popülasyon küçülür",
+    "Eş/besin alanı daralır",
+    "Gen alışverişi azalır",
+    "Yok olma riski artar"
+   ],
+   "maxPoints": 4,
+   "explanation": "Parçalanma sonucunu popülasyon büyüklüğü ve çeşitliliği üzerinden anlat.",
+   "category": "Benzer soru: Kısıtlayan durumlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir öğrenci hem ayak izini küçültmek hem para biriktirmek için evde klimayı kısıp yalıtımı iyileştiriyor. Bu davranışı ayak izi etkenlerinden hangisine bağlarsınız ve nasıl bir ekolojik sonucu olur? (3 puan)",
+   "correctAnswer": "Enerji etkenine bağlanır. Isıtma-soğutma için daha az enerji gerektiğinden fosil yakıt tüketimi ve karbon salınımı azalır; ayak izi küçülür.",
+   "keyPoints": [
+    "Enerji etkeni",
+    "Daha az enerji",
+    "Karbon salınımı azalır"
+   ],
+   "maxPoints": 3,
+   "explanation": "Tasarruf da yenilenebilir enerji kadar ayak izini küçültür.",
+   "category": "Benzer soru: Ekolojik ayak izi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir ülkede yenilenemeyen enerji oranı %60'tan %40'a inmiş, yenilenebilir oran %40'tan %60'a çıkmıştır. Bu değişimi iki cümleyle kendi sözlerinizle sürdürülebilirlik bağlamında yorumlayınız. (3 puan)",
+   "correctAnswer": "Yenilenebilir enerjinin payı %40'tan %60'a artmış, yenilenemeyenlerin payı %60'tan %40'a düşmüştür. Bu, karbon salınımının ve çevre kirliliğinin azalacağını, doğal kaynakların gelecek nesillere aktarılabileceğini gösterir.",
+   "keyPoints": [
+    "Değişim doğru okunur",
+    "Karbon salınımı/kirlilik azalır",
+    "Gelecek nesil"
+   ],
+   "maxPoints": 3,
+   "explanation": "Tam puan için veriyi doğru oku, sonucunu çevreyle bağla ve gelecek nesil vurgusunu ekle.",
+   "category": "Benzer soru: Sürdürülebilirlik",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir fanustaki sistemde ayrıştırıcılar da bulunsa bile, sistemin yine de uzun vadede dengesinin bozulabileceği iki neden yazınız. (4 puan)",
+   "correctAnswer": "Üretici, tüketici ve ayrıştırıcıların sayıları dengeli değilse (örn. tüketici fazla ise) oksijen ve besin yetmez. Kapalı sisteme dışarıdan madde girmediği için mineraller bir süre sonra ölü kalıntılarda ve atıklarda tutulabilir ve ışık yetersizse fotosentez azalır.",
+   "keyPoints": [
+    "Sayı dengesizliği",
+    "O2/besin yetersizliği",
+    "Işık yetersizliği",
+    "Mineral dolaşım sınırı"
+   ],
+   "maxPoints": 4,
+   "explanation": "Dengeli bir kapalı sistem bile ışığa ve bileşenlerin oranına bağlıdır.",
+   "category": "Benzer soru: Kapalı sistem",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir gölde su sıcaklığı yükseliyor ve çözünmüş oksijen azalıyor. Bu durumun balıklar, su bitkileri ve ayrıştırıcılar üzerindeki olası etkilerini yazınız. (4 puan)",
+   "correctAnswer": "Çözünmüş oksijen azalınca balıkların solunumu zorlaşır ve sayıları azalır. Su bitkileri ısıdan etkilenip fotosentez hızını değiştirebilir. Ayrıştırıcı bakteriler aerobik ise faaliyetleri değişir; ayrışma yavaşlayabilir ve atıklar birikir.",
+   "keyPoints": [
+    "Balık azalır",
+    "Bitkiler etkilenir",
+    "Ayrıştırıcı faaliyeti değişir"
+   ],
+   "maxPoints": 4,
+   "explanation": "Her bileşen için abiyotik değişimin etkisini yaz.",
+   "category": "Benzer soru: Kısıtlayan durumlar",
+   "difficulty": "medium"
+  }
+ ],
+ "sources": [
+  {
+   "id": "src1",
+   "name": "10. Sınıf Biyoloji - 2. Dönem 2. Yazılı",
+   "kind": "file",
+   "text": "=== Page 1 ===\r\nBİYOLOJİ DERSİ - 10. SINIF 1\r\n10. SINIF 10. SINIF 10. SINIF 10. SINIF 10. SINIF 10. SINIF 10. SINIF  10. SINIF\r\nYAZILIYA HAZIRLANIYORUM\r\n2. DÖNEM - 2. YAZILI\r\nBİYOLOJİ\r\n1. Fen Bilimleri Kulübü'ne katılan Ece, kendi kendini sürdürebilen kapalı bir yaşam sistemi tasarlamak istemektedir. \r\nBu amaçla cam bir fanusun içerisine su, küçük balıklar, su bitkileri ve birkaç salyangoz yerleştirir. Fanusun \r\nağzını hava almayacak şekilde kapatarak sistemi yalnızca güneş ışığı alan bir ortamda gözlemlemeye başlar. İlk \r\ngünlerde canlıların sağlıklı göründüğünü ve hareketliliklerinde herhangi bir değişim olmadığını gözlemler. Ancak \r\nbir süre sonra cam fanusun dibinde balık dışkılarının, çürüyen bitki yapraklarının birikmeye başladığını, ekosistem \r\nmodelindeki mevcut dengenin bozulduğunu, suyun bulanıklaştığını ve canlı ölümlerinin başladığını fark eder.\r\n Ece, bu durumu anlamlandırmak amacıyla iki farklı model tasarlayarak bazı açıklayıcı notlar almıştır.\r\n \r\nO2\r\nCO2\r\nAzotlu \r\nbileşikler\r\nIŞIK\r\nCanlı \r\natıkları \r\n(dışkı ve ölü \r\norganizma \r\nkalıntıları)\r\nMODEL 1\r\nO2\r\nCO2\r\nAzotlu bileşikler \r\nve mineraller\r\nIŞIK\r\nCanlı atıkları \r\n(dışkı ve ölü organizma \r\nkalıntıları)\r\nMikroorganizmalar\r\nMODEL 2\r\n1.1. Ece’nin oluşturduğu kapalı yaşam sisteminde zamanla ekolojik dengenin bozulmasının olası iki \r\nnedenini madde döngülerinin işleyişiyle ilişkilendirerek gerekçeleri ile açıklayınız.\r\n1.2. Model 1 ve Model 2’yi karşılaştırarak hangisinin bilimsel modele daha uygun olduğunu gerekçesiyle \r\naçıklayınız.\r\n=== Page 2 ===\r\nYAZILIYA HAZIRLANIYORUM\r\nBİYOLOJİ DERSİ - 10. SINIF2\r\n2. Türkiye’nin elektrik üretiminde kullanılan kaynaklar son yıllarda ekolojik sürdürülebilirlik hedefleri doğrultusunda \r\ndeğişime uğramıştır. 2010 yılında elektrik ihtiyacının büyük bir kısmı kömür ve doğal gaz gibi yenilenemeyen \r\nkaynaklardan karşılanırken 2024 yılına gelindiğinde rüzgâr, güneş ve jeotermal gibi yenilenebilir kaynakların \r\nkullanım oranı artmıştır. Bu değişim, karbon salınımını azaltmak ve gelecek nesillerin enerji ihtiyacını güvence \r\naltına almak amacıyla atılmış stratejik bir adımdır.\r\n Türkiye'nin 2010 ve 2024 yıllarındaki elektrik üretiminde, enerji kaynaklarının kullanım oranları aşağıdaki tabloda \r\nkarşılaştırmalı olarak verilmiştir.\r\n2010 Yılı Kullanım Oranı (%) 2024 Yılı Kullanım Oranı (%)\r\nEnerji \r\nKaynağı \r\nGrubu\r\nYenilenemeyen Kaynaklar (Kömür, Doğal gaz) 75 58\r\nYenilenebilir Kaynaklar (Güneş, Rüzgâr vb.) 25 42\r\n2.1. Türkiye’nin elektrik üretimi için yenilenemeyen ve yenilenebilir enerji kaynaklarının kullanım \r\noranlarındaki değişimin ekolojik sürdürülebilirlik üzerindeki etkisini, sürdürülebilirliğin önemi \r\naçısından iki madde hâlinde açıklayınız. \r\n • ...................................................................................................................................................................................\r\n • ...................................................................................................................................................................................\r\n2.2. Türkiye'de 2010 ve 2024 yılları arasında enerji kaynaklarının kullanım oranlarında meydana gelen \r\ndeğişimi, ekolojik sürdürülebilirliğin önemi ile ilişkilendirerek kendi cümlelerinizle açıklayınız.\r\n=== Page 3 ===\r\nYAZILIYA HAZIRLANIYORUM\r\nBİYOLOJİ DERSİ - 10. SINIF 3\r\n3. Aşağıda, bir araştırma ekibinin \"Kızılçam Vadisi\" üzerinde 1995 ve 2025 yıllarında yaptığı saha çalışmalarına ait \r\nkarşılaştırmalı bulgular yer almaktadır. Bölgede bu süre zarfında bir \"Teknoloji Geliştirme Bölgesi\" kurulmuş ve \r\nvadinin içinden geçen geniş bir viyadüklü yol inşa edilmiştir.\r\nGözlem \r\nAlanı 1995 2025\r\nOrman \r\nYapısı\r\nEkosistem bütünlüğünü koruyan, tek parça \r\nhâlinde kesintisiz yeşil bir ormanlık alan \r\nmevcuttur.\r\nViyadüklü yol ve teknoloji geliştirme bölgesi \r\ninşasıyla ormanlık alan, birbirinden kopuk \r\nküçük ağaç kümelerine dönüşmüştür.\r\nToprak \r\nAnalizi\r\nBitki köklerinin sıkıca tuttuğu, verimli bir üst \r\ntabakaya sahip toprak yapısı bulunmaktadır.\r\nKoruyucu bitki örtüsünün yok olmasıyla verimli \r\nüst tabaka kaybedilmiş, kayalık zemin açığa \r\nçıkmış ve yağmur sonrası yüzey akışına \r\ngeçen çamurlu su miktarı artmıştır.\r\nKimyasal \r\nÖlçüm\r\nToprak ve çevredeki kimyasal bileşenler, \r\nekosistemin doğal sınırları ve taşıma \r\nkapasitesi içerisindedir.\r\nTopraktaki kurşun, kadmiyum ve endüstriyel \r\natık konsantrasyonu doğal sınırları aşarak \r\n%400 oranında artış göstermiştir.\r\nFauna \r\nGözlemi\r\n120 farklı kuş ve memeli türü aktif üreme \r\ndöngüsünde sağlıklı bir şekilde yaşamını \r\nsürdürmektedir.\r\nTür sayısı 120'den 12'ye düşmüş ve alanda \r\nyalnızca kentsel yaşama ve kirliliğe uyum \r\nsağlayabilen sınırlı sayıda tür varlığını \r\nsürdürebilmiştir. Kalan 108 tür bölgede \r\ngözlenememiştir.\r\n3.1. Saha araştırma verilerine göre Kızılçam Vadisi'nde ekolojik sürdürülebilirliği kısıtlayan durumların \r\nneler olduğunu belirleyiniz ve bu durumları vadideki değişimlerle ilişkilendirerek açıklayınız. \r\n3.2. Vadideki bu değişimlerin devam etmesi hâlinde, bölgedeki canlı çeşitliliği ve beslenme ilişkileri \r\ngelecekte bu durumdan nasıl etkileneceğini açıklayınız?\r\n=== Page 4 ===\r\nYAZILIYA HAZIRLANIYORUM\r\nBİYOLOJİ DERSİ - 10. SINIF4\r\n4. Lise öğrencisi Ezel, yaşam tarzının ekosistem üzerindeki yükünü merak ederek iki farklı ailenin ekolojik ayak izini \r\noluşturan bazı etkenlerin temel tüketim verilerini karşılaştırarak aşağıdaki tabloyu oluşturmuştur.\r\nEkolojik Ayak İzi \r\nEtkeni 1. Aile 2. Aile\r\nEnerji Kaynağı Fosil yakıtlı (kömür/doğal gaz) ısınma ve yüksek klima kullanımı Çatı tipi güneş panelleriyle elektrik ve ısı enerjisi üretimi\r\nUlaşım Tercihi\r\n2 adet dizel/benzinli araç ile her gün \r\nbireysel ulaşım ve sık yapılan uçak \r\nyolculukları\r\n1 elektrikli araç ve yoğun toplu taşıma/\r\nbisiklet kullanımı ve nadir uçak \r\nyolculuğu\r\nBeslenme Tarzı Paketli, işlenmiş ve ithal gıdaların tüketimi Yerel ve mevsimsel beslenme\r\nAtık Yönetimi Çöplerin ayrıştırılmadan tek bir poşette atılması Metal, plastik, cam ve organik atıkların kaynağında ayrıştırılması\r\n Tablodaki verilere göre hangi ailenin yaşam tarzının ekolojik ayak izini küçültme konusunda daha etkili \r\nolduğunu her bir etken için gerekçesiyle açıklayınız.\r\n Enerji Kaynağı:\r\n Ulaşım Tercihi:\r\n Beslenme Tarzı:\r\n Atık Yönetimi:\r\n=== Page 5 ===\r\nYAZILIYA HAZIRLANIYORUM\r\nBİYOLOJİ DERSİ - 10. SINIF 5\r\nSORU \r\nNO ÖĞRENME ÇIKTISI BECERİLER\r\n1 BİY.10.2.4. Madde döngüleri ile ilgili bilimsel model oluşturabilme FBAB9. Bilimsel Model Oluşturma\r\n2 BİY.10.2.5. Ekolojik sürdürülebilirliğin önemini yorumlayabilme KB2.14. Yorumlama\r\n3 BİY.10.2.6. Çevresinde sürdürülebilirliği kısıtlayan durumlarla ilgili gözleme dayalı tahmin yapabilme KB2.11. Gözleme Dayalı Tahmin Etme\r\n4 BİY.10.2.7. Ekolojik ayak izini küçültebilme yollarını bilimsel olarak sorgulayabilme FBAB13. Bilimsel Sorgulama\r\nPUANLAMA TABLOSU\r\n1 2 3\r\n4 TOPLAM\r\n1.1 1.2 2.1 2.2 3.1 3.2\r\n15 15 15 15 10 10 20 100\r\nÇÖZÜMLER\r\n1.1 TAM PUAN (15 PUAN) \r\nMadde döngülerinin işleyişiyle ilişki kurarak iki bilimsel gerekçe belirtir.  \r\n Ayrıştırıcıların bulunmaması nedeniyle organik atıkların parçalanamaması, bitkiler mineralleri alamadığı için \r\nfotosentez durması, oksijenin azalması sonucu oksijen-karbondioksit dengesinin bozulması, azot döngüsünde \r\ngörev alan canlıların eksik olması, azotlu atıkların minerale dönüştürülememesi, üreticilerin ihtiyaç duyduğu \r\nminerallerin zamanla azalması, kapalı sistemde atıkların uzaklaştırılamaması, atık maddelerin birikmesi, kapalı \r\nsistemde ayrıştırma faaliyeti olmadığı için karbonun döngüye katılamaması ve bunun sonucunda ekosistem \r\ndengesinin bozulması gibi durumlar\r\n KISMİ PUAN \r\nYalnızca bir doğru bilimsel gerekçe belirtmiştir ya da iki gerekçeden biri hatalıdır.\r\n Döngüler arasında ilişki kuramaz, kapalı sistem etkisine değinmez. \r\n Her iki döngüden bahseder madde döngüsü ile ekolojik denge arasında ilişki kurar ancak ayrıştırıcıların rolünü \r\naçıklayamaz.\r\n SIFIR PUAN \r\nCevap yok veya tamamen yanlış bilgiler içermektedir.\r\n1.2 TAM PUAN (15 PUAN)\r\n Model 2’nin bilimsel modele daha yakın olduğunu doğru şekilde belirtir ve gerekçe olarak üretici-tüketici-ayrıştırıcı \r\nilişkilerinin, azotlu maddelerin ve fosfor gibi elementlerin bitkiye geri dönüşünü yansıttığını veya ekosistem \r\nbileşenlerinin daha doğru ve kapsamlı gösterildiğini açıklar.\r\n Model 1'in yalnızca O2- CO2 alışverişini gösterdiğini, azot döngüsü ve ayrıştırıcıları içermediğini, minerallerin \r\nbitkilere yeniden kazandırılamadığını, biyolojik bileşenlerin eksik olmasını bilimsel modele kıyasla açıklar. \r\n Model 2’nin su döngüsünün, azot döngüsü ve ayrıştırıcıların madde döngülerinde rolünün yüzeysel olduğunu \r\nbilimsel modele kıyasla açıklar.\r\n KISMİ PUAN\r\n Doğru modeli seçmiş ancak gerekçesi eksik/yetersizdir ya da yanlış modeli seçerek kısmen doğru bir gerekçe belirtir.\r\n Karşılaştırma yüzeysel, bilimsel model bağlantısı kuramaz.\r\n SIFIR PUAN\r\n Cevap yok veya tamamen yanlış bilgiler içermektedir.\r\n=== Page 6 ===\r\nYAZILIYA HAZIRLANIYORUM\r\nBİYOLOJİ DERSİ - 10. SINIF6\r\n2.1. TAM PUAN (15 PUAN)\r\n Yenilenemeyen kaynak kullanımının azaltılmasının karbon salınımını düşürerek iklim değişikliğiyle mücadeleye \r\nkatkı sağladığını ve yenilenebilir kaynakların tükenmez doğası sayesinde gelecek nesillerin enerji ihtiyacını güvence \r\naltına aldığını belirtir. \r\n Örnek Yanıt: Yenilenebilir kaynaklar doğada tükenmedikleri için enerji sürekliliği sağlar. Ayrıca fosil yakıtların aksine \r\nkarbon salınımını azaltarak ekosistemin dengesini korur.\r\n KISMİ PUAN\r\n Sadece bir madde yazarak gerekçesini doğru açıklar ya da iki maddeyi de bilimsel derinlikten uzak, yüzeysel \r\nifadelerle belirtir. \r\n SIFIR PUAN\r\n Cevap yoktur ya da tamamen yanlış bilgiler içermektedir.\r\n2.2. TAM PUAN (15 PUAN) \r\n Tablodaki değişimi (yenilenemeyen kaynakların kullanımının azalması, yenilenebilir kaynakların kullanımının \r\nartması) doğru okuyarak bu değişimin sürdürülebilir bir gelecek için yaşamı güvence altına aldığını anlamı \r\nbozmadan açıklar.  \r\n Örnek Yanıt: Tabloda verilen yıllarda yenilenebilir kaynakların kullanım oranının artması, Türkiye'nin çevresel \r\nkirlilik riskinin yüksek olduğu bir süreçten uzaklaştığını gösterir. Bu durum doğal kaynakların korunması, ekosistem \r\ndengesinin sağlanması ve sürdürülebilirliğin etkisiyle gelecek kuşakların enerji ihtiyacının karşılanması adına büyük \r\nönem taşır.\r\n KISMİ PUAN\r\n İfadelerden yalnızca birine değinir. Sadece sayısal artış ya da azalıştan bahseder. Sürdürülebilirliğin önemiyle \r\nilişkilendirerek gelecek nesil/yaşam güvencesi vurgusunu eksik bırakır. Kendi cümleleriyle ifade etmek yerine \r\ndoğrudan bağlamdaki cümlelerin aynısını yazar.\r\n SIFIR PUAN\r\n Tablodaki değişimin tersi yönünde yorum yapar, öznel ve bilimsel olmayan bir yorum yazar ya da cevap yoktur.\r\n=== Page 7 ===\r\nYAZILIYA HAZIRLANIYORUM\r\nBİYOLOJİ DERSİ - 10. SINIF 7\r\n3.1. TAM PUAN (10 PUAN)\r\n Saha araştırma verilerini kullanarak ekolojik sürdürülebilirliği kısıtlayan dört temel durumu doğru ekolojik \r\nkavramlarla ilişkilendirir.\r\n Viyadüklü yol ve yapılaşma nedeniyle ormanın birbirinden kopuk küçük ağaç kümelerine dönüşmesi habitat \r\nparçalanmasıyla ilişkilendirilir. \r\n Bitki örtüsünün kaybı sonucu verimli üst tabakanın yok olması ve alttaki kayalık zeminin açığa çıkması erozyon ve \r\ntoprak bozunumu ile ilişkilendirilir.\r\n Topraktaki ağır metal (kurşun, kadmiyum) ve endüstriyel atık miktarının %400 oranında artış göstererek doğal \r\nsınırları aşması kimyasal kirlilik ile ilişkilendirilir.\r\n Tür sayısının 120’den 12’ye düşmesi ve yerel popülasyonların izinin silinmesi biyoçeşitlilik kaybıyla ilişkilendirilir.\r\n KISMİ PUAN\r\n Sürdürülebilirliği kısıtlayan durumları (habitat kaybı, kirlilik vb.) doğru isimlendiren ancak saha verileriyle (yüzdesel \r\nartışlar, tür sayıları vb.) yeterli ilişkiyi kuramayan veya yalnızca iki durumu eksiksiz açıklayan cevaplar verir.\r\n SIFIR PUAN \r\n Cevap yoktur veya tamamen yanlıştır.\r\n3.2. TAM PUAN (10 PUAN)\r\n Her iki alanı da ekolojik gerekçelerle açıklar.\r\n Orman bütünlüğünün bozulması (habitat parçalanması), canlıların hareket alanını daraltır ve zamanla türlerin yok \r\nolmasına yol açarak bölgedeki biyoçeşitliliği ve ekosistemin direncini geri dönülmez şekilde azaltır.\r\n Topraktaki kurşun ve kadmiyum gibi ağır metaller, besin zinciri boyunca üreticilerden tüketicilere doğru taşınarak \r\nüst trofik basamaklardaki canlıların dokularında artan oranlarda toplanır ve toksik etki yaratır (biyolojik birikim). Bu \r\ndurum, zehirlenmelere ve besin ağının tamamen çökmesine neden olur.\r\n KISMİ PUAN \r\n Gelecekteki ekolojik yıkıma değinir ancak olayları yalnızca bir boyutuyla (sadece canlı çeşitliliği ya da sadece \r\nbeslenme ilişkileri) açıklar.\r\n Yorumlarında bilimsel temellendirme zayıftır. Habitat parçalanması, biyolojik birikim, besin ağı, trofik basamak gibi \r\nakademik kavramları kullanmadan genel ifadelerle açıklama yapar.\r\n SIFIR PUAN \r\n Cevap yoktur veya tamamen yanlıştır.\r\n=== Page 8 ===\r\nYAZILIYA HAZIRLANIYORUM\r\nBİYOLOJİ DERSİ - 10. SINIF8\r\n4. TAM PUAN (20 PUAN)\r\n Tablodaki verilerden yola çıkarak 2. ailenin yaşam tarzının 1. aileye göre ekolojik ayak izini küçültme konusundaki \r\netkinliğini her bir etken için analiz ederek bilimsel açıdan doğru yorumlar.\r\n Enerji Kaynağı:\r\n 1. aile fosil yakıtlara (kömür/doğal gaz) bağımlı bir ısınma ve yüksek klima kullanımı tercih ederken, 2. aile çatı \r\ntipi güneş panelleriyle kendi elektriğini ve ısısını üretmektedir. Fosil yakıt kullanımı atmosferdeki karbon salınımını \r\nartırarak ekolojik ayak izini büyütürken; güneş enerjisi gibi yenilenebilir kaynakların kullanımı, ekolojik ayak izini \r\nküçülten en önemli faktörlerden biridir.\r\n Ulaşım Tercihi Analizi:\r\n 1. aile iki adet içten yanmalı (dizel/benzinli) araçla bireysel ulaşımı tercih ederek yüksek miktarda karbon salınımına \r\nneden olmaktadır. 2. aile ise elektrikli araç kullanarak fosil yakıt tüketimini azaltmakta; toplu taşıma ve bisiklet \r\ntercihiyle de birey başına düşen enerji tüketimini ve hava kirliliğini minimize etmektedir. Bu davranışlar, ulaşım \r\nkaynaklı ekolojik yükün azaltılmasında kritik rol oynar.\r\n Beslenme Analizi:\r\n 1. aile'nin paketli, işlenmiş ve ithal gıda tüketimi, gıdanın üretiminden sofraya gelene kadar geçen süreçte kullanılan \r\nulaşım ve paketleme enerjisini artırmaktadır. 2. aile'nin yerel ve mevsimsel beslenme tercihi hem enerji tasarrufu \r\nsağlar hem de biyolojik çeşitliliği destekler.\r\n Atık Yönetimi Analizi:\r\n 1. aile atıklarını ayrıştırmayarak tüm çöplerin depolama alanlarına gitmesine ve kaynak israfına neden olmaktadır. \r\n2. aile'nin atıkları kaynağında ayrıştırması, maddelerin geri dönüşüm döngüsüne katılmasına ve ham madde \r\nihtiyacının azalmasına olanak sağlar. Bu durum ekolojik sürdürülebilirliğin sağlanması için temel bir adımdır.\r\n 2. ailenin yaşam tarzı, sürdürülebilirlik ilkeleriyle uyumludur. Ekolojik ayak izi; gıda, konut, ulaşım ve atık gibi \r\nfaktörlerin doğaya yüklediği toplam alanla ölçülür. 2. aile; yenilenebilir enerji, düşük emisyonlu ulaşım, yerel tüketim \r\nve geri dönüşüm alışkanlıklarıyla doğanın kendini yenileme kapasitesine çok daha az zarar vermektedir.\r\n KISMİ PUAN \r\n Tablodaki verilerden yola çıkarak ikinci ailenin yaşam tarzının birinci aileye göre ekolojik ayak izini küçültme \r\nkonusundaki etkinliğini bazı etkenler için analiz ederek bilimsel açıdan doğru yorumlar.\r\n SIFIR PUAN \r\n Cevap yok veya tamamen yanlış bilgiler içermektedir."
+  }
+ ]
+}

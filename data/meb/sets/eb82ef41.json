@@ -1,0 +1,2058 @@
+{
+ "title": "9. Sınıf Fizik - 2. Dönem 2. Yazılı (OGM Örnek Yazılı + Puanlama)",
+ "meta": {
+  "fileId": "eb82ef41",
+  "grade": [
+   9
+  ],
+  "subject": "Fizik",
+  "schoolYear": "",
+  "examType": "ogm-yazili",
+  "kind": "booklet",
+  "sourceUrl": "https://ogm-large-cdn.eba.gov.tr/materyal/Etkilesimlikitap/0cf7b696-56dd-45b4-9dc5-fc2be33516c8/pdf.pdf",
+  "counts": {
+   "sections": 16,
+   "cards": 103,
+   "flashcards": 103,
+   "questions": 74,
+   "quiz": 74,
+   "sourceQuestions": 13,
+   "skippedNeedingFigure": 3
+  }
+ },
+ "notes": {
+  "summary": "Bu dosya 9. sınıf Fizik 2. dönem 2. yazılının örnek sorularını ve puanlama anahtarını içerir. Konular: akışkanlarda kesit alanı-sürat-basınç ilişkisi (Bernoulli ilkesi), iç enerji-ısı-sıcaklık, özısı ve ısı sığası, hâl değişimi (erime ısısı), ısıl denge ve ısı aktarım yolları (iletim, konveksiyon, ışıma) ile nükleer santral örneği.\n\nBu dosyadan sınavda ne beklemeli / nasıl çalışmalı:\n1) Bernoulli ilkesini \"sürat ↑ → basınç ↓\" diye ezberle ve üç günlük hayat örneğiyle (araçlar, çatı, turnike) bağla.\n2) İç enerji, ısı ve sıcaklığı üç ayrı cümleyle tanımla; ısı alan/veren maddenin iç enerji değişimini yaz.\n3) Q = m·c·ΔT ve Q = m·L formüllerini ayır; hâl değişiminde sıcaklığın sabit olduğunu unutma.\n4) Isıl denge sorularında \"verilen ısı = alınan ısı\", denge sıcaklığı aralığı ve tablo okuma çalış.\n5) Üç ısı aktarım yolunu günlük örnekle eşleştir; nükleer santralde reaktör = konveksiyon, kondansör = iletim.\n6) Tablo ve grafik sorularında (3.1 grafiği, 2.3 kapları, 1.1 musluk tablosu) şekil bu dosyada metin olarak yok; bunlar sete alınmadı, benzer sorularla yöntemi çalış.\n7) Açıklama cevaplarında neden-sonuç zinciri kur ve birimleri yaz.",
+  "sections": [
+   {
+    "title": "Akışkanlar ve akış: kesit alanı ile sürat ilişkisi",
+    "content": "Akışkan, akabilen madde demektir: sıvılar ve gazlar. Bir borudan sürekli akan akışkanda birim sürede geçen akışkan miktarı sabittir. Bu yüzden boru daraldığında akışkanın sürati artar, genişlediğinde azalır. Yani kesit alanı ile sürat ters orantılıdır.",
+    "bulletPoints": [
+     "Dar kesit: yüksek sürat; geniş kesit: düşük sürat.",
+     "Bahçe hortumunun ucunu sıkınca suyun daha uzağa fışkırması buna örnektir.",
+     "Nehir daraldığı yerde daha hızlı akar.",
+     "Sayısal ilişki (dar kapsamda): A₁·v₁ = A₂·v₂.",
+     "Sınavda önce \"hangi noktada kesit daha küçük?\" sorusuna bak."
+    ],
+    "keyTerms": [
+     {
+      "term": "Akışkan",
+      "definition": "Sıvı ve gazların ortak adı."
+     },
+     {
+      "term": "Kesit alanı",
+      "definition": "Akışın geçtiği boru enine kesitinin alanı."
+     }
+    ]
+   },
+   {
+    "title": "Bernoulli ilkesi: sürat arttıkça basınç azalır",
+    "content": "Akışkanın sürati arttığı yerde akışkanın duvarlara ve çevresine yaptığı basınç azalır; sürat azaldığı yerde basınç artar. Bernoulli ilkesi bu ilişkiyi özetler. Su tüpünde hızlı akan bölgede su sütunu kısa, yavaş akan bölgede uzun gözükür. Gazlar için de geçerlidir.",
+    "bulletPoints": [
+     "Sürat ↑ → basınç ↓; sürat ↓ → basınç ↑.",
+     "Basınç farkı yüksek basınçtan alçak basınca doğru net kuvvet oluşturur.",
+     "Y musluğu kapanınca akış yavaşlar, basınç artar, su kollarda yükselir.",
+     "Gözleme dayalı sorularda tablo doldururken en hızlı yer en düşük basınçlıdır.",
+     "Şekil I (durgun): aynı hizadaki noktalarda basınç eşit."
+    ],
+    "keyTerms": [
+     {
+      "term": "Bernoulli ilkesi",
+      "definition": "Akışkanda sürat arttıkça basıncın azalması."
+     }
+    ]
+   },
+   {
+    "title": "Bernoulli ilkesinin günlük hayat uygulamaları",
+    "content": "Araçlar yan yana hızla geçerken aralarındaki hava hızlanır, basınç düşer; dış taraftaki daha yüksek basınç araçları birbirine doğru iter ve araç sallanır. Aynı ilkeyle hızlı geçen trene yaklaşan kişi tren tarafına çekilebilir; fırtınada çatılar kalkar; spreyde sıvı havanın hızlı geçtiği yere çıkar.",
+    "bulletPoints": [
+     "İki araç arası: hava sıkışır, sürat artar, basınç düşer → basınç farkı → araç sallanır.",
+     "Fırtınada çatı: dışarıdaki hızlı hava düşük basınç; içerideki yüksek basınç çatıyı kaldırır.",
+     "Duş perdesi su akarken içe doğru çekilir.",
+     "İki kâğıt şeridin arasına üflenince şeritler yaklaşır.",
+     "Uçak kanadı: üstten akan hava daha hızlıdır, basınç daha düşüktür; yukarı net kuvvet oluşur."
+    ],
+    "keyTerms": [
+     {
+      "term": "Basınç farkı",
+      "definition": "İki bölge arasındaki basınç değerinin farkı."
+     }
+    ]
+   },
+   {
+    "title": "Kan akışı ve turnike örneği",
+    "content": "Üst kol turnike ile sıkıldığında damarlar daralır ve kanın alt koldaki akışı yavaşlar. Bernoulli ilkesine göre akış yavaşlayınca basınç artar; damarlar şişer ve belirgin hâle gelir. Bu durum Y musluğunu kapatınca kollarda suyun yükselmesine benzer.",
+    "bulletPoints": [
+     "Sıkma → akış yavaşlar → basınç artar → damar belirginleşir.",
+     "Analoji: musluk kapatma → su kolları yükselir.",
+     "Cevapta hem açıklama hem görselle (muslukla) ilişkilendirme yap.",
+     "Rubrik tipi: doğru açıklama ama ilişki yoksa kısmi puan.",
+     "Damar daralırsa daralan yerde akış hızlı, yan basınç düşük olur."
+    ],
+    "keyTerms": [
+     {
+      "term": "Turnike",
+      "definition": "Kan akışını yavaşlatmak için kola bağlanan sıkıştırıcı bant."
+     }
+    ]
+   },
+   {
+    "title": "İç enerji, ısı ve sıcaklık",
+    "content": "Maddeyi oluşturan taneciklerin kinetik ve potansiyel enerjilerinin toplamına iç enerji denir. Sıcaklık, taneciklerin ortalama kinetik enerjisinin bir ölçüsüdür. Isı ise sıcaklık farkı nedeniyle sıcak maddeden soğuğa aktarılan enerjidir. Üç kavram farklıdır: iç enerji bir toplam, sıcaklık bir ortalama, ısı bir aktarım.",
+    "bulletPoints": [
+     "İç enerji maddenin miktarına ve sıcaklığına (ve hâline) bağlıdır.",
+     "Sıcaklık ortalama kinetik enerjiyle doğru orantılıdır.",
+     "Isı bir nicelik değil, enerji aktarımıdır; birimi joule.",
+     "Aynı sıcaklıkta daha fazla madde = daha fazla iç enerji.",
+     "Isı alan maddenin iç enerjisi artar; veren maddenin azalır."
+    ],
+    "keyTerms": [
+     {
+      "term": "İç enerji",
+      "definition": "Tanecik kinetik ve potansiyel enerjileri toplamı."
+     },
+     {
+      "term": "Sıcaklık",
+      "definition": "Ortalama kinetik enerjinin ölçüsü."
+     },
+     {
+      "term": "Isı",
+      "definition": "Sıcaklık farkından aktarılan enerji."
+     }
+    ]
+   },
+   {
+    "title": "Moleküler titreşim ve sıcaklık: K ve L cisimleri",
+    "content": "Aynı sıcaklıktaki özdeş K ve L cisimlerinin moleküllerinin titreşimi başlangıçta eşittir. Isı verildiğinde moleküller daha hızlı ve geniş aralıklarla titreşir; kinetik enerji artar. Titreşim şiddeti sıcaklığın görünümüdür. L'ye iki ısıtıcı verilmişse L'nin sıcaklığı K'dan daha çok artar (hâl değişimi yoksa).",
+    "bulletPoints": [
+     "Daha çok ısı → iç enerji ↑ → sıcaklık ↑ (hâl değişimi yoksa).",
+     "Titreşimdeki değişim sıcaklıkla ilişkilidir.",
+     "İç enerji: kinetik + potansiyel toplamı.",
+     "Cevap kalıbı: \"moleküllerin kinetik enerjisi arttı → sıcaklık arttı\".",
+     "Rubrik tipi: tek parça, tam puan ya da sıfır."
+    ],
+    "keyTerms": [
+     {
+      "term": "Kinetik enerji",
+      "definition": "Hareketten gelen enerji."
+     }
+    ]
+   },
+   {
+    "title": "Özısı, ısı sığası ve Q = m·c·ΔT",
+    "content": "Özısı (c), 1 kg maddenin sıcaklığını 1 °C değiştirmek için gereken ısıdır; maddenin cinsine bağlıdır. Isı sığası (C = m·c), belirli bir cismin sıcaklığını 1 °C değiştirmek için gereken ısıdır; cismin kütlesine bağlıdır. Hâl değişimi yokken alınan veya verilen ısı: Q = m·c·ΔT.",
+    "bulletPoints": [
+     "Su: c ≈ 4200 J/kg·°C.",
+     "Isı sığası büyük olan madde zor ısınır, zor soğur.",
+     "ΔT = T(son) − T(ilk); soğuyan maddede Q verilen ısıdır.",
+     "Örnek: 2 kg su 20 °C → 30 °C: Q = 2 · 4200 · 10 = 84 000 J.",
+     "Özısı cinse, ısı sığası hem cinse hem kütleye bağlıdır."
+    ],
+    "keyTerms": [
+     {
+      "term": "Özısı",
+      "definition": "Birim kütlenin sıcaklığını 1 °C değiştiren ısı."
+     },
+     {
+      "term": "Isı sığası",
+      "definition": "Cismin sıcaklığını 1 °C değiştirmek için gerekli ısı."
+     }
+    ]
+   },
+   {
+    "title": "Hâl değiştirme ısısı: Q = m·L",
+    "content": "Saf bir madde hâl değiştirirken (erime, donma, kaynama) sıcaklığı sabit kalır; alınan veya verilen ısı moleküller arası uzaklığı (potansiyel enerjiyi) değiştirir. Erime için Q = m·Lₑ. Lₑ (erime ısısı) maddenin cinsine bağlıdır; ısı miktarı kütleyle doğru orantılıdır.",
+    "bulletPoints": [
+     "Hâl değişimi boyunca sıcaklık sabit, iç enerji artar (ısı alıyorsa).",
+     "Buzun erime ısısı yaklaşık 334 000 J/kg.",
+     "Q₁ = m(buz) · Lₑ → aynı maddede Q₁ yalnızca kütleyle değişir.",
+     "Q₁ ısısını azaltmak için buzun kütlesini azaltmak gerekir.",
+     "Grafiklerde yatay bölüm hâl değişimidir."
+    ],
+    "keyTerms": [
+     {
+      "term": "Erime ısısı",
+      "definition": "Birim kütleyi erimek için gereken ısı."
+     },
+     {
+      "term": "Hâl değişimi",
+      "definition": "Katı-sıvı-gaz dönüşümleri."
+     }
+    ]
+   },
+   {
+    "title": "Isıl denge ve denge sıcaklığı",
+    "content": "Isıca yalıtılmış ortamda sıcak ve soğuk madde bir araya gelirse ısı sıcaktan soğuğa akar. Sıcaklıklar eşit olunca ısı akışı durur: ısıl denge. Ulaşılan sıcaklığa denge sıcaklığı denir. Enerjinin korunumu gereği verilen ısı alınan ısıya eşittir.",
+    "bulletPoints": [
+     "Q(verilen) = Q(alınan).",
+     "Denge sıcaklığı iki başlangıç sıcaklığı arasındadır.",
+     "Isı sığası büyük olan maddenin sıcaklığı az değişir, denge sıcaklığı ona yakın olur.",
+     "Isı veren maddenin iç enerjisi azalır, alanın artar.",
+     "Denge sonrası ısı akışı olmaz ama moleküller hareket etmeye devam eder."
+    ],
+    "keyTerms": [
+     {
+      "term": "Isıl denge",
+      "definition": "İki maddenin sıcaklıklarının eşitlendiği hâl."
+     },
+     {
+      "term": "Denge sıcaklığı",
+      "definition": "Isıl dengede ortak sıcaklık."
+     }
+    ]
+   },
+   {
+    "title": "Isıl denge hesabı (karışım sıcaklığı)",
+    "content": "Aynı cins sıvılar (aynı c) karıştırılırsa m₁(T₁ − T) = m₂(T − T₂) yazılır. Örnek: 200 g su 80 °C ve 300 g su 20 °C karıştırılırsa 0,2(80 − T) = 0,3(T − 20) → 16 − 0,2T = 0,3T − 6 → 22 = 0,5T → T = 44 °C. Sonuç iki sıcaklığın arasında ve daha çok olan suyun sıcaklığına daha yakındır.",
+    "bulletPoints": [
+     "Sıcak maddeden verilen ısı = soğuk maddenin aldığı ısı.",
+     "Kütleler eşitse denge sıcaklığı aritmetik ortalamadır.",
+     "Kütleler farklıysa ortalama ağırlıklıdır.",
+     "Birimleri tutarlı kullan (g veya kg).",
+     "Kontrol: sonuç iki başlangıç değeri arasında mı?"
+    ],
+    "keyTerms": [
+     {
+      "term": "Karışım sıcaklığı",
+      "definition": "İki sıvı karıştırıldıktan sonra ulaşılan sıcaklık."
+     }
+    ]
+   },
+   {
+    "title": "Et–su çözdürme deneyi: tablo yorumu",
+    "content": "10 °C suya konulan −20 °C et 5 dakikada bir ölçülür: su 10,9,8,7,6,5,4 °C; et −20,−16,−12,−8,−4,0,4 °C. 30. dakikada ikisi de 4 °C: ısıl denge. Süre boyunca su ısı verdi (sıcaklığı düştü, iç enerjisi azaldı); et ısı aldı (sıcaklığı yükseldi, iç enerjisi arttı). Alınan ve verilen ısı eşit büyüklüktedir.",
+    "bulletPoints": [
+     "Denge sıcaklığı: tablodaki sıcaklıkların eşitlendiği değer, 4 °C.",
+     "İç enerji: su azalır, et artar.",
+     "Etin sıcaklığı 8 °C olsun istenirse: suyun miktarı artırılır veya etin miktarı azaltılır.",
+     "Etin ısı alması: sıcaklık artışı + hâl değişimi (0 °C civarı) etkisi.",
+     "Tabloda \"aynı değer\" bulduğun an denge anıdır."
+    ],
+    "keyTerms": [
+     {
+      "term": "Çözdürme",
+      "definition": "Donmuş maddenin ısı alarak erimesi."
+     }
+    ]
+   },
+   {
+    "title": "Isı aktarım yolları: iletim",
+    "content": "İletimde enerji, maddenin bir noktasından diğerine moleküllerin birbirine çarparak enerji aktarmasıyla yayılır; madde kendisi yer değiştirmez. Katılarda, özellikle metallerde baskındır. Sıcak yüzeyle temas eden madde ısı alır.",
+    "bulletPoints": [
+     "Sıcak çaya batırılan kaşığın sapının ısınması.",
+     "Yoğuşturucuda buhar boruyla temas edince ısı boruya, oradan soğutma suyuna iletilir.",
+     "Metaller iyi iletken, ahşap ve plastik yalıtkandır.",
+     "Madde taşınmaz, yalnızca enerji aktarılır.",
+     "Tencere sapları bu yüzden plastik veya ahşaptır."
+    ],
+    "keyTerms": [
+     {
+      "term": "İletim",
+      "definition": "Temas yoluyla moleküller arası enerji aktarımı."
+     }
+    ]
+   },
+   {
+    "title": "Isı aktarım yolları: konveksiyon",
+    "content": "Konveksiyonda (taşınım) ısı, akışkanın (sıvı veya gazın) hareketiyle taşınır. Isınan akışkan genleşir, yoğunluğu azalır, yukarı çıkar; yerine soğuk ve yoğun akışkan gelir. Böylece dolaşım oluşur. Kaynayan suyun tencerede dolaşması, kaloriferin odayı ısıtması ve nükleer santral reaktöründe suyun ısınıp buharlaşarak türbine gitmesi konveksiyondur.",
+    "bulletPoints": [
+     "Isınan akışkan hafifler ve yükselir.",
+     "Soğuyan akışkan yoğunlaşıp aşağı iner.",
+     "Katılarda konveksiyon olmaz.",
+     "Termosifon ve kombi bu ilkeyle çalışır.",
+     "Cevap kalıbı: \"akışkan hareketiyle ısı taşınır\"."
+    ],
+    "keyTerms": [
+     {
+      "term": "Konveksiyon (taşınım)",
+      "definition": "Isının akışkanın hareketiyle taşınması."
+     }
+    ]
+   },
+   {
+    "title": "Isı aktarım yolları: ışıma",
+    "content": "Işıma (radyasyon) ısının ortam gerektirmeden elektromanyetik dalgalarla yayılmasıdır. Güneş'ten Dünya'ya ısı ışıma ile gelir; boşlukta da gerçekleşir. Şöminenin karşısında oturan kişi ışıma ve konveksiyonla ısınır.",
+    "bulletPoints": [
+     "Boşlukta iletim ve konveksiyon olmaz, ışıma olur.",
+     "Koyu renkli yüzeyler ışımayı daha çok soğurur.",
+     "Termos: vakum iletim ve konveksiyonu, parlak yüzey ışımayı azaltır.",
+     "Güneş enerjisi ışımadır.",
+     "Her olay için baskın yolu belirle, birden fazla olabilir."
+    ],
+    "keyTerms": [
+     {
+      "term": "Işıma",
+      "definition": "Elektromanyetik dalgalarla ortam gerektirmeden ısı yayılması."
+     }
+    ]
+   },
+   {
+    "title": "Nükleer santralde ısı aktarım yolları",
+    "content": "Reaktör çekirdeğindeki nükleer reaksiyonlar suyu yüksek sıcaklığa ısıtır ve su buharlaşır; bu süreçte konveksiyon etkindir. Yüksek basınçlı buhar türbini döndürür, jeneratör elektrik üretir. Türbinden çıkan buhar kondansörde boruların dış yüzeyine temas ederek ısıyı iletim yoluyla boruya, oradan soğutma suyuna verir; soğutma suyu T₁'den T₂'ye ısınır, buhar yoğuşur.",
+    "bulletPoints": [
+     "Reaktör: konveksiyon (ısınan akışkanın dolaşımı).",
+     "Kondansör: iletim (buhar → boru → soğutma suyu).",
+     "Soğutma suyu giriş T₁, çıkış T₂ (T₂ > T₁).",
+     "Buhar yoğuşurken ısı verir (iç enerjisi azalır).",
+     "Rubrik: yolu + nasıl gerçekleştiği, ikisi birlikte 10 puan."
+    ],
+    "keyTerms": [
+     {
+      "term": "Kondansör",
+      "definition": "Buharı yoğuşturan soğutucu bölüm."
+     },
+     {
+      "term": "Türbin",
+      "definition": "Buharla dönen çark."
+     }
+    ]
+   },
+   {
+    "title": "Sınav stratejisi ve puan dağılımı",
+    "content": "Bu yazılıda 5 sorunun her biri 20 puandır (rubrik tablosuna göre): 1. soru 4+8+8, 2. soru 6+6+8, 3. soru 7+5+4+4, 4. soru 4+4+6+6, 5. soru 10+10. Açıklamalı sorularda \"neden → sonuç\" zinciri kur. Anahtar sözcükler: sürat, basınç, iç enerji, sıcaklık, ısı, denge, iletim, konveksiyon.",
+    "bulletPoints": [
+     "Tablo doldurmada her kutu ayrı puan getirir.",
+     "\"Açıklayınız\" sorularında en az iki bağlı cümle yaz.",
+     "Hesaplı sorularda birimleri yaz.",
+     "Şekle bağlı sorularda şekli yorumlamadan önce ilkeyi (Bernoulli, ısıl denge) yaz.",
+     "Önce kısa cevaplı kolay maddeleri yap, sonra uzun açıklamalara geç."
+    ],
+    "keyTerms": [
+     {
+      "term": "Neden-sonuç zinciri",
+      "definition": "Bir olayı \"A olduğundan B, B olduğundan C\" biçiminde açıklama."
+     }
+    ]
+   }
+  ],
+  "importantDates": [],
+  "commonMistakes": [
+   "Sürat arttığında basıncın da arttığını sanmak (tersi: basınç azalır).",
+   "Kesit alanı ile sürati doğru orantılı sanmak.",
+   "Turnike sorusunda sadece \"kan sıkışır\" demek; akış yavaşlar → basınç artar zincirini kurmamak.",
+   "Isı ile sıcaklığı aynı kavram saymak; ısı enerji aktarımıdır, sıcaklık ortalama kinetik enerjidir.",
+   "Hâl değişimi sırasında sıcaklığın arttığını düşünmek; sıcaklık sabittir, iç enerji değişir.",
+   "Isı sığası ile özısıyı karıştırmak: özısı cinse, ısı sığası cinse ve kütleye bağlıdır.",
+   "Q₁ = m·Lₑ ilişkisini yazmadan sadece \"kütle azalır\" demek (kısmi puan).",
+   "Isıl dengede ısı akışının sürdüğünü sanmak; denge sonrası net ısı akışı yoktur.",
+   "Verilen ve alınan ısı eşitliğini yazarken enerjinin korunumunu belirtmemek.",
+   "Reaktördeki buharlaşmayı iletim, kondansördeki ısı aktarımını konveksiyon sanmak (rubrik tersini söyler).",
+   "Karışım sıcaklığının iki sıcaklığın dışında çıktığını fark etmeden bırakmak.",
+   "Birimleri (J, °C, kg) yazmamak."
+  ],
+  "diagrams": [],
+  "mindmap": {
+   "label": "9. Sınıf Fizik 2. Dönem 2. Yazılı",
+   "children": [
+    {
+     "label": "Akışkanlar",
+     "children": [
+      {
+       "label": "Kesit alanı - sürat",
+       "detail": "Ters orantı",
+       "children": []
+      },
+      {
+       "label": "Bernoulli",
+       "detail": "Sürat ↑ basınç ↓",
+       "children": []
+      },
+      {
+       "label": "Uygulamalar",
+       "detail": "Araç, çatı, turnike",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "İç enerji",
+     "children": [
+      {
+       "label": "Kinetik + potansiyel",
+       "children": []
+      },
+      {
+       "label": "Sıcaklık ortalama kinetik enerji",
+       "children": []
+      },
+      {
+       "label": "Isı aktarılan enerji",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Özısı ve hâl değişimi",
+     "children": [
+      {
+       "label": "Q = m·c·ΔT",
+       "children": []
+      },
+      {
+       "label": "Isı sığası C = m·c",
+       "children": []
+      },
+      {
+       "label": "Q = m·L",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Isıl denge",
+     "children": [
+      {
+       "label": "Q verilen = Q alınan",
+       "children": []
+      },
+      {
+       "label": "Denge sıcaklığı",
+       "children": []
+      },
+      {
+       "label": "Et-su tablosu",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Isı aktarım yolları",
+     "children": [
+      {
+       "label": "İletim",
+       "children": []
+      },
+      {
+       "label": "Konveksiyon",
+       "children": []
+      },
+      {
+       "label": "Işıma",
+       "children": []
+      },
+      {
+       "label": "Nükleer santral",
+       "children": []
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "flashcards": [
+  {
+   "front": "Akışkan nedir?",
+   "back": "Akabilen madde: sıvı ve gaz.",
+   "category": "Akışkanlar",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Boru daralınca akışkanın sürati?",
+   "back": "Artar.",
+   "category": "Akışkanlar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Boru genişleyince akışkanın sürati?",
+   "back": "Azalır.",
+   "category": "Akışkanlar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kesit alanı ile sürat arasındaki ilişki?",
+   "back": "Ters orantılı (A₁·v₁ = A₂·v₂).",
+   "category": "Akışkanlar",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Bahçe hortumunun ucu sıkılınca su neden uzağa gider?",
+   "back": "Kesit küçülür, sürat artar.",
+   "category": "Akışkanlar",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Bernoulli ilkesi nedir?",
+   "back": "Akışkanın sürati arttığı yerde basınç azalır, sürat azaldığı yerde basınç artar.",
+   "category": "Akışkanlar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Hızlı akan akışkanda basınç?",
+   "back": "Düşüktür.",
+   "category": "Akışkanlar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yavaş akan akışkanda basınç?",
+   "back": "Yüksektir.",
+   "category": "Akışkanlar",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Durgun sıvıda aynı hizadaki noktalarda basınç?",
+   "back": "Eşittir.",
+   "category": "Akışkanlar",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Y musluğu kapanınca kollarda su neden yükselir?",
+   "back": "Akış yavaşlar, basınç artar.",
+   "category": "Akışkanlar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Turnike sıkılınca damar neden belirginleşir?",
+   "back": "Kan akışı yavaşlar, basınç artar, damar şişer.",
+   "category": "Akışkanlar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "İki araç yan yana hızla geçerken sallanır; neden?",
+   "back": "Aradaki havanın sürati artar, basıncı düşer; dış basınç aracı kuvvetle iter.",
+   "category": "Akışkanlar",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Fırtınada çatı neden kalkar?",
+   "back": "Dışarıda hızlı hava = düşük basınç; içeride yüksek basınç çatıyı kaldırır.",
+   "category": "Akışkanlar",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Duş perdesi neden içe çekilir?",
+   "back": "Su ve hava akımı perde yakınında basıncı düşürür.",
+   "category": "Akışkanlar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "İki kâğıt şerit arasına üflenince ne olur?",
+   "back": "Şeritler yaklaşır; arada hız artar, basınç düşer.",
+   "category": "Akışkanlar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Uçak kanadında kalkış kuvveti nasıl oluşur?",
+   "back": "Üstten akan hava hızlıdır, basınç düşüktür; alt-üst basınç farkı yukarı kuvvet doğurur.",
+   "category": "Akışkanlar",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Atomizerde (sprey) sıvı neden yükselir?",
+   "back": "Hızlı geçen hava basıncı düşürür; sıvı yüzeyindeki yüksek basınç sıvıyı iter.",
+   "category": "Akışkanlar",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Su tüpünde hızlı akan bölgede su sütunu nasıl görünür?",
+   "back": "Daha kısa (basınç düşük).",
+   "category": "Akışkanlar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Bernoulli tablosunda \"en büyük sürat\" noktasında basınç?",
+   "back": "En küçüktür.",
+   "category": "Akışkanlar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Daralan damarda kan hızı ve yan basıncı?",
+   "back": "Hız artar, yan duvar basıncı azalır.",
+   "category": "Akışkanlar",
+   "difficulty": "hard"
+  },
+  {
+   "front": "İç enerji nedir?",
+   "back": "Taneciklerin kinetik ve potansiyel enerjilerinin toplamı.",
+   "category": "İç Enerji-Isı-Sıcaklık",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Sıcaklık neyin ölçüsüdür?",
+   "back": "Taneciklerin ortalama kinetik enerjisinin.",
+   "category": "İç Enerji-Isı-Sıcaklık",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Isı nedir?",
+   "back": "Sıcaklık farkı nedeniyle sıcaktan soğuğa aktarılan enerji.",
+   "category": "İç Enerji-Isı-Sıcaklık",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Isının SI birimi?",
+   "back": "Joule (J).",
+   "category": "İç Enerji-Isı-Sıcaklık",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Sıcaklığın SI birimi?",
+   "back": "Kelvin (K); günlük °C.",
+   "category": "İç Enerji-Isı-Sıcaklık",
+   "difficulty": "easy"
+  },
+  {
+   "front": "İç enerji nelere bağlıdır?",
+   "back": "Madde miktarına, sıcaklığa ve hâle.",
+   "category": "İç Enerji-Isı-Sıcaklık",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Isı alan maddenin iç enerjisi?",
+   "back": "Artar.",
+   "category": "İç Enerji-Isı-Sıcaklık",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Isı veren maddenin iç enerjisi?",
+   "back": "Azalır.",
+   "category": "İç Enerji-Isı-Sıcaklık",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Aynı sıcaklıkta 2 kg su ile 1 kg suyun iç enerjisi?",
+   "back": "2 kg suyun iç enerjisi daha büyük.",
+   "category": "İç Enerji-Isı-Sıcaklık",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Isıtılan maddede moleküllerin titreşimi?",
+   "back": "Daha hızlı ve şiddetli olur.",
+   "category": "İç Enerji-Isı-Sıcaklık",
+   "difficulty": "medium"
+  },
+  {
+   "front": "K cismine bir, L cismine iki ısıtıcıyla eşit süre ısı verilirse hangisi daha çok ısınır?",
+   "back": "L (daha fazla ısı aldığı için).",
+   "category": "İç Enerji-Isı-Sıcaklık",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Şekil I → III arasında titreşim değişimi hangi niceliğe bağlıdır?",
+   "back": "Sıcaklığa.",
+   "category": "İç Enerji-Isı-Sıcaklık",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Hâl değişimi yoksa ısı alan cismin sıcaklığı?",
+   "back": "Artar.",
+   "category": "İç Enerji-Isı-Sıcaklık",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Sıcaklık ile ısı arasındaki fark?",
+   "back": "Sıcaklık bir ölçü (ortalama kinetik enerji), ısı aktarılan enerjidir.",
+   "category": "İç Enerji-Isı-Sıcaklık",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Su + buhar 100 °C sisteminde ısı alındığında iç enerji?",
+   "back": "Artar (ısı alınıyorsa).",
+   "category": "İç Enerji-Isı-Sıcaklık",
+   "difficulty": "medium"
+  },
+  {
+   "front": "İki kap karıştırılınca yeni sistemin iç enerjisi nasıl bulunur?",
+   "back": "Kütle ve sıcaklık artışına bakılır; ısı alan sistemin iç enerjisi artar.",
+   "category": "İç Enerji-Isı-Sıcaklık",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Özısı nedir?",
+   "back": "1 kg maddenin sıcaklığını 1 °C değiştirmek için gerekli ısı.",
+   "category": "Özısı ve Isı Sığası",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Özısı neye bağlıdır?",
+   "back": "Maddenin cinsine.",
+   "category": "Özısı ve Isı Sığası",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Isı sığası nedir?",
+   "back": "Bir cismin sıcaklığını 1 °C değiştirmek için gerekli ısı: C = m·c.",
+   "category": "Özısı ve Isı Sığası",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Isı sığası neye bağlıdır?",
+   "back": "Maddenin cinsine ve kütlesine.",
+   "category": "Özısı ve Isı Sığası",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Isı hesaplama formülü?",
+   "back": "Q = m·c·ΔT.",
+   "category": "Özısı ve Isı Sığası",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Suyun özısısı yaklaşık?",
+   "back": "4200 J/kg·°C.",
+   "category": "Özısı ve Isı Sığası",
+   "difficulty": "medium"
+  },
+  {
+   "front": "2 kg suyu 20 °C → 30 °C ısıtmak için gereken ısı?",
+   "back": "Q = 2 · 4200 · 10 = 84 000 J.",
+   "category": "Özısı ve Isı Sığası",
+   "difficulty": "medium"
+  },
+  {
+   "front": "500 g suyun ısı sığası?",
+   "back": "C = 0,5 · 4200 = 2100 J/°C.",
+   "category": "Özısı ve Isı Sığası",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Isı sığası büyük madde nasıl davranır?",
+   "back": "Zor ısınır, zor soğur.",
+   "category": "Özısı ve Isı Sığası",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Hâl değişiminde sıcaklık neden sabit kalır?",
+   "back": "Alınan ısı moleküller arası uzaklığı (potansiyel enerjiyi) değiştirir.",
+   "category": "Özısı ve Isı Sığası",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Erime ısısı formülü?",
+   "back": "Q = m·Lₑ.",
+   "category": "Özısı ve Isı Sığası",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Erime ısısı neye bağlıdır?",
+   "back": "Maddenin cinsine.",
+   "category": "Özısı ve Isı Sığası",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Buzun erime ısısı yaklaşık?",
+   "back": "334 000 J/kg.",
+   "category": "Özısı ve Isı Sığası",
+   "difficulty": "easy"
+  },
+  {
+   "front": "0,5 kg buzu eritmek için gereken ısı? (Lₑ = 334 000 J/kg)",
+   "back": "167 000 J.",
+   "category": "Özısı ve Isı Sığası",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Q₁ = m·Lₑ ise Q₁ azaltılması için ne yapılır?",
+   "back": "Buzun kütlesi azaltılır (Lₑ sabit).",
+   "category": "Özısı ve Isı Sığası",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Grafikte yatay bölüm neyi gösterir?",
+   "back": "Hâl değişimini (sıcaklık sabit).",
+   "category": "Özısı ve Isı Sığası",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Isıl denge nedir?",
+   "back": "İki maddenin sıcaklıklarının eşitlendiği ve ısı akışının durduğu hâl.",
+   "category": "Isıl Denge",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Denge sıcaklığı nedir?",
+   "back": "Isıl dengede ortak sıcaklık.",
+   "category": "Isıl Denge",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Isıl dengede verilen ve alınan ısı?",
+   "back": "Eşittir (Q verilen = Q alınan).",
+   "category": "Isıl Denge",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Hangi ilke verilen ısı = alınan ısı der?",
+   "back": "Enerjinin korunumu.",
+   "category": "Isıl Denge",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Denge sıcaklığı hangi değerler arasındadır?",
+   "back": "İki başlangıç sıcaklığının arasında.",
+   "category": "Isıl Denge",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kütleler eşit, aynı madde: 40 °C ve 20 °C → denge?",
+   "back": "30 °C.",
+   "category": "Isıl Denge",
+   "difficulty": "medium"
+  },
+  {
+   "front": "200 g su 80 °C + 300 g su 20 °C → denge?",
+   "back": "44 °C.",
+   "category": "Isıl Denge",
+   "difficulty": "medium"
+  },
+  {
+   "front": "S maddesinin kütlesi artarsa denge sıcaklığı?",
+   "back": "S daha sıcaksa denge sıcaklığı artar (S'nin sıcaklığına yaklaşır).",
+   "category": "Isıl Denge",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Isı sığası büyük olan madde denge sıcaklığını nasıl etkiler?",
+   "back": "Denge sıcaklığı o maddenin sıcaklığına daha yakın olur.",
+   "category": "Isıl Denge",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Su 4 °C, et 4 °C iken ısı akışı olur mu?",
+   "back": "Hayır; ısıl dengededir.",
+   "category": "Isıl Denge",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Çözdürmede neden soğuk suyun sık değiştirilmesi önerilir?",
+   "back": "Su soğudukça sıcaklık farkı küçülür; taze su farkı yeniler ve çözdürmeyi hızlandırır.",
+   "category": "Isıl Denge",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Etin daha sıcak çıkması için hangi iki işlem?",
+   "back": "Suyun miktarını artırmak, etin miktarını azaltmak.",
+   "category": "Isıl Denge",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Isıl dengede iç enerji değişimi nasıl yorumlanır?",
+   "back": "Isı veren maddenin iç enerjisi azalır, ısı alanınki artar.",
+   "category": "Isıl Denge",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Isı aktarım yolları nelerdir?",
+   "back": "İletim, konveksiyon (taşınım), ışıma.",
+   "category": "Isı Aktarımı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "İletim nedir?",
+   "back": "Temas yoluyla moleküller arası enerji aktarımı.",
+   "category": "Isı Aktarımı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Konveksiyon nedir?",
+   "back": "Isının akışkanın hareketiyle taşınması.",
+   "category": "Isı Aktarımı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Işıma nedir?",
+   "back": "Isının elektromanyetik dalgalarla, ortam gerektirmeden yayılması.",
+   "category": "Isı Aktarımı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "İletim hangi maddelerde baskındır?",
+   "back": "Katılarda, özellikle metallerde.",
+   "category": "Isı Aktarımı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Konveksiyon hangi maddelerde olur?",
+   "back": "Sıvı ve gazlarda.",
+   "category": "Isı Aktarımı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Işıma boşlukta gerçekleşir mi?",
+   "back": "Evet.",
+   "category": "Isı Aktarımı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Güneş'ten Dünya'ya ısı hangi yolla gelir?",
+   "back": "Işıma.",
+   "category": "Isı Aktarımı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Çay kaşığının sapının ısınması hangi yolladır?",
+   "back": "İletim.",
+   "category": "Isı Aktarımı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kaynayan suyun tencerede dolaşması hangi yolladır?",
+   "back": "Konveksiyon.",
+   "category": "Isı Aktarımı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Nükleer santralde reaktörde suyun buharlaşması hangi yolladır?",
+   "back": "Konveksiyon.",
+   "category": "Isı Aktarımı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Kondansörde buharın soğutma suyuna ısı vermesi hangi yolladır?",
+   "back": "İletim.",
+   "category": "Isı Aktarımı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Isınan akışkana ne olur?",
+   "back": "Genleşir, yoğunluğu azalır, yükselir.",
+   "category": "Isı Aktarımı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Soğuk akışkan neden aşağı iner?",
+   "back": "Yoğunluğu büyüktür.",
+   "category": "Isı Aktarımı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Termos ısıyı nasıl korur?",
+   "back": "Vakum iletim/konveksiyonu, parlak yüzey ışımayı azaltır.",
+   "category": "Isı Aktarımı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Tencere sapı neden plastik/ahşaptır?",
+   "back": "Isıyı kötü ileten yalıtkan olduğu için elin yanmasını önler.",
+   "category": "Isı Aktarımı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Türbin nedir?",
+   "back": "Yüksek basınçlı buharla dönen, jeneratörü çeviren çark.",
+   "category": "Isı Aktarımı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Jeneratör ne yapar?",
+   "back": "Dönme enerjisini elektrik enerjisine çevirir.",
+   "category": "Isı Aktarımı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kondansör ne yapar?",
+   "back": "Buharı soğutup yoğuşturur.",
+   "category": "Isı Aktarımı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Nükleer santralde soğutma suyu T₁ ve T₂ ilişkisi?",
+   "back": "T₂ > T₁: su buhardan ısı alarak ısınır.",
+   "category": "Isı Aktarımı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Nükleer santraldeki pompa ne yapar?",
+   "back": "Yoğuşan suyu yeniden reaktöre gönderir.",
+   "category": "Isı Aktarımı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Isı aktarımında her olayda tek yol mu vardır?",
+   "back": "Hayır; birkaç yol bir arada olabilir.",
+   "category": "Isı Aktarımı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "1.3 sorusunda Bernoulli ile hangi iki adımı yazmalısın?",
+   "back": "Hızın artması basıncı düşürür; basınç farkı kuvvet oluşturur.",
+   "category": "Sınav Stratejisi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "1.2 sorusunda kısmi puan nasıl alınır?",
+   "back": "Açıklama doğruysa ama görselle ilişki yoksa 5 puan.",
+   "category": "Sınav Stratejisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "3.4 sorusunda kısmi puan?",
+   "back": "Sadece Q₁ = m·Lₑ bağıntısını yazmak 2 puan.",
+   "category": "Sınav Stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "4.3 sorusunda kısmi puan?",
+   "back": "Yalnızca su veya yalnızca et doğruysa 3 puan.",
+   "category": "Sınav Stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "4.4 sorusunda kaç işlem yazılır?",
+   "back": "İki: suyu artır, eti azalt; biri doğruysa 3 puan.",
+   "category": "Sınav Stratejisi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "2.3 tablosunun puanı kaç?",
+   "back": "8 puan; her doğru ifade 2 puan (şekle bağlı olduğundan sete alınmadı).",
+   "category": "Sınav Stratejisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "5.1 ve 5.2 kaç puan?",
+   "back": "Her biri 10 puan.",
+   "category": "Sınav Stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Neden-sonuç zinciri nasıl kurulur?",
+   "back": "\"A olduğu için B, B olduğu için C\" biçiminde bağlayarak.",
+   "category": "Sınav Stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Bernoulli ilkesi nerede kaldırma kuvveti açıklar?",
+   "back": "Uçak kanadında: üstte hızlı hava, düşük basınç; alt-üst basınç farkı yukarı net kuvvet yapar.",
+   "category": "Akışkanlar",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Şekil II'de sürat en büyük olan noktada basınç ne olur?",
+   "back": "En küçük olur (Bernoulli).",
+   "category": "Akışkanlar",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Aynı madde, iki kat kütle: ısı sığası?",
+   "back": "2 katına çıkar (C = m·c).",
+   "category": "Özısı ve Isı Sığası",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Aynı ısı, özısısı küçük madde: ΔT?",
+   "back": "Daha büyük ΔT (ΔT = Q/(m·c)).",
+   "category": "Özısı ve Isı Sığası",
+   "difficulty": "medium"
+  },
+  {
+   "front": "100 °C suyun 100 °C buhara dönüşmesinde iç enerji ve sıcaklık?",
+   "back": "İç enerji artar, sıcaklık sabit.",
+   "category": "Özısı ve Isı Sığası",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Aynı ısıyla ısıtılan iki cisimden hangisi daha çok ısınır?",
+   "back": "Isı sığası küçük olan.",
+   "category": "Isıl Denge",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Isıl dengeye gelmiş iki cismin iç enerjileri eşit midir?",
+   "back": "Gerekmez; sıcaklıkları eşittir, iç enerjileri madde miktarına göre farklı olabilir.",
+   "category": "Isıl Denge",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kalorifer neden pencere altına konur?",
+   "back": "Isınan hava yükselir, soğuk hava iner: konveksiyonla oda dolaşım yapar.",
+   "category": "Isı Aktarımı",
+   "difficulty": "medium"
+  }
+ ],
+ "quiz": [
+  {
+   "type": "open-ended",
+   "question": "Soru 1.2 (8 puan). Fizik öğretmeni, su ile dolu bir birleşik kapta aynı yatay hizada bulunan K, L ve M noktalarındaki durgun sıvı basınçlarının eşit olduğunu göstermiştir. Ardından X ve Y musluklarını aynı anda açarak (Y musluğu tamamen açılıp su boşalırken X musluğu kaptaki su seviyesini A düzeyinde tutar) sıvı hareket hâlindeyken hızın basınç üzerindeki etkisini öğrencilerle gözlemlemiştir. Hemşireler kan alırken damarın daha belirgin hâle gelmesi için kolu kan alınacak noktanın üstünde turnike ile sıkarlar. Bu durumun metindeki (musluk) gözlemle ilgisi nedir? Açıklayınız. (Not: Bu alt soru, şeklin ayrıntısı olmadan yalnızca \"akış yavaşlayınca basınç artar\" ilişkisiyle cevaplanabilir; bu yüzden dahil edilmiştir.)",
+   "correctAnswer": "Üst kol turnike ile sıkıştırılınca alt kolda kanın damarlardaki akış hızı yavaşlar, bu yüzden basıncı artar; bu da damarların şişerek daha belirgin hâle gelmesini sağlar. Bunu Y musluğunu kapattığımızda kollarda suyun yükselmesine benzetebiliriz.",
+   "keyPoints": [
+    "Turnike akış hızını yavaşlatır",
+    "Akış yavaşlayınca basınç artar (Bernoulli)",
+    "Damar şişer, belirginleşir",
+    "Musluk deneyine benzetme (Y kapanınca su yükselir)"
+   ],
+   "maxPoints": 8,
+   "explanation": "Zincir kur: sıkma → damar daralır, akış yavaşlar → basınç artar → damar şişer. Sonra gözlemle bağla: musluk deneyinde Y musluğu kapanınca akış yavaşlar ve kollarda su seviyesi yükselir, yani basınç artar. Rubrik: açıklamayı doğru yapıp görselle (musluk gözlemiyle) ilişkilendirirsen 8 puan; açıklama doğru ama görselle ilişki yoksa 5 puan.",
+   "category": "Akışkanlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 1.3 (8 puan). Umay ve ailesi Bursa'dan İzmir'e doğru otoyolda gitmektedir. Bir süre sonra arabalarının yanından onların arabasına göre daha süratli bir araba geçtiğinde Umayların arabası sallanır. Arabalarının sallanmasının nedenini yaptığınız gözlemlerden (hız arttığında basıncın azalması) faydalanarak Bernoulli İlkesi ile açıklayınız.",
+   "correctAnswer": "Yüksek süratle hareket eden arabalar yan yana geldiğinde aralarında kalan hava molekülleri sıkışır ve moleküllerin sürati artar. Bernoulli İlkesi'ne göre hava süratinin artması havanın basıncının düşmesine neden olur. Bunun sonucunda iki araba arasındaki hava basıncı, arabaların dış taraflarındaki hava basıncından daha düşük olur. Basınç farkından dolayı yüksek basınçlı hava düşük basınçlı alana doğru hareket etmeye çalışır; arabalara kuvvet etki eder ve araba sallanır.",
+   "keyPoints": [
+    "Bernoulli ilkesi: sürat artınca basınç azalır",
+    "Araçların arasında hava hızlanır, basınç düşer",
+    "Dış tarafta basınç daha yüksektir",
+    "Basınç farkı kuvvet oluşturur, araba sallanır"
+   ],
+   "maxPoints": 8,
+   "explanation": "İlkeyi önce yaz, sonra olaya uygula. Adım 1: iki araç arası dar, hava hızlı. Adım 2: hızlı hava = düşük basınç (Bernoulli). Adım 3: dış taraf yüksek basınç, aralık düşük basınç → basınç farkı → araçlar birbirine doğru itilir/sallanır. Rubrik: ilkeyi yazıp olayla doğru ilişkilendirirsen 8 puan; ilkeyi doğru yazıp olayla ilişkilendiremezsen 4 puan.",
+   "category": "Akışkanlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 2.1 (6 puan). K ve L özdeş cisimleri ilk durumda aynı sıcaklıktadır, bu yüzden moleküllerinin titreşim hareketleri eşit düzeydedir. K cismine bir, L cismine iki özdeş ısıtıcıyla eşit sürede ısı verilmiş ve ısıtma sonunda moleküllerin titreşim şiddetlerinin arttığı (L'de K'dan daha fazla) gözlenmiştir. Şekil I (ilk durum) ve Şekil III'ü (ısıtma sonrası) karşılaştırarak bu değişimin, maddenin hangi fiziksel niceliğiyle ilişkili olduğunu yazınız.",
+   "correctAnswer": "Başlangıçta moleküllerin titreşimleri az ve birbirine eşitken, ısı aldıktan sonra cisimlerin molekülleri daha hızlı ve geniş aralıklarla titreşmektedir. Bu durum moleküllerin kinetik enerjisinin arttığını gösterir. Moleküller ne kadar hızlı titreşirse maddenin sıcaklığı da o kadar artar. Dolayısıyla bu değişim sıcaklık ile ilişkilidir.",
+   "keyPoints": [
+    "Moleküller daha hızlı titreşir",
+    "Kinetik enerji artar",
+    "Nicelik: sıcaklık"
+   ],
+   "maxPoints": 6,
+   "explanation": "Gözlemi yorumlama sırası: (1) ne değişti? Titreşim şiddeti. (2) bu fizikte neyi gösterir? Moleküllerin ortalama kinetik enerjisini. (3) ortalama kinetik enerjinin ölçüsü hangi nicelik? Sıcaklık. Rubrik tek parçadır: doğru açıklama 6 puan, boş veya yanlış 0.",
+   "category": "İç Enerji-Isı-Sıcaklık",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 2.2 (6 puan). K ve L özdeş cisimleri ilk durumda aynı sıcaklıktadır, bu yüzden moleküllerinin titreşim hareketleri eşit düzeydedir. K cismine bir, L cismine iki özdeş ısıtıcıyla eşit sürede ısı verilmiş ve ısıtma sonunda moleküllerin titreşim şiddetlerinin arttığı (L'de K'dan daha fazla) gözlenmiştir. Verilen ısı miktarının cisimlerin iç enerjisine ve sıcaklıklarına nasıl etki ettiğini açıklayınız. İç enerji, ısı ve sıcaklık arasındaki ilişkiyi bu deney üzerinden yorumlayarak yazınız.",
+   "correctAnswer": "L cismine K cismine göre daha fazla ısı enerjisi aktarılmıştır. Bu durum L cisminin iç enerjisinin daha çok artmasına ve moleküllerin daha şiddetli titreşmesine neden olmuştur. İç enerji, maddenin moleküllerinin kinetik ve potansiyel enerjilerinin toplamıdır. Sıcaklık ise ortalama kinetik enerji ile doğru orantılıdır. Dolayısıyla bir cisme ısı verilirse iç enerji artar ve hâl değişimi yoksa sıcaklık da artar.",
+   "keyPoints": [
+    "L daha çok ısı aldı, iç enerjisi daha çok arttı",
+    "İç enerji = kinetik + potansiyel toplamı",
+    "Sıcaklık ortalama kinetik enerjiyle doğru orantılı",
+    "Isı verilirse iç enerji artar, hâl değişimi yoksa sıcaklık artar"
+   ],
+   "maxPoints": 6,
+   "explanation": "Üç kavramı ayrı cümlelerle bağla: ısı (aktarılan enerji) → iç enerji (toplam) artar → sıcaklık (ortalama kinetik) artar. Karşılaştırmayı da ekle: L'ye iki katı ısı verildiği için L'nin iç enerjisi ve sıcaklığı daha çok artar. Rubrik tek parçadır; doğru ilişkiyi kuran tam puan (6) alır.",
+   "category": "İç Enerji-Isı-Sıcaklık",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 3.2 (5 puan). Isıca yalıtılmış ortamda bir araya getirilen iki maddeden sıcaklığı yüksek olandan düşük olana ısı aktarılır; aktarım, iki maddenin de son sıcaklıkları eşit olana kadar sürer (ısıl denge, denge sıcaklığı). Isı yalıtılmış ortamda 0 °C sıcaklıktaki buz ile T₂ sıcaklığındaki S maddesi bir araya getirilmiştir. S maddesi buza ısı vererek soğur; buz önce erir (Q₁ ısısıyla, sıcaklığı 0 °C sabit kalır), sonra oluşan su ısınır ve ortak denge sıcaklığı T₁ olur. Başlangıçtaki buzun kütlesi, T₁, T₂ sıcaklıkları ve Q₁, Q₂ ısı miktarları bilinmektedir. Buz ve S maddesinin ısıl dengeye ulaşana kadar iç enerjileri nasıl değişir? Yazınız.",
+   "correctAnswer": "S maddesinin sıcaklığı azalmaktadır, yani buza ısı vermektedir. Dolayısıyla ısı veren S maddesinin iç enerjisi azalır; bu süreçte ısı alan buzun iç enerjisi artar.",
+   "keyPoints": [
+    "S ısı verir, iç enerjisi azalır",
+    "Buz ısı alır, iç enerjisi artar"
+   ],
+   "maxPoints": 5,
+   "explanation": "Kural: ısı veren maddenin iç enerjisi azalır, ısı alanın artar. Hangisinin ısı verdiğini sıcaklıktan anla: S sıcak (T₂), buz 0 °C; ısı S → buz. Rubrik: ikisini de doğru yazan 5 puan.",
+   "category": "İç Enerji-Isı-Sıcaklık",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 3.3 (4 puan). Isıca yalıtılmış ortamda bir araya getirilen iki maddeden sıcaklığı yüksek olandan düşük olana ısı aktarılır; aktarım, iki maddenin de son sıcaklıkları eşit olana kadar sürer (ısıl denge, denge sıcaklığı). Isı yalıtılmış ortamda 0 °C sıcaklıktaki buz ile T₂ sıcaklığındaki S maddesi bir araya getirilmiştir. S maddesi buza ısı vererek soğur; buz önce erir (Q₁ ısısıyla, sıcaklığı 0 °C sabit kalır), sonra oluşan su ısınır ve ortak denge sıcaklığı T₁ olur. Başlangıçtaki buzun kütlesi, T₁, T₂ sıcaklıkları ve Q₁, Q₂ ısı miktarları bilinmektedir. Başlangıçta S maddesinin kütlesi daha fazla olsaydı denge sıcaklığı nasıl değişirdi? Açıklayınız.",
+   "correctAnswer": "Isı alışverişi sonucu denge sıcaklığı, ısı sığası daha fazla olan maddenin sıcaklığına daha yakın bir değer alacağı için S maddesinin kütlesinin artırılması T₁ denge sıcaklığının artmasına sebep olur.",
+   "keyPoints": [
+    "Kütle artar, ısı sığası artar",
+    "Denge sıcaklığı ısı sığası büyük olanın sıcaklığına yaklaşır",
+    "T₁ artar"
+   ],
+   "maxPoints": 4,
+   "explanation": "Isı sığası C = m·c olduğundan S'nin kütlesi artınca ısı sığası artar. Isı sığası büyük olan madde sıcaklığını daha az değiştirir; denge sıcaklığı onun sıcaklığına (T₂'ye) yaklaşır. S buzdan sıcak olduğu için T₁ artar. Rubrik: doğru açıklama 4 puan.",
+   "category": "Isıl Denge",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 3.4 (4 puan). Isıca yalıtılmış ortamda bir araya getirilen iki maddeden sıcaklığı yüksek olandan düşük olana ısı aktarılır; aktarım, iki maddenin de son sıcaklıkları eşit olana kadar sürer (ısıl denge, denge sıcaklığı). Isı yalıtılmış ortamda 0 °C sıcaklıktaki buz ile T₂ sıcaklığındaki S maddesi bir araya getirilmiştir. S maddesi buza ısı vererek soğur; buz önce erir (Q₁ ısısıyla, sıcaklığı 0 °C sabit kalır), sonra oluşan su ısınır ve ortak denge sıcaklığı T₁ olur. Başlangıçtaki buzun kütlesi, T₁, T₂ sıcaklıkları ve Q₁, Q₂ ısı miktarları bilinmektedir. Buzun ve S maddesinin cinsleri değişmemek şartıyla grafikteki Q₁ ısı miktarının azalması için neler yapılabilir? Açıklayınız.",
+   "correctAnswer": "Buz erirken gereken Q₁ ısısı Q₁ = m(buz)·Lₑ bağıntısı ile bulunur. Maddelerin cinsleri değişmiyorsa Lₑ erime ısısı sabit kalacağından Q₁ ısı miktarının azalması için bu bağıntı gereği buzun kütlesi azaltılmalıdır.",
+   "keyPoints": [
+    "Q₁ = m·Lₑ",
+    "Lₑ sabit (cins aynı)",
+    "Buzun kütlesi azaltılır"
+   ],
+   "maxPoints": 4,
+   "explanation": "Önce bağıntıyı yaz, sonra sabitleri belirt, sonra değişeni söyle. Rubrik: yalnızca Q₁ = m·Lₑ bağıntısına değinirsen 2 puan; bağıntıyı yazıp \"buzun kütlesi azaltılmalı\" sonucunu da verirsen 4 puan.",
+   "category": "Özısı ve Hâl Değişimi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 4.1 (4 puan). Dondurucudan çıkarılan 0,5 kg kütleli eti hızlıca çözdürmek isteyen Mehmet, soğuk suda bekletme yöntemini kullanıyor. Yeterince büyük bir kaba 10 °C'de soğuk su dolduruyor, −20 °C'deki eti bu kaba koyuyor ve 5 dakika aralıklarla suyun ve etin sıcaklığını ölçüyor (ortam ile ısı alışverişi ihmal ediliyor). Başlangıç, 5., 10., 15., 20., 25., 30. dakikalarda su: 10, 9, 8, 7, 6, 5, 4 °C; et: −20, −16, −12, −8, −4, 0, 4 °C. Su ve et hangi sıcaklıkta ısıl dengeye gelmiştir? Sebebini belirterek açıklayınız.",
+   "correctAnswer": "Su ve et 4 °C'de ısıl dengeye gelmiştir. Maddeler arasındaki ısı alışverişi, maddeler denge sıcaklığına ulaşıncaya kadar devam eder; her iki madde de aynı sıcaklığa ulaştığında ısı alışverişi biter. Tablodan 30. dakikada suyun ve etin sıcaklığı 4 °C olduğundan ısıl denge sağlanmıştır.",
+   "keyPoints": [
+    "Cevap 4 °C",
+    "30. dakikada iki sıcaklık eşit",
+    "Eşit sıcaklıkta ısı alışverişi biter"
+   ],
+   "maxPoints": 4,
+   "explanation": "Tabloda iki satırın aynı değeri gösterdiği sütunu ara: 30. dakika, 4 °C. Gerekçe olarak \"sıcaklıklar eşitlenince ısı alışverişi durur\" ekle. Rubrik: 4 °C yazarsan tam puan.",
+   "category": "Isıl Denge",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 4.2 (4 puan). Dondurucudan çıkarılan 0,5 kg kütleli eti hızlıca çözdürmek isteyen Mehmet, soğuk suda bekletme yöntemini kullanıyor. Yeterince büyük bir kaba 10 °C'de soğuk su dolduruyor, −20 °C'deki eti bu kaba koyuyor ve 5 dakika aralıklarla suyun ve etin sıcaklığını ölçüyor (ortam ile ısı alışverişi ihmal ediliyor). Başlangıç, 5., 10., 15., 20., 25., 30. dakikalarda su: 10, 9, 8, 7, 6, 5, 4 °C; et: −20, −16, −12, −8, −4, 0, 4 °C. Isıl dengeye ulaşıncaya kadar su ile etin aldığı ve verdiği ısıların büyüklük ilişkisi nedir? Yazınız.",
+   "correctAnswer": "Enerjinin korunumu yasası gereği alınan ısı verilen ısıya eşittir. Bu yüzden suyun verdiği ısı büyüklüğü etin aldığı ısı büyüklüğüne eşittir.",
+   "keyPoints": [
+    "Enerjinin korunumu",
+    "Suyun verdiği ısı = etin aldığı ısı"
+   ],
+   "maxPoints": 4,
+   "explanation": "Ortam ile ısı alışverişi ihmal edildiği için tüm enerji sistem içinde kalır: Q(su, verilen) = Q(et, alınan). Rubrik: doğru açıklama 4 puan.",
+   "category": "Isıl Denge",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 4.3 (6 puan). Dondurucudan çıkarılan 0,5 kg kütleli eti hızlıca çözdürmek isteyen Mehmet, soğuk suda bekletme yöntemini kullanıyor. Yeterince büyük bir kaba 10 °C'de soğuk su dolduruyor, −20 °C'deki eti bu kaba koyuyor ve 5 dakika aralıklarla suyun ve etin sıcaklığını ölçüyor (ortam ile ısı alışverişi ihmal ediliyor). Başlangıç, 5., 10., 15., 20., 25., 30. dakikalarda su: 10, 9, 8, 7, 6, 5, 4 °C; et: −20, −16, −12, −8, −4, 0, 4 °C. 30 dakika boyunca etin ve suyun iç enerjileri nasıl değişmiştir? Yazınız.",
+   "correctAnswer": "İç enerji madde miktarına ve maddenin sıcaklığına bağlıdır. Madde miktarları sabit olup suyun sıcaklığı azalırken etin sıcaklığı artmıştır. Isı veren su, ısı alan et olduğundan suyun iç enerjisi azalmış, etin iç enerjisi artmıştır.",
+   "keyPoints": [
+    "Suyun iç enerjisi azalmıştır",
+    "Etin iç enerjisi artmıştır",
+    "Gerekçe: sıcaklık değişimi/ısı alışverişi"
+   ],
+   "maxPoints": 6,
+   "explanation": "Tablodan yön bul: su 10 → 4 °C (soğuyor, ısı veriyor), et −20 → 4 °C (ısınıyor, ısı alıyor). Isı veren: iç enerji azalır; ısı alan: artar. Rubrik: ikisini de doğru yazan 6 puan; yalnızca birini doğru yazan 3 puan.",
+   "category": "İç Enerji-Isı-Sıcaklık",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 4.4 (6 puan). Dondurucudan çıkarılan 0,5 kg kütleli eti hızlıca çözdürmek isteyen Mehmet, soğuk suda bekletme yöntemini kullanıyor. Yeterince büyük bir kaba 10 °C'de soğuk su dolduruyor, −20 °C'deki eti bu kaba koyuyor ve 5 dakika aralıklarla suyun ve etin sıcaklığını ölçüyor (ortam ile ısı alışverişi ihmal ediliyor). Başlangıç, 5., 10., 15., 20., 25., 30. dakikalarda su: 10, 9, 8, 7, 6, 5, 4 °C; et: −20, −16, −12, −8, −4, 0, 4 °C. Mehmet, suyun ve etin ilk sıcaklıkları aynı kalmak şartıyla aynı sürede etin sıcaklığının 8 °C olmasını isterse ne gibi işlemler yapabilir? Yazınız.",
+   "correctAnswer": "Suyun miktarını artırmak ve etin miktarını azaltmak.",
+   "keyPoints": [
+    "Suyun miktarını artırmak",
+    "Etin miktarını azaltmak"
+   ],
+   "maxPoints": 6,
+   "explanation": "Sıcaklığın daha yüksek bir denge değerine çıkması için sıcak suyun ısı sığası büyümeli (su miktarı artmalı) veya etin ısı sığası küçülmelidir (et miktarı azalmalı). Her iki durumda da denge sıcaklığı sıcak suyun sıcaklığına yaklaşır. Rubrik: iki işlemin ikisini de yazarsan 6 puan; yalnızca birini yazarsan 3 puan.",
+   "category": "Isıl Denge",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 5.1 (10 puan). Nükleer santralin basitleştirilmiş şeması: reaktör çekirdeğinde meydana gelen nükleer reaksiyonlar sayesinde su yüksek sıcaklıklara kadar ısıtılarak buhar hâline gelir. Oluşan yüksek basınçlı buhar türbinleri döndürür, jeneratörler elektrik üretir. Türbinlerden geçen buhar yoğuşturucuya (kondansör) yönlendirilir. Bu aşamada dış kaynaklı soğutma suyu T₁ sıcaklığında yoğuşturucuya girer ve T₂ sıcaklığında çıkar; buhar soğuyarak tekrar sıvı hâle gelir. Yoğuşan su pompa yardımıyla yeniden reaktöre gönderilir. Nükleer santralde reaktördeki suyun buharlaşarak türbini döndürmesi sürecinde hangi ısı aktarım yolu etkilidir? Bu ısı aktarım yolunun temel niteliğini açıklayınız.",
+   "correctAnswer": "Konveksiyon etkilidir. Konveksiyon, ısı enerjisinin akışkan (sıvı ya da gaz) hareketiyle taşınmasıdır. Sıcak bir yüzeyin temas ettiği sıvı veya gazın ısınmasıyla başlar; ısınan akışkan genleşir, yoğunluğu azalır ve yukarı doğru hareket ederken yerine daha soğuk ve yoğun akışkan gelir. Böylece bir ısı taşıma döngüsü oluşur.",
+   "keyPoints": [
+    "Yol: konveksiyon",
+    "Isının akışkan hareketiyle taşınması",
+    "Isınan akışkan genleşir, yoğunluğu azalır, yükselir",
+    "Yerine soğuk ve yoğun akışkan gelir, dolaşım oluşur"
+   ],
+   "maxPoints": 10,
+   "explanation": "Önce yolu adlandır: akışkan (su/buhar) hareketiyle ısı taşınıyor, bu yüzden konveksiyon. Sonra mekanizmayı yaz: ısınma → genleşme → yoğunluk azalması → yükselme → soğuk akışkanın yerini alması → döngü. Rubrik tek parçadır: doğru açıklamaya 10 puan.",
+   "category": "Isı Aktarımı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 5.2 (10 puan). Nükleer santralin basitleştirilmiş şeması: reaktör çekirdeğinde meydana gelen nükleer reaksiyonlar sayesinde su yüksek sıcaklıklara kadar ısıtılarak buhar hâline gelir. Oluşan yüksek basınçlı buhar türbinleri döndürür, jeneratörler elektrik üretir. Türbinlerden geçen buhar yoğuşturucuya (kondansör) yönlendirilir. Bu aşamada dış kaynaklı soğutma suyu T₁ sıcaklığında yoğuşturucuya girer ve T₂ sıcaklığında çıkar; buhar soğuyarak tekrar sıvı hâle gelir. Yoğuşan su pompa yardımıyla yeniden reaktöre gönderilir. Nükleer santralde yoğuşturucuya giren suyun T₁ sıcaklığında girip T₂ sıcaklığında çıkması sırasında gerçekleşen ısı aktarım yolu nedir? Bu ısı aktarım yolunun nasıl gerçekleştiğini açıklayınız.",
+   "correctAnswer": "Temel ısı aktarım yolu iletimdir. Türbinlerden gelen sıcak buhar, yoğuşturucudaki soğuk boruların dış yüzeyine temas ettiğinde ısı enerjisi buhardan boruya, ardından borunun içindeki soğutma suyuna doğru moleküller arası enerji aktarımıyla iletilir. Bu süreçte buhar soğuyarak yoğuşur ve sıvı hâle gelirken, soğutma suyu ısınarak T₂ sıcaklığında çıkar.",
+   "keyPoints": [
+    "Yol: iletim",
+    "Buhar boru yüzeyine temas eder",
+    "Isı buhardan boruya, borudan soğutma suyuna iletilir",
+    "Buhar yoğuşur, su ısınır (T₂)"
+   ],
+   "maxPoints": 10,
+   "explanation": "Sorunun işareti \"temas\": buhar boruya, boru suya dokunuyor, madde taşınmadan enerji moleküllerden moleküllere geçiyor: iletim. Reaktördeki konveksiyonla karıştırma. Rubrik: doğru yol ve nasıl gerçekleştiğini yazarsan 10 puan.",
+   "category": "Isı Aktarımı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir borunun 20 cm² kesitli bölümünde su 2 m/s süratle akıyor. Boru 5 cm² kesitli bölüme daralıyor. Daralan bölümde suyun sürati kaç m/s olur ve basıncı nasıl değişir? Açıklayınız.",
+   "correctAnswer": "A₁v₁ = A₂v₂ → 20 · 2 = 5 · v₂ → v₂ = 8 m/s. Sürat arttığı için Bernoulli ilkesine göre basınç azalır.",
+   "keyPoints": [
+    "v₂ = 8 m/s",
+    "Kesit küçülünce sürat artar",
+    "Sürat arttıkça basınç azalır"
+   ],
+   "maxPoints": 6,
+   "explanation": "Önce süreklilik: kesit 4 kat küçüldü, sürat 4 kat arttı. Sonra Bernoulli: sürat arttıkça basınç azalır.",
+   "category": "Benzer soru: Akışkanlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir bahçe hortumunda su yavaş akarken parmağınızla ucunu kısmen kapattığınızda su daha uzağa fışkırır. Bunu kesit alanı ve sürat ilişkisiyle açıklayınız.",
+   "correctAnswer": "Hortumun ucunda kesit alanı küçülür; akışkanın sürati kesit alanıyla ters orantılı olduğundan sürat artar ve su daha uzağa fışkırır.",
+   "keyPoints": [
+    "Kesit küçülür",
+    "Sürat artar",
+    "Ters orantı"
+   ],
+   "maxPoints": 4,
+   "explanation": "Aynı miktarda su daha dar çıkıştan geçerken hızlanır.",
+   "category": "Benzer soru: Akışkanlar",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir tren istasyonda platformdan geçerken yolcular sarı çizginin gerisinde beklemeye çağrılır. Bunun nedenini Bernoulli ilkesiyle açıklayınız.",
+   "correctAnswer": "Hızlı geçen trenin yakınındaki havanın sürati artar ve bu bölgede basınç düşer. Yolcunun arkasındaki hava daha yüksek basınçta olduğundan yolcuyu trene doğru iter; bu yüzden çizginin gerisinde beklenir.",
+   "keyPoints": [
+    "Tren yanında hava hızlanır",
+    "Basınç düşer",
+    "Arkadaki yüksek basınç yolcuyu iter"
+   ],
+   "maxPoints": 6,
+   "explanation": "Aynı mantık otoyoldaki araç sallanması sorusundadır: hızlı hava = düşük basınç; basınç farkı kuvvet oluşturur.",
+   "category": "Benzer soru: Akışkanlar",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir parfüm spreyinin (atomizer) üflenen kısmında hava hızla geçerken sıvının borudan yukarı çıkıp havaya karışması nasıl açıklanır?",
+   "correctAnswer": "Hızlı geçen havanın olduğu yerde basınç düşer. Sıvının yüzeyindeki açık hava basıncı daha yüksek olduğundan sıvı borudan yukarı itilir ve hava akımıyla püskürür.",
+   "keyPoints": [
+    "Hızlı hava, düşük basınç",
+    "Sıvı yüzeyinde yüksek basınç",
+    "Basınç farkı sıvıyı yükseltir"
+   ],
+   "maxPoints": 4,
+   "explanation": "Basınç farkı sıvıyı yüksek basınçtan düşük basınca doğru iter.",
+   "category": "Benzer soru: Akışkanlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Şiddetli bir fırtınada bazı binaların çatılarının uçtuğu görülmüştür. Bu olayı hava sürati ve basınç ilişkisiyle açıklayınız.",
+   "correctAnswer": "Çatı üzerinden hızla geçen rüzgâr, çatı yakınında basıncı düşürür. Bina içindeki hava basıncı daha yüksek olduğundan çatıyı yukarı doğru iten net kuvvet oluşur ve çatı kalkar.",
+   "keyPoints": [
+    "Dışarıda hızlı hava",
+    "Dışarıda düşük basınç",
+    "İçeride yüksek basınç → net kuvvet"
+   ],
+   "maxPoints": 6,
+   "explanation": "Bernoulli ilkesi yanında \"basınç farkı → net kuvvet\" zincirini yazmak tam puan getirir.",
+   "category": "Benzer soru: Akışkanlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Duş yaparken su akarken duş perdesi içeri doğru çekiliyor. Bunun nedenini sürat ve basınç ilişkisiyle açıklayınız.",
+   "correctAnswer": "Akan su perdenin iç tarafındaki havayı da hareket ettirir; bu bölgede hava hızlanır ve basınç düşer. Perdenin dış tarafındaki hava basıncı daha büyük olduğundan perde içeri doğru itilir.",
+   "keyPoints": [
+    "Hava hızlanır",
+    "Basınç düşer",
+    "Dış basınç perdeyi içeri iter"
+   ],
+   "maxPoints": 4,
+   "explanation": "Bernoulli ilkesinin evdeki bir örneğidir.",
+   "category": "Benzer soru: Akışkanlar",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Elinizdeki iki kâğıt şeridi birbirine paralel ve yakın tutup aralarına üflüyorsunuz; şeritler birbirine yaklaşıyor. Nedenini açıklayınız.",
+   "correctAnswer": "Şeritlerin arasından geçen hava hızlıdır, basınç düşer. Şeritlerin dış yüzündeki hava durgun ve basıncı daha yüksektir; bu basınç farkı şeritleri birbirine doğru iter.",
+   "keyPoints": [
+    "Arada hızlı hava",
+    "Arada düşük basınç",
+    "Dışarıdaki yüksek basınç şeritleri iter"
+   ],
+   "maxPoints": 4,
+   "explanation": "Beklenti tersi gibi görünse de ilke aynıdır: hızlı hava = düşük basınç.",
+   "category": "Benzer soru: Akışkanlar",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir uçağın kanadının üst yüzeyinden akan hava alt yüzeyinden akan havadan daha hızlıdır. Kanat etrafındaki basınç farkını ve oluşan kuvvetin yönünü yazınız.",
+   "correctAnswer": "Üst yüzeyde hava hızlı olduğu için basınç düşüktür, alt yüzeyde basınç daha yüksektir. Bu basınç farkı kanada yukarı yönde net kuvvet uygular.",
+   "keyPoints": [
+    "Üstte hızlı hava, düşük basınç",
+    "Altta yüksek basınç",
+    "Yukarı net kuvvet"
+   ],
+   "maxPoints": 4,
+   "explanation": "Bernoulli ilkesi uçak kanadında kaldırma kuvvetinin kaynağını açıklayan tipik bir örnektir.",
+   "category": "Benzer soru: Akışkanlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Damarın bir bölümü daralmıştır. Daralan yerde kanın akış hızı ile damar çeperine yaptığı basınç nasıl değişir? Bernoulli ilkesiyle açıklayınız.",
+   "correctAnswer": "Kesit daraldığı için kanın sürati artar. Bernoulli ilkesine göre sürat arttığı yerde basınç azalır; yani daralan yerde damar çeperine yapılan basınç azalır.",
+   "keyPoints": [
+    "Kesit küçülür, sürat artar",
+    "Sürat artınca basınç azalır"
+   ],
+   "maxPoints": 4,
+   "explanation": "Kesit alanı-sürat ilişkisi ve Bernoulli birlikte kullanılır.",
+   "category": "Benzer soru: Akışkanlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aynı maddeden yapılmış, aynı sıcaklıkta iki su kabından birinde 1 kg, diğerinde 3 kg su vardır. Hangi kabın iç enerjisi daha büyüktür? Nedenini yazınız.",
+   "correctAnswer": "3 kg sulu kabın iç enerjisi daha büyüktür. İç enerji madde miktarına bağlıdır; sıcaklıklar aynı olduğundan fazla madde daha çok toplam kinetik ve potansiyel enerji taşır.",
+   "keyPoints": [
+    "3 kg olan büyük",
+    "Madde miktarına bağlı",
+    "Kinetik+potansiyel toplamı"
+   ],
+   "maxPoints": 4,
+   "explanation": "Sıcaklık ortalamadır; iç enerji ise toplam olduğundan madde miktarı da etkilidir.",
+   "category": "Benzer soru: İç Enerji-Isı-Sıcaklık",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir fincan çay ile bir kova suyun sıcaklıkları aynı olabilir. Kovanın iç enerjisinin fincanın iç enerjisinden büyük olmasını sıcaklık ve iç enerji tanımlarıyla açıklayınız.",
+   "correctAnswer": "Sıcaklık, taneciklerin ortalama kinetik enerjisinin ölçüsüdür ve iki kapta aynıdır. İç enerji ise tüm taneciklerin kinetik ve potansiyel enerjilerinin toplamıdır; kovada çok daha fazla tanecik olduğu için toplam enerji büyüktür.",
+   "keyPoints": [
+    "Sıcaklık = ortalama",
+    "İç enerji = toplam",
+    "Kovada tanecik sayısı fazla"
+   ],
+   "maxPoints": 6,
+   "explanation": "Ortalama ile toplam arasındaki farkı anlatmak tanımsal sorularda tam puan getirir.",
+   "category": "Benzer soru: İç Enerji-Isı-Sıcaklık",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Sıcak bir çay bardağı masada bırakıldığında zamanla soğuyor. Çayın ve çevre havasının iç enerjisi ile ısı akışının yönü hakkında ne söylenebilir?",
+   "correctAnswer": "Isı çaydan çevreye akar. Çay ısı verdiği için iç enerjisi azalır; çevre havası ısı aldığı için iç enerjisi artar. Sıcaklıklar eşitlenince ısı akışı durur.",
+   "keyPoints": [
+    "Isı sıcaktan soğuğa",
+    "Çayın iç enerjisi azalır",
+    "Havanın iç enerjisi artar"
+   ],
+   "maxPoints": 4,
+   "explanation": "Isı akışının yönü daima yüksek sıcaklıktan düşük sıcaklığa doğrudur.",
+   "category": "Benzer soru: İç Enerji-Isı-Sıcaklık",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "\"Isı ile sıcaklık aynı şeydir\" diyen bir arkadaşınıza itiraz etmek için ısı ve sıcaklık tanımlarını karşılaştırınız.",
+   "correctAnswer": "Sıcaklık, taneciklerin ortalama kinetik enerjisinin ölçüsüdür. Isı ise iki madde arasında sıcaklık farkı nedeniyle sıcaktan soğuğa aktarılan enerjidir. Biri maddenin özelliğidir, diğeri aktarım hâlindeki enerjidir.",
+   "keyPoints": [
+    "Sıcaklık ortalama kinetik enerji",
+    "Isı aktarılan enerji"
+   ],
+   "maxPoints": 4,
+   "explanation": "İki kavramın birimleri de farklıdır: sıcaklık K veya °C, ısı joule.",
+   "category": "Benzer soru: İç Enerji-Isı-Sıcaklık",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "2 kg suyun sıcaklığı 20 °C'den 30 °C'ye çıkarılıyor (c = 4200 J/kg·°C). Gereken ısı miktarını hesaplayınız ve suyun iç enerjisinin nasıl değiştiğini yazınız.",
+   "correctAnswer": "Q = m·c·ΔT = 2 · 4200 · 10 = 84 000 J. Su ısı aldığı için iç enerjisi artar.",
+   "keyPoints": [
+    "Q = m·c·ΔT",
+    "84 000 J",
+    "İç enerji artar"
+   ],
+   "maxPoints": 6,
+   "explanation": "ΔT = 30 − 20 = 10 °C. Hâl değişimi yok, bu yüzden Q = m·c·ΔT geçerlidir.",
+   "category": "Benzer soru: Özısı ve Hâl Değişimi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Kütlesi 500 g olan suyun ısı sığasını hesaplayınız (c = 4200 J/kg·°C). Isı sığasının fiziksel anlamını yazınız.",
+   "correctAnswer": "C = m·c = 0,5 · 4200 = 2100 J/°C. Isı sığası, bu cismin sıcaklığını 1 °C değiştirmek için gereken ısıdır.",
+   "keyPoints": [
+    "m = 0,5 kg",
+    "C = 2100 J/°C",
+    "1 °C için gereken ısı"
+   ],
+   "maxPoints": 4,
+   "explanation": "Önce gramı kilograma çevir. Isı sığası cismin kütlesine ve cinsine bağlıdır.",
+   "category": "Benzer soru: Özısı ve Hâl Değişimi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aynı ısı veriliyor: biri 1 kg su, diğeri 1 kg demir. Hangisinin sıcaklığı daha çok artar? Özısı kavramıyla açıklayınız (c(su) = 4200, c(demir) = 450 J/kg·°C).",
+   "correctAnswer": "Demirin sıcaklığı daha çok artar. Q = m·c·ΔT ve m, Q aynı olduğundan ΔT = Q/(m·c); özısı küçük olan demirde ΔT büyüktür.",
+   "keyPoints": [
+    "Demir daha çok ısınır",
+    "Özısı küçük",
+    "ΔT = Q/(m·c)"
+   ],
+   "maxPoints": 4,
+   "explanation": "Özısı küçük olan madde kolay ısınır, kolay soğur.",
+   "category": "Benzer soru: Özısı ve Hâl Değişimi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "0,5 kg buzu 0 °C'de tamamen eritmek için gereken ısıyı hesaplayınız (Lₑ = 334 000 J/kg). Bu sırada buzun sıcaklığı ve iç enerjisi nasıl değişir?",
+   "correctAnswer": "Q = m·Lₑ = 0,5 · 334 000 = 167 000 J. Erime boyunca sıcaklık 0 °C sabit kalır; ısı potansiyel enerjiyi artırdığı için iç enerji artar.",
+   "keyPoints": [
+    "Q = 167 000 J",
+    "Sıcaklık sabit",
+    "İç enerji artar"
+   ],
+   "maxPoints": 6,
+   "explanation": "Hâl değişiminde sıcaklık sabit, iç enerji değişir. Q = m·L bağıntısı kullanılır, ΔT yoktur.",
+   "category": "Benzer soru: Özısı ve Hâl Değişimi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Saf bir buz parçası erirken ısı almasına rağmen sıcaklığı neden artmaz? Açıklayınız.",
+   "correctAnswer": "Hâl değişimi sırasında alınan ısı, moleküller arası bağların gevşemesine ve potansiyel enerjinin artmasına harcanır. Ortalama kinetik enerji değişmediği için sıcaklık sabit kalır.",
+   "keyPoints": [
+    "Isı potansiyel enerjiyi artırır",
+    "Kinetik enerji sabit",
+    "Sıcaklık sabit"
+   ],
+   "maxPoints": 4,
+   "explanation": "Sıcaklık kinetik enerjiyle ilgili olduğundan sabit kalır; iç enerji ise artar.",
+   "category": "Benzer soru: Özısı ve Hâl Değişimi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "0,2 kg buzu eritmek için Q ısı gerekiyorsa aynı cins 0,6 kg buzu eritmek için ne kadar ısı gerekir? Aralarındaki ilişkiyi yazınız.",
+   "correctAnswer": "Q = m·Lₑ ve Lₑ aynı olduğundan Q kütleyle doğru orantılıdır; kütle 3 katı olduğu için gereken ısı 3Q olur.",
+   "keyPoints": [
+    "Q = m·Lₑ",
+    "Doğru orantı",
+    "3Q"
+   ],
+   "maxPoints": 4,
+   "explanation": "Aynı maddede Lₑ sabit olduğundan oranı kütle oranı belirler.",
+   "category": "Benzer soru: Özısı ve Hâl Değişimi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "200 g su 80 °C'de, 300 g su 20 °C'de ısıca yalıtılmış kapta karıştırılıyor. Denge sıcaklığını bulunuz ve sonucun mantıklı olup olmadığını denetleyiniz.",
+   "correctAnswer": "0,2(80 − T) = 0,3(T − 20) → 16 − 0,2T = 0,3T − 6 → 0,5T = 22 → T = 44 °C. 20 ile 80 arasında ve soğuk suyun kütlesi fazla olduğu için 20'ye daha yakın olduğundan mantıklıdır.",
+   "keyPoints": [
+    "Verilen ısı = alınan ısı",
+    "T = 44 °C",
+    "İki sıcaklık arasında"
+   ],
+   "maxPoints": 6,
+   "explanation": "Aynı sıvı olduğundan c sadeleşir. Kütleler eşit olsaydı 50 °C olurdu; soğuk su fazla olduğundan 44 °C.",
+   "category": "Benzer soru: Isıl Denge",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Eşit kütleli iki su örneği 40 °C ve 20 °C sıcaklıkta karıştırılıyor. Denge sıcaklığını ve her iki örneğin iç enerji değişimini yazınız.",
+   "correctAnswer": "Denge sıcaklığı (40 + 20)/2 = 30 °C. 40 °C'deki su ısı verdiği için iç enerjisi azalır; 20 °C'deki su ısı aldığı için iç enerjisi artar.",
+   "keyPoints": [
+    "30 °C",
+    "Sıcak su iç enerjisi azalır",
+    "Soğuk su iç enerjisi artar"
+   ],
+   "maxPoints": 6,
+   "explanation": "Kütleler ve cins aynı olduğunda denge sıcaklığı iki sıcaklığın aritmetik ortalamasıdır.",
+   "category": "Benzer soru: Isıl Denge",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Isıca yalıtılmış bir kapta sıcak demir bilye, soğuk suya bırakılıyor ve bir süre sonra sıcaklıklar eşitleniyor. Bu sürecin sonunda hangi koşul sağlanır? Isı akışı için ne söylenebilir?",
+   "correctAnswer": "Bilye ve su aynı sıcaklığa (denge sıcaklığı) ulaşır ve ısıl denge sağlanır. Bu andan sonra aralarında net ısı akışı olmaz. Bilyenin verdiği ısı suyun aldığı ısıya eşittir.",
+   "keyPoints": [
+    "Sıcaklıklar eşit",
+    "Net ısı akışı yok",
+    "Q verilen = Q alınan"
+   ],
+   "maxPoints": 4,
+   "explanation": "Isıl denge = eşit sıcaklık ve net ısı akışının durması.",
+   "category": "Benzer soru: Isıl Denge",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir çay bardağına bir miktar süt eklenince karışımın sıcaklığı çayın ilk sıcaklığından düşüyor. Isıl denge ilkesi ve enerjinin korunumuyla açıklayınız.",
+   "correctAnswer": "Çay sütten daha sıcaktır; çay ısı verir, süt ısı alır. Enerjinin korunumu gereği çayın verdiği ısı sütün aldığı ısıya eşittir ve denge sıcaklığı iki ilk sıcaklığın arasındadır; bu yüzden çayın sıcaklığı düşer.",
+   "keyPoints": [
+    "Çay ısı verir, süt alır",
+    "Q verilen = Q alınan",
+    "Denge ara sıcaklık"
+   ],
+   "maxPoints": 4,
+   "explanation": "Denge sıcaklığı her zaman iki başlangıç sıcaklığı arasındadır.",
+   "category": "Benzer soru: Isıl Denge",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Etin yerine bu kez 1 kg et aynı soğuk suya konuluyor (diğer koşullar sabit). Aynı sürede etin sıcaklığı 0,5 kg etli duruma göre nasıl değişir? Neden?",
+   "correctAnswer": "Etin kütlesi artınca ısı sığası artar; aynı ısıyla sıcaklığı daha az değişir ve denge sıcaklığı etin sıcaklığına (−20 °C) yaklaşır, yani etin sıcaklığı daha düşük kalır.",
+   "keyPoints": [
+    "Kütle artar, ısı sığası artar",
+    "Sıcaklık değişimi azalır"
+   ],
+   "maxPoints": 4,
+   "explanation": "Rubrikteki \"etin miktarını azaltmak\" önerisinin tersi.",
+   "category": "Benzer soru: Isıl Denge",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Mutfakta bir kap sıcak çorba ile bir kap soğuk su aynı yalıtılmış ortamda dengeye gelene kadar bekletiliyor. Zamana göre sıcaklık tablosunda iki satırın eşit olduğu ilk sütun neyi gösterir?",
+   "correctAnswer": "İki satırın eşit olduğu ilk sütun ısıl denge anını ve denge sıcaklığını gösterir; bundan sonra ısı akışı durur.",
+   "keyPoints": [
+    "Isıl denge anı",
+    "Denge sıcaklığı"
+   ],
+   "maxPoints": 4,
+   "explanation": "Tablo yorumunda eşitlenen değerleri ara.",
+   "category": "Benzer soru: Isıl Denge",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soğuk bir kış gününde sobanın bulunduğu odada sobadan uzak köşelerin de ısınmasını sağlayan ısı aktarım yolunu belirtiniz ve nasıl gerçekleştiğini açıklayınız.",
+   "correctAnswer": "Konveksiyon. Soba yakınındaki hava ısınır, genleşir, yoğunluğu azalır ve yükselir; yerine soğuk ve yoğun hava gelir. Bu dolaşımla ısı odanın her yerine taşınır.",
+   "keyPoints": [
+    "Konveksiyon",
+    "Isınan hava yükselir",
+    "Soğuk hava yerini alır"
+   ],
+   "maxPoints": 6,
+   "explanation": "Hava (akışkan) hareketiyle ısı taşındığı için konveksiyondur.",
+   "category": "Benzer soru: Isı Aktarımı",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Sıcak çayın içine konan metal kaşığın sapının zamanla ısınması hangi ısı aktarım yoluyla gerçekleşir? Nasıl?",
+   "correctAnswer": "İletim. Isı kaşığın çaya batan kısmından moleküllerin birbirine enerji aktarmasıyla sapa doğru ilerler; madde yer değiştirmez.",
+   "keyPoints": [
+    "İletim",
+    "Moleküller arası enerji aktarımı",
+    "Madde taşınmaz"
+   ],
+   "maxPoints": 4,
+   "explanation": "Katılarda ısı iletimle yayılır; metaller iyi iletkendir.",
+   "category": "Benzer soru: Isı Aktarımı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Güneş'ten Dünya'ya ısı hangi yolla geçer? Boşluktan geçebilmesini neden iletim ve konveksiyonla açıklayamayız?",
+   "correctAnswer": "Işıma yoluyla geçer. İletim ve konveksiyon madde (ortam) gerektirir, uzay boşluğunda ortam yoktur; ışıma ise ortam gerektirmeden elektromanyetik dalgalarla yayılır.",
+   "keyPoints": [
+    "Işıma",
+    "İletim ve konveksiyon ortam ister",
+    "Uzay boşluk"
+   ],
+   "maxPoints": 4,
+   "explanation": "Uzay boşluğunda iletim ve konveksiyon için gereken madde yoktur; bu yüzden Güneş enerjisi Dünya'ya yalnızca ışıma ile ulaşır.",
+   "category": "Benzer soru: Isı Aktarımı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki olayları ısı aktarım yoluyla eşleştiriniz: (a) ütünün kumaşı ısıtması, (b) kaloriferin odayı ısıtması, (c) şömine karşısında oturan kişinin yüzünün ısınması.",
+   "correctAnswer": "(a) iletim, (b) konveksiyon, (c) ışıma.",
+   "keyPoints": [
+    "Ütü: iletim",
+    "Kalorifer: konveksiyon",
+    "Şömine karşısı: ışıma"
+   ],
+   "maxPoints": 6,
+   "explanation": "Temasla (iletim), akışkan dolaşımıyla (konveksiyon), dalga yayılımıyla (ışıma) ayır.",
+   "category": "Benzer soru: Isı Aktarımı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Termosların içi iki cidarlı camdan yapılır ve cidarlar arası havası boşaltılmıştır; yüzeyler parlaktır. Bu tasarım hangi ısı aktarım yollarını azaltır?",
+   "correctAnswer": "Cidarlar arasındaki vakum iletim ve konveksiyonu azaltır (ortam yok); parlak yüzeyler ışımayı yansıtarak ışımayla ısı kaybını azaltır.",
+   "keyPoints": [
+    "Vakum: iletim ve konveksiyon",
+    "Parlak yüzey: ışıma"
+   ],
+   "maxPoints": 6,
+   "explanation": "Üç ısı aktarım yolunu da engellemek için üç önlem bir arada kullanılır.",
+   "category": "Benzer soru: Isı Aktarımı",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Nükleer santralde kondansörün işlevini yazınız. Buharın yoğuşması sırasında buhar ve soğutma suyunun iç enerjileri nasıl değişir?",
+   "correctAnswer": "Kondansör, türbinden çıkan buharı soğutarak yeniden sıvı hâle getirir. Buhar ısı verdiği için iç enerjisi azalır; soğutma suyu ısı aldığı için iç enerjisi artar ve T₁'den T₂'ye ısınır.",
+   "keyPoints": [
+    "Buharı yoğuşturur",
+    "Buharın iç enerjisi azalır",
+    "Soğutma suyunun iç enerjisi artar"
+   ],
+   "maxPoints": 6,
+   "explanation": "Kural: ısı veren maddenin iç enerjisi azalır, ısı alanın artar. Buhar sıcaktır ve ısı verir; soğutma suyu ısıyı alır.",
+   "category": "Benzer soru: Isı Aktarımı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Tencerenin metal gövdesi ocaktan çabuk ısınırken sapı genellikle plastik veya ahşaptır. Isı aktarımı açısından nedenini yazınız.",
+   "correctAnswer": "Metaller isiyi iyi ileten maddelerdir, bu yüzden ocaktan gövdeye iletimle ısı hızla geçer. Plastik ve ahşap ısıyı kötü ileten yalıtkanlardır; sap ısınmaz ve el yanmaz.",
+   "keyPoints": [
+    "Metal iyi iletken",
+    "Plastik/ahşap yalıtkan",
+    "İletimle ısı aktarımı"
+   ],
+   "maxPoints": 4,
+   "explanation": "İletim hızı maddenin cinsine bağlıdır: metaller ısıyı çabuk iletir, plastik ve ahşap ise yavaş iletir.",
+   "category": "Benzer soru: Isı Aktarımı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "A sıvısının ısı sığası 2C, B sıvısının ısı sığası C'dir. A sıvısı 80 °C, B sıvısı 20 °C'de ısıca yalıtılmış bir kapta karıştırılırsa denge sıcaklığı 50 °C'den büyük mü küçük mü olur? Nedenini açıklayınız.",
+   "correctAnswer": "50 °C'den büyük olur. Isı sığası büyük olan A sıvısı sıcaklığını daha az değiştirir; denge sıcaklığı A'nın sıcaklığına (80 °C) daha yakın çıkar.",
+   "keyPoints": [
+    "Denge sıcaklığı 50 °C'den büyük",
+    "Isı sığası büyük olan A",
+    "A'nın sıcaklığına yaklaşır"
+   ],
+   "maxPoints": 4,
+   "explanation": "Hesapla da doğrulayabilirsin: 2C(80 − T) = C(T − 20) → 160 − 2T = T − 20 → T = 60 °C.",
+   "category": "Benzer soru: Isıl Denge",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir nehir geniş bir yatakta yavaş akarken dar bir boğaza girdiğinde suyun hızı ve basıncı nasıl değişir? Neden?",
+   "correctAnswer": "Dar boğazda kesit alanı küçüldüğü için suyun sürati artar. Bernoulli ilkesine göre sürat artınca basınç azalır; boğazda basınç daha düşüktür.",
+   "keyPoints": [
+    "Kesit küçülür, sürat artar",
+    "Sürat artınca basınç azalır"
+   ],
+   "maxPoints": 4,
+   "explanation": "Önce süreklilik (kesit-sürat), sonra Bernoulli (sürat-basınç) iki adım olarak yaz.",
+   "category": "Benzer soru: Akışkanlar",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "100 °C'deki su kaynayarak aynı sıcaklıktaki buhara dönüşürken ısı alıyor. Bu süreçte sistemin sıcaklığı ve iç enerjisi nasıl değişir? Nedenini yazınız.",
+   "correctAnswer": "Sıcaklık 100 °C sabit kalır, iç enerji artar. Alınan ısı moleküller arası uzaklığı artırarak potansiyel enerjiyi yükseltir, ortalama kinetik enerji değişmez.",
+   "keyPoints": [
+    "Sıcaklık sabit",
+    "İç enerji artar",
+    "Potansiyel enerji artışı"
+   ],
+   "maxPoints": 6,
+   "explanation": "İç enerji kinetik + potansiyel toplamı olduğu için sıcaklık sabit kalırken de artabilir.",
+   "category": "Benzer soru: İç Enerji-Isı-Sıcaklık",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Kalorifer petekleri genellikle pencere altına yerleştirilir. Odadaki havanın ısınmasını ısı aktarım yoluyla açıklayınız.",
+   "correctAnswer": "Peteğe temas eden hava ısınır, genleşir, yoğunluğu azalır ve yükselir; tavana yakın soğuk hava aşağı iner. Bu hava dolaşımıyla ısı odaya taşınır: konveksiyon.",
+   "keyPoints": [
+    "Konveksiyon",
+    "Isınan hava yükselir",
+    "Soğuk hava iner"
+   ],
+   "maxPoints": 4,
+   "explanation": "Hava hareketiyle ısı taşınır; ayrıca petekten küçük bir kısım ışımayla yayılır.",
+   "category": "Benzer soru: Isı Aktarımı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Boru daraldığında akışkanın sürati ve basıncı için hangisi doğrudur?",
+   "options": [
+    "Sürat artar, basınç azalır",
+    "Sürat azalır, basınç artar",
+    "Sürat ve basınç artar",
+    "Sürat ve basınç azalır"
+   ],
+   "correct": 0,
+   "explanation": "Kesit küçülünce sürat artar; Bernoulli ilkesine göre sürat artınca basınç azalır.",
+   "category": "Akışkanlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Akışkanda hangi bölgede basınç en küçüktür?",
+   "options": [
+    "Süratin en küçük olduğu bölge",
+    "En geniş kesit",
+    "Süratin en büyük olduğu bölge",
+    "En derin nokta"
+   ],
+   "correct": 2,
+   "explanation": "Bernoulli: sürat arttıkça basınç azalır.",
+   "category": "Akışkanlar",
+   "difficulty": "hard"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Isı ile ilgili hangisi doğrudur?",
+   "options": [
+    "Maddenin ortalama kinetik enerjisidir",
+    "Sıcaklık farkı nedeniyle aktarılan enerjidir",
+    "Taneciklerin kütlesidir",
+    "Maddenin sıcaklığıdır"
+   ],
+   "correct": 1,
+   "explanation": "Isı aktarılan enerjidir; ortalama kinetik enerji sıcaklıkla ilgilidir.",
+   "category": "İç Enerji-Isı-Sıcaklık",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Isı veren maddenin iç enerjisi nasıl değişir?",
+   "options": [
+    "Artar",
+    "Değişmez",
+    "Önce artar sonra azalır",
+    "Azalır"
+   ],
+   "correct": 3,
+   "explanation": "Isı veren maddenin toplam enerjisi azalır.",
+   "category": "İç Enerji-Isı-Sıcaklık",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Erime sırasında saf bir maddenin sıcaklığı nasıl değişir?",
+   "options": [
+    "Artar",
+    "Azalır",
+    "Sabit kalır",
+    "Önce azalır sonra artar"
+   ],
+   "correct": 2,
+   "explanation": "Alınan ısı hâl değişimine harcanır; sıcaklık sabittir.",
+   "category": "Özısı ve Hâl Değişimi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Q = m·c·ΔT bağıntısındaki c nedir?",
+   "options": [
+    "Özısı",
+    "Isı sığası",
+    "Erime ısısı",
+    "Hacim"
+   ],
+   "correct": 0,
+   "explanation": "c, maddenin cinsine bağlı özısıdır; ısı sığası C = m·c dir.",
+   "category": "Özısı ve Hâl Değişimi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "3 kg suyun sıcaklığı 5 °C artarsa (c = 4200 J/kg·°C) alınan ısı kaç J olur?",
+   "options": [
+    "21 000",
+    "12 600",
+    "4 200",
+    "63 000"
+   ],
+   "correct": 3,
+   "explanation": "Q = 3 · 4200 · 5 = 63 000 J. 21 000 kütle yerine 1 kg alınırsa çıkar.",
+   "category": "Özısı ve Hâl Değişimi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Eşit kütleli 60 °C ve 20 °C sulara ısıl denge uygulanırsa denge sıcaklığı kaç °C olur?",
+   "options": [
+    "30",
+    "40",
+    "20",
+    "60"
+   ],
+   "correct": 1,
+   "explanation": "Eşit kütle ve aynı cins: aritmetik ortalama (60 + 20)/2 = 40 °C.",
+   "category": "Isıl Denge",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Isıl dengede hangisi doğrudur?",
+   "options": [
+    "Maddelerin sıcaklıkları eşittir ve net ısı akışı yoktur",
+    "Maddelerin iç enerjileri eşittir",
+    "Isı akışı hızlanır",
+    "Isı sığaları eşit olur"
+   ],
+   "correct": 0,
+   "explanation": "Denge: eşit sıcaklık. İç enerjiler eşit olmak zorunda değil.",
+   "category": "Isıl Denge",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Güneş'ten Dünya'ya ısı hangi yolla ulaşır?",
+   "options": [
+    "İletim",
+    "Konveksiyon",
+    "Işıma",
+    "Basınç"
+   ],
+   "correct": 2,
+   "explanation": "Uzay boşluktur; yalnızca ışıma ortam gerektirmez.",
+   "category": "Isı Aktarımı",
+   "difficulty": "hard"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Kaynayan suyun tencerede dolaşması hangi ısı aktarım yoludur?",
+   "options": [
+    "İletim",
+    "Konveksiyon",
+    "Işıma",
+    "Yoğuşma"
+   ],
+   "correct": 1,
+   "explanation": "Isınan akışkanın hareketiyle ısı taşınır.",
+   "category": "Isı Aktarımı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Nükleer santrallerde kondansörde buhardan soğutma suyuna ısı aktarımı hangi yolla olur?",
+   "options": [
+    "Konveksiyon",
+    "Işıma",
+    "Genleşme",
+    "İletim"
+   ],
+   "correct": 3,
+   "explanation": "Buhar boruyla temas eder; ısı boru çeperinden soğutma suyuna iletilir.",
+   "category": "Isı Aktarımı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "true-false",
+   "question": "Akışkanın hızı arttığı yerde basınç artar.",
+   "correct": false,
+   "explanation": "Bernoulli ilkesine göre hızın arttığı yerde basınç azalır.",
+   "category": "Akışkanlar",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Kesit alanı ile akışkan sürati ters orantılıdır.",
+   "correct": true,
+   "explanation": "Boru daralınca sürat artar, genişleyince azalır.",
+   "category": "Akışkanlar",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Isı bir nicelik olarak taşınan enerjidir ve birimi joule olarak yazılabilir.",
+   "correct": true,
+   "explanation": "Isı, sıcaklık farkı nedeniyle aktarılan enerjidir; birimi joule'dür.",
+   "category": "İç Enerji-Isı-Sıcaklık",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Sıcaklık, taneciklerin toplam enerjisidir.",
+   "correct": false,
+   "explanation": "Sıcaklık ortalama kinetik enerjinin ölçüsüdür; toplam enerji iç enerjidir.",
+   "category": "İç Enerji-Isı-Sıcaklık",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Hâl değişimi sırasında saf maddenin sıcaklığı sabit kalır.",
+   "correct": true,
+   "explanation": "Alınan ısı potansiyel enerjiyi değiştirir, ortalama kinetik enerji değişmez.",
+   "category": "Özısı ve Hâl Değişimi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Isıl dengeye ulaşan iki cisim arasında net ısı akışı sürer.",
+   "correct": false,
+   "explanation": "Sıcaklıklar eşit olduğunda net ısı akışı sona erer.",
+   "category": "Isıl Denge",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Konveksiyon katılarda baskın ısı aktarım yoludur.",
+   "correct": false,
+   "explanation": "Konveksiyon sıvı ve gazlarda olur; katılarda baskın yol iletimdir.",
+   "category": "Isı Aktarımı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Işıma ortam gerektirmeden gerçekleşebilir.",
+   "correct": true,
+   "explanation": "Işıma elektromanyetik dalgalarla yayıldığı için boşlukta da gerçekleşir.",
+   "category": "Isı Aktarımı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Akışkanda sürat arttığı yerde basınç ____ .",
+   "answers": [
+    "azalır"
+   ],
+   "explanation": "Bernoulli ilkesine göre akışkanın sürati arttığı yerde basınç azalır; sürat azaldığı yerde basınç artar.",
+   "category": "Akışkanlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Isı sığası C = m·____ bağıntısıyla bulunur.",
+   "answers": [
+    "c",
+    "özısı"
+   ],
+   "explanation": "Isı sığası kütle ile özısının çarpımıdır.",
+   "category": "Özısı ve Hâl Değişimi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Isıl dengede verilen ısı ____ ısıya eşittir.",
+   "answers": [
+    "alınan"
+   ],
+   "explanation": "Enerjinin korunumu gereği verilen ısı alınan ısıya eşittir.",
+   "category": "Isıl Denge",
+   "difficulty": "medium"
+  },
+  {
+   "type": "matching",
+   "question": "Olayı ısı aktarım yoluyla eşleştiriniz.",
+   "pairs": [
+    {
+     "left": "Sıcak çayda kaşığın sapının ısınması",
+     "right": "İletim"
+    },
+    {
+     "left": "Sobanın odayı havanın dolaşımıyla ısıtması",
+     "right": "Konveksiyon"
+    },
+    {
+     "left": "Güneş'in Dünya'yı ısıtması",
+     "right": "Işıma"
+    }
+   ],
+   "explanation": "İletim temasla, konveksiyon akışkan hareketiyle, ışıma dalgalarla gerçekleşir.",
+   "category": "Isı Aktarımı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "matching",
+   "question": "Nicelikleri tanımlarıyla eşleştiriniz.",
+   "pairs": [
+    {
+     "left": "İç enerji",
+     "right": "Kinetik ve potansiyel enerjilerin toplamı"
+    },
+    {
+     "left": "Sıcaklık",
+     "right": "Ortalama kinetik enerjinin ölçüsü"
+    },
+    {
+     "left": "Isı",
+     "right": "Sıcaklık farkıyla aktarılan enerji"
+    }
+   ],
+   "explanation": "İç enerji toplam enerjiyi, sıcaklık ortalama kinetik enerjiyi, ısı ise aktarılan enerjiyi ifade eder; üçü birbirinden farklıdır.",
+   "category": "İç Enerji-Isı-Sıcaklık",
+   "difficulty": "medium"
+  }
+ ],
+ "sources": [
+  {
+   "id": "src1",
+   "name": "Fizik 9. Sınıf - Yazılıya Hazırlanıyorum (2. DÖNEM - 2. YAZILI) - OGM Materyal",
+   "kind": "file",
+   "text": "=== Page 1 ===\r\nFİZİK\r\nYAZILIYA HAZIRLANIYORUM\r\n2. DÖNEM - 2. YAZILI\r\n1. Fizik öğretmeni, Şekil I’de görülen su ile dolu birleşik kabı öğrencilerine göstererek aynı yatay hizada bulunan \r\nK, L ve M noktalarındaki durgun sıvı basınçlarının eşit olduğunu söylemiştir. Öğretmen, Şekil II’deki gibi X ve Y \r\nmusluklarını aynı anda açarak sıvı hareket hâlinde iken hızının nasıl değişeceğini ve bu hız değişiminin basınç \r\nüzerine olan etkilerinin gözlemlerle tespit edileceğini belirtmiştir. Y musluğu tamamen açılarak su boşalırken X \r\nmusluğu kaptaki su seviyesini A düzeyinde tutmakta ve kaptaki suyun görünümü ıııKLM(h h h )>>  öğrencilerle \r\nberaber yorumlanmaktadır.\r\n \r\nY\r\nK L M\r\nA\r\nhK hL hM\r\nX\r\nŞekil I\r\nX\r\nA\r\nY\r\nK L M\r\nhKı\r\nhLı\r\nhMı\r\nŞekil II\r\nııı\r\nKLM(h h h )>>\r\nı ıı\r\nKLM(h h h )>>\r\n1.1. Buna göre Şekil II’ye bakarak aşağıdaki tabloda istenilen noktalardaki suyun süratinin ve basıncının K, \r\nL, M noktalarından hangilerinde en büyük ve en küçük olduğunu tabloda ilgili bölüme yazınız.\r\n X ve Y muslukları açıldıktan sonra En büyük En küçük\r\nK, L, M noktalarında suyun akış hızı\r\nK, L, M noktalarındaki suyun basıncı\r\n1.2. Hemşireler kan alırken damarın daha belirgin hâle gelmesi için kolu kan alınacak noktanın üstünde \r\nturnike ile sıkarlar. Bu durumun metindeki gözlemle ilgisi nedir? Açıklayınız.\r\n1.3. Umay ve ailesi Bursa’dan İzmir’e doğru otoyolda gitmektedir. Bir süre sonra arabalarının yanından onların \r\narabasına göre daha süratli bir araba geçtiğinde Umayların arabası sallanır. \r\n Arabalarının sallanmasının nedenini yaptığınız gözlemlerden faydalanarak Bernoulli İlkesi ile \r\naçıklayınız.\r\n=== Page 2 ===\r\n2. K ve L özdeş cisimleri, Şekil I’de gösterildiği gibi ilk durumda aynı sıcaklıkta olduğundan moleküllerin titreşim \r\nhareketleri eşit düzeydedir. Şekil II’de, K cismine bir, L cismine iki özdeş ısıtıcıyla eşit sürede ısı verilmiştir. Isıtma \r\nişleminin sonunda cisimlerin moleküllerinin titreşim şiddetleri Şekil III’te gösterilmiştir.\r\n \r\nŞekil I\r\nK L\r\nŞekil II\r\nK L\r\nŞekil III\r\nK L\r\nBuna göre aşağıda verilen soruları cevaplayınız. \r\n2.1. Şekil I ve Şekil III’ü karşılaştırarak bu değişimin, maddenin hangi fiziksel niceliğiyle ilişkili olduğunu \r\nyazınız.\r\n2.2. Verilen ısı miktarının, cisimlerin iç enerjisine ve sıcaklıklarına nasıl etki ettiğini açıklayınız. İç enerji, ısı \r\nve sıcaklık arasındaki ilişkiyi bu deney üzerinden yorumlayarak yazınız.\r\n2.3. Şekildeki kaplarda bulunan suya, belirtilen işlemler yapıldığında oluşan sıcaklık ve kütle değerleri ok \r\nişareti ile verilmiştir. Belirtilen işlem yapılırken kapta yeni oluşan sistemin iç enerjisi için şekillerin \r\naltında verilen boşluklara iç enerjide artma oluyorsa ‘‘artar’’, iç enerjide azalma oluyorsa ‘‘azalır’’ \r\nyazınız.\r\n \r\n70 °C\r\nM gram su\r\n50 °C\r\nM gram su\r\n Su+buhar\r\n100 °C\r\nM gram \r\n100 °C\r\nM gram su\r\n \r\nsu\r\nsu\r\n50 °C\r\nM gram \r\n50 °C su\r\n2M gram  \r\nsu\r\nsu\r\n50 °C\r\nM gram \r\n30 °C su\r\n2M gram\r\n=== Page 3 ===\r\n3. Isıca yalıtılmış ortamda bir araya getirilen iki maddeden sıcaklığı yüksek olandan düşük olana ısı aktarılır. Isı \r\naktarımı, her iki maddenin de son sıcaklıkları eşit olana kadar devam eder. Sürecin sonunda maddelerin ulaştıkları \r\nson sıcaklığa denge sıcaklığı, bu duruma ise ısıl denge adı verilir. Isıl dengeye ulaşıncaya kadar geçen süreçte \r\nsıcaklığı fazla olan maddenin verdiği ısı, sıcaklığı düşük olan maddenin aldığı ısıya eşittir.\r\n Isıca yalıtılmış ortamda 0 °C sıcaklıktaki buz ile T2 sıcaklığındaki S maddesi bir araya getirildiğinde S maddesinin \r\nbuza verdiği ısının maddelerin sıcaklığında meydana getirdiği değişimi gösteren grafik şekilde verilmiştir. \r\nBaşlangıçtaki buzun kütlesinin, grafikteki T1, T2 sıcaklıklarının ve Q1, Q2 ısı miktarlarının sayısal değerleri \r\nbilinmektedir.\r\n Sıcaklık\r\n0\r\nIsı\r\nQ1\r\nS\r\nQ2\r\nT1\r\nT2\r\n Buna göre aşağıda verilen soruları cevaplayınız.\r\n3.1. Grafiğe göre S maddesi ve buz için sayısal değerini bulabileceğimiz nicelikleri (✓), bulamayacağımız \r\nnicelikleri (X) ile işaretleyerek tabloyu doldurunuz.\r\n Madde S maddesi Buz\r\nKütle ✓\r\nErime ısısı\r\nÖz ısı\r\nIsı sığası\r\n3.2. Buz ve S maddesinin ısıl dengeye ulaşana kadar iç enerjileri nasıl değişir? Yazınız.\r\n3.3. Başlangıçta S maddesinin kütlesi daha fazla olsaydı denge sıcaklığı nasıl değişirdi? Açıklayınız.\r\n3.4. Buzun ve S maddesinin cinsleri değişmemek şartıyla grafikteki Q1 ısı miktarının azalması için neler \r\nyapılabilir? Açıklayınız.\r\n=== Page 4 ===\r\n4. Et ve balık gibi gıdalar besin değerlerini ve tazeliklerini korumak amacıyla derin dondurucularda dondurularak \r\nsaklanır. Donmuş gıdalar kullanılmak istenildiğinde ise önce bu gıdaların çözdürülmesi gerekmektedir. Çözdürme \r\nişleminin doğru bir yöntemle yapılması gıdanın besin değerini, lezzetini ve dokusunu korumak amacıyla \r\nönemlidir. Yanlış bir yöntemle çözdürme işleminin yapılması gıda zehirlenmelerine sebep olabilir. Çözdürme \r\nişleminin olabildiğince yavaş olması gerekmektedir. Bu yüzden donmuş gıdaları kullanımlarından bir gün önce \r\nbuzdolabında çözünene kadar bekletmek en ideal yöntemdir. Yavaş ve doğal olarak çözünen gıda besin değerini \r\nve lezzetini korur. Ancak fazla zamanın olmadığı durumlarda donmuş gıdalar soğuk su içerisinde bekletilerek de \r\nçözdürülebilirler. \r\n Bu yöntem için izlenilmesi gereken adımlar aşağıda listelenmiştir.\r\n •  Büyük bir kap soğuk su ile doldurulur. \r\n •  Donmuş gıda su geçirmeyecek bir poşetin içine konulur.\r\n •  Donmuş gıda, tamamı su içinde olacak şekilde kaba yerleştirilir.\r\n •  Her yarım saatte bir soğuk su değiştirilir.\r\n Bu yöntemle gıdanın büyüklüğüne bağlı olarak 1-2 saat içinde çözülmesi sağlanabilir.\r\n Dondurucudan çıkardığı 0,5 kg kütleli eti hızlıca çözdürmek isteyen Mehmet yukarıda belirtilen soğuk su içinde \r\nbekletme yöntemini kullanmak istemektedir. Yeterince büyük bir kap içine 10 °C’de soğuk su dolduran Mehmet, \r\n-20 °C’deki 0,5 kg kütleli eti bu kaba koyuyor ve 5 dakika aralıklarla suyun ve etin sıcaklığını ölçüyor. Elde ettiği \r\nverileri not alıp aşağıdaki gibi bir tablo oluşturuyor. (Ortam ile olan ısı alışverişi ihmal ediliyor.)\r\n Başlangıç 5. dakika 10. dakika 15. dakika 20. dakika 25. dakika 30. dakika\r\nSu 10 °C 9 °C 8 °C 7 °C 6 °C 5 °C 4 °C\r\nEt -20 °C -16 °C -12 °C -8 °C -4 °C 0 °C 4 °C\r\n Buna göre aşağıda verilen soruları cevaplayınız.\r\n4.1. Su ve et hangi sıcaklıkta ısıl dengeye gelmiştir? Sebebini belirterek açıklayınız.\r\n4.2. Isıl dengeye ulaşıncaya kadar su ile etin aldığı ve verdiği ısıların büyüklük ilişkisi nedir? Yazınız.\r\n4.3. 30 dakika boyunca etin ve suyun iç enerjileri nasıl değişmiştir? Yazınız.\r\n4.4. Mehmet, suyun ve etin ilk sıcaklıkları aynı kalmak şartıyla aynı sürede etin sıcaklığının 8 °C olmasını \r\nisterse ne gibi işlemler yapabilir? Yazınız.\r\n=== Page 5 ===\r\n5. Aşağıda nükleer santralin basitleştirilmiş şeması verilmiştir. Nükleer santralde, reaktör çekirdeğinde meydana \r\ngelen nükleer reaksiyonlar sayesinde su yüksek sıcaklıklara kadar ısıtılarak buhar hâline gelir. Oluşan bu yüksek \r\nbasınçlı buhar, türbinleri döndürerek jeneratörler aracılığıyla elektrik enerjisi üretimini sağlar. Türbinlerden geçen \r\nbuhar, yoğuşturucu (kondansör) bölgesine yönlendirilir. Bu aşamada, dış kaynaklı soğutma suyu T1 sıcaklığında \r\nyoğuşturucuya girer ve T2 sıcaklığında çıkar. Böylece buhar soğutularak tekrar sıvı hâle gelir. Yoğuşan su, pompa \r\nyardımıyla yeniden reaktöre gönderilir ve sistem çevrimi tamamlanmış olur.\r\n \r\nJeneratör\r\nReaktör\r\n.\r\nPompa T1\r\nT2\r\nTürbin\r\nKondansör\r\nBuna göre aşağıda verilen soruları cevaplayınız. \r\n5.1. Nükleer santralde reaktördeki suyun buharlaşarak türbini döndürmesi sürecinde hangi ısı aktarım yolu \r\netkilidir? Bu ısı aktarım yolunun temel niteliğini açıklayınız.\r\n5.2. Nükleer santralde yoğuşturucuya giren suyun T1 sıcaklığında girip T2 sıcaklığında çıkması sırasında \r\ngerçekleşen ısı aktarım yolu nedir? Bu ısı aktarım yolunun nasıl gerçekleştiğini açıklayınız.\r\n=== Page 6 ===\r\nSORU NO ÖĞRENME ÇIKTISI BECERİLER\r\n1\r\nFİZ.9.3.7. Akışkanın geçtiği borunun kesit alanı ile akışkanın sü-\r\nrati ve boru çeperlerine yaptığı basınç arasındaki ilişkiye yönelik \r\ntümevarımsal akıl yürütebilme\r\nFBAB7. Deney Yapma\r\n•  FBAB7.SB2. Ölçme ve veri analizi \r\nyapmak\r\nFBAB8. Bilimsel Çıkarım Yapma\r\n•  FBAB8.SB1. Nitelikleri tanımlamak\r\n•  FBAB8.SB3. Verileri yorumlamak ve \r\ndeğerlendirmek\r\nFBAB10. Tümevarımsal Akıl Yürütme\r\n•  FBAB10.SB1. Örüntü bulmak\r\n•  FBAB10.SB2. Genelleme yapmak\r\n2 FİZ.9.4.1. İç enerjinin ısı ve sıcaklık ile arasındaki ilişki hakkında tümevarımsal akıl yürütebilme\r\nFBAB1. Bilimsel Gözlem\r\n•  FBAB1.SB1. Nitelikleri tanımlamak\r\n•  FBAB1.SB3. Verileri açıklamak\r\nFBAB8. Bilimsel Çıkarım Yapma\r\n•  FBAB8.SB1. Nitelikleri tanımlamak\r\n•  FBAB8.SB3. Verileri yorumlamak ve \r\ndeğerlendirmek\r\nFBAB10. Tümevarımsal Akıl Yürütme\r\n•  FBAB10.SB1. Örüntü bulmak\r\n•  FBAB10.SB2. Genelleme yapmak\r\n3\r\nFİZ.9.4.3. Hâl değiştirme sıcaklığında bulunan saf bir maddenin \r\nhâl değiştirmesi için alınan veya verilen ısı miktarının bağlı oldu-\r\nğu değişkenler hakkında bilimsel çıkarım yapabilme\r\nFBAB1. Bilimsel Gözlem\r\n•  FBAB1.SB1. Nitelikleri tanımlamak\r\n•  FBAB1.SB2. Veri toplamak ve kaydet-\r\nmek\r\n•  FBAB1.SB3. Verileri açıklamak\r\nFBAB8. Bilimsel Çıkarım Yapma\r\n•  FBAB8.SB1. Nitelikleri tanımlamak\r\n•  FBAB8.SB2. Veri toplamak ve kaydet-\r\nmek\r\n•  FBAB8.SB3. Verileri yorumlamak ve \r\ndeğerlendirmek\r\nFBAB10. Tümevarımsal Akıl Yürütme\r\n•  FBAB10.SB1. Örüntü bulmak\r\n•  FBAB10.SB2. Genelleme yapmak\r\n=== Page 7 ===\r\n4 FİZ.9.4.4. Isıl denge durumu hakkında bilimsel gözlem yapabil-me\r\nFBAB1. Bilimsel Gözlem\r\n•  FBAB1.SB1. Nitelikleri tanımlamak\r\n•  FBAB1.SB3. Verileri açıklamak\r\nFBAB8. Bilimsel Çıkarım Yapma\r\n•  FBAB8.SB1. Nitelikleri tanımlamak\r\n•  FBAB8.SB3. Verileri yorumlamak ve \r\ndeğerlendirmek\r\nFBAB10. Tümevarımsal Akıl Yürütme\r\n•  FBAB10.SB1. Örüntü bulmak\r\n•  FBAB10.SB2. Genelleme yapmak\r\n5 FİZ.9.4.5. Isı aktarım yollarını sınıflayabilme\r\nFBAB1. Bilimsel Gözlem\r\n•  FBAB1.SB1. Nitelikleri tanımlamak\r\n•  FBAB1.SB3. Verileri açıklamak\r\nFBAB8. Bilimsel Çıkarım Yapma\r\n•  FBAB8.SB1. Nitelikleri tanımlamak\r\n•  FBAB8.SB3. Verileri yorumlamak ve \r\ndeğerlendirmek\r\nFBAB10. Tümevarımsal Akıl Yürütme\r\n•  FBAB10.SB2. Genelleme yapmak\r\nPUANLAMA TABLOSU\r\n1 2 3 4 5\r\nTOPLAM\r\n1.1. 1.2. 1.3. 2.1. 2.2. 2.3. 3.1. 3.2. 3.3. 3.4. 4.1. 4.2. 4.3. 4.4. 5.1. 5.2.\r\n4 8 8 6 6 8 7 5 4 4 4 4 6 6 10 10 100\r\nÇÖZÜMLER\r\n1. 1.1. X ve Y muslukları açıldıktan sonra En büyük En küçük\r\nK, L, M noktalarında suyun akış hızı M K\r\nK, L, M noktalarındaki suyun basıncı K M\r\n TAM PUAN (4 PUAN) \r\nÖğrenci tablodaki tüm boşlukları doğru bir şekilde doldurursa tam puan alır.\r\n KISMİ PUAN (1 PUAN) \r\nÖğrenci tablodaki doğru doldurduğu her bir boşluk için kısmi puan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz.\r\n1.2. Üst kol turnike ile sıkıştırılınca alt kolda kanın damarlardaki akış hızı yavaşladığından basıncı artar bu da \r\ndamarların şişerek daha belirgin hâle gelmesini sağlar. Bunu Y musluğunu kapattığımızda kollarda suyun \r\nyükselmesine benzetebiliriz. \r\n TAM PUAN (8 PUAN) \r\nÖğrenci açıklamayı doğru bir şekilde yaparak görselle doğru ilişkilendirirse tam puan alır.\r\n=== Page 8 ===\r\n KISMİ PUAN (5 PUAN) \r\nÖğrenci açıklamayı doğru yapar fakat görselle ilişkilendiremezse kısmi puan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz.\r\n1.3. Yüksek süratle hareket etmekte olan arabalar yan yana geldiğinde arabaların arasında kalan hava molekülleri \r\nsıkışır ve moleküllerin sürati artar. Bernoulli İlkesi’ne göre hava süratinin artması, havanın basıncının \r\ndüşmesine neden olur. Bunun sonucunda iki araba arasındaki hava basıncı, arabaların dış taraflarındaki hava \r\nbasıncından daha düşük olur. Bu durum, arabalar arasında bir basınç farkı oluşturur ve basınç farkından \r\ndolayı yüksek basınçlı hava, düşük basınçlı alana doğru hareket etmeye çalışır. Bundan dolayı arabalara \r\nkuvvet etki eder ve araba sallanır.\r\n TAM PUAN (8 PUAN) \r\nÖğrenci Bernoulli İlkesi’ni yazıp verilen olayla doğru bir şekilde ilişkilendirirse tam puan alır.\r\n KISMİ PUAN (4 PUAN) \r\nÖğrenci Bernoulli İlkesi’ni doğru yazıp verilen olayla ilişkilendiremezse kısmi puan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz.\r\n2. \r\n2.1. Başlangıçta moleküllerin titreşimleri az ve birbirine eşitken, ısı aldıktan sonra cisimlerin molekülleri daha hızlı \r\nve geniş aralıklarla titreşmektedir. Bu durum, moleküllerin kinetik enerjisinin arttığını gösterir. Moleküller ne \r\nkadar hızlı titreşirse maddenin sıcaklığı da o kadar artar. Dolayısıyla bu değişim, sıcaklık ile ilişkilidir. \r\n TAM PUAN (6 PUAN) \r\nÖğrenci açıklamayı doğru yaparsa tam puan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz.\r\n2.2. L cismine K cismine göre daha fazla ısı enerjisi aktarılmıştır. Bu durum L cisminin iç enerjisinin daha çok \r\nartmasına ve moleküllerin daha şiddetli titreşmesine neden olmuştur. İç enerji, maddenin moleküllerinin kinetik \r\nve potansiyel enerjilerinin toplamıdır. Sıcaklık ise, ortalama kinetik enerji ile doğru orantılıdır. Dolayısıyla bir \r\ncisme ısı verilirse iç enerji artar ve hâl değişimi yoksa sıcaklık da artar.\r\n TAM PUAN (6 PUAN) \r\nÖğrenci açıklamayı doğru yaparsa tam puan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz.\r\n2.3. Tüm boşluklara \"artar\" yazılacaktır.\r\n TAM PUAN (8 PUAN) \r\nÖğrenci tüm boşlukları doğru şekilde doldurursa tam puan alır.\r\n KISMİ PUAN (2 PUAN)\r\n Öğrenci doğru yazacağı her ifade için kısmi puan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz.\r\n=== Page 9 ===\r\n3. \r\n3.1. Madde S maddesi Buz\r\nKütle X ✓\r\nErime ısısı X ✓\r\nÖz ısı X X\r\nIsı sığası ✓ X\r\n TAM PUAN (7 PUAN) \r\nÖğrenci tabloda tüm ✓ ve X işaretlerini doğru boşluğa yazarsa tam puan alır.\r\n KISMİ PUAN (1 PUAN) \r\nÖğrenci tabloda doğru yaptığı her işaret için kısmi puan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz.\r\n3.2. S maddesinin sıcaklığı azalmakta yani buza ısı vermektedir. Dolayısıyla ısı veren S maddesinin iç enerjisi \r\nazalır, bu süreçte ısı alan buzun iç enerjisi artar.\r\n TAM PUAN (5 PUAN) \r\nÖğrenci açıklamayı doğru yaparsa tam puan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz.\r\n3.3. Isı alışverişi sonucu denge sıcaklığı ısı sığası daha fazla olan maddenin sıcaklığına daha yakın değer alacağı \r\niçin S maddesinin kütlesinin artırılması T1 denge sıcaklığının artmasına sebep olur.\r\n TAM PUAN (4 PUAN) \r\nÖğrenci açıklamayı doğru yaparsa tam puan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz.\r\n3.4. Buz erirken gereken Q1 ısısı Q1 = mbuz∙ Le bağıntısı ile bulunur. Maddelerin cinsleri değişmiyorsa Le erime \r\nısısı sabit kalacağından Q1 ısı miktarının azalması için bu bağıntı gereği buzun kütlesi (mbuz) azaltılmalıdır.  \r\n TAM PUAN (4 PUAN) \r\nÖğrenci açıklamayı doğru yaparsa tam puan alır.\r\n KISMİ PUAN (2 PUAN) \r\nÖğrenci sadece Q1 = mbuz∙ Le bağıntısına değiniyorsa kısmi puan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz.\r\n4. \r\n4.1. Maddeler arasındaki ısı alışverişi, maddeler denge sıcaklığına ulaşıncaya kadar devam eder. Her iki madde \r\nde aynı sıcaklığa ulaştığında ısı alışverişi biter. Tablodan da görüldüğü üzere 30. dakikada suyun ve etin \r\nsıcaklığı 4 °C olduğundan ısıl dengeye ulaşılmıştır.\r\n TAM PUAN (6 PUAN) \r\nÖğrenci \"4 °C\" cevabını verirse tam puan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz.\r\n4.2. Enerjinin korunum yasası gereği alınan ısı verilen ısıya eşittir. Bu yüzden suyun verdiği ısı büyüklüğü etin \r\naldığı ısı büyüklüğüne eşittir.\r\n=== Page 10 ===\r\n TAM PUAN (4 PUAN) \r\nÖğrenci açıklamayı doğru yaparsa tam puan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz.\r\n4.3. İç enerji madde miktarına ve maddenin sıcaklığına bağlıdır. Madde miktarları sabit olup, suyun sıcaklığı \r\nazalırken etin sıcaklığı artmıştır. Isı veren su, ısı alan et olduğundan suyun iç enerjisi azalmış, etin enerjisi \r\nartmıştır.\r\n TAM PUAN (6 PUAN) \r\nÖğrenci hem etin hem de suyun iç enerji değişimini doğru yazarsa tam puan alır.\r\n KISMİ PUAN (3 PUAN) \r\nÖğrenci sadece etin veya sadece suyun iç enerji değişimini doğru yazarsa kısmi puan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz.\r\n4.4. • Suyun miktarını artırmak\r\n • Etin miktarını azaltmak\r\n TAM PUAN (6 PUAN) \r\nÖğrenci yapılabilecek işlemlerin ikisini de doğru yazarsa tam puan alır.\r\n KISMİ PUAN (3 PUAN) \r\nÖğrenci yapılabilecek işlemlerin sadece birisini doğru yazarsa kısmi puan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz.\r\n5. \r\n5.1. Nükleer santralde reaktördeki suyun buharlaşarak türbini döndürmesi sürecinde ısı aktarım yolu olarak \r\nkonveksiyon etkilidir. Konveksiyon, ısı enerjisinin akışkan (sıvı ya da gaz) hareketiyle taşınmasıdır. Bu tür ısı \r\naktarımı, sıcak bir yüzeyin temas ettiği sıvı veya gazın ısınmasıyla başlar; ısınan akışkan genleşir, yoğunluğu \r\nazalır ve yukarı doğru hareket ederken yerine daha soğuk ve yoğun akışkan gelir. Böylece bir ısı taşıma \r\ndöngüsü oluşur.\r\n TAM PUAN (10 PUAN) \r\nÖğrenci açıklamayı doğru yaparsa tam puan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz.\r\n5.2. Nükleer santralde yoğuşturucuya giren suyun T1 sıcaklığında girip T2 sıcaklığında çıkması sırasında \r\ngerçekleşen temel ısı aktarım yolu iletimdir. Türbinlerden gelen sıcak buhar, yoğuşturucudaki soğuk boruların \r\ndış yüzeyine temas ettiğinde ısı enerjisi buhardan boruya, ardından borunun içindeki soğutma suyuna doğru \r\nmoleküller arası enerji aktarımıyla iletilir. Bu süreçte buhar soğuyarak yoğuşur ve sıvı hâle gelirken, soğutma \r\nsuyu ısınarak T2 sıcaklığında çıkar.\r\n TAM PUAN (10 PUAN) \r\nÖğrenci açıklamayı doğru yaparsa tam puan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz."
+  }
+ ]
+}

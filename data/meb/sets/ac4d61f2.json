@@ -1,0 +1,2168 @@
+{
+ "title": "10. Sınıf Biyoloji - 2. Dönem 1. Yazılı (OGM Yazılıya Hazırlanıyorum)",
+ "meta": {
+  "fileId": "ac4d61f2",
+  "grade": [
+   10
+  ],
+  "subject": "Biyoloji",
+  "schoolYear": "",
+  "examType": "ogm-yazili",
+  "kind": "booklet",
+  "sourceUrl": "https://ogm-large-cdn.eba.gov.tr/materyal/Etkilesimlikitap/09225dfc-2776-4b32-aa00-4687c3f41ff1/pdf.pdf",
+  "counts": {
+   "sections": 14,
+   "cards": 106,
+   "questions": 73,
+   "sourceQuestions": 9,
+   "skippedNeedingFigure": 0,
+   "flashcards": 106,
+   "quiz": 73
+  }
+ },
+ "notes": {
+  "summary": "Bu set, MEB OGM \"Yazılıya Hazırlanıyorum\" serisindeki 10. Sınıf Biyoloji 2. Dönem 1. Yazılı örneğini çalıştırır. Sınav 5 senaryo ve 9 alt sorudan oluşur, toplam 100 puandır: (1) besin gruplarının enerji ve oksijen verisi (20), (2) kent ormanı gezisi: ekosistem bileşenleri ve kuraklık (20), (3) tropikal ağaç etrafında simbiyotik etkileşimler ve böcek istilası (20), (4) tür içi ve türler arası rekabet (puanlama tablosunda 20, çözüm bölümünde 10 yazıyor; toplam 100 için tablo değeri 20 tutuyor), (5) park ekosisteminde besin zinciri, ağı ve enerji piramidi (20).\n\nDosyadaki 9 alt sorunun tamamı metin olarak mevcuttur ve açık uçlu quiz maddesine çevrilmiştir (atlanan soru yok). 2.1 tablo doldurma, 3.1 etkileşim adlandırma, 5.1 besin ağı çizimi ve 5.2 piramit gibi çizim/tablo isteyen sorular metinsel cevap biçiminde verildi; 5.1'in şeması rubrikteki zincirlere göre yazıyla anlatıldı.\n\nBu dosyadan sınavda ne beklemeli / nasıl çalışmalı:\n1) Besin gruplarında \"enerji + oksijen\" tablosunu bil: 100 g'da karbohidrat yaklaşık 400 kcal, protein yaklaşık 400 kcal, yağ yaklaşık 900 kcal; oksijen gereksinimi yağda en çok.\n2) Yağın enerji ve O2'nin neden yüksek olduğunu hidrojen yoğunluğu + ETS + O2'nin su oluşturması zinciriyle yaz.\n3) Ekosistemde abiyotik ve biyotik bileşenleri, biyotikleri üretici-tüketici-ayrıştırıcı diye ayır.\n4) Simbiyotik etkileşimleri tanımıyla birlikte adlandır: tam parazitlik, mutualizm, amensalizm, kommensalizm.\n5) Değişim tahminlerinde ölçülebilir ifade kullan: popülasyon sayısı artar/azalır, etkileşim gücü değişir.\n6) Besin ağı çizerken okların yönü enerjiyi yiyenden yenene doğru değil, yenenden yiyene doğru gösterir; ayrıştırıcıları unutma.\n7) Enerji piramidinde basamak başına yaklaşık %10 aktarımı ve %90'ın ısı olarak kaybını yaz.",
+  "sections": [
+   {
+    "title": "Besin gruplarının enerji ve oksijen değerleri",
+    "content": "Aynı kütledeki (100 g) karbohidrat, yağ ve proteinin enerji ve oksijen verileri farklıdır. Sınav tablosunda A: 83 L O2 ve 400 kcal; B: 203 L O2 ve 900 kcal; C: 95 L O2 ve 400 kcal verilmiştir. Enerji değeri 900 kcal olan B yağdır. A ve C'nin enerjisi benzerdir; aralarındaki fark oksijen gereksinimindedir: daha az O2 isteyen A karbohidrat, daha çok O2 isteyen C proteindir.",
+    "bulletPoints": [
+     "Yağ: yaklaşık 900 kcal / 100 g, en yüksek O2 (203 L) → B.",
+     "Karbohidrat: yaklaşık 400 kcal / 100 g, en düşük O2 (83 L) → A.",
+     "Protein: yaklaşık 400 kcal / 100 g, O2 karbohidrattan fazla (95 L) → C.",
+     "Karbohidrat ve proteinin enerjisi benzer; ayıran veri oksijen miktarıdır.",
+     "Gerekçe: yapıdaki oksijen oranı. Karbohidratta yapısal oksijen çoktur, bu yüzden dışarıdan en az O2 gerekir; proteinde daha azdır; yağda çok azdır.",
+     "Yazılı cevapta hem gruba adını ver hem de tablodaki sayıları gerekçeye kat."
+    ],
+    "keyTerms": [
+     {
+      "term": "Kcal",
+      "definition": "Besinin enerji değerini gösteren birim."
+     },
+     {
+      "term": "Oksidasyon",
+      "definition": "Besinin O2 kullanılarak yıkılması."
+     }
+    ]
+   },
+   {
+    "title": "Hidrojen yoğunluğu, ETS ve oksijen tüketimi",
+    "content": "Yağlar birim kütlede karbohidrata oranla daha çok C-H bağı ve dolayısıyla daha çok hidrojen atomu içerir. Hücresel solunumda besinlerden koparılan hidrojenlerin elektronları NADH ve FADH2 ile ETS'ye taşınır. Hidrojen çok olunca ETS'ye çok elektron gelir ve çok ATP yapılır (enerji verimi yüksek). ETS'nin sonunda oksijen son elektron alıcısıdır ve hidrojenle birleşerek suyu oluşturur. Hidrojen çok olduğu için hepsini suya çevirecek çok oksijen gerekir. Bu yüzden yağ, hem daha çok enerji verir hem daha çok oksijen tüketir.",
+    "bulletPoints": [
+     "Zincir: yağ → çok C-H bağı / hidrojen → çok elektron → ETS → çok ATP (yüksek enerji).",
+     "Aynı zincir: çok hidrojen → hepsini suya çevirmek için çok O2 → yüksek O2 tüketimi.",
+     "ETS'nin son basamağında O2 son elektron alıcı olarak görev yapar.",
+     "Cevapta \"hidrojen yoğunluğu - ETS - O2 - su\" dördünü birlikte kullan.",
+     "Yalnızca \"yağ daha çok enerji verir\" yazmak kısmî puandır; ETS ve O2'nin sudaki rolü eksik kalır.",
+     "Rubrik kısmî: hidrojen-enerji ilişkisi doğru ama O2'nin sudaki rolü veya ETS yoksa."
+    ],
+    "keyTerms": [
+     {
+      "term": "Hidrojen yoğunluğu",
+      "definition": "Birim kütledeki hidrojen atomu miktarı."
+     },
+     {
+      "term": "Son elektron alıcı",
+      "definition": "ETS sonunda elektronları kabul eden madde (O2)."
+     }
+    ]
+   },
+   {
+    "title": "Besin enerjisinin metabolik süreçlere katkısı",
+    "content": "Besinlerin oksidasyonundan elde edilen enerji hücrede ATP olarak kullanılır. ATP; biyosentez reaksiyonlarında, moleküllerin aktif taşınmasında, sinir hücrelerinde elektriksel iletimde ve kasların kasılmasında gereklidir. Cevap yazarken soyut \"enerji sağlar\" demek yerine somut örnekler ver.",
+    "bulletPoints": [
+     "Biyosentez: protein, enzim, DNA yapımı.",
+     "Aktif taşıma: yoğunluk farkına karşı madde geçişi.",
+     "Sinirsel iletim: sinir hücrelerinde elektriksel sinyal.",
+     "Kas kasılması: hareket.",
+     "Isı üretimi ve vücut sıcaklığının korunması (genel bilgi).",
+     "Rubrik kısmî: eşleştirmeyi doğru yapar ama somut kullanım örneği vermezse."
+    ],
+    "keyTerms": [
+     {
+      "term": "Metabolik süreç",
+      "definition": "Hücredeki yapım ve yıkım tepkimeleri."
+     },
+     {
+      "term": "Biyosentez",
+      "definition": "Yapı taşlarından büyük molekül yapımı."
+     }
+    ]
+   },
+   {
+    "title": "Ekosistemin bileşenleri: abiyotik ve biyotik",
+    "content": "Ekosistem, belirli bir bölgedeki canlıların (biyotik bileşenler) ve cansız çevrenin (abiyotik bileşenler) etkileşimiyle oluşur. Kent ormanı örneğinde abiyotik bileşenler ışık, su, sıcaklık, rüzgâr, nem ve topraktır. Biyotik bileşenler üreticiler, tüketiciler ve ayrıştırıcılardır.",
+    "bulletPoints": [
+     "Abiyotik: ışık, su, sıcaklık, rüzgâr, nem, toprak (metindeki gözlemlerden).",
+     "Üreticiler: çam ve meşe ağaçları, genç fidanlar, böğürtlen çalıları, çiçekli yabani otlar, sazlıklar, su yüzeyindeki küçük bitkiler.",
+     "Tüketiciler: karıncalar, kelebekler, arılar, serçe ve kargalar, böcekler, solucanlar.",
+     "Ayrıştırıcılar: şapkalı mantarlar.",
+     "Tabloyu doldururken metindeki gözlemleri kullan; metinde olmayan canlı yazma.",
+     "Kısmî puan: cansız doğru ama canlı hatalı veya canlıların beslenme biçimi yazılıp hangi canlılar olduğu yazılmayan cevaplar."
+    ],
+    "keyTerms": [
+     {
+      "term": "Abiyotik bileşen",
+      "definition": "Ekosistemdeki cansız faktör."
+     },
+     {
+      "term": "Biyotik bileşen",
+      "definition": "Ekosistemdeki canlı faktör."
+     },
+     {
+      "term": "Ayrıştırıcı",
+      "definition": "Ölü organik maddeyi parçalayarak madde döngüsüne katan canlı."
+     }
+    ]
+   },
+   {
+    "title": "Üretici, tüketici ve ayrıştırıcı ayrımı",
+    "content": "Üreticiler ışık enerjisini (veya kimyasal enerjiyi) kullanarak organik madde yapar. Tüketiciler hazır organik madde ile beslenir; otçullar birincil tüketici, etçiller ikincil/üçüncül tüketici olabilir. Ayrıştırıcılar (mantarlar, bazı bakteriler) ölü bitki ve hayvan kalıntılarını parçalar, madde döngüsüne katkı sağlar.",
+    "bulletPoints": [
+     "Ağaç, ot, çalı, sazlık: üretici.",
+     "Karınca, kelebek, arı, böcek, kuş, solucan: tüketici (solucan çürükçül olarak da anılabilir; ders içeriğinde sınav rubriği tüketici olarak vermiştir).",
+     "Mantar: ayrıştırıcı; enerji miktarını artırmaz, madde döngüsünü sağlar.",
+     "Sınıflama ölçütü beslenme biçimi: kendi besinini yapar mı, hazır mı alır, ölüyü mü parçalar.",
+     "Aynı canlı farklı besin zincirinde farklı trofik düzeyde olabilir.",
+     "Soru \"hangi canlılar?\" derse adlarını yaz, \"hangi grup?\" derse grubu yaz."
+    ],
+    "keyTerms": [
+     {
+      "term": "Üretici",
+      "definition": "Işık veya kimyasal enerjiyle organik madde yapan canlı."
+     },
+     {
+      "term": "Tüketici",
+      "definition": "Hazır organik maddeyle beslenen canlı."
+     }
+    ]
+   },
+   {
+    "title": "Sınırlayıcı faktör: kuraklık ve suyun etkisi",
+    "content": "Bir ekosistemde bir canlının gelişimini ve sayısını kısıtlayan etkene sınırlayıcı faktör denir. Kuraklıkta su sınırlayıcı hâle gelir. Su azalınca su canlılarının yaşam alanı daralır; bitkiler yeterli su alamaz, turgor basıncı düşer, fotosentez hızı azalır; üreticiler zayıflayınca ekosisteme giren madde ve enerji azalır. Otçullar besin bulmakta zorlanır, böcek sayısı azalır; böceklerle beslenen kuşlar etkilenir; besin ağı dengeleri bozulur. Toprak kuruyunca ayrıştırıcı faaliyeti azalır ve mineral döngüsü yavaşlar.",
+    "bulletPoints": [
+     "Zincir: su azalır → bitkiler zayıflar → fotosentez ve enerji girişi azalır.",
+     "Otçullar azalır → etçiller ve kuşlar etkilenir → besin ağı dengesi bozulur.",
+     "Ayrıştırıcı faaliyeti azalır → mineral döngüsü yavaşlar.",
+     "Doğrudan etki (su canlıları) + dolaylı etki (besin ağı) iki katman olarak yazılmalı.",
+     "Kısmî puan: yalnızca doğrudan etkilenenleri söyler veya \"denge bozulur\" der ama açıklamaz.",
+     "Sonuç cümlesi: ekosistemin tüm bileşenleri birbirine bağlıdır."
+    ],
+    "keyTerms": [
+     {
+      "term": "Sınırlayıcı faktör",
+      "definition": "Canlı gelişimini kısıtlayan en yetersiz etken."
+     },
+     {
+      "term": "Turgor basıncı",
+      "definition": "Hücre içi su basıncı; azalınca bitki solar."
+     }
+    ]
+   },
+   {
+    "title": "Birey, popülasyon, komünite, ekosistem",
+    "content": "Aynı türün belirli bir alandaki bireyleri popülasyonu oluşturur. Farklı türlerin popülasyonlarının aynı bölgede birlikte yaşaması komüniteyi (biyotik topluluk) oluşturur. Komünite ve abiyotik çevre birlikte ekosistemi oluşturur. Bir canlının yaşadığı yere habitat, ekosistemdeki yeri ve rolüne ekolojik niş denir.",
+    "bulletPoints": [
+     "Birey < popülasyon < komünite < ekosistem.",
+     "Karaca popülasyonu, kurt popülasyonu, yaban domuzu popülasyonu birlikte komünite oluşturur.",
+     "Popülasyon büyüklüğü doğum, ölüm, göç (giriş-çıkış) ile değişir.",
+     "Ölçülebilir kriter: popülasyon sayısı/yoğunluğu, etkileşim gücü.",
+     "Göç, rekabet ve kıtlık popülasyonu etkiler.",
+     "Habitat = adres, niş = meslek benzetmesi yapılabilir (öğretici benzetme)."
+    ],
+    "keyTerms": [
+     {
+      "term": "Popülasyon",
+      "definition": "Aynı türün bir bölgedeki bireylerinin toplamı."
+     },
+     {
+      "term": "Komünite",
+      "definition": "Bir bölgede birlikte yaşayan farklı türlerin popülasyonları."
+     },
+     {
+      "term": "Ekolojik niş",
+      "definition": "Bir türün ekosistemdeki rolü ve kaynak kullanımı."
+     }
+    ]
+   },
+   {
+    "title": "Simbiyotik etkileşimler: sınıflama",
+    "content": "Farklı türler arasındaki etkileşimler yarar-zarar durumuna göre adlandırılır. Sınav, dört etkileşimi tanımıyla ve örnekle yazmanı ister: I. tam parazitlik (Rafflesia arnoldii ve ağaç), II. mutualizm (ağaç kökü ve mantar), III. amensalizm (büyük ağaç ve altındaki küçük bitkiler), IV. kommensalizm (orkide ve ağaç).",
+    "bulletPoints": [
+     "Tam parazitlik: parazit klorofil içermez, fotosentez yapamaz, tüm besinini konaktan alır; parazit yarar sağlar, konak zarar görür.",
+     "Mutualizm: iki tür de karşılıklı fayda sağlar (mantar su ve mineral taşır, ağaç organik besin verir).",
+     "Amensalizm: bir tür engellenir veya zarar görür, diğeri etkilenmez (ağaç gölgesi altındaki bitkiler).",
+     "Kommensalizm: bir tür yarar sağlar, diğeri ne yarar ne zarar görür (orkide tutunma amacıyla).",
+     "Yarı parazit (örn. ökseotu) fotosentez yapabilir ama su ve mineralleri konaktan alır (genel bilgi).",
+     "Kısmî puan (6 puan): etkileşimleri doğru adlandırır ama açıklamaz veya bazı açıklamaları hatalı yazar."
+    ],
+    "keyTerms": [
+     {
+      "term": "Parazitlik",
+      "definition": "Bir türün yarar, diğerinin zarar gördüğü ilişki."
+     },
+     {
+      "term": "Mutualizm",
+      "definition": "İki türün de yarar sağladığı ilişki."
+     },
+     {
+      "term": "Kommensalizm",
+      "definition": "Bir tür yararlanır, diğeri etkilenmez."
+     },
+     {
+      "term": "Amensalizm",
+      "definition": "Bir tür zarar görür, diğeri etkilenmez."
+     }
+    ]
+   },
+   {
+    "title": "Etkileşim değişimlerini tahmin etme ve ölçülebilir ifadeler",
+    "content": "3.2'de böceğin besin kaynağını değiştirip ağacın kabuğuna ve genç sürgünlerine yönelmesinin her tür üzerindeki etkisi istenir. Zinciri kur: böcek orkideyi tüketir → orkide azalır; sonra ağaca zarar verir → ağaç zayıflar. Ağaç zayıflayınca Rafflesia'nın besin kaynağı azalır → Rafflesia popülasyonu azalabilir. Ağacın yaprak yoğunluğu azalırsa alt katmana daha çok ışık ulaşır → alt katman bitkileri artabilir. Kökler zarar görürse ağacın fotosentezi ve mantara verdiği organik madde azalır → mutualist ilişkinin gücü ve mantar popülasyonu azalabilir.",
+    "bulletPoints": [
+     "Orkide: böcek yaprak ve çiçeklerini yer → popülasyon azalır; artan böcek tüketimi azalışı hızlandırır.",
+     "Rafflesia: konak zayıflar → besin temini azalır → popülasyon azalabilir.",
+     "Alt katman bitkileri: yaprak yoğunluğu azalır → ışık artar → ışık sınırlayıcılıktan çıkar → popülasyon artabilir.",
+     "Ağaç-mantar: ağaç zayıflar → mantara organik madde azalır → mutualizm zayıflar → mantar azalır.",
+     "Sonuç: bazı popülasyonlar azalır, bazıları artar, etkileşim güçleri değişir.",
+     "\"Orkide azalır / Rafflesia etkilenir / bitkiler değişir\" gibi belirsiz ifadeler kısmî puandır."
+    ],
+    "keyTerms": [
+     {
+      "term": "Etkileşim gücü",
+      "definition": "Etkileşimin tarafların popülasyonuna etkisinin büyüklüğü."
+     },
+     {
+      "term": "Dolaylı etki",
+      "definition": "Bir olayın zincirleme olarak başka türe etkisi."
+     }
+    ]
+   },
+   {
+    "title": "Rekabet: tür içi ve türler arası",
+    "content": "Rekabet, canlıların sınırlı kaynaklar (besin, su, ışık, barınak, eş) için yarışmasıdır. Aynı türün bireyleri arasında olursa tür içi rekabet, farklı türlerin aynı kaynak için yarışması türler arası rekabettir. Sınav metninde kurtların av için kendi aralarında yarışması ve karacaların azalan besin için birbirleriyle yarışması tür içi; karaca ile yaban domuzunun aynı bitkilere yönelmesi türler arası rekabet örneğidir.",
+    "bulletPoints": [
+     "Tür içi rekabet: aynı tür, aynı kaynak (kurt-kurt, karaca-karaca).",
+     "Türler arası rekabet: farklı tür, ortak kaynak (karaca-yaban domuzu).",
+     "Kaynak azalınca rekabet artar; sonuç: popülasyon azalması veya göç.",
+     "Yeni gelen kurt sürüsü bölgede rekabeti artırmıştır ve karaca sayısını düşürmüştür.",
+     "Tanım + örnek her ikisi de yazılmalıdır; biri eksikse kısmî puan.",
+     "Yanlış tanım yapıp örnek vermek de kısmî puandır."
+    ],
+    "keyTerms": [
+     {
+      "term": "Tür içi rekabet",
+      "definition": "Aynı türün bireyleri arasında kaynak yarışı."
+     },
+     {
+      "term": "Türler arası rekabet",
+      "definition": "Farklı türler arasında ortak kaynak yarışı."
+     }
+    ]
+   },
+   {
+    "title": "Besin zinciri ve besin ağı",
+    "content": "Besin zinciri, enerjinin üreticiden tüketicilere doğru tek yönlü iletimini gösterir. Oklar enerjinin ve maddenin aktarımını gösterir ve yenenden yiyene doğru çizilir. Birden çok besin zincirinin birbirine bağlanmasıyla besin ağı oluşur. Elif'in gözlemi: çimen → çekirge → serçe → kedi. Ahmet'in gözlemi: çimen → kelebek → kurbağa → atmaca. Ortak üretici çimendir; mantarlar ayrıştırıcı olarak her basamaktan madde alır.",
+    "bulletPoints": [
+     "Zincir 1 (Elif): çimen → çekirge → serçe → kedi.",
+     "Zincir 2 (Ahmet): çimen → kelebek → kurbağa → atmaca.",
+     "Ağda çimen iki zincirin ortak üreticisidir.",
+     "Ok yönü: yenen → yiyen (enerji akışı yönü).",
+     "Mantarlar ayrıştırıcıdır, tüm basamaklardan gelen ölü kalıntıları parçalar.",
+     "Kısmî puan hataları: ayrıştırıcıyı yazmamak, ok yönünü hatalı çizmek, zincirleri yazıp ağı çizmemek."
+    ],
+    "keyTerms": [
+     {
+      "term": "Besin zinciri",
+      "definition": "Üretici ve tüketicilerin beslenme sırasını gösteren tek hat."
+     },
+     {
+      "term": "Besin ağı",
+      "definition": "Birbirine bağlı besin zincirlerinin oluşturduğu ağ."
+     }
+    ]
+   },
+   {
+    "title": "Trofik düzeyler ve enerji piramidi",
+    "content": "Trofik düzey (basamak), besin zincirinde canlının bulunduğu beslenme basamağıdır. 1. basamak üreticiler, 2. basamak birincil tüketiciler (otçullar), 3. basamak ikincil tüketiciler, 4. basamak üçüncül tüketicilerdir. Enerji akışında her basamakta enerjinin yaklaşık %90'ı canlılık faaliyetlerinde kullanılır ve ısı olarak çevreye yayılır; üst basamağa yaklaşık %10 aktarılır. Bu yüzden basamak yükseldikçe enerji miktarı ve birey sayısı azalır.",
+    "bulletPoints": [
+     "1. basamak: çimen. 2. basamak: çekirge, kelebek. 3. basamak: serçe, kurbağa. 4. basamak: kedi, atmaca.",
+     "Enerji akışı güneşten üreticilere, oradan tüketicilere tek yönlüdür.",
+     "Her basamakta enerji kaybı olur (ısı).",
+     "Mantarlar madde döngüsünü sağlar ama ekosistemdeki enerji miktarını artırmaz.",
+     "Genelleme: trofik düzey yükseldikçe aktarılabilen enerji miktarı ve canlı sayısı azalır.",
+     "Kısmî puan: basamakları doğru yerleştirip genellemeyi yazmamak veya tersi."
+    ],
+    "keyTerms": [
+     {
+      "term": "Trofik düzey",
+      "definition": "Besin zincirindeki beslenme basamağı."
+     },
+     {
+      "term": "%10 kuralı",
+      "definition": "Üst basamağa yaklaşık %10 enerjinin aktarılması."
+     }
+    ]
+   },
+   {
+    "title": "Madde döngüsü ve enerji akışı farkı",
+    "content": "Madde ekosistemde döngüsel dolaşır, enerji ise tek yönlüdür. Güneşten gelen ışık enerjisi üreticilerde kimyasal enerjiye çevrilir, tüketicilere aktarılır ve sonunda ısı olarak ekosistemden çıkar; enerji geri dönmez. Maddeler (C, N, P, su) ayrıştırıcıların da katkısıyla yeniden kullanılır.",
+    "bulletPoints": [
+     "Madde: döngüsel. Enerji: tek yönlü ve kayıplı.",
+     "Isı olarak kaybolan enerji tekrar üreticiler tarafından kullanılamaz.",
+     "Ayrıştırıcılar maddeyi dolaşıma geri verir.",
+     "Enerji girişi: ışık (üreticiler).",
+     "Besin ağı hem madde hem enerji akışını gösterir.",
+     "Bu fark \"ulaştığın genellemeyi yaz\" tipi sorularda kullanılır."
+    ],
+    "keyTerms": [
+     {
+      "term": "Enerji akışı",
+      "definition": "Enerjinin üreticiden tüketicilere tek yönlü aktarımı."
+     },
+     {
+      "term": "Madde döngüsü",
+      "definition": "Maddenin canlılar ve çevre arasında dolaşması."
+     }
+    ]
+   },
+   {
+    "title": "Çok parçalı yazılı soruyu yanıtlama stratejisi",
+    "content": "Sınavın soruları alt parçalara bölünür ve her parça ayrı puanlanır (örn. 3.1: 12 puan, 3.2: 8 puan). Tablo ve çizim sorularında hem şekli hem de açıklamayı yazmak gerekir. Her parça için rubrik \"tam, kısmî, sıfır\" ayrımı yapar; kısmî puan çoğunlukla bir parçayı eksik bırakmaktan gelir.",
+    "bulletPoints": [
+     "Tabloyu boş bırakma; her hücreye en az bir doğru madde yaz.",
+     "Çizim sorusunda ok yönü ve adlandırma puan getirir; yazılı olarak da özetle.",
+     "Metindeki sayıları ve örnekleri kendi cevabında kullan.",
+     "\"Ölçülebilir kriter\" istendiğinde \"artar/azalır\" gibi yönlü ifade yaz.",
+     "Her etkileşimi tanım + örnekle ver.",
+     "Son cümleyi genellemeyle bitir (örn. \"trofik düzey yükseldikçe enerji azalır\")."
+    ],
+    "keyTerms": [
+     {
+      "term": "Rubrik",
+      "definition": "Puanlama ölçütleri."
+     },
+     {
+      "term": "Genelleme",
+      "definition": "Gözlemlerden ulaşılan genel sonuç."
+     }
+    ]
+   }
+  ],
+  "importantDates": [],
+  "commonMistakes": [
+   "Yağın daha çok enerji vermesini yalnızca \"yağ daha çok kalorilidir\" diye açıklamak: hidrojen yoğunluğu - ETS - O2 zincirini yazmak gerekir.",
+   "A ve C'yi karıştırmak: aynı enerjili gruplarda daha az oksijen isteyen karbohidrat, daha çok isteyen proteindir.",
+   "Enerjinin kullanım örneklerini vermemek: biyosentez, aktif taşıma, sinirsel iletim, kas kasılması gibi somut örnek gerekir.",
+   "Mantarları üretici veya tüketici saymak: mantarlar ayrıştırıcıdır.",
+   "Ekosistem tablosunda metinde olmayan canlıları yazmak.",
+   "Kuraklığın etkisini yalnızca \"denge bozulur\" diye yazmak: besin ağındaki zincirleme etkiyi açıkla.",
+   "Amensalizm ile kommensalizmi karıştırmak: amensalizmde bir tür zarar görür, kommensalizmde yarar görür.",
+   "Tam parazit ile yarı paraziti karıştırmak: tam parazit klorofil içermez ve fotosentez yapamaz.",
+   "3.2'de belirsiz ifadeler yazmak (\"etkilenir\", \"değişir\"): popülasyon artar/azalır, etkileşim gücü değişir yaz.",
+   "Tür içi rekabeti farklı türler arasında saymak (ya da tersi).",
+   "Besin ağında okları yiyenden yenene doğru çizmek: oklar yenenden yiyene doğru gider.",
+   "Enerji piramidinde mantarları basamak sayıp enerji kaynağı yapmak: mantarlar enerji miktarını artırmaz.",
+   "Madde ve enerji akışını aynı sanmak: madde döngüsel, enerji tek yönlüdür."
+  ],
+  "diagrams": [],
+  "mindmap": {
+   "label": "10. Sınıf Biyoloji 2. Dönem 1. Yazılı",
+   "children": [
+    {
+     "label": "Besinlerin enerji ve O2 verimi",
+     "children": [
+      {
+       "label": "A karbohidrat 400 kcal, 83 L",
+       "children": []
+      },
+      {
+       "label": "B yağ 900 kcal, 203 L",
+       "children": []
+      },
+      {
+       "label": "C protein 400 kcal, 95 L",
+       "children": []
+      },
+      {
+       "label": "Hidrojen yoğunluğu → ETS → O2 → su",
+       "children": []
+      },
+      {
+       "label": "ATP kullanım örnekleri",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Ekosistem bileşenleri",
+     "children": [
+      {
+       "label": "Abiyotik: ışık, su, sıcaklık, rüzgâr, nem, toprak",
+       "children": []
+      },
+      {
+       "label": "Biyotik",
+       "children": [
+        {
+         "label": "Üretici",
+         "children": []
+        },
+        {
+         "label": "Tüketici",
+         "children": []
+        },
+        {
+         "label": "Ayrıştırıcı",
+         "children": []
+        }
+       ]
+      },
+      {
+       "label": "Kuraklık: su sınırlayıcı",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Popülasyon ve komünite",
+     "children": [
+      {
+       "label": "Birey-popülasyon-komünite-ekosistem",
+       "children": []
+      },
+      {
+       "label": "Habitat ve niş",
+       "children": []
+      },
+      {
+       "label": "Popülasyon değişimi",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Etkileşimler",
+     "children": [
+      {
+       "label": "Tam parazitlik (Rafflesia)",
+       "children": []
+      },
+      {
+       "label": "Mutualizm (ağaç-mantar)",
+       "children": []
+      },
+      {
+       "label": "Amensalizm (gölge)",
+       "children": []
+      },
+      {
+       "label": "Kommensalizm (orkide)",
+       "children": []
+      },
+      {
+       "label": "Rekabet",
+       "children": [
+        {
+         "label": "Tür içi",
+         "children": []
+        },
+        {
+         "label": "Türler arası",
+         "children": []
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "label": "Enerji akışı",
+     "children": [
+      {
+       "label": "Besin zinciri ve ağı",
+       "children": []
+      },
+      {
+       "label": "Trofik düzeyler",
+       "children": []
+      },
+      {
+       "label": "%10 aktarım, %90 ısı",
+       "children": []
+      },
+      {
+       "label": "Mantarlar: madde döngüsü",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Yazılı tekniği",
+     "children": [
+      {
+       "label": "Tanım + örnek",
+       "children": []
+      },
+      {
+       "label": "Ölçülebilir ifade",
+       "children": []
+      },
+      {
+       "label": "Genelleme cümlesi",
+       "children": []
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "flashcards": [
+  {
+   "front": "100 g yağın yaklaşık enerji değeri?",
+   "back": "Yaklaşık 900 kcal (sınav tablosunda B).",
+   "category": "Besin enerjisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "100 g karbohidratın yaklaşık enerji değeri?",
+   "back": "Yaklaşık 400 kcal (tabloda A).",
+   "category": "Besin enerjisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "100 g proteinin yaklaşık enerji değeri?",
+   "back": "Yaklaşık 400 kcal (tabloda C).",
+   "category": "Besin enerjisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Tabloda hangi besin en çok oksijen ister?",
+   "back": "B (yağ), yaklaşık 203 L / 100 g.",
+   "category": "Besin enerjisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Tabloda hangi besin en az oksijen ister?",
+   "back": "A (karbohidrat), yaklaşık 83 L / 100 g.",
+   "category": "Besin enerjisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Protein oksijen gereksinimi karbohidrata göre nasıl?",
+   "back": "Daha fazla (95 L; karbohidrat 83 L), enerjileri benzer olmasına rağmen.",
+   "category": "Besin enerjisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "A ve C'nin enerjisi benzerse onları nasıl ayırırsın?",
+   "back": "Oksijen gereksinimine bakarak: daha az O2 → karbohidrat, daha çok O2 → protein.",
+   "category": "Besin enerjisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yağda enerji ve oksijen neden yüksek?",
+   "back": "Birim kütlede çok hidrojen var; çok elektron ETS'ye gider (çok ATP), hepsini suya çevirmek için çok O2 gerekir.",
+   "category": "Besin enerjisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "ETS'de oksijenin görevi?",
+   "back": "Son elektron alıcısı; hidrojenle birleşerek su oluşturur.",
+   "category": "Besin enerjisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Hidrojen yoğunluğu ne demektir?",
+   "back": "Birim kütlede bulunan hidrojen atomu miktarı.",
+   "category": "Besin enerjisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Karbohidratta oksijen neden en az gerekir?",
+   "back": "Yapısında oksijen oranı yüksektir; dışarıdan az O2 yeterlidir.",
+   "category": "Besin enerjisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Besin enerjisi hücrede hangi biçime çevrilir?",
+   "back": "ATP.",
+   "category": "Besin enerjisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "ATP kullanılan dört metabolik süreç?",
+   "back": "Biyosentez, aktif taşıma, sinirsel iletim, kas kasılması.",
+   "category": "Besin enerjisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yağın enerji deposu olarak avantajı?",
+   "back": "Birim kütlede en çok enerji; az yerde çok depolama.",
+   "category": "Besin enerjisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Ekosistem nedir?",
+   "back": "Bir bölgedeki canlı (biyotik) ve cansız (abiyotik) bileşenlerin etkileşimi.",
+   "category": "Ekosistem",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Abiyotik bileşenlere örnek (metinden)?",
+   "back": "Işık, su, sıcaklık, rüzgâr, nem, toprak.",
+   "category": "Ekosistem",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Biyotik bileşenler nelerdir?",
+   "back": "Üreticiler, tüketiciler, ayrıştırıcılar.",
+   "category": "Ekosistem",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Metindeki üreticiler?",
+   "back": "Çam ve meşe ağaçları, fidanlar, böğürtlen çalıları, yabani otlar, sazlıklar, yüzen küçük bitkiler.",
+   "category": "Ekosistem",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Metindeki tüketiciler?",
+   "back": "Karıncalar, kelebekler, arılar, serçe ve kargalar, böcekler, solucanlar.",
+   "category": "Ekosistem",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Metindeki ayrıştırıcı?",
+   "back": "Şapkalı mantarlar.",
+   "category": "Ekosistem",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Üretici nedir?",
+   "back": "Işık (veya kimyasal) enerjiyle organik madde yapan canlı.",
+   "category": "Ekosistem",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Tüketici nedir?",
+   "back": "Hazır organik maddeyle beslenen canlı.",
+   "category": "Ekosistem",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Ayrıştırıcı nedir?",
+   "back": "Ölü organik maddeyi parçalayıp madde döngüsüne katan canlı (mantar, bazı bakteriler).",
+   "category": "Ekosistem",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Sınırlayıcı faktör nedir?",
+   "back": "Bir canlının gelişimini veya sayısını kısıtlayan en yetersiz etken.",
+   "category": "Ekosistem",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kuraklıkta su ekosistemi nasıl etkiler?",
+   "back": "Bitkiler zayıflar, fotosentez ve enerji girişi azalır, otçullar ve diğer tüketiciler etkilenir, besin ağı dengesi bozulur.",
+   "category": "Ekosistem",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Su azalınca bitkide turgor ne olur?",
+   "back": "Turgor basıncı düşer, bitki solar, fotosentez hızı azalır.",
+   "category": "Ekosistem",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kuraklıkta ayrıştırıcılar nasıl etkilenir?",
+   "back": "Toprak kuruyunca faaliyetleri azalır, mineral döngüsü yavaşlar.",
+   "category": "Ekosistem",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Popülasyon nedir?",
+   "back": "Aynı türün belirli bir bölgedeki bireylerinin toplamı.",
+   "category": "Popülasyon ve komünite",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Komünite nedir?",
+   "back": "Bir bölgede birlikte yaşayan farklı türlerin popülasyonlarının oluşturduğu biyotik topluluk.",
+   "category": "Popülasyon ve komünite",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Habitat nedir?",
+   "back": "Bir canlının yaşadığı yer (adres).",
+   "category": "Popülasyon ve komünite",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Ekolojik niş nedir?",
+   "back": "Bir türün ekosistemdeki rolü ve kaynak kullanımı.",
+   "category": "Popülasyon ve komünite",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Popülasyon büyüklüğü neye göre değişir?",
+   "back": "Doğum, ölüm ve göçe (giriş-çıkış) göre.",
+   "category": "Popülasyon ve komünite",
+   "difficulty": "medium"
+  },
+  {
+   "front": "\"Ölçülebilir kriter\" örnekleri?",
+   "back": "Popülasyon sayısı artar/azalır; etkileşim gücü artar/azalır.",
+   "category": "Popülasyon ve komünite",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Ekosistem düzeyleri küçükten büyüğe?",
+   "back": "Birey, popülasyon, komünite, ekosistem.",
+   "category": "Popülasyon ve komünite",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Tam parazitlik nedir?",
+   "back": "Parazitin klorofil taşımayıp tüm besinini konaktan aldığı, parazite yarar konağa zarar veren ilişki.",
+   "category": "Etkileşimler",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tam parazit örneği (sınavdan)?",
+   "back": "Rafflesia arnoldii.",
+   "category": "Etkileşimler",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Mutualizm nedir?",
+   "back": "İki türün de karşılıklı fayda sağladığı ilişki.",
+   "category": "Etkileşimler",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Mutualizm örneği (sınavdan)?",
+   "back": "Ağaç kökü ve mantar: mantar su ve mineral, ağaç organik besin verir.",
+   "category": "Etkileşimler",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Amensalizm nedir?",
+   "back": "Bir türün zarar gördüğü veya engellendiği, diğerinin etkilenmediği ilişki.",
+   "category": "Etkileşimler",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Amensalizm örneği (sınavdan)?",
+   "back": "Büyük ağacın gölgesinde ışık alamayan küçük bitkiler.",
+   "category": "Etkileşimler",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kommensalizm nedir?",
+   "back": "Bir türün yarar gördüğü, diğerinin ne yarar ne zarar gördüğü ilişki.",
+   "category": "Etkileşimler",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kommensalizm örneği (sınavdan)?",
+   "back": "Ağaç dalındaki orkide: yalnızca tutunma ve yükseklik için kullanır.",
+   "category": "Etkileşimler",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Yarı parazit tam parazitten nasıl ayrılır?",
+   "back": "Yarı parazit fotosentez yapabilir (klorofil var), tam parazit yapamaz.",
+   "category": "Etkileşimler",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Tam parazit bitki besinini nasıl alır?",
+   "back": "Emeç adı verilen yapılarla konak dokulardan.",
+   "category": "Etkileşimler",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Etkileşim türünü belirlemek için hangi iki soruyu sorarsın?",
+   "back": "Hangi tür yarar görüyor? Hangi tür zarar görüyor?",
+   "category": "Etkileşimler",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Böcek ağaca yönelirse orkideye ne olur?",
+   "back": "Önce böcek orkideyi yediği için popülasyonu azalır; artan böcek azalışı hızlandırır.",
+   "category": "Etkileşim değişimi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Ağaç zayıflayınca Rafflesia'ya ne olur?",
+   "back": "Konak zayıflar, besin temini azalır, popülasyonu azalabilir.",
+   "category": "Etkileşim değişimi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Ağaç yaprakları azalınca alt katman bitkileri ne olur?",
+   "back": "Işık artar, sınırlayıcı etki azalır, popülasyonları artabilir.",
+   "category": "Etkileşim değişimi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Ağaç zayıflayınca mantar ilişkisi ne olur?",
+   "back": "Organik madde azalır, mutualizm zayıflar, mantar popülasyonu azalabilir.",
+   "category": "Etkileşim değişimi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Böcek istilasının komünite düzeyinde sonucu?",
+   "back": "Bazı popülasyonlar azalır, bazıları artar; etkileşim güçleri değişir.",
+   "category": "Etkileşim değişimi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Dolaylı etki ne demektir?",
+   "back": "Bir olayın zincirleme olarak başka türlere ulaşan etkisi.",
+   "category": "Etkileşim değişimi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Rekabet nedir?",
+   "back": "Canlıların sınırlı kaynaklar için yarışması.",
+   "category": "Rekabet",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Tür içi rekabet nedir?",
+   "back": "Aynı türün bireyleri arasında sınırlı kaynak için yarış.",
+   "category": "Rekabet",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Türler arası rekabet nedir?",
+   "back": "Farklı türlerin aynı kaynak için yarışması.",
+   "category": "Rekabet",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Karaca-karaca rekabeti hangi tür?",
+   "back": "Tür içi.",
+   "category": "Rekabet",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Karaca-yaban domuzu rekabeti hangi tür?",
+   "back": "Türler arası.",
+   "category": "Rekabet",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kurtların av için kendi aralarında yarışı hangi tür?",
+   "back": "Tür içi rekabet.",
+   "category": "Rekabet",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kaynaklar azalırsa rekabete ne olur?",
+   "back": "Artar; popülasyon azalır veya göç görülür.",
+   "category": "Rekabet",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yeni gelen kurt sürüsü neyi artırdı?",
+   "back": "Bölgede rekabeti; karaca sayısı düştü, bazıları göç etti.",
+   "category": "Rekabet",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Rekabet sorusunda tam puan için ne gerekir?",
+   "back": "Doğru tanım + metinden doğru örnek.",
+   "category": "Rekabet",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Besin zinciri nedir?",
+   "back": "Enerji ve maddenin üreticiden tüketicilere tek yönlü aktarımını gösteren sıra.",
+   "category": "Besin zinciri ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Besin ağı nedir?",
+   "back": "Birbirine bağlı besin zincirlerinin oluşturduğu ağ.",
+   "category": "Besin zinciri ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Elif'in besin zinciri?",
+   "back": "Çimen → çekirge → serçe → kedi.",
+   "category": "Besin zinciri ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Ahmet'in besin zinciri?",
+   "back": "Çimen → kelebek → kurbağa → atmaca.",
+   "category": "Besin zinciri ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "front": "İki zincirin ortak halkası?",
+   "back": "Çimen (üretici).",
+   "category": "Besin zinciri ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Besin zincirinde ok yönü neyi gösterir?",
+   "back": "Enerji ve madde akışını: yenenden yiyene.",
+   "category": "Besin zinciri ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Mantarlar besin ağında nerede gösterilir?",
+   "back": "Her basamaktan gelen ölü kalıntıları parçalayan ayrıştırıcı olarak.",
+   "category": "Besin zinciri ve enerji",
+   "difficulty": "medium"
+  },
+  {
+   "front": "1. trofik basamak kimdir?",
+   "back": "Üreticiler (çimen).",
+   "category": "Besin zinciri ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "front": "2. trofik basamak kimdir?",
+   "back": "Birincil tüketiciler: çekirge, kelebek.",
+   "category": "Besin zinciri ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "front": "3. trofik basamak kimdir?",
+   "back": "İkincil tüketiciler: serçe, kurbağa.",
+   "category": "Besin zinciri ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "front": "4. trofik basamak kimdir?",
+   "back": "Üçüncül tüketiciler: kedi, atmaca.",
+   "category": "Besin zinciri ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Basamaklar arası enerji aktarımı yaklaşık kaç?",
+   "back": "Yaklaşık %10 aktarılır; yaklaşık %90 ısı olarak kaybolur.",
+   "category": "Besin zinciri ve enerji",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Üst basamakta neden birey sayısı azdır?",
+   "back": "Aktarılan enerji azaldığı için daha az birey beslenebilir.",
+   "category": "Besin zinciri ve enerji",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Enerji piramidi genellemesi?",
+   "back": "Trofik düzey yükseldikçe enerji miktarı ve canlı sayısı azalır.",
+   "category": "Besin zinciri ve enerji",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Enerji akışı yönü nasıldır?",
+   "back": "Güneşten üreticilere, oradan tüketicilere tek yönlü.",
+   "category": "Besin zinciri ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Madde ve enerji arasındaki fark?",
+   "back": "Madde döngüsel dolaşır, enerji tek yönlü akar ve ısı olarak kaybolur.",
+   "category": "Besin zinciri ve enerji",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Mantarlar enerji miktarını artırır mı?",
+   "back": "Hayır; madde döngüsünü sağlarlar.",
+   "category": "Besin zinciri ve enerji",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Ekosisteme enerji girişi nasıl olur?",
+   "back": "Üreticilerin ışık enerjisini kimyasal enerjiye çevirmesiyle.",
+   "category": "Besin zinciri ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kedilerin sayısı çekirgelerden neden azdır?",
+   "back": "Üst basamaklara aktarılan enerji azdır; az birey desteklenir.",
+   "category": "Besin zinciri ve enerji",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Metabolik süreçte ısı kaybı nasıl olur?",
+   "back": "Canlılık faaliyetlerinde kullanılan enerjinin büyük kısmı ısıya dönüşüp çevreye yayılır.",
+   "category": "Besin zinciri ve enerji",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Ekosistemde ayrıştırıcıların temel işlevi?",
+   "back": "Ölü organik maddeyi parçalayıp mineralleri tekrar toprağa/çevreye kazandırmak.",
+   "category": "Besin zinciri ve enerji",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuzak: Mantarlar üreticidir. Doğru mu?",
+   "back": "Yanlış; mantarlar ayrıştırıcıdır.",
+   "category": "Tuzaklar",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Tuzak: Karbohidrat en çok oksijen ister. Doğru mu?",
+   "back": "Yanlış; en az oksijeni karbohidrat ister, en çoğu yağ.",
+   "category": "Tuzaklar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuzak: Enerji döngüsel olarak geri kazanılır. Doğru mu?",
+   "back": "Yanlış; enerji tek yönlüdür, ısı olarak kaybolur.",
+   "category": "Tuzaklar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuzak: Kommensalizmde iki tür de yarar görür. Doğru mu?",
+   "back": "Yanlış; bir tür yarar görür, diğeri etkilenmez.",
+   "category": "Tuzaklar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuzak: Amensalizmde engellenen tür yarar görür. Doğru mu?",
+   "back": "Yanlış; engellenen tür zarar görür.",
+   "category": "Tuzaklar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuzak: Tür içi rekabet farklı türler arasındadır. Doğru mu?",
+   "back": "Yanlış; aynı türün bireyleri arasındadır.",
+   "category": "Tuzaklar",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Tuzak: Besin ağında oklar yiyenden yenene çizilir. Doğru mu?",
+   "back": "Yanlış; yenenden yiyene çizilir.",
+   "category": "Tuzaklar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuzak: Üst trofik basamaklarda enerji artar. Doğru mu?",
+   "back": "Yanlış; enerji her basamakta azalır.",
+   "category": "Tuzaklar",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Tuzak: Kuraklık yalnızca su canlılarını etkiler. Doğru mu?",
+   "back": "Yanlış; bitkiler, otçullar, etçiller ve ayrıştırıcılar da zincirleme etkilenir.",
+   "category": "Tuzaklar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuzak: Rafflesia fotosentez yapar. Doğru mu?",
+   "back": "Yanlış; klorofil içermez, fotosentez yapamaz.",
+   "category": "Tuzaklar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuzak: Yağ yalnızca depo olduğu için enerji vermez. Doğru mu?",
+   "back": "Yanlış; yağ en yüksek enerji veren besindir (yaklaşık 900 kcal/100 g).",
+   "category": "Tuzaklar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuzak: Oksijen ETS'nin ilk elektron vericisidir. Doğru mu?",
+   "back": "Yanlış; son elektron alıcısıdır.",
+   "category": "Tuzaklar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yazılı: 3.1'de kısmî puan nasıl alınır?",
+   "back": "Etkileşimleri doğru adlandırıp açıklamayı yazmamak (6/12).",
+   "category": "Yazılı tekniği",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yazılı: 3.2'de tam puan için ne gerekir?",
+   "back": "Dört durumun her biri için nedenli ve ölçülebilir değişim + sonuç.",
+   "category": "Yazılı tekniği",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yazılı: 5.1'de ne çizilir?",
+   "back": "İki besin zinciri ve onları ilişkilendiren besin ağı (ok yönleri ve ayrıştırıcı dâhil).",
+   "category": "Yazılı tekniği",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yazılı: 5.2'de ne istenir?",
+   "back": "Canlıların trofik basamaklara yerleştirilmesi + enerji akışı genellemesi.",
+   "category": "Yazılı tekniği",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yazılı: 2.1'de tabloya neler yazılır?",
+   "back": "Abiyotikler ve üretici/tüketici/ayrıştırıcı grupları ile metindeki canlı adları.",
+   "category": "Yazılı tekniği",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yazılı: 1.1'de iki kısım nedir?",
+   "back": "Besin gruplarını gerekçeyle belirleme + enerjinin metabolik katkısını örneklerle açıklama.",
+   "category": "Yazılı tekniği",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yazılı: 1.2'de hangi üç kavram bağlanır?",
+   "back": "Hidrojen yoğunluğu, ETS ve oksijenin su oluşturması.",
+   "category": "Yazılı tekniği",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Sınavın toplam puanı kaç?",
+   "back": "100 puan: 1.1: 10, 1.2: 10, 2.1: 10, 2.2: 10, 3.1: 12, 3.2: 8, 4. soru: tabloda 20 (çözüm kısmında 10 yazıyor), 5.1: 10, 5.2: 10.",
+   "category": "Yazılı tekniği",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Sorunun puan ağırlığı cevap uzunluğunu nasıl belirler?",
+   "back": "Puan yüksekse daha çok kavram ve örnek yazılır; her puan kalemi ayrı karşılanmalıdır.",
+   "category": "Yazılı tekniği",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Önemli: bir cevapta kavram + örnek neden gerekir?",
+   "back": "Rubrik tanımı doğru yazanı ve örnekle somutlaştıranı tam puanlar.",
+   "category": "Yazılı tekniği",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Isı olarak kaybedilen enerji kimler tarafından yeniden kullanılır?",
+   "back": "Hiçbiri; ısı enerjisi üreticilerce fotosentezde kullanılamaz, ekosistemden çıkar.",
+   "category": "Besin zinciri ve enerji",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Besin ağı zincirden ne bakımdan üstündür?",
+   "back": "Birden çok beslenme yolunu gösterir; ekosistemin gerçek ilişkilerini yansıtır.",
+   "category": "Besin zinciri ve enerji",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Bir türün besin tercihi değişirse besin ağı nasıl etkilenir?",
+   "back": "Yeni tür azalır/artar, diğer türlerin etkileşim güçleri değişir.",
+   "category": "Etkileşim değişimi",
+   "difficulty": "hard"
+  }
+ ],
+ "quiz": [
+  {
+   "type": "open-ended",
+   "question": "Besinlerin hücresel solunum süreçlerindeki enerji verimliliğini ve oksijen gereksinimlerini analiz etmek amacıyla hazırlanan bilimsel modellemede, eşit kütledeki (100'er gram) üç farklı organik besin örneğine (A, B ve C) ait yaklaşık değerler verilmiştir. A: gereken oksijen 83 L/100 g, enerji değeri 400 kcal/100 g. B: 203 L/100 g, 900 kcal/100 g. C: 95 L/100 g, 400 kcal/100 g. 1.1. Tablodaki verileri dikkate alarak A, B ve C besin örneklerinin hangi temel besin gruplarına (karbohidrat, yağ, protein) ait olduğunu bilimsel gerekçeleriyle belirtiniz. Bu besinlerden elde edilen enerjinin canlının metabolik süreçlerine sağladığı katkıyı örneklerle açıklayınız. (10 puan)",
+   "correctAnswer": "A karbohidrattır: enerji verimi proteinle benzerdir (yaklaşık 400 kcal) ama yapısındaki oksijen oranı yüksek olduğu için oksidasyon için dışarıdan en az oksijene (yaklaşık 83 L) ihtiyaç duyar. B yağdır: birim kütlesindeki hidrojen oranının yüksekliği sayesinde enerji verimi (yaklaşık 900 kcal) ve buna bağlı olarak oksijen tüketimi (yaklaşık 203 L) en yüksek gruptur. C proteindir: enerji verimi karbohidrata benzer (yaklaşık 400 kcal) olmasına rağmen yapısındaki oksijen oranı karbohidrattan düşük olduğu için oksidasyonda karbohidrata göre daha fazla oksijen (yaklaşık 95 L) tüketir. Besinlerin oksidasyonuyla elde edilen enerji; hücrelerde biyosentez reaksiyonları, moleküllerin aktif taşınması, sinir hücrelerinde elektriksel iletim veya kasların kasılması için gerekli olan ATP kaynağıdır.",
+   "keyPoints": [
+    "A karbohidrat: ~400 kcal ve en düşük O2 (83 L), yapıda oksijen oranı yüksek",
+    "B yağ: en yüksek enerji (900 kcal) ve O2 (203 L), hidrojen oranı yüksek",
+    "C protein: ~400 kcal ama karbohidrattan fazla O2 (95 L), yapısal oksijen oranı daha düşük",
+    "Enerji ATP kaynağıdır; biyosentez, aktif taşıma, sinirsel iletim, kas kasılması gibi somut örnekler"
+   ],
+   "maxPoints": 10,
+   "explanation": "Adım adım: (1) Önce enerji değerine bak: 900 kcal olan B yağdır. (2) Enerjisi 400 kcal olan A ve C'yi oksijenle ayır: az O2 isteyen karbohidrat (A), daha çok isteyen protein (C). (3) Her biri için gerekçe olarak yapıdaki oksijen/hidrojen oranını yaz ve sayıları kat. (4) Son olarak enerjinin ATP olarak kullanıldığı somut örnekleri sırala (biyosentez, aktif taşıma, sinirsel iletim, kasılma). Rubrik kısmî puanı: eşleştirmeyi doğru yapıp gerekçede yapısal oksijen/hidrojen oranına değinmeden yalnızca tablo değerlerini yazmak ya da enerjinin kullanım örneklerini vermemek.",
+   "category": "Besin enerjisi ve oksijen",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "1.2. B besin örneğinin (yağ), A besine (karbohidrat) oranla daha fazla oksijen tükettiği ve daha fazla enerji açığa çıkardığı görülmektedir. Bu durumun temel nedenini, besinlerin yapısındaki hidrojen atomu yoğunluğu ve ETS mekanizması ile ilişkilendirerek açıklayınız. (10 puan)",
+   "correctAnswer": "B besini (yağ), A besinine (karbohidrat) oranla birim kütlesinde çok daha fazla karbon-hidrojen (C-H) bağı ve buna bağlı olarak daha yüksek oranda hidrojen atomu bulundurur. Hücresel solunum sırasında besinlerden koparılan hidrojenlerin elektronları ETS üzerinden aktarılır. B besininde hidrojen yoğunluğu çok yüksek olduğu için ETS'ye çok daha fazla elektron aktarılır, bu nedenle enerji verimi yüksektir. ETS'nin son basamağında oksijen, son elektron tutucu olarak görev yapar ve hidrojenlerle birleşerek suyu oluşturur. B besininde açığa çıkan hidrojen miktarı çok fazla olduğu için bu hidrojenlerin tamamını suya dönüştürüp sistemden uzaklaştırmak amacıyla dışarıdan çok daha fazla oksijen tüketilmesi gerekir.",
+   "keyPoints": [
+    "Yağ birim kütlede daha fazla C-H bağı / hidrojen içerir",
+    "Çok hidrojen → ETS'ye çok elektron → yüksek enerji (ATP) verimi",
+    "ETS sonunda O2 son elektron alıcıdır ve hidrojenle birleşip su oluşturur",
+    "Fazla hidrojeni suya çevirmek için daha fazla O2 gerekir"
+   ],
+   "maxPoints": 10,
+   "explanation": "Zinciri sırayla kur: çok hidrojen → çok elektron → ETS'de çok ATP (enerji). Aynı hidrojenlerin suya dönüşmesi için O2 gerekir → çok hidrojen = çok O2. Kısmî puan: hidrojen yoğunluğu ile enerji verimi ilişkisi doğru, ama oksijenin ETS sonunda suya dönüşümdeki rolü eksik ya da ETS'ye hiç değinilmemiş.",
+   "category": "Besin enerjisi ve oksijen",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Biyoloji dersi kapsamında öğrencilerle kent ormanına arazi gezisi düzenlenmiştir. Öğrenciler yüksek çam ve meşe ağaçlarını, ağaçların arasında genç fidanları, böğürtlen çalılarını ve çiçekli yabani otları, gölet kenarında sazlık alanları ve su yüzeyinde yüzen küçük bitkileri görmüşlerdir. Toprak koyu kahverengi ve nemlidir. Güneş ışığının ağaç dalları arasından süzüldüğünü, rüzgârın yaprakları hareket ettirdiğini ve havanın nemli olduğunu gözlemlemişlerdir. Karınca kolonileri toprak üzerinde hareket etmekte, kelebekler çiçekler arasında uçmakta, arılar nektar toplamakta, ağaç dallarında serçe ve kargalar bulunmakta, bazı kuşlar böcek yakalamaktadır. Nemli toprak altında solucanlara, ağaç diplerinde şapkalı mantarlara rastlanmıştır. Suyun bitkiler için yaşamsal önem taşıdığı ve birçok canlının su kaynağına yakın bölgelerde yoğunlaştığı fark edilmiştir. 2.1. Metindeki gezi incelemelerine göre ekosistemi oluşturan cansız ve canlı bileşenleri belirleyerek tabloya yazınız (Cansız/Abiyotik bileşenler; Canlı/Biyotik bileşenler). (10 puan)",
+   "correctAnswer": "Abiyotik bileşenler: ışık, su, sıcaklık, rüzgâr, nem, toprak. Biyotik bileşenler: Üreticiler (yüksek çam ve meşe ağaçları, genç fidanlar, böğürtlen çalıları ve çiçekli yabani otlar, sazlık alanlar ve su yüzeyinde yüzen küçük bitkiler); Tüketiciler (karınca kolonileri, kelebekler, arılar, serçe ve kargalar, kuşlar, böcekler, solucanlar); Ayrıştırıcılar (şapkalı mantarlar).",
+   "keyPoints": [
+    "Abiyotik: ışık, su, sıcaklık, rüzgâr, nem, toprak",
+    "Üreticiler: ağaçlar, fidanlar, çalılar, yabani otlar, sazlıklar, yüzen bitkiler",
+    "Tüketiciler: karıncalar, kelebekler, arılar, serçe/karga, kuşlar, böcekler, solucanlar",
+    "Ayrıştırıcılar: şapkalı mantarlar"
+   ],
+   "maxPoints": 10,
+   "explanation": "Metni tarayıp her gözlemi iki sütundan birine yerleştir. Önce cansız etkenleri (ışık, su, sıcaklık, rüzgâr, nem, toprak) bul, sonra canlıları beslenme biçimine göre üç gruba ayır. Kısmî puan: abiyotikler doğru ama biyotik canlılar hatalı/eksik ya da yalnızca beslenme biçimi yazılıp hangi canlıların olduğu belirtilmeyen cevap.",
+   "category": "Ekosistem bileşenleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "2.2. Kent ormanında yaşanan kuraklık sonucu suyun sınırlayıcı bir faktör hâline gelmesinin ekosistemdeki enerji akışını ve ekosistemi oluşturan bileşenler arasındaki beslenme ilişkilerini nasıl etkilediğini açıklayınız. (10 puan)",
+   "correctAnswer": "Su seviyesinin düşmesi su canlılarını doğrudan etkiler ve gölete bağımlı canlıların yaşam alanını daraltır. Su azalınca bitkiler yeterli su alamaz, turgor basıncı düşer, fotosentez hızı azalır; üreticilerin zayıflaması ekosisteme giren besin ve enerji miktarını düşürür. Bitkiler azalırsa otçullar, özellikle böcekler besin bulmakta zorlanır, sayıları azalabilir. Böcekler azalırsa kuşlar gibi tüketiciler de etkilenir ve besin ağındaki dengeler bozulur. Toprak kuruduğunda ayrıştırıcıların faaliyeti azalabilir, bu da mineral döngüsünü yavaşlatır. Sonuç olarak su azalması yalnızca cansız bileşenleri değil üreticileri, tüketicileri ve ayrıştırıcıları da etkileyerek madde ve enerji akışını zayıflatır; bu, ekosistemin tüm bileşenlerinin birbirine bağlı olduğunu gösterir.",
+   "keyPoints": [
+    "Su canlılarının yaşam alanı daralır",
+    "Bitkiler su alamaz, fotosentez azalır, enerji girişi düşer",
+    "Otçullar (böcekler) azalır, kuşlar gibi tüketiciler etkilenir; besin ağı dengesi bozulur",
+    "Ayrıştırıcı faaliyeti ve mineral döngüsü yavaşlar",
+    "Tüm bileşenler birbirine bağlıdır"
+   ],
+   "maxPoints": 10,
+   "explanation": "Zincir düşün: su (abiyotik) → üretici → otçul → etçil/kuş → ayrıştırıcı. Her halka için bir cümle yaz ve \"enerji akışı\" kavramını açıkça kullan (üreticiler azalınca ekosisteme giren enerji azalır). Kısmî puan: yalnızca doğrudan etkilenenleri yazmak (bileşenler arası etkileşim yok) ya da \"denge bozulur\" deyip açıklamamak.",
+   "category": "Ekosistem bileşenleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Yağmur ormanı ekosistemindeki büyük bir tropikal ağacın etkileşimleri: (I) Ağacın gövdesine tutunmuş, kök-gövde-yaprak yapıları belirgin olmayan, dev çiçekli Rafflesia arnoldii klorofil bulundurmaz; organik ve inorganik besin maddelerini emeç görevi üstlenen yapılarla ağacın dokularından alır. (II) Ağacın kökleri bazı mantar türleriyle birlikte yaşar; mantarlar topraktan aldıkları su ve mineralleri ağaca iletir, ağaç ise fotosentezle ürettiği organik besinlerin bir kısmını mantarlara aktarır. (III) Ağacın geniş ve sık yapraklı tepesi alt katmana ulaşan ışığı azaltır; alt katmandaki küçük bitkiler yeterli ışık alamaz, büyümeleri olumsuz etkilenir; ağaç bu etkileşimden olumlu ya da olumsuz etkilenmez. (IV) Ağacın dalı üzerinde yaşayan orkide, ağacı yalnızca tutunma ve yüksekte kalma amacıyla kullanır; kendi besinini üretir ve ağaca zarar vermez. 3.1. Numaralandırılmış açıklamalardaki simbiyotik etkileşim türlerini adlandırınız ve her birini kısaca açıklayınız. (12 puan)",
+   "correctAnswer": "I. Tam parazitlik: Tam parazit bitkiler klorofil içermez, fotosentez yapamaz, yaşamak için gerekli organik ve inorganik besinleri konak bitkiden alır; Rafflesia emeçleriyle ağaçtan besin alır, yarar sağlar, ağaç zarar görür. II. Mutualist ilişki: İki farklı tür karşılıklı fayda sağlar; mantar su ve mineralleri ağaca iletir, ağaç mantara organik besin verir. III. Amensalizm: Birinin engellendiği ya da yok edildiği, diğerinin etkilenmediği ilişkidir; büyük ağaç altındaki küçük bitkilerin ışık almasını engeller, kendisi yarar ya da zarar görmez. IV. Kommensalizm: Türlerden biri fayda görürken diğeri ne fayda ne zarar görür; orkide ağacı yalnızca tutunma ve yüksekte kalma için kullanır.",
+   "keyPoints": [
+    "I: tam parazitlik + açıklama",
+    "II: mutualizm + açıklama",
+    "III: amensalizm + açıklama",
+    "IV: kommensalizm + açıklama"
+   ],
+   "maxPoints": 12,
+   "explanation": "Her numara için \"ad + yarar-zarar durumu + metinden kanıt\" üçlüsünü yaz. Ayırt edici sorular: Kim yarar görüyor? Kim zarar görüyor? (I: parazit yarar, ağaç zarar; II: ikisi de yarar; III: bir tür zarar, ağaç etkilenmez; IV: orkide yarar, ağaç etkilenmez.) Rubrik kısmî puanı (6): etkileşimleri doğru adlandırıp açıklama yapmamak, yalnızca bir kısmını doğru yazmak ya da açıklamaların bir kısmını hatalı yazmak.",
+   "category": "Simbiyotik etkileşimler",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Belgeselin devamında, ağacın dalına orkide yapraklarını ve çiçek yapılarını yiyen bir böcek türü yerleşir; böcek popülasyonu artar ve sonrasında ağacın kabuk kısmına ve genç sürgünlerine zarar verir. 3.2. Türler arası etkileşimleri dikkate alarak, böceğin besin kaynağını değiştirip ağacın kabuk kısmına ve genç sürgünlerine yönelmesinin komünitenin yapısında hangi değişimlere yol açabileceğini açıklayınız. Her bir tür için olası sonuçları popülasyon büyüklüğü ve etkileşim gücü gibi ölçülebilir kriterlere göre yazınız (orkide bitkisi, Rafflesia arnoldii, alt katmandaki küçük bitkiler, ağacın mantarlarla olan ilişkisi). (8 puan)",
+   "correctAnswer": "Orkide: Böcek yaprak ve çiçek dokularını tükettiği için orkide popülasyonu azalır; artan böcek sayısı tüketimi artırarak azalışı hızlandırır. Rafflesia arnoldii: Böcek ağaca zarar verdiği için ağaç zayıflar; konak zayıflayınca parazitin besin temini azalabilir, Rafflesia popülasyonu azalabilir. Alt katmandaki küçük bitkiler: Ağacın genç sürgünleri zarar görürse yaprak yoğunluğu azalır, alt katmana daha fazla ışık ulaşır; ışık sınırlayıcı faktör olmaktan çıktığı veya etkisi azaldığı için küçük bitkilerin popülasyonu artabilir. Ağaç-mantar ilişkisi: Köklerde zarar su ve mineral alımını sınırlar, fotosentez azalır; mantarlara aktarılan organik madde düşer, mutualist ilişkinin gücü zayıflar, mantar popülasyonu azalabilir. Sonuç: Bazı popülasyonlar azalır, bazıları artar ve türler arası etkileşimlerin gücü değişir.",
+   "keyPoints": [
+    "Orkide popülasyonu azalır; artan böcek azalışı hızlandırır",
+    "Rafflesia: konak zayıflar, besin temini azalır, popülasyon azalabilir",
+    "Alt katman bitkileri: ışık artar, popülasyon artabilir",
+    "Ağaç-mantar: organik madde aktarımı azalır, mutualizm zayıflar, mantar azalabilir",
+    "Genel sonuç: bazı popülasyonlar azalır, bazıları artar, etkileşim güçleri değişir"
+   ],
+   "maxPoints": 8,
+   "explanation": "Her tür için \"neden → sonuç → ölçülebilir ifade\" yaz. Rubrikteki kısmî cevap örneği (\"Orkide azalır; Rafflesia etkilenir; küçük bitkiler değişir; mantar ilişkisi zayıflar\") neden-sonuç ilişkisi ve ölçülebilir ifadeler (popülasyon artar/azalır, etkileşim gücü) içermediği için 4 puandır. Dolaylı etkileri (ağaç → Rafflesia, ağaç → mantar) mutlaka yaz.",
+   "category": "Simbiyotik etkileşimler",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir göl çevresindeki ormanlık alanda yaşayan karaca, yaban domuzu ve kurt popülasyonları uzun yıllardır etkileşim hâlindedir. Son yıllarda kuraklık nedeniyle bitki örtüsü azalmış, göl suyu düşmüş ve besin kaynakları sınırlanmıştır. Normalde farklı besinleri tercih eden karaca ve yaban domuzları, hayatta kalabilmek için aynı kısıtlı bitki türlerine yönelmiş, kurtlar av bulmakta zorlandıkları için farklı bölgelere göç etmeye başlamıştır. Komşu ormandaki bir kurt sürüsü de yeni besin kaynakları bulmak için bu bölgeye gelmiştir. Yeni gelen kurt sürüsü bölgede rekabeti artırmış, azalan besin kaynakları nedeniyle karaca sayısı düşmüş ve karacaların bazıları başka bölgelere göç etmiştir. Tür içi ve türler arası rekabet kavramlarını tanımlayınız ve metinde geçen rekabet durumlarını bu kavramlara uygun olarak örneklendiriniz. (10 puan; çözüm bölümünde 10 puan olarak verilmiştir)",
+   "correctAnswer": "Tür içi rekabet, aynı türün bireyleri arasında sınırlı kaynaklar için gerçekleşen rekabettir. Örnek: kurtların av bulmakta zorlanması nedeniyle kendi aralarında av için rekabet etmesi veya karacaların azalan besin kaynağı için birbirleriyle rekabet etmesi. Türler arası rekabet, farklı türlerin aynı kaynak için yarışmasıdır. Örnek: karacalar ile yaban domuzlarının aynı bitkilerle beslenmek zorunda kalması.",
+   "keyPoints": [
+    "Tür içi rekabetin doğru tanımı: aynı türün bireyleri, sınırlı kaynak",
+    "Tür içi örnek: kurt-kurt veya karaca-karaca",
+    "Türler arası rekabetin doğru tanımı: farklı türler, aynı kaynak",
+    "Türler arası örnek: karaca-yaban domuzu"
+   ],
+   "maxPoints": 10,
+   "explanation": "Dört parça yaz: iki tanım ve iki örnek. Her örnekte \"hangi canlılar, hangi kaynak\" bilgisini ver. Kısmî puan: tanımlar var ama örnek yok; tanımlar yanlış ama örnek var; ya da yalnızca tek rekabet türü doğru. Not: puanlama tablosunda bu soru 20 puan görünse de çözüm bölümünde 10 puan yazılıdır; set rubrik metnine göre 10 puan kullanır.",
+   "category": "Rekabet",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Öğrenciler parkta gözlem yapmıştır. Elif: Park geniş çimenlikler, ağaçlar ve çalılarla kaplıydı. Toprağın yüzeyinde çürüyen bitki kalıntıları vardı. Çimenlerin arasında çok sayıda çekirge hareket ediyordu. Serçeler uçarak ya da yerde dolaşarak besin arıyordu. Kediler serçeleri avlamak için gözetliyordu. Kedilerin sayısı çekirgelere ve serçelere göre daha azdı. Ahmet (gölet kısmı): Çimenlerin arasında ve gölet çevresinde kelebekler besin arıyordu. Göletteki kurbağalar kelebekleri yakalamaya çalışıyordu. Gökyüzünde süzülen atmaca avını yakalamak için aşağıya hamleler yapıyordu. Çok sayıda kelebek ve kurbağa olmasına rağmen bir tane atmaca vardı. Ağaç altlarında ve çürümekte olan yaprakların üzerinde mantarlar gelişmişti. Öğretmen: besinlerde depolanan enerjinin üreticilerden tüketicilere tek yönlü iletildiğini, enerji akışında mevcut enerjinin yaklaşık %90'ının canlılık faaliyetlerinde kullanılıp ısı olarak yayıldığını söyler. 5.1. Önce Elif'in gözlemine göre bir besin zinciri, sonra Ahmet'in gözlemine göre bir besin zinciri oluşturunuz ve bu iki besin zincirini ilişkilendirerek park ekosistemine ait besin ağını çiziniz. (10 puan)",
+   "correctAnswer": "Elif'in besin zinciri: Çimen → Çekirge → Serçe → Kedi. Ahmet'in besin zinciri: Çimen → Kelebek → Kurbağa → Atmaca. Her iki zincirde ortak üretici çimendir. Besin ağı: Çimen'den hem çekirgeye hem kelebeğe ok; çekirgeden serçeye, serçeden kediye; kelebekten kurbağaya, kurbağadan atmacaya oklar. Mantarlar ayrıştırıcıdır: ölü bitki ve hayvan kalıntılarını parçalar, madde döngüsüne katkı sağlar; her trofik basamaktan ölü kalıntı alır.",
+   "keyPoints": [
+    "Elif'in zinciri: çimen → çekirge → serçe → kedi",
+    "Ahmet'in zinciri: çimen → kelebek → kurbağa → atmaca",
+    "Besin ağında ortak üretici çimen; oklar yenenden yiyene",
+    "Ayrıştırıcı mantarlar ağda gösterilir"
+   ],
+   "maxPoints": 10,
+   "explanation": "Önce zincirleri ayrı ayrı yaz, sonra ortak halkayı (çimen) bul ve ikisini birleştir. Okları enerjinin gittiği yöne çiz (yenenden yiyene). Ayrıştırıcıları ağın dışında, tüm basamaklardan ok alan bir kutuda göster. Rubrik kısmî puan örnekleri: zincirlerden birini yanlış yazmak, besin ağını çizmemek, ok yönünü yanlış çizmek ya da ayrıştırıcıdan bahsetmemek.",
+   "category": "Besin zinciri ve besin ağı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "5.2. Oluşturulan besin ağı örüntüsüne göre besin piramidinde canlıları uygun trofik basamaklara yerleştirerek ekosistemdeki enerji akışı ile ilgili ulaştığınız genellemeyi yazınız. (10 puan)",
+   "correctAnswer": "1. trofik basamak: Çimen (üretici). 2. trofik basamak: Çekirge, kelebek (birincil tüketiciler). 3. trofik basamak: Serçe, kurbağa (ikincil tüketiciler). 4. trofik basamak: Kedi, atmaca (üçüncül tüketiciler). Mantarlar madde döngüsünü sağlar ama ekosistemdeki enerji miktarını artırmaz. Genelleme: Enerji güneşten üreticilere, üreticilerden ardışık tüketicilere tek yönlü akar ve her basamakta enerji kaybı olur. Üreticiler en fazla enerjiye sahiptir; enerjinin büyük kısmı metabolik faaliyetlerde ısı olarak kaybolduğundan üst basamaklara yaklaşık %10'u aktarılabilir. Bu nedenle trofik düzey yükseldikçe aktarılabilen enerji miktarı ve canlı sayısı azalır.",
+   "keyPoints": [
+    "Çimen 1., çekirge-kelebek 2., serçe-kurbağa 3., kedi-atmaca 4. basamak",
+    "Enerji akışı tek yönlü, her basamakta kayıp",
+    "Yaklaşık %10 aktarım, büyük kısım ısı",
+    "Trofik düzey yükseldikçe enerji miktarı ve canlı sayısı azalır",
+    "Mantarlar enerji miktarını artırmaz, madde döngüsünü sağlar"
+   ],
+   "maxPoints": 10,
+   "explanation": "İki bölüm: yerleştirme + genelleme. Yerleştirmeyi basamak basamak yaz, her basamağa tüketici düzeyini ekle. Genellemeyi \"enerji tek yönlü ve basamak başına yaklaşık %10 aktarılır\" cümlesiyle kur ve sayılarla (enerji/canlı sayısı azalır) tamamla. Rubrik kısmî puan: yerleştirmeyi eksik/hatalı yapıp genellemeyi doğru yazmak, ya da yerleştirmeyi doğru yapıp genellemeyi yazmamak/hatalı yazmak.",
+   "category": "Besin zinciri ve enerji piramidi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Üç besin örneği verilmiştir: X (100 g'da 410 kcal, 82 L O2), Y (100 g'da 930 kcal, 205 L O2), Z (100 g'da 390 kcal, 96 L O2). Besin gruplarını belirleyip gerekçelendiriniz. (6 puan)",
+   "correctAnswer": "Y yağdır: en yüksek enerji ve en yüksek O2 gereksinimi, çünkü yapısında hidrojen oranı yüksektir. X karbohidrattır: enerjisi proteine benzer ama en az O2 ister, çünkü yapısındaki oksijen oranı yüksektir. Z proteindir: enerjisi karbohidrata benzer, ama yapısındaki oksijen oranı daha düşük olduğundan daha fazla O2 gerekir.",
+   "keyPoints": [
+    "Y yağ (en yüksek enerji ve O2)",
+    "X karbohidrat (az O2)",
+    "Z protein (benzer enerji, daha çok O2)",
+    "Hidrojen/oksijen oranı gerekçesi"
+   ],
+   "maxPoints": 6,
+   "explanation": "Önce 900 kcal sınıfındaki yağı ayır, sonra aynı enerjili iki besini oksijen miktarıyla ayır.",
+   "category": "Benzer soru: Besin enerjisi ve oksijen",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aç kalan bir canlı önce karbohidrat, sonra yağ depolarını kullanır. Aynı kütlede yağ kullanımı karbohidrata göre iki katı kadar enerji sağlıyorsa, yağın hücresel solunumdaki avantajını ve dezavantajını (oksijen açısından) yorumlayınız. (4 puan)",
+   "correctAnswer": "Avantaj: yağ birim kütlede daha çok hidrojen içerdiği için ETS'ye daha çok elektron aktarılır ve daha çok ATP üretilir. Dezavantaj: bu hidrojenlerin suya dönüşmesi için daha fazla oksijen gerekir; oksijen kısıtlıysa yağdan enerji eldesi sınırlanır.",
+   "keyPoints": [
+    "Daha çok hidrojen → daha çok ATP",
+    "ETS'ye çok elektron",
+    "Fazla O2 gereksinimi",
+    "Oksijen kısıtlıysa sınırlı"
+   ],
+   "maxPoints": 4,
+   "explanation": "Aynı olayın iki yüzünü göster: yüksek enerji + yüksek oksijen gereksinimi.",
+   "category": "Benzer soru: Besin enerjisi ve oksijen",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Hızlı koşu gibi kısa süreli şiddetli etkinliklerde kaslar neden öncelikle glikozu (karbohidrat) kullanır? Oksijen gereksinimi açısından yorumlayınız. (3 puan)",
+   "correctAnswer": "Karbohidrat, aynı miktar enerji için daha az oksijen gerektirir; oksijen sınırlı olduğunda daha hızlı enerji sağlar. Glikoz, ayrıca glikolizle oksijensiz de kısmen ATP üretilebilir.",
+   "keyPoints": [
+    "Karbohidrat az O2 ister",
+    "O2 sınırlıyken avantajlı",
+    "Glikoliz oksijensiz çalışır"
+   ],
+   "maxPoints": 3,
+   "explanation": "Bu soru genel bilgiyi tablodaki oksijen verisiyle bağlar: karbohidratın O2 maliyeti en düşüktür.",
+   "category": "Benzer soru: Besin enerjisi ve oksijen",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Enerji kaynağı olarak ATP'nin kullanıldığı ve sinir hücresi, kas hücresi, bölünen hücre için birer örnek vererek, besin enerjisinin metabolik süreçlere katkısını açıklayınız. (4 puan)",
+   "correctAnswer": "Besin oksidasyonundan elde edilen enerji ATP'ye aktarılır. Sinir hücresinde elektriksel iletim ve iyonların aktif taşınması, kas hücresinde kasılma, bölünen hücrede DNA ve protein yapımı (biyosentez) ATP ile gerçekleşir.",
+   "keyPoints": [
+    "ATP enerji kaynağı",
+    "Sinir: iletim/aktif taşıma",
+    "Kas: kasılma",
+    "Bölünme: biyosentez"
+   ],
+   "maxPoints": 4,
+   "explanation": "Her hücre tipi için bir somut olay yaz ve ATP'ye bağla.",
+   "category": "Benzer soru: Besin enerjisi ve oksijen",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir göletin kenarında şu gözlemler yapılmıştır: sazlıklar, kurbağalar, su, güneş ışığı, balıklar, su sıcaklığı, çamurdaki bakteriler, su kaplumbağası, yosunlar, taşlar. Bu gözlemleri abiyotik, üretici, tüketici ve ayrıştırıcı olarak sınıflandırınız. (5 puan)",
+   "correctAnswer": "Abiyotik: su, güneş ışığı, su sıcaklığı, taşlar. Üretici: sazlıklar, yosunlar. Tüketici: kurbağalar, balıklar, su kaplumbağası. Ayrıştırıcı: çamurdaki bakteriler.",
+   "keyPoints": [
+    "Abiyotik dört madde",
+    "Üretici: sazlık, yosun",
+    "Tüketici: kurbağa, balık, kaplumbağa",
+    "Ayrıştırıcı: bakteri"
+   ],
+   "maxPoints": 5,
+   "explanation": "Önce cansızları ayır. Canlılar içinde fotosentez yapanlar üretici, hazır besin tüketenler tüketici, çamurdaki ölü madde yıkıcı bakteriler ayrıştırıcıdır.",
+   "category": "Benzer soru: Ekosistem bileşenleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir ormanda uzun süredir yağmur yağmamış ve sıcaklık normalin üzerine çıkmıştır. Sıcaklık ve nemin ağaçlar, böcekler ve mantarlar üzerindeki olası etkilerini zincirleme olarak yazınız. (5 puan)",
+   "correctAnswer": "Sıcaklık artıp nem azalınca ağaçlar su kaybeder, stomaları kapanır, fotosentez hızı düşer; yapraklar azalır. Üretici azalınca böcek gibi otçullar besin bulamaz, sayıları azalır. Toprak kuruyunca mantarların ve diğer ayrıştırıcıların faaliyeti azalır, organik madde ayrışması yavaşlar, mineral döngüsü zayıflar.",
+   "keyPoints": [
+    "Ağaç: su kaybı, fotosentez azalır",
+    "Böcek: besin azalır, sayı azalır",
+    "Mantar: nem azalınca faaliyet azalır",
+    "Zincirleme etki"
+   ],
+   "maxPoints": 5,
+   "explanation": "Her canlı için etki nedeni (sıcaklık, nem) ve sonucu (sayı azalır) yaz.",
+   "category": "Benzer soru: Ekosistem bileşenleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir ekosistemde ışık, su ve mineraller üreticiler için sınırlayıcı faktör olabilir. Işığın sınırlayıcı olduğu bir orman tabanında hangi canlıların hangi nedenle az bulunacağını açıklayınız. (3 puan)",
+   "correctAnswer": "Işığın az ulaştığı orman tabanında fotosentez yapan ve ışık isteyen bitkiler az bulunur. Çünkü ışık fotosentezin enerji kaynağıdır; yetersiz ışıkta büyüme ve çoğalma kısıtlanır. Bu da onlarla beslenen otçul sayısını dolaylı etkiler.",
+   "keyPoints": [
+    "Işık sınırlayıcı",
+    "Işık isteyen bitkiler az",
+    "Dolaylı etki otçullara"
+   ],
+   "maxPoints": 3,
+   "explanation": "Sınırlayıcı faktör sorularında \"hangi etken yetersiz, kim etkileniyor\" diye düşün.",
+   "category": "Benzer soru: Ekosistem bileşenleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Ekosistemde ayrıştırıcılar tamamen ortadan kalkarsa üreticilerin gelişimi ve madde dolaşımı nasıl etkilenir? (4 puan)",
+   "correctAnswer": "Ölü bitki ve hayvan kalıntıları parçalanamaz, mineraller toprağa dönmez. Üreticiler mineral eksikliğiyle yetersiz beslenir, fotosentezleri ve gelişimleri azalır. Madde döngüsü kesilir ve enerji girişi düşer.",
+   "keyPoints": [
+    "Kalıntılar parçalanmaz",
+    "Mineraller toprağa dönmez",
+    "Üreticiler zayıflar",
+    "Madde döngüsü kesilir"
+   ],
+   "maxPoints": 4,
+   "explanation": "Ayrıştırıcıların rolü: organik maddeyi minerale çevirip üreticilere geri vermek. Bunu eksik bırakma.",
+   "category": "Benzer soru: Ekosistem bileşenleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir akvaryumda su bitkileri, balıklar ve salyangozlar vardır. Işık ve suyun yanında karbondioksit ve oksijenin dengesi için bitkilerin ve balıkların rolünü açıklayınız. (4 puan)",
+   "correctAnswer": "Bitkiler ışıkta fotosentezle CO2 kullanıp O2 üretir; balıklar solunumla O2 kullanıp CO2 üretir. Böylece iki canlı grubunun gazları birbirini tamamlar. Işık azalırsa bitkilerin O2 üretimi düşer ve denge bozulur.",
+   "keyPoints": [
+    "Bitkiler CO2 alır, O2 verir",
+    "Balıklar O2 alır, CO2 verir",
+    "Gaz dengesi birbirini tamamlar",
+    "Işık yoksa denge bozulur"
+   ],
+   "maxPoints": 4,
+   "explanation": "Gaz alışverişini iki yönlü yaz ve ışığın etkisini ekle.",
+   "category": "Benzer soru: Ekosistem bileşenleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki durumların etkileşim türlerini adlandırınız: (I) Ökseotu bitkisi ağaç dallarından su ve mineral alır, fotosentez de yapar. (II) Baklagil kökü ve azot bağlayan bakteri. (III) Ağaç gövdesindeki yosunlar. (IV) Penisilyum mantarı etrafında bakteri üremesini engeller. (6 puan)",
+   "correctAnswer": "I. Yarı parazitlik (ökseotu klorofil taşır, fotosentez yapar ama su ve mineralleri konaktan alır). II. Mutualizm (bakteri azot bağlar, bitki besin ve barınak sağlar). III. Kommensalizm (yosun tutunur, ağaç etkilenmez). IV. Amensalizm (mantar bakterileri engeller, kendisi etkilenmez).",
+   "keyPoints": [
+    "I yarı parazit",
+    "II mutualizm",
+    "III kommensalizm",
+    "IV amensalizm"
+   ],
+   "maxPoints": 6,
+   "explanation": "Her durumda kim yarar, kim zarar görür? sorusunu sor. Ökseotuyu Rafflesia gibi tam parazit sanma: ökseotu fotosentez yapar.",
+   "category": "Benzer soru: Simbiyotik etkileşimler",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Tam parazit ile yarı parazit bitkileri besin alma yolu ve klorofil bulundurma açısından karşılaştırınız. (4 puan)",
+   "correctAnswer": "Tam parazit (örn. Rafflesia) klorofil taşımaz, fotosentez yapamaz; organik ve inorganik tüm besini konaktan alır. Yarı parazit (örn. ökseotu) klorofil taşır, fotosentez yapabilir; konaktan ise su ve mineralleri alır.",
+   "keyPoints": [
+    "Tam parazit klorofilsiz",
+    "Tam parazit tüm besini konaktan alır",
+    "Yarı parazit klorofilli",
+    "Yarı parazit su ve mineral alır"
+   ],
+   "maxPoints": 4,
+   "explanation": "Karşılaştırma iki yönlüdür; klorofil ve besin kaynağı olmak üzere iki ölçütü ayrı ayrı yaz.",
+   "category": "Benzer soru: Simbiyotik etkileşimler",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Mutualizm ve kommensalizm arasındaki farkı, tarafların yarar-zarar durumuna göre açıklayınız ve her biri için bir örnek veriniz. (4 puan)",
+   "correctAnswer": "Mutualizmde iki tür de yarar sağlar (örn. ağaç ve mikoriza mantarı). Kommensalizmde bir tür yarar sağlar, diğeri ne yarar ne zarar görür (örn. ağaç dalındaki orkide). Fark: ikinci türün yarar görüp görmemesidir.",
+   "keyPoints": [
+    "Mutualizm: iki tür yarar",
+    "Kommensalizm: biri yarar, diğeri etkilenmez",
+    "Örnekler",
+    "Fark: ikinci türün durumu"
+   ],
+   "maxPoints": 4,
+   "explanation": "Karşılaştırmada tablo yerine iki ayrı cümle kur ve fark cümlesini ekle.",
+   "category": "Benzer soru: Simbiyotik etkileşimler",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir mantarın ağaç kökleriyle ilişkisinde ağaç hastalanıp fotosentezi yavaşladığında, bu ilişkinin sürmesinin mantar için olası sonucunu yorumlayınız. (3 puan)",
+   "correctAnswer": "Ağaç fotosentezle daha az organik madde üretir ve mantara aktarılan miktar azalır. Mantar yeterli besin alamayınca popülasyonu azalabilir ve mutualist ilişkinin gücü zayıflar.",
+   "keyPoints": [
+    "Ağaçtan aktarılan organik madde azalır",
+    "Mantar popülasyonu azalabilir",
+    "Mutualizmin gücü zayıflar"
+   ],
+   "maxPoints": 3,
+   "explanation": "Etkileşimin gücü, tarafların birbirine sağladığı fayda miktarıyla ölçülür.",
+   "category": "Benzer soru: Simbiyotik etkileşimler",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir gölde balıkları avlayan su samuru popülasyonu avcılıkla büyük ölçüde azalıyor. Balık, su bitkileri ve su samurunu yiyen kartal popülasyonları üzerindeki olası etkileri ölçülebilir ifadelerle yazınız. (5 puan)",
+   "correctAnswer": "Su samuru azalınca balığın avcı baskısı azalır; balık popülasyonu artar. Balık artınca su bitkilerini yiyorsa su bitkileri popülasyonu azalabilir. Kartal besin kaynağı olan samur azaldığı için besin bulmakta zorlanır; kartal popülasyonu azalabilir veya başka avlara yönelir.",
+   "keyPoints": [
+    "Samur azalır → balık artar",
+    "Balık artar → su bitkisi azalabilir",
+    "Kartal besin kaynağı azalır → azalabilir",
+    "Ölçülebilir ifadeler (artar/azalır)"
+   ],
+   "maxPoints": 5,
+   "explanation": "Zincirin her halkasında yön (artar/azalır) ve neden yaz.",
+   "category": "Benzer soru: Etkileşim değişimi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir adada ağaçları yiyen bir böcek popülasyonu artıyor. Ağaçların zayıflaması, ağaçta yuvalanan kuşlar ve ağaç altı bitkileri açısından olası sonuçları ölçülebilir ifadelerle yazınız. (5 puan)",
+   "correctAnswer": "Ağaçlar zayıflayınca yaprak ve kabuk azalır; yuva ve barınak yeri azalan kuşların popülasyonu azalabilir. Yaprak yoğunluğu azalınca alt katmana ışık artar; ağaç altı bitkilerinin popülasyonu artabilir. Böcek ve kuş ilişkisinde, kuşlar böcekle besleniyorsa böcek avlanması azalan kuş yüzünden böcek artışı hızlanabilir.",
+   "keyPoints": [
+    "Kuş popülasyonu azalabilir",
+    "Alt katmana ışık artar, bitkiler artabilir",
+    "Etkileşim gücü değişir"
+   ],
+   "maxPoints": 5,
+   "explanation": "Çok yönlü etkileri ayır: bir türün azalması başka türün artışına yol açabilir.",
+   "category": "Benzer soru: Etkileşim değişimi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir bölgeye dışarıdan yeni bir yabancı bitki türü girmiş ve yerli bitkilerin ışık ve su kaynaklarını daha etkili kullanmaya başlamıştır. Yerli bitkiler, otçullar ve ayrıştırıcılar üzerindeki olası etkileri açıklayınız. (5 puan)",
+   "correctAnswer": "Yabancı tür ışık ve suyu daha çok kullandığı için yerli bitkiler rekabetle baskılanır, popülasyonları azalır. Yerli bitkilerle beslenen otçullar besin bulamayabilir, sayıları azalabilir ya da yabancı türe yönelebilir. Ayrıştırıcılar ölü yerli bitki kalıntılarının azalmasıyla etkilenir; ayrışan madde türü değişir.",
+   "keyPoints": [
+    "Rekabetle yerli bitkiler azalır",
+    "Otçullar etkilenir",
+    "Ayrıştırıcıların besin kaynağı değişir"
+   ],
+   "maxPoints": 5,
+   "explanation": "Yeni tür = yeni rekabet. Etkiyi üreticiden başlayarak üst basamaklara doğru yaz.",
+   "category": "Benzer soru: Etkileşim değişimi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir bahçede aynı tür iki ağaç aynı toprak suyunu kullanıyor, bir yandan da aynı ağaçların yaprağıyla beslenen iki farklı tırtıl türü bulunuyor. Her iki durum için rekabet türünü belirtiniz. (4 puan)",
+   "correctAnswer": "Aynı tür iki ağacın aynı toprak suyunu kullanması tür içi rekabettir. Aynı yapraklarla beslenen iki farklı tırtıl türü arasındaki yarış türler arası rekabettir.",
+   "keyPoints": [
+    "Ağaç-ağaç: tür içi",
+    "Tırtıl türleri: türler arası",
+    "Kaynak ortaklığı"
+   ],
+   "maxPoints": 4,
+   "explanation": "Önce aynı tür mü, farklı tür mü diye bak, sonra ortak kaynağı yaz.",
+   "category": "Benzer soru: Rekabet",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Besin kaynağı çok azalan bir ortamda tür içi rekabet ile türler arası rekabetin popülasyonlar üzerindeki olası sonuçlarını karşılaştırınız. (4 puan)",
+   "correctAnswer": "Tür içi rekabette aynı türün bireyleri kaynak için yarışır; sonuçta bazı bireyler ölür veya göç eder, popülasyon azalır. Türler arası rekabette farklı türler kaynak için yarışır; güçsüz tür popülasyonu azalır veya bölgeden çekilebilir, güçlü tür baskın hale gelebilir.",
+   "keyPoints": [
+    "Tür içi: bireyler ölür/göç eder",
+    "Türler arası: zayıf tür azalır veya çekilir",
+    "Popülasyon sayısı değişir"
+   ],
+   "maxPoints": 4,
+   "explanation": "Her rekabet türünün sonucunu ayrı ayrı yaz ve popülasyon sayısını ölçüt olarak kullan.",
+   "category": "Benzer soru: Rekabet",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aynı ağacın dallarından beslenen iki kuş türü arasında rekabet olduğunda, kuş türlerinin besinlerini farklı böcek türlerinde yoğunlaştırması rekabeti nasıl azaltır? (3 puan)",
+   "correctAnswer": "Besin tercihleri ayrılınca iki tür farklı kaynakları kullanır ve ortak kaynak için yarışma azalır. Böylece türler arası rekabet düşer ve iki tür birlikte yaşayabilir.",
+   "keyPoints": [
+    "Farklı kaynak kullanımı",
+    "Rekabet azalır",
+    "Birlikte yaşam"
+   ],
+   "maxPoints": 3,
+   "explanation": "Niş farklılaşması rekabeti azaltır; bunu \"kaynak paylaşımı\" olarak anlat.",
+   "category": "Benzer soru: Rekabet",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Yeni gelen kurt sürüsünün bölgede karaca sayısına etkisini ölçülebilir ifadelerle açıklayınız. (3 puan)",
+   "correctAnswer": "Kurt sayısı arttığı için av baskısı artar ve besin kaynağı da azalmıştır; karaca popülasyonu azalır, bir kısmı göç eder. Kurtlar arasındaki tür içi rekabet ise artar.",
+   "keyPoints": [
+    "Kurt sayısı artar",
+    "Karaca azalır / göç",
+    "Tür içi rekabet artar"
+   ],
+   "maxPoints": 3,
+   "explanation": "Hem yırtıcı baskısını hem kaynak azlığını yaz.",
+   "category": "Benzer soru: Rekabet",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir göl ekosisteminde: yosun, su piresi, küçük balık, büyük balık ve balıkçıl kuşu bulunmaktadır. Besin zincirini oluşturunuz, her canlının trofik düzeyini yazınız ve 1. basamakta 10000 kJ enerji varsa balıkçıla yaklaşık ne kadar enerji aktarıldığını hesaplayınız (her basamakta %10 aktarım). (6 puan)",
+   "correctAnswer": "Zincir: yosun → su piresi → küçük balık → büyük balık → balıkçıl. Yosun 1. basamak (üretici), su piresi 2., küçük balık 3., büyük balık 4., balıkçıl 5. basamak. Enerji: 10000 kJ → 1000 kJ → 100 kJ → 10 kJ → 1 kJ. Balıkçıla yaklaşık 1 kJ ulaşır.",
+   "keyPoints": [
+    "Doğru zincir sırası",
+    "Trofik düzeyler 1-5",
+    "Her basamakta %10 aktarım",
+    "Balıkçıl için yaklaşık 1 kJ"
+   ],
+   "maxPoints": 6,
+   "explanation": "Her basamakta enerjiyi 10'a böl: 10000 → 1000 → 100 → 10 → 1. Basamak sayısını doğru say (yosun 1. basamak).",
+   "category": "Benzer soru: Besin zinciri ve enerji",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir çayırda çimen, çekirge, kurbağa, yılan ve şahin vardır. Çekirgenin yalnızca çimenle, kurbağanın çekirgeyle, yılanın kurbağayla, şahinin yılan ve çekirgeyle beslendiği biliniyor. Besin ağını ok yönleriyle yazınız ve şahinin kaç farklı trofik düzeyde yer alabileceğini belirtiniz. (5 puan)",
+   "correctAnswer": "Oklar: çimen → çekirge; çekirge → kurbağa; kurbağa → yılan; yılan → şahin; çekirge → şahin. Şahin çekirgeyle beslendiğinde 3. basamakta, yılanla beslendiğinde 5. basamakta yer alır; yani iki farklı trofik düzeyde bulunabilir.",
+   "keyPoints": [
+    "Beş ok doğru yönde",
+    "Şahin iki farklı kol",
+    "3. ve 5. trofik düzey"
+   ],
+   "maxPoints": 5,
+   "explanation": "Ok yönü yenenden yiyene. Aynı canlı farklı zincirlerde farklı trofik düzeyde olabilir: bunu hesapla.",
+   "category": "Benzer soru: Besin zinciri ve enerji",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Enerjinin besin zincirinde tek yönlü aktığını, madde döngüsünden farkını da belirterek açıklayınız. (4 puan)",
+   "correctAnswer": "Enerji güneşten üreticilere, sonra tüketicilere aktarılır; her basamakta büyük kısmı ısı olarak çevreye yayılır ve geri dönmez. Maddeler ise (C, N, P, su) ayrıştırıcılar aracılığıyla yeniden dolaşıma girer. Bu yüzden enerji akışı tek yönlü, madde ise döngüseldir.",
+   "keyPoints": [
+    "Enerji tek yönlü",
+    "Isı olarak kayıp",
+    "Madde döngüsel",
+    "Ayrıştırıcıların rolü"
+   ],
+   "maxPoints": 4,
+   "explanation": "Fark sorusunda iki kavramı karşılıklı yaz: tek yönlü / döngüsel.",
+   "category": "Benzer soru: Besin zinciri ve enerji",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir ekosistemde en üst basamaktaki tüketicinin sayısının, en alttaki üreticilere göre çok az olmasını enerji akışı ile açıklayınız. (3 puan)",
+   "correctAnswer": "Her basamakta enerjinin yaklaşık %90'ı ısıya dönüşür, yalnızca yaklaşık %10'u üst basamağa aktarılır. Üst basamaklara ulaşan enerji az olduğu için daha az sayıda birey beslenebilir.",
+   "keyPoints": [
+    "%90 kayıp",
+    "%10 aktarım",
+    "Az enerji → az birey"
+   ],
+   "maxPoints": 3,
+   "explanation": "Sayı azalmasını doğrudan aktarılan enerji miktarına bağla.",
+   "category": "Benzer soru: Besin zinciri ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Elif'in zincirindeki serçe aynı zamanda çekirge ve tohumlarla besleniyorsa serçenin besin ağındaki konumunu nasıl yorumlarsınız? Trofik düzeyi belirtiniz. (3 puan)",
+   "correctAnswer": "Çekirge yediğinde serçe 3. basamakta ikincil tüketici, tohum (üretici ürünü) yediğinde 2. basamakta birincil tüketici konumundadır. Yani serçe birden çok beslenme yoluna katılır ve besin ağındaki bağlantıyı artırır.",
+   "keyPoints": [
+    "Çekirge ile 3. basamak",
+    "Tohum ile 2. basamak",
+    "Birden çok beslenme yolu"
+   ],
+   "maxPoints": 3,
+   "explanation": "Besin ağında bir tür birden fazla zincire katılabilir; trofik düzey, beslendiği kaynağa göre değişir.",
+   "category": "Benzer soru: Besin zinciri ve enerji",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Park ekosistemindeki mantarların ortadan kalkması durumunda maddenin dolaşımı ve üreticiler üzerindeki etkisini açıklayınız. (4 puan)",
+   "correctAnswer": "Mantarlar ölü bitki ve hayvan kalıntılarını parçalayarak mineralleri topraktaki dolaşıma sokar. Mantar yoksa kalıntılar birikir, mineraller üreticilere geri dönmez; çimen gibi üreticiler besin mineralleri eksikliğiyle zayıflar ve ekosisteme giren enerji azalır.",
+   "keyPoints": [
+    "Kalıntılar birikir",
+    "Mineral döngüsü kesilir",
+    "Üreticiler zayıflar",
+    "Enerji girişi azalır"
+   ],
+   "maxPoints": 4,
+   "explanation": "Ayrıştırıcıların rolü madde döngüsüdür; enerji girişi ise üreticiler zayıflayınca dolaylı etkilenir.",
+   "category": "Benzer soru: Besin zinciri ve enerji",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir öğrenci 3.2 için \"Orkide azalır, Rafflesia etkilenir, küçük bitkiler değişir, mantar ilişkisi zayıflar\" yazmıştır. Rubrikte bu cevap neden 4/8 puan alır ve nasıl geliştirilir? (4 puan)",
+   "correctAnswer": "Cevap yön belirtiyor ama neden-sonuç ilişkisini ve ölçülebilir ifadeleri (popülasyon artar/azalır, etkileşim gücü) içermiyor; dolaylı etkiler açıklanmıyor. Geliştirmek için her tür için nedeni ve sonucu yazmak gerekir: \"Böcek orkideyi yediği için orkide popülasyonu azalır; ağaç zayıflayınca Rafflesia'nın besin temini azalır ve popülasyonu azalabilir; alt katmana ışık artar, küçük bitkiler artabilir; mantara organik madde azalır.\"",
+   "keyPoints": [
+    "Neden-sonuç eksik",
+    "Ölçülebilir ifade eksik",
+    "Dolaylı etkiler yok",
+    "Geliştirilmiş cümleler"
+   ],
+   "maxPoints": 4,
+   "explanation": "\"Etkilenir/değişir\" gibi muğlak fiillerin yerine \"artar/azalır\" yaz ve sebebini ekle.",
+   "category": "Benzer soru: Yazılı tekniği",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "1.1 sorusunda gerekçe yazarken sadece tablodaki sayıları (83, 203, 95 L; 400, 900 kcal) yazan bir öğrenci neden kısmî puan alır? Cevabı nasıl tamamlamalıdır? (3 puan)",
+   "correctAnswer": "Rubrik, sayıların yanı sıra yapıdaki oksijen/hidrojen oranıyla gerekçelendirmeyi ister. Cevap tamamlanırken \"karbohidrat yapısındaki oksijen oranı yüksek olduğundan az O2 ister; yağ hidrojen oranı yüksek olduğu için çok enerji ve çok O2 ister; protein karbohidrata göre daha az yapısal oksijen içerir\" gibi gerekçeler eklenmeli; ayrıca enerjinin ATP olarak kullanım örnekleri yazılmalıdır.",
+   "keyPoints": [
+    "Sayılar yetmez, yapısal gerekçe gerekir",
+    "Oksijen/hidrojen oranı",
+    "ATP kullanım örnekleri"
+   ],
+   "maxPoints": 3,
+   "explanation": "Veriyi yorumlayıp bilimsel gerekçeye bağlamak tam puanı getirir.",
+   "category": "Benzer soru: Yazılı tekniği",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir öğrenci rekabet sorusunda yalnızca tanımları yazmıştır. Cevabı tam puana tamamlamak için hangi eklemeleri yapmalıdır? (3 puan)",
+   "correctAnswer": "Metinden somut örnek eklemeli: tür içi rekabet için kurtların av için ya da karacaların azalan besin için birbirleriyle yarışmasını; türler arası rekabet için karaca ile yaban domuzunun aynı bitkilere yönelmesini yazmalıdır.",
+   "keyPoints": [
+    "Tanım yetmez, örnek gerekir",
+    "Tür içi örnek",
+    "Türler arası örnek"
+   ],
+   "maxPoints": 3,
+   "explanation": "Rubriğe göre tanım + örnek birlikte tam puan; biri eksikse kısmî puan.",
+   "category": "Benzer soru: Yazılı tekniği",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aynı kütledeki karbohidrat, yağ ve proteinden hangisi en çok oksijen gerektirir?",
+   "options": [
+    "Karbohidrat",
+    "Yağ",
+    "Protein",
+    "Üçü de eşit"
+   ],
+   "correct": 1,
+   "explanation": "Yağ birim kütlede en çok hidrojen içerir; bu hidrojenlerin suya dönüşmesi için en çok O2 gerekir.",
+   "category": "Besin enerjisi ve oksijen",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Hücresel solunumda oksijenin görevi aşağıdakilerden hangisidir?",
+   "options": [
+    "ETS'de son elektron alıcısı olarak hidrojenle birleşip su oluşturmak",
+    "Glikolizde glikozu yıkmak",
+    "Krebs döngüsünde ATP harcamak",
+    "Pirüvatı etil alkole çevirmek"
+   ],
+   "correct": 0,
+   "explanation": "Oksijen ETS'nin son basamağında elektron alır, hidrojenle birleşir ve su oluşur.",
+   "category": "Besin enerjisi ve oksijen",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Yağlarda enerji veriminin yüksek olmasının temel nedeni nedir?",
+   "options": [
+    "Birim kütlede daha çok oksijen içermesi",
+    "Daha çok mineral içermesi",
+    "Daha çok su içermesi",
+    "Birim kütlede daha fazla hidrojen içermesi"
+   ],
+   "correct": 3,
+   "explanation": "Çok hidrojen ETS'ye çok elektron taşır; bu yüksek ATP verimi sağlar.",
+   "category": "Besin enerjisi ve oksijen",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi ekosistemin abiyotik bileşenidir?",
+   "options": [
+    "Mantar",
+    "Böğürtlen çalısı",
+    "Toprak",
+    "Solucan"
+   ],
+   "correct": 2,
+   "explanation": "Toprak cansız bir etkendir; diğerleri canlıdır.",
+   "category": "Ekosistem bileşenleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Kent ormanı örneğinde \"şapkalı mantar\" hangi gruba girer?",
+   "options": [
+    "Üretici",
+    "Ayrıştırıcı",
+    "Birincil tüketici",
+    "Üçüncül tüketici"
+   ],
+   "correct": 1,
+   "explanation": "Mantarlar ölü organik maddeyi parçalayarak madde döngüsüne katkı sağlar.",
+   "category": "Ekosistem bileşenleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Kuraklıkta suyun azalmasının ekosistem üzerindeki ilk ve doğrudan etkisi nedir?",
+   "options": [
+    "Bitkilerin su alamayıp fotosentez hızının azalması",
+    "Ayrıştırıcıların çoğalması",
+    "Güneş ışığının artması",
+    "Enerji girişinin artması"
+   ],
+   "correct": 0,
+   "explanation": "Su azalınca üreticiler zayıflar; enerji girişi azalır ve zincirleme etkiler başlar.",
+   "category": "Ekosistem bileşenleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Orkide bitkisinin ağacı yalnızca tutunmak için kullanıp ona zarar vermemesi hangi etkileşimdir?",
+   "options": [
+    "Mutualizm",
+    "Amensalizm",
+    "Tam parazitlik",
+    "Kommensalizm"
+   ],
+   "correct": 3,
+   "explanation": "Bir tür (orkide) yarar görür, diğeri (ağaç) etkilenmez.",
+   "category": "Etkileşimler",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Büyük ağaç altındaki küçük bitkilerin ışık alamayıp zarar görmesi, ağacın etkilenmemesi hangi etkileşimdir?",
+   "options": [
+    "Kommensalizm",
+    "Mutualizm",
+    "Amensalizm",
+    "Tam parazitlik"
+   ],
+   "correct": 2,
+   "explanation": "Büyük ağaç etkilenmez; altındaki bitkiler ışıksızlıktan zarar görür: bir tür zarar görür, diğeri etkilenmez.",
+   "category": "Etkileşimler",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Rafflesia arnoldii için aşağıdakilerden hangisi doğrudur?",
+   "options": [
+    "Fotosentez yapar",
+    "Klorofil taşımaz, besinini konaktan alır",
+    "Ağaç ile karşılıklı yarar sağlar",
+    "Mantarlarla beslenir"
+   ],
+   "correct": 1,
+   "explanation": "Tam parazit klorofil içermez ve besinini konaktan emeçlerle alır.",
+   "category": "Etkileşimler",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Mikoriza ilişkisi (ağaç kökü - mantar) hangi etkileşime örnektir?",
+   "options": [
+    "Mutualizm",
+    "Kommensalizm",
+    "Amensalizm",
+    "Tam parazitlik"
+   ],
+   "correct": 0,
+   "explanation": "Mantar su ve mineral, ağaç organik besin sağlar; ikisi de yarar görür.",
+   "category": "Etkileşimler",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi tür içi rekabet örneğidir?",
+   "options": [
+    "Karaca ve yaban domuzunun aynı bitkiyi yemesi",
+    "Kartal ve kurdun aynı avı aramaması",
+    "Mantar ve bakterinin bir arada yaşaması",
+    "Kurtların av için kendi aralarında yarışması"
+   ],
+   "correct": 3,
+   "explanation": "Tür içi rekabet aynı türün bireyleri arasındadır.",
+   "category": "Rekabet",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Karaca ile yaban domuzunun kısıtlı bitki kaynakları için yarışması hangi rekabettir?",
+   "options": [
+    "Tür içi rekabet",
+    "Mutualizm",
+    "Türler arası rekabet",
+    "Predasyon"
+   ],
+   "correct": 2,
+   "explanation": "Karaca ve yaban domuzu iki farklı türdür ve aynı kısıtlı bitkileri kullanır; bu türler arası rekabettir.",
+   "category": "Rekabet",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Enerji piramidinde basamaktan basamağa yaklaşık ne kadar enerji aktarılır?",
+   "options": [
+    "Yaklaşık %90",
+    "Yaklaşık %10",
+    "Yaklaşık %50",
+    "Tamamı"
+   ],
+   "correct": 1,
+   "explanation": "Enerjinin yaklaşık %90'ı ısı olarak kaybolur, %10'u üst basamağa aktarılır.",
+   "category": "Besin zinciri ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Çimen → çekirge → serçe → kedi zincirinde serçe hangi trofik düzeydedir?",
+   "options": [
+    "3. basamak (ikincil tüketici)",
+    "1. basamak",
+    "2. basamak",
+    "4. basamak"
+   ],
+   "correct": 0,
+   "explanation": "Çimen 1., çekirge 2., serçe 3., kedi 4. basamaktır.",
+   "category": "Besin zinciri ve enerji",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Besin ağında oklar neyi gösterir?",
+   "options": [
+    "Yiyenden yenene saldırıyı",
+    "Canlıların yaşam alanını",
+    "Mevsim değişimini",
+    "Enerji ve maddenin yenenden yiyene aktarımını"
+   ],
+   "correct": 3,
+   "explanation": "Oklar enerji akış yönünü, yani yenenden yiyene doğru gösterir.",
+   "category": "Besin zinciri ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi enerji akışı için doğrudur?",
+   "options": [
+    "Döngüsel ve kayıpsızdır",
+    "Tüketicilerden üreticilere akar",
+    "Tek yönlü ve her basamakta kayıplıdır",
+    "Ayrıştırıcılar enerjiyi artırır"
+   ],
+   "correct": 2,
+   "explanation": "Enerji güneşten üreticilere ve tüketicilere akar; ısı olarak kaybolur ve geri dönmez.",
+   "category": "Besin zinciri ve enerji",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Bir ormandaki tüm karaca, kurt ve yaban domuzu popülasyonlarının toplamı aşağıdakilerden hangisini oluşturur?",
+   "options": [
+    "Popülasyon",
+    "Komünite",
+    "Habitat",
+    "Birey"
+   ],
+   "correct": 1,
+   "explanation": "Farklı türlerin popülasyonları birlikte komüniteyi oluşturur.",
+   "category": "Popülasyon ve komünite",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Kemosentez yapan bakteriler ekosistemde ayrıştırıcı sayılır.",
+   "correct": false,
+   "explanation": "Kemosentezciler organik madde ürettikleri için üreticidir; ayrıştırıcılar ölü maddeyi parçalar.",
+   "category": "Ekosistem bileşenleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "true-false",
+   "question": "Mantarlar ekosistemdeki enerji miktarını artırır.",
+   "correct": false,
+   "explanation": "Mantarlar madde döngüsünü sağlar, enerji miktarını artırmaz.",
+   "category": "Besin zinciri ve enerji",
+   "difficulty": "medium"
+  },
+  {
+   "type": "true-false",
+   "question": "Tür içi rekabet, aynı türün bireyleri arasında sınırlı kaynak için gerçekleşir.",
+   "correct": true,
+   "explanation": "Tür içi rekabet, aynı türün bireyleri arasında sınırlı kaynak için olan yarıştır; tanım doğrudur.",
+   "category": "Rekabet",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Kommensalizmde iki tür de yarar sağlar.",
+   "correct": false,
+   "explanation": "Kommensalizmde yalnızca bir tür yarar sağlar; diğeri etkilenmez.",
+   "category": "Etkileşimler",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Protein ve karbohidrat birim kütlede yaklaşık aynı enerjiyi verir.",
+   "correct": true,
+   "explanation": "İkisi de yaklaşık 400 kcal/100 g civarındadır; oksijen gereksinimleri farklıdır.",
+   "category": "Besin enerjisi ve oksijen",
+   "difficulty": "medium"
+  },
+  {
+   "type": "true-false",
+   "question": "Üst trofik düzeyde canlı sayısı genellikle daha azdır.",
+   "correct": true,
+   "explanation": "Aktarılan enerji azaldığı için üst basamakta daha az birey beslenebilir.",
+   "category": "Besin zinciri ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Aynı kaynak için farklı türler arasında oluşan yarışa ____ rekabet denir.",
+   "answers": [
+    "türler arası",
+    "tür arası"
+   ],
+   "explanation": "Farklı türlerin ortak kaynak için yarışması türler arası rekabettir.",
+   "category": "Rekabet",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Her trofik basamakta enerjinin yaklaşık %____'u üst basamağa aktarılır.",
+   "answers": [
+    "10",
+    "on"
+   ],
+   "explanation": "Yaklaşık %90 ısı olarak kaybolur, yaklaşık %10 aktarılır.",
+   "category": "Besin zinciri ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Klorofil taşımayan ve besinini konaktan alan parazite ____ parazit denir.",
+   "answers": [
+    "tam"
+   ],
+   "explanation": "Tam parazit klorofil taşımadığı için fotosentez yapamaz ve besinini konaktan alır.",
+   "category": "Etkileşimler",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Ölü bitki ve hayvan kalıntılarını parçalayan canlılara ____ denir.",
+   "answers": [
+    "ayrıştırıcı",
+    "ayrıştırıcılar"
+   ],
+   "explanation": "Mantarlar ve bazı bakteriler madde döngüsüne katkı sağlar.",
+   "category": "Ekosistem bileşenleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "ETS'nin son elektron alıcısı ____ 'dir.",
+   "answers": [
+    "oksijen",
+    "O2"
+   ],
+   "explanation": "Oksijen hidrojenle birleşerek suyu oluşturur.",
+   "category": "Besin enerjisi ve oksijen",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir ormanda kurt popülasyonu av baskısıyla azalırken karaca popülasyonu hızla artıyor. Karaca artışının bitki örtüsü, karaca popülasyonu ve ayrıştırıcılar üzerindeki olası sonuçlarını ölçülebilir ifadelerle yazınız. (5 puan)",
+   "correctAnswer": "Karaca sayısı artınca bitkiler daha çok tüketilir; bitki örtüsü azalır. Besin azalınca karacalar arasında tür içi rekabet artar; bir süre sonra karaca popülasyonu azalabilir veya göç eder. Bitki kalıntıları azaldığı için ayrıştırıcıların besin kaynağı azalabilir; ancak karaca dışkısı ve ölü hayvan kalıntıları ayrıştırıcıları destekleyebilir.",
+   "keyPoints": [
+    "Bitki örtüsü azalır",
+    "Tür içi rekabet artar",
+    "Karaca popülasyonu sonra azalabilir",
+    "Ayrıştırıcıya etki"
+   ],
+   "maxPoints": 5,
+   "explanation": "Avcı azalması önce popülasyon artışı, sonra kaynak sınırlanması anlamına gelir; ikinci aşamayı unutma.",
+   "category": "Benzer soru: Etkileşim değişimi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir akvaryumda iki balık türü aynı yemi yiyor ve yem miktarı sabit. Yem azaltılırsa tür içi ve türler arası rekabette beklenen değişimi ölçülebilir ifadelerle yazınız. (4 puan)",
+   "correctAnswer": "Yem azaltılırsa balıklar kaynak için daha çok yarışır. Tür içi rekabet her iki türün kendi bireyleri arasında artar; türler arası rekabet de artar. Zayıf tür popülasyonu azalabilir.",
+   "keyPoints": [
+    "Yem azalır, rekabet artar",
+    "Tür içi artar",
+    "Türler arası artar",
+    "Zayıf tür azalabilir"
+   ],
+   "maxPoints": 4,
+   "explanation": "Kaynak ile rekabet arasındaki doğru orantıyı kullan.",
+   "category": "Benzer soru: Rekabet",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir bahçede güneşe çıkan toprak sıcaklığı yükselince yosun, solucan ve toprak bakterisi üzerindeki olası etkileri açıklayınız. (4 puan)",
+   "correctAnswer": "Sıcaklık artıp toprak kuruyunca yosun su kaybeder ve fotosentezi azalır. Solucanlar nemli toprağa ihtiyaç duyduğu için derine iner ya da sayıları azalır. Toprak bakterilerinin faaliyeti nem ve sıcaklığa bağlı olarak aşırı sıcakta yavaşlayabilir; ayrışma ve mineral döngüsü etkilenir.",
+   "keyPoints": [
+    "Yosun: fotosentez azalır",
+    "Solucan: nem ister, azalır/derine iner",
+    "Bakteri faaliyeti yavaşlar",
+    "Mineral döngüsü etkilenir"
+   ],
+   "maxPoints": 4,
+   "explanation": "Abiyotik faktörün (sıcaklık, nem) her canlı grubuna etkisini ayrı yaz.",
+   "category": "Benzer soru: Ekosistem bileşenleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir sığır sırtındaki kene kanını emerek beslenir; sığır zarar görür. Aynı sığırın sırtındaki sığırcık kuşları keneleri yer. Bu iki etkileşimi adlandırınız ve tarafların durumlarını açıklayınız. (5 puan)",
+   "correctAnswer": "Kene-sığır: parazitlik (dış parazit); kene yarar sağlar, sığır zarar görür. Sığırcık-sığır: mutualizm; kuş besin bulur, sığır kenelerden kurtulur; ikisi de yarar sağlar.",
+   "keyPoints": [
+    "Kene: parazitlik",
+    "Kene yarar, sığır zarar",
+    "Sığırcık: mutualizm",
+    "İkisi de yarar"
+   ],
+   "maxPoints": 5,
+   "explanation": "Her ilişkide yarar ve zarar durumunu ayrı ayrı yaz.",
+   "category": "Benzer soru: Simbiyotik etkileşimler",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir ekosistemde ot, ceylan ve aslan bulunmaktadır. Aslan sayısı aşırı avlanma ile azalırsa ceylan ve ot popülasyonları açısından ölçülebilir sonuçları yazınız. (4 puan)",
+   "correctAnswer": "Aslan azalınca ceylanın av baskısı azalır; ceylan popülasyonu artar. Ceylan artınca ot daha çok tüketilir; ot popülasyonu azalır. Bir süre sonra otun azalması ceylanlar arasında tür içi rekabeti artırır.",
+   "keyPoints": [
+    "Aslan azalır, ceylan artar",
+    "Ceylan artar, ot azalır",
+    "Tür içi rekabet artar"
+   ],
+   "maxPoints": 4,
+   "explanation": "Zincirin ters yönünde tahmin: üst basamak azalınca alt basamak artar, daha altı azalır.",
+   "category": "Benzer soru: Besin zinciri ve enerji",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki canlıları trofik düzeylerine yerleştiriniz: fitoplankton, zooplankton, küçük balık, büyük balık, deniz kuşu. Enerjinin en fazla ve en az olduğu basamakları belirtiniz. (4 puan)",
+   "correctAnswer": "1. basamak: fitoplankton; 2.: zooplankton; 3.: küçük balık; 4.: büyük balık; 5.: deniz kuşu. Enerji en çok fitoplanktonda (üretici) ve en az deniz kuşunda (en üst basamak) bulunur.",
+   "keyPoints": [
+    "Doğru sıralama",
+    "Üretici en çok enerji",
+    "En üst basamak en az enerji"
+   ],
+   "maxPoints": 4,
+   "explanation": "Üretici daima 1. basamaktır; enerji basamak ilerledikçe azalır.",
+   "category": "Benzer soru: Besin zinciri ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir bilim insanı eşit kütlede yağ ve karbohidrat yaktığında yağın daha fazla CO2 ve H2O oluşturduğunu ölçmüştür. Bu gözlemi hidrojen yoğunluğu ve ETS ile ilişkilendirerek açıklayınız. (4 puan)",
+   "correctAnswer": "Yağ daha çok C-H bağı ve hidrojen içerir. Daha fazla hidrojen ETS'de daha çok elektron aktarır ve oksijenle birleşip daha çok su oluşturur; ayrıca daha çok karbon atomu CO2'ye dönüşür. Bu nedenle yağın yıkımında daha çok H2O ve CO2 açığa çıkar.",
+   "keyPoints": [
+    "Yağda daha çok hidrojen",
+    "ETS'de daha çok elektron",
+    "Daha fazla su oluşur",
+    "Karbon CO2'ye dönüşür"
+   ],
+   "maxPoints": 4,
+   "explanation": "Su, hidrojenin oksijenle birleşmesiyle ETS sonunda oluşur; hidrojen çoksa su da çoktur.",
+   "category": "Benzer soru: Besin enerjisi ve oksijen",
+   "difficulty": "hard"
+  }
+ ],
+ "sources": [
+  {
+   "id": "src1",
+   "name": "10. Sınıf Biyoloji - 2. Dönem 1. Yazılı",
+   "kind": "file",
+   "text": "=== Page 1 ===\r\nBIYOLOJI 10. SINIF 1\r\n10. SINIF 10. SINIF 10. SINIF 10. SINIF 10. SINIF 10. SINIF 10. SINIF  10. SINIF\r\nYAZILIYA HAZIRLANIYORUM\r\n2. DÖNEM - 1. YAZILI\r\nBIYOLOJI\r\n1. Besinlerin hücresel solunum süreçlerindeki enerji verimliliğini ve oksijen gereksinimlerini analiz etmek amacıyla \r\nhazırlanan bilimsel modellemede; eşit kütledeki (100’er gram) üç farklı organik besin örneğine (A, B ve C) ait \r\nyaklaşık değerler aşağıdaki tabloda verilmiştir.\r\nBesin Grubu (100 gram) Gereken Oksijen (L/100g) Enerji Değeri (kcal/100g)\r\nA 83 400\r\nB 203 900\r\nC 95 400\r\n1.1. Tablodaki verileri dikkate alarak; A, B ve C besin örneklerinin hangi temel besin gruplarına \r\n(karbohidrat, yağ, protein) ait olduğunu bilimsel gerekçeleriyle belirtiniz. Bu besinlerden elde edilen \r\nenerjinin canlının metabolik süreçlerine sağladığı katkıyı örneklerle açıklayınız.\r\n1.2. B besin örneğinin, A besine oranla daha fazla oksijen tükettiği ve  fazla enerji açığa çıkardığı \r\ngörülmektedir. Bu durumun temel nedenini, besinlerin yapısındaki hidrojen  atomu yoğunluğu ve ETS \r\nmekanizması ile ilişkilendirerek açıklayınız.\r\n=== Page 2 ===\r\nYAZILIYA HAZIRLANIYORUM (2. DÖNEM 1. YAZILI)\r\nBIYOLOJI DERSI - 10. SINIF2\r\n2. Biyoloji dersi kapsamında öğrencilerle birlikte bulundukları şehirdeki kent ormanına bir arazi gezisi düzenlenmiştir. \r\nOrmana girildiğinde öğrenciler ilk olarak yüksek çam ve meşe ağaçlarını fark etmiştir. Ağaçların arasında genç \r\nfidanlar, böğürtlen çalıları ve çiçekli yabani otlar görülmüştür. Gölet kenarında sazlık alanlar ve su yüzeyinde yüzen \r\nküçük bitkiler dikkat çekmiştir. Toprak koyu kahverengi ve nemlidir. Öğrenciler güneş ışığının ağaç dalları arasından \r\nsüzüldüğünü, rüzgârın yaprakları hareket ettirdiğini ve havanın nemli olduğunu gözlemlemiştir. Karınca kolonilerinin \r\ntoprak üzerinde hareket ettiği, kelebeklerin çiçekler arasında uçtuğu, arıların çiçeklerden nektar topladığı \r\ngörülmüştür. Ağaç dallarında serçe ve kargalar gözlemlenmiş, bazı kuşların böcek yakaladığı fark edilmiştir. Nemli \r\ntoprak altında solucanlara, ağaç diplerinde ise şapkalı mantarlara rastlanmıştır. Öğrenciler, suyun çevredeki bitkiler \r\niçin yaşamsal önem taşıdığını ve birçok canlının su kaynağına yakın bölgelerde yoğunlaştığını fark etmiştir. \r\n \r\n2.1. Metindeki gezi incelemelerine göre ekosistemi oluşturan cansız ve canlı bileşenleri belirleyerek \r\naşağıdaki tabloya yazınız. \r\nGözlem Sonuçları\r\nEkosistemdeki Cansız (Abiyotik) Bileşenler\r\nEkosistemdeki Canlı (Biyotik) Bileşenler\r\n2.2. Kent ormanında yaşanan kuraklık sonucu suyun sınırlayıcı bir faktör hâline gelmesinin ekosistemdeki \r\nenerji akışını ve ekosistemi oluşturan bileşenler arasındaki beslenme ilişkilerini nasıl etkiler? \r\nAçıklayınız.\r\n=== Page 3 ===\r\nYAZILIYA HAZIRLANIYORUM (2. DÖNEM 1. YAZILI)\r\nBIYOLOJI DERSI - 10. SINIF 3\r\n3. Biyoloji dersinde “Komüniteler ve popülasyonlarda görülen etkileşim ve değişimler” ile ilgili bir belgesel izletilir. \r\nBelgeselde bilim insanlarından oluşan bir araştırma ekibi, yağmur ormanı ekosisteminde bulunan büyük bir tropikal \r\nağacın farklı canlı türleriyle olan etkileşimlerini incelemiştir.\r\n Araştırma ekibi bulguları aşağıdaki gibi belirtmiştir:\r\n (I) Ağacın gövdesine tutunmuş; kök, gövde ve yaprak gibi yapıları belirgin olmayan, dev çiçekleriyle dikkat çeken \r\nRafflesia arnoldii bulunmaktadır. Bu bitki klorofil bulundurmaz, organik ve inorganik besin maddelerini emeç görevi \r\nüstlenen yapıları aracılığıyla ağacın dokularından alır.\r\n (II) Ağacın kökleri bazı mantar türleriyle birlikte yaşar. Mantarlar topraktan aldıkları su ve mineralleri ağaca iletir, \r\nağaç ise fotosentezle ürettiği organik besinlerin bir kısmını mantarlara aktarır. Bu birliktelik ağaca besin ve su \r\ntemininde avantaj sağlar.\r\n (III) Ağacın geniş ve sık yapraklı tepesi alt katmana ulaşan ışık miktarını azaltır. Bu durumda alt katmandaki küçük \r\nbitkiler yeterli ışık alamazlar, büyüme ve gelişimleri olumsuz etkilenir. Bu etkileşimden ağaç olumlu ya da olumsuz \r\netkilenmez.\r\n (IV) Ağacın bir dalı üzerinde yaşayan orkide bitkisi, ağacı yalnızca tutunma ve yüksekte kalma amacıyla kullanır. \r\nOrkide kendi besinini üretir ve ağaca zarar vermez.\r\n Belgeselin devamında bir süre sonra ağacın dalına orkide yapraklarını ve çiçek yapılarını yiyen bir böcek türünün \r\nyerleşmesiyle böcek popülasyonunun artması ve sonrasında ise ağacın kabuk kısmına ve genç sürgünlerine verilen \r\nzararı açıklayacaklarını belirtmiştir.\r\n3.1 Bilim insanlarının bulgularına dayanarak numaralandırılmış açıklamalardaki simbiyotik etkileşim \r\ntürlerini adlandırınız ve her birini kısaca açıklayınız.\r\n I …………….......................................................................................................................................................…\r\n II ……......................................................................................................................................................…………\r\n III ……......................................................................................................................................................………..\r\n IV ……......................................................................................................................................................………..\r\n3.2 Türler arası etkileşimleri dikkate alarak, böceğin besin kaynağını değiştirip ağacın kabuk kısmına \r\nve genç sürgünlerine yönelmesinin komünitenin yapısında hangi değişimlere yol açabileceğini \r\naçıklayınız. Her bir tür için olası sonuçları popülasyon büyüklüğü ve etkileşim gücü gibi ölçülebilir \r\nkriterlere göre yazınız.\r\n • Orkide bitkisi: ………………......................................................................................................................\r\n • Rafflesia arnoldii bitkisi : ……….....................................................................................................………\r\n • Alt katmandaki küçük bitkiler: …………..............................................................................................……\r\n • Ağacın mantarlarla olan ilişkisi: ………….................................................................................……\r\nNot: Cevaplarınızı popülasyon sayısı artar/azalır, etkileşim gücü değişir gibi ölçülebilir kriterlerle yazınız.\r\n=== Page 4 ===\r\nYAZILIYA HAZIRLANIYORUM (2. DÖNEM 1. YAZILI)\r\nBIYOLOJI DERSI - 10. SINIF4\r\n4. Bir göl çevresindeki ormanlık alanda yaşayan karaca, yaban domuzu ve kurt popülasyonları uzun yıllardır \r\nbirbirleriyle etkileşim hâlinde bulunarak ekosistemin önemli bileşenlerini oluşturmaktadır. Ancak son yıllarda bölgede \r\nyaşanan kuraklık nedeniyle bitki örtüsü azalmış, göldeki su seviyesi düşmüş ve besin kaynakları sınırlanmıştır. \r\nBu kaynak yetersizliği sonucunda, normalde farklı besinleri tercih eden karaca ve yaban domuzları, hayatta \r\nkalabilmek için aynı kısıtlı bitki türlerine yönelmiş, kurtlar ise av bulmakta zorlandıkları için farklı bölgelere göç \r\netmeye başlamıştır. Bu sırada, komşu bir ormanda da benzer çevresel koşulların yaşanması nedeniyle oradaki \r\nbir kurt sürüsü yeni besin kaynakları bulabilmek amacıyla bu bölgeye gelmiştir. Yeni gelen kurt sürüsünün varlığı \r\nbölgede rekabeti artırmış, ormanlık alanda azalan besin kaynakları nedeniyle karaca sayısı düşmüş ve karaca \r\npopülasyonundaki bazı bireyler başka bölgelere göç etmiştir. \r\n Tür içi ve türler arası rekabet kavramlarını tanımlayınız ve metinde geçen rekabet durumlarını bu kavramlara \r\nuygun olarak örneklendiriniz.\r\n Tür İçi Rekabet: ………………………………………………………………………………………………………...…………\r\n Örneği: …………………………………………………………………………………………………………………………….\r\n Türler Arası Rekabet: ………………………………………………………………………………………………………...…\r\n Örneği: …………………………………………………………………………………………………………………………….\r\n=== Page 5 ===\r\nYAZILIYA HAZIRLANIYORUM (2. DÖNEM 1. YAZILI)\r\nBIYOLOJI DERSI - 10. SINIF 5\r\n5. Bir Biyoloji öğretmeni, “Ekosistemdeki Madde ve Enerji Akışı” konusuyla ilgili öğrencilerini bölgedeki büyük park \r\nalanına geziye götürür. Öğrencilerden çevredeki canlıları ve aralarındaki etkileşimleri gözlemlemelerini ve bu \r\ngözlemleri kaydetmelerini ister. Öğrencilerden Elif ve ve Ahmet gözlemlerini aşağıdaki gibi kaydetmiştir. \r\nELIFELIF\r\nPark geniş çimenlikler, ağaçlar ve çalılarla \r\nkaplıydı. Toprağın yüzeyinde çürüyen \r\nbitki kalıntıları bulunmaktaydı. Farklı canlı \r\ntürleri dikkatimi çekti. Örneğin çimenlerin \r\narasında çok sayıda çekirge hareket \r\nediyordu. Serçeler ise uçarak ya da yerde \r\ndolaşarak besin arıyordu. Park alanındaki \r\nkediler ise avlamak için serçeleri \r\ngözetliyordu. Sessizce serçeleri izlemeleri \r\nve hızlıca onlara doğru koşmaları dikkat \r\nçekici ve eğlenceliydi. Kedilerin sayısı \r\nçekirgelere ve serçelere göre daha azdı. \r\nAHMETAHMET\r\nPark geniş çimenlik alanlar, uzun ağaçlar \r\nve sık çalılarla kaplıydı. Ben parkın gölet \r\nkısmında gözlem yaptım. Çimenlerin \r\narasında ve gölet çevresinde kelebekler \r\nuçuşarak besin arıyordu. Göletteki kurbağalar \r\nzaman zaman sıçrayarak kelebekleri \r\nyakalamaya çalışıyordu. Gökyüzünde \r\nsüzülen atmaca ise avını yakalamak için ara \r\nsıra aşağıya doğru hamleler yapıyordu. Çok \r\nsayıda kelebek ve kurbağa bulunmasına \r\nrağmen bir tane atmaca olması da dikkat \r\nçekiciydi. Ayrıca ağaç altlarında ve çürümekte \r\nolan yaprakların üzerinde gelişen mantarlar \r\nda gördüm.\r\n Öğretmen, Elif ve Ahmet’i gözlemlerinden dolayı tebrik eder ve aşağıdaki açıklamayı öğrencilerine yapar. \r\n “Besinlerde depolanan enerjinin üretici canlılardan tüketici canlılara doğru tek yönlü iletimi, besin zincirleriyle \r\ngerçekleştirilir. Besin zinciri, üreticilerin güneşten gelen ışık enerjisini dönüştürmeleri ile başlar. Dönüştürülen bu \r\nenerji, besin zinciri yoluyla bir canlıdan diğerine aktarılır. Enerji akışı sırasında mevcut enerjinin yaklaşık %90’ı \r\ncanlılık faaliyetlerinde kullanılır ve metabolik süreçler sonucunda ısı şeklinde çevreye yayılır.’’ \r\n5.1 Önce Elif’in gözlemine göre bir besin zinciri, daha sonra ise Ahmet’in gözlemine göre bir besin zinciri  \r\noluşturunuz ve oluşturduğunuz  bu iki besin zincirini ilişkilendirerek park ekosistemine ait besin ağını \r\nçiziniz.\r\n5.2 Oluşturulan besin ağı örüntüsüne göre besin piramidinde canlıları uygun trofik basamaklara \r\nyerleştirerek ekosistemdeki enerji akışı ile ilgili ulaştığınız genellemeyi yazınız. \r\n \r\n............................4. Trofik basamak\r\n............................3. Trofik basamak\r\n............................2. Trofik basamak\r\n............................1. Trofik basamak\r\n=== Page 6 ===\r\nYAZILIYA HAZIRLANIYORUM (2. DÖNEM 1. YAZILI)\r\nBIYOLOJI DERSI - 10. SINIF6\r\nSORU \r\nNO ÖĞRENME ÇIKTISI BECERILER\r\n1 BİY.10.1.10. Besinlerden elde edilen enerjinin canlının metabolik süreçlerine katkısı ile ilgili bilimsel çıkarım yapabilme FBAB8. Bilimsel Çıkarım Yapma\r\n2 BİY.10.2.1. Ekosistemin cansız ve canlı bileşenleri arasındaki ilişkileri çözümleyebilme KB2.4. Çözümleme\r\n3 BİY.10.2.2. Komünitelerde ve popülasyonlarda görülen etkileşimleri ve değişimleri sorgulayabilme KB2.8. Sorgulama\r\n4 BİY.10.2.2. Komünitelerde ve popülasyonlarda görülen etkileşimleri ve değişimleri sorgulayabilme KB2.8. Sorgulama\r\n5 BİY.10.2.3. Ekosistemdeki enerji akışıyla ilgili tümevarımsal akıl yürütmeFBAB10. Tümevarımsal Akıl Yürütme\r\nPUANLAMA TABLOSU\r\n1 2 3\r\n4\r\n5\r\nTOPLAM\r\n1.1. 1.2. 2.1. 2.2. 3.1. 3.2. 5.1. 5.2.\r\n10 10 10 10 12 8 20 10 10 100\r\nÇÖZÜMLER\r\n1.1 TAM PUAN\r\n  A - Karbohidrat: Enerji verimi proteinle benzer (~400 kcal) olmasına rağmen, yapısındaki oksijen  oranının \r\nyüksekliği nedeniyle oksidasyon için dışarıdan en az oksijen desteğine (~83 L) ihtiyaç duyduğu için.\r\n  B - Yağ: Birim kütlesindeki hidrojen oranının yüksekliği sayesinde enerji verimi (~900 kcal) ve buna bağlı olarak \r\noksijen tüketimi (~203 L) en yüksek grup olduğu için.\r\n  C - Protein: Enerji verimi karbohidratla benzer (~400 kcal) olmasına rağmen, yapısındaki oksijen oranı karbohidrattan \r\ndaha düşük olduğu için oksidasyon sürecinde karbohidrata göre daha fazla oksijen (~95 L) tükettiği için.\r\n  Besinlerin oksidasyonuyla elde edilen enerji; örneğin hücrelerde biyosentez reaksiyonları, moleküllerin aktif \r\ntaşınması, sinir hücrelerinde elektriksel iletim veya kasların kasılması için gerekli olan ATP kaynağıdır.\r\n KISMI PUAN \r\nBesin gruplarını tablo verilerine göre doğru eşleştirir ancak gerekçelendirmede yapısal oksijen/hidrojen oranı \r\nilişkisine değinmeden sadece tablodaki değerleri yazar.\r\n  Eşleştirmeyi doğru yapar ancak enerjinin metabolik süreçlerdeki (kas, sinir, taşıma vb.) somut kullanım alanlarına \r\ndair hiçbir örnek vermez.\r\n SIFIR PUAN \r\nCevap yok veya tamamen yanlış bilgiler içermektedir.\r\n1.2 TAM PUAN \r\nB besini (yağ), A besinine (karbohidrat) oranla birim kütlesinde çok daha fazla karbon-hidrojen (C-H) bağı ve \r\nbuna bağlı olarak daha yüksek oranda hidrojen  atomu bulundurur.\r\n  Hücresel solunum sırasında besinlerden koparılan hidrojenlerin elektronları ETS  üzerinden aktarılır. B besininde \r\nhidrojen yoğunluğu çok yüksek olduğu için ETS’ye çok daha fazla elektron aktarılır, bu nedenle enerji verimi yüksektir.\r\n  ETS mekanizmasının son basamağında oksijen, son elektron tutucu olarak görev yapar ve hidrojenlerle birleşerek \r\nsuyu oluşturur. B besininde açığa çıkan hidrojen miktarı çok fazla olduğu için, bu hidrojenlerin tamamını suya \r\ndönüştürerek sistemden uzaklaştırmak amacıyla dışarıdan çok daha fazla oksijen tüketilmesi gerekir.\r\n KISMI PUAN \r\nHidrojen yoğunluğu ile yüksek enerji verimi arasındaki ilişkiyi doğru kurar ancak bu hidrojenlerin ETS sonunda suya \r\ndönüşmesi için gereken oksijen  kısmını tam açıklayamaz. ETS mekanizmasına veya oksijenin sudaki rolüne değinmez.\r\n SIFIR PUAN \r\nCevap yok veya tamamen yanlış bilgiler içermektedir.\r\n=== Page 7 ===\r\nYAZILIYA HAZIRLANIYORUM (2. DÖNEM 1. YAZILI)\r\nBIYOLOJI DERSI - 10. SINIF 7\r\n2.1. TAM PUAN\r\n Tabloyu metinde verilen gezi gözlemlerine dayanarak doğru doldurur.\r\nGözlem Sonuçları\r\nEkosistemdeki Cansız (Abiyotik) Bileşenler Işık, Su, Sıcaklık, Rüzgâr, Nem, Toprak\r\nEkosistemdeki Canlı (Biyotik) Bileşenler\r\nÜreticiler (yüksek çam ve meşe ağaçları, genç \r\nfidanlar, böğürtlen çalıları ve çiçekli yabani otlar, \r\nsazlık alanlar ve su yüzeyinde yüzen küçük bitkiler)\r\nTüketiciler (Karınca kolonileri, kelebekler, arılar, \r\nserçe ve kargalar, kuşlar, böcekler, solucanlar)\r\nAyrıştırıcılar (şapkalı mantarlar) \r\n KISMI PUAN \r\n Tabloda boş bırakılan kısımdaki bilgileri eksik yazar. \r\n • Ekosistemdeki cansız bileşenleri doğru yazar ancak canlı bileşenleri hatalı yazar.\r\n • Ekosistemdeki canlı bileşenlerin beslenme biçimini yazar ancak hangi canlılar olduğunu yazmaz veya hatalı \r\nyazar.\r\n SIFIR PUAN\r\n Cevap yok veya tamamen yanlış bilgiler içermektedir.\r\n2.2. TAM PUAN\r\n Göletteki su seviyesinin ciddi biçimde düştüğü varsayıldığında bu durumun ekosistemi oluşturan bileşenler \r\narasındaki etkileşimi nasıl etkileyebileceğini doğru açıklar.\r\n • Su seviyesinin düşmesi su canlılarını doğrudan etkiler. Gölete bağımlı canlıların yaşam alanı daralır.\r\n • Su azalınca bitkiler yeterli su alamaz ve turgor basıncı düşer. Fotosentez hızı azalır. Üreticilerin zayıflaması, \r\nekosisteme giren besin ve enerji miktarını düşürür.\r\n • Bitkiler azalırsa otçul canlılar besin bulmakta zorlanır. Böceklerin sayısı azalabilir.\r\n • Böcekler azalırsa kuşlar gibi tüketiciler de etkilenir. Besin ağındaki dengeler bozulur.\r\n • Toprak kuruduğunda ayrıştırıcıların faaliyetleri azalabilir. Bu durum toprağın mineral döngüsünü yavaşlatır.\r\n  Sonuç olarak, suyun azalması yalnızca cansız bileşenleri değil; üreticileri, tüketicileri ve ayrıştırıcıları da \r\netkileyerek ekosistemdeki madde ve enerji akışını zayıflatır ve dengeyi bozar. Bu durum, ekosistemdeki tüm \r\nbileşenlerin birbirine bağlı olduğunu göstermektedir.\r\n KISMI PUAN\r\n Göletteki su seviyesinin ciddi biçimde düştüğü varsayıldığında bu durumun ekosistemi oluşturan bileşenler \r\narasındaki etkileşimi nasıl etkilediğini eksik açıklar.\r\n • Su seviyesinin düşmesi ile doğrudan etkilenen bileşenleri açıklar ancak bileşenler arası etkileşimi açıklamaz.\r\n • Su seviyesinin düşmesi ile ekosistem dengesinin bozulacağını ifade eder ancak açıklama yapmaz.\r\n SIFIR PUAN\r\n Cevap yok veya tamamen yanlış bilgiler içermektedir.\r\n=== Page 8 ===\r\nYAZILIYA HAZIRLANIYORUM (2. DÖNEM 1. YAZILI)\r\nBIYOLOJI DERSI - 10. SINIF8\r\n3.1. TAM PUAN (12 PUAN)\r\n Numaralandırılmış etkileşim türlerini ve açıklamalarının tamamını tam doğru yapar.\r\n I. Tam parazitlik: Tam parazit bitkiler klorofil içermez, fotosentez yapamaz ve yaşamlarını sürdürebilmek için \r\ngerekli organik ve inorganik besin maddelerini konak bitkiden alır. Rafflesia arnoldii, emeç görevi üstlenen \r\nyapıları aracılığıyla konak bitki olan ağaçtan besin temin ederek, yarar sağlarken bu süreçte ağaç zarar görür.\r\n II. Mutualist ilişki: İki farklı tür organizma karşılıklı fayda sağlar; mantar ve ağaç kökü örneğinde mantar, su ve \r\nmineralleri ağaca iletir, ağaç ise mantara organik besin temin eder. \r\n III. Amensalizm: İki farklı türe ait organizmalar arasında birinin engellendiği ya da yok edildiği, diğerinin \r\netkilenmediği ilişki biçimidir. Tropikal büyük ağaç, altındaki küçük bitkilerin ışık almasını engellerken kendisi bu \r\ndurumdan yarar ya da zarar görmez.\r\n IV. Kommensalizm: Bu birliktelikte türlerden biri fayda görürken diğeri ne fayda ne de zarar görür. Orkide bitkisi \r\nsadece tutunma ve yüksekte kalma amacıyla ağacı kullanır, ağaca yarar sağlamaz, zarar da vermez.\r\nKISMI PUAN (6 PUAN)\r\n • Etkileşimleri doğru yazar, açıklamalarını yapmaz.\r\n • Etkileşimlerin bir kısmını doğru yazar, açıklamaları yapmaz.\r\n • Etkileşimlerin ve açıklamaların bir kısmını hatalı yazar.\r\nSIFIR PUAN\r\nCevap yok veya tamamen yanlış bilgiler içermektedir.\r\n3.2. TAM PUAN (8 PUAN)\r\n Türler arası etkileşimlerin ne şekilde etkilendiğini ve sonucu doğru yazar. \r\n • Orkide bitkisi: Böcek yaprak ve çiçek dokularını tükettiği için ormandaki orkide popülasyonu azalır. Artan böcek \r\nsayısı tüketimi artırarak orkide popülasyonunun azalışını hızlandırır.\r\n • Rafflesia arnoldii: Böcek daha sonra ağaca zarar verdiği için ağaç zayıflar. Konak zayıfladığında parazit olan \r\nRafflesia’nın besin temini azalabilir, bu nedenle Rafflesia arnoldii’nin popülasyonu azalabilir.\r\n • Alt katmandaki küçük bitkiler: Ağacın genç sürgünleri zarar görürse yaprak yoğunluğu azalabilir ve alt katmana \r\ndaha fazla ışık ulaşabilir. Bu durumda ışık sınırlayıcı faktör olmaktan çıktığı veya etkisi azaldığı için alt \r\nkatmandaki küçük bitkilerin popülasyonu artabilir.\r\n • Ağacın mantarlarla olan ilişkisi: Ağacın köklerinde meydana gelen zarar, su ve mineral alımını sınırlayarak ağacın \r\nfotosentez hızının azalmasına neden olabilir. Bu durum mantarlara aktarılan organik madde miktarını düşürür ve \r\nmutualist ilişkinin gücü zayıflar, mantar popülasyonu da azalabilir.\r\nSonuç:\r\n Böceğin besin kaynağını değiştirerek ağacın kabuk ve genç sürgünlerini tüketmesi komünitede bazı popülasyonların \r\nazalmasına, bazılarının artmasına ve türler arası etkileşimlerin gücünün değişmesine neden olur.\r\nKISMI PUAN: (4 PUAN)\r\n • Türler arası etkileşimleri belirtmiş, sonuç yazmamıştır.\r\n • Türler arası etkileşim değişimlerini doğru belirtmiş ancak sonucu yanlış yazmıştır.\r\n • Türler arası etkileşim değişimlerini eksik ya da hatalı yazmış, sonucu belirtmemiştir. \r\n • Bazı canlılar için doğru yönde değişim belirtmiştir ancak neden-sonuç ilişkisini kuramamış veya zayıf kurmuştur.\r\n • Ölçülebilir ifade her madde için açık değildir ve dolaylı etkiler yeterince açıklanmamıştır. \r\nÖrnek kısmi yanıt:\r\n • Orkide azalır.\r\n • Rafflesia arnoldii etkilenir.\r\n • Küçük bitkiler değişir.\r\n • Mantar ilişkisi zayıflar.\r\nSIFIR PUAN: \r\nCevap yok veya tamamen yanlış bilgiler içermektedir.\r\n=== Page 9 ===\r\nYAZILIYA HAZIRLANIYORUM (2. DÖNEM 1. YAZILI)\r\nBIYOLOJI DERSI - 10. SINIF 9\r\n4. TAM PUAN (10 PUAN)\r\n Tür içi ve türler arası rekabeti doğru tanımlar. Metindeki rekabet örneklerini doğru açıklar. \r\n • Tür içi rekabet aynı türün bireyleri arasında sınırlı kaynaklar için gerçekleşen rekabettir. Kurtların av bulmakta \r\nzorlanması nedeniyle kendi aralarında av için rekabet etmesi veya karacaların azalan besin kaynağı için \r\nbirbirleriyle rekabet etmesi tür içi rekabete örnek oluşturur.\r\n • Türler arası rekabet farklı türlerin aynı kaynak için gerçekleşen rekabettir. Karacalar ile yaban domuzlarının aynı \r\nbitkilerle beslenmek zorunda kalması türler arası rekabete örnek oluşturur.\r\nKISMi PUAN \r\nTür içi ve türler arası rekabeti tanımlar ancak örneklendirme yapmaz.\r\nTür içi ve türler arası rekabeti yanlış tanımlar ancak örneklendirme yapar.\r\nSadece bir rekabet türünü doğru açıklar veya örneklendirir.\r\nSIFIR PUAN \r\nCevap yok veya tamamen yanlış bilgiler içermektedir.\r\n=== Page 10 ===\r\nYAZILIYA HAZIRLANIYORUM (2. DÖNEM 1. YAZILI)\r\nBIYOLOJI DERSI - 10. SINIF10\r\n5.1 TAM PUAN (10 PUAN)\r\n İki besin zincirini ve besin ağı örüntüsünü doğru oluşturur.\r\nAtmaca\r\nKurbağa\r\nKelebek\r\nÇimen\r\nÇekirge \r\nSerçe\r\nKedi\r\nÇimen→ Çekirge→ Serçe→ Kedi\r\nAyrıştırıcılar (Mantarlar)\r\nElif’in besin zinciri;\r\nÇimen→ Kelebek→ Kurbağa→ Atmaca\r\nAyrıştırıcılar (Mantarlar)\r\nAhmet’in besin zinciri;\r\n Mantarlar ayrıştırıcıdır, ölü bitki ve hayvan kalıntılarını parçalayarak madde döngüsüne katkı sağlar (Her trofik \r\nbasamakta bulunur.)\r\n KISMI PUAN \r\n - Besin zincirlerinden birini doğru diğerini hatalı yazar ve dolayısı ile besin ağını hatalı çizer.\r\n - İki besin zincirini doğru yazar ancak besin ağını çizmez.\r\n - Besin ağını oluşturur ancak besin zincirlerini yazmaz.\r\n - Besin zincirlerini doğru yazar ancak besin ağındaki ok yönlerini hatalı ya da bazılarını hatalı gösterir.\r\n - Besin zincirlerinde trofik düzeylerde hata yapar (Örneğin ayrıştırıcılardan bahsetmez.).\r\n SIFIR PUAN\r\n Cevap yok veya tamamen yanlış bilgiler içermektedir.\r\n=== Page 11 ===\r\nYAZILIYA HAZIRLANIYORUM (2. DÖNEM 1. YAZILI)\r\nBIYOLOJI DERSI - 10. SINIF 11\r\n5.2 TAM PUAN (10 PUAN)\r\n • Besin piramidinde en alt trofik düzeyden, en üst trofik düzeye doğru canlıları yerleştirerek enerjinin aktarımıyla \r\nilgili ulaştığı sonucu doğru açıklar.\r\nMANTARLAR\r\nAtmaca, Kedi4. Trofik basamak\r\nSerçe, Kurbağa3. Trofik basamak\r\nÇekirge, Kelebek2. Trofik basamak\r\nÇimen1. Trofik basamak\r\n • Ekosistemde enerji akışı güneşten üreticilere, üreticilerden ise ardışık trofik basamaklardaki tüketicilere doğru tek \r\nyönlü gerçekleşir ve her basamakta enerji kaybı meydana gelir.\r\n • Çimenler ekosisteme enerji girişini sağlar. (Üreticiler -1. Trofik basamak)\r\n • Çekirgeler ve kelebekler üreticileri tüketerek enerjiyi bir üst basamağa aktarır. (I.Tüketiciler-2. Trofik basamak)\r\n • Serçeler ve kurbağalar kelebek ve çekirgeleri tüketir. (II. Tüketiciler-3.Trofik basamak)\r\n • Kediler ve atmaca ise besin ağının en üst basamağında yer alırlar. (III.Tüketiciler-4. Trofik basamak)\r\n Üretici canlılar en fazla enerjiye sahiptir. Enerjinin büyük kısmı metabolik faaliyetler sırasında ısı olarak kaybedildiği \r\niçin üst trofik basamaklara yaklaşık %10’u aktarılabilir. Bu nedenle III. tüketicilerde hem enerji miktarı hem de birey \r\nsayısı daha azdır.\r\n Mantarlar madde döngüsünü sağlar ancak ekosistemdeki enerji miktarını artırmaz.\r\n Sonuç olarak, trofik düzey yükseldikçe aktarılabilen enerji miktarı ve canlı sayısı azalır.\r\n KISMI PUAN\r\n • Canlıları trofik basamaklara eksik ya da hatalı yerleştirir ancak enerji akışı ile ilgili genellemeyi doğru yapar.\r\n • Trofik basamaklara canlıları doğru yerleştirir, enerji akışı ile ilgili genellemeyi yazmaz.\r\n • Trofik basamakları doğru yazar, enerji akışı ile ilgili genellemeyi hatalı ya da eksik yapar.\r\n SIFIR PUAN\r\n Cevap yok veya tamamen yanlış bilgiler içermektedir."
+  }
+ ]
+}

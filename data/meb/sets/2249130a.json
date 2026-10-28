@@ -1,0 +1,2681 @@
+{
+ "title": "9. Sınıf Türk Dili ve Edebiyatı – 2. Dönem 1. Yazılı (OGM Yazılıya Hazırlanıyorum)",
+ "meta": {
+  "fileId": "2249130a",
+  "grade": [
+   9
+  ],
+  "subject": "Türk Dili ve Edebiyatı",
+  "schoolYear": "",
+  "examType": "ogm-yazili",
+  "kind": "booklet",
+  "sourceUrl": "https://ogm-large-cdn.eba.gov.tr/materyal/Etkilesimlikitap/39ec3e8e-0869-49f0-bdb2-1237a06a11da/pdf.pdf",
+  "counts": {
+   "sections": 15,
+   "cards": 143,
+   "questions": 80,
+   "sourceQuestions": 7,
+   "skippedNeedingFigure": 0
+  }
+ },
+ "notes": {
+  "summary": "Bu dosya, 9. sınıf Türk Dili ve Edebiyatı dersinin 2. dönem 1. yazılısının örnek sorularını ve puanlama anahtarını içerir. Yedi soru vardır; hepsi okuduğunu anlama–çözümleme ve yazma becerilerini ölçer: çıkarım yapma (Soru 1–3), karşılaştırma (Soru 4), çözümleme (Soru 5–6) ve yönergeli yazma (Soru 7). Toplam 100 puandır: 15, 15, 10, 15, 15, 10, 20.\n\nBu dosyadan sınavda ne beklemeli / nasıl çalışmalı:\n1) Hikâyedeki aile baskısı gibi dolaylı anlamı çıkarım yoluyla açıklamayı çalışın (Soru 1, 15 puan).\n2) Millî, manevi ve evrensel değerleri metinden kanıtlarla ayrı ayrı yazın: vatan–millet sevgisi; sabır–inanç; umut (Soru 2, 15 puan).\n3) Gezi yazısının amacını türüyle birlikte yazın: yeri tanıtma ve okurda gezme isteği uyandırma (Soru 3, 10 puan).\n4) İki metni dil ve anlatım yönünden en az iki farkla karşılaştırın (Soru 4, 15 puan).\n5) Betimlemenin şiirsellikle ilişkisini örnek ifadeyle açıklayın (Soru 5, 15 puan); tür özelliğinin üsluba etkisini ‘çünkü’ ile bağlayın (Soru 6, 10 puan).\n6) Yönergeli yazıda 50–100 kelime, yazım–noktalama ve 10 anahtar kelimeyi kontrol listesi yapın (Soru 7, 20 puan).\nÖnce gezi yazısı, değerler ve öznel/nesnel notlarını, sonra yazma notlarını çalışın; “Benzer soru” setlerinin karşılaştırma sorularını yazılıdan önce yeniden çözün.",
+  "sections": [
+   {
+    "title": "Sözcükte anlam: gerçek, yan, mecaz ve bağlam",
+    "content": "Bir sözcüğün anlamını cümlenin bağlamı belirler. Gerçek anlam, sözcüğün akla ilk gelen temel anlamıdır. Yan anlam, gerçek anlamla ilişkili ek anlamlardır; mecaz anlam ise sözcüğün gerçek anlamından uzaklaşıp benzetme ya da ilgiyle başka bir anlam kazanmasıdır. Sözlükte çok anlamlı sözcüğün her anlamı numaralanır; soruda bağlama uygun olanı seçersiniz.\n\nÖrnek: “Bir devrin battığı yerdir.” dizesinde “batmak” sıvıya gömülmek değil, “yıkılmak, egemenliği sona ermek” anlamındadır. “Bu ıssız, gölgesiz yolun sonunda” dizesinde “ıssız”, kimsenin bulunmadığı, tenha anlamıdır. “Mübarek kanını kattığı yerdir” dizesinde “katmak”, bir şeyin içine başka bir şey eklemektir. “Hürriyet zevkini tattığı yerdir” dizesinde “tatmak” duymak, hissetmektir.\n\nSınavda nasıl sorulur: Dizelerden hareketle çok anlamlı sözcüklerin bağlamdaki anlamını tabloda işaretleme. Sözlük anlamlarını tek tek dizeye yerleştirip anlam çıkaran seçilir.",
+    "bulletPoints": [
+     "Sözcüğün anlamını sözlüğe değil bağlama bakarak seçersiniz.",
+     "Gerçek anlam ilk akla gelen anlamdır; mecazda sözcük başka bir kavramı anlatır.",
+     "Her sözlük anlamını dizeye yerleştirip cümlenin anlam bütünlüğü bozulmuyorsa o anlam doğrudur.",
+     "Çok anlamlı sözcüğün tek bir doğru anlamı bağlamda belirginleşir.",
+     "Tabloda her sözcük için yalnızca bir kutu işaretlenir; fazla işaret puan kaybettirir."
+    ],
+    "keyTerms": [
+     {
+      "term": "Gerçek anlam",
+      "definition": "Sözcüğün temel, ilk akla gelen anlamı."
+     },
+     {
+      "term": "Mecaz anlam",
+      "definition": "Sözcüğün gerçek anlamından uzaklaşarak kazandığı soyut ya da benzetmeye dayalı anlam."
+     },
+     {
+      "term": "Bağlam",
+      "definition": "Sözcüğün içinde geçtiği cümle, dize ve metnin anlamsal çevresi."
+     }
+    ]
+   },
+   {
+    "title": "Mecaz-ı mürsel, teşbih, istiare ve kinaye",
+    "content": "Mecaz-ı mürsel (ad aktarması): Bir sözcüğün benzetme amacı güdülmeden, aralarında bir ilgi bulunan başka bir sözcük yerine kullanılmasıdır. İlgiler: parça-bütün, yer-yerleşen, sanatçı-eser, neden-sonuç, kap-içindeki gibi. Örnek: “Bütün köy toplandı.” (köy yerine köylüler: yer-yerleşen).\n\nTeşbih (benzetme): Benzetilen, benzeyen, benzetme yönü ve edattan oluşur: “Dostluk bir kitap gibi.” İstiare (eğretileme): Teşbihin edat ve bir ögesinin düşmesiyle olur; yalnız bir öge söylenir. Kinaye: Sözün hem gerçek hem kastedilen anlamı düşünülebilir, asıl kastedilen anlam gerçek anlamın ardındadır (“eli uzun” gibi).\n\nÖrnek: “Can veren Mehmed’in yattığı yerdir.” dizesinde “Mehmed” şehit olan tüm askerleri, “yattığı yer” mezarı anlatır; benzetme amacı olmadığı için mecaz-ı mürseldir.\n\nSınavda nasıl sorulur: Dize verilir; sanatın adı (4 puan) ve dizeye kattığı anlam (4 puan) ayrı puanlanır.",
+    "bulletPoints": [
+     "Mecaz-ı mürselde benzetme yoktur, yalnız bir ilgi (yer-yerleşen, parça-bütün…) vardır.",
+     "Teşbihte benzeyen ve benzetilen ikisi de bulunur: “gibi” edatıyla.",
+     "İstiarede iki ögeden yalnız biri söylenir.",
+     "Kinayede gerçek anlam da düşünülebilir; asıl kastedilen başka bir şeydir.",
+     "Sanatı bulduktan sonra dizeye kattığı anlamı ayrı bir cümleyle yazmayı unutmayın."
+    ],
+    "keyTerms": [
+     {
+      "term": "Mecaz-ı mürsel",
+      "definition": "Benzetme amacı olmadan, ilgi yoluyla bir sözcüğün başka bir sözcük yerine kullanılması (ad aktarması)."
+     },
+     {
+      "term": "Teşbih",
+      "definition": "Bir şeyin başka bir şeye ortak özelliği nedeniyle benzetilmesi."
+     },
+     {
+      "term": "Kinaye",
+      "definition": "Gerçek anlamı da mümkün olan, ama asıl anlamı kastedilen mecazlı söyleyiş."
+     }
+    ]
+   },
+   {
+    "title": "Örtük anlam, simge ve çıkarım",
+    "content": "Metinde doğrudan söylenmeyen ama sözlerin arkasından çıkarılan anlama örtük (örtülü) anlam denir. Şiirde yolculuk, yol, han, kapı, yıldız gibi sözcükler çoğu zaman simgedir. Örtük ileti çıkarırken cümleleri tek tek değil bütün olarak okuyup “şair bununla ne anlatmak istiyor?” diye sorulur.\n\nÖrnek: Âşık Veysel’in “Uzun ince bir yoldayım / Gidiyorum gündüz gece” dizelerinde yolculuk, insanın doğumdan ölüme uzanan yaşam yolculuğudur. “İki kapılı bir han”, dünyayı simgeler: bir kapıdan girilir (doğum), diğerinden çıkılır (ölüm). “Bilmiyorum ne haldayım” ifadesi insanın anlam arayışını ve belirsizliğini anlatır.\n\nÖrtük iletiler: (1) yaşam bir yolculuktur; (2) hayat durmaksızın akar ve insan buna mecburen kapılır; (3) insan anlam arayışı içindedir ve belirsizlik duyar; (4) dünya geçicidir.\n\nSınavda nasıl sorulur: “Örtük iletilerden üçünü açıklayınız.” Her ileti için dizeden kanıt + yorum yazın.",
+    "bulletPoints": [
+     "Örtük anlam, yazılmayan ama çıkarılabilen anlamdır; dizeyi simgeleriyle birlikte yorumlamak gerekir.",
+     "Yol/yolculuk çoğu zaman yaşamı, han dünyayı, kapılar doğum ve ölümü simgeler.",
+     "Her örtük iletiyi bir dizeye bağlayıp tek cümle yorumla bitirin.",
+     "En az üç ileti isteniyorsa üçünü ayrı maddelerde yazın.",
+     "Cevapta “şiir görünüşte… anlatıyor, derinde… anlatıyor” kalıbı tam puanı güçlendirir."
+    ],
+    "keyTerms": [
+     {
+      "term": "Örtük anlam",
+      "definition": "Doğrudan söylenmeyen, ima edilen anlam."
+     },
+     {
+      "term": "Simge",
+      "definition": "Başka bir kavramı temsil eden varlık veya nesne."
+     },
+     {
+      "term": "Çıkarım",
+      "definition": "Verilenlerden yola çıkarak verilmeyen sonuca ulaşma."
+     }
+    ]
+   },
+   {
+    "title": "Deneme: konu, ana fikir ve amaç",
+    "content": "Deneme, yazarın bir konuda kesin hüküm vermeden, kişisel görüş ve izlenimlerini samimi bir dille anlattığı düşünce yazısıdır. Montaigne denemenin kurucusu kabul edilir (Denemeler). Denemede herhangi bir konu işlenebilir; yazar “ben”i öne çıkarır, okurla konuşur gibi yazar, kanıtı kesin bilimsel veriden çok akıl yürütme ve örnekle kurar.\n\nKonu, metnin üzerinde durduğu şeydir. Ana fikir, yazarın o konuda vermek istediği temel yargıdır. Yazılış amacı ise yazarın metni neden yazdığıdır (bilinçlendirmek, ikna etmek, düşündürmek).\n\nÖrnek: Montaigne’in “Dil Üstüne” denemesi için konu: dilin zenginleştirilmesi ve doğru kullanımının önemi, çağdaş yazarların dil üzerindeki etkileri. Ana fikir: Dili zenginleştirmenin yolu yeni sözcük uydurmaktan çok, mevcut olanakları ustalıkla ve derin anlamlar yükleyerek kullanmaktır. Amaç: Dile değer katmanın yolunun dilin zenginliklerini bilinçli kullanmaktan geçtiğini vurgulayıp okuru bilinçlendirmek.\n\nSınavda nasıl sorulur: Üç ayrı başlıkta konu / ana fikir / amaç yazılır; her biri ayrı puandır, bu yüzden birbirinin yerine geçecek tek cümle yazmayın.",
+    "bulletPoints": [
+     "Konu “ne hakkında?”, ana fikir “ne diyor?”, amaç “neden yazmış?” sorularının cevabıdır.",
+     "Ana fikir bir yargı cümlesi olmalıdır: “… yoluyla … mümkündür.”",
+     "Amaç fiille biten bir ifadedir: bilinçlendirmek, düşündürmek, uyarmak.",
+     "Denemede yazarın kişisel görüşü ve içten üslubu önemlidir.",
+     "Üç başlığı tabloda ayrı ayrı doldurun; hiçbirini boş bırakmayın."
+    ],
+    "keyTerms": [
+     {
+      "term": "Deneme",
+      "definition": "Kesin hüküm vermeden kişisel görüşleri samimi bir dille anlatan düşünce yazısı."
+     },
+     {
+      "term": "Ana fikir",
+      "definition": "Yazarın konu hakkında vermek istediği temel yargı."
+     },
+     {
+      "term": "Yazılış amacı",
+      "definition": "Yazarın metni hangi niyetle yazdığı."
+     }
+    ]
+   },
+   {
+    "title": "Düşünceyi geliştirme yolları",
+    "content": "Düşünceyi geliştirme yolları, ana düşüncenin okura daha iyi aktarılması için kullanılan yöntemlerdir. Başlıcaları: tanımlama (bir şeyin ne olduğunu açıklama), örneklendirme, karşılaştırma (benzerlik ve farklılık), benzetme (bir şeyi başka bir şeye benzeterek anlatma), tanık gösterme (bir uzmanın sözüne yer verme), sayısal verilerden yararlanma.\n\nÖrnek: “Konuşma dilinin deyimleri otlar gibi yer değiştirdikçe daha gürbüz, daha bereketli oluyor.” cümlesinde deyimler otlara benzetilmiştir: benzetme vardır. “Yeni bir sözcük kullanmak isteğiyle eskisini atıyorlar, çoğu kez de attıkları sözcük yenisinden daha kuvvetli, daha diri duruyor.” cümlesinde eski ve yeni sözcük karşılaştırılmıştır.\n\nSınavda nasıl sorulur: “Aşağıdaki düşünceyi geliştirme yollarına metinden birer örnek yazınız.” Her yol için cümleyi tırnak içinde aynen yazın; cümlede o yolun işareti (gibi, daha… -den, karşılık) bulunmalı.",
+    "bulletPoints": [
+     "Benzetme: “gibi, sanki, kadar” gibi sözcükler ve benzeyen-benzetilen ilişkisi aranır.",
+     "Karşılaştırma: iki şey arasında benzerlik/zıtlık kurulur; “daha, -den, oysa, buna karşılık”.",
+     "Tanımlama: “… dir/dır” kalıbıyla bir şeyin ne olduğu söylenir.",
+     "Örnekleme: “örneğin, mesela” sözcükleri ve belirli vakalar.",
+     "Tanık gösterme: bir kişinin sözünden alıntı yapılır; sayısal veri: yüzde, tarih, rakam kullanılır."
+    ],
+    "keyTerms": [
+     {
+      "term": "Tanımlama",
+      "definition": "Bir kavramın ne olduğunu açıklama."
+     },
+     {
+      "term": "Karşılaştırma",
+      "definition": "İki varlık ya da düşünceyi benzer ve farklı yönleriyle değerlendirme."
+     },
+     {
+      "term": "Tanık gösterme",
+      "definition": "Düşünceyi desteklemek için başka birinin sözünden yararlanma."
+     }
+    ]
+   },
+   {
+    "title": "Anlatım biçimleri",
+    "content": "Anlatım biçimleri, bir metnin ne amaçla ve nasıl kurulduğunu gösteren dört ana yoldur: Öyküleme (olay anlatma, zaman akışı vardır), betimleme (görünüşü, yeri, kişiyi “fotoğraf çekercesine” sözcüklerle gösterme), açıklama (bilgi verme, öğretme), tartışma (bir düşünceyi savunup karşı görüşü çürütme).\n\nÖrnek: Montaigne’in “Dil Üstüne” denemesi tartışmacı anlatımla yazılmıştır: yazar kendi görüşünü savunur, çağdaş yazarları eleştirir. Falih Rıfkı Atay’ın Antalya yazısı betimleme ve açıklama ağırlıklıdır. Haldun Taner’in leylek sahnesi öykülemedir.\n\nBir metinde birden fazla anlatım biçimi karışık olabilir; baskın olanı seçmek için amaca bakın: olay mı, görüntü mü, bilgi mi, görüş mü?\n\nSınavda nasıl sorulur: Anlatım biçimini tek ifadeyle yazma (5 puan) veya iki metni anlatım biçimi açısından karşılaştırma.",
+    "bulletPoints": [
+     "Öyküleme: eylemler, zaman akışı, kişiler, olay örgüsü.",
+     "Betimleme: renk, biçim, koku, ses gibi duyulara hitap eden ayrıntılar.",
+     "Açıklama: bilgi verme, tanım, neden-sonuç; nesnel dil.",
+     "Tartışma: görüş savunma, eleştiri, kanıt, karşı görüşü çürütme.",
+     "Bir metinde birden çok biçim olabilir; sorunun istediği baskın biçimi yazın."
+    ],
+    "keyTerms": [
+     {
+      "term": "Öyküleme",
+      "definition": "Bir olayı zaman akışı içinde anlatma."
+     },
+     {
+      "term": "Betimleme",
+      "definition": "Bir varlığı, yeri ya da durumu duyulara hitap ederek tasvir etme."
+     },
+     {
+      "term": "Tartışmacı anlatım",
+      "definition": "Bir görüşü savunup karşı görüşü çürütmeye dayanan anlatım."
+     }
+    ]
+   },
+   {
+    "title": "Öğretici ve sanatsal metinler; gerçeklikle ilişki",
+    "content": "Metinler amaçlarına göre ikiye ayrılır. Öğretici metinler bilgi vermeyi, öğretmeyi amaçlar; dil açık ve nesnel, anlatım dolaysızdır, kanıtlanabilir bilgi verir. Sanatsal (edebî) metinler estetik zevk verir; dil duygusal ve çok anlamlıdır, yazar kurmaca ya da kendi duygu ve izlenimlerini yansıtır.\n\nGerçeklikle ilişki açısından: Anı, gerçek yaşanmış olayları anlatır. Hikâye ise olayları kurgulayarak anlatır (kurmaca); gerçeğe benzer ama gerçek olması gerekmez.\n\nÖrnek: Yusuf Ziya Ortaç’ın “Mehmet Akif’i iki yıl uzaktan tanıdım…” diye başlayan Portreler parçası gerçek kişileri ve olayları anlatır ve “yalvar” sözcüğünün bir para adı olduğunu öğretir: öğretici bir yön taşır. Füruzan’ın Parasız Yatılı parçası ise kurgulanmış bir hikâyedir.\n\nSınavda nasıl sorulur: “Hangi metin öğreticidir? Gerekçesiyle yazınız.” Metin seçimi (3 puan) + gerekçe (4 puan).",
+    "bulletPoints": [
+     "Öğretici metinde amaç bilgi verip öğretmektir; dil açık ve nesneldir.",
+     "Sanatsal metinde amaç estetik zevk vermektir; dil çok anlamlı olabilir.",
+     "Anıda olay gerçektir; hikâyede olay kurgulanır.",
+     "Gerekçe cümlesine “amaç”, “dil” ve “gerçeklik” kavramlarından en az birini katın.",
+     "Seçim + gerekçe çiftini her zaman birlikte yazın; yalnız seçim kısmî puandır."
+    ],
+    "keyTerms": [
+     {
+      "term": "Öğretici metin",
+      "definition": "Bilgi vermek ve öğretmek amacıyla yazılan metin."
+     },
+     {
+      "term": "Sanatsal metin",
+      "definition": "Estetik zevk vermeyi amaçlayan edebî metin."
+     },
+     {
+      "term": "Kurmaca",
+      "definition": "Gerçek olması şart olmayan, yazarın kurguladığı anlatı."
+     }
+    ]
+   },
+   {
+    "title": "Anı, hikâye, gezi yazısı ve diğer türler",
+    "content": "Anı (hatıra): Yazarın tanık olduğu ya da yaşadığı gerçek olayların, kişilerin sonradan anlatılmasıdır; birinci kişi ağzıyla yazılır. Hikâye (öykü): Tek bir olayı kısa biçimde, kişi–yer–zaman unsurlarıyla anlatan kurmaca türdür. Gezi yazısı: Yazarın gezdiği yerleri gözlem ve izlenimleriyle tanıttığı, bilgi ve betimlemeye dayanan türdür; yazar okuru o yeri görmeye özendirir. Biyografi: Bir kişinin hayatını anlatır. Otobiyografi: Kişinin kendi hayatını anlatması. Mektup, günlük, deneme de yaygın türlerdir.\n\nÖrnek: Falih Rıfkı Atay’ın Antalya parçası gezi yazısıdır: yazar mekânı gözleme dayanarak betimler ve coğrafi bilgi verir. Amaç, yeri tanıtmak ve okurda gezme isteği uyandırmaktır. Yılmaz Çetiner’in Balçık parçasında ise kasabanın tarihçesi nesnel bilgiyle verilir.\n\nSınavda nasıl sorulur: Türü göz önünde bulundurarak yazarın amacını açıklayın: “Bir yeri tarihî, coğrafi, kültürel özellikleriyle tanıtma + okurda gezme isteği uyandırma.”",
+    "bulletPoints": [
+     "Gezi yazısı gözleme dayanır; yer betimlenir ve bilgi (tarih, kültür, coğrafya) verilir.",
+     "Anı gerçek, hikâye kurmaca olaydır.",
+     "Biyografi başkasının, otobiyografi yazarın kendi hayatıdır.",
+     "Gezi yazısının amacı: yeri tanıtmak, gözlem ve izlenimleri paylaşmak, okuru özendirmek.",
+     "Tür adı, soruda amacı veya üslubu açıklamanıza anahtar verir."
+    ],
+    "keyTerms": [
+     {
+      "term": "Gezi yazısı",
+      "definition": "Yazarın gezip gördüğü yerleri gözlem ve izlenimleriyle anlattığı yazı türü."
+     },
+     {
+      "term": "Anı",
+      "definition": "Gerçek yaşantıların sonradan anlatılması."
+     },
+     {
+      "term": "Biyografi",
+      "definition": "Bir kişinin yaşam öyküsünün başkası tarafından yazılması."
+     }
+    ]
+   },
+   {
+    "title": "Millî, manevi ve evrensel değerler",
+    "content": "Değerler, bir toplumun ya da insanlığın doğru, güzel ve önemli saydığı ilkelerdir. Millî değerler bir milletin ortak tarih ve kültüründen doğar (vatan ve millet sevgisi, bayrak, bağımsızlık). Manevi değerler inanç ve ahlaka dayanır (sabır, inanç, hoşgörü, yardımlaşma). Evrensel değerler bütün insanlığı bağlar (umut, barış, adalet, dostluk, insan sevgisi).\n\nÖrnek: Ömer Seyfettin’in “Forsa” hikâyesinden alınan parçada denize bakan yaşlı adam “Kırk sene görülen bir rüya yalan olmaz!” der. Rubriğe göre: Millî değer olarak vatan ve millet sevgisi (Türklerin gelişini beklemek), manevi değer olarak sabır ve inanç (kırk yıllık bekleyiş, rüyaya inanma), evrensel değer olarak umut (“ilkbahar bir ümit tufanı gibi…”) ifadeleri bulunur.\n\nBedri Rahmi’nin “Dostluğumuz” şiirinde sabır, anlayış ve hoşgörü değerleri dostlukla ilişkilendirilir.\n\nSınavda nasıl sorulur: “Metinde millî, manevi ve evrensel değerler nasıl yansıtılmıştır?” Üç değer türünü ayrı ayrı yazıp her birine metinden kanıt ekleyin.",
+    "bulletPoints": [
+     "Millî değer: vatan, millet, bayrak, bağımsızlık sevgisi.",
+     "Manevi değer: sabır, inanç, hoşgörü, yardımseverlik.",
+     "Evrensel değer: umut, barış, adalet, dostluk.",
+     "Her değer türüne metinden bir ifade ile gerekçe ekleyin.",
+     "Üç değer türünü tek paragrafta karıştırmayın; ayrı ayrı yazın."
+    ],
+    "keyTerms": [
+     {
+      "term": "Millî değer",
+      "definition": "Bir milletin kendi tarih ve kültüründe oluşan ortak değerler."
+     },
+     {
+      "term": "Manevi değer",
+      "definition": "İnanç ve ahlaka dayanan, maddi olmayan değerler."
+     },
+     {
+      "term": "Evrensel değer",
+      "definition": "Tüm insanlığın paylaştığı ortak değerler."
+     }
+    ]
+   },
+   {
+    "title": "Öznel ve nesnel anlatım; dilin işlevleri",
+    "content": "Nesnel anlatımda kişisel duygu ve yorum yoktur; ifade kanıtlanabilir, herkesin aynı şekilde doğrulayabileceği bilgilere dayanır (öğretici metinler, haberler). Öznel anlatımda yazarın kişisel duygu, görüş ve izlenimleri öne çıkar (şiir, anı, deneme). Aynı konu iki biçimde de yazılabilir: “Su 100 °C’de kaynar.” (nesnel) / “Suyun kaynama sesi bana huzur verir.” (öznel).\n\nDilin işlevleri: göndergesel (bilgi aktarma), heyecan (duyguyu dile getirme), şiirsel (sanatlı söyleyiş), alıcıyı harekete geçirme (emir, rica), kanal (iletişimi sürdürme).\n\nÖrnek: Oğuz Atay’ın “Unutulan” parçasında kahramanın iç dünyası ve duyguları ön plandadır: öznel, sanatlı, duygulu bir üslup. Reşat Nuri’nin gezi notlarında gözlemler ve nesnel ayrıntılar vardır. Köse Kadı parçasında “göğsü iftiharla çarparak” gibi ifadeler duyguyu öne çıkarırken, Vedat Günyol’un yazar tanıtımı yayın tarihleri ve eser adlarıyla kanıtlanabilir bilgi içerir: nesnel.\n\nSınavda nasıl sorulur: İki metni öznel/nesnel açıdan değerlendirme: karar (5) + gerekçe (5) × iki metin.",
+    "bulletPoints": [
+     "Nesnel: kanıtlanabilir bilgi, tarih, rakam, ad; kişisel duygu yok.",
+     "Öznel: duygu, izlenim, yorum, mecaz; kişiden kişiye değişir.",
+     "Karar verin, sonra gerekçeyi “çünkü” ile bağlayın.",
+     "Gerekçe metinden bir kanıt ifade içermelidir.",
+     "Şiir, anı, deneme çoğunlukla öznel; haber, ansiklopedi, bilimsel yazı nesneldir."
+    ],
+    "keyTerms": [
+     {
+      "term": "Nesnel anlatım",
+      "definition": "Kişisel görüş içermeyen, doğrulanabilir anlatım."
+     },
+     {
+      "term": "Öznel anlatım",
+      "definition": "Yazarın duygu ve yargılarını yansıtan anlatım."
+     },
+     {
+      "term": "Göndergesel işlev",
+      "definition": "Dilin bilgi aktarma işlevi."
+     }
+    ]
+   },
+   {
+    "title": "Üslup, tür ve anlatımın özellikleri",
+    "content": "Üslup, yazarın dili kullanış biçimidir; sözcük seçimi, cümle uzunluğu, söz sanatları ve anlatım biçimi üslubu belirler. Metnin türü üslubu etkiler: Gezi yazısı gözleme dayalı olduğu için betimleyici ve bilgilendirici üslup gerektirir; hikâyede öyküleme ağırlıklıdır.\n\nAnlatımın özellikleri: açıklık (anlaşılır olma), duruluk (gereksiz sözcükten arınma), akıcılık (okurken tıkanmama), yoğunluk (az sözle çok şey anlatma), özgünlük (kendine has).\n\nÖrnek: Yılmaz Çetiner’in Balçık parçasında yazar tür özelliği gereği (gezi yazısı) mekânı betimleyici bir anlatımla aktarmış, gözlemleri desteklemek için nesnel bilgilere yer vermiş (Evliya Çelebi’nin gördüğü ev, mahalle, dükkân sayıları) ve tarih–kültür bilgilerini açıklayıcı anlatımla vermiştir.\n\nFalih Rıfkı Atay’ın “Çoban ve kaval gibi, kavak ve akasya da yukarı bozkırın şiiri idi” ifadesinde doğa unsurları yalnızca betimlenmekle kalmaz, sanatsal bir anlam da yüklenir: betimleyici anlatım şiirsellikle bütünleşir.\n\nSınavda nasıl sorulur: “Metnin türü üslup seçimini nasıl etkilemiştir?” Tür özelliğini söyleyin, üslup sonucunu bağlayın.",
+    "bulletPoints": [
+     "Tür özelliği → üslup seçimi şeklinde “çünkü” bağıyla yazın.",
+     "Gezi yazısı: gözleme dayalı; betimleme + açıklama; nesnel bilgi.",
+     "Şiirsel betimleme, doğaya duygusal ve estetik anlam yükler.",
+     "Anlatım özellikleri: açıklık, duruluk, akıcılık, yoğunluk, özgünlük.",
+     "İki metni karşılaştırırken cümle uzunluğu, sözcüklerin anlamı, anlatım biçimi gibi ölçütleri kullanın."
+    ],
+    "keyTerms": [
+     {
+      "term": "Üslup",
+      "definition": "Yazarın dili kendine özgü kullanış biçimi."
+     },
+     {
+      "term": "Açıklık",
+      "definition": "Anlatımın kolay anlaşılır olması."
+     },
+     {
+      "term": "Duruluk",
+      "definition": "Anlatımda gereksiz sözcük ve süslemelerden arınmış olma."
+     }
+    ]
+   },
+   {
+    "title": "Betimleyici paragraf yazma",
+    "content": "Betimleyici yazıda amaç okurun gözünde bir görüntü, bir atmosfer canlandırmaktır. Duyulara hitap edilir: görme (renk, ışık), işitme (ses), koklama, dokunma, tatma. Betimlemede sıfatlar, benzetmeler ve doğru seçilmiş fiiller önemlidir. Şiirden hareketle yazarken şiirin yapısını ve temasını yansıtmak, imgeleri kendi cümlelerinizle aktarmak gerekir; şiiri aynen kopyalamak değil.\n\nPuanlama ölçütleri örneği: şiirin yapı ve temasını yansıtma; etkili betimleyici anlatım; en az beş cümle; özgün üslup; yazım ve noktalama.\n\nÖrnek (Necip Fazıl’ın “Ses” şiirinden): Saman tozları, pırıl pırıl hava, ormandan gelen ses, altın anahtar, kördüğüm, Kafdağı, yıldız, sahilsiz umman gibi imgeleri kullanarak şehir karmaşasından uzak, huzur dolu bir sesin tasvirini yazmak.\n\nTren şiiri örneğinde yönerge: 50–100 kelime; yazım–noktalama; anahtar kelimeler (tren, gece, özlem, tünel, köprü, aydınlık, zaman); duyulara hitap; yaratıcı bakış. Her madde ayrı puandır.",
+    "bulletPoints": [
+     "Yönergedeki her maddeyi bir kontrol listesi gibi tek tek işaretleyin.",
+     "Kelime sayısı: 50–100 arasında yazın; sayarak doğrulayın.",
+     "Anahtar kelimelerin hepsini kullanın, hiçbirini atlamayın.",
+     "Duyulara hitap eden ifadeler ekleyin: ses, koku, dokunma, görüntü.",
+     "Yaratıcılık için tek bir yeni açı seçin (ör. trenin gözünden anlatım)."
+    ],
+    "keyTerms": [
+     {
+      "term": "Betimleme",
+      "definition": "Bir varlığı, yeri ya da duyguyu sözcüklerle canlandırma."
+     },
+     {
+      "term": "İmge",
+      "definition": "Zihinde canlanan duyusal görüntü."
+     },
+     {
+      "term": "Anahtar kelime",
+      "definition": "Yönergede metinde mutlaka kullanılması istenen sözcük."
+     }
+    ]
+   },
+   {
+    "title": "Yazım ve noktalama",
+    "content": "Yazılı sınavda yazım ve noktalama her zaman ayrı puandır. En sık hata yapılan kurallar: “de/da” bağlacı ayrı yazılır (Ben de geldim), bulunma hâli eki bitişik yazılır (evde). “ki” bağlacı ayrı yazılır (Biliyorum ki gelecek), ama “akşamki, bugünkü” gibi sıfat yapan -ki eki bitişiktir. “Ya da” ayrı, “yalnız”, “herkes”, “birçok”, “hiçbir” bitişik; “her şey”, “hiçbir zaman” ayrı. Özel adlara gelen ekler kesme işaretiyle ayrılır (Ankara’ya, Mehmed’in). Cümle büyük harfle başlar, sonuna uygun noktalama konur. Virgül sıralı sözcüklerin arasına, noktalı virgül birbirine yakın cümleler arasına, iki nokta açıklama ve sıralama öncesine, üç nokta bitmemiş anlatıma konur.\n\nÖrnek: “Ayakları yerden kesilmiş gibi koştu, ama yorulmadı.” cümlesinde “ama” öncesinde virgül konur. “Sen de mi geliyorsun?” cümlesinde “de” ayrı yazılır.\n\nNot: “tezgâh”, “hâlâ”, “kâr” gibi sözcüklerde şapka anlam ayırıcıdır; doğru yazılması önemlidir.\n\nSınavda nasıl sorulur: “Yazım ve noktalama kurallarına uyunuz” maddesi 5 puandır; hata bulunmaması gerekir.",
+    "bulletPoints": [
+     "“de/da” bağlaç ayrı, ek bitişik: Ben de gittim / evde.",
+     "“ki” bağlaç olduğunda ayrı yazılır (Biliyorum ki gelecek); sıfat yapan -ki eki bitişik yazılır (bugünkü, akşamki).",
+     "Özel adlara gelen ekler kesme işaretiyle ayrılır: Ankara’ya.",
+     "Cümle büyük harfle başlar ve noktalama ile biter.",
+     "Metni teslim etmeden önce yüksek sesle okuyup noktalamayı kontrol edin."
+    ],
+    "keyTerms": [
+     {
+      "term": "Kesme işareti",
+      "definition": "Özel adlara gelen ekleri ayıran işaret."
+     },
+     {
+      "term": "Bağlaç",
+      "definition": "Sözcükleri ve cümleleri bağlayan sözcük (ve, de, ki, ama)."
+     },
+     {
+      "term": "Noktalı virgül",
+      "definition": "Eş görevli cümleleri veya öbekleri ayıran noktalama işareti."
+     }
+    ]
+   },
+   {
+    "title": "Açık uçlu soruda tam puan stratejisi",
+    "content": "MEB yazılı sorularının puanlama anahtarı ortak bir mantığa dayanır: TAM PUAN, KISMÎ PUAN, SIFIR PUAN. Tam puan, istenen her bileşenin yazıldığı cevaptır. Kısmî puan, bileşenlerin bir kısmının yazıldığı veya gerekçenin eksik kaldığı cevaptır. Sıfır puan, soruyla ilgisiz, boş veya yanlış cevaptır.\n\nStrateji: 1) Soru kökünü dikkatle okuyun, kaç şey istendiğini sayın (ör. “konusu, ana fikri, yazılış amacı” → üç bileşen). 2) Her bileşeni ayrı satırda yazın. 3) İstenen yerde gerekçe verin (“çünkü…”). 4) Metinden kanıt ifade ekleyin. 5) “Kendi yerinizde olsaydınız…” gibi yorum sorularında kendi görüşünüzü de yazın. 6) Yönergeli yazma sorusunda tüm maddeleri bir kontrol listesi olarak işaretleyin.\n\nÖrnek: “Zehra’nın öğretmenliğe bakışını açıklayınız; siz olsaydınız nasıl davranırdınız?” sorusunda 5 puan Zehra’nın bakışı, 10 puan kendi yaklaşımınızdır; ikincisi yazılmazsa 5 puanı kaybedersiniz.\n\nSınavda nasıl sorulur: Puanlama tablosu soru başına puanı verir; yüksek puanlı sorulara daha fazla süre ayırın.",
+    "bulletPoints": [
+     "Soru kökünü sayın: kaç bileşen isteniyor?",
+     "Her bileşeni ayrı cümle veya madde ile yazın.",
+     "İstenen yerde gerekçe (“çünkü”) ve metinden kanıt ifade ekleyin.",
+     "Yorum sorusunda hem metindeki kişiyi hem kendi yaklaşımınızı yazın.",
+     "Son dakika: yazım, noktalama ve yönerge maddelerini kontrol edin."
+    ],
+    "keyTerms": [
+     {
+      "term": "Tam puan",
+      "definition": "İstenen tüm bileşenlerin eksiksiz yazıldığı cevabın puanı."
+     },
+     {
+      "term": "Kısmî puan",
+      "definition": "Bileşenlerin bir kısmı yazılmış veya gerekçesiz bırakılmış cevabın puanı."
+     },
+     {
+      "term": "Gerekçe",
+      "definition": "Bir yargının nedenini açıklayan ifade."
+     }
+    ]
+   },
+   {
+    "title": "Bu yazılının soru haritası ve puanlama mantığı",
+    "content": "Yedi soruluk yazılı 100 puandır: S1 (15), S2 (15), S3 (10), S4 (15), S5 (15), S6 (10), S7 (20). Puanlama anahtarı çoğu soruda yalnızca “doğru cevap” ve “yanlış cevap” koşullarını verir; bu nedenle her soru için cevabın hangi bileşenleri taşıması gerektiğini bilmek önemlidir.\n\nS1: aile büyüklerinin Çağatay’ı kendi mesleklerine yönlendirdiği + tercihlerin tıp–askerlik–öğretmenlikle sınırlı kalması (olumsuz etki, gerekçe ile). S2: millî değer = vatan ve millet sevgisi; manevi değer = sabır ve inanç; evrensel değer = umut. S3: gezi yazısı amacı = yeri tarihî, coğrafi, kültürel özellikleriyle tanıtmak ve gezme isteği uyandırmak. S4: iki farkın yazılması (anlatım biçimi, nesnel/öznel anlatım, gerçek/mecaz anlam, açık/sanatlı söyleyiş, cümle uzunluğu). S5: betimleyici anlatım + şiirsellik ilişkisi. S6: gezi yazısının gözleme dayalı olması → betimleme; nesnel bilgi; açıklayıcı anlatım. S7: üç madde: betimleme–karşılaştırma–tanımlama ve 50–100 kelime (5), yazım–noktalama (5), 10 anahtar kelime (10).\n\nÇalışma önerisi: Anahtar kelimeli yazma sorusu 10 puanı yalnızca anahtar kelimelere bağlar; kelimelerin hepsini kullanmadan teslim etmeyin.",
+    "bulletPoints": [
+     "Yanlış sayılan durumlar: ilgisiz, belirsiz veya soru kökünü karşılamayan cevaplar.",
+     "Soru 4’te iki özellik istenir; üçüncü özellik fazladan puan getirmez ama hata riskini artırır.",
+     "Soru 7’de anahtar kelime 10 puandır: 10 kelime, her biri 1 puan olarak düşünülebilir.",
+     "Öğrenme çıktıları: TDE2.2 anlam oluşturma, TDE2.3 çözümleme, TDE4.3 kural uygulama."
+    ],
+    "keyTerms": [
+     {
+      "term": "Gezi yazısı amacı",
+      "definition": "Bir yeri tanıtmak ve okurda orayı görme isteği uyandırmak."
+     },
+     {
+      "term": "Anahtar kelime",
+      "definition": "Yazıda mutlaka kullanılması gereken, puan getiren sözcük."
+     }
+    ]
+   }
+  ],
+  "importantDates": [],
+  "commonMistakes": [
+   "Çağatay sorusunda yalnızca “zekidir, başarılıdır” yazıp tercihe etkisini ve gerekçesini yazmamak.",
+   "Millî, manevi ve evrensel değerleri karıştırmak (sabırı millî değer saymak gibi).",
+   "Gezi yazısının amacını “eğlendirmek” olarak yazmak; amaç tanıtmak ve gezme isteği uyandırmaktır.",
+   "İki metni karşılaştırırken yalnızca bir metni anlatmak.",
+   "“Şiirsel” ifadeyi betimlemeyle ilişkilendirmeden yalnızca tanımlamak.",
+   "Üslup sorusunda tür özelliğini (gözlem, bilgi) yazmadan “güzel anlatmış” demek.",
+   "Anahtar kelimelerden birini atlamak (özellikle AVM, kargo, sanal gibi yeni sözcükler).",
+   "Beş cümlelik betimleme paragrafında betimleme, karşılaştırma ve tanımlamadan birini kullanmamak.",
+   "Yazının 100 kelimeyi aşması.",
+   "“Tezgâh”, “hâlâ” gibi şapkalı sözcükleri şapkasız yazmak.",
+   "Soruda kaç bileşen istendiğini saymadan yazmak; eksik bileşen kısmî puana indirir.",
+   "Gerekçe istenen yerde yalnız karar yazmak; “çünkü…” ile metinden kanıt eklemek gerekir.",
+   "Metinden örnek istenen sorularda kendi cümlesini yazmak; örnek aynen metinden alınmalıdır."
+  ],
+  "diagrams": [
+   {
+    "title": "Açık uçlu yazılı sorusunu tam puanla cevaplama akışı",
+    "nodes": [
+     {
+      "id": "n1",
+      "label": "Soru kökünü oku ve bileşenleri say",
+      "type": "input"
+     },
+     {
+      "id": "n2",
+      "label": "Metinde kanıt ifadeyi işaretle",
+      "type": "process"
+     },
+     {
+      "id": "n3",
+      "label": "Her bileşeni ayrı cümle veya madde yaz",
+      "type": "process"
+     },
+     {
+      "id": "n4",
+      "label": "Gerekçe (“çünkü”) ve örnek ekle",
+      "type": "process"
+     },
+     {
+      "id": "n5",
+      "label": "Yönerge, yazım ve noktalama kontrolü",
+      "type": "output"
+     }
+    ],
+    "connections": [
+     {
+      "from": "n1",
+      "to": "n2"
+     },
+     {
+      "from": "n2",
+      "to": "n3"
+     },
+     {
+      "from": "n3",
+      "to": "n4"
+     },
+     {
+      "from": "n4",
+      "to": "n5"
+     }
+    ]
+   }
+  ],
+  "mindmap": {
+   "label": "9. Sınıf Türk Dili ve Edebiyatı – Yazılı Hazırlık",
+   "children": [
+    {
+     "label": "Sözcükte anlam: gerçek, yan, mecaz ve bağlam",
+     "children": [
+      {
+       "label": "Gerçek anlam",
+       "detail": "Sözcüğün temel, ilk akla gelen anlamı.",
+       "children": []
+      },
+      {
+       "label": "Mecaz anlam",
+       "detail": "Sözcüğün gerçek anlamından uzaklaşarak kazandığı soyut ya da benzetmeye dayalı anlam.",
+       "children": []
+      },
+      {
+       "label": "Bağlam",
+       "detail": "Sözcüğün içinde geçtiği cümle, dize ve metnin anlamsal çevresi.",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Mecaz-ı mürsel, teşbih, istiare ve kinaye",
+     "children": [
+      {
+       "label": "Mecaz-ı mürsel",
+       "detail": "Benzetme amacı olmadan, ilgi yoluyla bir sözcüğün başka bir sözcük yerine kullanılması (ad aktarması).",
+       "children": []
+      },
+      {
+       "label": "Teşbih",
+       "detail": "Bir şeyin başka bir şeye ortak özelliği nedeniyle benzetilmesi.",
+       "children": []
+      },
+      {
+       "label": "Kinaye",
+       "detail": "Gerçek anlamı da mümkün olan, ama asıl anlamı kastedilen mecazlı söyleyiş.",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Örtük anlam, simge ve çıkarım",
+     "children": [
+      {
+       "label": "Örtük anlam",
+       "detail": "Doğrudan söylenmeyen, ima edilen anlam.",
+       "children": []
+      },
+      {
+       "label": "Simge",
+       "detail": "Başka bir kavramı temsil eden varlık veya nesne.",
+       "children": []
+      },
+      {
+       "label": "Çıkarım",
+       "detail": "Verilenlerden yola çıkarak verilmeyen sonuca ulaşma.",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Deneme: konu, ana fikir ve amaç",
+     "children": [
+      {
+       "label": "Deneme",
+       "detail": "Kesin hüküm vermeden kişisel görüşleri samimi bir dille anlatan düşünce yazısı.",
+       "children": []
+      },
+      {
+       "label": "Ana fikir",
+       "detail": "Yazarın konu hakkında vermek istediği temel yargı.",
+       "children": []
+      },
+      {
+       "label": "Yazılış amacı",
+       "detail": "Yazarın metni hangi niyetle yazdığı.",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Düşünceyi geliştirme yolları",
+     "children": [
+      {
+       "label": "Tanımlama",
+       "detail": "Bir kavramın ne olduğunu açıklama.",
+       "children": []
+      },
+      {
+       "label": "Karşılaştırma",
+       "detail": "İki varlık ya da düşünceyi benzer ve farklı yönleriyle değerlendirme.",
+       "children": []
+      },
+      {
+       "label": "Tanık gösterme",
+       "detail": "Düşünceyi desteklemek için başka birinin sözünden yararlanma.",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Anlatım biçimleri",
+     "children": [
+      {
+       "label": "Öyküleme",
+       "detail": "Bir olayı zaman akışı içinde anlatma.",
+       "children": []
+      },
+      {
+       "label": "Betimleme",
+       "detail": "Bir varlığı, yeri ya da durumu duyulara hitap ederek tasvir etme.",
+       "children": []
+      },
+      {
+       "label": "Tartışmacı anlatım",
+       "detail": "Bir görüşü savunup karşı görüşü çürütmeye dayanan anlatım.",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Öğretici ve sanatsal metinler; gerçeklikle ilişki",
+     "children": [
+      {
+       "label": "Öğretici metin",
+       "detail": "Bilgi vermek ve öğretmek amacıyla yazılan metin.",
+       "children": []
+      },
+      {
+       "label": "Sanatsal metin",
+       "detail": "Estetik zevk vermeyi amaçlayan edebî metin.",
+       "children": []
+      },
+      {
+       "label": "Kurmaca",
+       "detail": "Gerçek olması şart olmayan, yazarın kurguladığı anlatı.",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Anı, hikâye, gezi yazısı ve diğer türler",
+     "children": [
+      {
+       "label": "Gezi yazısı",
+       "detail": "Yazarın gezip gördüğü yerleri gözlem ve izlenimleriyle anlattığı yazı türü.",
+       "children": []
+      },
+      {
+       "label": "Anı",
+       "detail": "Gerçek yaşantıların sonradan anlatılması.",
+       "children": []
+      },
+      {
+       "label": "Biyografi",
+       "detail": "Bir kişinin yaşam öyküsünün başkası tarafından yazılması.",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Millî, manevi ve evrensel değerler",
+     "children": [
+      {
+       "label": "Millî değer",
+       "detail": "Bir milletin kendi tarih ve kültüründe oluşan ortak değerler.",
+       "children": []
+      },
+      {
+       "label": "Manevi değer",
+       "detail": "İnanç ve ahlaka dayanan, maddi olmayan değerler.",
+       "children": []
+      },
+      {
+       "label": "Evrensel değer",
+       "detail": "Tüm insanlığın paylaştığı ortak değerler.",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Öznel ve nesnel anlatım; dilin işlevleri",
+     "children": [
+      {
+       "label": "Nesnel anlatım",
+       "detail": "Kişisel görüş içermeyen, doğrulanabilir anlatım.",
+       "children": []
+      },
+      {
+       "label": "Öznel anlatım",
+       "detail": "Yazarın duygu ve yargılarını yansıtan anlatım.",
+       "children": []
+      },
+      {
+       "label": "Göndergesel işlev",
+       "detail": "Dilin bilgi aktarma işlevi.",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Üslup, tür ve anlatımın özellikleri",
+     "children": [
+      {
+       "label": "Üslup",
+       "detail": "Yazarın dili kendine özgü kullanış biçimi.",
+       "children": []
+      },
+      {
+       "label": "Açıklık",
+       "detail": "Anlatımın kolay anlaşılır olması.",
+       "children": []
+      },
+      {
+       "label": "Duruluk",
+       "detail": "Anlatımda gereksiz sözcük ve süslemelerden arınmış olma.",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Betimleyici paragraf yazma",
+     "children": [
+      {
+       "label": "Betimleme",
+       "detail": "Bir varlığı, yeri ya da duyguyu sözcüklerle canlandırma.",
+       "children": []
+      },
+      {
+       "label": "İmge",
+       "detail": "Zihinde canlanan duyusal görüntü.",
+       "children": []
+      },
+      {
+       "label": "Anahtar kelime",
+       "detail": "Yönergede metinde mutlaka kullanılması istenen sözcük.",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Yazım ve noktalama",
+     "children": [
+      {
+       "label": "Kesme işareti",
+       "detail": "Özel adlara gelen ekleri ayıran işaret.",
+       "children": []
+      },
+      {
+       "label": "Bağlaç",
+       "detail": "Sözcükleri ve cümleleri bağlayan sözcük (ve, de, ki, ama).",
+       "children": []
+      },
+      {
+       "label": "Noktalı virgül",
+       "detail": "Eş görevli cümleleri veya öbekleri ayıran noktalama işareti.",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Açık uçlu soruda tam puan stratejisi",
+     "children": [
+      {
+       "label": "Tam puan",
+       "detail": "İstenen tüm bileşenlerin eksiksiz yazıldığı cevabın puanı.",
+       "children": []
+      },
+      {
+       "label": "Kısmî puan",
+       "detail": "Bileşenlerin bir kısmı yazılmış veya gerekçesiz bırakılmış cevabın puanı.",
+       "children": []
+      },
+      {
+       "label": "Gerekçe",
+       "detail": "Bir yargının nedenini açıklayan ifade.",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Bu yazılının soruları",
+     "children": [
+      {
+       "label": "Soru 1: Örtük anlam, simge ve çıkarım",
+       "detail": "15 puan",
+       "children": []
+      },
+      {
+       "label": "Soru 2: Millî, manevi ve evrensel değerler",
+       "detail": "15 puan",
+       "children": []
+      },
+      {
+       "label": "Soru 3: Anı, hikâye, gezi yazısı ve diğer türler",
+       "detail": "10 puan",
+       "children": []
+      },
+      {
+       "label": "Soru 4: Öznel ve nesnel anlatım; dilin işlevleri",
+       "detail": "15 puan",
+       "children": []
+      },
+      {
+       "label": "Soru 5: Üslup, tür ve anlatımın özellikleri",
+       "detail": "15 puan",
+       "children": []
+      },
+      {
+       "label": "Soru 6: Üslup, tür ve anlatımın özellikleri",
+       "detail": "10 puan",
+       "children": []
+      },
+      {
+       "label": "Soru 7: Betimleyici paragraf yazma",
+       "detail": "20 puan",
+       "children": []
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "flashcards": [
+  {
+   "front": "Bu yazılıda hangi eser parçaları vardır?",
+   "back": "Çağatay hikâyesi (üniversite sınavı), Forsa (Ömer Seyfettin), Bizim Akdeniz (Falih Rıfkı Atay), Düşsem Yollara Yollara (Haldun Taner), Gazoz Ağacı (S. K. Aksal), Şu Bizim Rumeli (Y. Çetiner), Uludağ Sokak Satıcıları (Oktay Rifat).",
+   "category": "Bu yazılı: eserler ve puanlama",
+   "difficulty": "hard"
+  },
+  {
+   "front": "“Forsa” hikâyesinin yazarı kimdir?",
+   "back": "Ömer Seyfettin.",
+   "category": "Bu yazılı: eserler ve puanlama",
+   "difficulty": "easy"
+  },
+  {
+   "front": "“Bizim Akdeniz” hangi türdür ve yazarı kimdir?",
+   "back": "Gezi yazısı; Falih Rıfkı Atay.",
+   "category": "Bu yazılı: eserler ve puanlama",
+   "difficulty": "easy"
+  },
+  {
+   "front": "“Uludağ Sokak Satıcıları” şiirinin şairi kimdir?",
+   "back": "Oktay Rifat Horozcu.",
+   "category": "Bu yazılı: eserler ve puanlama",
+   "difficulty": "easy"
+  },
+  {
+   "front": "“Gazoz Ağacı” kimin eseridir?",
+   "back": "Sabahattin Kudret Aksal.",
+   "category": "Bu yazılı: eserler ve puanlama",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Çağatay’ın akrabaları onun tercihini nasıl etkiler?",
+   "back": "Aile büyükleri onu kendi mesleklerine (tıp, askerlik, öğretmenlik) yönlendirmiştir; başka tercih yapamaz.",
+   "category": "Bu yazılı: eserler ve puanlama",
+   "difficulty": "medium"
+  },
+  {
+   "front": "2. yazılıdaki en yüksek puanlı soru hangisidir?",
+   "back": "Soru 7 (betimleyici/yönergeli paragraf, 20 puan).",
+   "category": "Bu yazılı: eserler ve puanlama",
+   "difficulty": "easy"
+  },
+  {
+   "front": "1. metinle 2. metin (Taner–Aksal) hangi anlatım biçimleriyle ayrılır?",
+   "back": "Taner: açıklayıcı + betimleyici; Aksal: öyküleyici + betimleyici.",
+   "category": "Bu yazılı: eserler ve puanlama",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Falih Rıfkı’nın “bozkırın şiiri” ifadesi neyi gösterir?",
+   "back": "Doğa unsurlarının yalnız betimlenmediğini, sanatsal anlam yüklendiğini.",
+   "category": "Bu yazılı: eserler ve puanlama",
+   "difficulty": "hard"
+  },
+  {
+   "front": "7. soruda kaç anahtar kelime vardır?",
+   "back": "On: çarşı, selam, tezgâh, ekran, kalabalık, indirim, sanal, yalnızlık, AVM, kargo.",
+   "category": "Bu yazılı: eserler ve puanlama",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Gerçek anlam nedir?",
+   "back": "Sözcüğün temel, ilk akla gelen anlamı.",
+   "category": "Sözcükte anlam: gerçek, yan, mecaz ve bağlam",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Mecaz anlam nedir?",
+   "back": "Sözcüğün gerçek anlamından uzaklaşıp benzetme ya da ilgiyle başka bir anlam kazanması.",
+   "category": "Sözcükte anlam: gerçek, yan, mecaz ve bağlam",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Bağlam nedir?",
+   "back": "Sözcüğü çevreleyen cümle ve metnin anlam ortamı.",
+   "category": "Sözcükte anlam: gerçek, yan, mecaz ve bağlam",
+   "difficulty": "easy"
+  },
+  {
+   "front": "“Bir devrin battığı yerdir” dizesinde “batmak” hangi anlamda kullanılmıştır?",
+   "back": "“Yıkılmak, egemenliği sona ermek.”",
+   "category": "Sözcükte anlam: gerçek, yan, mecaz ve bağlam",
+   "difficulty": "medium"
+  },
+  {
+   "front": "“Bu ıssız, gölgesiz yolun sonunda” dizesinde “ıssız” hangi anlamdadır?",
+   "back": "“Kimse bulunmayan veya az kimse bulunan; yaban, tenha.”",
+   "category": "Sözcükte anlam: gerçek, yan, mecaz ve bağlam",
+   "difficulty": "medium"
+  },
+  {
+   "front": "“Mübarek kanını kattığı yerdir” dizesinde “katmak” hangi anlamdadır?",
+   "back": "“Bir şeyin içine, yanına başka bir şey eklemek.”",
+   "category": "Sözcükte anlam: gerçek, yan, mecaz ve bağlam",
+   "difficulty": "medium"
+  },
+  {
+   "front": "“Hürriyet zevkini tattığı yerdir” dizesinde “tatmak” hangi anlamdadır?",
+   "back": "“Bir şeyi duymak, hissetmek.”",
+   "category": "Sözcükte anlam: gerçek, yan, mecaz ve bağlam",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Çok anlamlı sözcüğün bağlamdaki anlamı nasıl bulunur?",
+   "back": "Sözlük anlamları dizeye yerleştirilir; cümlenin anlamını bozmayan anlam seçilir.",
+   "category": "Sözcükte anlam: gerçek, yan, mecaz ve bağlam",
+   "difficulty": "medium"
+  },
+  {
+   "front": "“Başını ağrıttın.” cümlesinde “ağrıtmak” gerçek mi mecaz mı?",
+   "back": "Mecaz: gerçekten baş ağrısı değil, sıkıntı vermek anlamındadır.",
+   "category": "Sözcükte anlam: gerçek, yan, mecaz ve bağlam",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Mecaz-ı mürsel nedir?",
+   "back": "Benzetme amacı gütmeden, bir ilgiyle (yer-yerleşen, parça-bütün vb.) bir sözcüğün başka bir sözcük yerine kullanılması.",
+   "category": "Mecaz-ı mürsel, teşbih, istiare ve kinaye",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Mecaz-ı mürselin Türkçe adı nedir?",
+   "back": "Ad aktarması.",
+   "category": "Mecaz-ı mürsel, teşbih, istiare ve kinaye",
+   "difficulty": "easy"
+  },
+  {
+   "front": "“Bütün köy toplandı.” cümlesinde hangi sanat vardır?",
+   "back": "Mecaz-ı mürsel: “köy” ile köylüler kastedilmiştir (yer-yerleşen).",
+   "category": "Mecaz-ı mürsel, teşbih, istiare ve kinaye",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Teşbih nedir?",
+   "back": "Bir şeyi, ortak özelliği nedeniyle başka bir şeye benzetmek.",
+   "category": "Mecaz-ı mürsel, teşbih, istiare ve kinaye",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Teşbihin dört ögesi nelerdir?",
+   "back": "Benzeyen, benzetilen, benzetme yönü, benzetme edatı.",
+   "category": "Mecaz-ı mürsel, teşbih, istiare ve kinaye",
+   "difficulty": "medium"
+  },
+  {
+   "front": "İstiare nedir?",
+   "back": "Benzetme edatı ve ögelerden birinin düşürülmesiyle yapılan benzetme (eğretileme).",
+   "category": "Mecaz-ı mürsel, teşbih, istiare ve kinaye",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kinaye nedir?",
+   "back": "Hem gerçek hem kastedilen anlam düşünülebilen, asıl anlamı başka olan söyleyiş.",
+   "category": "Mecaz-ı mürsel, teşbih, istiare ve kinaye",
+   "difficulty": "hard"
+  },
+  {
+   "front": "“Yunus’u okudum.” cümlesinde sanat nedir?",
+   "back": "Mecaz-ı mürsel (sanatçı-eser): Yunus yerine Yunus’un şiirleri.",
+   "category": "Mecaz-ı mürsel, teşbih, istiare ve kinaye",
+   "difficulty": "medium"
+  },
+  {
+   "front": "“Mehmed’in yattığı yer” dizesinde “yattığı yer” neyi kasteder?",
+   "back": "Mezarı (mecaz-ı mürsel).",
+   "category": "Mecaz-ı mürsel, teşbih, istiare ve kinaye",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Mecaz-ı mürsel ile teşbih arasındaki temel fark nedir?",
+   "back": "Teşbihte benzetme (ortak özellik) vardır; mecaz-ı mürselde benzetme yoktur, ilgi vardır.",
+   "category": "Mecaz-ı mürsel, teşbih, istiare ve kinaye",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Örtük anlam nedir?",
+   "back": "Doğrudan söylenmeyen, ima edilen ve çıkarımla bulunan anlam.",
+   "category": "Örtük anlam, simge ve çıkarım",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Simge nedir?",
+   "back": "Başka bir kavramı temsil eden varlık, nesne veya durum.",
+   "category": "Örtük anlam, simge ve çıkarım",
+   "difficulty": "easy"
+  },
+  {
+   "front": "“Uzun ince bir yoldayım” dizesinde yol neyi simgeler?",
+   "back": "İnsanın doğumdan ölüme uzanan yaşam yolculuğunu.",
+   "category": "Örtük anlam, simge ve çıkarım",
+   "difficulty": "medium"
+  },
+  {
+   "front": "“İki kapılı bir han” neyi anlatır?",
+   "back": "Dünyayı; bir kapı doğum, diğer kapı ölümdür. Hayatın geçiciliğini anlatır.",
+   "category": "Örtük anlam, simge ve çıkarım",
+   "difficulty": "medium"
+  },
+  {
+   "front": "“Bilmiyorum ne haldayım” sözü hangi örtük anlamı taşır?",
+   "back": "İnsanın anlam arayışını ve hayat karşısındaki belirsizliğini.",
+   "category": "Örtük anlam, simge ve çıkarım",
+   "difficulty": "medium"
+  },
+  {
+   "front": "“Gidiyorum gündüz gece” dizesi ne anlatır?",
+   "back": "Yaşamın durmaksızın aktığını ve insanın buna mecburen kapıldığını.",
+   "category": "Örtük anlam, simge ve çıkarım",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Örtük iletiyi bulmak için hangi soru sorulur?",
+   "back": "Şair bu görüntüyle gerçekte ne anlatmak istiyor?",
+   "category": "Örtük anlam, simge ve çıkarım",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yolculuk neden çoğu zaman simgedir?",
+   "back": "Başlangıcı, yolu ve sonu olduğu için yaşamı anlatmaya uygundur.",
+   "category": "Örtük anlam, simge ve çıkarım",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Örtük anlam cevabında nelerin yer alması gerekir?",
+   "back": "İleti + dizeden kanıt + kısa yorum.",
+   "category": "Örtük anlam, simge ve çıkarım",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Deneme nedir?",
+   "back": "Yazarın kesin hüküm vermeden kişisel düşüncelerini içten bir dille anlattığı yazı türü.",
+   "category": "Deneme: konu, ana fikir ve amaç",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Denemenin kurucusu kimdir?",
+   "back": "Montaigne (Fransız yazar), eseri “Denemeler”.",
+   "category": "Deneme: konu, ana fikir ve amaç",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Metnin konusu ne demektir?",
+   "back": "Metnin üzerinde durduğu, hakkında yazılan şeydir.",
+   "category": "Deneme: konu, ana fikir ve amaç",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Ana fikir nedir?",
+   "back": "Yazarın konu hakkında vermek istediği temel yargı.",
+   "category": "Deneme: konu, ana fikir ve amaç",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Yazılış amacı nedir?",
+   "back": "Yazarın metni hangi niyetle yazdığı (bilgi vermek, ikna etmek vb.).",
+   "category": "Deneme: konu, ana fikir ve amaç",
+   "difficulty": "medium"
+  },
+  {
+   "front": "“Dil Üstüne” denemesinin ana fikri nedir?",
+   "back": "Dili zenginleştirmenin yolu yeni sözcükler yaratmaktan çok mevcut olanakları ustalıkla ve derin anlamlar yükleyerek kullanmaktır.",
+   "category": "Deneme: konu, ana fikir ve amaç",
+   "difficulty": "medium"
+  },
+  {
+   "front": "“Dil Üstüne” denemesinin konusu nedir?",
+   "back": "Dilin zenginleştirilmesi ve doğru kullanımının önemi, çağdaş yazarların dile etkisi.",
+   "category": "Deneme: konu, ana fikir ve amaç",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Denemede anlatım hangi biçimde kurulur?",
+   "back": "Genellikle tartışmacı veya açıklayıcı anlatım; yazar kendi görüşünü savunur.",
+   "category": "Deneme: konu, ana fikir ve amaç",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Denemeyi makaleden ayıran temel özellik nedir?",
+   "back": "Deneme kişisel, içten ve kesin hüküm vermeyen; makale ise bilimsel kanıta dayanan ve kesin sonuç arayan bir türdür.",
+   "category": "Deneme: konu, ana fikir ve amaç",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Düşünceyi geliştirme yolları nelerdir?",
+   "back": "Tanımlama, örneklendirme, karşılaştırma, benzetme, tanık gösterme, sayısal verilerden yararlanma.",
+   "category": "Düşünceyi geliştirme yolları",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Benzetme nasıl bulunur?",
+   "back": "Bir şeyin başka bir şeye ortak özelliği nedeniyle benzetildiği cümlede aranır (“…gibi”).",
+   "category": "Düşünceyi geliştirme yolları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Karşılaştırma nasıl bulunur?",
+   "back": "İki şeyin benzer/zıt yönlerinin birlikte verildiği cümleye bakılır (“daha…”, “oysa”).",
+   "category": "Düşünceyi geliştirme yolları",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tanımlama nedir?",
+   "back": "Bir şeyin ne olduğunu açıklamak: “Dostluk, karşılıksız bağlılıktır.”",
+   "category": "Düşünceyi geliştirme yolları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Örneklendirme nedir?",
+   "back": "Genel bir yargıyı somut bir olayla desteklemek.",
+   "category": "Düşünceyi geliştirme yolları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Tanık gösterme nedir?",
+   "back": "Düşünceyi başka bir kişinin sözüne dayandırmak.",
+   "category": "Düşünceyi geliştirme yolları",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Sayısal veri nedir?",
+   "back": "İstatistik, yüzde, tarih, rakam gibi ölçülebilir bilgiler.",
+   "category": "Düşünceyi geliştirme yolları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "“Konuşma dilinin deyimleri otlar gibi yer değiştirdikçe daha gürbüz oluyor.” hangi yola örnektir?",
+   "back": "Benzetme: deyimler otlara benzetilmiştir.",
+   "category": "Düşünceyi geliştirme yolları",
+   "difficulty": "medium"
+  },
+  {
+   "front": "“Attıkları sözcük yenisinden daha kuvvetli duruyor.” hangi yola örnektir?",
+   "back": "Karşılaştırma: eski ve yeni sözcük kıyaslanıyor.",
+   "category": "Düşünceyi geliştirme yolları",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Anlatım biçimleri hangileridir?",
+   "back": "Öyküleme, betimleme, açıklama, tartışma.",
+   "category": "Anlatım biçimleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Öyküleme nedir?",
+   "back": "Bir olayın zaman akışı içinde anlatılması.",
+   "category": "Anlatım biçimleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Betimleme nedir?",
+   "back": "Bir varlığın, yerin ya da durumun duyulara hitap ederek tasvir edilmesi.",
+   "category": "Anlatım biçimleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Açıklama nedir?",
+   "back": "Bilgi verme, öğretme amaçlı anlatım.",
+   "category": "Anlatım biçimleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Tartışma nedir?",
+   "back": "Bir görüşü savunup karşı görüşü çürütmeye çalışan anlatım.",
+   "category": "Anlatım biçimleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "“Dil Üstüne” denemesinde hangi anlatım biçimi kullanılmıştır?",
+   "back": "Tartışmacı anlatım.",
+   "category": "Anlatım biçimleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Gezi yazısında en çok hangi anlatım biçimleri kullanılır?",
+   "back": "Betimleme ve açıklama (öyküleme de bulunabilir).",
+   "category": "Anlatım biçimleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Anılar ve hikâyelerde baskın anlatım biçimi nedir?",
+   "back": "Öyküleme.",
+   "category": "Anlatım biçimleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Betimlemede hangi sözcükler önemlidir?",
+   "back": "Sıfatlar, benzetmeler, duyulara hitap eden ifadeler.",
+   "category": "Anlatım biçimleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuzak: Bir metinde betimleme varsa anlatım biçimi mutlaka betimleme midir?",
+   "back": "Hayır; baskın biçim amaca göre belirlenir. Metin olay anlatıyorsa öyküleme baskındır.",
+   "category": "Anlatım biçimleri",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Öğretici metin nedir?",
+   "back": "Bilgi vermek, öğretmek amacıyla yazılmış metin.",
+   "category": "Öğretici ve sanatsal metinler; gerçeklikle ilişki",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Sanatsal metin nedir?",
+   "back": "Estetik zevk vermeyi amaçlayan, çok anlamlı bir dille yazılan edebî metin.",
+   "category": "Öğretici ve sanatsal metinler; gerçeklikle ilişki",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Anı ile hikâyenin gerçeklikle ilişkisi nasıl ayrılır?",
+   "back": "Anıda gerçek bir olay anlatılır; hikâyede olay kurgulanarak anlatılır.",
+   "category": "Öğretici ve sanatsal metinler; gerçeklikle ilişki",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Öğretici metinde dil nasıldır?",
+   "back": "Açık, anlaşılır, nesnel.",
+   "category": "Öğretici ve sanatsal metinler; gerçeklikle ilişki",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Sanatsal metinde dil nasıldır?",
+   "back": "Duygusal, çok anlamlı, imgeli.",
+   "category": "Öğretici ve sanatsal metinler; gerçeklikle ilişki",
+   "difficulty": "medium"
+  },
+  {
+   "front": "“Portreler” parçasında öğretici yönü gösteren bilgi hangisidir?",
+   "back": "“yalvar” sözcüğünün yalvarmak anlamında değil bir paranın adı olduğunun öğretilmesi.",
+   "category": "Öğretici ve sanatsal metinler; gerçeklikle ilişki",
+   "difficulty": "hard"
+  },
+  {
+   "front": "“Parasız Yatılı” parçası hangi türdür?",
+   "back": "Hikâye (olay kurgulanarak anlatılır).",
+   "category": "Öğretici ve sanatsal metinler; gerçeklikle ilişki",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yusuf Ziya Ortaç’ın parçası hangi türdür?",
+   "back": "Anı (gerçek olay ve kişiler).",
+   "category": "Öğretici ve sanatsal metinler; gerçeklikle ilişki",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kurmaca nedir?",
+   "back": "Yazarın hayal gücüyle kurduğu, gerçek olması gerekmeyen anlatı.",
+   "category": "Öğretici ve sanatsal metinler; gerçeklikle ilişki",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Gezi yazısı nedir?",
+   "back": "Yazarın gezdiği yerleri gözlem ve izlenimleriyle tanıttığı tür.",
+   "category": "Anı, hikâye, gezi yazısı ve diğer türler",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Gezi yazısının amacı nedir?",
+   "back": "Bir yeri tarihî, coğrafi, kültürel özellikleriyle tanıtmak; okuru görmeye özendirmek.",
+   "category": "Anı, hikâye, gezi yazısı ve diğer türler",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Gezi yazısında hangi anlatım biçimleri kullanılır?",
+   "back": "Betimleme ve açıklama; öyküleme de yer alabilir.",
+   "category": "Anı, hikâye, gezi yazısı ve diğer türler",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Anı nedir?",
+   "back": "Yaşanmış olayların sonradan anlatılması.",
+   "category": "Anı, hikâye, gezi yazısı ve diğer türler",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Hikâye nedir?",
+   "back": "Tek olayı kısa ve kurmaca biçimde anlatan edebî tür.",
+   "category": "Anı, hikâye, gezi yazısı ve diğer türler",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Biyografi nedir?",
+   "back": "Bir kişinin yaşam öyküsü (başkası tarafından).",
+   "category": "Anı, hikâye, gezi yazısı ve diğer türler",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Otobiyografi nedir?",
+   "back": "Kişinin kendi yaşam öyküsünü anlatması.",
+   "category": "Anı, hikâye, gezi yazısı ve diğer türler",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Falih Rıfkı Atay’ın “Bizim Akdeniz” parçası hangi türdür?",
+   "back": "Gezi yazısı.",
+   "category": "Anı, hikâye, gezi yazısı ve diğer türler",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Gezi yazısında nesnel bilgi neden kullanılır?",
+   "back": "Gözlemleri desteklemek ve yeri doğru tanıtmak için.",
+   "category": "Anı, hikâye, gezi yazısı ve diğer türler",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuzak: Gezi yazısı yalnızca duygusal bir anlatımdır, doğru mu?",
+   "back": "Hayır; gözlem, bilgi ve duygu birleşir. Nesnel bilgiler önemlidir.",
+   "category": "Anı, hikâye, gezi yazısı ve diğer türler",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Millî değerlere örnek veriniz.",
+   "back": "Vatan sevgisi, millet sevgisi, bayrak, bağımsızlık.",
+   "category": "Millî, manevi ve evrensel değerler",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Manevi değerlere örnek veriniz.",
+   "back": "Sabır, inanç, hoşgörü, yardımseverlik.",
+   "category": "Millî, manevi ve evrensel değerler",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Evrensel değerlere örnek veriniz.",
+   "back": "Umut, barış, adalet, dostluk, insan sevgisi.",
+   "category": "Millî, manevi ve evrensel değerler",
+   "difficulty": "easy"
+  },
+  {
+   "front": "“Forsa” parçasında millî değer hangisidir?",
+   "back": "Vatan ve millet sevgisi.",
+   "category": "Millî, manevi ve evrensel değerler",
+   "difficulty": "medium"
+  },
+  {
+   "front": "“Forsa” parçasında manevi değerler hangileridir?",
+   "back": "Sabır ve inanç.",
+   "category": "Millî, manevi ve evrensel değerler",
+   "difficulty": "medium"
+  },
+  {
+   "front": "“Forsa” parçasında evrensel değer hangisidir?",
+   "back": "Umut.",
+   "category": "Millî, manevi ve evrensel değerler",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Değer nedir?",
+   "back": "Bir toplumun doğru ve önemli kabul ettiği ilkeler.",
+   "category": "Millî, manevi ve evrensel değerler",
+   "difficulty": "easy"
+  },
+  {
+   "front": "“Dostluğumuz” şiirinde dostlukla ilişkilendirilen değerler nelerdir?",
+   "back": "Sabır, anlayış, hoşgörü.",
+   "category": "Millî, manevi ve evrensel değerler",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Değerleri metinde bulurken ne yapılır?",
+   "back": "İfadeler bulunur ve hangi değere işaret ettiği açıklanır.",
+   "category": "Millî, manevi ve evrensel değerler",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Hoşgörü hangi değer türüne girer?",
+   "back": "Manevi değer (evrensel de sayılabilir).",
+   "category": "Millî, manevi ve evrensel değerler",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Nesnel anlatım nedir?",
+   "back": "Kişisel duygu içermeyen, kanıtlanabilir bilgilere dayanan anlatım.",
+   "category": "Öznel ve nesnel anlatım; dilin işlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Öznel anlatım nedir?",
+   "back": "Yazarın kişisel duygu, görüş ve yorumlarını içeren anlatım.",
+   "category": "Öznel ve nesnel anlatım; dilin işlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "“Su 100 °C’de kaynar.” nesnel mi öznel mi?",
+   "back": "Nesnel; bilimsel olarak doğrulanabilir.",
+   "category": "Öznel ve nesnel anlatım; dilin işlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "“Bu şehir bana hep hüzünlü geliyor.” nesnel mi öznel mi?",
+   "back": "Öznel; kişisel duygu içerir.",
+   "category": "Öznel ve nesnel anlatım; dilin işlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Öğretici metinler genellikle hangi anlatıma sahiptir?",
+   "back": "Nesnel.",
+   "category": "Öznel ve nesnel anlatım; dilin işlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Göndergesel işlev nedir?",
+   "back": "Dilin bilgi aktarmak için kullanılması.",
+   "category": "Öznel ve nesnel anlatım; dilin işlevleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Heyecan işlevi nedir?",
+   "back": "Duyguyu doğrudan dile getiren işlev (“Aman Allah’ım!”).",
+   "category": "Öznel ve nesnel anlatım; dilin işlevleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Şiirsel işlev nedir?",
+   "back": "Dilin sanatlı, çarpıcı biçimde kullanılması.",
+   "category": "Öznel ve nesnel anlatım; dilin işlevleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Alıcıyı harekete geçirme işlevi nedir?",
+   "back": "Emir, rica, öğüt gibi alıcıyı bir eyleme yönelten kullanım.",
+   "category": "Öznel ve nesnel anlatım; dilin işlevleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuzak: Anı türü tamamen nesnel midir?",
+   "back": "Hayır; gerçek olay anlatılsa da yazarın duygu ve yorumu öznellik katar.",
+   "category": "Öznel ve nesnel anlatım; dilin işlevleri",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Üslup nedir?",
+   "back": "Yazarın dili kullanış biçimi; sözcük seçimi, cümle yapısı ve söz sanatlarıyla belirginleşir.",
+   "category": "Üslup, tür ve anlatımın özellikleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Metin türü üslubu nasıl etkiler?",
+   "back": "Tür özelliği gereği (gözlem, bilgi, kurgu) anlatım biçimi ve dil seçimi değişir.",
+   "category": "Üslup, tür ve anlatımın özellikleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Gezi yazısında üslup nasıl olur?",
+   "back": "Betimleyici ve bilgilendirici; gözleme dayalı, nesnel bilgilerle desteklenir.",
+   "category": "Üslup, tür ve anlatımın özellikleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Açıklık nedir?",
+   "back": "Anlatımın kolay anlaşılır olması.",
+   "category": "Üslup, tür ve anlatımın özellikleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Duruluk nedir?",
+   "back": "Anlatımda gereksiz sözcüklerden arınma.",
+   "category": "Üslup, tür ve anlatımın özellikleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Akıcılık nedir?",
+   "back": "Metnin okunurken tıkanmaması, rahat ilerlemesi.",
+   "category": "Üslup, tür ve anlatımın özellikleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yoğunluk nedir?",
+   "back": "Az sözle çok anlam anlatma.",
+   "category": "Üslup, tür ve anlatımın özellikleri",
+   "difficulty": "hard"
+  },
+  {
+   "front": "“Kavak ve akasya yukarı bozkırın şiiri idi” ifadesi neyi gösterir?",
+   "back": "Doğa unsurlarının betimlenmekle kalmayıp sanatsal bir anlam yüklendiğini.",
+   "category": "Üslup, tür ve anlatımın özellikleri",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Hikâyede hangi anlatım ağırlıktadır?",
+   "back": "Öyküleme.",
+   "category": "Üslup, tür ve anlatımın özellikleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "İki metni dil ve anlatım bakımından karşılaştırırken hangi ölçütler kullanılır?",
+   "back": "Anlatım biçimi, sözcüklerin anlamı (gerçek/mecaz), cümle uzunluğu, sanatlı–sade söyleyiş.",
+   "category": "Üslup, tür ve anlatımın özellikleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Betimleyici yazının amacı nedir?",
+   "back": "Okurun zihninde görüntü ve atmosfer canlandırmak.",
+   "category": "Betimleyici paragraf yazma",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Betimlemede hangi duyulara hitap edilebilir?",
+   "back": "Görme, işitme, koklama, dokunma, tatma.",
+   "category": "Betimleyici paragraf yazma",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Yönergede kelime sınırı varsa ne yapmalı?",
+   "back": "Yazıyı sayarak sınırın içinde tutmak (ör. 50–100 kelime).",
+   "category": "Betimleyici paragraf yazma",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Yönergedeki anahtar kelimeler ne işe yarar?",
+   "back": "Her biri ayrı puandır; hepsi kullanılmalıdır.",
+   "category": "Betimleyici paragraf yazma",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Betimleyici yazıda şiiri aynen kopyalamak doğru mu?",
+   "back": "Hayır; imgeler kendi cümlelerinizle yeniden kurulmalıdır.",
+   "category": "Betimleyici paragraf yazma",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Betimlemede hangi sözcük türleri öne çıkar?",
+   "back": "Sıfatlar, benzetmeler, etkili fiiller.",
+   "category": "Betimleyici paragraf yazma",
+   "difficulty": "medium"
+  },
+  {
+   "front": "En az beş cümle şartı hangi ölçütü karşılar?",
+   "back": "Metnin yeterli uzunlukta ve gelişmiş olmasını.",
+   "category": "Betimleyici paragraf yazma",
+   "difficulty": "medium"
+  },
+  {
+   "front": "“Özgün üslup” ne demektir?",
+   "back": "Başkasının cümlelerinden bağımsız, kendi anlatımınızla yazma.",
+   "category": "Betimleyici paragraf yazma",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yazının sonunda hangi son kontrol yapılır?",
+   "back": "Kelime sayısı, anahtar kelimeler, yazım ve noktalama.",
+   "category": "Betimleyici paragraf yazma",
+   "difficulty": "easy"
+  },
+  {
+   "front": "“de/da” bağlacı bitişik mi ayrı mı yazılır?",
+   "back": "Ayrı yazılır: Ben de geldim.",
+   "category": "Yazım ve noktalama",
+   "difficulty": "easy"
+  },
+  {
+   "front": "“de/da” bulunma hâli eki nasıl yazılır?",
+   "back": "Bitişik: evde, okulda.",
+   "category": "Yazım ve noktalama",
+   "difficulty": "easy"
+  },
+  {
+   "front": "“ki” bağlacı nasıl yazılır?",
+   "back": "Ayrı: Biliyorum ki gelecek.",
+   "category": "Yazım ve noktalama",
+   "difficulty": "easy"
+  },
+  {
+   "front": "“ya da” bitişik mi ayrı mı?",
+   "back": "Ayrı yazılır.",
+   "category": "Yazım ve noktalama",
+   "difficulty": "easy"
+  },
+  {
+   "front": "“herkes” nasıl yazılır?",
+   "back": "Bitişik: herkes.",
+   "category": "Yazım ve noktalama",
+   "difficulty": "easy"
+  },
+  {
+   "front": "“her şey” nasıl yazılır?",
+   "back": "Ayrı: her şey.",
+   "category": "Yazım ve noktalama",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Özel adlara gelen ek nasıl yazılır?",
+   "back": "Kesme işaretiyle ayrılır: Mehmed’in.",
+   "category": "Yazım ve noktalama",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Cümlenin sonuna hangi işaret konur?",
+   "back": "Nokta, soru işareti ya da ünlem.",
+   "category": "Yazım ve noktalama",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Virgül ne zaman kullanılır?",
+   "back": "Sıralı sözcük ve cümleler arasında, ara sözlerde.",
+   "category": "Yazım ve noktalama",
+   "difficulty": "medium"
+  },
+  {
+   "front": "“tezgâh” sözcüğünde şapka neden vardır?",
+   "back": "Okunuşu belirtmek için; yazımda doğru kullanılmalıdır.",
+   "category": "Yazım ve noktalama",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Tam puan nasıl alınır?",
+   "back": "Soruda istenen her bileşeni yazarak, gerektiğinde gerekçe ve kanıtla.",
+   "category": "Açık uçlu soruda tam puan stratejisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kısmî puan ne zaman verilir?",
+   "back": "Cevap kısmen doğruysa veya gerekçe eksikse.",
+   "category": "Açık uçlu soruda tam puan stratejisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Sıfır puan hangi cevaplara verilir?",
+   "back": "İlgisiz, yanlış ve boş cevaplara.",
+   "category": "Açık uçlu soruda tam puan stratejisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kaç bileşen istendiğini nasıl anlarsınız?",
+   "back": "Soru kökündeki “ve”, virgül ve numaralı bölümleri sayarak.",
+   "category": "Açık uçlu soruda tam puan stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Gerekçe nasıl yazılır?",
+   "back": "“…, çünkü …” kalıbıyla ve metinden kanıtla.",
+   "category": "Açık uçlu soruda tam puan stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yönergeli yazma sorusunda hangi araç kullanılır?",
+   "back": "Maddeleri kontrol listesi olarak tek tek işaretlemek.",
+   "category": "Açık uçlu soruda tam puan stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "“Siz olsaydınız” sorusunda neyi yazmalısınız?",
+   "back": "Metindeki durumu yorumladıktan sonra kendi yaklaşımınızı.",
+   "category": "Açık uçlu soruda tam puan stratejisi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Yüksek puanlı sorulara neden daha çok zaman ayrılır?",
+   "back": "Çünkü ağırlığı fazladır ve çok bileşenlidir.",
+   "category": "Açık uçlu soruda tam puan stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Cevabı yazarken hangi hata puan kaybettirir?",
+   "back": "Bileşenleri tek cümlede birleştirmek, gerekçeyi atlamak.",
+   "category": "Açık uçlu soruda tam puan stratejisi",
+   "difficulty": "hard"
+  }
+ ],
+ "quiz": [
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki metni okuyunuz.\n\nBenim üniversite sınavım, aslında bizim evin sınavıydı. Yakın akraba, konu komşu, arkadaş, öğretmen hatta mahallenin muhtarı bile benimle birlikte girdi bu sınava. Bu gücü, inancı ve sorumluluğu sınav sırasında inanın hissettim. Bu arada benim adım Çağatay, bu hikâyenin sonuncu başkahramanıyım. Kreşe başladığım günden beri fark edilen zekâmın kurbanıyım. Bütün üstüme titreme nedenlerini böyle açıklıyorlar.\nAnneannem, babaannem öğretmen; dedelerim subay emeklisi. Bunlar yetmiyormuş gibi annem ve babam doktor. Yani sizin anlayacağınız yakın çevrede başarısız sınav örneği çıkmamış. Okul müdürünün en çok bana güvendiği yetmiyormuş gibi servis şoförü de bana nasıl güvendiğini anlattı.\nGirdim, çıktım; iki gün üçer saat. Hiç zor gelmedi.\nAna sınıfından bu yana hep bu sınav için yaşamıştım, desem abartmış olmam. Şimdi ne mi yapıyorum? Sınavın nasıl geçtiğini anlatıyorum, meraklılara. Sonra ne yaparım, bilmiyorum. Sanırım üç bölümden tercih yaparım: tıp, askerlik, öğretmenlik.\n\n1. Metne göre akrabaları Çağatay’ın üniversite tercihlerini nasıl etkilemiştir? Gerekçesini yazınız.",
+   "correctAnswer": "Akrabaları Çağatay’ın üniversite tercihlerini olumsuz etkilemiştir. Aile büyükleri Çağatay’ı kendi mesleklerine (öğretmenlik, askerlik, doktorluk) yönlendirmiştir; bu yüzden Çağatay tıp, askerlik ve öğretmenlik dışında bir tercih yapamamaktadır.",
+   "keyPoints": [
+    "Etki olumsuzdur (yönlendirme/baskı)",
+    "Aile büyüklerinin kendi mesleklerine yönlendirdiği belirtilir",
+    "Gerekçe: tercihlerin tıp, askerlik, öğretmenlikle sınırlı kalması"
+   ],
+   "maxPoints": 15,
+   "explanation": "Adım 1: Etkinin yönünü yazın: olumsuz (baskı, yönlendirme). Adım 2: Metinde kanıt bulun: anneanne, babaanne öğretmen; dedeler subay emeklisi; anne ve baba doktor. Adım 3: Tercihlerini gösterin: “tıp, askerlik, öğretmenlik” yani ailenin meslekleri. Adım 4: “Bu yüzden … dışında bir tercih yapamıyor” diyerek gerekçeyi bağlayın. Etkiyi yazıp gerekçeyi vermezseniz tam puan alamazsınız.",
+   "category": "Örtük anlam, simge ve çıkarım",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki metni okuyunuz.\n\nAkdeniz’in esatir yuvası nihayetsiz ufuklarına bakan küçük tepe minimini bir çiçek ormanı gibiydi. İnce, uzun dallı badem ağaçlarının alaca gölgeleri sahile inen keçi yoluna düşüyor, ilkbaharın tatlı rüzgârıyla sarhoş olan martılar çılgın naralarla havayı çınlatıyorlardı. Badem bahçesinin yanı geniş bir bağdı. Beyaz taşlardan yapılmış kısa bir duvarın ötesindeki zeytinlik, ta vadiye kadar iniyordu. Bağın ortasındaki viran kulübenin kapısız methalinden bir ihtiyar çıktı. Saçı, sakalı bembeyazdı. Kamburunu düzeltmek istiyormuş gibi gerindi. Elleri, ayakları titriyordu. Gök kadar boş, gök kadar sakin duran denize baktı, baktı. “Hayırdır inşallah!” dedi. (…)\nFakat işte eskiden beri gördüğü rüyaları yine görmeye başlamıştı. Kırk senelik bir rüya... Türklerin, Türk gemilerinin gelişi... Gözlerini kadit elleriyle iyice ovdu. Denizin gökle birleştiği yere yine baktı. Evet, mutlaka geleceklerdi. Buna o kadar emindi ki... “Kırk sene görülen bir rüya yalan olmaz!” diyordu. Kulübe duvarının dibine uzandı. Yavaş yavaş gözlerini kapadı. İlkbahar bir ümit tufanı gibi her tarafı parlatıyordu.\n— Ömer Seyfettin, Seçilmiş Hikâyeler, Forsa\n\n2. Bu metinde millî, manevi ve evrensel değerler nasıl yansıtılmıştır? Açıklayınız.",
+   "correctAnswer": "Millî değerler: vatan ve millet sevgisi (ihtiyarın Türk gemilerinin gelişini kırk yıldır beklemesi). Manevi değerler: sabır ve inanç (kırk yıl boyunca vazgeçmeden beklemesi, rüyaya inanması). Evrensel değerler: umut (“İlkbahar bir ümit tufanı gibi her tarafı parlatıyordu”).",
+   "keyPoints": [
+    "Millî değer: vatan ve millet sevgisi",
+    "Manevi değer: sabır ve inanç",
+    "Evrensel değer: umut",
+    "Her değer metinden ifadeyle desteklenir"
+   ],
+   "maxPoints": 15,
+   "explanation": "Üç değeri üç ayrı cümlede yazın. Millî: bekleyişin konusu Türklerin ve Türk gemilerinin gelişidir, bu vatan ve millet sevgisine bağlanır. Manevi: “Kırk sene görülen bir rüya yalan olmaz!” sözü inancı, kırk yıllık bekleyiş sabrı gösterir. Evrensel: bekleyişe eşlik eden ilkbahar ve “ümit tufanı” umudu anlatır. Anahtara göre değer adı + ifade tam puandır; ilgisiz ve belirsiz tespitler yanlış sayılır.",
+   "category": "Millî, manevi ve evrensel değerler",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki metni okuyunuz.\n\nÇoban ve kaval gibi, kavak ve akasya da yukarı bozkırın şiiri idi: Şimdi, muz, portakal, limon ve zeytin pişiren güneş ve su cennetine doğru iniyoruz. Çubuk Boğazı otomobil yolunu 800 metre birden düşürdükten sonra, büyük sahil ovasına çıktık. Bu ova, iki tarasa hâlindedir. Antalya ilk tarasanın ucundan görünür.\nModa sahilini biraz daha yükselterek alabildiğinize genişletiniz ve derinletiniz: Ovanın ilk katı budur. Sonra bu katı gene her taraftan yükselterek geniş ve derin, Toroslara dayayınız. Üst tarasa budur.\nDağlardan inen sular, üst ovada bataklıklar yapıp, düden denilen yer yarıklarında kaybolurlar ve alt ovada tekrar çıkıp Antalya bahçelerine dağıldıktan sonra, sahilde sayısız düşer sularla denize dökülürler.\n— Falih Rıfkı Atay, Bizim Akdeniz\n\n3. Bu metnin türünü göz önünde bulundurarak yazarın metni yazma amacını açıklayınız.",
+   "correctAnswer": "Metin bir gezi yazısıdır. Yazarın amacı Antalya çevresini tarihî, coğrafi ve kültürel özellikleriyle tanıtmak ve okurda bu yerleri gezip görme isteği uyandırmaktır.",
+   "keyPoints": [
+    "Tür: gezi yazısı",
+    "Yeri coğrafi/tarihî/kültürel özellikleriyle tanıtma",
+    "Okurda gezme isteği uyandırma"
+   ],
+   "maxPoints": 10,
+   "explanation": "Önce türü belirleyin: gözlem, yer tasviri ve coğrafi bilgi (ova, taraça, Toroslar, düden) gezi yazısını gösterir. Sonra tür özelliğine göre amacı yazın: yeri tanıtmak ve okuru oraya çekmek. Anahtarda iki amaç geçer; en az birini açık yazmak gerekir, ikisini yazmak daha güvenlidir. “Okuru eğlendirmek” gibi amaçlar yanlış sayılır.",
+   "category": "Anı, hikâye, gezi yazısı ve diğer türler",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki metinleri okuyunuz.\n\nI. Metin\nTuna Nehri bilindiği gibi şehri Buda ve Peşte diye ikiye bölüyor. İki yaka birbirine Arpad, Margıt Szechenyi, Srabadsag Ptofi köprüleri ile bağlı. Bu eski köprülere son yıllarda çok modern bir yenisi eklenmiş: Elisabeth Köprüsü. Budapeşteliler küçük çapta bir San Francisco köprüsünü andıran bu asma köprü ile pek övünüyorlar. Peşte’nin en ferah en şiirli yanı elbette Tuna kıyıları. Bu kıyılarda güzel bulvar kahveleri var. Nehire inen basamak basamak merdivenlerde gene ihtiyar çiftler güneşin batışını seyrediyorlar. Nehirde sefer yapan küçük gemilerin güverteleri bembeyaz örtülü masaları ile gezici bir restoran hâlinde.\n— Haldun Taner, Düşsem Yollara Yollara\n\nII. Metin\nBeş kişiydiler, insanı her zaman şaşkına çeviren o büyü, rastlantı, çoğu akşamlar onları Eminönü’nde, Köprü ayağının Haliç’e bakan boşluğunda buluşturur ve onlar dolmuş kayığıyla karşıya, Galata’ya geçerlerdi. Belki de gün boyunca harcadıkları paradan, yalnız, kayıkçıya verdikleri bu altmış paraya acımazlardı. Haftanın üç dört akşamı –kimi günler bir kişi eksiğiyle de olsa– rastlantının o nerden, nasıl estiği belli olmayan rüzgârıyla dolmuş iskelesinin önünde bir araya gelmeleri önceleri onları şaşırtmıştı. Şaşırmaksa ne güzel şeydi. Ne yazık ki bu duyguları çok sürmemiş, coşkunun uçan tadı yerini, bu kez, alışkanlığın dingin tadına bırakmıştı.\n— Sabahattin Kudret Aksal, Gazoz Ağacı\n\n4. Bu metinleri dil ve anlatım özellikleri açısından karşılaştırarak metinlerin farklılıklarına dair iki özellik yazınız.",
+   "correctAnswer": "1) Birinci metinde açıklayıcı ve betimleyici anlatım, ikinci metinde öyküleyici ve betimleyici anlatım kullanılmıştır. 2) Yazar ilk metinde mekânın atmosferini genellikle nesnel ifadelerle anlatırken ikinci metinde kahramanların iç dünyaları öznel ifadelerle aktarılmıştır. (Diğer kabul edilen farklar: gerçek anlam–yan/mecaz anlam, açık anlatım–sanatlı söyleyiş, kısa–uzun cümleler.)",
+   "keyPoints": [
+    "Anlatım biçimi farkı: açıklayıcı+betimleyici / öyküleyici+betimleyici",
+    "Nesnel–öznel anlatım farkı",
+    "Gerçek anlam–mecaz anlam farkı",
+    "Açık anlatım–sanatlı söyleyiş farkı",
+    "Her iki metne de ait ifade yazılır"
+   ],
+   "maxPoints": 15,
+   "explanation": "Karşılaştırma sorularında önce ölçüt seçin, sonra iki metne ayrı ayrı yazın. Ölçüt 1 (anlatım biçimi): Budapeşte parçası bir şehri bilgi ve görüntüyle tanıtır; dolmuş kayığı parçası ise bir olayı ve alışkanlığı öyküler. Ölçüt 2 (nesnel/öznel): Köprü adları ve manzara aktarımı nesnel; “şaşırmaksa ne güzel şeydi”, “coşkunun uçan tadı” öznel. Ölçüt 3 (söz sanatı): ikinci metinde “alışkanlığın dingin tadı” gibi mecazlı söyleyiş var. İki ölçüt yazmak yeterlidir; yalnız tek metni anlatırsanız karşılaştırma yapmamış olursunuz.",
+   "category": "Öznel ve nesnel anlatım; dilin işlevleri",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki metni okuyunuz.\n\nÇoban ve kaval gibi, kavak ve akasya da yukarı bozkırın şiiri idi: Şimdi, muz, portakal, limon ve zeytin pişiren güneş ve su cennetine doğru iniyoruz. Çubuk Boğazı otomobil yolunu 800 metre birden düşürdükten sonra, büyük sahil ovasına çıktık. Bu ova, iki tarasa hâlindedir. Antalya ilk tarasanın ucundan görünür.\nModa sahilini biraz daha yükselterek alabildiğinize genişletiniz ve derinletiniz: Ovanın ilk katı budur. Sonra bu katı gene her taraftan yükselterek geniş ve derin, Toroslara dayayınız. Üst tarasa budur.\nDağlardan inen sular, üst ovada bataklıklar yapıp, düden denilen yer yarıklarında kaybolurlar ve alt ovada tekrar çıkıp Antalya bahçelerine dağıldıktan sonra, sahilde sayısız düşer sularla denize dökülürler.\n— Falih Rıfkı Atay, Bizim Akdeniz\n\n5. Yazarın “Çoban ve kaval gibi, kavak ve akasya da yukarı bozkırın şiiri idi.” ifadesi bağlamında metindeki betimleyici anlatım ile şiirsellik arasındaki ilişkiyi açıklayınız.",
+   "correctAnswer": "Yazarın ifadesi, doğa unsurlarını yalnızca betimlemekle kalmayıp onlara duygusal ve sanatsal bir anlam yüklediğini gösterir. Çoban ve kaval nasıl bozkırın bir parçasıysa kavak ve akasya da bu doğal atmosferin şiirsel bir yansımasıdır. Betimleyici anlatım, doğaya estetik bir boyut kazandırarak şiirsellikle bütünleşmektedir.",
+   "keyPoints": [
+    "Doğa yalnız betimlenmez, sanatsal anlam yüklenir",
+    "Çoban–kaval benzetmesiyle kavak–akasya bozkırın şiiri olarak görülür",
+    "Betimleme şiirsellikle bütünleşir"
+   ],
+   "maxPoints": 15,
+   "explanation": "Üç adımda yazın: (1) İfadeyi yorumlayın: “şiiri idi” demek, kavakların ve akasyaların bozkırı güzelleştiren estetik bir öge olduğunu söyler. (2) Karşılaştırma ilişkisini gösterin: çoban ve kaval bozkırın parçasıdır, kavak ve akasya da öyle. (3) Sonucu bağlayın: betimleyici anlatım burada fiziksel görüntü vermekle kalmaz, şiirsel bir anlam da taşır. Anahtar “yalnızca fiziksel betimleme değil, sanatsal anlam taşır” fikrini arar; bu fikir yoksa cevap yanlıştır.",
+   "category": "Üslup, tür ve anlatımın özellikleri",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki metni okuyunuz.\n\nBalçık, Varna’ya kara yolundan 40 kilometre mesafede şirin, temiz yüzlü bir sahil kasabasıydı. Yıllarca önce Rumen aristokrasisinin, Bükreş’ten her hafta sonu dinlenmek için gittiği Balçık’ta hâlâ pek çok Türk yaşıyordu…\nTrakya Türkleri tarafından kurulan ve ilk adı “Diyonosopl” olan kasabaya Balçık adını Osmanlılar vermiş ve orada okullar, camiler, hamamlar yaptırmışlardı. Evliya Çelebi’nin ziyareti sırasında kasabada 500 ev, 5 mahalle ve 150 dükkân ile 5-6 kadar cami vardı. Sokollu Mehmet Paşa’nın karısı Esmehan Sultan oraya bir hamam yaptırmıştı. Şimdi olduğu gibi, o zaman da Balçık’ın balı pek meşhurdu…\nDenize bakan tepelerinde beyaz kayalıkların bulunmasından dolayı “Beyaz Kasaba” denilen Karadeniz’in bu nispeten sakin köşesinde bir hayli Rum da vardı.\n— Yılmaz Çetiner, Şu Bizim Rumeli\n\n6. Bu metinde yazarın üslup seçiminde metnin türü nasıl etkili olmuştur? Açıklayınız.",
+   "correctAnswer": "Metin bir gezi yazısıdır. Gezi yazısı gözleme dayalı bir tür olduğu için yazar mekânı betimleyici bir anlatımla aktarmıştır. Gözlemlerini desteklemek için nesnel bilgilere yer vermiş ve açıklayıcı bir anlatımla mekânın tarihine ve kültürüne dair bilgiler vermiştir.",
+   "keyPoints": [
+    "Gezi yazısı gözleme dayalıdır → betimleyici anlatım",
+    "Gözlemi desteklemek için nesnel bilgi (ev, mahalle, dükkân sayıları)",
+    "Tarih ve kültür bilgisi açıklayıcı anlatımla verilir"
+   ],
+   "maxPoints": 10,
+   "explanation": "Tür → üslup bağını “çünkü” ile kurun: Gezi yazısı gözlemlere dayanır; bu yüzden yazar mekânı (şirin, temiz yüzlü sahil kasabası, beyaz kayalıklar) betimler. Gözlemi desteklemek için 500 ev, 5 mahalle, 150 dükkân gibi nesnel veriler verir. Tarih ve kültür bilgileri (Esmehan Sultan hamamı, balın ünü) açıklayıcı anlatımdır. Türün üsluba etkisini yazmayan cevaplar yanlış sayılır.",
+   "category": "Üslup, tür ve anlatımın özellikleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki şiiri okuyunuz.\n\nULUDAĞ SOKAK SATICILARI — Oktay Rifat Horozcu\nGirin satıcılar evimin bülbülleri\nGirin girin aydınlık bahçemden içeri\nÜzüm satın armut satın nar satın bize\nDağlar görünürken kapıda ardınızdan\nİndirin tüy gibi küfeyi sırtınızdan\nBir elmada bir mevsim dolsun evimize\nYa sen ey karınca taciri gazeteci\nAğzının içinde bir sap ebegümeci\nKaşlarında macera gözlerinde oyun\nŞeytan gibi kaçan yollu bisikletinle\nGetir o eski sevincini çocukluğun\nAkşamla bacada mavileşince duman\nBiten türkü gibi uzaklaşın kapımdan\nKayın ağır ağır gündüzden geceye\nEy İstanbul ağzıyla mal satan simitçi\nÇocukları eşeğine bindiren sütçü\nHalil İbrahim bereketi kesenize\n\n7. “Uludağ Sokak Satıcıları” şiirinde anlatılan geleneksel alışveriş kültürünün sıcaklığının günümüzde AVM’ler ve internet alışverişi ile kayboluşunu anlatan yönergeye uygun bir paragraf yazınız.\nYÖNERGE\n1. Yazınızı betimleme, karşılaştırma ve tanımlamadan yararlanarak 50-100 kelime arasında yazınız. (5 puan)\n2. Yazım ve noktalama kurallarına uyunuz. (5 puan)\n3. “çarşı, selam, tezgâh, ekran, kalabalık, indirim, sanal, yalnızlık, AVM, kargo” anahtar kelimelerini kullanınız. (10 puan)",
+   "correctAnswer": "Örnek cevap: Geleneksel çarşılarda yankılanan satıcıların sıcak selamları, pazarlık sesleri ve tezgâhlardan yükselen taze meyve kokuları artık yerini soğuk ekran ışıklarına bıraktı. Eskiden, kalabalık sokaklarda dolaşırken duyduğumuz indirim çağrıları şimdi sessizce tıklanan sanal düğmelere dönüştü. İnsanlar, yüz yüze pazarlık etmenin heyecanını unutup yalnızlık içinde dijital vitrinlere bakıyor. AVM’lerin yapay ışıkları, eski çarşıların sıcaklığını bastırırken dokunarak seçilen ürünlerin yerini, kargo poşetlerinden çıkan ruhsuz nesneler aldı. Artık alışveriş bir dost sohbeti değil, soğuk bir ekrana yapılan mekanik bir dokunuş sadece.",
+   "keyPoints": [
+    "Betimleme, karşılaştırma ve tanımlama kullanılır; 50–100 kelime (5 puan)",
+    "Yazım ve noktalama kurallarına uyulur (5 puan)",
+    "On anahtar kelimenin hepsi kullanılır (10 puan)"
+   ],
+   "maxPoints": 20,
+   "explanation": "Puan dağılımı net: biçim (5), yazım–noktalama (5), anahtar kelimeler (10). Plan: (1) Eski çarşıyı betimleyin (sesler, kokular, selam, tezgâh, kalabalık). (2) Karşılaştırın: eskiden / şimdi, çarşı / AVM, tezgâh / ekran. (3) Tanımlayıp bitirin: “Alışveriş artık … bir dokunuştur”. (4) Anahtar kelimeleri bir listeye yazıp kullandıkça işaretleyin: çarşı, selam, tezgâh, ekran, kalabalık, indirim, sanal, yalnızlık, AVM, kargo. (5) 50–100 kelime sınırını sayın. Anahtara göre yönergenin tüm maddelerine uyan yazı doğru sayılır; iki maddeye uymayan yazı yanlıştır.",
+   "category": "Betimleyici paragraf yazma",
+   "difficulty": "hard"
+  },
+  {
+   "type": "true-false",
+   "question": "“Forsa” parçasında ihtiyarın Türk gemilerinin geleceğine inanması manevi değerlerden inancı yansıtır.",
+   "correct": true,
+   "explanation": "“Kırk sene görülen bir rüya yalan olmaz!” sözü inancın ifadesidir; kırk yıllık bekleyiş de sabrı gösterir.",
+   "category": "Millî, manevi ve evrensel değerler",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Gezi yazısı, yazarın gözlemlerine dayandığı için betimleyici anlatıma yer verir.",
+   "correct": true,
+   "explanation": "Gözlem gezi yazısının temelidir; gözlenen mekân betimlenir ve nesnel bilgilerle desteklenir.",
+   "category": "Anı, hikâye, gezi yazısı ve diğer türler",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Falih Rıfkı Atay’ın metninde kavak ve akasya ağaçları bozkırın ____ olarak nitelenmiştir.",
+   "answers": [
+    "şiiri"
+   ],
+   "explanation": "“Kavak ve akasya da yukarı bozkırın şiiri idi.” ifadesi betimlemeye sanatsal anlam yükler.",
+   "category": "Üslup, tür ve anlatımın özellikleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Sabırla bekledi; sonunda umutları battı.” cümlesindeki “batmak” sözcüğünün bağlamdaki anlamını yazınız ve gerekçelendiriniz.",
+   "correctAnswer": "“Batmak” burada umutların yok olması, sona ermesi anlamında mecaz olarak kullanılmıştır. Umut su gibi bir sıvıya gömülemeyeceği için gerçek anlam uygun değildir.",
+   "keyPoints": [
+    "Mecaz anlam belirtilir",
+    "Anlam doğru ifade edilir (yok olmak/sona ermek)",
+    "Gerekçe bağlamdan verilir"
+   ],
+   "maxPoints": 3,
+   "explanation": "Önce anlamı yazın, sonra gerçek anlamın neden olmadığını tek cümleyle söyleyin. Sınav anahtarı mantığı: doğru anlam + gerekçe.",
+   "category": "Benzer soru: Sözcükte anlam: gerçek, yan, mecaz ve bağlam",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Tatmak” ve “katmak” sözcüklerinin anlam farkını, her biri için birer örnek cümle yazarak açıklayınız.",
+   "correctAnswer": "“Tatmak” bir şeyin tadına bakmak ya da bir duyguyu yaşamak, hissetmektir (çorbayı tatmak, özgürlüğü tatmak). “Katmak” bir şeye başka bir şey eklemektir (çorbaya tuz katmak).",
+   "keyPoints": [
+    "Katmak: ekleme anlamı",
+    "Tatmak: tadına bakma/hissetme anlamı",
+    "Her biri için doğru örnek cümle"
+   ],
+   "maxPoints": 4,
+   "explanation": "Birbirine benzeyen sözcüklerde önce iki anlamı ayırın, sonra her sözcüğe kendi örnek cümlesini yazın.",
+   "category": "Benzer soru: Sözcükte anlam: gerçek, yan, mecaz ve bağlam",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir sözcüğün iki farklı cümlede hem gerçek hem mecaz anlamda kullanılmasına birer örnek yazınız (“kırmak” sözcüğü ile).",
+   "correctAnswer": "Gerçek: “Çocuk bardağı kırdı.” Mecaz: “Sözleriyle kalbimi kırdı.”",
+   "keyPoints": [
+    "Gerçek anlamlı doğru cümle",
+    "Mecaz anlamlı doğru cümle",
+    "Aynı sözcük kullanılmıştır"
+   ],
+   "maxPoints": 3,
+   "explanation": "Aynı sözcüğü iki cümlede kullandığınızdan emin olun; ilk cümlede nesne somut, ikincisinde soyuttur.",
+   "category": "Benzer soru: Sözcükte anlam: gerçek, yan, mecaz ve bağlam",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "“Dalgın bir gün geçirdi, sonunda hevesi söndü.” cümlesindeki “sönmek” sözcüğü hangi anlamdadır?",
+   "options": [
+    "Mecaz: heyecan ve isteğin ortadan kalkması",
+    "Gerçek: ateşin ya da ışığın sönmesi",
+    "Terim: kimyasal bir tepkime",
+    "Yan anlam: ışığın azalması"
+   ],
+   "correct": 0,
+   "explanation": "Heves soyut bir duygudur, ışık gibi sönmez. Bu yüzden sönmek burada mecaz anlamda, isteğin bitmesi anlamındadır.",
+   "category": "Benzer soru: Sözcükte anlam: gerçek, yan, mecaz ve bağlam",
+   "difficulty": "medium"
+  },
+  {
+   "type": "true-false",
+   "question": "Çok anlamlı bir sözcüğün anlamı her zaman sözlükteki ilk anlamdır.",
+   "correct": false,
+   "explanation": "Anlamı bağlam belirler; sözlükte ilk sıradaki anlam her cümlede geçerli olmaz.",
+   "category": "Benzer soru: Sözcükte anlam: gerçek, yan, mecaz ve bağlam",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Bütün şehir ayağa kalktı.” cümlesindeki edebî sanatın adını ve cümleye kattığı anlamı yazınız.",
+   "correctAnswer": "Mecaz-ı mürsel (ad aktarması): şehir yerine şehirde yaşayan insanlar kastedilmiştir (yer-yerleşen). Cümle, herkesin ortak bir olaya katıldığını vurgular.",
+   "keyPoints": [
+    "Mecaz-ı mürsel adı",
+    "Kastedilen anlam: şehirdeki insanlar",
+    "Cümleye kattığı anlam (kalabalığın tamamı)"
+   ],
+   "maxPoints": 4,
+   "explanation": "Anahtarda iki ayrı puan vardır: sanatın adı ve dizeye kattığı anlam. Anlam kısmında “neyin yerine ne kullanıldığını” yazarsanız tam puan alırsınız.",
+   "category": "Benzer soru: Mecaz-ı mürsel, teşbih, istiare ve kinaye",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Bütün sınıf sustu.” cümlesinde hangi sanat vardır? Bu cümlede teşbih olmadığını gerekçelendiriniz.",
+   "correctAnswer": "Cümlede mecaz-ı mürsel vardır: “sınıf” yerine sınıftaki öğrenciler kastedilmiştir (yer-yerleşen). Teşbih yoktur; çünkü ortada bir benzeyen-benzetilen ilişkisi ve ortak bir benzetme yönü yoktur.",
+   "keyPoints": [
+    "Mecaz-ı mürsel belirtilir",
+    "Teşbih olmadığı belirtilir",
+    "Gerekçe benzetme yönü/ortak özellik yokluğudur"
+   ],
+   "maxPoints": 4,
+   "explanation": "Gerekçede “benzetme yönü yok, ilgi var” demek ayırt edici cümledir. Bu iki sanat sıkça karıştırılır, bu yüzden gerekçe istenir.",
+   "category": "Benzer soru: Mecaz-ı mürsel, teşbih, istiare ve kinaye",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Dostluk bir kitap gibidir.” cümlesindeki benzetmenin dört ögesini belirleyiniz.",
+   "correctAnswer": "Benzetilen: dostluk. Benzeyen: kitap. Edat: gibi. Benzetme yönü: yaprak yaprak okunması, değer taşıması (cümlede açıkça söylenmemiş).",
+   "keyPoints": [
+    "Benzetilen: dostluk",
+    "Benzeyen: kitap",
+    "Edat: gibi",
+    "Benzetme yönü çıkarım yoluyla söylenir"
+   ],
+   "maxPoints": 4,
+   "explanation": "Benzetilen “asıl söylenen”, benzeyen “örnek getirilen”dir. Yön çoğu zaman yazılmaz, siz çıkarım yaparak yazarsınız.",
+   "category": "Benzer soru: Mecaz-ı mürsel, teşbih, istiare ve kinaye",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "“Akşam Yunus’u okudum.” cümlesinde “Yunus’u” sözcüğünde hangi sanat vardır?",
+   "options": [
+    "Teşbih",
+    "Mecaz-ı mürsel",
+    "İntak",
+    "Mübalağa"
+   ],
+   "correct": 1,
+   "explanation": "“Yunus’u” sözcüğünde şair yerine şiirleri kastedilir: sanatçı-eser ilgisi. Benzetme yoktur.",
+   "category": "Benzer soru: Mecaz-ı mürsel, teşbih, istiare ve kinaye",
+   "difficulty": "medium"
+  },
+  {
+   "type": "true-false",
+   "question": "Mecaz-ı mürsel sanatında benzetme amacı güdülür.",
+   "correct": false,
+   "explanation": "Mecaz-ı mürselde benzetme yoktur; sözcük, aralarındaki bir ilgi nedeniyle başka sözcük yerine kullanılır.",
+   "category": "Benzer soru: Mecaz-ı mürsel, teşbih, istiare ve kinaye",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Su akar, yol biter; ben ise hep yürürüm.” dizesinden çıkarılabilecek iki örtük iletiyi açıklayınız.",
+   "correctAnswer": "1) Hayat akıp giden bir yolculuktur (su ve yol). 2) İnsan sürekli çaba içindedir; yürümek yaşam mücadelesini simgeler.",
+   "keyPoints": [
+    "Birinci ileti yorumlanır",
+    "İkinci ileti yorumlanır",
+    "İletiler dizedeki sözcüklere dayandırılır"
+   ],
+   "maxPoints": 4,
+   "explanation": "İki ileti isteniyorsa iki ayrı madde yazın. Her maddeye kanıt sözcük (su, yol, yürümek) ekleyin.",
+   "category": "Benzer soru: Örtük anlam, simge ve çıkarım",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Her akşam kapımı çalan rüzgâr, kimin haberini getiriyor?” dizesinde yer alan örtük anlamı yorumlayınız.",
+   "correctAnswer": "Rüzgâr, uzaklarda kalan biri hakkında haber taşıyan bir ulak gibi görünür; şair özlemini ve bekleyişini dile getirir. Dize özlem ve umut duygusunu çağrıştırır.",
+   "keyPoints": [
+    "Rüzgâr haberci olarak yorumlanır",
+    "Özlem/bekleyiş duygusu belirtilir",
+    "Yorum dizeye dayanır"
+   ],
+   "maxPoints": 4,
+   "explanation": "Doğa unsurlarını duyguyla ilişkilendirin. Simge (rüzgâr) + duygu (özlem) + kanıt (akşam, kapı) yapısı tam puan getirir.",
+   "category": "Benzer soru: Örtük anlam, simge ve çıkarım",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir şiirde “yol” ve “han” simgelerinin birlikte kullanılması hangi ortak teması güçlendirir? Gerekçeyle açıklayınız.",
+   "correctAnswer": "Yol yaşamı, han dünyayı simgelediğinden birlikte kullanıldıklarında yaşamın geçiciliği ve insanın dünyada bir konuk olduğu fikri güçlenir.",
+   "keyPoints": [
+    "Yol simgesi açıklanır",
+    "Han simgesi açıklanır",
+    "Ortak tema: geçicilik/dünya yolculuğu"
+   ],
+   "maxPoints": 4,
+   "explanation": "Cevabı üç parçaya bölün: simge 1, simge 2, ortak tema. Her parça bir cümleyle yazılırsa kısmî puan kaybı olmaz.",
+   "category": "Benzer soru: Örtük anlam, simge ve çıkarım",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "“İki kapılı bir han” ifadesi aşağıdakilerden hangisini simgeler?",
+   "options": [
+    "Yalnızca konaklama yerini",
+    "Evlilik kurumunu",
+    "Dünya ve yaşamın geçiciliğini",
+    "Misafirperverliği"
+   ],
+   "correct": 2,
+   "explanation": "Han, gelip geçilen yerdir; iki kapı doğum ve ölümü simgeler. Bu nedenle dünyanın geçiciliği anlamına gelir.",
+   "category": "Benzer soru: Örtük anlam, simge ve çıkarım",
+   "difficulty": "medium"
+  },
+  {
+   "type": "true-false",
+   "question": "Örtük anlam metinde açıkça yazılan anlamdır.",
+   "correct": false,
+   "explanation": "Örtük anlam açıkça yazılmaz; sözlerin arkasından çıkarım yoluyla bulunur.",
+   "category": "Benzer soru: Örtük anlam, simge ve çıkarım",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Okumak, düşünmeyi öğrenmektir; kitapsız insan yalnız kendi sesine bakar. Bu yüzden her gün biraz okumalı.” şeklinde bir deneme parçasının konusunu, ana fikrini ve yazılış amacını yazınız.",
+   "correctAnswer": "Konusu: okumanın düşünmeye katkısı. Ana fikri: Okumak düşünmeyi öğretir ve insanı geliştirir, bu yüzden her gün okunmalıdır. Amacı: okurda okuma alışkanlığı oluşturmak, düşündürmek.",
+   "keyPoints": [
+    "Konu tek ifadeyle yazılmış",
+    "Ana fikir yargı cümlesi",
+    "Amaç fiille ifade edilmiş"
+   ],
+   "maxPoints": 6,
+   "explanation": "Üç parçayı ayrı yazın: konu isim tamlamasıyla, ana fikir yargı cümlesiyle, amaç eylem cümlesiyle. Aynı cümleyi üç yerde tekrar etmek puan kaybettirir.",
+   "category": "Benzer soru: Deneme: konu, ana fikir ve amaç",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Dil Üstüne” denemesinde yazarın dil konusundaki tutumunu iki cümleyle açıklayınız.",
+   "correctAnswer": "Yazar, dile değer katmanın yolunun yeni sözcük türetmek değil, var olan sözcükleri ustalıkla kullanmak olduğunu düşünür. Zoraki yeniliklerle dili sıradanlaştıran çağdaş yazarları eleştirir.",
+   "keyPoints": [
+    "Dilin mevcut olanakları vurgusu",
+    "Çağdaş yazarlara eleştiri",
+    "İki cümleyle açık anlatım"
+   ],
+   "maxPoints": 4,
+   "explanation": "Yazarın tutumunu “ne savunuyor?” ve “neyi eleştiriyor?” diye iki cümleye bölün.",
+   "category": "Benzer soru: Deneme: konu, ana fikir ve amaç",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir denemenin kesin hükümlerle yazılmaması gerektiğini, deneme türünün özellikleriyle gerekçelendiriniz.",
+   "correctAnswer": "Denemede yazar kişisel görüşünü paylaşır, okuru düşündürmeyi amaçlar; kanıtlanmış kesin sonuçlar sunmaz. Bu yüzden ifade esnek ve içten olur, hüküm verici değil sorgulayıcı kalır.",
+   "keyPoints": [
+    "Kişisel görüş vurgusu",
+    "Kesin hüküm vermeme",
+    "Gerekçe tür özelliğiyle bağlanır"
+   ],
+   "maxPoints": 4,
+   "explanation": "Tür özelliklerini (kişisel, samimi, hüküm vermeyen) sırayla yazarsanız gerekçeniz eksiksiz olur.",
+   "category": "Benzer soru: Deneme: konu, ana fikir ve amaç",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi denemenin özelliği değildir?",
+   "options": [
+    "Kişisel görüşlerin yansıtılması",
+    "Samimi bir dille yazılması",
+    "Konu sınırlaması olmaması",
+    "Bilimsel kanıta dayanarak kesin sonuç bildirmesi"
+   ],
+   "correct": 3,
+   "explanation": "Kesin sonuç bildirmek bilimsel makalenin özelliğidir. Deneme içten ve kişisel olup hüküm vermez.",
+   "category": "Benzer soru: Deneme: konu, ana fikir ve amaç",
+   "difficulty": "medium"
+  },
+  {
+   "type": "true-false",
+   "question": "Metnin ana fikri ile yazılış amacı her zaman aynı cümledir.",
+   "correct": false,
+   "explanation": "Ana fikir yazarın yargısıdır, amaç ise yazma niyetidir; farklı cümlelerle yazılırlar.",
+   "category": "Benzer soru: Deneme: konu, ana fikir ve amaç",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Kitap, bir dost gibi insana yol gösterir; bilgisayar ise ona yalnızca hız kazandırır.” cümlesindeki düşünceyi geliştirme yollarını bulunuz.",
+   "correctAnswer": "“Bir dost gibi” ifadesiyle benzetme vardır. “Kitap … yol gösterir; bilgisayar … hız kazandırır” kısmında kitap ve bilgisayar karşılaştırılmıştır.",
+   "keyPoints": [
+    "Benzetme gösterilir",
+    "Karşılaştırma gösterilir",
+    "Cümleden alıntı yapılır"
+   ],
+   "maxPoints": 4,
+   "explanation": "Bir cümlede birden fazla yol olabilir. Her yol için ayrı bir kanıt parçası gösterin.",
+   "category": "Benzer soru: Düşünceyi geliştirme yolları",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki cümle hangi düşünceyi geliştirme yoludur? “Türkiye’de 2023 yılında 85 milyon insan yaşıyordu.” Gerekçesini yazınız.",
+   "correctAnswer": "Sayısal verilerden yararlanma. Gerekçe: Cümlede yıl ve nüfus miktarı gibi ölçülebilir rakamlar vardır.",
+   "keyPoints": [
+    "Yolun adı",
+    "Gerekçe sayıya dayanır"
+   ],
+   "maxPoints": 3,
+   "explanation": "Adı ve gerekçeyi birlikte yazın. Sayı, yüzde, tarih gördüğünüzde “sayısal veri” deyin.",
+   "category": "Benzer soru: Düşünceyi geliştirme yolları",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Ataç’ın dediği gibi, dil bir milletin aynasıdır.” cümlesindeki düşünceyi geliştirme yolunu yazıp gerekçelendiriniz.",
+   "correctAnswer": "Tanık gösterme: Ataç’ın sözüne başvurularak düşünce desteklenmiştir. Gerekçe: Başka bir yazarın sözü alıntılanmıştır.",
+   "keyPoints": [
+    "Tanık gösterme belirtilir",
+    "Alıntı yapılan kişi gösterilir",
+    "Gerekçe yazılır"
+   ],
+   "maxPoints": 3,
+   "explanation": "“… dediği gibi”, “… göre” gibi kalıplar tanık gösterme işaretidir.",
+   "category": "Benzer soru: Düşünceyi geliştirme yolları",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "“Dil, bir ağaç gibi köklerinden beslenir.” cümlesinde hangi düşünceyi geliştirme yolu vardır?",
+   "options": [
+    "Benzetme",
+    "Sayısal veri",
+    "Tanık gösterme",
+    "Örneklendirme"
+   ],
+   "correct": 0,
+   "explanation": "Dil ağaca benzetilmiştir: “gibi” edatıyla benzeyen-benzetilen ilişkisi kurulmuştur.",
+   "category": "Benzer soru: Düşünceyi geliştirme yolları",
+   "difficulty": "medium"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Bir sözün başkasından alıntılanarak düşünceyi desteklemesine ____ gösterme denir.",
+   "answers": [
+    "tanık"
+   ],
+   "explanation": "Tanık gösterme, düşünceyi bir uzmanın ya da ünlü bir kişinin sözüyle destekleme yoludur.",
+   "category": "Benzer soru: Düşünceyi geliştirme yolları",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Sabaha karşı kalktı, sobayı yaktı, çayı demledi, pencereye yaklaştı.” cümlelerindeki anlatım biçimini gerekçesiyle yazınız.",
+   "correctAnswer": "Öyküleme: art arda eylemler zaman akışı içinde sıralanmıştır.",
+   "keyPoints": [
+    "Öyküleme belirlenir",
+    "Gerekçe eylem sıralamasıdır"
+   ],
+   "maxPoints": 3,
+   "explanation": "Gerekçede “eylemler zaman akışıyla sıralanıyor” demek yeter. Cümlelerde renk-ses gibi duyu ayrıntıları olsaydı betimleme düşünülürdü.",
+   "category": "Benzer soru: Anlatım biçimleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Çınar, gövdesi iki kişinin kucağına sığmayan, dalları avluyu örten, yaprakları sarı bir tavan gibi duran yaşlı bir ağaçtı.” cümlesinde hangi anlatım biçimi vardır? Nedenini belirtiniz.",
+   "correctAnswer": "Betimleme: ağacın görünüşü (gövde, dallar, renk) ayrıntılarıyla tasvir edilmiştir ve benzetmeden yararlanılmıştır.",
+   "keyPoints": [
+    "Betimleme belirlenir",
+    "Görünüşe ilişkin ayrıntılar gösterilir"
+   ],
+   "maxPoints": 3,
+   "explanation": "Gerekçede ayrıntı sözcüklerini (gövdesi, dalları, sarı) göstermek tam puan getirir.",
+   "category": "Benzer soru: Anlatım biçimleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki iki cümleyi anlatım biçimi açısından ayırt ediniz: (a) “Dünya her gün kendi ekseninde bir tam tur döner.” (b) “Ben bu görüşe katılmıyorum; çünkü kanıtlar başka bir şey gösteriyor.”",
+   "correctAnswer": "(a) Açıklayıcı anlatım: bilgi veriliyor. (b) Tartışmacı anlatım: görüş savunuluyor, karşı görüş eleştiriliyor.",
+   "keyPoints": [
+    "a için açıklama",
+    "b için tartışma",
+    "Her ikisi için gerekçe"
+   ],
+   "maxPoints": 4,
+   "explanation": "Bilgi verme = açıklama; görüş savunma/ itiraz = tartışma. Gerekçe cümlesini kısa tutun.",
+   "category": "Benzer soru: Anlatım biçimleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi tartışmacı anlatımın işaretidir?",
+   "options": [
+    "Kişi ve mekân tasviri",
+    "Karşı görüşü çürütme çabası",
+    "Zaman sırasıyla olay aktarımı",
+    "Yalnız bilgi sıralama"
+   ],
+   "correct": 1,
+   "explanation": "Tartışmacı anlatımda yazar kendi görüşünü savunur ve karşı görüşü çürütür. Diğer seçenekler betimleme, öyküleme ve açıklamaya aittir.",
+   "category": "Benzer soru: Anlatım biçimleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "true-false",
+   "question": "Falih Rıfkı Atay’ın Antalya yazısında ağırlıklı biçim tartışmadır.",
+   "correct": false,
+   "explanation": "Parça bir yeri gözleme dayalı betimler ve açıklar; baskın biçim betimleme ve açıklamadır.",
+   "category": "Benzer soru: Anlatım biçimleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki iki metinden hangisi öğreticidir? Gerekçesiyle yazınız. I. “Su, deniz seviyesinde 100 °C’de kaynar.” II. “Rüzgâr, kıyıdaki eski evin kapısını nazikçe araladı.”",
+   "correctAnswer": "I. metin öğreticidir. Gerekçe: Bilgi vermeyi amaçlar, kanıtlanabilir bir bilgi içerir ve dil nesneldir.",
+   "keyPoints": [
+    "I. metin seçilir",
+    "Bilgi verme amacı belirtilir",
+    "Dilin nesnelliği belirtilir"
+   ],
+   "maxPoints": 7,
+   "explanation": "Seçim 3 puan, gerekçe 4 puandır. Gerekçede “bilgi vermek, öğretmek” ifadesini mutlaka kullanın.",
+   "category": "Benzer soru: Öğretici ve sanatsal metinler; gerçeklikle ilişki",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Dün sabah dedem bana çocukluğunu anlattı: Okula yürüyerek giderdi…” parçasının türünü ve gerçeklikle ilişkisini yazınız.",
+   "correctAnswer": "Parça anıdır; gerçek yaşanmış bir olayı (dedenin çocukluğu) anlatır, bu nedenle gerçeklikle ilişkilidir.",
+   "keyPoints": [
+    "Tür: anı",
+    "Gerçek olay anlatılır"
+   ],
+   "maxPoints": 4,
+   "explanation": "Tür adı + tek gerekçe yeterlidir. Kurgu varsa hikâye; gerçek yaşanmışlık varsa anı yazın.",
+   "category": "Benzer soru: Öğretici ve sanatsal metinler; gerçeklikle ilişki",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Öğretici metinle sanatsal metni “amaç ve dil” ölçütlerine göre karşılaştırınız.",
+   "correctAnswer": "Öğretici metin bilgi vermek ister, dili açık ve nesneldir. Sanatsal metin estetik zevk verir, dili duygusal ve çok anlamlıdır.",
+   "keyPoints": [
+    "Amaç farkı",
+    "Dil farkı",
+    "İki metin türü ayrı ayrı yazılır"
+   ],
+   "maxPoints": 4,
+   "explanation": "Karşılaştırmada her ölçüt için iki türü yan yana yazın.",
+   "category": "Benzer soru: Öğretici ve sanatsal metinler; gerçeklikle ilişki",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi öğretici bir metinde beklenmez?",
+   "options": [
+    "Açık anlatım",
+    "Nesnel bilgi",
+    "Çok anlamlı ve imgeli söyleyiş",
+    "Kanıtlanabilir ifade"
+   ],
+   "correct": 2,
+   "explanation": "Öğretici metinde amaç bilgi vermektir; çok anlamlı imgeli dil sanatsal metinlere özgüdür.",
+   "category": "Benzer soru: Öğretici ve sanatsal metinler; gerçeklikle ilişki",
+   "difficulty": "medium"
+  },
+  {
+   "type": "true-false",
+   "question": "Anıda olaylar yazarın kurguladığı olaylardır.",
+   "correct": false,
+   "explanation": "Anı, gerçekten yaşanmış olayları anlatır. Kurgu hikâyeye aittir.",
+   "category": "Benzer soru: Öğretici ve sanatsal metinler; gerçeklikle ilişki",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Bizim Akdeniz” parçasının türünü göz önünde bulundurarak yazarın metni yazma amacını açıklayınız.",
+   "correctAnswer": "Parça gezi yazısıdır. Yazar, yeri tarihî, coğrafi ve kültürel özellikleriyle tanıtmayı ve okurda orayı gezip görme isteği uyandırmayı amaçlar.",
+   "keyPoints": [
+    "Tür belirtilir",
+    "Yeri tanıtma amacı",
+    "Okuru gezmeye özendirme"
+   ],
+   "maxPoints": 6,
+   "explanation": "Soru türü ister: önce tür adını yazın, sonra amacı iki cümleyle belirtin. Tür belirtilmeden yazılan amaç eksik kalır.",
+   "category": "Benzer soru: Anı, hikâye, gezi yazısı ve diğer türler",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Balçık, Varna’ya 40 km mesafede şirin bir sahil kasabasıydı. Osmanlılar kasabaya okullar, camiler, hamamlar yaptırmıştı.” parçası hangi türe örnek olabilir? Gerekçesini yazınız.",
+   "correctAnswer": "Gezi yazısı. Çünkü bir yerin konumu, tarihi ve kültürel özellikleri nesnel bilgilerle tanıtılıyor.",
+   "keyPoints": [
+    "Gezi yazısı",
+    "Yerin tanıtımı",
+    "Nesnel bilgi"
+   ],
+   "maxPoints": 4,
+   "explanation": "Tür adını ve türün işaretini birlikte yazın: yer tanıtımı + nesnel bilgi.",
+   "category": "Benzer soru: Anı, hikâye, gezi yazısı ve diğer türler",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Anı ile gezi yazısını “konu ve anlatım” açısından iki yönüyle karşılaştırınız.",
+   "correctAnswer": "Anıda yaşanmış olay ve kişiler anlatılır, anlatım öyküleme ağırlıklıdır. Gezi yazısında gezilen yer anlatılır, anlatım betimleme ve açıklama ağırlıklıdır.",
+   "keyPoints": [
+    "Anının konusu",
+    "Gezi yazısının konusu",
+    "Anlatım biçimi karşılaştırılır"
+   ],
+   "maxPoints": 4,
+   "explanation": "Karşılaştırmada her ölçüt için iki tür yan yana verilir. Konu ve anlatım biçimi en güvenilir iki ölçüttür.",
+   "category": "Benzer soru: Anı, hikâye, gezi yazısı ve diğer türler",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi gezi yazısının özelliğidir?",
+   "options": [
+    "Tamamen kurmaca olması",
+    "Sadece şiir diliyle yazılması",
+    "Kişi tasviri içermemesi",
+    "Gözleme dayanması ve bilgi içermesi"
+   ],
+   "correct": 3,
+   "explanation": "Gezi yazısı yazarın gözlemlerine ve izlenimlerine dayanır; coğrafi, tarihî ve kültürel bilgi içerir.",
+   "category": "Benzer soru: Anı, hikâye, gezi yazısı ve diğer türler",
+   "difficulty": "medium"
+  },
+  {
+   "type": "true-false",
+   "question": "Gezi yazısı tamamen kurmaca bir türdür.",
+   "correct": false,
+   "explanation": "Gezi yazısı gerçek gözlemlere dayanır. Kurmaca hikâye ve romanın özelliğidir.",
+   "category": "Benzer soru: Anı, hikâye, gezi yazısı ve diğer türler",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Askerlerimiz uykusuzluğa, yokluğa rağmen sabırla direnip vatanı savundu; umutlarını hiç yitirmediler.” cümlesinde yansıtılan değerleri millî, manevi ve evrensel olarak sınıflandırınız.",
+   "correctAnswer": "Millî değer: vatan sevgisi, vatanı savunma. Manevi değer: sabır. Evrensel değer: umut.",
+   "keyPoints": [
+    "Millî değer",
+    "Manevi değer",
+    "Evrensel değer"
+   ],
+   "maxPoints": 6,
+   "explanation": "Her değer türü için bir ifade bulup eşleştirin. Üç türü tek tek yazmak tam puandır.",
+   "category": "Benzer soru: Millî, manevi ve evrensel değerler",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Dostluk sabır ister; kusur görürsen atla, sayfayı yırtma.” sözünün ifade ettiği değerleri yazınız ve örnekle açıklayınız.",
+   "correctAnswer": "Sabır, anlayış ve hoşgörü. Dostlukta küçük kusurlar affedilmeli, ilişki korunmalıdır.",
+   "keyPoints": [
+    "Sabır",
+    "Anlayış/hoşgörü",
+    "Örnek açıklaması"
+   ],
+   "maxPoints": 5,
+   "explanation": "Değer adı + kısa açıklama yapısını kullanın.",
+   "category": "Benzer soru: Millî, manevi ve evrensel değerler",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir metinde “umut” değerinin evrensel olduğunu gerekçelendiriniz.",
+   "correctAnswer": "Umut, her insanın ve toplumun yaşadığı bir duygudur; belirli bir millete özgü değildir. Bu nedenle evrensel kabul edilir.",
+   "keyPoints": [
+    "Umudun tanımı",
+    "Evrensellik gerekçesi",
+    "Bir örnek"
+   ],
+   "maxPoints": 4,
+   "explanation": "Gerekçe: “tüm insanlıkça paylaşılması” ifadesini yazmak anahtardır.",
+   "category": "Benzer soru: Millî, manevi ve evrensel değerler",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "“Vatan ve millet sevgisi” hangi değer türüne girer?",
+   "options": [
+    "Millî değer",
+    "Evrensel değer",
+    "Manevi değer",
+    "Estetik değer"
+   ],
+   "correct": 0,
+   "explanation": "Vatan ve millet sevgisi bir milletin ortak tarih ve kültüründen doğduğu için millî değerdir.",
+   "category": "Benzer soru: Millî, manevi ve evrensel değerler",
+   "difficulty": "medium"
+  },
+  {
+   "type": "true-false",
+   "question": "“Sabır” ve “inanç” millî değerlerdir.",
+   "correct": false,
+   "explanation": "Sabır ve inanç manevi değerlerdir; millî değer vatan, millet sevgisi gibi ifadelerdir.",
+   "category": "Benzer soru: Millî, manevi ve evrensel değerler",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Haber bülteni: Dün İstanbul’da sıcaklık 36 dereceyi buldu.” ve “İstanbul’un sıcağı insanı bunaltıyor, nefes almak zor.” cümlelerini öznellik–nesnellik bakımından değerlendirip gerekçesini yazınız.",
+   "correctAnswer": "Birinci cümle nesneldir: ölçülebilir ve doğrulanabilir bir veri (36 derece) içerir. İkinci cümle öznel: “bunaltıyor, nefes almak zor” kişisel izlenimdir.",
+   "keyPoints": [
+    "Birinci cümle nesnel",
+    "İkinci cümle öznel",
+    "Her biri için gerekçe"
+   ],
+   "maxPoints": 8,
+   "explanation": "Her cümle için karar + gerekçe yazın. 4+4 puan yapısını kullanın; gerekçede kanıt ifade ve “doğrulanabilir / duygu içerir” sözlerini kullanın.",
+   "category": "Benzer soru: Öznel ve nesnel anlatım; dilin işlevleri",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki cümleyi nesnelden öznele dönüştürünüz: “Kütüphane sabah dokuzda açılır.”",
+   "correctAnswer": "Örnek: “Sabahın erken saatlerinde açılan kütüphane, kitap kokusuyla beni hep mutlu eder.” Cümleye kişisel duygu eklenmiştir.",
+   "keyPoints": [
+    "Bilgi korunur",
+    "Duygu/izlenim eklenir",
+    "Öznel ifade olur"
+   ],
+   "maxPoints": 3,
+   "explanation": "Dönüştürmede bilgiyi koruyup yargı/duygu sözcüğü (hoş, mutlu, huzur) ekleyin.",
+   "category": "Benzer soru: Öznel ve nesnel anlatım; dilin işlevleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir anı yazısının neden öznel unsurlar içerdiğini açıklayınız.",
+   "correctAnswer": "Anı, yazarın yaşadığı olayları kendi duygu ve yorumuyla aktardığı için öznel unsurlar içerir; olaylar gerçek olsa bile yorum kişiye aittir.",
+   "keyPoints": [
+    "Anıda yazarın bakışı vardır",
+    "Duygu ve yorum öznellik katar",
+    "Olayın gerçekliği öznelliği ortadan kaldırmaz"
+   ],
+   "maxPoints": 3,
+   "explanation": "“Gerçek olsa da yorum özneldir” cümlesi tam puana götürür.",
+   "category": "Benzer soru: Öznel ve nesnel anlatım; dilin işlevleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi nesnel bir ifadedir?",
+   "options": [
+    "Kitap çok sıkıcıydı.",
+    "Kitap 320 sayfadır.",
+    "Kitabı çok beğendim.",
+    "Kitap beni mutlu etti."
+   ],
+   "correct": 1,
+   "explanation": "Sayfa sayısı doğrulanabilir bir bilgidir. Diğer seçenekler kişisel yargı ve duygudur.",
+   "category": "Benzer soru: Öznel ve nesnel anlatım; dilin işlevleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "true-false",
+   "question": "Şiir dilinin ağırlıklı özelliği nesnelliktir.",
+   "correct": false,
+   "explanation": "Şiir dilinde duygu, benzetme ve çok anlamlılık öne çıkar; bu yüzden öznel ağırlıklıdır.",
+   "category": "Benzer soru: Öznel ve nesnel anlatım; dilin işlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir gezi yazarı için “nesnel bilgi kullanmanın” üsluba etkisini açıklayınız.",
+   "correctAnswer": "Nesnel bilgiler (tarih, sayı, konum) gözlemleri kanıtlar, yeri güvenilir tanıtır ve üslubu açık, bilgilendirici kılar.",
+   "keyPoints": [
+    "Nesnel bilgi örneği",
+    "Gözlemi destekler",
+    "Üslup etkisi"
+   ],
+   "maxPoints": 4,
+   "explanation": "“Nesnel bilgi → güvenilirlik → bilgilendirici üslup” zincirini kurun.",
+   "category": "Benzer soru: Üslup, tür ve anlatımın özellikleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Bozkırın ortasında yalnız bir çınar vardı.” ve “Çınar, bozkırın yalnız bekçisi gibi duruyordu; ufkun sessizliğini dallarıyla okşuyordu.” cümlelerinin üslup farkını açıklayınız.",
+   "correctAnswer": "Birinci cümle sade ve nesneldir, gerçek anlamlı sözcükler kullanır. İkinci cümle sanatlı ve öznel: benzetme ve teşhis içerir, duygu yükü fazladır.",
+   "keyPoints": [
+    "Birinci cümle sade",
+    "İkinci cümle sanatlı",
+    "Gerekçe: benzetme/teşhis"
+   ],
+   "maxPoints": 4,
+   "explanation": "Üsluba etki eden ögeleri (söz sanatı, gerçek-mecaz) adlandırın.",
+   "category": "Benzer soru: Üslup, tür ve anlatımın özellikleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir metinde “duruluk” ve “akıcılık” ölçütlerini kendi cümlelerinizle açıklayınız.",
+   "correctAnswer": "Duruluk: gereksiz sözcük ve süslemenin olmaması. Akıcılık: metnin tıkanmadan, bağlantılı biçimde okunabilmesi.",
+   "keyPoints": [
+    "Duruluk tanımı",
+    "Akıcılık tanımı"
+   ],
+   "maxPoints": 3,
+   "explanation": "Her ölçüt için tek cümlelik tanım yeterlidir.",
+   "category": "Benzer soru: Üslup, tür ve anlatımın özellikleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Falih Rıfkı Atay’ın Antalya parçasındaki üslup hangi tür özelliğinin sonucudur?",
+   "options": [
+    "Hikâyenin kurmaca olmasının",
+    "Şiirin ölçüye bağlı olmasının",
+    "Gezi yazısının gözleme dayalı olmasının",
+    "Mektubun sınırlı konusunun"
+   ],
+   "correct": 2,
+   "explanation": "Gezi yazısı gözlemleri aktardığı için yazar mekânı betimleme ve açıklama ile verir.",
+   "category": "Benzer soru: Üslup, tür ve anlatımın özellikleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "true-false",
+   "question": "Gezi yazısında betimleyici anlatım kullanılması tür özelliğiyle ilgilidir.",
+   "correct": true,
+   "explanation": "Gezi yazısı gözleme dayalıdır; gözlenen yerin betimlenmesi doğal olarak üslubu belirler.",
+   "category": "Benzer soru: Üslup, tür ve anlatımın özellikleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Sabah sisinde balıkçı kayıkları, martıların sesi, tuzlu hava” ifadelerinden hareketle en az beş cümlelik betimleyici bir paragraf yazınız (50–100 kelime).",
+   "correctAnswer": "Örnek: Sabah sisi limanı örtmüştü; kayıklar sessizce suyun üstünde sallanıyordu. Martıların keskin çığlıkları serin havayı yarıyordu. Tuzlu rüzgâr yüzüme çarptıkça dudaklarımda deniz tadı hissediyordum. Rıhtımdaki halatlar nemli ve soğuktu. Uzakta, gün doğarken ışık yavaş yavaş suyun üstüne altın bir örtü seriyordu.",
+   "keyPoints": [
+    "En az beş cümle",
+    "Duyulara hitap",
+    "Yazım ve noktalama",
+    "Özgün anlatım"
+   ],
+   "maxPoints": 10,
+   "explanation": "Yönergeyi madde madde kontrol edin: beş cümle, duyular (görme, işitme, tatma, dokunma), özgünlük. Doğru yazım ve noktalama için son okuma yapın.",
+   "category": "Benzer soru: Betimleyici paragraf yazma",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Gece, tren, özlem, tünel” sözcüklerini kullanarak 5 cümlelik betimleyici bir paragraf yazınız.",
+   "correctAnswer": "Örnek: Gece ilerledikçe tren raylarda ince bir özlem şarkısı söylüyordu. Tünele girerken camda kendi yansımamı gördüm. Karanlıktan çıkınca uzakta titreyen ışıkları fark ettim. Sıcak çay kokusu vagona doluyordu. Özlem, her istasyonda biraz daha derinleşiyordu.",
+   "keyPoints": [
+    "Dört anahtar kelime kullanılmış",
+    "Beş cümle",
+    "Duyulara hitap"
+   ],
+   "maxPoints": 8,
+   "explanation": "Kelimeleri doğal biçimde cümleye yedirin; zorlama olmasın. Sonra sayıp işaretleyin.",
+   "category": "Benzer soru: Betimleyici paragraf yazma",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Betimleyici bir yazıda “duyulara hitap eden ifadeler” kullanmanın yazıya katkısını iki cümleyle açıklayınız.",
+   "correctAnswer": "Duyulara hitap eden ifadeler okurun zihninde somut ve canlı görüntü oluşturur. Böylece yazı daha etkileyici ve gerçeğe yakın hâle gelir.",
+   "keyPoints": [
+    "Görüntünün canlanması",
+    "Etkileyicilik"
+   ],
+   "maxPoints": 3,
+   "explanation": "Katkıyı iki cümleye bölün: ne sağlar, sonuçta ne olur.",
+   "category": "Benzer soru: Betimleyici paragraf yazma",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Betimleyici yazıda aşağıdakilerden hangisi duyulara hitap eden bir ifadedir?",
+   "options": [
+    "Okul sabah sekizde başlar",
+    "İki kere iki dörde eşittir",
+    "Yarın sınav var",
+    "Fırından yayılan sıcak ekmek kokusu"
+   ],
+   "correct": 3,
+   "explanation": "Sıcak ekmek kokusu koklama duyusuna hitap eder. Diğerleri bilgi bildirir.",
+   "category": "Benzer soru: Betimleyici paragraf yazma",
+   "difficulty": "medium"
+  },
+  {
+   "type": "true-false",
+   "question": "Betimleyici paragrafta yönergedeki anahtar kelimelerin yalnız bir kısmını kullanmak yeterlidir.",
+   "correct": false,
+   "explanation": "Anahtar kelimelerin tamamı kullanılmalıdır; eksik kullanım ilgili madde puanını azaltır.",
+   "category": "Benzer soru: Betimleyici paragraf yazma",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki cümledeki yazım ve noktalama yanlışlarını düzeltiniz: “benim arkadaşım ankaraya gitti ben de gideceğim.”",
+   "correctAnswer": "“Benim arkadaşım Ankara’ya gitti, ben de gideceğim.” (Büyük harf, kesme işareti, virgül ve nokta düzeltilmiştir.)",
+   "keyPoints": [
+    "Büyük harf",
+    "Kesme işareti",
+    "Virgül ve nokta"
+   ],
+   "maxPoints": 4,
+   "explanation": "Önce cümle başı ve özel ad büyük harf; sonra ek ayırma; sonra noktalama. Üç hata sınıfını sırayla düzeltin.",
+   "category": "Benzer soru: Yazım ve noktalama",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Bu işi yarın yapacağım ki başkası yapmasın” cümlesindeki “ki” bağlacının yazımını ve cümlenin noktalamasını açıklayınız.",
+   "correctAnswer": "“ki” bağlaç olduğu için ayrı yazılır. Cümle sonuna nokta konur: “Bu işi yarın yapacağım ki başkası yapmasın.”",
+   "keyPoints": [
+    "Ki ayrı yazılır",
+    "Nokta kullanılır",
+    "Gerekçe"
+   ],
+   "maxPoints": 3,
+   "explanation": "Önce bağlaç türünü söyleyin, sonra yazım sonucunu yazın.",
+   "category": "Benzer soru: Yazım ve noktalama",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Yazım ve noktalama kuralları açısından “de/da” bağlacıyla ek arasındaki farkı örneklerle açıklayınız.",
+   "correctAnswer": "Bağlaç olan “de/da” ayrı yazılır (Ben de geldim). Bulunma hâli eki olan “-de/-da” sözcüğe bitişik yazılır (evde). Bağlaç çıkarıldığında cümle anlamı bozulmaz.",
+   "keyPoints": [
+    "Bağlaç ayrı",
+    "Ek bitişik",
+    "Örneklerle gösterim"
+   ],
+   "maxPoints": 4,
+   "explanation": "Ayırma testi: “de/da” çıkarıldığında anlam bozulmuyorsa bağlaçtır, ayrı yazılır.",
+   "category": "Benzer soru: Yazım ve noktalama",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdaki cümlelerin hangisinde yazım yanlışı vardır?",
+   "options": [
+    "Bu gün hava çok güzeldi.",
+    "Ben de seninle geliyorum.",
+    "Hâlâ aynı yerdeyiz.",
+    "Her şey yolundaydı."
+   ],
+   "correct": 0,
+   "explanation": "“Bugün” bitişik yazılır; “bu gün” yanlıştır. Diğer cümleler doğrudur.",
+   "category": "Benzer soru: Yazım ve noktalama",
+   "difficulty": "medium"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Ankara____ gideceğiz. (Boşluğa, kesme işaretiyle birlikte yönelme ekini yazınız.)",
+   "answers": [
+    "’ya",
+    "'ya"
+   ],
+   "explanation": "Özel adlara gelen ekler kesme işaretiyle ayrılır: Ankara’ya.",
+   "category": "Benzer soru: Yazım ve noktalama",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Bu metinde kahramanın iki kişilik özelliğini yazınız ve bunların olaya etkisini açıklayınız.” sorusunda tam puan almak için cevabı nasıl planlarsınız?",
+   "correctAnswer": "Önce iki kişilik özelliği ayrı yazarım. Sonra her özelliğin olay örgüsüne etkisini örnek davranışla açıklarım. Gerekçe ve metinden kanıt eklerim.",
+   "keyPoints": [
+    "Özellikler ayrı yazılır",
+    "Etki açıklanır",
+    "Kanıt eklenir"
+   ],
+   "maxPoints": 5,
+   "explanation": "Bu planlama sınavın tüm çok bileşenli sorularına uygulanır: bileşenleri say, ayrı yaz, gerekçelendir.",
+   "category": "Benzer soru: Açık uçlu soruda tam puan stratejisi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir metni iki yönden karşılaştırmanız istendiğinde cevabı nasıl düzenlersiniz? Örnek bir yapı yazınız.",
+   "correctAnswer": "Her ölçüt için iki metni karşılaştırırım: Ölçüt 1: I. metin … ; II. metin … Ölçüt 2: … Böylece her ölçütte iki taraf da açıkça belirtilir.",
+   "keyPoints": [
+    "Ölçüt belirtilir",
+    "İki metin de yazılır",
+    "Karşılaştırma açıktır"
+   ],
+   "maxPoints": 5,
+   "explanation": "Karşılaştırmada yalnız bir metni anlatmak kısmî puandır; iki tarafı yan yana yazın.",
+   "category": "Benzer soru: Açık uçlu soruda tam puan stratejisi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Yönergeli bir yazı sorusunda “yönergeyi kontrol listesi olarak kullanmak” ne demektir? Üç adımla açıklayınız.",
+   "correctAnswer": "1) Yönergedeki her maddeyi sıralarım. 2) Yazıyı yazarken her maddeyi karşıladığımı işaretlerim. 3) Son okumada kelime sayısı, anahtar kelimeler ve yazım kurallarını yeniden kontrol ederim.",
+   "keyPoints": [
+    "Maddeleri sıralama",
+    "Yazarken işaretleme",
+    "Son kontrol"
+   ],
+   "maxPoints": 5,
+   "explanation": "Her maddenin ayrı puanı olduğundan kontrol listesi puan kaybını önler.",
+   "category": "Benzer soru: Açık uçlu soruda tam puan stratejisi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Bir açık uçlu soruda gerekçe istenmişse aşağıdakilerden hangisi tam puan için gereklidir?",
+   "options": [
+    "Cevabı mümkün olduğunca uzun yazmak",
+    "Cevabı metinden bir ifadeyle desteklemek",
+    "Metni baştan sona kopyalamak",
+    "Yalnız “evet/hayır” yazmak"
+   ],
+   "correct": 1,
+   "explanation": "Gerekçe, kararı destekleyen nedeni içerir; metinden kanıt ifade en güçlü gerekçedir.",
+   "category": "Benzer soru: Açık uçlu soruda tam puan stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "true-false",
+   "question": "Çok bileşenli bir soruda bileşenlerden birini yazmamak puanı etkilemez.",
+   "correct": false,
+   "explanation": "Her bileşen ayrı puandır; eksik bileşen kısmî puana indirir.",
+   "category": "Benzer soru: Açık uçlu soruda tam puan stratejisi",
+   "difficulty": "easy"
+  }
+ ],
+ "sources": [
+  {
+   "id": "src1",
+   "name": "9. Sınıf Türk Dili ve Edebiyatı – 2. Dönem 1. Yazılı (OGM Yazılıya Hazırlanıyorum)",
+   "kind": "file",
+   "text": "=== Page 1 ===\r\nyaZılıya HaZırlaNıyOrUM\r\n2. dÖNeM - 1. yaZılı\r\nTÜRK DILI VE EDEBIYATI\r\n aşağıdaki metni okuyunuz.\r\nBenim üniversite sınavım, aslında bizim evin sınavıydı. Yakın akraba, konu komşu, arkadaş, öğretmen hatta mahal-\r\nlenin muhtarı bile benimle birlikte girdi bu sınava. Bu gücü, inancı ve sorumluluğu sınav sırasında inanın hissettim. \r\nBu arada benim adım Çağatay, bu hikâyenin sonuncu başkahramanıyım. Kreşe başladığım günden beri fark edilen \r\nzekâmın kurbanıyım. Bütün üstüme titreme nedenlerini böyle açıklıyorlar.  \r\nAnneannem, babaannem öğretmen; dedelerim subay emeklisi. Bunlar yetmiyormuş gibi annem ve babam doktor. \r\nYani sizin anlayacağınız yakın çevrede başarısız sınav örneği çıkmamış. Okul müdürünün en çok bana güvendiği \r\nyetmiyormuş gibi servis şoförü de bana nasıl güvendiğini anlattı. \r\nGirdim, çıktım; iki gün üçer saat. Hiç zor gelmedi. \r\nAna sınıfından bu yana hep bu sınav için yaşamıştım, desem abartmış olmam. Şimdi ne mi yapıyorum? Sınavın nasıl \r\ngeçtiğini anlatıyorum, meraklılara. Sonra ne yaparım, bilmiyorum. Sanırım üç bölümden tercih yaparım: tıp, askerlik, \r\nöğretmenlik.\r\n1. Metne göre akrabaları Çağatay’ın üniversite tercihlerini nasıl etkilemiştir? Gerekçesini yazınız.\r\n=== Page 2 ===\r\n aşağıdaki metni okuyunuz.\r\nAkdeniz’in esatir yuvası nihayetsiz ufuklarına bakan küçük tepe minimini bir çiçek ormanı gibiydi. İnce, uzun dallı \r\nbadem ağaçlarının alaca gölgeleri sahile inen keçi yoluna düşüyor, ilkbaharın tatlı rüzgârıyla sarhoş olan martılar çıl-\r\ngın naralarla havayı çınlatıyorlardı. Badem bahçesinin yanı geniş bir bağdı. Beyaz taşlardan yapılmış kısa bir duvarın \r\nötesindeki zeytinlik, ta vadiye kadar iniyordu. Bağın ortasındaki viran kulübenin kapısız methalinden bir ihtiyar çıktı. \r\nSaçı, sakalı bembeyazdı. Kamburunu düzeltmek istiyormuş gibi gerindi. Elleri, ayakları titriyordu. Gök kadar boş, gök \r\nkadar sakin duran denize baktı, baktı. “Hayırdır inşallah!” dedi. (…)\r\nFakat işte eskiden beri gördüğü rüyaları yine görmeye başlamıştı. Kırk senelik bir rüya... Türklerin, Türk gemilerinin \r\ngelişi... Gözlerini kadit elleriyle iyice ovdu. Denizin gökle birleştiği yere yine baktı. Evet, mutlaka geleceklerdi. Buna \r\no kadar emindi ki... “Kırk sene görülen bir rüya yalan olmaz!” diyordu. Kulübe duvarının dibine uzandı. Yavaş yavaş \r\ngözlerini kapadı. İlkbahar bir ümit tufanı gibi her tarafı parlatıyordu.\r\n        Ömer Seyfettin, Seçilmiş Hikâyeler, Forsa\r\n2. bu metinde millî, manevi ve evrensel değerler nasıl yansıtılmıştır? açıklayınız.\r\n aşağıdaki metni okuyunuz.\r\nÇoban ve kaval gibi, kavak ve akasya da yukarı bozkırın şiiri idi: Şimdi, muz, portakal, limon ve zeytin pişiren güneş \r\nve su cennetine doğru iniyoruz. Çubuk Boğazı otomobil yolunu 800 metre birden düşürdükten sonra, büyük sahil \r\novasına çıktık. Bu ova, iki tarasa hâlindedir. Antalya ilk tarasanın ucundan görünür. \r\nModa sahilini biraz daha yükselterek alabildiğinize genişletiniz ve derinletiniz: Ovanın ilk katı budur. Sonra bu katı \r\ngene her taraftan yükselterek geniş ve derin, Toroslara dayayınız. Üst tarasa budur. \r\nDağlardan inen sular, üst ovada bataklıklar yapıp, düden denilen yer yarıklarında kaybolurlar ve alt ovada tekrar çıkıp \r\nAntalya bahçelerine dağıldıktan sonra, sahilde sayısız düşer sularla denize dökülürler. \r\n         Falih Rıfkı Atay, Bizim Akdeniz\r\n3. bu metnin türünü göz önünde bulundurarak yazarın metni yazma amacını açıklayınız.\r\n=== Page 3 ===\r\naşağıdaki metinleri okuyunuz.\r\nı. Metin\r\nTuna Nehri bilindiği gibi şehri Buda ve Peşte diye ikiye bölüyor. İki yaka birbirine Arpad, Margıt Szechenyi, Srabad-\r\nsag Ptofi köprüleri ile bağlı. Bu eski köprülere son yıllarda çok modern bir yenisi eklenmiş: Elisabeth Köprüsü. Buda-\r\npeşteliler küçük çapta bir San Francisco köprüsünü andıran bu asma köprü ile pek övünüyorlar. Peşte’nin en ferah \r\nen şiirli yanı elbette Tuna kıyıları. Bu kıyılarda güzel bulvar kahveleri var. Nehire inen basamak basamak merdiven-\r\nlerde gene ihtiyar çiftler güneşin batışını seyrediyorlar. Nehirde sefer yapan küçük gemilerin güverteleri bembeyaz \r\nörtülü masaları ile gezici bir restoran hâlinde.\r\n        Haldun Taner, Düşsem Yollara Yollara\r\nıı. Metin\r\nBeş kişiydiler, insanı her zaman şaşkına çeviren o büyü, rastlantı, çoğu akşamlar onları Eminönü’nde, Köprü ayağı-\r\nnın Haliç’e bakan boşluğunda buluşturur ve onlar dolmuş kayığıyla karşıya, Galata’ya geçerlerdi. Belki de gün bo-\r\nyunca harcadıkları paradan, yalnız, kayıkçıya verdikleri bu altmış paraya acımazlardı. Haftanın üç dört akşamı –kimi \r\ngünler bir kişi eksiğiyle de olsa– rastlantının o nerden, nasıl estiği belli olmayan rüzgârıyla dolmuş iskelesinin önünde \r\nbir araya gelmeleri önceleri onları şaşırtmıştı. Şaşırmaksa ne güzel şeydi. Ne yazık ki bu duyguları çok sürmemiş, \r\ncoşkunun uçan tadı yerini, bu kez, alışkanlığın dingin tadına bırakmıştı.\r\n        Sabahattin Kudret Aksal, Gazoz Ağacı\r\n4. bu metinleri dil ve anlatım özellikleri açısından karşılaştırarak metinlerin farklılıklarına dair iki özellik \r\nyazınız.\r\n aşağıdaki metni okuyunuz.\r\nÇoban ve kaval gibi, kavak ve akasya da yukarı bozkırın şiiri idi: Şimdi, muz, portakal, limon ve zeytin pişiren güneş \r\nve su cennetine doğru iniyoruz. Çubuk Boğazı otomobil yolunu 800 metre birden düşürdükten sonra, büyük sahil \r\novasına çıktık. Bu ova, iki tarasa hâlindedir. Antalya ilk tarasanın ucundan görünür. \r\nModa sahilini biraz daha yükselterek alabildiğinize genişletiniz ve derinletiniz: Ovanın ilk katı budur. Sonra bu katı \r\ngene her taraftan yükselterek geniş ve derin, Toroslara dayayınız. Üst tarasa budur. \r\nDağlardan inen sular, üst ovada bataklıklar yapıp, düden denilen yer yarıklarında kaybolurlar ve alt ovada tekrar çıkıp \r\nAntalya bahçelerine dağıldıktan sonra, sahilde sayısız düşer sularla denize dökülürler.\r\n         Falih Rıfkı Atay, Bizim Akdeniz\r\n5. yazarın \"Çoban ve kaval gibi, kavak ve akasya da yukarı bozkırın şiiri idi.\" ifadesi bağlamında metindeki \r\nbetimleyici anlatım ile şiirsellik arasındaki ilişkiyi açıklayınız.\r\n=== Page 4 ===\r\n aşağıdaki metni okuyunuz.\r\nBalçık, Varna'ya kara yolundan 40 kilometre mesafede şirin, temiz yüzlü bir sahil kasabasıydı. Yıllarca önce Rumen \r\naristokrasisinin, Bükreş’ten her hafta sonu dinlenmek için gittiği Balçık’ta hâlâ pek çok Türk yaşıyordu…\r\nTrakya Türkleri tarafından kurulan ve ilk adı “Diyonosopl” olan kasabaya Balçık adını Osmanlılar vermiş ve orada \r\nokullar, camiler, hamamlar yaptırmışlardı. Evliya Çelebi’nin ziyareti sırasında kasabada 500 ev, 5 mahalle ve 150 \r\ndükkân ile 5-6 kadar cami vardı. Sokollu Mehmet Paşa’nın karısı Esmehan Sultan oraya bir hamam yaptırmıştı. Şim-\r\ndi olduğu gibi, o zaman da Balçık’ın balı pek meşhurdu…\r\nDenize bakan tepelerinde beyaz kayalıkların bulunmasından dolayı “Beyaz Kasaba” denilen Karadeniz’in bu nispe-\r\nten sakin köşesinde bir hayli Rum da vardı.\r\n         Yılmaz Çetiner, Şu Bizim Rumeli\r\n6. bu metinde yazarın üslup seçiminde metnin türü nasıl etkili olmuştur? açıklayınız.\r\n=== Page 5 ===\r\nULUDAĞ SOKAK SATICILARI\r\nGirin satıcılar evimin bülbülleri\r\nGirin girin aydınlık bahçemden içeri\r\nÜzüm satın armut satın nar satın bize\r\nDağlar görünürken kapıda ardınızdan\r\nİndirin tüy gibi küfeyi sırtınızdan\r\nBir elmada bir mevsim dolsun evimize\r\nYa sen ey karınca taciri gazeteci\r\nAğzının içinde bir sap ebegümeci\r\nKaşlarında macera gözlerinde oyun\r\nŞeytan gibi kaçan yollu bisikletinle\r\nGetir o eski sevincini çocukluğun\r\nAkşamla bacada mavileşince duman\r\nBiten türkü gibi uzaklaşın kapımdan\r\nKayın ağır ağır gündüzden geceye\r\nEy İstanbul ağzıyla mal satan simitçi\r\nÇocukları eşeğine bindiren sütçü\r\nHalil İbrahim bereketi kesenize\r\n  Oktay Rifat HOROZCU\r\n        (Metnin aslına sadık kalınmıştır.)\r\n7. Uludağ Sokak Satıcıları şiirinde anlatılan geleneksel alışveriş kültürünün sıcaklığının günümüzde avM’ler \r\nve internet alışverişi ile kayboluşunu anlatan yönergeye uygun bir paragraf yazınız.\r\n YÖNERGE\r\n 1. Yazınızı betimleme, karşılaştırma ve tanımlamadan yararlanarak 50-100 kelime arasında yazınız.\r\n 2. Yazım ve noktalama kurallarına uyunuz. \r\n 3. “çarşı, selam, tezgâh, ekran, kalabalık, indirim, sanal, yalnızlık, AVM, kargo” anahtar kelimelerini kullanınız.\r\n=== Page 6 ===\r\nSOrU \r\nNO ÖĞreNMe ÇıktıSı beCeriler\r\n1 TDE2.2. Anlam oluşturabilme KB2.10. Çıkarım Yapma Becerisi\r\n2 TDE2.2. Anlam oluşturabilme KB2.10. Çıkarım Yapma Becerisi\r\n3 TDE2.2. Anlam oluşturabilme KB2.10. Çıkarım Yapma Becerisi\r\n4 TDE2.2. Anlam oluşturabilme KB2.7. Karşılaştırma Becerisi\r\n5 TDE2.3. Çözümleyebilme KB2.4. Çözümleme Becerisi\r\n6 TDE2.3. Çözümleyebilme KB2.4. Çözümleme Becerisi\r\n7 TDE4.3. Kural uygulayabilme\r\nKB2.14. Yorumlama Becerisi\r\nKB2.20. Sentezleme Becerisi\r\nPUaNlaMa tablOSU\r\n1 2 3 4 5 6 7 tOPlaM\r\n15 15 10 15 15 10 20 100\r\n=== Page 7 ===\r\nÇÖZüMler\r\n1. doğru Cevap: Akrabaları Çağatay’ın üniversite tercihlerini olumsuz etkilemiştir. Aile büyüklerinin Çağatay’ı kendi \r\nmesleklerine yönlendirdiğini belirten, Çağatay’ın tıp, askerlik ve öğretmenlik dışında bir tercih yapamamasını \r\ngerekçe olarak gösteren cevaplar doğru kabul edilecektir.\r\n2. doğru Cevap:\r\n • Millî Değerler: Vatan ve millet sevgisi ifadelerini içeren cümleler doğru kabul edilecektir. \r\n • Manevi Değerler: Sabır ve inanç ifadelerini içeren cümleler doğru kabul edilecektir. \r\n • Evrensel Değerler: Umut ifadesini içeren cümleler doğru kabul edilecektir. \r\n yanlış Cevap: Millî, manevî, evrensel değerler ile ilgili yapılan tespitler ilgisiz ve belirsizse yanlış kabul edilecektir.\r\n3. doğru Cevap: Bir yeri tarihî, coğrafi ve kültürel özellikleriyle tanıtma; anlatılanlarla okurda bu yerleri gezip görme \r\nisteği uyandırma gibi amaçları ifade eden cevaplar doğru kabul edilecektir.\r\n yanlış Cevap: Metnin yazılma amacıyla ilgili ifadeleri içermeyen cevaplar yanlış kabul edilecektir.\r\n4. doğru Cevap: Birinci metinde açıklayıcı ve betimleyici anlatım kullanılırken ikinci metinde öyküleyici ve betimleyici \r\nanlatım kullanılmıştır. \r\n Yazar, ilk metinde mekânın atmosferini genellikle nesnel ifadelerle anlatırken ikinci metinde kahramanların iç \r\ndünyaları öznel ifadelerle aktarılmıştır.\r\n İlk metinde sözcükler genellikle gerçek anlamlarında kullanılırken ikinci metinde yan ve mecaz anlamlarda \r\nkullanılmıştır. \r\n İlk metinde açık ve anlaşılır bir anlatım kullanılmışken ikinci metinde sanatlı bir söyleyiş benimsenmiştir.\r\n Birinci metinde kısa cümleler kullanılmışken ikinci metinde uzun cümleler tercih edilmiştir.\r\n yanlış Cevap: Metinleri dil ve anlatım yönünden karşılaştırmayan cevaplar yanlış kabul edilecektir.\r\n=== Page 8 ===\r\n5. doğru Cevap: Yazarın ifadesi, doğa unsurlarını yalnızca betimlemekle kalmayıp onlara duygusal ve sanatsal \r\nbir anlam yüklediğini göstermektedir. Çoban ve kaval nasıl bozkırın bir parçasıysa kavak ve akasya da bu \r\ndoğal atmosferin şiirsel bir yansımasıdır. Betimleyici anlatım, doğaya estetik bir boyut kazandırarak şiirsellikle \r\nbütünleşmektedir gibi ifadeleri içeren cümleler doğru kabul edilecektir.\r\n yanlış Cevap: Metindeki doğa tasvirleri, yalnızca fiziksel betimleme değil aynı zamanda sanatsal bir anlam taşır \r\ngibi ifadeler içermeyen cümleler yanlış kabul edilecektir.\r\n6. doğru Cevap: Gezi yazısı gözleme dayalı bir tür olduğu için yazar mekânı betimleyici bir anlatımla aktarmıştır. \r\nGözlemlerini desteklemek için nesnel bilgilere yer vermiştir. Açıklayıcı bir anlatımla mekânın tarihine ve kültürüne \r\ndair bilgiler vermiştir.\r\n yanlış Cevap: Metnin tür özelliklerinin yazarın üslubuna etkisini belirtmeyen cevaplar yanlış kabul edilecektir.\r\n7. doğru Cevap: Yönergede belirtilen her maddeye uyulması doğru cevap olarak değerlendirilecektir.\r\n 1. Yazınızı betimleme, karşılaştırma ve tanımlamadan yararlanarak 50-100 kelime arasında yazınız. (5 puan)\r\n 2. Yazım ve noktalama kurallarına uyunuz. (5 puan)\r\n 3. “çarşı, selam, tezgâh, ekran, kalabalık, indirim, sanal, yalnızlık, AVM, kargo” anahtar kelimelerini kullanınız. (10 puan)\r\n Örnek doğru Cevap: Geleneksel çarşılarda yankılanan satıcıların sıcak selamları, pazarlık sesleri ve tezgâhlardan \r\nyükselen taze meyve kokuları artık yerini soğuk ekran ışıklarına bıraktı. Eskiden, kalabalık sokaklarda dolaşırken \r\nduyduğumuz indirim çağrıları şimdi sessizce tıklanan sanal düğmelere dönüştü. İnsanlar, yüz yüze pazarlık etmenin \r\nheyecanını unutup yalnızlık içinde dijital vitrinlere bakıyor. AVM’lerin yapay ışıkları, eski çarşıların sıcaklığını \r\nbastırırken dokunarak seçilen ürünlerin yerini, kargo poşetlerinden çıkan ruhsuz nesneler aldı. Artık alışveriş bir \r\ndost sohbeti değil, soğuk bir ekrana yapılan mekanik bir dokunuş sadece.\r\n yanlış Cevap: Yönergede yer alan maddelerden herhangi ikisine uymayan ve ilgisiz cevaplar yanlış cevap kabul \r\nedilecektir."
+  }
+ ]
+}

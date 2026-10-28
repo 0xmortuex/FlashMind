@@ -1,0 +1,2218 @@
+{
+ "title": "10. Sınıf Biyoloji - 1. Dönem 1. Yazılı (OGM Yazılıya Hazırlanıyorum)",
+ "meta": {
+  "fileId": "675fa374",
+  "grade": [
+   10
+  ],
+  "subject": "Biyoloji",
+  "schoolYear": "",
+  "examType": "ogm-yazili",
+  "kind": "booklet",
+  "sourceUrl": "https://ogm-large-cdn.eba.gov.tr/materyal/Etkilesimlikitap/88dbfe33-1cd4-4062-b37c-350fccd41ba3/pdf.pdf",
+  "counts": {
+   "sections": 14,
+   "cards": 115,
+   "questions": 74,
+   "sourceQuestions": 3,
+   "skippedNeedingFigure": 2,
+   "flashcards": 115,
+   "quiz": 74
+  }
+ },
+ "notes": {
+  "summary": "Bu set, MEB OGM \"Yazılıya Hazırlanıyorum\" serisindeki 10. Sınıf Biyoloji 1. Dönem 1. Yazılı örneğini çalıştırır. Sınav senaryo tabanlı, açık uçlu sorulardan oluşur: (1) ATP olmadan hücre yaşar mı (maya deneyi), (2) ışık şiddeti ve fotosentez hızı deneyi (Elodea, mor ışık), (3) omurgalılarda sindirim yapılarının sınıflandırılması. Her alt soru 20 puandır; puanlama TAM / KISMÎ / SIFIR PUAN rubriğiyle yapılır.\n\nDosyada 5 alt soru var. Metinde verisi bulunan 3 soru (1, 2.1, 2.2) açık uçlu quiz maddesine çevrildi. 3.1 ve 3.2 bir bilgi kartı görseline (hayvan resimleri ve sindirim özellikleri) dayandığı için çıkarılan metinde yok; bu iki soru uydurulmadı, atlandı. Aynı kazanım (omurgalıda diş, mide, bağırsak ölçütleri) notlarda ve \"Benzer soru\" maddelerinde öğretildi.\n\nBu dosyadan sınavda ne beklemeli / nasıl çalışmalı:\n1) Önce ATP, enerji ve hücresel faaliyetler arasındaki ilişkiyi kendi cümlelerinle anlat.\n2) Deney sorularında kontrol grubu, deney grubu, bağımlı ve bağımsız değişken ayrımını mutlaka çalış.\n3) Fotosentezde ışık, klorofil, O2 kabarcığı ve ışık rengi ilişkisini bir zincir olarak yaz.\n4) Sindirimde ölçüt belirle, sonra sınıfla, sonra beslenme biçimiyle ilişkilendir: üç basamağı da yazmazsan kısmî puan alırsın.\n5) Her açık uçlu yanıtta rubrik mantığını kullan: bulgu + kavram + sonuç bağlantısı = tam puan.\n6) \"Benzer soru\" maddelerini önce kendin yanıtla, sonra anahtar noktalarla karşılaştır.",
+  "sections": [
+   {
+    "title": "ATP: Hücrenin enerji para birimi",
+    "content": "Canlı hücreler yaşamsal faaliyetleri için sürekli enerjiye ihtiyaç duyar. Besinlerdeki kimyasal enerji doğrudan kullanılmaz; önce ATP (adenozin trifosfat) molekülünün bağlarında depolanır. ATP, enerji gerektiren olaylarda doğrudan kullanılan enerji taşıyıcı moleküldür. Yapısında bir adenin bazı, bir riboz şekeri ve üç fosfat grubu bulunur. Fosfat bağı koparılıp ADP + Pi oluştuğunda enerji açığa çıkar.",
+    "bulletPoints": [
+     "ATP = adenin + riboz + 3 fosfat grubu (adenozin trifosfat).",
+     "ATP yıkılınca ADP + Pi oluşur ve enerji açığa çıkar; ADP + Pi birleşirse enerji depolanır ve ATP yenilenir.",
+     "ATP uzun süreli depo molekül değildir; hücre onu sürekli yeniden üretir ve tüketir.",
+     "ATP üreten başlıca olaylar: hücresel solunum, fermantasyon, fotosentezin ışık tepkimeleri, kemosentez.",
+     "ATP kullanılan olaylar: aktif taşıma, biyosentez (protein, DNA yapımı), hücre bölünmesi, kas kasılması, sinirsel iletim.",
+     "Sınavda \"ATP canlılık için neden zorunludur?\" sorusunun cevabı: enerji gerektiren tüm olaylar ATP'ye bağlıdır."
+    ],
+    "keyTerms": [
+     {
+      "term": "ATP",
+      "definition": "Hücrelerde enerji gerektiren olaylarda doğrudan kullanılan nükleotit yapılı enerji taşıyıcı molekül."
+     },
+     {
+      "term": "ADP",
+      "definition": "Adenozin difosfat; ATP'nin bir fosfatı ayrıldığında oluşur."
+     },
+     {
+      "term": "Metabolizma",
+      "definition": "Hücredeki tüm yapım ve yıkım tepkimelerinin toplamı."
+     }
+    ]
+   },
+   {
+    "title": "Deneyden sonuç çıkarma: ATP üretimi engellenen maya",
+    "content": "Sınavın 1. sorusu bir deney yorumlama sorusudur. Maya hücreleri iki petri kabında bekletilir: kontrol grubunda glikoz + sağlıklı maya, deney grubunda glikoz + maya + ATP üretimini engelleyen madde vardır. Kontrol grubunda çoğalma gözlenir, deney grubunda çoğalma gözlenmez. Aradaki tek fark ATP üretiminin engellenmesi olduğu için, çoğalmanın durması ATP'ye bağlanır.",
+    "bulletPoints": [
+     "Adım 1 - Bulguyu yaz: 1. kapta çoğalma var, 2. kapta yok.",
+     "Adım 2 - Farkı bul: iki kap arasındaki tek fark ATP üretimini engelleyen madde.",
+     "Adım 3 - Kavramı bağla: çoğalma (hücre bölünmesi) enerji gerektirir; enerji ATP'den gelir.",
+     "Adım 4 - Genelle: ATP üretilemezse aktif taşıma, biyosentez ve bölünme durur; hücre ölür.",
+     "Adım 5 - Sonuç cümlesi: enerji canlılık için yalnızca önemli değil, zorunludur.",
+     "Rubrik: yalnızca bulguyu yorumlarsan ya da yalnızca \"enerji önemlidir\" dersen kısmî puan; ikisini bağlarsan tam puan."
+    ],
+    "keyTerms": [
+     {
+      "term": "Kontrol grubu",
+      "definition": "Test edilen etkenin uygulanmadığı, karşılaştırma için kullanılan grup."
+     },
+     {
+      "term": "Deney grubu",
+      "definition": "Test edilen etkenin uygulandığı grup."
+     },
+     {
+      "term": "Aktif taşıma",
+      "definition": "ATP harcanarak, az yoğundan çok yoğuna yapılan madde geçişi."
+     }
+    ]
+   },
+   {
+    "title": "Bilimsel deney tasarımı: değişkenler",
+    "content": "Bir deneyde araştırılan etkiye bağımsız değişken, ölçülen sonuca bağımlı değişken, sonucu etkileyebilecek ama sabit tutulan etkenlere kontrollü değişken denir. Deneyin amacı genellikle \"X'in Y'ye etkisini araştırmak\" biçiminde yazılır. Aynı kalıp her deney sorusunda işe yarar.",
+    "bulletPoints": [
+     "Amaç cümlesi kalıbı: \"(bağımsız değişkenin) (bağımlı değişkene) etkisini araştırmak\".",
+     "Bağımsız değişken: deneyci tarafından bilerek değiştirilen etken (örn. ışık kaynağının uzaklığı).",
+     "Bağımlı değişken: ölçülen/sayılan sonuç (örn. 2 dakikadaki kabarcık sayısı).",
+     "Kontrollü değişken: sabit tutulanlar (sıcaklık, bitki türü, süre, su miktarı).",
+     "Kontrol grubu: etkenin uygulanmadığı kıyas grubu.",
+     "Ölçüm süresi ve birimi yazılırsa bağımlı değişken tam ve doğru kabul edilir."
+    ],
+    "keyTerms": [
+     {
+      "term": "Bağımsız değişken",
+      "definition": "Araştırmacının değiştirdiği etken."
+     },
+     {
+      "term": "Bağımlı değişken",
+      "definition": "Bağımsız değişkene bağlı olarak değişen, ölçülen sonuç."
+     },
+     {
+      "term": "Kontrollü değişken",
+      "definition": "Sabit tutulan koşul."
+     }
+    ]
+   },
+   {
+    "title": "Fotosentez: genel bilgi ve denklem",
+    "content": "Fotosentez, ışık enerjisinin kimyasal enerjiye çevrildiği ve inorganik maddelerden (CO2 ve H2O) organik madde (glikoz) üretildiği olaydır. Bitkilerde kloroplastta gerçekleşir. Oluşan O2 suyun parçalanmasından gelir. Yeşil renk maddesi klorofil, ışığı soğuran ana pigmenttir.",
+    "bulletPoints": [
+     "Özet denklem: CO2 + H2O + ışık enerjisi → glikoz + O2 (+ H2O).",
+     "Işığa bağımlı tepkimeler grananın tilakoit zarında, ışıktan bağımsız tepkimeler stromada gerçekleşir.",
+     "Işık tepkimelerinde su parçalanır, O2 açığa çıkar, ATP ve NADPH üretilir.",
+     "Işıktan bağımsız tepkimelerde ATP ve NADPH kullanılarak CO2 glikoza dönüştürülür.",
+     "Fotosentez yapan canlılar üreticidir; ekosisteme enerji girişini bunlar sağlar.",
+     "Gaz kabarcığı deneylerinde kabarcıkların içeriği O2'dir; kabarcık sayısı fotosentez hızının göstergesi olarak kullanılır."
+    ],
+    "keyTerms": [
+     {
+      "term": "Fotosentez",
+      "definition": "Işık enerjisiyle inorganik maddelerden organik madde sentezi."
+     },
+     {
+      "term": "Klorofil",
+      "definition": "Işık enerjisini soğuran yeşil pigment."
+     },
+     {
+      "term": "Kloroplast",
+      "definition": "Bitki hücresindeki fotosentez organeli."
+     }
+    ]
+   },
+   {
+    "title": "Ingenhousz deneyi ve kabarcık yöntemi",
+    "content": "1779'da Jan Ingenhousz su bitkilerinin ışıkta gaz kabarcığı çıkardığını, karanlıkta çıkarmadığını gözlemledi. Kabarcıkların oksijen içerdiğini, bitkilerin karanlıkta ise CO2 saldığını belirledi ve fotosentez için ışığın gerekli olduğunu gösterdi. Elodea (su kırmızı biberi) bu deneylerde sık kullanılır; üzerine ters çevrilmiş cam huni ve test tüpü kapatılarak oluşan gaz toplanır.",
+    "bulletPoints": [
+     "Karanlıkta kabarcık yok: ışık yoksa ışığa bağlı tepkimeler çalışmaz, O2 çıkmaz.",
+     "Işıkta kabarcık var: su parçalanır, O2 açığa çıkar.",
+     "Bitkiler karanlıkta da solunum yapar ve CO2 salar.",
+     "Kabarcık sayısı = fotosentez hızı için pratik gösterge.",
+     "Deneyde sıcaklık ve diğer koşullar sabit tutulur, yalnızca ışık değiştirilir.",
+     "Başlangıçta bitkinin ışığa uyum sağlaması için bir süre beklenir; yoksa ölçümler güvenilmez olur."
+    ],
+    "keyTerms": [
+     {
+      "term": "Elodea",
+      "definition": "Fotosentez deneylerinde kullanılan su bitkisi."
+     },
+     {
+      "term": "Net O2 salınımı",
+      "definition": "Fotosentezle üretilen O2'den bitkinin kendi solunumunda kullanılanın çıkarılmasıyla dışarı verilen O2."
+     }
+    ]
+   },
+   {
+    "title": "Işık şiddeti ve fotosentez hızı: verileri okuma",
+    "content": "Sınavdaki deneyde mor ışık kaynağı bitkiye 20, 15 ve 10 cm uzaklığa konur; 2 dakikada çıkan kabarcıklar 30, 54 ve 120 bulunur. Işık kaynağı yaklaştıkça bitkiye düşen ışık şiddeti artar ve kabarcık sayısı artar. Yani bu aralıkta ışık şiddeti arttıkça fotosentez hızı artar. Verilerden yorum yaparken sayıları yazmak yorumu güçlendirir.",
+    "bulletPoints": [
+     "Uzaklık 20 cm → 30 kabarcık; 15 cm → 54 kabarcık; 10 cm → 120 kabarcık.",
+     "Uzaklık azaldıkça (ışık şiddeti arttıkça) kabarcık sayısı artmıştır.",
+     "Bağımsız değişken: ışık kaynağının uzaklığı (ışık şiddeti); bağımlı: kabarcık sayısı.",
+     "Amaç: ışık şiddetinin fotosentez hızına etkisini araştırmak.",
+     "Işık şiddeti sınırsız artırılırsa hız bir noktadan sonra sabitlenir; bu noktada başka etken (CO2, enzim, klorofil) sınırlayıcıdır.",
+     "Işık kaynağı çok yaklaşırsa ısıtma yapabilir; bu yüzden sıcaklık sabit tutulmalıdır."
+    ],
+    "keyTerms": [
+     {
+      "term": "Fotosentez hızı",
+      "definition": "Birim sürede üretilen glikoz veya açığa çıkan O2 miktarı."
+     },
+     {
+      "term": "Sınırlayıcı faktör",
+      "definition": "Hızı en çok kısıtlayan, en az bulunan etken."
+     }
+    ]
+   },
+   {
+    "title": "Işığın rengi (dalga boyu) ve klorofil",
+    "content": "Beyaz ışık birçok renkten oluşur. Klorofil her rengi eşit soğurmaz: mor-mavi ve kırmızı bölgeleri iyi soğurur, yeşili büyük ölçüde yansıtır. Bu yüzden yapraklar yeşil görünür. Mor ışıkta fotosentez hızlı olur; yeşil ışıkta düşük olur. Sınav rubriği \"mor ışık, klorofilin en iyi soğurduğu ışık çeşidi olduğu için fotosentez hızı yüksektir\" diyerek bu bağı arar.",
+    "bulletPoints": [
+     "Klorofil: mavi-mor ve kırmızı ışığı çok soğurur.",
+     "Yeşil ışığın büyük kısmı yansıtılır; bitkinin yeşil görünme nedeni budur.",
+     "Soğurulan ışık enerjisi suyun parçalanmasında ve ATP/NADPH yapımında kullanılır.",
+     "Aynı şiddette bile ışığın rengi fotosentez hızını değiştirir.",
+     "\"Mor ışıkta kabarcık oluşması\" = klorofil mor ışığı soğurdu → ışık tepkimeleri çalıştı → O2 çıktı.",
+     "Karanlıkta kabarcık yok: soğurulacak ışık yok → su parçalanmıyor."
+    ],
+    "keyTerms": [
+     {
+      "term": "Soğurma",
+      "definition": "Işığın bir madde tarafından tutulması."
+     },
+     {
+      "term": "Yansıma",
+      "definition": "Işığın tutulmayıp geri gönderilmesi."
+     }
+    ]
+   },
+   {
+    "title": "Fotosentezi etkileyen faktörler",
+    "content": "Fotosentez hızı ışık şiddeti, ışığın rengi, CO2 derişimi, sıcaklık, su ve klorofil miktarı gibi etkenlere bağlıdır. Bir etken artırılırken diğerleri yeterliyse hız artar; bir etken yetersizse o etken sınırlayıcı olur ve diğerlerini artırmak hızı değiştirmez.",
+    "bulletPoints": [
+     "Işık şiddeti arttıkça hız artar, bir noktadan sonra düzleşir (doyma).",
+     "CO2 derişimi arttıkça hız artar, bir noktadan sonra düzleşir.",
+     "Sıcaklık: enzimlerin çalıştığı ışıktan bağımsız tepkimeleri etkiler; çok yüksek sıcaklıkta enzimler bozulur ve hız düşer.",
+     "Klorofil miktarı ve yaprak alanı hızı etkiler.",
+     "Su kıtlığında stomalar kapanır, CO2 girişi azalır, hız düşer.",
+     "Grafikte hızın düzleştiği yerde x ekseni dışındaki bir etken sınırlayıcıdır."
+    ],
+    "keyTerms": [
+     {
+      "term": "Doyma noktası",
+      "definition": "Etken artsa da hızın artmadığı sınır."
+     },
+     {
+      "term": "Stoma",
+      "definition": "Yaprakta gaz alışverişini sağlayan gözenek."
+     }
+    ]
+   },
+   {
+    "title": "Kemosentez (kısa tekrar)",
+    "content": "Kemosentez, inorganik maddelerin oksidasyonundan açığa çıkan kimyasal enerjiyle organik madde sentezidir. Bazı prokaryotlar (örn. nitrifikasyon bakterileri, kükürt bakterileri) yapar. Işık ve klorofil gerekmez. Bu canlılar ekosistemde üreticidir.",
+    "bulletPoints": [
+     "Enerji kaynağı: inorganik madde oksidasyonu (NH3, H2S, Fe2+ gibi).",
+     "Işık ve klorofil gerekmez.",
+     "Açığa çıkan enerjiyle ATP sentezlenir; ATP ile CO2'den organik madde yapılır.",
+     "Fotosentez: ışık enerjisi; kemosentez: kimyasal enerji.",
+     "İkisi de ototrof beslenmedir."
+    ],
+    "keyTerms": [
+     {
+      "term": "Kemosentez",
+      "definition": "Kimyasal enerjiyle organik madde sentezi."
+     },
+     {
+      "term": "Ototrof",
+      "definition": "Kendi besinini inorganik maddelerden yapan canlı."
+     }
+    ]
+   },
+   {
+    "title": "Sindirim çeşitleri",
+    "content": "Sindirim, büyük besin moleküllerinin hücreye alınabilecek küçük moleküllere parçalanmasıdır. Sindirim hücre içi veya hücre dışı olabilir; ayrıca fiziksel (mekanik) ve kimyasal olarak ikiye ayrılır. Hücre içi sindirimde besin besin kofuluna alınıp lizozom enzimleriyle sindirilir (amip, sünger). Hücre dışı sindirimde enzimler sindirim boşluğuna/kanalına salgılanır.",
+    "bulletPoints": [
+     "Hücre içi sindirim: besin kofulu + lizozom (amip, sünger).",
+     "Hücre dışı sindirim: enzimler hücre dışına salgılanır (sindirim boşluğu/kanalı).",
+     "Fiziksel sindirim: dişlerle çiğneme, mide kası, safra ile yağın damlacıklara bölünmesi; kimyasal yapı değişmez.",
+     "Kimyasal sindirim: enzimlerle moleküllerin yapı taşlarına hidrolizi.",
+     "Son ürünler: monosakkarit, amino asit, yağ asitleri ve gliserol.",
+     "Fiziksel sindirim yüzey alanını artırarak enzim etkisini hızlandırır."
+    ],
+    "keyTerms": [
+     {
+      "term": "Hücre içi sindirim",
+      "definition": "Besinin hücre içinde sindirilmesi."
+     },
+     {
+      "term": "Hücre dışı sindirim",
+      "definition": "Besinin hücre dışında, sindirim boşluğu/kanalında sindirilmesi."
+     },
+     {
+      "term": "Hidroliz",
+      "definition": "Suyun katılmasıyla büyük molekülün parçalanması."
+     }
+    ]
+   },
+   {
+    "title": "Omurgalılarda sindirim yapıları: diş yapısı",
+    "content": "Omurgalıların sindirim sistemleri beslenme biçimlerine uyum gösterir. Sınıflandırma sorularında ilk ölçüt diş yapısıdır. Etçillerde kesici ve özellikle sivri köpek dişleri iyi gelişmiştir; avı yakalar, öldürür, et parçalarını koparır. Otçullarda geniş, çıkıntılı yüzeyli azı dişleri bitkisel besini öğütür; kesici dişler bitkileri koparır.",
+    "bulletPoints": [
+     "Etçil (örn. kaplan, köpek): kesici + sivri, büyük köpek dişleri gelişmiş.",
+     "Otçul (örn. inek, koyun): geniş yüzeyli, çıkıntılı azı dişleri gelişmiş.",
+     "Hepçil (örn. insan): hem kesici/köpek hem öğütücü azı dişleri bulunur.",
+     "Diş yapısı ilk ve en kolay gözlenen ölçüttür; mide ve bağırsakla birlikte kullanılmalıdır.",
+     "Ölçüt yazarken gözlenebilir özellik ver: \"kesici dişlerin gelişmişliği\", \"azı dişlerinin şekli\", \"köpek dişlerinin sivriliği\"."
+    ],
+    "keyTerms": [
+     {
+      "term": "Köpek dişi",
+      "definition": "Eti yırtmaya yarayan sivri diş."
+     },
+     {
+      "term": "Azı dişi",
+      "definition": "Besini öğütmeye yarayan geniş yüzeyli diş."
+     },
+     {
+      "term": "Kesici diş",
+      "definition": "Besini koparan ön dişler."
+     }
+    ]
+   },
+   {
+    "title": "Omurgalılarda mide ve bağırsak yapısı",
+    "content": "İkinci ve üçüncü ölçüt mide ve bağırsak yapısıdır. Etçillerde mide genellikle tek bölmelidir ve bağırsak kısadır; et kolay sindirildiği için hızlı sindirim yeterlidir. Geviş getiren otçullarda (inek, koyun) mide dört bölmelidir, bağırsak uzundur; selüloz içeren lifli bitkisel besin zor ve yavaş sindirilir.",
+    "bulletPoints": [
+     "Etçil: tek bölmeli mide, kısa bağırsak → hızlı sindirim.",
+     "Geviş getiren otçul: dört bölmeli mide, uzun bağırsak → lifli besinin uzun sürede sindirimi.",
+     "Dört bölmeli midede besin geri getirilip yeniden çiğnenir (geviş getirme); mikroorganizmalar selülozun parçalanmasına yardım eder.",
+     "Her otçulun midesi dört bölmeli değildir; bu özellik geviş getirenlere aittir.",
+     "Bağırsak uzunluğu: kısa → hızlı sindirim; uzun → uzun süre sindirim ve emilim.",
+     "Sınıflandırma sonucu: kaplan, köpek bir grupta; inek, koyun diğer grupta."
+    ],
+    "keyTerms": [
+     {
+      "term": "Geviş getirme",
+      "definition": "Midedeki besinin ağıza geri getirilip yeniden çiğnenmesi."
+     },
+     {
+      "term": "Selüloz",
+      "definition": "Bitki hücre çeperinin lifli, zor sindirilen karbohidratı."
+     }
+    ]
+   },
+   {
+    "title": "Sınıflandırma sorusunu tam puanla yanıtlama",
+    "content": "Sınıflandırma sorusunda üç basamak vardır: ölçütleri belirle, ölçütlere göre canlıları ayır, ayırdığın grupları beslenme biçimiyle ilişkilendir. Rubrikteki kısmî puan, bu basamaklardan birini atlayınca verilir. Örneğin ölçütleri doğru yazıp canlıları ayırmazsan ya da bağırsak uzunluğunu eksik bırakırsan tam puan kaybolur.",
+    "bulletPoints": [
+     "Basamak 1: Ölçütler (diş yapısı, mide yapısı, bağırsak uzunluğu).",
+     "Basamak 2: Grupla (etçiller / otçullar) ve hayvan adlarını yaz.",
+     "Basamak 3: Her ölçütü beslenmeyle ilişkilendir (neden-sonuç).",
+     "Üç ölçütü de yazmak şart; biri eksikse kısmî puan.",
+     "Cümle kalıbı: \"(Hayvan), (özellik) sahip olduğu için (işlev); bu yüzden (beslenme biçimi).\"",
+     "Her maddede özellik + işlev bulunsun."
+    ],
+    "keyTerms": [
+     {
+      "term": "Sınıflandırma",
+      "definition": "Ortak özelliklere göre gruplama."
+     },
+     {
+      "term": "Ölçüt",
+      "definition": "Gruplamada kullanılan ayırt edici özellik."
+     }
+    ]
+   },
+   {
+    "title": "Yazılı sınav tekniği: açık uçlu soruyu puanlama mantığıyla yanıtlama",
+    "content": "Yazılı sorular tek kelimelik cevaplar değil, bulgu-kavram-sonuç zinciri ister. Rubrikte hep aynı kalıp görülür: tam puan, eksiksiz ve doğru bağlantıyı kurmaktır; kısmî puan, sadece bir parçayı yazmaktır; sıfır puan, cevapsızlık ya da tamamen yanlışlıktır. Cevabı yazarken önce soru fiilini işaretle: \"açıklayınız\", \"belirleyiniz\", \"yazınız\" ne istediğini söyler.",
+    "bulletPoints": [
+     "\"Açıklayınız\" = neden-sonuç yaz; sadece tanım yetmez.",
+     "\"Belirleyiniz\" = ölçüt, değişken veya adı doğru yaz.",
+     "Alt sorular ayrı puanlanır; birine yazdığın diğerine sayılmaz.",
+     "Verilen sayıları (30, 54, 120 gibi) cevaba kat.",
+     "Kendi cümlelerini kur; metni kopyalamak kısmî puana düşürebilir.",
+     "Son cümle sonucu söylesin: \"Bu nedenle ...\""
+    ],
+    "keyTerms": [
+     {
+      "term": "TAM PUAN",
+      "definition": "Soruda istenenlerin tamamının doğru ve bağlantılı yazılması."
+     },
+     {
+      "term": "KISMÎ PUAN",
+      "definition": "İstenenlerin bir kısmının doğru olması."
+     }
+    ]
+   }
+  ],
+  "importantDates": [
+   "1779: Jan Ingenhousz, bitkilerin ışıkta O2 verdiğini ve fotosentez için ışığın gerekli olduğunu gösterdi."
+  ],
+  "commonMistakes": [
+   "ATP'nin enerji deposu olduğunu sanmak: ATP kısa ömürlü, sürekli yenilenen enerji taşıyıcısıdır.",
+   "Deneyde kontrol grubunu deney grubuyla karıştırmak: etkenin uygulandığı grup deney grubudur.",
+   "Bağımlı ve bağımsız değişkeni ters yazmak: ışığın uzaklığı bağımsız, kabarcık sayısı bağımlıdır.",
+   "Kabarcıkların CO2 olduğunu yazmak: fotosentezde açığa çıkan gaz O2'dir.",
+   "\"Mor ışık daha sıcaktır\" gibi yanlış gerekçe vermek: asıl neden klorofilin mor-mavi ışığı iyi soğurmasıdır.",
+   "Karanlıkta bitkinin hiçbir olay yapmadığını sanmak: bitki karanlıkta da solunur ve CO2 verir.",
+   "Sınıflandırmada yalnızca diş yapısını yazıp mide ve bağırsağı atlamak: üç ölçüt de yazılmalıdır.",
+   "Tüm otçulların dört bölmeli mideye sahip olduğunu sanmak: bu özellik geviş getirenlere aittir.",
+   "Verilen veriyi kullanmadan genel cümle yazmak: sayıları yoruma kat.",
+   "Sadece \"enerji önemlidir\" demek: deney bulgusuyla ATP'yi bağlamak zorunludur."
+  ],
+  "diagrams": [],
+  "mindmap": {
+   "label": "10. Sınıf Biyoloji 1. Dönem 1. Yazılı",
+   "children": [
+    {
+     "label": "Enerji ve ATP",
+     "children": [
+      {
+       "label": "Yapı: adenin + riboz + 3 fosfat",
+       "children": []
+      },
+      {
+       "label": "Kullanıldığı olaylar",
+       "children": []
+      },
+      {
+       "label": "Maya deneyi: ATP yok → çoğalma yok",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Deney tasarımı",
+     "children": [
+      {
+       "label": "Amaç cümlesi",
+       "children": []
+      },
+      {
+       "label": "Bağımsız değişken",
+       "children": []
+      },
+      {
+       "label": "Bağımlı değişken",
+       "children": []
+      },
+      {
+       "label": "Kontrol grubu",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Fotosentez",
+     "children": [
+      {
+       "label": "Ingenhousz: ışık gerekli, kabarcık = O2",
+       "children": []
+      },
+      {
+       "label": "Işık şiddeti arttıkça hız artar (10 cm: 120, 15 cm: 54, 20 cm: 30)",
+       "children": []
+      },
+      {
+       "label": "Mor ışık: klorofil iyi soğurur",
+       "children": []
+      },
+      {
+       "label": "Sınırlayıcı faktörler",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Kemosentez",
+     "children": [
+      {
+       "label": "İnorganik madde oksidasyonu",
+       "children": []
+      },
+      {
+       "label": "Işık ve klorofil yok",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Sindirim",
+     "children": [
+      {
+       "label": "Çeşitler",
+       "children": [
+        {
+         "label": "Hücre içi / hücre dışı",
+         "children": []
+        },
+        {
+         "label": "Fiziksel / kimyasal",
+         "children": []
+        }
+       ]
+      },
+      {
+       "label": "Omurgalı ölçütleri",
+       "children": [
+        {
+         "label": "Diş yapısı",
+         "children": []
+        },
+        {
+         "label": "Mide bölme sayısı",
+         "children": []
+        },
+        {
+         "label": "Bağırsak uzunluğu",
+         "children": []
+        }
+       ]
+      },
+      {
+       "label": "Etçil: tek bölmeli mide, kısa bağırsak",
+       "children": []
+      },
+      {
+       "label": "Otçul (geviş getiren): 4 bölmeli mide, uzun bağırsak",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Puanlama",
+     "children": [
+      {
+       "label": "TAM: bulgu + kavram + sonuç",
+       "children": []
+      },
+      {
+       "label": "KISMÎ: tek parça",
+       "children": []
+      },
+      {
+       "label": "SIFIR: boş veya yanlış",
+       "children": []
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "flashcards": [
+  {
+   "front": "ATP açılımı nedir ve hangi bileşenlerden oluşur?",
+   "back": "Adenozin trifosfat: adenin bazı + riboz şekeri + 3 fosfat grubu.",
+   "category": "ATP ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "front": "ATP için \"hücrenin enerji para birimi\" benzetmesi neyi anlatır?",
+   "back": "Hücre her enerji gerektiren olayda ATP'yi harcar; ATP sürekli yeniden üretilir, saklanıp biriktirilmez.",
+   "category": "ATP ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "front": "ATP yıkıldığında ne oluşur?",
+   "back": "ADP + Pi (inorganik fosfat) oluşur ve enerji açığa çıkar.",
+   "category": "ATP ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "front": "ADP + Pi birleşince ne olur?",
+   "back": "Enerji harcanarak ATP sentezlenir (enerji depolanır).",
+   "category": "ATP ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Hücrede ATP kullanılan dört olay sayın.",
+   "back": "Aktif taşıma, biyosentez, hücre bölünmesi, kas kasılması (sinirsel iletim de olabilir).",
+   "category": "ATP ve enerji",
+   "difficulty": "medium"
+  },
+  {
+   "front": "ATP üreten başlıca üç süreç hangileridir?",
+   "back": "Hücresel solunum, fermantasyon, fotosentezin ışık tepkimeleri (kemosentezde de ATP yapılır).",
+   "category": "ATP ve enerji",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Aktif taşıma neden ATP ister?",
+   "back": "Madde az yoğun ortamdan çok yoğun ortama taşınır; bu, yoğunluk farkına karşı yapıldığı için enerji gerekir.",
+   "category": "ATP ve enerji",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Besinlerdeki enerji doğrudan kullanılır mı?",
+   "back": "Hayır. Önce hücresel solunumla ATP'ye aktarılır, hücre ATP'yi kullanır.",
+   "category": "ATP ve enerji",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Enerji canlılık için \"yalnızca önemli\" mi, \"zorunlu\" mu?",
+   "back": "Zorunludur: ATP üretimi durursa yaşamsal faaliyetler durur ve hücre ölür.",
+   "category": "ATP ve enerji",
+   "difficulty": "medium",
+   "hint": "Sınav sonuç cümlesi"
+  },
+  {
+   "front": "Metabolizma nedir?",
+   "back": "Hücredeki yapım (anabolizma) ve yıkım (katabolizma) tepkimelerinin toplamı.",
+   "category": "ATP ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Maya deneyinde 2. petri kabında çoğalma neden olmadı?",
+   "back": "ATP üretimi engellendi; bölünme için gereken enerji sağlanamadı.",
+   "category": "Maya deneyi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Maya deneyinde kontrol grubu hangisi?",
+   "back": "1. petri kabı: glikoz + sağlıklı maya, engelleyici madde yok.",
+   "category": "Maya deneyi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Maya deneyinde deney grubu hangisi?",
+   "back": "2. petri kabı: glikoz + maya + ATP üretimini engelleyen madde.",
+   "category": "Maya deneyi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Maya deneyinin iki kabı arasındaki tek fark nedir?",
+   "back": "ATP üretimini engelleyen maddenin bulunup bulunmaması.",
+   "category": "Maya deneyi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Maya deneyinde sabit tutulan koşullar neler olmalı?",
+   "back": "Maya türü ve sayısı, glikoz miktarı, sıcaklık, bekleme süresi.",
+   "category": "Maya deneyi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "ATP üretilemeyen hücre neden ölür?",
+   "back": "Aktif taşıma, biyosentez ve bölünme durur; yaşamsal tepkimeler yürümez.",
+   "category": "Maya deneyi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Rubrikte yalnızca deney bulgusunu yorumlayan cevap kaç puan alır?",
+   "back": "Kısmî puan: bulgu ile ATP'nin önemi arasındaki bağlam kurulmadığı için.",
+   "category": "Maya deneyi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Bağımsız değişken nedir?",
+   "back": "Deneyci tarafından değiştirilen, etkisi araştırılan etken.",
+   "category": "Deney tasarımı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Bağımlı değişken nedir?",
+   "back": "Bağımsız değişkene bağlı değişen, ölçülen sonuç.",
+   "category": "Deney tasarımı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kontrollü değişken nedir?",
+   "back": "Sonucu etkilememesi için sabit tutulan koşullar.",
+   "category": "Deney tasarımı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Deney amacı cümlesi nasıl yazılır?",
+   "back": "\"(Bağımsız değişkenin) (bağımlı değişkene) etkisini araştırmak.\"",
+   "category": "Deney tasarımı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kontrol grubu neden gereklidir?",
+   "back": "Etkinin gerçekten test edilen etkenden kaynaklandığını göstermek için kıyas sağlar.",
+   "category": "Deney tasarımı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Bir deneyde aynı anda iki etkeni değiştirirsek ne olur?",
+   "back": "Sonucun hangisinden kaynaklandığı anlaşılamaz; deney güvenilmez olur.",
+   "category": "Deney tasarımı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tekrar sayısı (örn. 3 düzenek) neden önemlidir?",
+   "back": "Sonucun tesadüf olmadığını gösterir ve güvenilirliği artırır.",
+   "category": "Deney tasarımı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Fotosentez nedir?",
+   "back": "Işık enerjisiyle CO2 ve H2O'dan organik madde (glikoz) sentezi ve O2 çıkışı.",
+   "category": "Fotosentez",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Fotosentezin özet denklemini yazın.",
+   "back": "CO2 + H2O + ışık enerjisi → glikoz + O2 (+ H2O).",
+   "category": "Fotosentez",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Fotosentezde açığa çıkan O2 hangi maddeden gelir?",
+   "back": "Suyun ışık tepkimelerinde parçalanmasından.",
+   "category": "Fotosentez",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Fotosentez bitki hücresinin hangi organelinde olur?",
+   "back": "Kloroplastta.",
+   "category": "Fotosentez",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Işığa bağımlı tepkimeler kloroplastın neresinde olur?",
+   "back": "Grana (tilakoit zarlar).",
+   "category": "Fotosentez",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Işıktan bağımsız tepkimeler kloroplastın neresinde olur?",
+   "back": "Stroma.",
+   "category": "Fotosentez",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Işık tepkimelerinin ürünleri nelerdir?",
+   "back": "O2, ATP ve NADPH.",
+   "category": "Fotosentez",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Işıktan bağımsız tepkimelerde ne olur?",
+   "back": "ATP ve NADPH kullanılarak CO2 glikoza dönüştürülür.",
+   "category": "Fotosentez",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Klorofil nedir?",
+   "back": "Işığı soğuran yeşil pigment; kloroplastta bulunur.",
+   "category": "Fotosentez",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Yapraklar neden yeşil görünür?",
+   "back": "Klorofil yeşil ışığı büyük ölçüde yansıtır.",
+   "category": "Fotosentez",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Klorofil en iyi hangi ışıkları soğurur?",
+   "back": "Mavi-mor ve kırmızı ışıkları.",
+   "category": "Fotosentez",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Ingenhousz neyi göstermiştir?",
+   "back": "Fotosentez için ışık gerekir; ışıkta çıkan kabarcıklar oksijen içerir; bitkiler karanlıkta CO2 verir.",
+   "category": "Fotosentez",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Ingenhousz hangi yıl çalışmıştır?",
+   "back": "1779.",
+   "category": "Fotosentez",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Elodea deneyinde kabarcıklar neyi gösterir?",
+   "back": "Fotosentezle üretilen O2'yi; kabarcık sayısı hızın göstergesidir.",
+   "category": "Fotosentez",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Karanlıkta Elodea neden kabarcık çıkarmaz?",
+   "back": "Işık yok; ışık tepkimeleri çalışmaz, su parçalanmaz, O2 üretilmez.",
+   "category": "Fotosentez",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Karanlıkta bitki ne yapar?",
+   "back": "Solunum yapar, O2 kullanır ve CO2 verir.",
+   "category": "Fotosentez",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Mor ışıkta kabarcık oluşmasının nedeni?",
+   "back": "Mor ışık klorofilin en iyi soğurduğu ışıktır; fotosentez hızlıdır, O2 üretilir.",
+   "category": "Fotosentez",
+   "difficulty": "medium",
+   "hint": "Rubrik 2.2"
+  },
+  {
+   "front": "Işık kaynağı 10 cm'de kaç kabarcık oluştu?",
+   "back": "2 dakikada 120 kabarcık.",
+   "category": "Fotosentez",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Işık kaynağı 15 cm'de kaç kabarcık oluştu?",
+   "back": "2 dakikada 54 kabarcık.",
+   "category": "Fotosentez",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Işık kaynağı 20 cm'de kaç kabarcık oluştu?",
+   "back": "2 dakikada 30 kabarcık.",
+   "category": "Fotosentez",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Deneyin sonucu nedir?",
+   "back": "Işık kaynağı yaklaştıkça (ışık şiddeti arttıkça) kabarcık sayısı ve fotosentez hızı artar.",
+   "category": "Fotosentez",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Bu deneyin amacı nedir?",
+   "back": "Işık şiddetinin fotosentez hızına etkisini araştırmak.",
+   "category": "Fotosentez",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Bu deneyde bağımsız değişken nedir?",
+   "back": "Işık kaynağının bitkiye olan uzaklığı (ışık şiddeti).",
+   "category": "Fotosentez",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Bu deneyde bağımlı değişken nedir?",
+   "back": "Belirli sürede (2 dakika) oluşan gaz kabarcığı sayısı.",
+   "category": "Fotosentez",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Bu deneyde sabit tutulan etkenler?",
+   "back": "Sıcaklık, bitki türü ve boyutu, su, ölçüm süresi, ışığın rengi (mor).",
+   "category": "Fotosentez",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Işık şiddeti sınırsız artınca fotosentez hızı artar mı?",
+   "back": "Hayır; bir noktadan sonra doyar, başka bir etken (CO2, enzim, klorofil) sınırlayıcı olur.",
+   "category": "Fotosentez",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Fotosentezi etkileyen dört etken sayın.",
+   "back": "Işık şiddeti, ışık rengi, CO2 derişimi, sıcaklık (su ve klorofil de).",
+   "category": "Fotosentez",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Sınırlayıcı faktör nedir?",
+   "back": "Hızı kısıtlayan, en yetersiz bulunan etken.",
+   "category": "Fotosentez",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Işığa uyum için neden bekleme yapılır?",
+   "back": "Bitkinin yeni ışık şiddetine uyum sağlaması ve ölçümlerin güvenilir olması için.",
+   "category": "Fotosentez",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Üreticiler ekosistemde neden önemlidir?",
+   "back": "Işık enerjisini kimyasal enerjiye çevirip ekosisteme enerji girişini sağlarlar.",
+   "category": "Fotosentez",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kemosentez nedir?",
+   "back": "İnorganik maddelerin oksidasyonundan elde edilen kimyasal enerjiyle organik madde sentezi.",
+   "category": "Kemosentez",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kemosentez için ışık gerekir mi?",
+   "back": "Hayır; enerji inorganik madde oksidasyonundan gelir.",
+   "category": "Kemosentez",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kemosentez yapan canlılar klorofil taşır mı?",
+   "back": "Hayır, klorofile ihtiyaçları yoktur.",
+   "category": "Kemosentez",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kemosentez yapan canlılara örnek verin.",
+   "back": "Nitrifikasyon bakterileri, kükürt bakterileri, demir bakterileri.",
+   "category": "Kemosentez",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Fotosentez ile kemosentez ortak noktası?",
+   "back": "İkisi de ototrof beslenmedir; inorganik karbon (CO2) kaynağıyla organik madde yapılır.",
+   "category": "Kemosentez",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Fotosentez ve kemosentezin enerji kaynağı farkı?",
+   "back": "Fotosentez: ışık enerjisi. Kemosentez: inorganik maddelerin oksidasyon enerjisi.",
+   "category": "Kemosentez",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Sindirim nedir?",
+   "back": "Büyük besin moleküllerinin hücreye alınabilir küçük moleküllere parçalanması.",
+   "category": "Sindirim",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Hücre içi sindirim nedir?",
+   "back": "Besinin hücreye alınıp besin kofuluyla lizozom enzimleriyle sindirilmesi (amip, sünger).",
+   "category": "Sindirim",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Hücre dışı sindirim nedir?",
+   "back": "Enzimlerin hücre dışına, sindirim boşluğu veya kanalına salgılandığı sindirim.",
+   "category": "Sindirim",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Fiziksel sindirim nedir?",
+   "back": "Besinin kimyasal yapısı değişmeden mekanik olarak parçalanması (çiğneme, mide kasları, safra emülsiyonu).",
+   "category": "Sindirim",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kimyasal sindirim nedir?",
+   "back": "Enzimlerle besin moleküllerinin yapı taşlarına hidrolizi.",
+   "category": "Sindirim",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Karbohidratların sindirim son ürünü?",
+   "back": "Monosakkaritler (glikoz, früktoz, galaktoz).",
+   "category": "Sindirim",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Proteinlerin sindirim son ürünü?",
+   "back": "Amino asitler.",
+   "category": "Sindirim",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Yağların sindirim son ürünü?",
+   "back": "Yağ asitleri ve gliserol.",
+   "category": "Sindirim",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Safra enzim içerir mi?",
+   "back": "Hayır. Yağı küçük damlacıklara ayırır (fiziksel sindirim).",
+   "category": "Sindirim",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Ağızda hangi besinin kimyasal sindirimi başlar?",
+   "back": "Nişasta (karbohidrat); tükürük amilazı etkilidir.",
+   "category": "Sindirim",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Midede hangi besinin kimyasal sindirimi başlar?",
+   "back": "Proteinler (mide özsuyundaki enzimlerle).",
+   "category": "Sindirim",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Üç besinin kimyasal sindirimi nerede tamamlanır?",
+   "back": "İnce bağırsakta.",
+   "category": "Sindirim",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Hidroliz nedir?",
+   "back": "Suyun katılmasıyla bir molekülün daha küçük birimlere ayrılması.",
+   "category": "Sindirim",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Omurgalılarda sınıflandırma ölçütleri nelerdir?",
+   "back": "Diş yapısı, mide yapısı (bölme sayısı), bağırsak uzunluğu.",
+   "category": "Omurgalı sindirimi",
+   "difficulty": "medium",
+   "hint": "Rubrik 3.1"
+  },
+  {
+   "front": "Etçillerde hangi dişler gelişmiştir?",
+   "back": "Kesici ve sivri köpek dişleri.",
+   "category": "Omurgalı sindirimi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Otçullarda hangi dişler gelişmiştir?",
+   "back": "Geniş yüzeyli, çıkıntılı azı dişleri.",
+   "category": "Omurgalı sindirimi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Köpek dişinin görevi nedir?",
+   "back": "Avı yakalamak, öldürmek, eti yırtıp koparmak.",
+   "category": "Omurgalı sindirimi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Azı dişinin görevi nedir?",
+   "back": "Sert bitkisel besini öğütmek.",
+   "category": "Omurgalı sindirimi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Etçillerde mide yapısı nasıldır?",
+   "back": "Tek bölmeli.",
+   "category": "Omurgalı sindirimi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Geviş getiren otçullarda mide yapısı nasıldır?",
+   "back": "Dört bölmeli.",
+   "category": "Omurgalı sindirimi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Etçillerde bağırsak neden kısadır?",
+   "back": "Et kolay sindirilir; hızlı sindirim yeterlidir.",
+   "category": "Omurgalı sindirimi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Otçullarda bağırsak neden uzundur?",
+   "back": "Selüloz içeren lifli besin zor sindirilir; uzun sürede sindirim ve emilim gerekir.",
+   "category": "Omurgalı sindirimi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kaplan hangi beslenme grubundadır?",
+   "back": "Etçil.",
+   "category": "Omurgalı sindirimi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "İnek hangi beslenme grubundadır?",
+   "back": "Otçul (geviş getiren).",
+   "category": "Omurgalı sindirimi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Köpek, kaplanla aynı grupta mıdır? Gerekçe?",
+   "back": "Evet; kesici ve sivri köpek dişleri gelişmiştir, mide tek bölmelidir, bağırsak kısadır (etçil).",
+   "category": "Omurgalı sindirimi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Koyun, inekle aynı grupta mıdır?",
+   "back": "Evet; azı dişleri öğütücü, dört bölmeli mide, uzun bağırsak.",
+   "category": "Omurgalı sindirimi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Geviş getirme nedir?",
+   "back": "Midedeki besinin ağıza geri gelip yeniden çiğnenmesi.",
+   "category": "Omurgalı sindirimi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Dört bölmeli mide her otçulda var mıdır?",
+   "back": "Hayır, geviş getirenlere özgüdür.",
+   "category": "Omurgalı sindirimi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Hepçillerde diş yapısı nasıldır?",
+   "back": "Hem kesici/köpek hem öğütücü azı dişleri bulunur.",
+   "category": "Omurgalı sindirimi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Ölçüt yazarken neye dikkat edilir?",
+   "back": "Gözlenebilir ve karşılaştırılabilir özellik yazılır (örn. köpek dişinin sivriliği).",
+   "category": "Omurgalı sindirimi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Omurgalı sorusunda kısmî puan ne zaman verilir?",
+   "back": "Ölçütler doğru ama canlılar ayrılmamışsa, ya da ayırma hatalıysa/bir ölçüt eksikse.",
+   "category": "Omurgalı sindirimi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Etçil canlılarda sindirimin \"hızlı\" olması hangi ölçüte bağlanır?",
+   "back": "Kısa bağırsak.",
+   "category": "Omurgalı sindirimi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "TAM PUAN neyi gerektirir?",
+   "back": "Soruda istenenlerin tamamını doğru ve birbirine bağlı yazmayı.",
+   "category": "Yazılı tekniği",
+   "difficulty": "easy"
+  },
+  {
+   "front": "KISMÎ PUAN ne zaman verilir?",
+   "back": "İstenen parçalardan yalnızca biri ya da eksik/kısmen hatalı yazıldığında.",
+   "category": "Yazılı tekniği",
+   "difficulty": "easy"
+  },
+  {
+   "front": "SIFIR PUAN ne zaman verilir?",
+   "back": "Cevap yoksa ya da tamamen yanlışsa.",
+   "category": "Yazılı tekniği",
+   "difficulty": "easy"
+  },
+  {
+   "front": "\"Açıklayınız\" fiili ne ister?",
+   "back": "Neden-sonuç ilişkisi; yalnızca tanım yeterli değildir.",
+   "category": "Yazılı tekniği",
+   "difficulty": "medium"
+  },
+  {
+   "front": "\"Belirleyiniz\" fiili ne ister?",
+   "back": "Soruda geçen ölçüt, değişken ya da kavramın adını doğru yazmayı.",
+   "category": "Yazılı tekniği",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Deney sorusunda verileri nasıl kullanırsın?",
+   "back": "Sayıları yoruma katarsın (örn. 30, 54, 120) ve eğilimi söylersin.",
+   "category": "Yazılı tekniği",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Güçlü bir sonuç cümlesi nasıl başlar?",
+   "back": "\"Bu nedenle ...\" diye; bulgu, kavram ve genellemeyi birleştirir.",
+   "category": "Yazılı tekniği",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Metni kopyalamak neden risklidir?",
+   "back": "Kendi cümlelerinle yorum yapmadığın için kısmî puana düşebilir.",
+   "category": "Yazılı tekniği",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kontrol grubu ve deney grubu farkını tek cümleyle söyle.",
+   "back": "Kontrol: etken yok. Deney: etken var; fark sonucu açıklar.",
+   "category": "Yazılı tekniği",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Tuzak: Kabarcıklar CO2'dir. Doğru mu?",
+   "back": "Yanlış; kabarcıklar O2 içerir.",
+   "category": "Tuzaklar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuzak: ATP besin depolar. Doğru mu?",
+   "back": "Yanlış; ATP enerji taşıyıcıdır, depolama molekülü değildir (yağ, glikojen depodur).",
+   "category": "Tuzaklar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuzak: Bitkiler yalnızca ışıkta solunur. Doğru mu?",
+   "back": "Yanlış; bitkiler her zaman solunum yapar.",
+   "category": "Tuzaklar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuzak: Safra yağı kimyasal olarak sindirir. Doğru mu?",
+   "back": "Yanlış; safra enzim içermez, yağı emülsiyonlaştırır (fiziksel).",
+   "category": "Tuzaklar",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Tuzak: Bütün otçullar geviş getirir. Doğru mu?",
+   "back": "Yanlış; geviş getirme yalnızca bazı otçullara özgüdür.",
+   "category": "Tuzaklar",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Tuzak: Klorofil yeşil ışığı en iyi soğurur. Doğru mu?",
+   "back": "Yanlış; yeşili yansıtır, mavi-mor ve kırmızıyı soğurur.",
+   "category": "Tuzaklar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuzak: Işık şiddeti ne kadar artarsa fotosentez o kadar artar. Doğru mu?",
+   "back": "Yanlış; bir noktadan sonra doyar.",
+   "category": "Tuzaklar",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Tuzak: Kemosentez için klorofil gerekir. Doğru mu?",
+   "back": "Yanlış; kemosentezde ışık ve klorofil gerekmez.",
+   "category": "Tuzaklar",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Tuzak: Hücre içi sindirim yalnızca bağırsakta olur. Doğru mu?",
+   "back": "Yanlış; hücre içi sindirim besin kofulu ve lizozomla hücre içinde olur.",
+   "category": "Tuzaklar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuzak: Etçillerin bağırsağı otçullardan uzundur. Doğru mu?",
+   "back": "Yanlış; etçillerde kısa, otçullarda uzundur.",
+   "category": "Tuzaklar",
+   "difficulty": "easy"
+  },
+  {
+   "front": "ATP molekülünde kaç fosfat grubu vardır?",
+   "back": "Üç.",
+   "category": "ATP ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "front": "ATP'nin şeker bileşeni nedir?",
+   "back": "Riboz.",
+   "category": "ATP ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Yaşamsal faaliyetlerin sürmesi için canlıların neye ihtiyacı vardır?",
+   "back": "Sürekli enerjiye (ATP).",
+   "category": "ATP ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "front": "ATP üretimi yetersiz kalırsa hücrede ilk etkilenen olaylar hangileridir?",
+   "back": "Enerji gerektirenler: aktif taşıma, biyosentez, bölünme, hareket.",
+   "category": "ATP ve enerji",
+   "difficulty": "medium"
+  }
+ ],
+ "quiz": [
+  {
+   "type": "open-ended",
+   "question": "Lise 10. sınıf öğrencisi Zeynep; ATP'nin yapısında adenin bazı, riboz ve üç fosfat grubu bulunduğunu öğrenmiş, öğretmeninin \"Tüm canlı hücrelerde enerji gerektiren olaylarda doğrudan kullanılan molekül ATP'dir.\" ifadesinden etkilenmiştir. Aynı türden, eşit sayıda maya hücresiyle iki petri kabı hazırlar. 1. petri kabı (kontrol grubu): glikoz çözeltisi ve sağlıklı maya hücreleri. 2. petri kabı (deney grubu): glikoz çözeltisi, sağlıklı maya hücreleri ve ATP üretimini engelleyen madde. İki kap da aynı uygun koşullarda yeterli süre bekletilmiştir. Gözlem: 1. petri kabındaki hücrelerde çoğalma görülmüş, 2. petri kabındaki hücrelerde çoğalma gözlenmemiştir. Deney sonucundaki gözlem ve bulgulara dayanarak ATP molekülünün canlılık için yaşamsal önemini açıklayınız. (20 puan)",
+   "correctAnswer": "Canlı hücreler yaşamsal faaliyetlerini sürdürebilmek için ATP'ye ihtiyaç duyar. ATP üretimi engellenen 2. kapta hücreler çoğalamadı; çünkü ATP üretimi durunca hücreler bölünemez, aktif taşıma gibi enerji gerektiren madde alışverişini yapamaz ve sentez tepkimelerini gerçekleştiremez. Bu da hücrenin ölümüne yol açar. Yani enerji canlılık için yalnızca önemli değil, aynı zamanda zorunludur.",
+   "keyPoints": [
+    "ATP üretimi durdurulan hücrelerde yaşamsal faaliyetlerin sona ermesi sürekli enerji gereksinimiyle ilişkilendirilir",
+    "Hücreler yaşamsal faaliyetler için ATP'ye ihtiyaç duyar",
+    "ATP durunca bölünme, aktif taşıma ve sentez tepkimeleri yapılamaz",
+    "Bu durum hücre ölümüne yol açar",
+    "Enerji canlılık için önemli olmanın ötesinde zorunludur"
+   ],
+   "maxPoints": 20,
+   "explanation": "Adım adım: (1) Bulguyu yaz: 1. kapta çoğalma var, 2. kapta yok. (2) İki kap arasındaki tek farkın ATP üretimini engelleyen madde olduğunu belirt; bu yüzden fark ATP'ye bağlanır. (3) Çoğalmanın enerji gerektirdiğini ve enerjinin ATP'den geldiğini yaz. (4) ATP durunca aktif taşıma, biyosentez ve bölünmenin duracağını, hücrenin öleceğini ekle. (5) \"Enerji zorunludur\" sonucuyla bitir. Rubrik mantığı: yalnızca deney bulgusunu yorumlarsan ya da yalnızca \"enerji önemlidir\" dersen KISMÎ PUAN; deney bulgusu ile ATP'nin önemi arasındaki bağlamı eksik veya hatalı kurarsan yine kısmî puan; cevap yoksa ya da tamamen yanlışsa sıfır. Tam puan için bulgu + kavram + sonuç zinciri gerekir.",
+   "category": "ATP ve enerji",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "1779'da Jan Ingenhousz su bitkilerinin ışıkta gaz kabarcığı çıkardığını, karanlıkta çıkarmadığını gözlemlemiştir. Bu kabarcıkların oksijen içerdiğini, bitkilerin karanlıkta CO2 saldığını belirlemiş ve fotosentez için ışığın gerekli olduğunu göstermiştir. Su dolu kaba yerleştirilen Elodea bitkisi, üzerine cam huni ve test tüpü kapatılarak karanlıkta 10 dakika bekletildiğinde gaz kabarcığı oluşmamıştır. Daha sonra sıcaklığın ve diğer koşulların sabit tutulduğu üç düzenek (K, L, M) hazırlanmıştır. Mor ışık kaynağı bitkiden farklı uzaklıklara konmuş, bitkinin ışık şiddetine uyum sağlaması için bir süre beklenmiş, ardından 2 dakikada oluşan kabarcıklar sayılmıştır. Sonuçlar: 10 cm → 120, 15 cm → 54, 20 cm → 30 kabarcık. 2.1. K, L ve M düzeneklerinde gerçekleştirilen deneyin amacını, bağımlı ve bağımsız değişkenlerini yazınız. (20 puan)",
+   "correctAnswer": "Deneyin amacı: Işık şiddetinin fotosentez hızına etkisini araştırmak. Bağımlı değişken: Bitkinin belirtilen sürede (2 dakika) oluşturduğu gaz kabarcığı sayısı. Bağımsız değişken: Işık kaynağının bitkiye olan uzaklığı (ışık şiddeti).",
+   "keyPoints": [
+    "Amaç: ışık şiddetinin fotosentez hızına etkisini araştırmak",
+    "Bağımlı değişken: belirtilen sürede oluşan gaz kabarcığı sayısı",
+    "Bağımsız değişken: ışık kaynağının bitkiye uzaklığı (ışık şiddeti)"
+   ],
+   "maxPoints": 20,
+   "explanation": "Adım adım: (1) Üç düzenekte yalnızca ışık kaynağının uzaklığı farklıdır (10, 15, 20 cm); bu, deneyciye ait değiştirilen etkendir, yani bağımsız değişkendir. Uzaklık değişince bitkiye düşen ışık şiddeti değişir, bunu parantezle yaz. (2) Ölçülen sonuç 2 dakikadaki kabarcık sayısıdır; bu bağımlı değişkendir. Süreyi (2 dakika) yazmak tamlığı artırır. (3) Amaç cümlesini \"bağımsız değişkenin bağımlı değişkene etkisini araştırmak\" kalıbıyla kur; burada bağımlı değişken doğrudan fotosentez hızıdır (kabarcık sayısı hızın göstergesidir). Rubrik: üçü de eksiksiz ve doğruysa tam puan; amaç ya da değişkenler eksik/hatalıysa kısmî puan; boş ya da tamamen yanlışsa sıfır. Sık hata: bağımlı ve bağımsız değişkeni ters yazmak.",
+   "category": "Deney tasarımı ve fotosentez",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Yukarıdaki Elodea deneyinde, karanlık ortamdaki test tüpünde gaz kabarcığı oluşmazken mor ışık kaynağı kullanıldığında gaz kabarcıkları görülmüştür. 2.2. Karanlık ortamda test tüpünde gaz kabarcığı oluşmazken mor ışık kaynağı kullanıldığında gaz kabarcıklarının görülmesinin nedenini açıklayınız. (20 puan)",
+   "correctAnswer": "Ingenhousz fotosentez için ışığın gerekli olduğunu ve oluşan gaz kabarcıklarının oksijen içerdiğini bulmuştur. Elodea karanlık ortamda fotosentez yapamadığı için gaz kabarcığı oluşmaz. Mor ışık, klorofilin en iyi soğurduğu ışık çeşidi olduğu için fotosentez hızı yüksektir ve test tüpünde oksijen kabarcıkları oluşur.",
+   "keyPoints": [
+    "Fotosentez için ışık gereklidir; kabarcıklar oksijen gazıdır",
+    "Karanlıkta fotosentez yapılamadığı için kabarcık oluşmaz",
+    "Mor ışık klorofilin en iyi soğurduğu ışıktır",
+    "Mor ışıkta fotosentez hızı yüksektir, bu yüzden kabarcıklar görülür"
+   ],
+   "maxPoints": 20,
+   "explanation": "Adım adım: (1) Karanlıkta ışık yoksa ışığa bağlı tepkimeler çalışmaz, su parçalanmaz ve O2 üretilmez; kabarcık yok. (2) Mor ışıkta klorofil ışığı soğurur; bu enerjiyle su parçalanır ve O2 açığa çıkar; kabarcıklar bunun göstergesidir. (3) Mor ışığın klorofil tarafından en iyi soğurulan ışıklardan olduğunu açıkça yaz; \"mor ışık sıcaktır\" gibi gerekçeler yanlıştır. Rubrik: neden kısmen ya da eksik açıklanırsa kısmî puan (örneğin sadece \"ışık var\" demek); boş ya da tamamen yanlışsa sıfır.",
+   "category": "Deney tasarımı ve fotosentez",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Kas hücresi kültüründe ATP üretimini engelleyen bir madde uygulanan hücrelerin, uygulanmayanlara göre kasılamadığı gözlenmiştir. Bu bulgudan yola çıkarak ATP'nin kas hücresindeki işlevini açıklayınız. (3 puan)",
+   "correctAnswer": "Kas kasılması enerji gerektiren bir olaydır ve bu enerji doğrudan ATP'den sağlanır. ATP üretimi engellenen hücrelerde enerji sağlanamadığı için kasılma gerçekleşmemiştir. Bu, ATP'nin enerji gerektiren olaylarda doğrudan kullanılan molekül olduğunu gösterir.",
+   "keyPoints": [
+    "Kasılma enerji gerektirir",
+    "Enerji doğrudan ATP'den gelir",
+    "ATP engellenince kasılma olmaz"
+   ],
+   "maxPoints": 3,
+   "explanation": "Önce iki grup arasındaki farkı (ATP engeli) belirt, sonra kasılmanın enerji gerektirdiğini yaz, en sonda \"ATP doğrudan kullanılan enerji kaynağıdır\" sonucunu ver. Tek başına \"ATP önemlidir\" yazmak kısmî puandır; çünkü bulgu ile kavram bağlanmamıştır.",
+   "category": "Benzer soru: ATP ve enerji",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir öğrenci \"Besinlerde enerji olduğuna göre hücre enerji ihtiyacını doğrudan besinden karşılar, ATP'ye gerek yoktur\" demiştir. Bu görüşü değerlendirip düzeltiniz. (4 puan)",
+   "correctAnswer": "Görüş yanlıştır. Besinlerdeki kimyasal enerji hücresel solunumla (ve fermantasyonla) parçalanarak ATP'ye aktarılır. Hücredeki enerji gerektiren olaylar ATP ile yürütülür; besin moleküllerinin kendisi doğrudan kullanılmaz.",
+   "keyPoints": [
+    "Görüşün yanlış olduğunu belirtir",
+    "Besin enerjisinin solunumla ATP'ye aktarıldığını yazar",
+    "Enerji gerektiren olayların ATP kullandığını söyler",
+    "Besinin doğrudan kullanılamadığını vurgular"
+   ],
+   "maxPoints": 4,
+   "explanation": "Yanlış görüşü düzeltirken önce \"yanlış\" de, sonra süreci yaz: besin → hücresel solunum → ATP → enerji gerektiren olay. Basamakları atlayan cevap eksik kabul edilir.",
+   "category": "Benzer soru: ATP ve enerji",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Sinir hücresi dinlenme hâlinde bile iyonları aktif taşıma ile zarın iki yanında farklı yoğunlukta tutar. Bir zehir ATP üretimini durdurursa bu hücrede ne olur? Nedenleriyle yazınız. (4 puan)",
+   "correctAnswer": "Aktif taşıma ATP gerektirdiğinden zehir etkisinde iyonlar yoğunluk farkına karşı taşınamaz, zarın iki yanındaki iyon farkı zamanla kaybolur ve sinirsel iletim bozulur. Hücrenin yaşamsal faaliyetleri aksar; uzun sürede hücre ölür.",
+   "keyPoints": [
+    "Aktif taşıma ATP ister",
+    "Zehirle ATP yok → iyon farkı korunamaz",
+    "Sinirsel iletim bozulur",
+    "Uzun sürede hücre ölümü"
+   ],
+   "maxPoints": 4,
+   "explanation": "Kuralı hatırla: yoğunluk farkına karşı taşıma (aktif taşıma) enerji ister. ATP yoksa taşıma durur; sonucu hücrenin işlevine (sinirsel iletim) bağla.",
+   "category": "Benzer soru: ATP ve enerji",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "ATP molekülünün yapısını (bileşenlerini) yazınız ve ATP'nin ADP'ye dönüşümünde enerjinin nasıl kullanıldığını açıklayınız. (4 puan)",
+   "correctAnswer": "ATP; adenin bazı, riboz şekeri ve üç fosfat grubundan oluşur. Son fosfat grubu ayrılıp ADP + Pi oluştuğunda enerji açığa çıkar ve hücrenin enerji gerektiren olayında kullanılır. ADP + Pi enerji harcanarak yeniden ATP'ye dönüştürülür.",
+   "keyPoints": [
+    "Adenin + riboz + üç fosfat",
+    "ATP → ADP + Pi, enerji açığa çıkar",
+    "Açığa çıkan enerji hücresel olayda kullanılır",
+    "ADP + Pi'den ATP yeniden yapılır"
+   ],
+   "maxPoints": 4,
+   "explanation": "Yapı ve işlevi iki ayrı cümleyle yaz. ATP'yi \"depo\" değil \"sürekli yenilenen taşıyıcı\" olarak anlatmak çevrimi gösterir.",
+   "category": "Benzer soru: ATP ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir öğrenci glikoz çözeltisine konan mayaların çoğalma hızını sıcaklığa göre incelemek için 10 °C, 25 °C ve 40 °C'de üç düzenek hazırlıyor. Deneyin amacını, bağımsız değişkenini, bağımlı değişkenini ve sabit tutulması gereken iki etkeni yazınız. (5 puan)",
+   "correctAnswer": "Amaç: Sıcaklığın maya çoğalma hızına etkisini araştırmak. Bağımsız değişken: sıcaklık. Bağımlı değişken: belirli sürede maya hücre sayısı (çoğalma hızı). Sabit tutulacaklar: maya miktarı, glikoz miktarı, bekletme süresi, ortamın hacmi (herhangi ikisi).",
+   "keyPoints": [
+    "Amaç: sıcaklığın çoğalma hızına etkisi",
+    "Bağımsız: sıcaklık",
+    "Bağımlı: belirli sürede hücre sayısı",
+    "İki doğru kontrollü değişken"
+   ],
+   "maxPoints": 5,
+   "explanation": "Kalıp: \"(bağımsız) (bağımlı) etkisini araştırmak\". Değiştirdiğin etken bağımsız, ölçtüğün sonuç bağımlıdır; sıcaklık dışında sonucu etkileyebilecek her şey sabit tutulmalıdır. Sabit tutulanları yazmadan değişken sorusu eksik kalır.",
+   "category": "Benzer soru: Deney tasarımı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir deneyde A tüpüne maya + şeker, B tüpüne yalnızca maya + su konmuştur. B tüpü hangi amaçla kullanılır? Bu tüpe ne ad verilir? (3 puan)",
+   "correctAnswer": "B tüpü kontrol grubudur. Şeker (test edilen etken) uygulanmadığı için A tüpündeki değişimin şekerden kaynaklandığını göstermek amacıyla kıyas sağlar.",
+   "keyPoints": [
+    "Kontrol grubu",
+    "Etken uygulanmaz",
+    "A tüpündeki değişimin şekerden kaynaklandığını gösterir"
+   ],
+   "maxPoints": 3,
+   "explanation": "Kontrol grubu, etkenin bulunmadığı kıyas grubudur. \"Neden gerekli?\" sorusunun cevabı: gözlenen sonucun gerçekten etkenden kaynaklandığını kanıtlamak.",
+   "category": "Benzer soru: Deney tasarımı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aynı Elodea bitkisi ve aynı şiddette ışıkla; kırmızı, mor ve yeşil renkli filtreler kullanılarak üç düzenek hazırlanmış, 2 dakikadaki kabarcık sayıları sırasıyla 80, 90 ve 8 bulunmuştur. Sonucu yorumlayınız. (4 puan)",
+   "correctAnswer": "Işığın rengi fotosentez hızını etkilemiştir. Kırmızı ve mor ışıkta kabarcık sayısı yüksektir; çünkü klorofil kırmızı ve mavi-mor ışığı iyi soğurur. Yeşil ışıkta kabarcık çok azdır; çünkü klorofil yeşil ışığı büyük ölçüde yansıtır.",
+   "keyPoints": [
+    "Işık rengi hızı etkiler",
+    "Kırmızı ve mor ışıkta hız yüksek (80, 90)",
+    "Klorofil bu ışıkları iyi soğurur",
+    "Yeşil ışıkta düşük (8), yeşil yansıtılır"
+   ],
+   "maxPoints": 4,
+   "explanation": "Veriyi sayılarla kullan (80, 90 ve 8). Sonra klorofilin soğurma özelliğine bağla. Yalnızca \"yeşilde azdır\" demek kısmî puan; nedeni (yansıtma) ekleyince tam olur.",
+   "category": "Benzer soru: Fotosentez",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir öğrenci Elodea'yı su dolu bir kaba koyup ışık kaynağını 30 cm, 20 cm, 10 cm ve 5 cm uzaklığa yerleştirmiş; 2 dakikadaki kabarcık sayıları 12, 30, 120 ve 124 çıkmıştır. 10 cm ile 5 cm arasında kabarcık sayısının neredeyse sabit kalmasını yorumlayınız. (4 puan)",
+   "correctAnswer": "Işık şiddeti arttıkça fotosentez hızı bir noktaya kadar artar; 10 cm'den sonra hız doyuma ulaşmıştır. Bu noktada ışık değil, CO2 derişimi, enzim miktarı, klorofil miktarı gibi başka bir etken sınırlayıcı olmuştur; ışığı artırmak hızı artırmaz.",
+   "keyPoints": [
+    "Hız önce artar sonra sabitlenir (doyma)",
+    "10 cm sonrası ışık sınırlayıcı değildir",
+    "Başka etken (CO2, enzim, klorofil) sınırlayıcıdır",
+    "Işığı artırmak hızı değiştirmez"
+   ],
+   "maxPoints": 4,
+   "explanation": "Doyma noktası kavramını kullan. Sabitlenen bölgede sınırlayıcı faktör \"ışık\" olamaz; çünkü ışığı artırdığımızda hız artmıyor. Sınırlayıcı olabilecek etkenlerden en az birini adlandır.",
+   "category": "Benzer soru: Fotosentez",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aynı bitki karanlık bir odaya konduğunda su altında kabarcık çıkarmıyor. Bu durum bitkinin hiçbir yaşamsal olay yapmadığı anlamına mı gelir? Açıklayınız. (3 puan)",
+   "correctAnswer": "Hayır. Karanlıkta fotosentez durur ama bitki hücreleri solunum yapmaya devam eder; O2 kullanır ve CO2 verir. Kabarcık oluşmaması fotosentezle O2 üretilmediğini gösterir, yaşamsal olayların durduğunu göstermez.",
+   "keyPoints": [
+    "Fotosentez durur",
+    "Solunum devam eder",
+    "O2 kullanılır, CO2 verilir"
+   ],
+   "maxPoints": 3,
+   "explanation": "Bitkiler solunumu ışığa bağlı olmadan sürekli yapar. Kabarcık yokluğunu \"net O2 salınımı yok\" biçiminde yorumlamak doğrudur.",
+   "category": "Benzer soru: Fotosentez",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir bitki yetiştirmeye çalışan öğrenci, bitkiyi sera ortamında yetiştirirken ışık şiddetini çok artırmış ama CO2 derişimini artırmamış, fotosentez hızı değişmemiştir. Nedenini açıklayınız. (3 puan)",
+   "correctAnswer": "CO2 sınırlayıcı faktördür. Işıktan bağımsız tepkimelerde CO2 glikoza dönüştürülür; CO2 yetersizse ışık tepkimeleri yeterli ATP ve NADPH üretse bile hız artmaz. Hız ancak sınırlayıcı etken artırılınca yükselir.",
+   "keyPoints": [
+    "CO2 sınırlayıcı",
+    "Işıktan bağımsız tepkimede CO2 kullanılır",
+    "Sınırlayıcı artırılmadan hız artmaz"
+   ],
+   "maxPoints": 3,
+   "explanation": "Sınırlayıcı faktör sorularında hızı kısıtlayan etkeni bul. Burada ışık zaten fazla; hızı belirleyen en az bulunan girdi CO2'dir.",
+   "category": "Benzer soru: Fotosentez",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir öğrenci fotosentez hızını ölçmek için Elodea'dan çıkan kabarcıkları sayıyor. Ölçümlerin güvenilir olması için hangi üç koşulu sabit tutmalıdır? Neden? (3 puan)",
+   "correctAnswer": "Sıcaklık, bitkinin türü/boyutu ve sayım süresi (ayrıca su ve CO2 miktarı) sabit tutulmalıdır. Aksi hâlde kabarcık sayısındaki değişimin gerçekten ışıktan mı yoksa başka etkenden mi kaynaklandığı anlaşılamaz.",
+   "keyPoints": [
+    "Sıcaklık sabit",
+    "Bitki ve sayım süresi sabit",
+    "Tek değişken değişmeli, yoksa neden belirsiz kalır"
+   ],
+   "maxPoints": 3,
+   "explanation": "Kontrollü değişken: sonucu etkileyebilecek ama araştırmanın konusu olmayan etken. Cevapta hem sabit tutulanları hem gerekçeyi yaz.",
+   "category": "Benzer soru: Fotosentez",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Ingenhousz'un bulgularını kullanarak şu hipotezi değerlendiriniz: \"Su bitkilerinin çıkardığı kabarcıklar CO2 gazıdır.\" (3 puan)",
+   "correctAnswer": "Hipotez yanlıştır. Ingenhousz bitkilerin ışıkta çıkardığı kabarcıkların oksijen içerdiğini, CO2'yi ise karanlıkta saldıklarını bulmuştur. Işıkta fotosentezle suyun parçalanması sonucu O2 açığa çıkar.",
+   "keyPoints": [
+    "Hipotez yanlış",
+    "Kabarcıklar O2",
+    "CO2 karanlıkta salınır / fotosentezde su parçalanır"
+   ],
+   "maxPoints": 3,
+   "explanation": "Tarihsel bulguyu doğru hatırlayıp kendi cümlenle yaz: ışıkta O2, karanlıkta CO2.",
+   "category": "Benzer soru: Fotosentez",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir öğrenci hazırladığı kartta şunları yazmıştır: \"I. Kemosentez ışık enerjisiyle gerçekleşir. II. Kemosentez yapan bakteriler organik madde sentezler. III. Kemosentez için klorofil gerekir.\" Hatalı ifadeleri belirleyip doğrusunu yazınız. (4 puan)",
+   "correctAnswer": "I ve III yanlıştır. Kemosentezde ışık yerine inorganik maddelerin oksidasyonundan elde edilen kimyasal enerji kullanılır; kemosentez yapan canlılar klorofil taşımaz. II doğrudur.",
+   "keyPoints": [
+    "I yanlış: ışık yerine kimyasal enerji",
+    "III yanlış: klorofil gerekmez",
+    "II doğru"
+   ],
+   "maxPoints": 4,
+   "explanation": "Fotosentez ve kemosentezi enerji kaynağıyla ayır: ışık enerjisi / inorganik madde oksidasyonu. Her yanlışı ayrı ayrı düzeltmek tam puan getirir.",
+   "category": "Benzer soru: Kemosentez",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Güneş ışığının ulaşmadığı derin deniz hidrotermal bacalarında yaşayan bazı bakteriler H2S gibi maddeleri oksitleyerek yaşar. Bu bakterilerin ekosistemdeki rolünü ve enerji kaynağını açıklayınız. (4 puan)",
+   "correctAnswer": "Bu bakteriler kemosentez yapar; H2S'nin oksidasyonundan açığa çıkan kimyasal enerjiyle ATP üretir ve CO2'den organik madde sentezler. Işık gerekmediği için ışıksız ortamda üretici olarak besin zincirinin başlangıcını oluştururlar.",
+   "keyPoints": [
+    "Kemosentez yaparlar",
+    "Enerji kaynağı: inorganik madde oksidasyonu",
+    "Organik madde üretirler",
+    "Üretici konumundadırlar"
+   ],
+   "maxPoints": 4,
+   "explanation": "Işıksız ortamda üreticinin fotosentezci olamayacağını düşün. Cevabı enerji kaynağı + ürün + ekolojik rol şeklinde sırala.",
+   "category": "Benzer soru: Kemosentez",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Amip besinini sahte ayaklarıyla çevreleyip hücre içine alır ve orada sindirir. Hidra ise enzimleri sindirim boşluğuna salgılar. Bu iki canlının sindirim türlerini adlandırarak karşılaştırınız. (4 puan)",
+   "correctAnswer": "Amip: hücre içi sindirim; besin besin kofuluna alınır, lizozom enzimleriyle hücre içinde sindirilir. Hidra: hücre dışı sindirim (sindirim boşluğunda); enzimler boşluğa salgılanır ve besin hücre dışında parçalanır. Ortak yön: kimyasal sindirim enzimlerle yapılır.",
+   "keyPoints": [
+    "Amip hücre içi",
+    "Hidra hücre dışı",
+    "Besin kofulu/lizozom ile sindirim boşluğuna enzim salgısı farkı",
+    "Enzimle kimyasal sindirim ortak"
+   ],
+   "maxPoints": 4,
+   "explanation": "Karşılaştırmada her iki canlı için \"hangi tür, nerede, hangi yapı\" üçlüsünü yaz. Ortak noktayı eklemek cevabı tamamlar.",
+   "category": "Benzer soru: Sindirim çeşitleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki olayları fiziksel ya da kimyasal sindirim olarak sınıflandırınız ve nedenini yazınız: çiğneme, safranın yağı küçük damlacıklara ayırması, tükürük amilazının nişastayı parçalaması, mide kaslarının besini karıştırması, pepsinin proteinleri parçalaması. (5 puan)",
+   "correctAnswer": "Fiziksel: çiğneme, safranın yağı damlacıklara ayırması (emülsiyon), mide kaslarının besini karıştırması; bunlarda besinin kimyasal yapısı değişmez, yalnızca parçalanır. Kimyasal: tükürük amilazının nişastayı, pepsinin proteinleri parçalaması; çünkü enzimler molekülleri yapı taşlarına ayırır.",
+   "keyPoints": [
+    "Çiğneme, safra emülsiyonu, mide kası: fiziksel",
+    "Amilaz ve pepsin: kimyasal",
+    "Gerekçe: kimyasal yapı değişiyor mu?"
+   ],
+   "maxPoints": 5,
+   "explanation": "Ölçüt: enzim var mı ve molekül yapısı değişiyor mu? Safra enzim içermez, bu yüzden kimyasal değil fiziksel sindirimdir; bu sık yapılan hatadır.",
+   "category": "Benzer soru: Sindirim çeşitleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir öğrenci \"Sindirim yalnızca bağırsakta gerçekleşir\" demiştir. Sindirimin insanda başladığı ve tamamlandığı yerleri örneklerle belirterek bu görüşü düzeltiniz. (4 puan)",
+   "correctAnswer": "Sindirim ağızda başlar; çiğneme fiziksel, tükürük amilazı nişastanın kimyasal sindirimini başlatır. Midede mide kasları mekanik, mide özsuyu enzimleri proteinlerin kimyasal sindirimini başlatır. Üç besinin kimyasal sindirimi ince bağırsakta tamamlanır.",
+   "keyPoints": [
+    "Ağızda başlar (çiğneme, amilaz)",
+    "Midede proteinlerin sindirimi başlar",
+    "İnce bağırsakta tamamlanır",
+    "Görüş yanlış"
+   ],
+   "maxPoints": 4,
+   "explanation": "Yerleri sırayla yaz: ağız, mide, ince bağırsak. Her organda hangi besin ve hangi sindirim türünün olduğunu belirtmek örnek isteyen sorularda şarttır.",
+   "category": "Benzer soru: Sindirim çeşitleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Küçük bir hayvan besinini hücre dışında sindirirken, bir diğeri hücre içinde sindirmektedir. Hücre içi sindirimin hangi yönden sınırlı olduğunu, büyük besinler açısından yorumlayınız. (3 puan)",
+   "correctAnswer": "Hücre içi sindirimde besin hücre zarından kofula alınabilecek kadar küçük olmalıdır; bu nedenle büyük besinler hücre içine alınamaz. Hücre dışı sindirim ise büyük besinlerin sindirim boşluğunda/kanalında parçalanıp sonra emilmesine izin verir.",
+   "keyPoints": [
+    "Hücre içi sindirimde besin hücreye girecek boyutta olmalı",
+    "Büyük besin alınamaz",
+    "Hücre dışı sindirim büyük besinlere uygundur"
+   ],
+   "maxPoints": 3,
+   "explanation": "Besin kofulu oluşturmak için hücre zarının besini sarması gerekir; bu boyut sınırı getirir. Karşılaştırmayı iki yönlü yaz.",
+   "category": "Benzer soru: Sindirim çeşitleri",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bilgi kartı: Hayvan 1: kesici ve köpek dişleri gelişmiş, mide tek bölmeli, bağırsak kısa. Hayvan 2: geniş yüzeyli azı dişleri gelişmiş, mide dört bölmeli, bağırsak uzun. Hayvan 3: hem köpek hem azı dişleri var, mide tek bölmeli, bağırsak orta uzunlukta. Kullanılan ölçütleri yazarak hayvanların beslenme biçimlerini belirleyiniz. (6 puan)",
+   "correctAnswer": "Ölçütler: diş yapısı, mide bölme sayısı, bağırsak uzunluğu. Hayvan 1: etçil (kesici ve sivri dişler, tek bölmeli mide, kısa bağırsak hızlı sindirime uygun). Hayvan 2: otçul (öğütücü azı dişleri, dört bölmeli mide, uzun bağırsak lifli bitkilerin yavaş sindirimine uygun). Hayvan 3: hepçil (hem et parçalayan hem öğütücü dişler, orta uzunlukta bağırsak).",
+   "keyPoints": [
+    "Üç ölçüt: diş, mide, bağırsak",
+    "Hayvan 1 etçil ve gerekçe",
+    "Hayvan 2 otçul ve gerekçe",
+    "Hayvan 3 hepçil ve gerekçe"
+   ],
+   "maxPoints": 6,
+   "explanation": "Önce her satırdaki üç özelliği ölçütlere böl, sonra özelliği beslenme türüne bağla. Karışık özellikler (hem köpek hem azı dişi) hepçili gösterir. Ölçütleri yazıp hayvanı beslenme biçimine bağlamazsan kısmî puan alırsın.",
+   "category": "Benzer soru: Omurgalı sindirimi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir aslan ile bir koyun için; diş yapısı, mide bölme sayısı ve bağırsak uzunluğuna göre birer karşılaştırma yaparak bu özelliklerin beslenme biçimiyle ilişkisini açıklayınız. (6 puan)",
+   "correctAnswer": "Aslan (etçil): sivri köpek ve kesici dişler eti yırtıp koparır; tek bölmeli mide ve kısa bağırsak, kolay sindirilen etin hızlı sindirimine uygundur. Koyun (otçul, geviş getiren): geniş yüzeyli azı dişleri bitkileri öğütür; dört bölmeli mide ve uzun bağırsak, lifli (selülozlu) bitkisel besinin yavaş ve uzun sürede sindirilmesini sağlar.",
+   "keyPoints": [
+    "Aslan: sivri köpek dişi ve kesici dişler → eti yırtma",
+    "Aslan: tek bölmeli mide, kısa bağırsak → hızlı sindirim",
+    "Koyun: azı dişleri → öğütme",
+    "Koyun: dört bölmeli mide, uzun bağırsak → lifli besinin yavaş sindirimi"
+   ],
+   "maxPoints": 6,
+   "explanation": "Her ölçüt için \"özellik → işlev → beslenme\" üçlüsünü yaz. Bağırsak uzunluğunu atlamak en sık görülen eksiktir.",
+   "category": "Benzer soru: Omurgalı sindirimi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir öğrenci \"Tüm otçul hayvanların midesi dört bölmelidir\" demiştir. Bu ifadeyi değerlendiriniz. (3 puan)",
+   "correctAnswer": "İfade doğru değildir. Dört bölmeli mide geviş getiren otçullara (inek, koyun gibi) özgüdür. Diğer otçullar tek bölmeli mideye sahip olabilir. Dolayısıyla otçulluk ile mide bölme sayısı arasında genelleme yapılamaz.",
+   "keyPoints": [
+    "İfade yanlış",
+    "Dört bölmeli mide geviş getirenlere özgü",
+    "Her otçul için genellenemez"
+   ],
+   "maxPoints": 3,
+   "explanation": "Genellemeleri kontrol etmek için istisna ara: tek bölmeli midesi olan otçullar da vardır. Cevabında somut örnekle \"geviş getirenler\" ifadesini kullan.",
+   "category": "Benzer soru: Omurgalı sindirimi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Kurt ve at için diş yapısını karşılaştırınız. Hangi diş türünün hangi beslenme biçimine uyum sağladığını açıklayınız. (4 puan)",
+   "correctAnswer": "Kurtta kesici ve sivri köpek dişleri iyi gelişmiştir; avı yakalar, eti parçalar (etçil). Atta ise geniş yüzeyli azı dişleri gelişmiştir; sert bitkisel besini öğütür (otçul). Diş yapısı beslenme biçimine uyumun en kolay gözlenen ölçütüdür.",
+   "keyPoints": [
+    "Kurt: sivri köpek ve kesici dişler → et parçalar",
+    "At: geniş azı dişleri → bitki öğütür",
+    "Diş-beslenme uyumu açıklanır"
+   ],
+   "maxPoints": 4,
+   "explanation": "Karşılaştırma iki canlıyı yan yana verir. Diş türü → işlev → beslenme zincirini kur.",
+   "category": "Benzer soru: Omurgalı sindirimi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Etçil bir hayvanın bağırsağı uzun olsaydı, sindirim ve beslenme açısından ne gibi sonuçlar doğardı? Tahmin edip gerekçelendiriniz. (4 puan)",
+   "correctAnswer": "Et kolay sindirildiği için kısa bağırsak yeterlidir; uzun bağırsak gereksiz yer ve enerji maliyeti yaratırdı. Besinin kalma süresi gereğinden uzar, çürüme ve zararlı bakteri riski artardı; hayvanın ağırlığı ve enerji gideri artardı. Dolayısıyla etçilde kısa bağırsak adaptasyondur.",
+   "keyPoints": [
+    "Et kolay sindirilir, uzun bağırsak gereksiz",
+    "Gereksiz yer ve enerji maliyeti",
+    "Besin uzun kalır, zararlı etkiler",
+    "Kısa bağırsak adaptasyon"
+   ],
+   "maxPoints": 4,
+   "explanation": "Bu \"tahmin\" sorusunda nedenini açıkça belirtmelisin: bağırsak uzunluğu ile besin türü arasındaki ilişkiyi tersten kurabilmek anlamayı gösterir.",
+   "category": "Benzer soru: Omurgalı sindirimi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Geviş getirme olayını ve dört bölmeli midenin lifli bitkisel besinlerin sindirimindeki katkısını açıklayınız. (4 puan)",
+   "correctAnswer": "Geviş getirenlerde yutulan bitkisel besin dört bölmeli midede önce depolanır ve mikroorganizmaların etkisiyle kısmen parçalanır; sonra ağza geri getirilip yeniden çiğnenir. Bu, selülozlu besinin yüzey alanını artırır ve sindirimi kolaylaştırır; uzun bağırsakla birlikte lifli besinin verimli sindirimini sağlar.",
+   "keyPoints": [
+    "Besin ağıza geri getirilir ve tekrar çiğnenir",
+    "Mikroorganizmalar selülozu parçalamaya yardım eder",
+    "Yüzey alanı artar",
+    "Uzun bağırsak tamamlayıcıdır"
+   ],
+   "maxPoints": 4,
+   "explanation": "Geviş getirmeyi \"ikinci çiğneme\" olarak düşün; amaç lifli besini küçültüp mikroorganizma ve enzim etkisini artırmak.",
+   "category": "Benzer soru: Omurgalı sindirimi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir öğrenci kaplan, köpek, inek ve koyunu \"dört ayaklı\" ölçütüne göre tek grupta sınıflandırmış, bunun beslenme biçimiyle ilişkisini kuramamıştır. Bu sınıflandırmayı değerlendirip sindirim yapısına dayalı doğru ölçütlerle yeniden sınıflandırınız. (5 puan)",
+   "correctAnswer": "\"Dört ayaklı\" sindirim yapısıyla ilgili bir ölçüt değildir; bu sınıflandırma beslenme biçimini açıklamaz. Sindirim yapısına dayalı ölçütler: diş yapısı, mide bölme sayısı, bağırsak uzunluğu. Bunlara göre kaplan ve köpek (kesici/sivri dişli, tek bölmeli mide, kısa bağırsak: etçil) bir grupta; inek ve koyun (azı dişli, dört bölmeli mide, uzun bağırsak: otçul) diğer grupta toplanır.",
+   "keyPoints": [
+    "Dört ayaklı ölçütü sindirimle ilgisiz",
+    "Sindirimle ilgili ölçütler: diş, mide, bağırsak",
+    "Kaplan ve köpek etçil grup",
+    "İnek ve koyun otçul grup"
+   ],
+   "maxPoints": 5,
+   "explanation": "Sınıflandırmada ölçüt, araştırılan özellikle ilgili olmalıdır. Sonra grupları ölçütle birlikte ver.",
+   "category": "Benzer soru: Omurgalı sindirimi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Hepçil bir hayvan olan ayının diş yapısının hem et hem bitki tüketimine nasıl uyum sağladığını açıklayınız. (3 puan)",
+   "correctAnswer": "Hepçillerde hem eti parçalayan kesici ve köpek dişleri hem bitkisel besini öğüten azı dişleri bulunur. Bu karma diş yapısı, hayvanın hem et hem bitki tüketmesine olanak tanır.",
+   "keyPoints": [
+    "Hem etçil hem otçul tip dişler",
+    "Et için kesici/köpek dişi",
+    "Bitki için azı dişi"
+   ],
+   "maxPoints": 3,
+   "explanation": "Hepçil: iki grubun özelliklerini birlikte taşıyan canlı. Her diş türünün işlevini yazmak yeterlidir.",
+   "category": "Benzer soru: Omurgalı sindirimi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir öğrenci \"Fotosentez için ışık gerekir\" yazarak deney sonucu sorusunu cevaplamıştır. Öğretmen kısmî puan vermiştir. Cevabı tam puana tamamlamak için hangi basamakları eklemelidir? (3 puan)",
+   "correctAnswer": "Verilen deney verisini (hangi düzenekte ne gözlendiği, sayılar) yazmalı, gözlemi kavramla (klorofil, ışık soğurma, O2 üretimi) açıklamalı ve sonucu bu ikisini birleştiren bir genelleme cümlesiyle bitirmelidir.",
+   "keyPoints": [
+    "Veri/gözlemi yazmak",
+    "Kavramla açıklamak",
+    "Sonuç genellemesi"
+   ],
+   "maxPoints": 3,
+   "explanation": "Tam puan zinciri: bulgu + kavram + sonuç. Tek cümlelik genel doğru bilgi çoğu zaman kısmî puandır.",
+   "category": "Benzer soru: Yazılı tekniği",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "\"X maddesi uygulanan maya hücrelerinin çoğalmadığı, uygulanmayanların çoğaldığı\" bir deneyde sonucu yazarken neden iki grubu birbiriyle karşılaştırmanız gerekir? (3 puan)",
+   "correctAnswer": "Karşılaştırma yapılmazsa çoğalmamanın X maddesinden mi yoksa başka bir etkenden mi kaynaklandığı anlaşılamaz. Kontrol grubu çoğaldığına göre iki grup arasındaki tek fark X'tir ve etki X'e bağlanır.",
+   "keyPoints": [
+    "Kontrol ve deney grubu karşılaştırılır",
+    "Tek fark etken",
+    "Sonuç etkene bağlanır"
+   ],
+   "maxPoints": 3,
+   "explanation": "Deney yorumunda \"neden-sonuç\" ancak kontrol grubuyla kurulabilir. Cevabında \"tek fark\" vurgusu önemlidir.",
+   "category": "Benzer soru: Yazılı tekniği",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir kısmî puan örneği: \"Kaplan ve köpekte kesici ve köpek dişleri gelişmiştir; mide tek bölmelidir. İnek ve koyunda azı dişleri öğütmeye uygundur, mide dört bölmelidir.\" Bu cevapta ne eksiktir ve nasıl tamamlanır? (3 puan)",
+   "correctAnswer": "Bağırsak uzunluğu ölçütü eksiktir. Tamamlamak için \"kaplan ve köpekte bağırsak kısa, hızlı sindirime uygundur; inek ve koyunda bağırsak uzun, lifli bitkilerin daha uzun sürede sindirilmesine uygundur\" eklenmelidir.",
+   "keyPoints": [
+    "Eksik: bağırsak uzunluğu",
+    "Etçilde kısa → hızlı sindirim",
+    "Otçulda uzun → lifli besinin uzun sürede sindirimi"
+   ],
+   "maxPoints": 3,
+   "explanation": "Üç ölçütten biri eksikse kısmî puan gelir. Cevap yazarken \"diş, mide, bağırsak\" listesini işaretleyerek yaz.",
+   "category": "Benzer soru: Yazılı tekniği",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Fotosentezin ışık tepkimeleri sonucunda ATP üretilir. Üretilen ATP'nin bitki hücresinde ışıktan bağımsız tepkimelerde nasıl kullanıldığını açıklayınız. (3 puan)",
+   "correctAnswer": "Işık tepkimelerinde ATP ve NADPH üretilir. Işıktan bağımsız tepkimelerde bu ATP'nin enerjisi ve NADPH'ın hidrojenleri kullanılarak CO2 glikoza dönüştürülür. Yani ATP, organik madde sentezinin enerji kaynağıdır.",
+   "keyPoints": [
+    "Işık tepkimelerinde ATP ve NADPH yapılır",
+    "ATP enerjisi CO2'nin glikoza dönüşümünde kullanılır",
+    "Organik madde sentezi enerji ister"
+   ],
+   "maxPoints": 3,
+   "explanation": "Işık enerjisi → ATP enerjisi → glikoz bağlarındaki kimyasal enerji. Bu dönüşüm zincirini yazmak, enerji akışı sorularının temelidir.",
+   "category": "Benzer soru: Fotosentez ve ATP",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Öğrencinin hipotezi: \"Su bitkisine eklenen CO2 miktarı arttıkça fotosentez hızı artar.\" Bu hipotezi test edecek bir düzenek tasarlayınız; bağımsız, bağımlı ve iki kontrollü değişkeni belirtiniz. (5 puan)",
+   "correctAnswer": "Aynı boyutta aynı türden Elodea bitkileri, aynı şiddette ışık altında farklı miktarda çözünmüş CO2 içeren (örn. farklı miktarda karbonat/bikarbonat eklenmiş) sularda bekletilir; 2 dakikadaki kabarcık sayıları sayılır. Bağımsız değişken: sudaki CO2 miktarı. Bağımlı değişken: kabarcık sayısı. Kontrollü: ışık şiddeti, sıcaklık, bitki boyutu, süre.",
+   "keyPoints": [
+    "Farklı CO2 miktarı olan düzenekler",
+    "Bağımsız: CO2 miktarı",
+    "Bağımlı: kabarcık sayısı",
+    "İki kontrollü değişken"
+   ],
+   "maxPoints": 5,
+   "explanation": "Yalnızca bir değişkeni (CO2) değiştir, diğerlerini sabit tut. Ölçümü sayılabilir bir sonuçla (kabarcık sayısı) yap.",
+   "category": "Benzer soru: Deney tasarımı",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir öğrenci mayaların oksijensiz ortamda da çoğalabildiğini görmüş ve \"ATP için oksijen şarttır\" diye yorum yapmıştır. Bu yorumu, ATP'nin üretim yollarını hatırlayarak değerlendiriniz. (3 puan)",
+   "correctAnswer": "Yorum genellenemez. ATP oksijenli solunumla üretilebildiği gibi, fermantasyonla oksijensiz ortamda da (daha az miktarda) üretilir. Maya oksijensiz ortamda fermantasyonla ATP üretip çoğalabilir.",
+   "keyPoints": [
+    "Yorum her durumda doğru değil",
+    "Oksijensiz ortamda fermantasyonla ATP üretilir",
+    "Maya fermantasyon yapar"
+   ],
+   "maxPoints": 3,
+   "explanation": "ATP yalnızca oksijenli solunumdan gelmez. Fermantasyon oksijensiz ATP üretimidir (miktar daha azdır).",
+   "category": "Benzer soru: ATP ve enerji",
+   "difficulty": "hard"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "ATP molekülünün yapısında aşağıdakilerden hangisi bulunmaz?",
+   "options": [
+    "Adenin bazı",
+    "Timin bazı",
+    "Riboz şekeri",
+    "Üç fosfat grubu"
+   ],
+   "correct": 1,
+   "explanation": "ATP; adenin bazı, riboz şekeri ve üç fosfat grubundan oluşur. Timin DNA'ya özgü bir bazdır ve ATP'de bulunmaz.",
+   "category": "ATP ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi doğrudan ATP kullanılarak gerçekleşen bir olaydır?",
+   "options": [
+    "Aktif taşıma",
+    "Basit difüzyon",
+    "Kolaylaştırılmış difüzyon",
+    "Ozmos"
+   ],
+   "correct": 0,
+   "explanation": "Aktif taşıma yoğunluk farkına karşı yapıldığı için ATP ister. Difüzyon ve ozmos pasif olaylardır, ATP gerektirmez.",
+   "category": "ATP ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Bir hücrede ATP üretimi engellenirse ilk etkilenen olay aşağıdakilerden hangisidir?",
+   "options": [
+    "Suyun ozmosla geçişi",
+    "Gazların difüzyonu",
+    "Kolaylaştırılmış difüzyon",
+    "Hücre bölünmesi ve aktif taşıma"
+   ],
+   "correct": 3,
+   "explanation": "ATP gerektiren olaylar (bölünme, aktif taşıma) durur. Ozmos ve difüzyon pasiftir.",
+   "category": "ATP ve enerji",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Bir deneyde \"bir etkinin sonucu\" olarak ölçülen değişkene ne denir?",
+   "options": [
+    "Bağımsız değişken",
+    "Kontrollü değişken",
+    "Bağımlı değişken",
+    "Hipotez"
+   ],
+   "correct": 2,
+   "explanation": "Ölçülen ve bağımsız değişkene bağlı değişen sonuç bağımlı değişkendir.",
+   "category": "Deney tasarımı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Elodea deneyinde ışığın bitkiye uzaklığı değiştirilmiştir. Bu değişken aşağıdakilerden hangisidir?",
+   "options": [
+    "Bağımlı değişken",
+    "Bağımsız değişken",
+    "Kontrollü değişken",
+    "Kontrol grubu"
+   ],
+   "correct": 1,
+   "explanation": "Deneyci tarafından bilerek değiştirilen etken bağımsız değişkendir.",
+   "category": "Deney tasarımı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Bir deneyde kontrol grubu neden kullanılır?",
+   "options": [
+    "Sonucun test edilen etkenden kaynaklandığını göstermek için kıyas sağlamak",
+    "Deneyi daha hızlı bitirmek",
+    "Bağımsız değişkeni artırmak",
+    "Hipotezi her zaman doğrulamak"
+   ],
+   "correct": 0,
+   "explanation": "Kontrol grubu etkenin uygulanmadığı kıyas grubudur; tek fark etken olduğunda sonucun nedeni belirlenebilir.",
+   "category": "Deney tasarımı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Elodea bitkisinin ışıkta çıkardığı gaz kabarcıkları hangi gazı içerir?",
+   "options": [
+    "Karbondioksit",
+    "Azot",
+    "Hidrojen",
+    "Oksijen"
+   ],
+   "correct": 3,
+   "explanation": "Işıkta fotosentezle suyun parçalanması sonucu O2 açığa çıkar; kabarcıklar oksijen içerir.",
+   "category": "Fotosentez",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi fotosentezin ışığa bağımlı tepkimelerinin ürünü değildir?",
+   "options": [
+    "O2",
+    "ATP",
+    "Glikoz",
+    "NADPH"
+   ],
+   "correct": 2,
+   "explanation": "Işık tepkimelerinde O2, ATP ve NADPH oluşur; glikoz ışıktan bağımsız tepkimelerde sentezlenir.",
+   "category": "Fotosentez",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Klorofil aşağıdaki ışık renklerinden hangisini en az soğurur?",
+   "options": [
+    "Mor",
+    "Yeşil",
+    "Mavi",
+    "Kırmızı"
+   ],
+   "correct": 1,
+   "explanation": "Klorofil yeşil ışığı büyük ölçüde yansıtır; bu yüzden yapraklar yeşil görünür.",
+   "category": "Fotosentez",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Işık şiddeti artarken fotosentez hızı bir noktadan sonra sabit kalıyorsa bu noktada ne söylenebilir?",
+   "options": [
+    "Işık dışında başka bir etken sınırlayıcıdır",
+    "Işık sınırlayıcıdır",
+    "Fotosentez tamamen durmuştur",
+    "Klorofil yok olmuştur"
+   ],
+   "correct": 0,
+   "explanation": "Işığı artırmak hızı değiştirmiyorsa ışık sınırlayıcı değildir; CO2, sıcaklık, enzim gibi başka etken sınırlayıcıdır.",
+   "category": "Fotosentez",
+   "difficulty": "hard"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aynı bitkiyle yapılan deneyde ışık kaynağı yaklaştırıldıkça kabarcık sayısı artmıştır. Bu sonuç neyi gösterir?",
+   "options": [
+    "CO2 azalmıştır",
+    "Bitki karanlıkta daha çok O2 üretmiştir",
+    "Sıcaklık bağımsız değişkendir",
+    "Işık şiddeti arttıkça fotosentez hızı artmıştır"
+   ],
+   "correct": 3,
+   "explanation": "Işık şiddeti bağımsız değişkendir ve kabarcık sayısı (hız) bununla birlikte artmıştır.",
+   "category": "Fotosentez",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Fotosentez ışığa bağımlı tepkimeleri kloroplastın hangi bölümünde gerçekleşir?",
+   "options": [
+    "Stroma",
+    "Kloroplast zarı dışı",
+    "Grana (tilakoit zar)",
+    "Sitoplazma"
+   ],
+   "correct": 2,
+   "explanation": "Işık tepkimeleri tilakoit zarlarda (grana), ışıktan bağımsız tepkimeler stromada gerçekleşir.",
+   "category": "Fotosentez",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Kemosentez ile ilgili aşağıdakilerden hangisi yanlıştır?",
+   "options": [
+    "İnorganik madde oksidasyonundan enerji alınır",
+    "Klorofil ve ışık enerjisi gerekir",
+    "Yapanlar genellikle prokaryot canlılardır",
+    "Organik madde sentezlenir"
+   ],
+   "correct": 1,
+   "explanation": "Kemosentez için ışık ve klorofil gerekmez; enerji inorganik madde oksidasyonundan gelir.",
+   "category": "Kemosentez",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi fiziksel sindirime örnektir?",
+   "options": [
+    "Safranın yağı küçük damlacıklara ayırması",
+    "Amilazın nişastayı parçalaması",
+    "Pepsinin proteinleri parçalaması",
+    "Lipazın yağı parçalaması"
+   ],
+   "correct": 0,
+   "explanation": "Safra enzim içermez; yağı damlacıklara ayırarak yüzey alanını artırır. Diğerleri enzimle kimyasal sindirimdir.",
+   "category": "Sindirim çeşitleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Besinin besin kofulu içinde lizozom enzimleriyle sindirildiği canlı aşağıdakilerden hangisidir?",
+   "options": [
+    "İnsan",
+    "İnek",
+    "Kaplan",
+    "Amip"
+   ],
+   "correct": 3,
+   "explanation": "Amip besini fagositozla alır ve besin kofulunda hücre içi sindirimle parçalar.",
+   "category": "Sindirim çeşitleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Dört bölmeli mide, uzun bağırsak ve geniş yüzeyli azı dişleri aşağıdaki hayvanlardan hangisinde bir arada bulunur?",
+   "options": [
+    "Kaplan",
+    "Köpek",
+    "İnek",
+    "Kurt"
+   ],
+   "correct": 2,
+   "explanation": "Bu özellik grubu geviş getiren otçullara aittir; inek örnektir. Kaplan, köpek ve kurt etçildir.",
+   "category": "Omurgalı sindirimi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Sivri köpek dişleri, tek bölmeli mide ve kısa bağırsak aşağıdaki beslenme biçimlerinden hangisine uygundur?",
+   "options": [
+    "Otçul beslenme",
+    "Etçil beslenme",
+    "Geviş getiren beslenme",
+    "Fotosentezle beslenme"
+   ],
+   "correct": 1,
+   "explanation": "Bu üç özellik et yemeye ve hızlı sindirime uyum gösterir.",
+   "category": "Omurgalı sindirimi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Otçulların bağırsağının etçillerden genellikle uzun olmasının nedeni nedir?",
+   "options": [
+    "Selüloz içeren lifli besinlerin sindirimi daha uzun sürer",
+    "Otçullar daha çok su içer",
+    "Bitkiler protein içermez",
+    "Otçullarda safra yoktur"
+   ],
+   "correct": 0,
+   "explanation": "Lifli bitkisel besin zor sindirildiği için uzun bağırsakta daha uzun süre kalır ve emilir.",
+   "category": "Omurgalı sindirimi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Bir hayvanda hem kesici/köpek dişleri hem azı dişleri vardır. Bu hayvan için ne söylenebilir?",
+   "options": [
+    "Kesinlikle otçuldur",
+    "Kesinlikle etçildir",
+    "Geviş getirir",
+    "Hepçil olabilir"
+   ],
+   "correct": 3,
+   "explanation": "Karma diş yapısı hem et hem bitki tüketimine uyumu gösterir.",
+   "category": "Omurgalı sindirimi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Rubrikte \"bulguyu yorumlar fakat kavramla ilişkilendirmez\" ifadesi hangi puana karşılık gelir?",
+   "options": [
+    "Tam puan",
+    "Sıfır puan",
+    "Kısmî puan",
+    "Bonus puan"
+   ],
+   "correct": 2,
+   "explanation": "Tam puan için bulgu, kavram ve sonuç bağlantısı gerekir; bir parça eksikse kısmî puan verilir.",
+   "category": "Yazılı tekniği",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "\"Deneyin amacı\" cümlesi aşağıdakilerden hangisiyle en doğru kurulur?",
+   "options": [
+    "Fotosentezin çok önemli olduğunu göstermek",
+    "Işık şiddetinin fotosentez hızına etkisini araştırmak",
+    "Bitkiyi büyütmek",
+    "Kabarcık saymak"
+   ],
+   "correct": 1,
+   "explanation": "Amaç, bağımsız değişkenin bağımlı değişkene etkisini araştırma kalıbıyla yazılır.",
+   "category": "Yazılı tekniği",
+   "difficulty": "medium"
+  },
+  {
+   "type": "true-false",
+   "question": "ATP hücrede uzun süre depolanan bir enerji deposudur.",
+   "correct": false,
+   "explanation": "ATP sürekli yenilenen, kısa ömürlü enerji taşıyıcıdır. Uzun süreli depo yağ ve glikojendir.",
+   "category": "ATP ve enerji",
+   "difficulty": "medium"
+  },
+  {
+   "type": "true-false",
+   "question": "ATP'nin yapısında riboz şekeri bulunur.",
+   "correct": true,
+   "explanation": "ATP = adenin bazı + riboz şekeri + 3 fosfat grubu; riboz yapısındaki şekerdir.",
+   "category": "ATP ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Bitkiler karanlıkta CO2 salar.",
+   "correct": true,
+   "explanation": "Karanlıkta fotosentez durur ama solunum sürer; bitki O2 kullanır, CO2 verir.",
+   "category": "Fotosentez",
+   "difficulty": "medium"
+  },
+  {
+   "type": "true-false",
+   "question": "Klorofil yeşil ışığı en çok soğurur.",
+   "correct": false,
+   "explanation": "Klorofil yeşil ışığı yansıtır; mavi-mor ve kırmızıyı iyi soğurur.",
+   "category": "Fotosentez",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Etçillerde bağırsak otçullara göre genellikle daha kısadır.",
+   "correct": true,
+   "explanation": "Et kolay sindirilir; hızlı sindirim için kısa bağırsak yeterlidir.",
+   "category": "Omurgalı sindirimi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Safra yağı kimyasal olarak parçalayan enzimler içerir.",
+   "correct": false,
+   "explanation": "Safra enzim içermez; yağı damlacıklara ayırır (fiziksel sindirim).",
+   "category": "Sindirim çeşitleri",
+   "difficulty": "hard"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Elodea deneyinde oluşan gaz kabarcıkları ____ gazı içerir.",
+   "answers": [
+    "oksijen",
+    "O2"
+   ],
+   "explanation": "Işıkta suyun parçalanmasıyla oksijen açığa çıkar.",
+   "category": "Fotosentez",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Deneyci tarafından değiştirilen değişkene ____ değişken denir.",
+   "answers": [
+    "bağımsız"
+   ],
+   "explanation": "Araştırılan etken, yani değiştirilen değişken bağımsız değişkendir.",
+   "category": "Deney tasarımı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Geviş getiren otçullarda mide ____ bölmelidir.",
+   "answers": [
+    "dört",
+    "4"
+   ],
+   "explanation": "İnek ve koyun gibi geviş getirenlerde mide dört bölmelidir.",
+   "category": "Omurgalı sindirimi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Işığı soğuran yeşil pigmente ____ denir.",
+   "answers": [
+    "klorofil"
+   ],
+   "explanation": "Klorofil kloroplastta bulunur ve ışığı soğurur.",
+   "category": "Fotosentez",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "ATP'nin yapısında adenin bazı, riboz şekeri ve ____ fosfat grubu bulunur.",
+   "answers": [
+    "üç",
+    "3"
+   ],
+   "explanation": "ATP adenozin trifosfattır; \"tri\" üç fosfat grubunu gösterir.",
+   "category": "ATP ve enerji",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Kemosentezde enerji, inorganik maddelerin ____ edilmesinden elde edilir.",
+   "answers": [
+    "oksidasyon",
+    "oksitlenme",
+    "yükseltgenme"
+   ],
+   "explanation": "İnorganik madde oksidasyonundan açığa çıkan kimyasal enerji ATP yapımında kullanılır.",
+   "category": "Kemosentez",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir öğrenci aynı iki Elodea bitkisinden birini mor, diğerini yeşil ışık altında bekletmiş; 2 dakikada mor ışıkta 96, yeşil ışıkta 10 kabarcık saymıştır. Bağımsız değişkeni, bağımlı değişkeni ve sonucu yazınız. (4 puan)",
+   "correctAnswer": "Bağımsız değişken: ışığın rengi. Bağımlı değişken: 2 dakikadaki kabarcık sayısı. Sonuç: mor ışıkta fotosentez hızı yeşil ışığa göre çok yüksektir; çünkü klorofil mor ışığı iyi soğurur, yeşil ışığı ise büyük ölçüde yansıtır.",
+   "keyPoints": [
+    "Bağımsız: ışığın rengi",
+    "Bağımlı: kabarcık sayısı",
+    "Mor ışıkta hız yüksek (96 / 10)",
+    "Klorofilin soğurma farkı"
+   ],
+   "maxPoints": 4,
+   "explanation": "Önce değişkenleri doğru yerleştir: değiştirilen renk bağımsız, sayılan kabarcık bağımlıdır. Sonra veriyi sayılarla kullanıp klorofilin soğurma özelliğine bağla. Nedeni yazmazsan sonuç kısmî puan alır.",
+   "category": "Benzer soru: Fotosentez",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir öğrenci hayvanları \"kuyruk uzunluğuna\" göre sınıflandırmış ve sınıflandırma beslenme biçimini açıklamamıştır. Sindirim sistemi ile ilgili üç yeni ölçüt önererek bu ölçütlerin neden daha uygun olduğunu açıklayınız. (4 puan)",
+   "correctAnswer": "Daha uygun ölçütler: diş yapısı, mide bölme sayısı, bağırsak uzunluğu. Bu üç özellik besinin nasıl alındığını, parçalandığını ve ne kadar sürede sindirildiğini doğrudan belirlediği için beslenme biçimiyle doğrudan ilişkilidir; kuyruk uzunluğu sindirimle ilgili değildir.",
+   "keyPoints": [
+    "Diş yapısı",
+    "Mide bölme sayısı",
+    "Bağırsak uzunluğu",
+    "Sindirimle doğrudan ilişkili olmaları"
+   ],
+   "maxPoints": 4,
+   "explanation": "Ölçüt, sınıflandırmanın amacına (beslenme biçimi) hizmet etmelidir. Bu nedenle sindirimle ilgisi olmayan özellikler tercih edilmez.",
+   "category": "Benzer soru: Omurgalı sindirimi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir öğrenci sindirimin yalnızca enzimlerle olduğunu düşünmektedir. Çiğneme ve mide kaslarının hareketinin sindirimdeki rolünü açıklayarak bu düşünceyi eleştiriniz. (3 puan)",
+   "correctAnswer": "Düşünce eksiktir. Çiğneme ve mide kaslarının hareketi fiziksel sindirimdir; besini küçük parçalara ayırıp yüzey alanını artırır ve enzimlerin daha etkili çalışmasını sağlar. Böylece fiziksel sindirim kimyasal sindirimi destekler.",
+   "keyPoints": [
+    "Fiziksel sindirim vardır",
+    "Yüzey alanını artırır",
+    "Enzim etkisini kolaylaştırır"
+   ],
+   "maxPoints": 3,
+   "explanation": "Sindirimin iki türü birbirini tamamlar. Fiziksel sindirimde kimyasal yapı değişmez ama kimyasal sindirimin verimi artar.",
+   "category": "Benzer soru: Sindirim çeşitleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Karanlıkta tutulan bir bitkinin solunum yaptığı, fotosentez yapmadığı bilinmektedir. Bu bitkinin hücrelerinin ATP ihtiyacını nasıl karşıladığını açıklayınız. (3 puan)",
+   "correctAnswer": "Fotosentezin ışık tepkimeleri ışıksız çalışmadığı için bitki ATP'yi hücresel solunumla (mitokondrilerde, depolanmış glikoz gibi organik maddelerin yıkımıyla) üretir. Dolayısıyla karanlıkta enerji gereksinimi solunumla karşılanır.",
+   "keyPoints": [
+    "Fotosentez ışıkta çalışır",
+    "Karanlıkta ATP hücresel solunumla üretilir",
+    "Organik besinler yıkılır"
+   ],
+   "maxPoints": 3,
+   "explanation": "Fotosentez ATP üretir ama ışığa bağlıdır. Karanlıkta ATP kaynağı solunumdur; bu bilgi bitkinin sürekli solunum yaptığını gösterir.",
+   "category": "Benzer soru: Fotosentez ve ATP",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Maya deneyine benzer olarak bir öğrenci üç tüp hazırlıyor: A (maya + glikoz), B (maya + glikoz + ATP üretimini engelleyen madde), C (yalnızca glikoz + su). C tüpünün amacını ve beklenen sonuçları yorumlayınız. (4 puan)",
+   "correctAnswer": "C tüpü maya hücresi içermediği için hücre kaynaklı bir değişim olmadığını gösteren negatif kontroldür; çoğalma beklenmez. A'da çoğalma beklenir, B'de ATP üretilemediği için çoğalma beklenmez. Sonuç: çoğalma için hem hücre hem ATP gereklidir.",
+   "keyPoints": [
+    "C: negatif kontrol, hücre yok",
+    "A'da çoğalma beklenir",
+    "B'de çoğalma beklenmez (ATP yok)",
+    "Sonuç: çoğalma için hücre ve ATP gerekir"
+   ],
+   "maxPoints": 4,
+   "explanation": "Her tüpün rolünü tek cümleyle belirt: A kontrol, B deney, C negatif kontrol. Beklenen sonuçları ATP bağıyla gerekçelendir.",
+   "category": "Benzer soru: Deney tasarımı",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki cevabı değerlendiriniz: \"ATP önemlidir çünkü hücrelere enerji verir.\" Bu cevap kısmî puan almıştır. Eksik olan nedir? Cevabı tamamlayınız. (3 puan)",
+   "correctAnswer": "Cevap yalnızca enerjinin önemine değinmiş, deney bulgusuyla ilişkilendirmemiştir. Tamamlama: Deneyde ATP üretimi engellenen hücreler çoğalmamıştır; ATP olmadan aktif taşıma, biyosentez ve bölünme yapılamaz, hücre ölür; bu yüzden enerji zorunludur.",
+   "keyPoints": [
+    "Bulgu yazılmamış",
+    "Bulgu-kavram bağlantısı eksik",
+    "Sonuç: ATP zorunlu"
+   ],
+   "maxPoints": 3,
+   "explanation": "Rubrik kısmî puanı \"yalnızca enerjinin önemi\" için verir. Bulgu + kavram + sonuç eklersen tam puana ulaşırsın.",
+   "category": "Benzer soru: Yazılı tekniği",
+   "difficulty": "easy"
+  }
+ ],
+ "sources": [
+  {
+   "id": "src1",
+   "name": "10. Sınıf Biyoloji - 1. Dönem 1. Yazılı",
+   "kind": "file",
+   "text": "=== Page 1 ===\r\nBİYOLOJİ DERSİ - 10. SINIF 1\r\n10. SINIF 10. SINIF 10. SINIF 10. SINIF 10. SINIF 10. SINIF 10. SINIF  10. SINIF\r\nYAZILIYA HAZIRLANIYORUM\r\n1. DÖNEM - 1. YAZILI\r\nBİYOLOJİ\r\n1. Lise 10. sınıf öğrencisi Zeynep biyoloji dersinde; canlıların yaşamsal faaliyetlerini sürdürebilmek için enerjiye ihtiyaç \r\nduyduğunu, ATP molekülünün enerji taşıyıcı bir molekül olduğunu, ATP’nin yapısında adenin bazı, riboz ve üç \r\nfosfat grubu bulunduğunu öğrenmiştir. Konu anlatımı sırasında öğretmeninin Tüm canlı hücrelerde enerji gerektiren \r\nolaylarda doğrudan kullanılan molekül ATP'dir. ifadesi Zeynep'in dikkatini çekmiş ve “ATP üretimi engellenen bir \r\nhücre, yaşamını sürdürebilir mi? Gerçekten enerji bu kadar hayati mi?” sorularına yanıt aramak amacıyla basit bir \r\ndeney tasarlayıp gözlem yapmak için onay almıştır.\r\n Deney\r\n Laboratuvar ortamında aynı türden ve eşit sayıda maya hücresi kullanarak aşağıdaki petri kaplarını hazırlamıştır.\r\n • 1. petri kabı (Kontrol Grubu): Glikoz çözeltisi ve sağlıklı maya hücreleri içermektedir.\r\n • 2. petri kabı (Deney Grubu): Glikoz çözeltisi, sağlıklı maya hücreleri ve ATP üretimini engelleyen madde \r\niçermektedir.\r\n • Her iki petri kabı da aynı uygun koşullarda yeterli süre bekletilmiştir.\r\nmaya \r\nglikoz \r\nçözeltisi\r\n1. Petri kabı 2. Petri kabı\r\nmaya \r\nhücreleri\r\nglikoz \r\nçözeltisi\r\nATP üretimini \r\nengelleyen \r\nmadde\r\n1. Petri kabı 2. Petri kabı\r\nhücreleri\r\n Gözlem ve Bulgular\r\n • 1. petri kabındaki hücrelerde çoğalma görülmüştür.\r\n • 2. petri kabındaki hücrelerde çoğalma gözlenmemiştir.\r\nmaya \r\nglikoz \r\nçözeltisi\r\n1. Petri kabı 2. Petri kabı\r\nmaya \r\nhücreleri\r\nglikoz \r\nçözeltisi\r\nATP üretimini \r\nengelleyen \r\nmadde\r\n1. Petri kabı 2. Petri kabı\r\nhücreleri\r\n Deney sonucundaki gözlem ve bulgulara dayanarak ATP molekülünün canlılık için yaşamsal önemini \r\naçıklayınız.\r\n=== Page 2 ===\r\nBİYOLOJİ DERSİ - 10. SINIF2\r\nYAZILIYA HAZIRLANIYORUM 1. DÖNEM - 1. YAZILI\r\n2. 1779 yılında Jan Ingenhousz; su bitkilerinin ışık varlığında gaz kabarcıkları çıkardığını, karanlıkta ise bu olayın \r\ngerçekleşmediğini gözlemlemiştir. Bu kabarcıkların oksijen içerdiğini ve bitkilerin karanlıkta karbondioksit salınımı \r\nyaptığını belirlemiş ve fotosentez için ışığın gerekli olduğunu ortaya koymuştur. Ingenhousz’un bulgularından \r\nyararlanılarak yapılan aşağıdaki deneyde su dolu kaba yerleştirilen Elodea bitkisi, üzerine cam huni ve test tüpü \r\nkapatılarak karanlık ortamda 10 dakika bekletildiğinde gaz kabarcığı oluşmadığı gözlenmiştir. Daha sonra sıcaklığın \r\nve diğer koşulların sabit tutulduğu üç ayrı deney düzeneği (K, L, M) aşağıda gösterildiği gibi hazırlanmıştır. Mor ışık \r\nkaynağı bitkiden farklı uzaklıklara yerleştirilmiş, bitkinin ışık şiddetine uyum sağlaması için bir süre beklenmiş ve \r\nardından 2 dakika boyunca oluşan gaz kabarcıkları sayılarak sonuçlar kaydedilmiştir. \r\n \r\nKaranlık ortam\r\nElodea\r\nTest\r\ntüpü\r\nSu\r\nMor ışık\r\n20 cm\r\nGaz\r\nkabarcıkları\r\nK\r\nElodeaSu\r\nTest\r\ntüpü\r\nMor ışık\r\n15 cm\r\nGaz\r\nkabarcıkları\r\nL\r\nElodeaSu\r\nTest\r\ntüpü\r\nMor ışık\r\n10 cm\r\nGaz\r\nkabarcıkları\r\nM\r\nElodeaSu\r\nTest\r\ntüpü\r\n \r\nIşık Kaynağının Bitkiye Olan Uzaklığı 2 Dakika Boyunca Çıkan Kabarcık Sayısı\r\n10 (cm) 120 (cm)\r\n15 (cm) 54 (cm)\r\n20 (cm) 30 (cm)\r\n2.1. K, L ve M düzeneklerinde gerçekleştirilen deneyin amacını, bağımlı ve bağımsız değişkenlerini yazınız.\r\n Deneyin amacı:\r\n Bağımlı değişken:\r\n Bağımsız değişken:\r\n2.2. Karanlık ortamda test tüpünde gaz kabarcığı oluşmazken mor ışık kaynağı kullanıldığında gaz \r\nkabarcıklarının görülmesinin nedenini açıklayınız.\r\n=== Page 3 ===\r\nYAZILIYA HAZIRLANIYORUM 1. DÖNEM - 1. YAZILI\r\nBİYOLOJİ DERSİ - 10. SINIF 3\r\n3. Hayvanlar doğada farklı besinler tüketir. Hayvanların sindirim yapıları, tükettikleri besinlere uygun adaptasyonlar \r\ngösterir. Elif'in bazı omurgalı hayvanlara ait sindirim yapıları ve beslenme biçimleriyle ilgili belirli ölçütleri dikkate \r\nalarak hazırladığı bilgi kartı aşağıda verilmiştir.\r\n3.1. Bilgi kartında yer alan omurgalı hayvanların sindirim yapılarını dikkate alarak kartta kullanılan ölçütleri \r\nbelirleyiniz ve bu ölçütlere göre görseldeki omurgalıları sınıflandırınız.\r\n3.2. Bilgi kartında yer alan kaplan ve ineğe ait sindirim sistemi yapılarını, belirlediğiniz ölçütlere göre \r\nbeslenme biçimleriyle ilişkilendirerek açıklayınız.\r\n=== Page 4 ===\r\nBİYOLOJİ DERSİ - 10. SINIF4\r\nYAZILIYA HAZIRLANIYORUM 1. DÖNEM - 1. YAZILI\r\nSORU \r\nNO ÖĞRENME ÇIKTISI BECERİLER\r\n1 BİY.10.1.1. Canlıların yaşamına devam edebilmesi için enerjinin gerekliliğini sorgula-yabilme KB2.8. Sorgulama\r\n2 BİY.10.1.3. Fotosentezde kullanılan ve üretilen maddelerle ilgili deney yapabilme FBAB7. Deney Yapma\r\n3 BİY.10.1.5. Canlılarda sindirim çeşitlerini ve yapılarını sınıflandırabilme FBAB2. Sınıflandırma\r\nPUANLAMA TABLOSU\r\n1\r\n2 3\r\nTOPLAM\r\n2.1. 2.2. 3.1. 3.2.\r\n20 20 20 20 20 100\r\nÇÖZÜMLER\r\n1. TAM PUAN\r\n ATP üretimi durdurulan hücrelerde yaşamsal faaliyetlerin sona ermesinin sürekli enerji gereksinimiyle ilgili \r\nolduğunu; enerjinin canlılık için yalnızca önemli değil, aynı zamanda zorunlu da olduğunu belirtir.\r\n Canlı hücreler, yaşamsal faaliyetlerini sürdürebilmek için ATP molekülüne ihtiyaç duyar.\r\n ATP üretimi durduğunda hücreler bölünemez, aktif taşıma gibi enerji gerektiren madde alışverişini yapamaz ve ve \r\nenerji gerektiren tepkimeleri (örneğin sentez tepkimelerini) gerçekleştiremez. Bu da hücrenin ölümüne yol açar.\r\n KISMÎ PUAN \r\n Sadece deney bulguları ile ilgili yorum yapar veya sadece enerjinin öneminden bahseder. \r\n Deney bulguları ile ATP’nin canlılık için önemi arasındaki bağlamı eksik veya hatalı kurar. \r\n SIFIR PUAN \r\n Cevap yok veya tamamen yanlış bilgiler içermektedir.\r\n2. \r\n2.1. TAM PUAN\r\n Deneyin amacını, bağımlı ve bağımsız değişkenleri tam ve doğru yazar.\r\n Deneyin amacı: Işık şiddetinin fotosentez hızına etkisini araştırmak \r\n Bağımlı değişken: Bitkinin belirtilen sürede oluşturduğu gaz kabarcığı sayısı \r\n Bağımsız değişken: Işık kaynağının bitkiye olan uzaklığı (ışık şiddeti)\r\nKISMÎ PUAN \r\n Deneyin amacı, bağımlı ve bağımsız değişkenleri eksik veya hatalı yazar.\r\n Deneyin amacı: Işık şiddetinin fotosentez hızına etkisini araştırmak\r\n Bağımlı değişken: Bitkinin belirtilen sürede oluşturduğu gaz kabarcığı sayısı \r\n Bağımsız değişken: Işık kaynağının bitkiye olan uzaklığı (ışık şiddeti)\r\nSIFIR PUAN\r\n Cevap yok veya tamamen yanlış bilgiler içermektedir.\r\n=== Page 5 ===\r\nYAZILIYA HAZIRLANIYORUM 1. DÖNEM - 1. YAZILI\r\nBİYOLOJİ DERSİ - 10. SINIF 5\r\n2.2. TAM PUAN\r\n Karanlık ortamda test tüpünde gaz kabarcığının oluşmayıp mor ışık kaynağı kullanıldığında gaz \r\nkabarcıklarının görülmesinin nedenini tam ve doğru olarak açıklar.\r\n Ingenhousz, çalışmaları sonucunda fotosentez için ışığın gerekli olduğunu ve oluşan gaz kabarcıklarının \r\noksijen gazı içerdiğini tespit etmiştir. Elodea bitkisi karanlık ortamdayken fotosentez yapamadığı için gaz \r\nkabarcığı oluşmaz. Mor ışık, klorofilin en iyi soğurduğu ışık çeşidi olduğu için fotosentez hızı yüksektir ve test \r\ntüpünde gaz kabarcıkları oluşur. \r\nKISMÎ PUAN\r\n Karanlık ortamda test tüpünde gaz kabarcığının oluşmayıp mor ışık kaynağı kullanıldığında gaz \r\nkabarcıklarının görülmesinin nedenini eksik veya kısmen hatalı açıklar. \r\nSIFIR PUAN\r\n Cevap yok veya tamamen yanlış bilgiler içermektedir.\r\n3.\r\n3.1. TAM PUAN \r\n Canlılarda sindirim çeşitlerini ve sindirim organlarının yapısını sınıflandırmak için kullanılabilecek ölçütleri \r\ngörselden yararlanarak eksiksiz tespit eder. Bu ölçütlere göre verilen omurgalıları doğru ayrıştırır. \r\nÖlçütler: \r\n 1. Diş Yapısı \r\n  Kesici dişlerin gelişmişliği \r\n  Azı (öğütücü) dişlerinin şekli \r\n  Köpek dişlerinin sivriliği \r\n 2. Mide Yapısı \r\n  Midenin bölme sayısı (tek bölmeli / 4 bölmeli) \r\n 3. Bağırsak Uzunluğu \r\n  Kısa bağırsak † hızlı sindirim \r\n  Uzun bağırsak † lifli bitkilerin daha uzun sürede parçalanması \r\nBu ölçütlere göre verilen omurgalıların ayrıştırılması: \r\n I. Kesici ve sivri köpek dişleri gelişmiş olanlar, tek bölmeli midesi bulunanlar ve kısa bağırsağa sahip olanları \r\nayrıştırdığımızda, bu kriterlere uyan omurgalılar kaplan ve köpektir. \r\n II. Öğütücü azı dişleri daha işlevsel olanlar, 4 bölmeli midesi bulunanlar ve uzun bağırsağa sahip olanlar \r\nayrıştırıldığında bu kriterlere uygun omurgalılar inek ve koyundur. \r\nKISMÎ PUAN \r\nGörseldeki bilgileri kullanarak uygun ölçütleri belirler ancak omurgalıları ayrıştırmaz. \r\nÖlçütleri doğru tespit eder ancak omurgalıları hatalı ayrıştırır. \r\n Örnek: Kaplan ve köpeklerde kesici ve köpek dişleri gelişmiştir, bu yüzden besinlerini parçalayarak yerler. \r\nMide yapıları tek bölmelidir. İnek ve koyunda ise azı dişleri öğütmeye uygundur ve mideleri 4 bölmelidir. Bu \r\nnedenle lifli besinleri daha uzun sürede sindirirler. (Bağırsak uzunluğu eksiktir.) \r\nSIFIR PUAN \r\nCevap yok veya tamamen yanlış bilgiler içermektedir.\r\n=== Page 6 ===\r\nBİYOLOJİ DERSİ - 10. SINIF6\r\nYAZILIYA HAZIRLANIYORUM 1. DÖNEM - 1. YAZILI\r\n3.2. TAM PUAN\r\n Verilen özellikleri beslenme biçimleri ile ilişkilendirip açıklar.\r\n Kaplan, kesici dişlere ve büyük, sivri köpek dişlerine sahiptir. Bu dişler, avlarını yakalayıp öldürmelerine, et \r\nparçalarını koparıp kesmelerine yardımcı olur. Mideleri tek bölmelidir. Bağırsakları daha kısadır. Bu yapı etçil \r\ncanlılarda görülen hızlı sindirime uygun, kısa bağırsaklı ve güçlü parçalama özelliklerini gösterir. Bu nedenle \r\n‘’Kaplan: Etçil’’ dir.\r\n İnek, geniş ve çıkıntılı yüzeyleri olan azı dişlere sahiptir. Bu dişler sert bitkisel besinleri öğütmek için \r\nözelleşmiştir. Kesici dişler bitki parçalarını koparmak için uyarlanmıştır. Midesi dört bölmelidir. Bağırsakları \r\nuzundur. Bu durum lifli besinlerin uzun sürede sindirilmesi nedeniyle daha uzun bir sindirim yoluna ihtiyaç \r\nduymasındandır. \r\n Bu nedenle ‘’İnek: Otçul’’ dur.\r\nKISMÎ PUAN\r\nVerilen özellikleri beslenme biçimleri ile doğru ilişkilendirir ancak hatalı açıklama yapar ya da açıklama yapmaz.\r\nVerilen özellikleri beslenme biçimleri ile yanlış ilişkilendirir ancak hatalı açıklama yapar ya da açıklama yapmaz.\r\nVerilen özellikleri beslenme biçimleri ile hatalı ilişkilendirir ve hatalı açıklama yapar.\r\nSIFIR PUAN:\r\nCevap yok veya tamamen yanlış bilgiler içermektedir."
+  }
+ ]
+}

@@ -1260,7 +1260,7 @@
     "Mutfakta bulaşıkları süngerle yıkadı."
    ],
    "correct": 1,
-   "explanation": "Deyim, sünger sözcüğünün gerçek anlamı (temizleme aracı) ile değil, \"bir şeyi hiç olmamış saymak\" anlamıyla kullanılmalıdır. Yalnız ilk cümlede kırgınlık silinir; diğerleri ya gerçek anlamlı (sünger nesnesi) ya da benzetmedir.",
+   "explanation": "Deyim, sünger sözcüğünün gerçek anlamı (temizleme aracı) ile değil, \"bir şeyi hiç olmamış saymak\" anlamıyla kullanılmalıdır. Yalnız \"Yaşadıkları kırgınlığa sünger çekip yeniden dost oldular.\" cümlesinde kırgınlık silinir; diğerleri ya gerçek anlamlı (sünger nesnesi) ya da benzetmedir.",
    "category": "Benzer soru: Deyimler",
    "difficulty": "medium"
   },
