@@ -375,6 +375,55 @@ const path = require('node:path');
     await page.click('[data-mm-act="outline"]');
   });
 
+  await step('studio: mind map search opens and highlights matches, Focus keeps one branch, arrow keys walk the tree, Fit and Ctrl+wheel zoom, no sideways scroll at 390px', async () => {
+    await page.$eval('[data-notes-view="map"]', b => b.click());
+    await page.waitForSelector('.mm-svg [data-mm="0.0"]', { timeout: 2000 });
+    // Search: a word of a leaf opens its branch, marks it, dims the rest, and reports the count.
+    const word = await page.evaluate(() => {
+      const t = Mindmap.fromNotes(App.getStudyData());
+      return t.children.find(c => c.children.length).children[0].label.split(' ')[0];
+    });
+    await page.$eval('[data-mm-act="collapse-all"]', b => b.click());
+    await page.focus('[data-mm-search]');
+    await page.keyboard.type(word);
+    await page.waitForSelector('.mm-node.match', { timeout: 2000 });
+    const found = await page.evaluate(() => ({ dim: document.querySelectorAll('.mm-node.dim').length, text: document.querySelector('[data-mm-count]').textContent }));
+    if (!found.dim || !/\d/.test(found.text)) throw new Error('search ' + JSON.stringify(found));
+    await page.keyboard.press('Escape');
+    await page.waitForFunction(() => !document.querySelector('.mm-node.match') && !document.querySelector('.mm-node.dim'), { timeout: 2000 });
+    // Focus: only the chosen branch stays open.
+    await page.$eval('[data-mm-act="expand-all"]', b => b.click());
+    const branches = await page.evaluate(() => Mindmap.fromNotes(App.getStudyData()).children.map((c, i) => c.children.length ? i : -1).filter(i => i >= 0));
+    if (branches.length < 2) throw new Error('the demo deck needs two branches with children');
+    await page.$eval(`[data-mm="0.${branches[0]}"]`, g => g.dispatchEvent(new MouseEvent('dblclick', { bubbles: true })));
+    await page.waitForFunction(b => !document.querySelector(`[data-mm^="0.${b}."]`), { timeout: 2000 }, branches[1]);
+    if (!await page.$(`[data-mm^="0.${branches[0]}."]`)) throw new Error('the focused branch lost its children');
+    // Arrow keys: → first child, ↓ next sibling, ← back to the parent.
+    await page.$eval('[data-mm-act="collapse-all"]', b => b.click());
+    await page.$eval('[data-mm="0"]', g => g.focus());
+    const selected = () => page.$eval('.mm-node.selected', g => g.dataset.mm);
+    await page.keyboard.press('ArrowRight');
+    if (await selected() !== '0.0') throw new Error('ArrowRight went to ' + await selected());
+    await page.keyboard.press('ArrowDown');
+    if (await selected() !== '0.1') throw new Error('ArrowDown went to ' + await selected());
+    await page.keyboard.press('ArrowLeft');
+    if (await selected() !== '0') throw new Error('ArrowLeft went to ' + await selected());
+    // Fit shows the whole map; Ctrl + wheel zooms.
+    await page.$eval('[data-mm-act="expand-all"]', b => b.click());
+    await page.$eval('[data-mm-act="fit"]', b => b.click());
+    const fitted = await page.evaluate(() => ({ svg: +document.querySelector('.mm-svg').getAttribute('width'), box: document.querySelector('.mm-canvas').clientWidth }));
+    if (fitted.svg > fitted.box + 1) throw new Error('fit ' + JSON.stringify(fitted));
+    await page.evaluate(() => document.querySelector('.mm-canvas').dispatchEvent(new WheelEvent('wheel', { deltaY: -300, ctrlKey: true, clientX: 200, clientY: 200, bubbles: true, cancelable: true })));
+    const zoomed = await page.evaluate(() => +document.querySelector('.mm-svg').getAttribute('width'));
+    if (zoomed <= fitted.svg) throw new Error('ctrl+wheel did not zoom: ' + fitted.svg + ' -> ' + zoomed);
+    // Phone width: the page must not scroll sideways with the map open.
+    await page.setViewport({ width: 390, height: 844 });
+    const wide = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+    await page.setViewport({ width: 1280, height: 900 });
+    if (wide > 0) throw new Error('mind map is ' + wide + 'px wider than a 390px screen');
+    await page.$eval('[data-mm-act="collapse-all"]', b => b.click());
+  });
+
   await step('studio: audio overview (offline recap) builds a transcript', async () => {
     await page.click('[data-notes-view="audio"]');
     await page.click('[data-audio-format="recap"]');

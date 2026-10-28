@@ -272,11 +272,21 @@ button.citation:hover { background: var(--primary-tint); }
 
 /* ----- Mind map ----- */
 .mm-wrap { display: flex; flex-direction: column; gap: 12px; }
+.mm-wrap:fullscreen { background: var(--bg, var(--surface)); padding: 16px; overflow: auto; }
+.mm-wrap:fullscreen .mm-canvas { max-height: none; flex: 1; }
 .mm-toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; }
 .mm-kind { font-size: 0.82rem; font-weight: 600; color: var(--text-muted); }
 .mm-tools { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .mm-tools .btn-ghost { padding: 5px 12px; font-size: 0.82rem; }
 .mm-tools .btn-icon { width: 30px; height: 30px; border: 1px solid var(--border); }
+.mm-search {
+  flex: 1 1 150px; min-width: 120px; max-width: 220px; height: 30px; padding: 0 12px;
+  border: 1px solid var(--border); border-radius: 999px; background: var(--card); color: var(--text);
+  font: inherit; font-size: 0.82rem;
+}
+.mm-search:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
+.mm-count { font-size: 0.76rem; color: var(--text-muted); white-space: nowrap; }
+.mm-count:empty { display: none; }
 .mm-canvas {
   overflow: auto;
   max-height: 68vh;
@@ -287,27 +297,45 @@ button.citation:hover { background: var(--primary-tint); }
   border: 1px solid var(--border);
   border-radius: var(--radius);
   cursor: grab;
-  touch-action: pan-x pan-y;
+  touch-action: none; /* the map handles drag and pinch itself */
 }
 .mm-canvas.panning { cursor: grabbing; user-select: none; }
 .mm-svg { display: block; font-family: var(--font-content); }
-.mm-link { fill: none; stroke-width: 2; opacity: 0.55; stroke: var(--mm-c, var(--primary)); }
-.mm-node { cursor: pointer; outline: none; }
-.mm-node rect {
-  fill: color-mix(in srgb, var(--mm-c, var(--primary)) 14%, var(--card));
-  stroke: var(--mm-c, var(--primary));
+
+/* Links taper with depth and draw themselves in when a branch opens. */
+.mm-link { fill: none; stroke: var(--mm-c, var(--primary)); stroke-width: 2; stroke-linecap: round; opacity: 0.6; transition: opacity 0.2s ease; }
+.mm-link.d1 { stroke-width: 4; }
+.mm-link.d2 { stroke-width: 3; }
+.mm-link.dim { opacity: 0.14; }
+.mm-link.fresh { stroke-dasharray: 1; stroke-dashoffset: 1; animation: mmDraw 0.5s ease forwards; }
+@keyframes mmDraw { to { stroke-dashoffset: 0; } }
+
+/* Nodes: tinted pill with a branch-coloured accent bar; the nearer the root, the stronger the tint. */
+.mm-node { cursor: pointer; outline: none; transition: opacity 0.2s ease; }
+.mm-node .mm-bg {
+  fill: color-mix(in srgb, var(--mm-c, var(--primary)) 9%, var(--card));
+  stroke: color-mix(in srgb, var(--mm-c, var(--primary)) 65%, transparent);
   stroke-width: 1.5;
-  transition: fill 0.2s ease;
+  filter: drop-shadow(0 2px 5px color-mix(in srgb, var(--mm-c, var(--primary)) 22%, transparent));
+  transition: fill 0.2s ease, stroke-width 0.15s ease;
 }
-.mm-node text { fill: var(--text); font-size: 13px; font-weight: 500; pointer-events: none; }
-.mm-node:hover rect, .mm-node:focus-visible rect { fill: color-mix(in srgb, var(--mm-c, var(--primary)) 26%, var(--card)); }
-.mm-node.selected rect { stroke-width: 3; }
-.mm-node.root rect { fill: var(--primary-hover); stroke: var(--primary-hover); }
-.mm-node.root text { fill: #fff; font-weight: 700; font-size: 14px; }
+.mm-node.d1 .mm-bg { fill: color-mix(in srgb, var(--mm-c, var(--primary)) 20%, var(--card)); }
+.mm-node.d2 .mm-bg { fill: color-mix(in srgb, var(--mm-c, var(--primary)) 13%, var(--card)); }
+.mm-bar { fill: var(--mm-c, var(--primary)); }
+.mm-label { fill: var(--text); font-size: 13px; font-weight: 500; pointer-events: none; }
+.mm-node.d1 .mm-label { font-weight: 600; }
+.mm-node:hover .mm-bg, .mm-node:focus-visible .mm-bg { fill: color-mix(in srgb, var(--mm-c, var(--primary)) 30%, var(--card)); }
+.mm-node:focus-visible .mm-bg { stroke: var(--text); stroke-width: 2.5; }
+.mm-node.selected .mm-bg { stroke: var(--mm-c, var(--primary)); stroke-width: 3; }
+.mm-node.match .mm-bg { fill: color-mix(in srgb, #f59e0b 22%, var(--card)); stroke: #f59e0b; stroke-width: 3; }
+.mm-node.dim { opacity: 0.34; }
+.mm-node.fresh { transform-box: fill-box; transform-origin: left center; animation: mmPop 0.35s ease backwards; }
+@keyframes mmPop { from { opacity: 0; transform: scale(0.86); } }
+.mm-node.root .mm-bg { fill: url(#mm-root-grad); stroke: none; filter: drop-shadow(0 4px 12px color-mix(in srgb, var(--primary) 40%, transparent)); }
+.mm-gloss { fill: #fff; opacity: 0.14; pointer-events: none; }
+.mm-node.root .mm-label { fill: #fff; font-weight: 700; font-size: 14px; }
 .mm-toggle circle { fill: var(--card); stroke: var(--mm-c, var(--primary)); stroke-width: 1.5; }
 .mm-toggle text { font-size: 10px; font-weight: 700; fill: var(--text); }
-.mm-node.root .mm-toggle circle { fill: #fff; }
-.mm-node.root .mm-toggle text { fill: var(--primary-hover); }
 .branch-0 { --mm-c: #8b5cf6; }
 .branch-1 { --mm-c: #06b6d4; }
 .branch-2 { --mm-c: #ec4899; }
@@ -320,12 +348,17 @@ button.citation:hover { background: var(--primary-tint); }
   padding: 14px 16px;
   background: var(--card);
   border: 1px solid var(--border);
+  border-left: 4px solid var(--mm-c, var(--primary));
   border-radius: var(--radius);
 }
 .mm-trail { font-size: 0.76rem; color: var(--text-muted); margin-bottom: 4px; }
 .mm-detail-title { font-family: var(--font-display); font-size: 1.05rem; margin-bottom: 6px; }
 .mm-detail-text { font-family: var(--font-content); font-size: 0.92rem; line-height: 1.6; color: var(--text); }
 .mm-detail-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+@media (prefers-reduced-motion: reduce) {
+  .mm-link.fresh, .mm-node.fresh { animation: none; }
+  .mm-link.fresh { stroke-dashoffset: 0; }
+}
 
 /* ----- Audio overview ----- */
 .audio-wrap { display: flex; flex-direction: column; gap: 16px; max-width: 760px; }
