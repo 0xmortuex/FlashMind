@@ -486,6 +486,35 @@ const path = require('node:path');
     await page.waitForSelector('.plan-card .plan-row.today', { timeout: 2000 });
   });
 
+  await step('share: the system share sheet button shows only where the browser can share, and sends the link', async () => {
+    await page.evaluate(() => {
+      window.__shareApi = API.share;
+      API.share = async () => ({ code: 'abc12345' });
+      Object.defineProperty(navigator, 'share', { value: undefined, configurable: true, writable: true });
+    });
+    const open = async () => {
+      await page.$eval('#share-btn', b => b.click());
+      await page.waitForFunction(() => document.getElementById('share-result').style.display === 'block', { timeout: 3000 });
+    };
+    const close = () => page.$eval('#share-modal-close', b => b.click());
+    try {
+      await open();
+      if (!await page.$eval('#share-native', b => b.hidden)) throw new Error('Send… shown without a share sheet');
+      await close();
+      await page.evaluate(() => { navigator.share = async d => { window.__shared = d; }; });
+      await open();
+      if (await page.$eval('#share-native', b => b.hidden)) throw new Error('Send… hidden although the browser can share');
+      await page.$eval('#share-native', b => b.click());
+      await page.waitForFunction(() => window.__shared, { timeout: 2000 });
+      const d = await page.evaluate(() => window.__shared);
+      if (!/\?s=abc12345$/.test(d.url) || !d.title || !d.text) throw new Error('shared ' + JSON.stringify(d));
+      await close();
+    } finally {
+      await page.evaluate(() => { API.share = window.__shareApi; delete navigator.share; });
+      await page.waitForFunction(() => !document.querySelector('.toast'), { timeout: 6000 });
+    }
+  });
+
   await step('stats: the daily goal card shows today\'s progress, the goal can be changed or turned off, and reaching it says so', async () => {
     await page.evaluate(() => { localStorage.removeItem('flashmind_daily_goal'); App.switchTab('stats'); });
     await page.waitForSelector('.goal-card .goal-bar', { timeout: 2000 });
