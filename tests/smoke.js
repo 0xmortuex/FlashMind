@@ -609,8 +609,11 @@ const path = require('node:path');
           : { ref, verdict: 'ok' }) });
       };
     });
-    await page.click('[data-tab="flashcards"]');
-    await page.click('[data-chk-act="run"]');
+    // An automatic check started by an earlier step may still be running; while it runs the button is a progress label.
+    await page.waitForFunction(() => !Checker.isRunning(), { timeout: 20000 });
+    await page.$eval('[data-tab="flashcards"]', b => b.click());
+    await page.waitForSelector('[data-chk-act="run"]', { timeout: 3000 }); // the tab renders after the switch
+    await page.$eval('[data-chk-act="run"]', b => b.click());
     await page.waitForSelector('.flashcard .chk-badge.wrong', { timeout: 5000 });
     await page.click('[data-chk-act="review"]');
     await page.waitForSelector('[data-chk-fix="c1"]', { timeout: 2000 });
