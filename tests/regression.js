@@ -2022,11 +2022,12 @@ test('topic bookmarks and per-topic audio survive normalization, reload, merge a
 });
 
 // ===== Voice (TTS) and video-lesson regressions =====
-function ttsEnv(voices, { lang = 'en', saved = {} } = {}) {
+function ttsEnv(voices, { lang = 'en', saved = {}, extra = {} } = {}) {
   const spoken = [];
   const storage = new Map(Object.entries(saved));
   const ctx = vm.createContext({
     console,
+    ...extra,
     i18n: { t: (k, p) => k + (p && p.lang ? ':' + p.lang : ''), getLang: () => lang },
     localStorage: { getItem: k => storage.get(k) ?? null, setItem: (k, v) => storage.set(k, v), removeItem: k => storage.delete(k) },
     toasts: [], spoken,
@@ -2113,6 +2114,101 @@ test('the student’s voice choice is remembered per language', () => {
   assert.equal(JSON.parse(b.storage.get('flashmind_tts_voices')).tr, undefined);
   assert.equal(b.run('TTS.getRate()'), 1.1);
   assert.equal(a.run('TTS.getRate()'), 0.95);
+});
+
+// Natural voice: API.tts returns a clip per passage, played one after another on one shared <audio>.
+function naturalEnv(voices, { tts, saved, lang } = {}) {
+  const calls = [], audios = [];
+  class FakeAudio {
+    constructor() { this.paused = true; this.played = []; audios.push(this); }
+    play() { this.paused = false; this.played.push(this.src); return Promise.resolve(); }
+    pause() { this.paused = true; }
+  }
+  const env = ttsEnv(voices, {
+    saved, lang,
+    extra: {
+      API: { tts: (text, voice) => { calls.push({ text, voice }); return (tts || (async () => ({ blob: true })))(text, voice); } },
+      navigator: { onLine: true },
+      URL: { createObjectURL: () => 'blob:clip' + calls.length, revokeObjectURL() {} },
+      Audio: FakeAudio
+    }
+  });
+  return { ...env, calls, audios, flush: () => new Promise(r => setImmediate(r)) };
+}
+const LONG_TR = 'Fotosentez bitkilerin ışığı kullanarak besin üretmesidir. ' + 'Bu olay yaprakların içinde gerçekleşir ve çok önemlidir. '.repeat(14);
+
+test('natural voice: passages are fetched in the chosen voice and played one after another at the chosen speed', async () => {
+  const { run, ctx, calls, audios, spoken, flush } = naturalEnv([V('Microsoft Zira', 'en-US')]);
+  run(`var ended = null; TTS.setNaturalVoice('Puck'); TTS.speak(${JSON.stringify(LONG_TR)}, c => { ended = c; }, { natural: true, rate: 1.1 })`);
+  await flush();
+  assert.equal(calls[0].voice, 'Puck');
+  assert.ok(calls.length >= 2 && calls.every(c => c.text.length <= 600), 'passages of up to 600 characters: ' + calls.map(c => c.text.length));
+  assert.equal(audios.length, 1, 'one shared audio element');
+  assert.equal(audios[0].playbackRate, 1.1);
+  assert.equal(ctx.ended, null);
+  // Each clip's end starts the next; the last one ends the speech.
+  for (let i = 0; i < calls.length; i++) { assert.equal(audios[0].played.filter(s => s.startsWith('blob:')).length, i + 1); audios[0].onended(); await flush(); }
+  assert.equal(ctx.ended, false);
+  assert.equal(spoken.length, 0, 'the device voice was not used');
+});
+
+test('natural voice: a failed clip tells the student why and the device voice reads the rest', async () => {
+  let n = 0;
+  const { run, ctx, calls, audios, spoken, flush } = naturalEnv([V('Microsoft Emel Online (Natural)', 'tr-TR')], { tts: async () => { if (n++ >= 1) throw new Error('Rate limited — try again later'); return {}; } });
+  run(`var ended = null; TTS.speak(${JSON.stringify(LONG_TR)}, c => { ended = c; }, { natural: true })`);
+  await flush();
+  audios[0].onended(); // first passage done; the second fails
+  await flush();
+  assert.equal(ctx.toasts.length, 1);
+  assert.match(ctx.toasts[0], /ttsNaturalFailed/);
+  assert.ok(spoken.length >= 1 && spoken.every(u => u.lang === 'tr-TR'), 'device voice took over');
+  assert.equal(ctx.ended, false);
+  assert.equal(calls.length >= 2, true);
+});
+
+test('natural voice: a server without a key is not asked again; turning it off or being offline uses the device voice', async () => {
+  const err = Object.assign(new Error('Natural voice is not configured on the server'), { status: 503 });
+  const a = naturalEnv([V('Microsoft Emel Online (Natural)', 'tr-TR')], { tts: async () => { throw err; } });
+  a.run(`TTS.speak(${JSON.stringify(TR_TEXT)}, null, { natural: true })`);
+  await a.flush();
+  assert.equal(a.calls.length, 1);
+  assert.ok(a.spoken.length >= 1);
+  a.run(`TTS.speak(${JSON.stringify(TR_TEXT)}, null, { natural: true })`);
+  await a.flush();
+  assert.equal(a.calls.length, 1, 'not asked a second time this page load');
+  const off = naturalEnv([V('Microsoft Emel Online (Natural)', 'tr-TR')], { saved: { flashmind_tts_natural: '0' } });
+  off.run(`TTS.speak(${JSON.stringify(TR_TEXT)}, null, { natural: true })`);
+  await off.flush();
+  assert.equal(off.calls.length, 0);
+  assert.ok(off.spoken.length >= 1);
+  const offline = naturalEnv([V('Microsoft Emel Online (Natural)', 'tr-TR')]);
+  offline.run(`navigator.onLine = false; TTS.speak(${JSON.stringify(TR_TEXT)}, null, { natural: true })`);
+  await offline.flush();
+  assert.equal(offline.calls.length, 0);
+  assert.ok(offline.spoken.length >= 1);
+});
+
+test('natural voice: opt-in only, works without any device voice support, stop() cancels, repeats are not fetched again', async () => {
+  const { run, ctx, calls, audios, spoken, flush } = naturalEnv([V('Microsoft Zira', 'en-US')]);
+  run(`TTS.speak(${JSON.stringify(TR_TEXT)}, null)`); // no natural flag: device voices only
+  await flush();
+  assert.equal(calls.length, 0);
+  assert.equal(spoken.length, 0, 'no Turkish device voice here, so nothing is spoken');
+  // Natural voice needs no device voice and reads Turkish on a device that only has English.
+  run(`var ended = null; TTS.speak(${JSON.stringify(TR_TEXT)}, c => { ended = c; }, { natural: true })`);
+  await flush();
+  assert.equal(calls.length, 1);
+  assert.equal(audios[0].paused, false);
+  run('TTS.stop()');
+  assert.equal(audios[0].paused, true);
+  assert.equal(ctx.ended, true);
+  // The same passage again comes from the session cache; prefetch warms it ahead of time.
+  run(`TTS.speak(${JSON.stringify(TR_TEXT)}, null, { natural: true })`);
+  await flush();
+  assert.equal(calls.length, 1);
+  run(`TTS.prefetch('Hücre canlıların temel birimidir ve çok önemlidir.', { lang: 'tr' })`);
+  await flush();
+  assert.equal(calls.length, 2);
 });
 
 test('speakable says formulas and symbols in the text language', () => {

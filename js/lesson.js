@@ -67,7 +67,7 @@ const VideoLesson = (() => {
     d.textContent = String(str);
     return d.innerHTML.replace(/"/g, '&quot;');
   }
-  const ttsOk = () => typeof TTS !== 'undefined' && TTS.supported();
+  const ttsOk = () => typeof TTS !== 'undefined' && (TTS.supported() || TTS.naturalAvailable());
 
   function lesson() {
     const data = App.getStudyData();
@@ -237,6 +237,7 @@ const VideoLesson = (() => {
     lessonId = l.id;
     mode = 'player';
     index = 0;
+    silent = false; // a new lesson speaks again, whatever the student chose in the last one
   }
 
   // ----- AI edits: rewrite one slide, make another version -----
@@ -425,6 +426,7 @@ const VideoLesson = (() => {
             <button class="vl-btn vl-btn-main" data-vl-act="toggle" aria-label="${esc(T('vlPlay'))}" title="${esc(T('vlPlay'))} (Space)">&#9654;</button>
             <button class="vl-btn" data-vl-act="next" aria-label="${esc(T('vlNext'))}" title="${esc(T('vlNext'))} (→)">&#9197;</button>
             <span class="vl-count" data-vl-count></span>
+            <span class="vl-voice-status" data-vl-voicestatus role="status"></span>
             <span class="vl-spacer"></span>
             ${ttsOk() ? `<button class="vl-btn" data-vl-act="voice" aria-label="${esc(T('vlVoiceBtn'))}" title="${esc(T('vlVoiceBtn'))}">&#128266;</button>` : ''}
             <button class="vl-btn vl-rate" data-vl-act="rate" title="${esc(T('vlSpeed'))}">${rate}&times;</button>
@@ -470,8 +472,13 @@ const VideoLesson = (() => {
       const lang = (l && lessonLang(l)) || (i18n.getLang() === 'tr' ? 'tr' : 'en');
       const list = TTS.voicesForLang(lang), saved = TTS.savedVoiceFor(lang);
       const none = !list.length && TTS.missingVoice(lang);
+      const natural = TTS.naturalOn();
       return `<h4 class="vl-panel-title" tabindex="-1">${T('vlVoiceBtn')}</h4>
-        <label class="vl-label" for="vl-voice">${T('vlVoice')}</label>
+        <label class="vl-check"><input type="checkbox" data-vl-natural${natural ? ' checked' : ''}> ${T('vlNatural')}</label>
+        <p class="vl-note">${T('vlNaturalNote')}</p>
+        ${natural ? `<label class="vl-label" for="vl-nvoice">${T('vlNaturalVoice')}</label>
+        <select id="vl-nvoice" class="editor-input" data-vl-nvoice>${TTS.NVOICES.map(v => `<option value="${v}"${TTS.naturalVoice() === v ? ' selected' : ''}>${v}</option>`).join('')}</select>` : ''}
+        <label class="vl-label" for="vl-voice">${natural ? T('vlVoiceDevice') : T('vlVoice')}</label>
         <select id="vl-voice" class="editor-input" data-vl-voice="${lang}"${none ? ' disabled' : ''}>
           <option value="">${esc(T('vlVoiceAuto'))}</option>
           ${list.map(v => `<option value="${esc(v.voiceURI)}"${saved && saved.voiceURI === v.voiceURI ? ' selected' : ''}>${esc(v.name)} (${esc(v.lang)})</option>`).join('')}
@@ -534,6 +541,14 @@ const VideoLesson = (() => {
     return `<strong>${esc(T('vlNoVoiceTitle', { lang: name }))}</strong>
       <p>${esc(T('vlNoVoiceHow', { lang: name }))}</p>
       <div class="vl-panel-actions"><button class="btn-primary" data-vl-act="silent">${T('vlSilent')}</button><button class="btn-ghost" data-vl-act="recheck">${T('vlRecheck')}</button></div>`;
+  }
+
+  // "Preparing voice…" next to the controls while a natural-voice clip downloads.
+  function setVoiceBusy(on) {
+    const el = host && host.querySelector('[data-vl-voicestatus]');
+    if (el) el.textContent = on ? i18n.t('vlVoiceLoading') : '';
+    const p = host && host.querySelector('[data-vl-player]');
+    if (p) p.classList.toggle('voice-loading', !!on);
   }
 
   function drawNotice() {
@@ -716,14 +731,24 @@ const VideoLesson = (() => {
     if (ttsOk() && !silent) {
       // The narration is spoken in the language of the lesson, whatever the app language.
       if (noVoice) { noVoice = ''; drawNotice(); }
+      let heard = false;
       TTS.speak(s.narration, cancelled => {
+        setVoiceBusy(false);
         if (my !== token) return;
         if (cancelled) { playing = false; syncControls(); return; }
         done();
       }, {
-        rate, lang: lessonLang(l),
-        onNoVoice: lang => { playing = false; noVoice = lang; syncControls(); drawNotice(); }
+        rate, lang: lessonLang(l), natural: true,
+        onNoVoice: lang => { playing = false; noVoice = lang; syncControls(); drawNotice(); },
+        onLoading: on => {
+          if (my !== token) return;
+          setVoiceBusy(on);
+          // The slide's clock starts when its audio does, not while the clip downloads.
+          if (!on && !heard) { heard = true; slideStart = performance.now(); elapsed = 0; }
+        }
       });
+      // Have the next slide's audio ready so the lesson does not stall between slides.
+      if (index < l.slides.length - 1) TTS.prefetch(view(l, index + 1).narration, { lang: lessonLang(l) });
     } else {
       // No speech: advance on the estimated reading time.
       timer = setTimeout(done, duration(s) * 1000);
@@ -927,6 +952,11 @@ const VideoLesson = (() => {
       } else if (e.target.matches('[data-vl-voice]')) {
         const lang = e.target.dataset.vlVoice;
         TTS.setVoice(lang, TTS.voicesForLang(lang).find(v => v.voiceURI === e.target.value) || null);
+      } else if (e.target.matches('[data-vl-natural]')) {
+        TTS.setNatural(e.target.checked);
+        drawPanel();
+      } else if (e.target.matches('[data-vl-nvoice]')) {
+        TTS.setNaturalVoice(e.target.value);
       }
     });
     document.addEventListener('input', e => {
@@ -973,7 +1003,7 @@ const VideoLesson = (() => {
     if (!l || !ttsOk()) return;
     pause();
     const lang = lessonLang(l) || (i18n.getLang() === 'tr' ? 'tr' : 'en');
-    TTS.speak(lang === 'tr' ? 'Merhaba! Ders anlatımı bu sesle okunacak. Beni net anlayabiliyor musun?' : 'Hello! The lesson will be read with this voice. Can you hear me clearly?', null, { rate, lang });
+    TTS.speak(lang === 'tr' ? 'Merhaba! Ders anlatımı bu sesle okunacak. Beni net anlayabiliyor musun?' : 'Hello! The lesson will be read with this voice. Can you hear me clearly?', () => setVoiceBusy(false), { rate, lang, natural: true, onLoading: setVoiceBusy });
   }
 
   // Forget panels, notices and "show original" when leaving a lesson.
@@ -983,6 +1013,7 @@ const VideoLesson = (() => {
     panelBusy = false;
     panelErr = '';
     noVoice = '';
+    silent = false; // "continue silently" applies to the lesson the student chose it in
     showOrig = false;
   }
 

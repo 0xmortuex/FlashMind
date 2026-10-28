@@ -1,6 +1,7 @@
 // ===== API Module =====
 const API = (() => {
   const WORKER_URL = 'https://flashmind-proxy.mortuexhavoc.workers.dev';
+  const TTS_URL = 'https://flashmind-tts.mortuexhavoc.workers.dev';
 
   async function generate(text, flashcardConfig, quizConfig) {
     const res = await fetch(WORKER_URL, {
@@ -230,6 +231,22 @@ const API = (() => {
     return (await res.json()).result;
   }
 
+  // Natural speech (the separate flashmind-tts worker, see flashmind-worker/tts):
+  // returns a WAV Blob for `text` in a Gemini voice. Throws the worker's message.
+  async function tts(text, voice) {
+    const res = await fetch(TTS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text, voice })
+    });
+    if (!res.ok) {
+      const err = new Error((await res.json().catch(() => ({}))).error || `HTTP ${res.status}`);
+      err.status = res.status;
+      throw err;
+    }
+    return res.blob();
+  }
+
   // Class mode (classroom.js): one entry point for every class* action.
   async function classCall(action, payload) {
     const res = await fetch(WORKER_URL, {
@@ -255,5 +272,5 @@ const API = (() => {
     return WORKER_URL.replace(/^http/, 'ws') + '/battle/' + encodeURIComponent(code) + '?' + new URLSearchParams(params);
   }
 
-  return { generate, generateStream, chat, grade, share, load, publishShare, gallery, syncPush, syncPull, syncDelete, fetchUrl, liveToken, classCall, battleCreate, battleSocketUrl };
+  return { generate, generateStream, chat, grade, share, load, publishShare, gallery, syncPush, syncPull, syncDelete, fetchUrl, liveToken, tts, classCall, battleCreate, battleSocketUrl };
 })();
