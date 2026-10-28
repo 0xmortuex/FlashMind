@@ -1019,6 +1019,13 @@ test('MEB generator: OGM yazılı records become ogm-yazili entries, id from the
   assert.throws(() => build({ ogmYazili: [{ ...kz, url: 'https://evil.example/k.pdf' }] }), /not an official MEB\/EBA/);
   assert.throws(() => build({ ogmYazili: [{ ...kz, course: 'Mystery' }] }), /unknown course/);
   assert.throws(() => build({ ogmYazili: [{ ...kz, localFile: '' }] }), /missing localFile/);
+  // The real kazanım manifest: file address in `fileUrl`, grade '10. Sinif', course without Turkish letters.
+  const real = { grade: '10. Sinif', course: 'Turk Dili ve Edebiyati', title: '10. Sinif Turk Dili ve Edebiyati Kazanim Kavrama Etkilesimli Kitap', fileUrl: 'https://ogm-large-cdn.eba.gov.tr/materyal/k2.pdf', localFile: 'C:\\k\\10_turkdili_kazanim_kavrama_kitap.pdf', sizeBytes: 10485760 };
+  const rk = build({ ogmKazanim: [real, { ...real, grade: '11. Sinif', course: 'Cografya', fileUrl: 'https://ogm-large-cdn.eba.gov.tr/materyal/k3.pdf', localFile: 'C:\\k\\11_cografya_kazanim_kavrama_kitap.pdf' }] }).index;
+  assert.deepEqual(rk.map(r => [r.x, r.g, r.s, r.t]), [
+    ['ogm-kazanim', [10], 'Türkçe / Edebiyat', '10. Sınıf Türkçe / Edebiyat - Kazanım Kavrama Etkileşimli Kitap (2017-2023 müfredatı)'],
+    ['ogm-kazanim', [11], 'Coğrafya', '11. Sınıf Coğrafya - Kazanım Kavrama Etkileşimli Kitap']]);
+  assert.throws(() => build({ ogmKazanim: [{ ...real, grade: 'onuncu' }] }), /bad grade/);
   const { ctx, run } = modules();
   ctx.d = { index: [e], types: null };
   assert.equal(run('MebIndex.validate(d.index, []).items.length'), 1);                              // passes the library's https + MEB/EBA check

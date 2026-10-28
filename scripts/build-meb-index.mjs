@@ -245,10 +245,17 @@ const ORDER = ['lgs', 'bursluluk', 'ortak', 'konu', 'yks', 'acik', 'sinif', 'kil
 function ogmPrep(rec, x) {
   const what = x + ' ' + clean(rec.title);
   if (!rec.localFile) throw new Error(what + ': missing localFile (the id comes from the pdf file name)');
-  if (!gradeOk(rec.grade, 1, 12)) throw new Error(what + ': bad grade ' + rec.grade);
-  if (!OGM_SUBJECTS[rec.course]) throw new Error(what + ': unknown course ' + rec.course);
+  // The kazanım manifest writes the grade as '9. Sinif' and the course without Turkish letters.
+  const grade = typeof rec.grade === 'number' ? rec.grade : /^\d{1,2}\.\s*S[iıİI]n[iıİI]f$/i.test(clean(rec.grade)) ? parseInt(rec.grade, 10) : NaN;
+  if (!gradeOk(grade, 1, 12)) throw new Error(what + ': bad grade ' + rec.grade);
+  const subject = OGM_SUBJECTS[rec.course] || Object.entries(OGM_SUBJECTS).find(([k]) => fold(k) === fold(rec.course))?.[1];
+  if (!subject) throw new Error(what + ': unknown course ' + rec.course);
   const id = crypto.createHash('sha1').update(path.win32.basename(rec.localFile)).digest('hex').slice(0, 8);
-  return { id, g: [rec.grade], s: OGM_SUBJECTS[rec.course], t: shorten(rec.title, 160), p: rec.sourceUrl ? checkUrl(rec.sourceUrl, x + ' sourceUrl') : OGM_PREP[x] };
+  // The kazanım manifest titles are ASCII; the page labels grades 9 and 10 as the 2017-2023 curriculum.
+  const t = x === 'ogm-kazanim'
+    ? `${grade}. Sınıf ${subject} - Kazanım Kavrama Etkileşimli Kitap${grade <= 10 ? ' (2017-2023 müfredatı)' : ''}`
+    : shorten(rec.title, 160);
+  return { id, g: [grade], s: subject, t, p: rec.sourceUrl ? checkUrl(rec.sourceUrl, x + ' sourceUrl') : OGM_PREP[x] };
 }
 
 // Pure: manifests in, { index, topics, stats } out.
@@ -287,8 +294,10 @@ export function build({ ods1 = [], ods2 = [], ogm = [], ogmYazili = [], ogmKazan
   });
 
   [['ogm-yazili', ogmYazili], ['ogm-kazanim', ogmKazanim]].forEach(([x, recs]) => recs.forEach(r => {
-    if (!r.url) { stats.noPublicUrl.push(x + ': ' + clean(r.title)); return; }
-    add(r, 'ogm', checkUrl(r.url, x), x);
+    // The yazılı manifest names the file address `url`, the kazanım one `fileUrl`.
+    const raw = r.url || r.fileUrl;
+    if (!raw) { stats.noPublicUrl.push(x + ': ' + clean(r.title)); return; }
+    add(r, 'ogm', checkUrl(raw, x), x);
   }));
 
   const index = [], topicsOut = [], ids = new Map();
