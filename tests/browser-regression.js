@@ -193,6 +193,16 @@ const puppeteer = require('puppeteer');
           const iw = window.innerWidth;
           const over = [...document.querySelectorAll('body *')].filter(e => { const b = e.getBoundingClientRect(); return b.width && b.right > iw + 1 && getComputedStyle(e).position !== 'fixed'; })
             .slice(0, 6).map(e => `${e.tagName.toLowerCase()}${e.id ? '#' + e.id : ''}.${String(e.className).trim().split(/\s+/).join('.')} right=${Math.round(e.getBoundingClientRect().right)}`);
+          // Pseudo-elements and zero-size boxes are not in the list above: hide each element in turn and name those whose removal fixes the width.
+          if (document.documentElement.scrollWidth > iw) {
+            for (const e of document.querySelectorAll('body *')) {
+              const prev = e.style.display;
+              e.style.display = 'none';
+              if (document.documentElement.scrollWidth <= iw) over.push(`hiding ${e.tagName.toLowerCase()}${e.id ? '#' + e.id : ''}.${String(e.className).trim().split(/\s+/).join('.')} (${getComputedStyle(e).position}) fixes it`);
+              e.style.display = prev;
+              if (over.length > 12) break;
+            }
+          }
           return { sw: document.documentElement.scrollWidth, iw, over };
         });
         assert.ok(m.sw <= m.iw, `${name}: scrollWidth ${m.sw} > innerWidth ${m.iw}; wider than the viewport: ${m.over.join(' | ')}`);
