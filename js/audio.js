@@ -202,6 +202,19 @@ const AudioOverview = (() => {
     }
   }
 
+  // A short two-host overview of ONE section (js/topics.js caches and plays it). Throws when the AI call or the script fails.
+  async function generateFor(sectionText, title) {
+    const ask = 'Write a short two-host audio overview (about 2 minutes spoken, a conversation between host A who explains and host B who is curious) of ONLY the topic "' + title + '" from the study material below. ' +
+      'Cover what it is, the must-know ideas, one example or analogy, and end with the key takeaways. About 280 words in 8-14 short turns that alternate naturally. ' +
+      'Spoken style only: no markdown, no lists, no stage directions, no emojis; say formulas and symbols in words. Write it in the language of the material. ' +
+      'Return ONLY JSON, no other text: {"type":"audio","title":"episode title","lines":[{"speaker":"A","text":"..."},{"speaker":"B","text":"..."}]}';
+    const raw = await API.chat(ask, sectionText);
+    const obj = Parser.safeParseJSON(raw);
+    const clean = Parser.normalizeStudyData({ title, audio: { format: 'brief', title: obj && obj.title, lines: obj && Array.isArray(obj.lines) ? obj.lines : [], createdAt: Date.now() } }).audio;
+    if (!clean) throw new Error('empty script');
+    return clean;
+  }
+
   function copy() {
     const data = App.getStudyData();
     if (!data || !data.audio) return;
@@ -238,5 +251,5 @@ const AudioOverview = (() => {
     });
   }
 
-  return { init, render, stop, recapScript, isPlaying: () => playing };
+  return { init, render, stop, recapScript, generateFor, voices, isPlaying: () => playing };
 })();

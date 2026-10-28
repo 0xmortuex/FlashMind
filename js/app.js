@@ -31,6 +31,7 @@ const App = (() => {
     if (typeof Sources !== 'undefined') Sources.init();
     if (typeof Mindmap !== 'undefined') Mindmap.init();
     if (typeof AudioOverview !== 'undefined') AudioOverview.init();
+    if (typeof Topics !== 'undefined') Topics.init();
     if (typeof Labs !== 'undefined') Labs.init();
     if (typeof VideoLesson !== 'undefined') VideoLesson.init();
     if (typeof Planner !== 'undefined') Planner.init();

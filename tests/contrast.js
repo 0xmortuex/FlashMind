@@ -208,7 +208,7 @@ function auditInPage(rootSel, scopeRe, track) {
 
 // What counts as a table or chart: classes that draw data (bars, grids, heat cells, rows of
 // numbers, SVG charts). Anything else on the page is reported separately, not failed.
-const SCOPE_RE = '(chart|heat|bar|cal-|cal\\.|table|-row|-cell|grid|plan-|pred-|mem-|cm-|stat-|qb-|btl-|cls-|exam-|mt-|meb-topics|meb-tab|scen-|forecast|lab-|mm-|svg|tl-|tr-|ln-|tx-)';
+const SCOPE_RE = '(chart|heat|bar|cal-|cal\\.|table|-row|-cell|grid|plan-|pred-|mem-|cm-|stat-|qb-|btl-|cls-|exam-|mt-|meb-topics|meb-tab|scen-|forecast|lab-|mm-|svg|tl-|tr-|ln-|tx-|topic-)';
 
 (async () => {
   let browser;
@@ -274,6 +274,28 @@ const SCOPE_RE = '(chart|heat|bar|cal-|cal\\.|table|-row|-cell|grid|plan-|pred-|
     await sleep(1100); // count-up tiles and chart draw-in
   });
   screen('notes', '#tab-notes', async () => { await studyView(); await page.evaluate(() => { App.switchTab('notes'); Notes.render(App.getStudyData()); }); await sleep(900); });
+  // The topic menu (a bottom-level popover), a bookmarked title and an open audio overview panel.
+  screen('notes-topic-menu', '.topic-menu', async () => {
+    await studyView();
+    await page.evaluate(() => { App.switchTab('notes'); Notes.render(App.getStudyData()); document.querySelector('#tab-notes .topic-btn[data-topic="0"]').click(); });
+    await page.waitForSelector('.topic-menu');
+    await sleep(500);
+  });
+  screen('notes-topic-audio', '#tab-notes', async () => {
+    await studyView();
+    await page.evaluate(() => {
+      const d = App.getStudyData();
+      d.bookmarks = [{ id: Topics.topicId(d.notes.sections[0], 0), title: d.notes.sections[0].title, sectionIndex: 0, createdAt: 1 }];
+      d.topicAudio = { [Topics.topicId(d.notes.sections[0], 0)]: { format: 'brief', title: 'Quick tour', lines: [{ speaker: 'A', text: 'Hello there.' }, { speaker: 'B', text: 'Tell me more.' }], createdAt: 1 } };
+      App.switchTab('notes'); Notes.render(d);
+      TTS.supported = () => true; TTS.speak = () => {}; TTS.stop = () => {};
+      document.querySelector('#tab-notes .topic-btn[data-topic="0"]').click();
+      document.querySelector('.topic-menu [data-topic-act="audio"]').click();
+    });
+    await page.waitForSelector('[data-topic-audio-box="0"] [data-topic-audio-act]');
+    await page.evaluate(() => document.querySelector('.topic-audio-script').open = true);
+    await sleep(500);
+  });
   screen('flashcards-plan', '#tab-flashcards', async () => { await studyView(); await page.evaluate(() => App.switchTab('flashcards')); await sleep(700); });
   screen('home-library', '#deck-library', async () => {
     await page.evaluate(() => document.getElementById('back-to-input').click());
