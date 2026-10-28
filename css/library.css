@@ -270,3 +270,13 @@
   color: var(--primary);
 }
 .share-publish-btn { width: 100%; margin-top: 10px; }
+
+/* Daily goal card */
+.goal-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+.goal-line strong { font-family: var(--font-display); font-size: 1.3rem; }
+.goal-line span { color: var(--text-muted); font-size: 0.88rem; }
+.goal-bar { height: 10px; border-radius: 999px; background: var(--surface); border: 1px solid var(--border); overflow: hidden; }
+.goal-bar span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--primary), var(--secondary, var(--primary))); transition: width 0.4s ease; }
+.goal-controls { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+.goal-controls .btn-icon { width: 30px; height: 30px; border: 1px solid var(--border); }
+.goal-target { font-size: 0.86rem; color: var(--text-muted); }

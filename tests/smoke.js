@@ -486,6 +486,27 @@ const path = require('node:path');
     await page.waitForSelector('.plan-card .plan-row.today', { timeout: 2000 });
   });
 
+  await step('stats: the daily goal card shows today\'s progress, the goal can be changed or turned off, and reaching it says so', async () => {
+    await page.evaluate(() => { localStorage.removeItem('flashmind_daily_goal'); App.switchTab('stats'); });
+    await page.waitForSelector('.goal-card .goal-bar', { timeout: 2000 });
+    if (await page.evaluate(() => Stats.goal()) !== 20) throw new Error('default goal');
+    await page.$eval('[data-goal-step="5"]', b => b.click());
+    await page.waitForFunction(() => Stats.goal() === 25 && /25 cards a day/.test(document.querySelector('.goal-target').textContent), { timeout: 2000 });
+    // Reaching it: one more review than today's count makes the goal.
+    await page.evaluate(() => { Stats.setGoal(Stats.todayReviews() + 1); Stats.recordReview('gotit'); });
+    await page.waitForFunction(() => [...document.querySelectorAll('.toast')].some(t => /Daily goal reached/.test(t.textContent)), { timeout: 2000 });
+    await page.evaluate(() => Stats.render());
+    await page.waitForFunction(() => /Goal reached today/.test(document.querySelector('.goal-line').textContent) && document.querySelector('.goal-bar').getAttribute('aria-valuenow') === document.querySelector('.goal-bar').getAttribute('aria-valuemax'), { timeout: 2000 });
+    // Off, then on again.
+    await page.evaluate(() => { Stats.setGoal(0); Stats.render(); });
+    await page.waitForSelector('[data-goal-set]', { timeout: 2000 });
+    await page.$eval('[data-goal-set]', b => b.click());
+    await page.waitForFunction(() => Stats.goal() === 20 && document.querySelector('.goal-bar'), { timeout: 2000 });
+    await page.evaluate(() => { localStorage.removeItem('flashmind_daily_goal'); });
+    await page.waitForFunction(() => !document.querySelector('.toast'), { timeout: 6000 });
+    await page.$eval('[data-tab="notes"]', b => b.click());
+  });
+
   await step('studio: image occlusion cards render masked and revealed', async () => {
     await page.click('[data-tab="flashcards"]');
     const n = await page.evaluate(() => {
