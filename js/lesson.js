@@ -671,26 +671,38 @@ const VideoLesson = (() => {
   }
 
   // One flashcard and one multiple-choice question per weak slide, then a quiz on them.
-  function practiseWeak() {
-    const l = lesson();
-    if (!l) return;
+  // The slides are marked "practised" so they stop being offered (the coach would otherwise suggest them forever).
+  function addPractice(data, items) {
+    if (!items.length) return;
     const T = i18n.t;
-    const w = weakSlides(l);
-    if (!w.length) return;
-    const data = App.getStudyData();
     const have = new Set((data.flashcards || []).map(c => c.front));
-    const cat = l.topic || l.title;
     const cards = [], qs = [];
-    w.forEach(i => {
+    items.forEach(({ l, i }) => {
       const c = l.slides[i].check;
-      if (!have.has(c.q)) cards.push({ front: c.q, back: [c.options[c.correct], c.why].filter(Boolean).join(' — '), difficulty: 'medium', category: cat });
+      const cat = l.topic || l.title;
+      if (!have.has(c.q)) { have.add(c.q); cards.push({ front: c.q, back: [c.options[c.correct], c.why].filter(Boolean).join(' — '), difficulty: 'medium', category: cat }); }
       qs.push({ type: 'multiple-choice', question: c.q, options: c.options.slice(), correct: c.correct, explanation: c.why || c.options[c.correct], difficulty: 'medium', category: cat, src: 'lesson-check' });
+      l.checks = { ...l.checks, [i]: 'practised' };
     });
     if (cards.length) Flashcards.addCards(cards);
     Quiz.addQuestions(qs);
+    App.persistActiveDeck();
+    drawWeak();
     App.showToast(T('vlWeakAdded', { c: cards.length, q: qs.length }), 'success');
     App.switchTab('quiz');
     Quiz.startQuiz(qs);
+  }
+
+  // From the lesson's own bar.
+  function practiseWeak() {
+    const l = lesson();
+    if (l) addPractice(App.getStudyData(), weakSlides(l).map(i => ({ l, i })));
+  }
+
+  // Every weak slide of every lesson in the open deck (the coach's "fix your weak spots").
+  function practiseAllWeak() {
+    const data = App.getStudyData();
+    if (data) addPractice(data, (data.lessons || []).flatMap(l => weakSlides(l).map(i => ({ l, i }))));
   }
 
   // Keep this lesson's natural-voice clips on the device so it plays without a connection.
@@ -1220,5 +1232,5 @@ const VideoLesson = (() => {
     if (b) { b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on)); }
   }
 
-  return { init, render, stop, fromNotes, isPlaying: () => playing, _index: () => index, _test: { versionsOf, trimLessons, reviseSlide, undoSlide, paragraphSlides, materialFor, prompt, weakSlides } };
+  return { practiseAllWeak, init, render, stop, fromNotes, isPlaying: () => playing, _index: () => index, _test: { versionsOf, trimLessons, reviseSlide, undoSlide, paragraphSlides, materialFor, prompt, weakSlides } };
 })();

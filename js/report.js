@@ -53,7 +53,8 @@ const Report = (() => {
       });
       (data.lessons || []).forEach(l => {
         const counts = { right: 0, wrong: 0, lost: 0, skipped: 0 };
-        Object.values(l.checks || {}).forEach(v => { if (v in counts) counts[v]++; });
+        // A slide that was practised afterwards was still answered wrong first.
+        Object.values(l.checks || {}).forEach(v => { if (v === 'practised') counts.wrong++; else if (v in counts) counts[v]++; });
         if (counts.right + counts.wrong + counts.lost + counts.skipped) out.lessons.push({ deck: data.title || deck.title || '', title: l.title, ...counts });
       });
       let daysToExam = null;

@@ -692,7 +692,10 @@ test('coach decision is deterministic and follows the situation', () => {
       again: dec([d({ id: 'a', due: 20 }), d({ id: 'b', unseen: 20 })], { recent: [{ k: 'review', d: null }] }),
       fresh: dec([d({ id: 'a', due: 20 }), d({ id: 'b', unseen: 20 })]),
       tie1: dec([d({ id: 'b', unseen: 20 }), d({ id: 'a', unseen: 20 })]),
-      tie2: dec([d({ id: 'a', unseen: 20 }), d({ id: 'b', unseen: 20 })])
+      tie2: dec([d({ id: 'a', unseen: 20 }), d({ id: 'b', unseen: 20 })]),
+      weak: dec([d({ id: 'a', weak: 3 })]),
+      weakVsReview: dec([d({ id: 'a', weak: 2 }), d({ id: 'b', due: 60 })]),
+      weakExam: dec([d({ id: 'a', weak: 4, daysLeft: 2 }), d({ id: 'b', unseen: 20 })])
     });
   `));
   assert.equal(out.none.kind, 'none');
@@ -707,6 +710,16 @@ test('coach decision is deterministic and follows the situation', () => {
   assert.equal(out.fresh.kind, 'review');
   assert.equal(out.again.kind, 'new');                           // just reviewed: don't repeat straight away
   assert.deepEqual(out.tie1, out.tie2);                          // input order doesn't matter
+  assert.deepEqual([out.weak.kind, out.weak.deckId, out.weak.why.key, out.weak.why.p.n], ['weak', 'a', 'coachWhyWeak', 3]);   // hard video slides beat resting
+  assert.equal(out.weakVsReview.kind, 'review');                 // a big pile of due cards still comes first
+  assert.deepEqual([out.weakExam.kind, out.weakExam.deckId], ['weak', 'a']);   // with an exam in 2 days they matter more than new cards
+});
+test('coach summary counts the lesson slides still to practise', () => {
+  const { run } = modules();
+  const n = run(`Coach.summarize({ id: 'd', data: { title: 'T', flashcards: [], lessons: [
+    { title: 'L', slides: [{}, { check: {} }, { check: {} }, { check: {} }, {}], checks: { 1: 'wrong', 2: 'lost', 3: 'practised', 4: 'wrong', 0: 'right' } },
+    { title: 'M', slides: [{ check: {} }], checks: { 0: 'skipped' } }] } }, Date.now(), null).weak`);
+  assert.equal(n, 2, 'wrong and lost slides that still have their question; practised, right, skipped and question-less ones do not count');
 });
 test('coach summary reads exam date, due load, practice age and calibration from a deck', () => {
   const { run } = modules();
@@ -2415,6 +2428,7 @@ test('"Did you get this?" checks: valid questions are kept, malformed ones dropp
   const lesson = checks => JSON.parse(run(`JSON.stringify(SimSpec.sanitizeLesson({ title: 'L', slides: [{ title: 'a', narration: 'a' }, { title: 'b', narration: 'b' }], checks: ${JSON.stringify(checks)} }))`));
   assert.deepEqual(lesson({ 0: 'right', 1: 'lost', 2: 'right', 5: 'wrong', x: 'right', 0.5: 'right' }).checks, { 0: 'right', 1: 'lost' });
   assert.equal(lesson({ 0: 'maybe' }).checks, undefined);
+  assert.deepEqual(lesson({ 0: 'practised' }).checks, { 0: 'practised' });
   // A kept revision of a slide keeps its original question too.
   const o = JSON.parse(run(`JSON.stringify(SimSpec.sanitizeSlide({ title: 'New', narration: 'n', orig: { title: 'Old', narration: 'o', check: ${JSON.stringify(good)} } }))`));
   assert.deepEqual(o.orig.check, good);

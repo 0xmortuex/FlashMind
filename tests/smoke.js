@@ -1575,12 +1575,17 @@ const path = require('node:path');
       await page.waitForFunction(() => window.__spoken.some(t => /That is all/.test(t)) && !VideoLesson.isPlaying(), { timeout: 4000 });
       // Weak spots: the wrong answer is offered as practice; it adds one card and one question and starts a quiz on them.
       await page.waitForSelector('[data-vl-weak]:not([hidden]) [data-vl-act="weak-practice"]', { timeout: 2000 });
+      // The coach knows about it too: this deck's real summary carries the weak slide, and with the competing signals (due, new, exam questions) set aside it suggests practising it.
+      const coach = await page.evaluate(() => { const c = Coach.context(); const mine = c.decks.filter(d => d.id === Decks.getActive().id).map(d => ({ ...d, due: 0, unseen: 0, questions: 0, mistakes: 0 })); const r = Coach.decide({ ...c, decks: mine, recent: [] }); return { kind: r.kind, key: r.why.key, n: r.why.p.n }; });
+      if (coach.kind !== 'weak' || coach.key !== 'coachWhyWeak' || coach.n !== 1) throw new Error('coach ' + JSON.stringify(coach));
       await click('[data-vl-act="weak-practice"]');
       await page.waitForFunction(() => App.getStudyData().quiz.some(q => q.src === 'lesson-check' && q.question === 'What do plants need to make food?') && App.getStudyData().flashcards.some(c => c.front === 'What do plants need to make food?' && /Light/.test(c.back)), { timeout: 3000 });
       await page.waitForSelector('#quiz-body', { timeout: 2000 });
+      if (await checks() !== '{"1":"practised"}') throw new Error('slide not marked as practised: ' + await checks());
       await click('[data-tab="notes"]');
       await click('[data-notes-view="video"]');
       await page.waitForSelector('.vl-mark[data-vl-go="1"]', { timeout: 3000 });
+      if (await page.$('[data-vl-weak]:not([hidden])')) throw new Error('the slide is still offered after it was practised');
       // B: replay slide 2: a wrong answer is asked again; "Explain it again" rewrites the slide, plays it and asks again; skipping saves "skipped".
       await click('.vl-mark[data-vl-go="1"]');
       await click('[data-vl-act="toggle"]');

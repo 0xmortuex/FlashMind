@@ -77,7 +77,8 @@ i18n.add('en', {
   coachWhyAdaptiveNever: 'You haven’t practised “{t}” as an exam yet — a 15-question adaptive exam shows where you stand.',
   coachWhyVoice: 'When you’re sure in “{t}” you’re right only {p}% of the time — explaining out loud in a voice quiz exposes the gaps.',
   coachWhyOver: 'When you’re sure in “{t}” you’re right only {p}% of the time — drill the cards you were sure about and missed.',
-  coachWhyMap: 'Two card sessions in a row — a quick mind-map pass over “{t}” connects the pieces.'
+  coachWhyMap: 'Two card sessions in a row — a quick mind-map pass over “{t}” connects the pieces.',
+  coachWhyWeak: 'You found {n} slide(s) of the video lessons in “{t}” hard — practise exactly those now.'
 });
 
 i18n.add('tr', {
@@ -153,5 +154,6 @@ i18n.add('tr', {
   coachWhyAdaptiveNever: '“{t}” için henüz deneme çözmedin — 15 soruluk uyarlanabilir sınav nerede olduğunu gösterir.',
   coachWhyVoice: '“{t}” destesinde “eminim” dediğinde yalnızca %{p} doğru çıkıyor — sesli sınavda yüksek sesle açıklamak eksikleri ortaya çıkarır.',
   coachWhyOver: '“{t}” destesinde “eminim” dediğinde yalnızca %{p} doğru çıkıyor — emin olup yanıldığın kartları çalış.',
-  coachWhyMap: 'Art arda iki kart oturumu yaptın — “{t}” üzerinde kısa bir zihin haritası turu parçaları birleştirir.'
+  coachWhyMap: 'Art arda iki kart oturumu yaptın — “{t}” üzerinde kısa bir zihin haritası turu parçaları birleştirir.',
+  coachWhyWeak: '“{t}” video derslerinin {n} slaytını zor buldun — şimdi tam olarak bunları çalış.'
 });
