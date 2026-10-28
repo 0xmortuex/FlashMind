@@ -739,6 +739,21 @@ const path = require('node:path');
     await page.evaluate(() => MebIndex.close());
   });
 
+  await step('exams: every MEB library card shows a grade chip and no card with a study set says "Grade not stated"', async () => {
+    const lacking = await page.evaluate(async () => (await (await fetch('data/meb/index.json')).json()).filter(r => !r.g.length).map(r => ({ id: r.id, set: !!r.set, t: r.t })));
+    console.log('      cards still without a grade: ' + lacking.length + ' (' + lacking.filter(r => r.set).length + ' with a study set)');
+    lacking.forEach(r => console.log('        ' + (r.set ? '[set] ' : '') + r.id + ' ' + r.t));
+    if (lacking.some(r => r.set)) throw new Error(lacking.filter(r => r.set).length + ' cards with a study set have no grade');
+    await page.evaluate(() => MebIndex.open());
+    await page.waitForSelector('.meb-panel .meb-row', { timeout: 5000 });
+    await page.$eval('.meb-panel [data-meb-year=""]', b => b.click());
+    await page.select('#meb-grade', '0'); await page.select('#meb-type', ''); await page.select('#meb-subject', '');
+    const chips = await page.$$eval('.meb-panel .meb-row', rs => rs.map(r => ({ set: !!r.querySelector('.meb-set-btn'), g: [...r.querySelectorAll('.meb-grade')].map(e => e.textContent) })));
+    if (chips.some(c => c.g.length !== 1)) throw new Error('a card has no single grade chip');
+    if (chips.some(c => c.set && c.g[0] === 'Grade not stated')) throw new Error('a card with a study set says Grade not stated');
+    await page.evaluate(() => MebIndex.close());
+  });
+
   await step('exams: a MEB library file opens as a ready-made study set (2026-2027 first, deck, notes, cards, quiz, Ask AI context)', async () => {
     const fixture = JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures/meb-set-a1.json'), 'utf8'));
     // Serve the fixture for one 2026-2027 library entry; everything else is the real index.

@@ -147,13 +147,21 @@ const MebIndex = (() => {
   // busy: id of the study set being fetched; err: { id, msg } of the last failure.
   const state = { f: { grade: 0, type: '', subject: '', q: '', year: '', sets: false }, shown: PAGE, yearSet: false, busy: null, err: null, tab: 'files' };
 
-  const gradeLabel = g => T('mebGradeN', { n: g.length > 1 ? g[0] + '–' + g[g.length - 1] : g[0] });
+  // 'Grade 10', 'Grades 9–12' (contiguous), 'Grades 9, 11', or 'Grade not stated' for an entry with no grade.
+  function gradeLabel(g) {
+    if (!g.length) return T('mebGradeNone');
+    if (g.length === 1) return T('mebGradeN', { n: g[0] });
+    const sorted = g.slice().sort((a, b) => a - b);
+    const run = sorted.every((n, i) => !i || n === sorted[i - 1] + 1);
+    return T('mebGradesN', { n: run ? sorted[0] + '–' + sorted[sorted.length - 1] : sorted.join(', ') });
+  }
 
   function rowHtml(it) {
     const table = data.topics.get(it.id);
     const chips = `<span class="meb-chip meb-year${it.y ? '' : ' none'}">${esc(it.y || T('mebYearNone'))}</span>` +
-      [T('mebType_' + it.x), it.ver ? T('mebVersionN', { v: it.ver }) : '', it.g.length ? gradeLabel(it.g) : '', it.s, it.mb != null ? T('mebSizeMb', { n: it.mb }) : '']
-        .filter(Boolean).map(c => `<span class="meb-chip">${esc(c)}</span>`).join('');
+      [T('mebType_' + it.x), it.ver ? T('mebVersionN', { v: it.ver }) : ''].filter(Boolean).map(c => `<span class="meb-chip">${esc(c)}</span>`).join('') +
+      `<span class="meb-chip meb-grade${it.g.length ? '' : ' none'}">${esc(gradeLabel(it.g))}</span>` +
+      [it.s, it.mb != null ? T('mebSizeMb', { n: it.mb }) : ''].filter(Boolean).map(c => `<span class="meb-chip">${esc(c)}</span>`).join('');
     const busy = state.busy === it.id, failed = state.err && state.err.id === it.id;
     const setHtml = it.set ? `<div class="meb-set">
         ${failed ? `<p class="meb-error" role="alert">${esc(T('mebSetFail', { e: state.err.msg }))}</p>` : ''}
@@ -338,7 +346,7 @@ const MebIndex = (() => {
   if (typeof document !== 'undefined') document.addEventListener('DOMContentLoaded', init);
 
   return {
-    filterItems, subjectsFor, typeCounts, validate, profileTopics, sortByYear, defaultYear, statsLine, YEAR_NOW, YEAR_PREV, GRADES, TYPES,
+    filterItems, subjectsFor, typeCounts, validate, profileTopics, gradeLabel, sortByYear, defaultYear, statsLine, YEAR_NOW, YEAR_PREV, GRADES, TYPES,
     load, open, close: () => modal && modal.close(), applyProfile, storeProfile
   };
 })();

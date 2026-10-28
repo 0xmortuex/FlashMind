@@ -37,7 +37,7 @@
 .meb-fchip:focus-visible, .meb-set-btn:focus-visible, .meb-srclink:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 .meb-fchip-sets { margin-left: auto; }
 .meb-year { font-weight: 700; border-color: var(--primary); }
-.meb-year.none { font-weight: 500; border-color: var(--border); color: var(--text-muted); }
+.meb-year.none, .meb-grade.none { font-weight: 500; border-color: var(--border); color: var(--text-muted); }
 .meb-set { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
 .meb-set .meb-error { flex: 1 1 100%; font-size: 0.82rem; }
 .meb-set-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; min-height: 36px; }

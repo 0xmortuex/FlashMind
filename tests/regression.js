@@ -1079,6 +1079,53 @@ test('MEB generator infers grade and subject from explicit names only', async ()
   assert.equal(at('/fizik.pdf').y, '');
   assert.equal(at('/reading.pdf').mb, null);
 });
+test('MEB generator: an entry without a grade takes it from its konu sheet names or its study set, never from a guess', async () => {
+  const { build, setGrades } = await mebGen();
+  assert.deepEqual(setGrades({ grade: [9, 10, 11, 12] }, 'x'), [9, 10, 11, 12]);
+  assert.deepEqual(setGrades({ grade: ['10', '11'] }, 'x'), [10, 11]);
+  assert.deepEqual(setGrades({ grade: ['Açık Lise 9-12'] }, 'x'), [9, 10, 11, 12]);
+  assert.deepEqual(setGrades({}, 'x'), []);
+  assert.throws(() => setGrades({ grade: ['lise'] }, 'x'), /cannot read meta.grade/);
+  assert.throws(() => setGrades({ grade: 9 }, 'x'), /not a list/);
+  const rec = (name, extra) => ({ title: 'Oturum', pageTitle: 'Açık öğretim', examType: 'Acik Ogretim', fileUrl: 'https://odsgm.meb.gov.tr/' + name + '.pdf', schoolYear: '2025-2026', sourcePage: 'https://odsgm.meb.gov.tr/p', ...extra });
+  const id = name => build({ ods2: [rec(name)] }).index[0].id;
+  const set = meta => ({ bytes: 10, data: { meta } });
+  const sets = new Map([[id('a'), set({ grade: ['Açık Lise 9-12'] })], [id('b'), set({ grade: [7] })], [id('c'), set({})],
+    [id('d'), { bytes: 10, data: {}, alias: id('b') }]]);
+  const g = name => build({ ods2: [rec(name)], sets }).index[0].g;
+  assert.deepEqual(g('a'), [9, 10, 11, 12]);
+  assert.deepEqual(g('b'), [7]);
+  assert.deepEqual(g('c'), []);                                       // the set states no grade: stays unknown
+  assert.deepEqual(g('d'), [7]);                                      // an alias follows its primary
+  assert.deepEqual(g('e'), []);                                       // no set
+  assert.deepEqual(build({ ods2: [rec('a')] }).index[0].g, []);       // without --sets nothing changes
+  assert.throws(() => build({ ods2: [rec('f')], sets: new Map([[id('f'), set({ grade: ['x'] })]]) }), /cannot read meta.grade/);
+  // konu tables: the sheet names of the workbook
+  const konu = sheets => ({ title: '1. Donem Konu Soru Dagilim Tablosu 2026-2027 - Biyoloji', pageTitle: '1. Dönem Konu Soru Dağılım Tabloları', examType: 'Ortak Yazili - Konu Soru Dagilim', fileUrl: 'https://cdn.eba.gov.tr/ankmeb11', schoolYear: '2026-2027',
+    topicDistribution: sheets.map(sheet => ({ sheet, rows: [] })) });
+  const kg = sheets => build({ ods2: [konu(sheets)] }).index[0].g;
+  assert.deepEqual(kg(['9. SINIF', '10. SINIF', '11. SINIF', '12. SINIF T.C.INKILAP TARİHİ']), [9, 10, 11, 12]);
+  assert.deepEqual(kg(['5. sınıf ', '6.sınıf']), [5, 6]);
+  assert.deepEqual(kg(['Sayfa1']), []);
+  assert.equal(build({ ods2: [konu(['9. SINIF', '10. SINIF'])] }).index[0].t.startsWith('9–10. sınıf'), true);
+});
+test('MEB library grade chip: single grade, contiguous range, list and unknown', () => {
+  const words = { mebGradeN: 'Grade {n}', mebGradesN: 'Grades {n}', mebGradeNone: 'Grade not stated' };
+  const { run } = modules({}, { i18n: { t: (k, p) => (words[k] || k).replace(/\{(\w+)\}/g, (_, a) => p[a]), getLang: () => 'en' } });
+  const chip = g => run(`MebIndex.gradeLabel(${JSON.stringify(g)})`);
+  assert.equal(chip([10]), 'Grade 10');
+  assert.equal(chip([9, 10, 11, 12]), 'Grades 9–12');
+  assert.equal(chip([11, 12]), 'Grades 11–12');
+  assert.equal(chip([9, 11]), 'Grades 9, 11');
+  assert.equal(chip([]), 'Grade not stated');
+});
+test('MEB library: a multi-grade entry is listed under every grade it covers', () => {
+  const { ctx, run } = modules();
+  ctx.items = [{ ...mebItems[0], id: 'm1', g: [9, 10, 11, 12], x: 'konu' }, { ...mebItems[1], id: 'm2', g: [] }];
+  for (const grade of [9, 10, 11, 12]) assert.deepEqual(mebIds(run, { grade }), ['m1']);
+  assert.deepEqual(mebIds(run, { grade: 8 }), []);
+  assert.deepEqual(mebIds(run, {}), ['m1', 'm2']);                      // ungraded entries stay under "All grades"
+});
 test('MEB generator aggregates konu-soru tables and drops unusable rows', async () => {
   const { build } = await mebGen();
   const { topics } = build(mebFixture);

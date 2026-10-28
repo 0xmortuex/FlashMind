@@ -62,6 +62,12 @@
 //                   from the book's own subject field when it is a plain
 //                   subject, 'İngilizce' for the YDT books
 //   everything else (Açık öğretim, Dört beceri, kılavuz, takvim) -> unknown
+// An entry that is still without a grade afterwards gets one from facts the
+// source itself states: a konu-soru PDF/workbook from the sheet names of its
+// tables ("9. SINIF", "5. sınıf" -> [9] / [5]; one grade per table), else from
+// the grade list of its own study set (meta.grade: ints, numeric strings or a
+// level label such as "Açık Lise 9-12"). Unreadable meta.grade throws; a set
+// without one leaves the grade unknown.
 //
 // ---- topics.json ------------------------------------------------------------
 // A konu-soru PDF holds one table per exam scenario (up to ~30). Shipping every
@@ -129,6 +135,31 @@ function stemOf(url) {
   return dec.replace(/\.[A-Za-z0-9]{2,4}$/, '').replace(/^(?:[0-9a-f]{14,}|\d{6,8})_/i, '');
 }
 const gradeOk = (n, lo, hi) => Number.isInteger(n) && n >= lo && n <= hi;
+
+// Sorted grades from a set's meta.grade; [] when it states none.
+export function setGrades(meta, id) {
+  const raw = meta && meta.grade;
+  if (raw == null) return [];
+  if (!Array.isArray(raw)) throw new Error(`${id}.json: meta.grade is not a list`);
+  const out = new Set();
+  for (const v of raw) {
+    const t = clean(v), range = t.match(/(\d{1,2})\s*[-–]\s*(\d{1,2})/);
+    const [a, b] = /^\d{1,2}$/.test(t) ? [+t, +t] : range ? [+range[1], +range[2]] : [NaN, NaN];
+    if (!gradeOk(a, 1, 12) || !gradeOk(b, a, 12)) throw new Error(`${id}.json: cannot read meta.grade value "${t}"`);
+    for (let n = a; n <= b; n++) out.add(n);
+  }
+  return [...out].sort((x, y) => x - y);
+}
+
+// Grades named by the sheets of a konu-soru workbook's tables ("9. SINIF", "12. sınıf T.C. ...").
+function sheetGrades(tables) {
+  const out = new Set();
+  for (const t of tables || []) {
+    const m = fold(t && t.sheet).match(/^(\d{1,2})\s*\.?\s*sinif/);
+    if (m && gradeOk(+m[1], 1, 12)) out.add(+m[1]);
+  }
+  return [...out].sort((x, y) => x - y);
+}
 
 // grade array + subject for one record, by the rules documented above.
 export function infer(rec, x, stem) {
@@ -267,7 +298,8 @@ function ogmPrep(rec, x) {
 }
 
 // Pure: manifests in, { index, topics, stats } out.
-export function build({ ods1 = [], ods2 = [], ogm = [], ogmYazili = [], ogmKazanim = [], ogmKazanimBazli = [] }) {
+// sets (optional) = the readSets map: an entry without a grade takes its set's grade list.
+export function build({ ods1 = [], ods2 = [], ogm = [], ogmYazili = [], ogmKazanim = [], ogmKazanimBazli = [], sets = new Map() }) {
   const stats = { excluded: { status: 0, personnel: 0, noUrl: 0, dup: 0 }, noPublicUrl: [] };
   const byUrl = new Map();
   const alias = new Map();
@@ -329,6 +361,12 @@ export function build({ ods1 = [], ods2 = [], ogm = [], ogmYazili = [], ogmKazan
       g = [11, 12]; s = ogmSubject(rec); t = ogmTitle(rec); y = ''; p = rec.sourceUrl ? checkUrl(rec.sourceUrl, 'ogm sourceUrl') : '';
     } else {
       ({ g, s } = infer(rec, x, stem));
+      if (!g.length && x === 'konu') g = sheetGrades(rec.topicDistribution);
+      if (!g.length && sets.has(id)) {
+        const own = sets.get(id), primary = own.alias ? sets.get(own.alias) : own;
+        if (!primary || !primary.data) throw new Error(`${id}: alias target ${own.alias} is not in the sets directory`);
+        g = setGrades(primary.data.meta, own.alias || id);
+      }
       t = titleFor(rec, x, g, s, stem);
       y = /^\d{4}-\d{4}$/.test(rec.schoolYear || '') ? rec.schoolYear : '';
       p = rec.sourcePage ? checkUrl(rec.sourcePage, 'ods sourcePage') : '';
@@ -426,15 +464,17 @@ function main(argv) {
   const [dir, outArg] = args;
   if (!dir) throw new Error('usage: node scripts/build-meb-index.mjs <meb-data-dir> [out-dir] [--sets <sets-dir>]');
   const out = path.resolve(outArg || path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'data', 'meb'));
+  const sets = setsDir ? readSets(setsDir) : new Map();
   const { index, topics, stats } = build({
     ods1: readJson(path.join(dir, 'ods', 'manifest.json')),
     ods2: readJson(path.join(dir, 'ods', 'manifest2.json')),
     ogm: readJson(path.join(dir, 'ogm', 'manifest.json')),
     ogmYazili: readOptional(path.join(dir, 'ogm', 'yazili', 'manifest.json')),
     ogmKazanim: readOptional(path.join(dir, 'ogm', 'kazanim', 'manifest.json')),
-    ogmKazanimBazli: readOptional(path.join(dir, 'ogm', 'kazanim-bazli', 'manifest.json'))
+    ogmKazanimBazli: readOptional(path.join(dir, 'ogm', 'kazanim-bazli', 'manifest.json')),
+    sets
   });
-  if (setsDir) attachSets(index, readSets(setsDir));
+  if (setsDir) attachSets(index, sets);
   fs.mkdirSync(out, { recursive: true });
   const a = lines(index), b = lines(topics);
   fs.writeFileSync(path.join(out, 'index.json'), a);
