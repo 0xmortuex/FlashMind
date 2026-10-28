@@ -1,0 +1,1964 @@
+{
+ "title": "10. Sınıf Felsefe – 1. Dönem 2. Yazılı (OGM Yazılıya Hazırlanıyorum)",
+ "meta": {
+  "fileId": "391da138",
+  "grade": [
+   10
+  ],
+  "subject": "Felsefe",
+  "schoolYear": "",
+  "examType": "ogm-yazili",
+  "kind": "booklet",
+  "sourceUrl": "https://ogm-large-cdn.eba.gov.tr/materyal/Etkilesimlikitap/e2c2e16d-66b5-4967-858e-42fe0c557db4/pdf.pdf",
+  "counts": {
+   "sections": 13,
+   "cards": 101,
+   "questions": 72,
+   "sourceQuestions": 7,
+   "skippedNeedingFigure": 0
+  }
+ },
+ "notes": {
+  "summary": "Bu dosya, 10. sınıf Felsefe 1. dönem 2. yazılı için hazırlanmış senaryo tabanlı örnek sınavdır. Altı soru vardır: (1) felsefenin bilim, din, sanatla ilişkisi, benzer ve farklı yönleri, (2) empati metninde argümanın öncül ve sonucu, (3) yazılımcı–filozof diyaloğunda varlık felsefesinin kavramları (oluş, öz, varoluş, madde), (4) konferans metninde felsefi problemler, (5) felsefi akımlar ve ortak–farklı yönleri, (6) Ali–Ezgi diyaloğunda bilgi felsefesi (olanak, kaynak, ölçüt).\n\nBu dosyadan sınavda ne beklemeli / nasıl çalışmalı:\n1. Felsefe–bilim–din–sanat için ortak amaç ve iki fark ölçütü (yöntem, kapsam) çalış.\n2. Zincirleme argüman yazmayı çalış: sonucu bul, öncülleri halka halka yaz.\n3. Oluş, öz, varoluş, madde tanımlarını diyalogdan cümle bulma pratiğiyle çalış.\n4. İki ontoloji problemini (var mı / nedir) ayırt et.\n5. Materyalizm, idealizm, oluş felsefesini metin ipuçlarıyla tanı; ortak ve farklı yönü ezberle.\n6. Bilgi felsefesinde olanak–kaynak–ölçüt üçlüsüyle Ali–Ezgi benzeri karşılaştırma tabloları çöz.\n7. Benzer sorulara yazılı cevap yaz, rubrik kriterleriyle kendini puanla.",
+  "sections": [
+   {
+    "title": "Felsefe, bilim, din ve sanat: ilişki",
+    "content": "Felsefe bilim, din ve sanatla karşılıklı ilişki içindedir. Bu alanların ürettiği hakikat, anlam ve güzellik iddialarını akıl ve mantık süzgecinden geçirir, yöntemlerinin güvenilirliğini sorgular. Bu alanları kendine konu edindikçe felsefenin konu evreni de genişler. Yani ilişki tek yönlü değil, iki yönlüdür.",
+    "bulletPoints": [
+     "Felsefe diğer alanların iddialarını eleştirir ve değerlendirir.",
+     "Onların ürünlerini ve yaşama etkisini inceler, onlardan yararlanır.",
+     "Felsefe bu alanları konu edindikçe kendi konu alanı genişler.",
+     "Cevap kalıbı: karşılıklı ilişki (3 puan) + eleştirel yaklaşım ve konu evrenini genişletme (2 puan).",
+     "Felsefe hayatı kolaylaştırmak veya eğlenmek gibi ihtiyaçlar için yöntem aramaz; amaçları ve yöntemleri sorgular."
+    ],
+    "keyTerms": [
+     {
+      "term": "Konu evreni",
+      "definition": "Bir disiplinin ele aldığı konuların bütünü."
+     },
+     {
+      "term": "Karşılıklı ilişki",
+      "definition": "Alanların birbirini etkilemesi."
+     }
+    ]
+   },
+   {
+    "title": "Felsefenin benzer ve farklı yönleri",
+    "content": "Benzer yön: hepsi evreni ve insanı anlama ve açıklama çabasıdır. Farklı yön: yöntem ve kapsam. Bilim deney-gözleme, din inanca, sanat duygu ve yaratıcılığa dayanır; felsefe ise akıl ve mantık ilkelerine bağlı derinlemesine sorgulamayla bilgi üretir. Bilim sınanabilir olanı, din kutsalı, sanat güzeli konu edinir; felsefe varlığın tamamını konu edinir ve bütüncül bir çerçeve sunar.",
+    "bulletPoints": [
+     "Ortak amaç: evreni ve insanı anlamak.",
+     "Bilim: deney ve gözlem; sınanabilir varlıklar.",
+     "Din: inanç; kutsalla ilgili olan.",
+     "Sanat: duygu ve yaratıcılık; güzel olan.",
+     "Felsefe: akıl ve mantık; varlığın tamamı; bütüncül çerçeve.",
+     "Cevap: benzer yön 5 puan, farklı yön (yöntem + kapsayıcılık) 5 puan."
+    ],
+    "keyTerms": [
+     {
+      "term": "Bütüncül bakış",
+      "definition": "Parçaları değil bütünü ele alan bakış."
+     }
+    ]
+   },
+   {
+    "title": "Argüman: öncül ve sonuç önermesi",
+    "content": "Bir paragrafta argüman bulmak için önce “asıl söylenmek istenen” sonucu bul, sonra onu destekleyen halkaları sırala. Empati örneği zincir şeklindedir: empati → güçlü bağlar → değerli hissetme → yapıcı tutum → karşılıklı saygı ve huzur → bireysel mutluluk ve toplumsal huzur. Her halka bir öncüldür, son halka sonuçtur.",
+    "bulletPoints": [
+     "Sonuç genellikle “Kısacası, bu nedenle, o hâlde” ifadeleriyle başlar.",
+     "Her öncül tek bir fikir içermelidir.",
+     "Öncülleri metindeki sıraya göre ve kendi cümlenle yaz.",
+     "Sınavda 4 öncül + 1 sonuç; her biri 3 puandır.",
+     "Aynı fikri iki öncüle bölme."
+    ],
+    "keyTerms": [
+     {
+      "term": "Öncül",
+      "definition": "Sonucu destekleyen önerme."
+     },
+     {
+      "term": "Sonuç önermesi",
+      "definition": "Argümanın savunduğu, öncüllerden çıkan yargı."
+     },
+     {
+      "term": "Zincirleme argüman",
+      "definition": "Öncüllerin birbirine halka halka bağlandığı akıl yürütme."
+     }
+    ]
+   },
+   {
+    "title": "Varlık felsefesi: konusu ve temel kavramları",
+    "content": "Varlık felsefesi (ontoloji), “varlık nedir, var olmak ne demektir?” sorularını inceler. Sınavdaki diyalogda dört kavram bulunur: oluş, öz, varoluş, madde.",
+    "bulletPoints": [
+     "Oluş: varlıkların bir süreçten geçerek bir hâlden başka hâle dönüşmesi (tohum → fidan → ağaç).",
+     "Öz: bir varlığı “o varlık” yapan, diğerlerinden ayıran ve değişmeden kalan karakteristik özellikler.",
+     "Varoluş: özellikle insana özgü olarak kendi anlamını sorgulama, kendini gerçekleştirme.",
+     "Madde: uzayda ve mekânda yer kaplayan, hacmi olan.",
+     "Cevap kalıbı: kavram (2 puan) + diyalogdan ilgili cümle (3 puan)."
+    ],
+    "keyTerms": [
+     {
+      "term": "Oluş",
+      "definition": "Değişim ve dönüşüm süreci."
+     },
+     {
+      "term": "Öz",
+      "definition": "Değişmeyen temel nitelik."
+     },
+     {
+      "term": "Varoluş",
+      "definition": "İnsanın kendini gerçekleştiren, anlamını sorgulayan var olma biçimi."
+     },
+     {
+      "term": "Madde",
+      "definition": "Uzayda yer kaplayan, hacmi olan şey."
+     }
+    ]
+   },
+   {
+    "title": "Varlık felsefesinin temel problemleri",
+    "content": "Varlık felsefesinin iki temel problemi şunlardır: “Varlık var mı?” (varlığın var olup olmadığı) ve “Varlık nedir?” (varlığın ne olduğu, nasıl bir yapıda olduğu). Konferans metnindeki “Biz gerçek miyiz? Bizim dışımızdaki şeyler var mı?” soruları birinci problemi, “Neye gerçek diyebiliriz?” sorusu ikinci problemi gösterir.",
+    "bulletPoints": [
+     "Problem 1: Varlığın var olup olmadığı.",
+     "Problem 2: Varlığın ne olduğu.",
+     "Her problem 5 puan; ikisi birlikte 10 puan.",
+     "Problem cümlelerini metindeki sorularla ilişkilendir."
+    ],
+    "keyTerms": [
+     {
+      "term": "Ontoloji",
+      "definition": "Varlık felsefesi."
+     }
+    ]
+   },
+   {
+    "title": "Varlık felsefesi akımları: materyalizm, idealizm, oluş felsefesi",
+    "content": "Konferanstaki üç filozof üç farklı akımı temsil eder. Materyalizm: var olan maddedir, algılanabilen somut şeydir. İdealizm: gerçek varlık düşünsel/ruhsal, kalıcı, değişmez tek gerçekliktir. Oluş felsefesi: var olan sürekli değişimdir; varlığı değişim hâliyle açıklar. Üçü de varlığın var olduğunu kabul eder; “ne olduğu” konusunda ayrılır.",
+    "bulletPoints": [
+     "Materyalizm: duyumlanabilen, somut, madde.",
+     "İdealizm: mutlak, değişmez, düşünsel gerçeklik.",
+     "Oluş felsefesi: değişim ve neden-sonuç ilişkisi içindeki varlık.",
+     "Ortak yön: Hepsi varlığın var olduğunu kabul eder.",
+     "Farklı yön: varlığın ne olduğu ve nitelikleri hakkında farklı görüşler.",
+     "Puan: her akım 4, ortak yön 4, farklı yön 4."
+    ],
+    "keyTerms": [
+     {
+      "term": "Materyalizm",
+      "definition": "Gerçekliğin temelinin madde olduğunu savunan görüş."
+     },
+     {
+      "term": "İdealizm",
+      "definition": "Gerçekliğin düşünsel/ruhsal olduğunu savunan görüş."
+     },
+     {
+      "term": "Oluş felsefesi",
+      "definition": "Varlığı sürekli değişim olarak ele alan görüş."
+     }
+    ]
+   },
+   {
+    "title": "Akımları metinde tanıma ipuçları",
+    "content": "Metinde akımı bulmak için “varlık için hangi özellik vurgulanıyor?” diye bak. “Duyumsayabildiğimiz, algılayabildiğimiz somut” → madde/materyalizm. “Tek, kalıcı, sürekli, değişmez ve düşünsel” → idealizm. “Var ve yok oluyoruz, neden-sonuç ilişkisi, değişim” → oluş felsefesi. Dikkat: bilim insanının “ağaç gibi biz de varız” cümlesi somut varlığa işaret eder.",
+    "bulletPoints": [
+     "Ağaç görüyorum, o varlıktır → duyumsanabilir somutluk.",
+     "Ağaç bin yıl sonra olmayacak → değişim vurgusu.",
+     "Tek mutlak gerçeklik var → kalıcılık ve düşünsellik.",
+     "Akım adını yaz, sonra metinden dayanak ekle."
+    ],
+    "keyTerms": [
+     {
+      "term": "Duyumsanabilir",
+      "definition": "Duyularla algılanabilen."
+     }
+    ]
+   },
+   {
+    "title": "Bilgi felsefesi: temel sorular",
+    "content": "Bilgi felsefesi (epistemoloji) üç büyük soru sorar: Doğru bilgi olanaklı mıdır? Bilgiye hangi kaynaktan ulaşılır? Doğruluğun ölçütü nedir? Ali ve Ezgi’nin diyaloğu bu üç soruya zıt cevaplar verir.",
+    "bulletPoints": [
+     "Bilginin olanağı: bilgi mümkün mü?",
+     "Bilginin kaynağı: akıl mı, duyu/deney mi?",
+     "Doğruluk ölçütü: neye göre doğru deriz?",
+     "Puanlama: ilk soru 2×2, ikinci ve üçüncü 2×4."
+    ],
+    "keyTerms": [
+     {
+      "term": "Epistemoloji",
+      "definition": "Bilgi felsefesi."
+     },
+     {
+      "term": "Doğruluk ölçütü",
+      "definition": "Bir önermenin doğruluğuna karar vermede kullanılan temel."
+     }
+    ]
+   },
+   {
+    "title": "Ali ve Ezgi: bilgi anlayışlarının karşılaştırması",
+    "content": "Ali, doğru bilginin olanaklı olduğunu savunur. Kaynak olarak duyuları ve deneyimi esas alır. Doğruluk ölçütü olarak “uygunluk” kullanır: ifade, iddia ettiği nesneyle örtüşüyorsa doğrudur. Ezgi ise doğru bilginin olanaklı olmadığını söyler. Hiçbir kaynağa mutlak güven duyulamaz, tüm kaynaklara şüpheyle yaklaşılmalıdır. Kesin bilgi ve mutlak doğru yoktur; her önerme şüphelidir.",
+    "bulletPoints": [
+     "Ali: olanaklıdır; kaynak duyu-deney; ölçüt uygunluk.",
+     "Ezgi: olanaksızdır; hiçbir kaynağa güvenilmez; kesin ölçüt yoktur.",
+     "Ezgi’nin tavrına septisizm (şüphecilik) denir.",
+     "Ali’nin deneyimi esas alması empirizme yakındır.",
+     "Tabloyu iki sütunla doldur, her hücre için kısa tam cümle yaz."
+    ],
+    "keyTerms": [
+     {
+      "term": "Septisizm",
+      "definition": "Kesin ve doğru bilginin olanaklı olmadığını savunan görüş."
+     },
+     {
+      "term": "Empirizm",
+      "definition": "Bilginin kaynağının duyu ve deney olduğunu savunan görüş."
+     },
+     {
+      "term": "Uygunluk",
+      "definition": "İfadenin, bildirdiği nesneyle örtüşmesi."
+     }
+    ]
+   },
+   {
+    "title": "Bilgi kaynağı ve doğruluk ölçütü görüşleri",
+    "content": "Kaynak görüşleri: rasyonalizm (akıl), empirizm (duyu-deney), sezgicilik (sezgi). Ölçüt görüşleri: uygunluk (nesneyle örtüşme), tutarlılık (diğer önermelerle çelişmeme), yararlılık (pratikte işe yarama). Bu başlıklar sınavda genel bilgi sorusu olarak da gelebilir.",
+    "bulletPoints": [
+     "Rasyonalizm: bilgi akıldan gelir.",
+     "Empirizm: bilgi duyu ve deneyden gelir.",
+     "Uygunluk (doğruluk): bilgi–nesne örtüşmesi.",
+     "Tutarlılık: önermeler birbiriyle çelişmez.",
+     "Yararlılık: doğru olan işe yarayandır.",
+     "Karıştırma: tutarlılık iç uyum, uygunluk dış gerçeklikle örtüşmedir."
+    ],
+    "keyTerms": [
+     {
+      "term": "Rasyonalizm",
+      "definition": "Bilginin kaynağını akılda gören görüş."
+     },
+     {
+      "term": "Tutarlılık",
+      "definition": "Bir önermenin bilgi sistemiyle çelişmemesi."
+     }
+    ]
+   },
+   {
+    "title": "Bilim–felsefe örneği: uzayda hayat tartışması",
+    "content": "Ali’nin “ötegezegenler, su buzu” gibi gözlemlere dayanarak uzayda yaşam olabileceğini söylemesi deneyim temelli bilgidir. Ezgi’nin “kanıtlar varsayımlara dayanıyor, duyular yanıltıcıdır” itirazı şüpheciliktir. Ali’nin “şüphe doğaldır ama karşısına yöntem koymalısın” cevabı şüpheyi yöntemle dengelemeyi savunur.",
+    "bulletPoints": [
+     "Ali: “Bilgiye duyular ve yaşantılar yoluyla ulaşılabilir.”",
+     "Ezgi: “Duyular yanıltıcıdır; her bilgi varsayım içerir.”",
+     "Ali: “Her şeyden şüphe edersek bilgi mümkün olmaz.”",
+     "Soruda cümleleri ilgili sütuna kısa özetle yaz."
+    ],
+    "keyTerms": [
+     {
+      "term": "Varsayım",
+      "definition": "Doğruluğu kanıtlanmadan kabul edilen önerme."
+     }
+    ]
+   },
+   {
+    "title": "Diyalog metninde kavram bulma yöntemi",
+    "content": "Yazılımcı–filozof diyaloğunda her cümle bir kavramın ipucudur. Tohum–fidan–ağaç, bebek–çocuk–yetişkin geçişleri oluşu; “ayıran ve değişmeden kalan karakteristik özellik” özü; “kendi anlamını sorgulayamaz, kendini gerçekleştiremez” cümlesi insana özgü varoluşu; “uzayda yer kaplayan, hacmi olan” madde tanımını verir.",
+    "bulletPoints": [
+     "Önce cümleyi oku, sonra “bu hangi kavramın tanımı?” diye sor.",
+     "Cümleleri birebir alıntıla (puan bunun içindir).",
+     "Aynı kavram için birden fazla cümle gerekebilir (oluş).",
+     "Kavram 2, cümle 3 puan."
+    ],
+    "keyTerms": [
+     {
+      "term": "Alıntı",
+      "definition": "Metinden birebir aktarılan cümle."
+     }
+    ]
+   },
+   {
+    "title": "Yazılı için strateji ve kısmi puan",
+    "content": "Bu sınavda tablolar çok. Kavramı bulamayan öğrenci gerekçeye hiç puan alamaz. Önce hep sütunun başlığını oku ve kaç puanlık satır olduğuna bak. Açık uçlu sorularda her kriter ayrı puan olduğu için kısa ve kriter odaklı yaz.",
+    "bulletPoints": [
+     "Her satırın puan etiketine bak (4x2, 4x3 gibi).",
+     "Tüm kutuları doldur.",
+     "Karışık kavramları tanımlarıyla ayır.",
+     "Uzun paragraf yerine kriterleri sırala."
+    ],
+    "keyTerms": [
+     {
+      "term": "Kriter",
+      "definition": "Puanlamada aranan tek tek öğe."
+     }
+    ]
+   }
+  ],
+  "importantDates": [],
+  "commonMistakes": [
+   "Felsefenin diğer alanlarla ilişkisini tek yönlü (yalnızca eleştiri) yazmak.",
+   "Farklı yönde yalnızca “yöntem farklı” deyip kapsayıcılığı yazmamak.",
+   "Argümanda iki fikri tek öncülde birleştirmek veya sonucu öncül sanmak.",
+   "Oluş ile öz kavramlarını karıştırmak.",
+   "Kavram bulunmadan diyalogdan cümle yazmaya çalışmak.",
+   "Varlık problemlerinde bilgi veya ahlak sorularını yazmak.",
+   "Akım adı yazıp ortak ve farklı yönü boş bırakmak.",
+   "Ezgi’nin şüphesini “bilgi yoktur” yerine “bilgiye güvenilmez” diye yazmayı unutmak: kaynak ve ölçüt cümlelerini ayır.",
+   "Ali’nin ölçütü olarak “yarar” yazmak; Ali’nin ölçütü uygunluktur.",
+   "Cevabı tablodaki puan etiketine göre kısaltmayıp uzun paragraf yazmak."
+  ],
+  "diagrams": [],
+  "mindmap": {
+   "label": "10. Sınıf Felsefe 1. Dönem 2. Yazılı",
+   "children": [
+    {
+     "label": "Felsefe ve diğer alanlar",
+     "children": [
+      {
+       "label": "Karşılıklı ilişki",
+       "children": []
+      },
+      {
+       "label": "Ortak amaç",
+       "children": []
+      },
+      {
+       "label": "Yöntem ve kapsam farkı",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Argüman",
+     "children": [
+      {
+       "label": "Öncül",
+       "children": []
+      },
+      {
+       "label": "Sonuç",
+       "children": []
+      },
+      {
+       "label": "Zincirleme argüman",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Varlık felsefesi",
+     "children": [
+      {
+       "label": "Kavramlar: oluş, öz, varoluş, madde",
+       "children": []
+      },
+      {
+       "label": "Problemler: var mı, nedir",
+       "children": []
+      },
+      {
+       "label": "Akımlar: materyalizm, idealizm, oluş felsefesi",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Bilgi felsefesi",
+     "children": [
+      {
+       "label": "Olanak",
+       "children": []
+      },
+      {
+       "label": "Kaynak",
+       "children": []
+      },
+      {
+       "label": "Doğruluk ölçütü",
+       "children": []
+      },
+      {
+       "label": "Ali ve Ezgi",
+       "children": []
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "flashcards": [
+  {
+   "front": "Felsefenin bilim, din, sanatla ilişkisi nasıl bir ilişkidir?",
+   "back": "Karşılıklı ilişki; felsefe onları eleştirir, onları konu edindikçe konu evreni genişler.",
+   "category": "Felsefe ve diğer alanlar",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Felsefe bilimsel iddialara nasıl yaklaşır?",
+   "back": "Yöntemlerinin güvenilirliğini ve sonuçlarının etkisini akıl ve mantıkla sorgular.",
+   "category": "Felsefe ve diğer alanlar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Felsefenin konu evreni neden genişler?",
+   "back": "Diğer alanları kendine konu ettikçe yeni sorular ve konular ortaya çıkar.",
+   "category": "Felsefe ve diğer alanlar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Felsefe ile bilim, din, sanatın ortak yönü?",
+   "back": "Evreni ve insanı anlama ve açıklama çabası.",
+   "category": "Felsefe ve diğer alanlar",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Bilimin yöntemi?",
+   "back": "Deney ve gözlem.",
+   "category": "Felsefe ve diğer alanlar",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Dinin yöntemi?",
+   "back": "İnanç.",
+   "category": "Felsefe ve diğer alanlar",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Sanatın yöntemi?",
+   "back": "Duygu ve yaratıcılık.",
+   "category": "Felsefe ve diğer alanlar",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Felsefenin yöntemi?",
+   "back": "Akıl ve mantık ilkelerine bağlı derinlemesine sorgulama.",
+   "category": "Felsefe ve diğer alanlar",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Bilim hangi konuyu inceler?",
+   "back": "Sınanabilir olan varlıkları.",
+   "category": "Felsefe ve diğer alanlar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Din hangi konuyu inceler?",
+   "back": "Kutsalla ilgili olanı.",
+   "category": "Felsefe ve diğer alanlar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Sanat neyi inceler/yaratır?",
+   "back": "Güzel olanı.",
+   "category": "Felsefe ve diğer alanlar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Felsefe neyi konu edinir?",
+   "back": "Varlığın tamamını.",
+   "category": "Felsefe ve diğer alanlar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Felsefenin kapsayıcılığı ne demektir?",
+   "back": "Her alanı kapsayan bütüncül bir çerçeve sunması.",
+   "category": "Felsefe ve diğer alanlar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Felsefe neden “genelgeçer yöntem bulmaya” çalışmaz?",
+   "back": "Hayatı kolaylaştırmak, eğlenmek gibi ihtiyaçları karşılayan yöntemler aramaz; amaç ve yöntemleri sorgular.",
+   "category": "Felsefe ve diğer alanlar",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Bilimin sonuçları felsefeye neden gereklidir?",
+   "back": "Somut, işe yarar bilgiler vardır, ama bunların gelişmesi için eleştiri ve sorgulama gerekir.",
+   "category": "Felsefe ve diğer alanlar",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Argüman nedir?",
+   "back": "Öncüllerden sonuç çıkaran akıl yürütme.",
+   "category": "Argüman",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Zincirleme argüman nedir?",
+   "back": "Öncüllerin birbirine bağlandığı, her halkanın bir sonrakini desteklediği akıl yürütme.",
+   "category": "Argüman",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Sonuç önermesi hangi sözcüklerle başlar?",
+   "back": "Kısacası, bu nedenle, o hâlde, dolayısıyla.",
+   "category": "Argüman",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Empati argümanının ilk öncülü?",
+   "back": "Empati/başkasını anlamak güçlü sosyal bağların temelidir.",
+   "category": "Argüman",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Empati argümanının sonucu?",
+   "back": "Empati temelli güçlü ilişkiler bireysel mutluluğu ve toplumsal huzuru destekler.",
+   "category": "Argüman",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Öncüller kaç tane yazılmalı (bu soruda)?",
+   "back": "Dört öncül ve bir sonuç önermesi.",
+   "category": "Argüman",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Öncül puan değeri?",
+   "back": "Her öncül 3 puan, sonuç 3 puan; toplam 15.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Öncüller neden ayrı ayrı yazılmalı?",
+   "back": "Her öncül ayrı bir kriterdir ve ayrı puan alır.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Argüman ve açıklama farkı?",
+   "back": "Argümanda sonuç desteklenir; açıklama sadece olguyu anlatır.",
+   "category": "Argüman",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Varlık felsefesine başka ad?",
+   "back": "Ontoloji.",
+   "category": "Varlık felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Oluş nedir?",
+   "back": "Varlıkların süreç içinde bir hâlden başka hâle dönüşmesi.",
+   "category": "Varlık felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Oluşa örnek?",
+   "back": "Tohum → fidan → ağaç; bebek → çocuk → yetişkin.",
+   "category": "Varlık felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Öz nedir?",
+   "back": "Bir varlığı o varlık yapan, değişmeden kalan karakteristik özellikler.",
+   "category": "Varlık felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Varoluş nedir?",
+   "back": "İnsanın kendi anlamını sorgulayıp kendini gerçekleştirmesi.",
+   "category": "Varlık felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Madde nedir?",
+   "back": "Uzayda ve mekânda yer kaplayan, hacmi olan.",
+   "category": "Varlık felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Yapay zekâ varoluş açısından neden insandan ayrılır (filozofa göre)?",
+   "back": "Kendi anlamını sorgulayamaz, kendini gerçekleştiremez.",
+   "category": "Varlık felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yazılımcı “oluş”u nasıl kullanır?",
+   "back": "Yapay zekâ da tohum-ağaç gibi bir süreçten geçerek bu hâle geldi.",
+   "category": "Varlık felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "“Varlık uzayda yer kaplayandır” kavram olarak?",
+   "back": "Madde.",
+   "category": "Varlık felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Varlığın var olup olmadığı problemi?",
+   "back": "Varlık felsefesinin ilk temel problemi.",
+   "category": "Varlık felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Varlığın ne olduğu problemi?",
+   "back": "Varlık felsefesinin ikinci temel problemi.",
+   "category": "Varlık felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Konferans metninde “Biz gerçek miyiz?” hangi problem?",
+   "back": "Varlığın var olup olmadığı problemi.",
+   "category": "Varlık felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "“Neye gerçek diyebiliriz?” hangi problem?",
+   "back": "Varlığın ne olduğu problemi.",
+   "category": "Varlık felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Materyalizm nedir?",
+   "back": "Gerçekliğin temelinin madde olduğunu savunan akım.",
+   "category": "Varlık felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "İdealizm nedir?",
+   "back": "Gerçekliğin düşünsel/ruhsal olduğunu savunan akım.",
+   "category": "Varlık felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Oluş felsefesi nedir?",
+   "back": "Varlığın sürekli değişim olduğunu savunan akım.",
+   "category": "Varlık felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Üç akımın ortak yönü?",
+   "back": "Hepsi varlığın var olduğunu kabul eder.",
+   "category": "Varlık felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Üç akımın farkı?",
+   "back": "Varlığın ne olduğu ve nitelikleri hakkında farklı görüş.",
+   "category": "Varlık felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "“Somut, duyumlanabilir” vurgusu hangi akım?",
+   "back": "Materyalizm.",
+   "category": "Varlık felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "“Tek, mutlak, değişmez, düşünsel” vurgusu hangi akım?",
+   "back": "İdealizm.",
+   "category": "Varlık felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "“Değişim hâli, neden-sonuç” vurgusu hangi akım?",
+   "back": "Oluş felsefesi.",
+   "category": "Varlık felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Herakleitos kimdir?",
+   "back": "Oluş felsefesi ile ilişkilendirilen, “her şey akar” diyen Antik Yunan filozofu.",
+   "category": "Varlık felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Platon hangi görüşle anılır?",
+   "back": "İdealizm (idealar kuramı).",
+   "category": "Varlık felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Parmenides’in varlık görüşü?",
+   "back": "Varlık tek, değişmez ve sürekli olandır.",
+   "category": "Varlık felsefesi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Akım sorusunda puan?",
+   "back": "Akım 4’er puan; ortak yön 4, farklı yön 4.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Ontoloji hangi sorulara cevap arar?",
+   "back": "Varlık var mı, nedir, nasıl vardır?",
+   "category": "Varlık felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Materyalizm ve oluş felsefesi aynı mı?",
+   "back": "Hayır; biri varlığın maddeliğine, diğeri değişimine vurgu yapar.",
+   "category": "Varlık felsefesi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Bilgi felsefesi (epistemoloji) neyi inceler?",
+   "back": "Bilginin olanağını, kaynağını ve doğruluk ölçütünü.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Doğru bilgi olanaklı mı sorusuna Ali’nin cevabı?",
+   "back": "Evet, olanaklıdır.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Ezgi’nin cevabı?",
+   "back": "Hayır, olanaklı değildir.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Ali’nin bilgi kaynağı?",
+   "back": "Duyular; dış dünyadan deneyim.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Ezgi’nin bilgi kaynağı yaklaşımı?",
+   "back": "Hiçbir kaynağa mutlak güvenilmez; hepsine şüpheyle yaklaşılır.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Ali’nin doğruluk ölçütü?",
+   "back": "Uygunluk: ifade bildirdiği nesneyle uyumlu ve örtüşüyorsa doğrudur.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Ezgi’nin doğruluk ölçütü yaklaşımı?",
+   "back": "Kesin bilgi ve mutlak doğru yoktur; hiçbir ölçüt nihai değildir.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Septisizm nedir?",
+   "back": "Doğru bilginin olanaklı olmadığını savunan şüphecilik.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Dogmatizm nedir?",
+   "back": "Doğru bilginin olanaklı olduğunu savunan görüş.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Rasyonalizm kaynağı?",
+   "back": "Akıl.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Empirizm kaynağı?",
+   "back": "Duyu ve deney.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Uygunluk ölçütü nedir?",
+   "back": "Bilgi ile nesnenin örtüşmesi.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Tutarlılık ölçütü nedir?",
+   "back": "Önermelerin birbiriyle çelişmemesi.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yararlılık ölçütü nedir?",
+   "back": "Doğru olan, pratikte işe yarayandır.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Ali’nin “Ay’a gittik” örneği neyi gösterir?",
+   "back": "Gözleme dayalı bilginin başarısını; bilginin mümkün olduğunu.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Ezgi’nin “duyular yanıltıcıdır” itirazı?",
+   "back": "Gözlem tek başına kesinlik vermez; şüpheci tavır.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Ali’ye göre şüphe ne işe yarar?",
+   "back": "Doğaldır ama yöntemle birlikte olmalıdır; her şeyden şüphe bilgiyi imkânsız kılar.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Bilgi felsefesi sorusunda puan?",
+   "back": "İlk soru 2×2=4, ikinci ve üçüncü 2×4=8’er puan; toplam 20.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Sınavda tablo doldururken ilk adım?",
+   "back": "Satır/sütun başlıklarını ve puan etiketlerini okumak.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Gerekçeyi kavramsız yazarsan?",
+   "back": "Puan alamazsın.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Felsefenin metinde anlatılan yaptığı iş nedir?",
+   "back": "Sanatçı, teolog ve bilim insanının iddialarını akıl ve mantıktan geçirmek.",
+   "category": "Felsefe ve diğer alanlar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Filozof, hazla, inançla ve teknik bilgiyle yetinir mi?",
+   "back": "Hayır; derinlemesine sorgulayan bilinçle arayışını sürdürür.",
+   "category": "Felsefe ve diğer alanlar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Felsefenin bilimi gereksiz kılması mümkün mü?",
+   "back": "Hayır; ikisi birbirini tamamlar: bilgi ve eleştiri birlikte gelişir.",
+   "category": "Felsefe ve diğer alanlar",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Argüman nasıl işaretlenir?",
+   "back": "Önce sonucu, sonra öncülleri altını çizerek.",
+   "category": "Argüman",
+   "difficulty": "easy"
+  },
+  {
+   "front": "“Çünkü” hangi tarafı gösterir?",
+   "back": "Öncülü (gerekçeyi).",
+   "category": "Argüman",
+   "difficulty": "easy"
+  },
+  {
+   "front": "“Dolayısıyla” hangi tarafı gösterir?",
+   "back": "Sonucu.",
+   "category": "Argüman",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Argümanda öncül sayısı kaç olmalı?",
+   "back": "En az bir; metne göre değişir.",
+   "category": "Argüman",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Madde ve öz farkı?",
+   "back": "Madde yer kaplayan şeydir; öz değişmeyen niteliklerdir.",
+   "category": "Varlık felsefesi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Oluş ve öz ilişkisi?",
+   "back": "Oluş değişimi, öz değişmeyen çekirdeği anlatır; varlık hem değişir hem özünü korur.",
+   "category": "Varlık felsefesi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Varoluş ve oluş farkı?",
+   "back": "Oluş her varlığın değişimidir; varoluş insanın anlam sorgulayan, kendini gerçekleştiren yönüdür.",
+   "category": "Varlık felsefesi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Filozofun varlık tanımı hangi görüşe yakındır?",
+   "back": "Madde odaklı olduğu için materyalist varlık anlayışına.",
+   "category": "Varlık felsefesi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Metinde bilim insanı neden ağacı örnek verir?",
+   "back": "Algılanan somut varlık olduğunu göstermek için.",
+   "category": "Varlık felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Dördüncü filozof değişimi nasıl açıklar?",
+   "back": "Var olanı değişim hâliyle, neden-sonuç ilişkileriyle açıklar.",
+   "category": "Varlık felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "İkinci filozof neden diğerlerine karşı çıkar?",
+   "back": "Gerçeğin tek, kalıcı, değişmez ve düşünsel olduğunu savunur.",
+   "category": "Varlık felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Bilgi felsefesinin ilk sorusu?",
+   "back": "Doğru bilgi olanaklı mıdır?",
+   "category": "Bilgi felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Bilgi felsefesinin ikinci sorusu?",
+   "back": "Bilgiye hangi kaynaklardan ulaşılır?",
+   "category": "Bilgi felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Bilgi felsefesinin üçüncü sorusu?",
+   "back": "Doğruluğun ölçütü nedir?",
+   "category": "Bilgi felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kritisizm nedir?",
+   "back": "Hem aklın hem deneyin rol oynadığını savunan, bilginin sınırlarını inceleyen eleştirel görüş.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Varsayım nedir?",
+   "back": "Kanıtlanmadan kabul edilen önerme.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Mutlak doğru nedir?",
+   "back": "Her zaman ve herkes için değişmez geçerli doğru.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Sınavda “Evet olanaklıdır” kimin cevabı?",
+   "back": "Ali’nin.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Felsefe–din–sanat–bilim sorusunda hangi öğrenme çıktısı?",
+   "back": "Felsefenin bilim, din ve sanatla ilişkisine eleştirel yaklaşma.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Bilgi felsefesi sorusunda hangi beceri?",
+   "back": "Karşılaştırma, sorgulama, çıkarım yapma.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Puanlama tablosu toplamı?",
+   "back": "100: 1a=5, 1b=10, 2=15, 3=20, 4=10, 5=20, 6=20.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Dogmatizm ile septisizm farkı?",
+   "back": "Dogmatizm doğru bilgiyi olanaklı, septisizm olanaksız görür.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kısmi puan: öz yazıp cümle yazmazsan?",
+   "back": "3 puan eksik verilir.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Sonuç önermesi soruda kaç puan?",
+   "back": "3 puan.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Dördüncü filozof insanı nasıl tanımlar?",
+   "back": "Var olan ve yok olan, merak eden, neden-sonuç ilişkileri içinde yaşayan varlık.",
+   "category": "Varlık felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Bilim insanı ağacı neden örnek verir?",
+   "back": "Algıladığımız somut şeyin gerçekliğini vurgulamak için.",
+   "category": "Varlık felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Ali bilgi ilerlemesini nasıl kanıtlar?",
+   "back": "Ay’a gitmek ve Mars’a araç göndermek gözleme dayalı bilginin sonucudur.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "medium"
+  }
+ ],
+ "quiz": [
+  {
+   "type": "open-ended",
+   "question": "1. Metinden hareketle sorulara cevap veriniz. Filozof ne mi yapar? Sanatçı, teolog ve bilim insanının kendilerine has yöntemlerle sunduğu hakikat, anlam ve güzellik iddialarını, akıl ve mantık süzgecinden geçirir. Onların kendilerine has yöntemlerinin ne kadar güvenilir olduğunu sorgular. Ortaya çıkardıkları ürünlerin oluşum sürecini ve yaşama etkisini değerlendirme konusu yapar. Hayatı kolaylaştırmak, ruhu dinginleştirmek, eğlenmek gibi belirli ihtiyaçların tatminine genelgeçer yöntemler bulmaya çalışmaz. Ama bunu yapmaya çalışanların amaçlarını, yöntemlerini ve ulaştıkları verileri ele alır. Onları hem irdeler hem de onlardan faydalanır. Filozof yalnızca teknik bilgiyle, inançla veya hazla değil derinlemesine sorgulayan bir bilinçle yaşamın pratikleri içinde arayışını gerçekleştirir. Çünkü yaşamı anlamak ve onun bir parçası olmayı sürdürmek bunu gerektirir. Hem somut, işe yarar, görece kesin sonuçlu bilgilere hem de bu tür bilgilerin gelişebilmesi ve artabilmesi için eleştiri ve sorgulamaya ihtiyaç vardır. a) Felsefenin metinde belirtilen sanat, din ve bilim alanlarıyla ilişkisine dair neler söylenebilir? Yazınız. (5 puan)",
+   "correctAnswer": "Felsefe ile bilim, din, sanat gibi alanlar karşılıklı ilişki içindedir. Felsefe metinde belirtilen diğer bilgi alanlarını çeşitli yönlerden eleştirir ve değerlendirir. Aynı zamanda onları kendine konu edinirken konu alanı genişler.",
+   "keyPoints": [
+    "Karşılıklı ilişki içinde olduklarına değinme (3 puan)",
+    "Felsefenin bu alanlara eleştirel yaklaşarak konu evrenini genişlettiğini belirtme (2 puan)"
+   ],
+   "maxPoints": 5,
+   "explanation": "Adım 1: Metinde “akıl ve mantık süzgecinden geçirir, güvenilirliğini sorgular, onlardan faydalanır” cümlelerine bak: felsefe alanlara eleştirel yaklaşır, ama onlardan yararlanır; yani ilişki karşılıklıdır (3 puan). Adım 2: Bu alanları konu edindikçe felsefenin konu evreninin genişlediğini ekle (2 puan). Kısmi puan: karşılıklı ilişkiyi yazmazsan 3, konu evrenini genişletmeyi yazmazsan 2 puan düşer. Sadece “felsefe bilimi eleştirir” yazmak eksik kalır.",
+   "category": "Soru 1a: Felsefe ve diğer alanlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "1. b) Aynı metinden hareketle felsefenin metinde belirtilen sanat, din ve bilim alanlarıyla benzer ve farklı yönlerini yazınız. (2x5 puan) Benzer yönü: ... Farklı yönü: ...",
+   "correctAnswer": "Benzer yönü: Tüm bilgi alanları gibi felsefe de evreni ve insanı anlamayı amaçlar. Farklı yönü: Bilim deney ve gözleme, din inanca, sanat duygulara ve yaratıcılığa dayalı bir yöntemi benimser; felsefe ise derinlemesine sorgulayan bir bilinçle akıl ve mantık ilkelerine bağlı olarak bilgi üretir. Bilim sınanabilir varlıkları, din kutsalı, sanat güzeli konu edinir; felsefe varlığın tamamını konu edinir. Yöntemlerin ve konuların çeşitli olması nedeniyle felsefe bütüncül bir çerçeve sunması bakımından farklılaşır.",
+   "keyPoints": [
+    "Benzer yön: evreni ve insanı anlama ve açıklama çabası (5 puan)",
+    "Farklı yön: kullanılan yöntem ve kapsayıcılık (5 puan)"
+   ],
+   "maxPoints": 10,
+   "explanation": "Benzer yönde her alanın amacını düşün: hepsi evreni/insanı anlamak ister. Farklı yönde iki ölçüt ver: yöntem (deney-gözlem / inanç / duygu-yaratıcılık / akıl-mantık) ve kapsam (sınanabilir olan / kutsal / güzel / varlığın tamamı). Puan: benzer 5, farklı 5. Farklı yön sadece “yöntemleri farklı” demekle yetmez; yöntem ve kapsayıcılık örneklerini yaz.",
+   "category": "Soru 1b: Felsefe ve diğer alanlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "2. İnsanların duygularını ve bakış açılarını anlamaya çalışmak, güçlü sosyal bağlar kurmanın temelidir. Bu tür bağlar, bireylerin kendini güvende ve değerli hissetmesini sağlar. Kendini değerli hisseden insanlar ise çevresindeki kişilere karşı daha yapıcı tutumlar geliştirir. Bu yapıcı tutumlar da karşılıklı saygıyı artırır ve daha huzurlu bir ortam oluşmasına katkıda bulunur. Kısacası, empati sayesinde kurulan güçlü ilişkiler hem bireysel mutluluğu hem de toplumsal huzuru destekler. Metindeki argümanın öncüllerini ve sonuç önermesini yazınız. (5x3 puan)",
+   "correctAnswer": "1. Öncül: Empati, güçlü sosyal bağların oluşmasını sağlar. 2. Öncül: Güçlü sosyal bağlar, bireylerin kendini değerli hissetmesini sağlar. 3. Öncül: Kendini değerli hissedenler, etrafındaki insanlara yapıcı davranır. 4. Öncül: Yapıcı tutumlar, karşılıklı saygıyı destekler ve huzurlu bir ortam oluşturur. Sonuç: Empati temelli güçlü ilişkiler, bireysel mutluluğa ve toplumsal huzura katkı sağlar.",
+   "keyPoints": [
+    "Empati/anlama sosyal bağların temelidir (3)",
+    "Sosyal bağlar bireylerin daha iyi hissetmesini sağlar (3)",
+    "Değerli hisseden bireyler yapıcı tutum sergiler (3)",
+    "Yapıcı tutumlar karşılıklı saygı ve huzuru destekler (3)",
+    "Sonuç: empati temelli ilişkiler bireysel mutluluğu ve toplumsal huzuru destekler (3)"
+   ],
+   "maxPoints": 15,
+   "explanation": "Önce “Kısacası” ile başlayan son cümleyi sonuç olarak işaretle. Sonra metni soldan sağa dört halkaya böl: empati → bağ; bağ → değerli hissetme; değerli hissetme → yapıcı tutum; yapıcı tutum → saygı ve huzur. Her halkayı tek cümle yap. Puan: dört öncül ve sonuç 3’er puandır; eksik her halka 3 puan düşürür. İki fikri tek öncülde birleştirirsen puan kaybedersin, o yüzden zinciri bölerek yaz.",
+   "category": "Soru 2: Argüman",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "3. Yazılımcı: Nasıl ki bir tohum fidana sonrasında da ağaca; bir bebek çocuğa sonra bir yetişkine dönüşüyorsa varlıklara ilişkin bu durum yapay zekâ için de geçerlidir. Filozof: Yapay zekâ ile insanı varlık olmak bakımından aynı kefeye koymuyorsunuzdur umarım. Yazılımcı: Tabi ki her varlık birbirinden bazı yönlerden ayrılır. Zaten o varlığı “o varlık” yapan da onu diğerlerinden ayıran ve değişmeden kalan karakteristik özellikleridir. Ancak yapay zekâ da gelinen noktada “İnsan gibi sorgulama ve değerlendirme yapmaya başladı.” diyebiliriz. Filozof: Yapay zekâ ya da onunla üretilen herhangi bir araç kendi anlamını sorgulayamaz, kendini gerçekleştiremez. Bu yalnızca insana özgü bir durumdur. Yazılımcı: Bunu kabul edebilirim ama yine de onun bir varlık olduğunu savunmaktan vazgeçmem. Filozof: Bu iddiada bulunurken varlığı ne olarak kabul ediyorsunuz? ... Varlık dediğimizde aklınıza ne geliyor mesela? Yazılımcı: Benden bir varlık tanımı yapmamı beklemeyin. Ben filozof değilim. Ama düşüncemi netleştirmek ve yeniden değerlendirmek için sizin varlık tanımınızı duymak isterim. Filozof: Varlık uzayda ve mekânda yer kaplayan, hacmi olandır. Diyalogda verilen ifadelerle ilişkilendirilebilecek olan varlık felsefesinin temel kavramlarını bulunuz. Bu kavramları ve kavramlarla ilişkili açıklamaların diyalogda geçtiği cümle/cümleleri tablodaki uygun boşluklara yazınız. (Kavram 4x2, cümle 4x3 puan)",
+   "correctAnswer": "1. Oluş: “Nasıl ki bir tohum fidana sonrasında da ağaca; bir bebek çocuğa sonra bir yetişkine dönüşüyorsa varlıklara ilişkin bu durum yapay zekâ için de geçerlidir. Yapay zekâ da diğer bütün varlıklar gibi bir süreçten geçerek mevcut durumuna gelebildi.” 2. Öz: “Zaten o varlığı ‘o varlık’ yapan da onu diğerlerinden ayıran ve değişmeden kalan karakteristik özellikleridir.” 3. Varoluş: “Yapay zekâ ya da onunla üretilen herhangi bir araç kendi anlamını sorgulayamaz, kendini gerçekleştiremez. Bu yalnızca insana özgü bir durumdur.” 4. Madde: “Varlık uzayda ve mekânda yer kaplayan, hacmi olandır.”",
+   "keyPoints": [
+    "Oluş + tohum/bebek dönüşümü cümleleri",
+    "Öz + “değişmeden kalan karakteristik özellikler” cümlesi",
+    "Varoluş + “kendi anlamını sorgulayamaz, kendini gerçekleştiremez” cümlesi",
+    "Madde + “uzayda ve mekânda yer kaplayan” cümlesi",
+    "Kavram 2, cümle 3 puan"
+   ],
+   "maxPoints": 20,
+   "explanation": "Her kavramın tanımını bildiğinde cümleyi bulmak kolaydır: değişim/dönüşüm → oluş; değişmeyen belirleyici özellik → öz; insanın anlam sorgulaması ve kendini gerçekleştirmesi → varoluş; yer kaplayan, hacmi olan → madde. Cümleyi diyalogdan birebir alıntıla. Puan: kavram 2, cümle 3 (4×5=20). Kavram bulunmadan cümle yazmak puan getirmez; kavram doğru ama cümle eksikse 3 puan düşer.",
+   "category": "Soru 3: Varlık felsefesinin kavramları",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "4. Bir grup filozof ve bilim insanı bir konferansta karşılaşmışlar. Bir filozof “Biz gerçek miyiz? Bizim dışımızdaki şeyler var mı? Neye gerçek diyebiliriz?” diye sormuş. Bilim insanı hemen cevap vermiş: “Tabi ki biz gerçeğiz ve varız, tıpkı karşımızdaki şu ağaç gibi.” Bir diğer filozof “Bir yerde duyumsayabildiğimiz, algılayabildiğimiz somut bir şey varsa işte o varlıktır.” diyerek bilim insanını onaylamış. Bir başka filozof: “Hepsiniz yanılıyorsunuz. Ne bir şeylerin var olduğundan şüphe duyulabilir ne de var olan bu şekilde açıklanabilir. O ağaç şimdi var ama bin yıl sonra olmayacak... Oysa tek bir gerçeklik var, o mutlak anlamda bir, kalıcı, sürekli, değişmez ve düşünseldir...” demiş. Başka bir filozof da öfkeyle “Biz insanız, merak ediyor, anlamaya, bilmeye çalışıyoruz... Bizler var ve yok oluyoruz. Dünya diye bir gezegen var ve bu gezegende olup bitenler de belli neden-sonuç ilişkilerine bağlı. İşte biz var olanı tam da bu değişim hâliyle açıklayabiliriz.” demiş. Metinde tartışılan felsefi problemlerin neler olduğunu yazınız. (10 puan)",
+   "correctAnswer": "Metinde varlık felsefesinin iki temel problemi tartışılmaktadır: (1) Varlığın var olup olmadığı problemi (“Biz gerçek miyiz? Bizim dışımızdaki şeyler var mı?”), (2) Varlığın ne olduğu problemi (“Neye gerçek diyebiliriz?”; filozofların varlığı madde, düşünsel değişmez gerçeklik veya değişim olarak tanımlaması).",
+   "keyPoints": [
+    "Varlığın var olup olmadığı problemi (5 puan)",
+    "Varlığın ne olduğu problemi (5 puan)"
+   ],
+   "maxPoints": 10,
+   "explanation": "Sorular ve cevaplar iki katmandır. “Gerçek miyiz, dışımızda şeyler var mı?” varlığın var olup olmadığını sorar. “Neye gerçek diyebiliriz?” ve filozofların cevapları (madde / değişmez düşünsel gerçeklik / değişim) varlığın ne olduğuyla ilgilidir. Puan: her problem 5. Başka konular (bilgi, ahlak) yazarsan 0 alırsın.",
+   "category": "Soru 4: Varlık felsefesinin problemleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "5. (Aynı konferans metni.) Metindeki tartışmada savunulan felsefi akımlar ile bu akımların ortak ve farklı yönlerinin neler olduğunu tablodaki uygun yerlere yazınız. Felsefi Akımlar (3x4 puan), Ortak Yönü (4 puan), Farklı Yönü (4 puan).",
+   "correctAnswer": "Felsefi akımlar: 1. Materyalizm (duyumlanan somut maddeyi esas alan), 2. İdealizm (tek, mutlak, değişmez düşünsel gerçekliği esas alan), 3. Oluş felsefesi (varlığı değişim hâliyle açıklayan). Ortak yönü: Akımların tamamı varlığın var olduğunu kabul etmektedir. Farklı yönü: Akımların tamamı varlığın ne olduğu ve nitelikleri konusunda farklı görüşler ileri sürmektedir.",
+   "keyPoints": [
+    "Materyalizm",
+    "İdealizm",
+    "Oluş felsefesi",
+    "Ortak yön: varlığın var olduğunu kabul etme (4)",
+    "Farklı yön: varlığın ne olduğu/nitelikleri konusunda ayrışma (4)"
+   ],
+   "maxPoints": 20,
+   "explanation": "İkinci filozof “duyumsanabilen, somut” der: materyalizm. Üçüncü filozof “tek, kalıcı, değişmez, düşünsel” der: idealizm. Dördüncü filozof “değişim, neden-sonuç” der: oluş felsefesi. Ortak yön için dört filozofun hemfikir olduğu noktayı bul: hepsi varlığı kabul eder. Farklı yön, 4. sorudaki ikinci problemden gelir: “varlık nedir?”. Puan: her akım 4, ortak 4, farklı 4 (toplam 20).",
+   "category": "Soru 5: Varlık felsefesi akımları",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "6. Ali: Uzayda hayat olabileceğine inanıyorum. Artık elimizde birçok gözlemsel veri var: Ötegezegenler, su buzu, yaşama elverişli sıcaklıklar… Eğer teleskoplarımızla bir gezegende yaşam izine dair kanıtlar bulabiliyorsak bu durum bize uzayla ilgili doğru bilgi edinme şansı verir. Çünkü bilgiye duyular ve yaşantılar yoluyla ulaşılabilir. Ezgi: Ama senin “kanıt” dediğin şeyler aslında varsayımlara dayanıyor. Su bulmak yaşamı garanti etmez. Gözlemlerimiz sınırlı olabilir veya araçlarımızla edindiğimiz bilgiler hatalı olabilir. Bir şeyin gözlemlenmesi, onun kesinlikle doğru olduğu anlamına gelmez çünkü duyular yanıltıcıdır. Ali: Dünya’daki yaşam belirli koşullarda oluşmuştur... “Suyun canlılar için yaşamsal değeri vardır.” iddiası şüphe barındırmaz... Şüphe etmek doğaldır ama bunun karşısına bir yöntem koymalısın. Ezgi: Alternatif sunmak zorunda değilim. Sadece şunu söylüyorum: Hiçbir bilgi kesinlik içermez. Biz bu konuda kesinliğe ulaşamayız. Duyularımız ve onları taklit eden araçlarımız yanılabilir... Her bilgi varsayım içerir. Ali: Eğer her şeyden şüphe edersek, bilgi diye bir şey mümkün olmaz. Oysa insanlık bilgiyi biriktirerek ilerledi. Ay’a gittik, Mars’a araç gönderdik. Bunlar gözleme dayalı bilgilerin sonucudur. Diyalogdan hareketle, Ali ve Ezgi’nin bilgi anlayışlarını değerlendirerek şu soruların olası cevaplarını yazınız: (1) Doğru bilgi olanaklı mıdır? (2x2=4 puan) (2) Bilgiye ulaşmada hangi kaynaklar esas alınır? (2x4=8 puan) (3) Doğruluğun ölçütü nedir? (2x4=8 puan)",
+   "correctAnswer": "1. Doğru bilgi olanaklı mıdır? Ali: Evet olanaklıdır. Ezgi: Hayır olanaklı değildir. 2. Bilgi kaynakları: Ali: Bilginin kaynağı duyulardır ve bilgi dış dünyadan deneyim yoluyla elde edilir. Ezgi: Hiçbir kaynağa mutlak güven duyulamaz; tüm bilgi kaynaklarına, iddialarına ve bilginin güvenilirliğine şüpheyle yaklaşılmalıdır. 3. Doğruluğun ölçütü: Ali: Uygunluktur; bir ifade bildirdiği iddianın nesnesi ile uyumluysa ve örtüşüyorsa doğrudur. Ezgi: Kesin bilgi ve mutlak doğru yoktur; her önerme şüphelidir ve nihai bir ölçütle doğrulanamaz.",
+   "keyPoints": [
+    "Ali: doğru bilgi olanaklıdır (2)",
+    "Ezgi: doğru bilgi olanaklı değildir (2)",
+    "Ali: kaynak duyular/deneyim (4)",
+    "Ezgi: hiçbir kaynağa mutlak güven yok, şüphe (4)",
+    "Ali: ölçüt uygunluk (4)",
+    "Ezgi: kesin ölçüt/mutlak doğru yoktur (4)"
+   ],
+   "maxPoints": 20,
+   "explanation": "Her karakter için üç cümle kur: Ali bilginin mümkün olduğunu, duyulardan geldiğini, nesneyle örtüşmeyle doğrulandığını söyler. Ezgi bilginin olanaksız olduğunu, kaynakların güvenilmez olduğunu, nihai ölçüt olmadığını söyler. İpuçları: Ali “Çünkü bilgiye duyular ve yaşantılar yoluyla ulaşılabilir”, Ezgi “Hiçbir bilgi kesinlik içermez”. Puan: soru 1 için 2’şer, soru 2 ve 3 için 4’er puan; hatalı veya ilgisiz her cevap için o kadar puan düşer.",
+   "category": "Soru 6: Bilgi felsefesi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir sanat tarihçisi, bir fizikçi ve bir filozof “Zaman nedir?” sorusuna kendi yöntemleriyle cevap arıyor. Bu durumda felsefenin bilim ve sanatla benzer ve farklı yönlerini yazınız.",
+   "correctAnswer": "Benzer yönü: hepsi evreni ve insanı (burada zamanı) anlamaya ve açıklamaya çalışır. Farklı yönü: fizikçi deney ve gözleme, sanatçı duygu ve yaratıcılığa dayanır; filozof ise akıl ve mantıkla zamanın ne olduğunu sorgular ve konuyu bütüncül ele alır.",
+   "keyPoints": [
+    "Benzer yön: anlama ve açıklama çabası",
+    "Farklı yön: yöntem",
+    "Farklı yön: kapsayıcılık/bütüncül bakış"
+   ],
+   "maxPoints": 10,
+   "explanation": "Benzer–farklı sorularında önce ortak amaç, sonra iki ölçüt (yöntem, kapsam) ver. Zaman örneğine uygulamak cevabı somutlaştırır.",
+   "category": "Benzer soru: Felsefe ve diğer alanlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Felsefe, dinin iddialarını eleştirdiği gibi onlardan da yararlanır ve bu süreçte kendi konu evrenini genişletir.” Bu cümleyi felsefenin dinle ilişkisi bakımından açıklayınız.",
+   "correctAnswer": "Felsefe ile din karşılıklı ilişki içindedir: felsefe dinin hakikat ve anlam iddialarını akıl ve mantıkla sorgular ve değerlendirir; din, felsefenin yeni sorular (Tanrı, kötülük, ölüm sonrası gibi) üretmesini sağlayarak konu evrenini genişletir.",
+   "keyPoints": [
+    "Karşılıklı ilişki",
+    "Eleştirel yaklaşım",
+    "Konu evreninin genişlemesi"
+   ],
+   "maxPoints": 5,
+   "explanation": "1a sorusundaki iki kriteri dine uygula: karşılıklı ilişki + eleştiri/konu genişlemesi.",
+   "category": "Benzer soru: Felsefe ve diğer alanlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki cümleleri “bilim, din, sanat veya felsefe”ye ait yöntem ve konu bakımından eşleştirerek yazınız: (a) “Deney yaparak sınanabilir sonuç elde ederim.” (b) “Duygularımı biçim ve renkle ifade ederim.” (c) “Her şeyin ne olduğunu akıl yürüterek sorguluyorum.”",
+   "correctAnswer": "(a) Bilim: yöntemi deney-gözlem, konusu sınanabilir varlıklar. (b) Sanat: yöntemi duygu ve yaratıcılık, konusu güzel olan. (c) Felsefe: yöntemi akıl ve mantıkla sorgulama, konusu varlığın tamamı.",
+   "keyPoints": [
+    "Bilim eşleşmesi",
+    "Sanat eşleşmesi",
+    "Felsefe eşleşmesi"
+   ],
+   "maxPoints": 6,
+   "explanation": "Yöntem + konu ikilisi, farklı yön cevabının iskeletidir.",
+   "category": "Benzer soru: Felsefe ve diğer alanlar",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Filozof, bilim insanının verilerini kullanır ama onların nasıl elde edildiğini sorgular.” Bu cümle felsefenin bilim ile ilişkisinde hangi iki özelliği gösterir?",
+   "correctAnswer": "Yararlanma (karşılıklı ilişki) ve eleştirel sorgulama: felsefe verilerden yararlanır, yöntemlerin güvenilirliğini eleştirel biçimde değerlendirir.",
+   "keyPoints": [
+    "Karşılıklı ilişki",
+    "Eleştirel sorgulama"
+   ],
+   "maxPoints": 4,
+   "explanation": "Metindeki “onları hem irdeler hem de onlardan faydalanır” ifadesinin açıklamasıdır.",
+   "category": "Benzer soru: Felsefe ve diğer alanlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir sanat galerisinde bir ziyaretçi eserin neden güzel bulunduğunu, güzelliğin ölçütünün ne olduğunu sorgulamaktadır. Bu davranış felsefenin sanatla ilişkisini nasıl gösterir?",
+   "correctAnswer": "Felsefe sanatın ürünlerini ve güzellik iddialarını akıl yoluyla sorgular; sanatı kendine konu edinerek konu evrenini genişletir.",
+   "keyPoints": [
+    "Güzellik iddiasını sorgulama",
+    "Sanatı konu edinme"
+   ],
+   "maxPoints": 4,
+   "explanation": "Felsefenin diğer alanlara eleştirel yaklaşmasına örnektir.",
+   "category": "Benzer soru: Felsefe ve diğer alanlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Ali okula gitmenin başarıyı artırdığını, çünkü derslere katılan öğrencilerin daha çok öğrendiğini ve daha çok öğrenen öğrencilerin başarılı olduğunu söylüyor. Bu nedenle okula devam etmek gerekir.” Argümanın öncüllerini ve sonucunu yazınız.",
+   "correctAnswer": "1. Öncül: Derslere katılan öğrenciler daha çok öğrenir. 2. Öncül: Daha çok öğrenen öğrenciler başarılı olur. Sonuç: Okula devam etmek gerekir.",
+   "keyPoints": [
+    "İki öncül",
+    "Sonuç",
+    "Zincirleme ilişki"
+   ],
+   "maxPoints": 9,
+   "explanation": "“Bu nedenle” sonuç işaretidir; öncüller zincirleme ilerler (katılım → öğrenme → başarı). Sonucu “gerekir” önermesi olarak yaz.",
+   "category": "Benzer soru: Argüman",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Düzenli okuyan insanların kelime hazinesi gelişir. Zengin kelime hazinesi, düşüncelerini daha net ifade etmeyi sağlar. Net ifade eden kişiler iletişimde daha başarılıdır. Kısacası okuma, iletişim becerisini artırır.” Bu metindeki 3 öncülü ve sonucu belirleyiniz.",
+   "correctAnswer": "1. Öncül: Düzenli okumak kelime hazinesini geliştirir. 2. Öncül: Zengin kelime hazinesi düşünceleri net ifade etmeyi sağlar. 3. Öncül: Net ifade eden kişi iletişimde daha başarılıdır. Sonuç: Okuma iletişim becerisini artırır.",
+   "keyPoints": [
+    "Üç öncül",
+    "Sonuç önermesi"
+   ],
+   "maxPoints": 12,
+   "explanation": "“Kısacası” sonucu verir. Her cümle bir halka; tek cümlede iki fikir yoktur.",
+   "category": "Benzer soru: Argüman",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Su kaynaklarını korumayan toplumlar kuraklık yaşar. Kuraklık tarımı zayıflatır. Zayıf tarım gıda fiyatlarını artırır. Bu yüzden su kaynaklarını korumak toplumun refahı için önemlidir.” Sonuç önermesini ve öncüllerin sırasını yazınız.",
+   "correctAnswer": "Öncüller: (1) Su kaynaklarını korumayan toplumlar kuraklık yaşar. (2) Kuraklık tarımı zayıflatır. (3) Zayıf tarım gıda fiyatlarını artırır. Sonuç: Su kaynaklarını korumak toplumun refahı için önemlidir.",
+   "keyPoints": [
+    "Üç öncül sırayla",
+    "Sonuç"
+   ],
+   "maxPoints": 8,
+   "explanation": "“Bu yüzden” sonuç belirteci; öncüller nedensel zincirdir.",
+   "category": "Benzer soru: Argüman",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki iki cümleden hangisi argüman olarak kullanılabilir? Gerekçesini yazınız. (a) “Kitap okumak güzel.” (b) “Kitap okumak kelime dağarcığını geliştirir; geliştirilmiş kelime dağarcığı yazma becerisini artırır. Bu nedenle kitap okumak yazma becerisine katkı sağlar.”",
+   "correctAnswer": "(b) argüman olarak kullanılabilir: iki öncül ve bu öncüllerden çıkan bir sonuç içerir. (a) yalnızca bir yargıdır, desteklenmemiştir.",
+   "keyPoints": [
+    "(b) seçimi",
+    "Öncül + sonuç yapısı"
+   ],
+   "maxPoints": 5,
+   "explanation": "Argümanın şartı öncül–sonuç ilişkisidir; “bu nedenle” bunu işaretler.",
+   "category": "Benzer soru: Argüman",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Çocukları sevgiyle yetiştirmek, onların özgüven kazanmasını sağlar. Özgüvenli çocuklar sosyal ilişkilerde başarılı olur. Sosyal ilişkilerde başarılı bireyler topluma olumlu katkı sağlar. Dolayısıyla çocukları sevgiyle yetiştirmek topluma olumlu katkı sağlar.” Metindeki zinciri üç öncül ve bir sonuçla yazınız.",
+   "correctAnswer": "1. Sevgiyle yetiştirmek özgüven kazandırır. 2. Özgüvenli çocuklar sosyal ilişkilerde başarılıdır. 3. Başarılı sosyal ilişkiler topluma olumlu katkı sağlar. Sonuç: Sevgiyle yetiştirmek topluma olumlu katkı sağlar.",
+   "keyPoints": [
+    "Üç öncül",
+    "Sonuç"
+   ],
+   "maxPoints": 12,
+   "explanation": "“Dolayısıyla” sonucu işaret eder. Empati argümanıyla aynı kalıptır.",
+   "category": "Benzer soru: Argüman",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Empati argümanında “kendini değerli hisseden insanlar yapıcı tutumlar geliştirir” öncülü hangi iki halkayı birbirine bağlar?",
+   "correctAnswer": "Bireylerin değerli hissetmesi halkasını, yapıcı tutum halkasına bağlar: sosyal bağlar değerli hissettirir, değerli hissetmek yapıcı tutuma, yapıcı tutum karşılıklı saygıya götürür.",
+   "keyPoints": [
+    "Değerli hissetme",
+    "Yapıcı tutum"
+   ],
+   "maxPoints": 4,
+   "explanation": "Zincirleme argümanda her öncül bir önceki sonucu bir sonrakine bağlar.",
+   "category": "Benzer soru: Argüman",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Her gün yürüyüş yapan insanlar kalp sağlığını korur. Kalp sağlığı iyi olan insanlar uzun yaşar. Bu yüzden her gün yürüyüş uzun yaşamak için önemlidir.” Zincirleme argümanın sonucu ile çıkarılabilecek bir ara sonucu yazınız.",
+   "correctAnswer": "Ara sonuç: Her gün yürüyüş yapan insanlar uzun yaşar. Esas sonuç: Her gün yürüyüş uzun yaşamak için önemlidir.",
+   "keyPoints": [
+    "Ara sonuç",
+    "Esas sonuç"
+   ],
+   "maxPoints": 4,
+   "explanation": "İki öncül birleştirilince ara sonuç çıkar; ara sonuç esas sonucu destekler.",
+   "category": "Benzer soru: Argüman",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki cümleler hangi varlık felsefesi kavramına örnektir? Gerekçesini yazınız. (1) “Buz erir, su olur, buharlaşır ve bulut olur.” (2) “Kedi, kedi olarak kalır; tüyü değişse de ‘kedilik’ bozulmaz.” (3) “Masa odanın içinde yer kaplar, kütlesi vardır.”",
+   "correctAnswer": "(1) Oluş: bir hâlden başka hâle dönüşme süreci. (2) Öz: değişmeden kalan karakteristik nitelik. (3) Madde: uzayda yer kaplayan, hacmi olan.",
+   "keyPoints": [
+    "Oluş",
+    "Öz",
+    "Madde"
+   ],
+   "maxPoints": 9,
+   "explanation": "Dönüşüm → oluş; değişmeyen çekirdek → öz; yer kaplama → madde.",
+   "category": "Benzer soru: Varlık felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“İnsan yalnızca yaşamakla kalmaz; kendi yaşamının anlamını sorgular ve geleceğini kendisi inşa eder.” Bu cümle varlık felsefesinin hangi kavramıyla ilgilidir? Neden?",
+   "correctAnswer": "Varoluş: insanın kendi anlamını sorgulaması ve kendini gerçekleştirmesi insana özgü bir var olma biçimidir.",
+   "keyPoints": [
+    "Varoluş",
+    "Anlam sorgulama ve kendini gerçekleştirme"
+   ],
+   "maxPoints": 4,
+   "explanation": "Yazılımcı–filozof diyalogunda varoluş cümlesi aynı ifadeyi taşır.",
+   "category": "Benzer soru: Varlık felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir öğrenci diyor ki: “Yapay zekâ bir varlıktır, çünkü çalışırken enerji harcar, bir donanımı vardır, uzayda yer kaplar.” Bu öğrencinin varlık anlayışı hangi kavramı temel alır? Gerekçelendirin.",
+   "correctAnswer": "Madde: varlığı uzayda yer kaplama, hacim ve enerji gibi maddi özelliklere indirgemiştir; bu nedenle maddeyi temel alan (materyalist) bir varlık anlayışıdır.",
+   "keyPoints": [
+    "Madde kavramı",
+    "Yer kaplama/hacim gerekçesi"
+   ],
+   "maxPoints": 5,
+   "explanation": "Filozofun varlık tanımı da aynıdır: uzayda yer kaplayan, hacmi olan.",
+   "category": "Benzer soru: Varlık felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir ağaç tohumdan meşe olurken “meşe olma”yı sağlayan ve değişmeyen temel nitelik hangi kavramla ifade edilir? Değişen süreç hangi kavramla?",
+   "correctAnswer": "Değişmeyen temel nitelik: öz. Değişen süreç: oluş.",
+   "keyPoints": [
+    "Öz",
+    "Oluş"
+   ],
+   "maxPoints": 4,
+   "explanation": "Tohum–ağaç dönüşümü oluş, “meşelik” özdür.",
+   "category": "Benzer soru: Varlık felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Sınıfımda mavi bir gömlek var.” cümlesi varlığın var olup olmadığı problemiyle mi, varlığın ne olduğu problemiyle mi ilgilidir? Peki “Varlık yalnızca maddeden mi oluşur?” sorusu?",
+   "correctAnswer": "Birinci cümle bir şeyin var olduğunu kabul eden gündelik bir önermedir (varlığın var olup olmadığı sorusuyla ilgilidir); “Varlık yalnızca maddeden mi oluşur?” sorusu varlığın ne olduğu problemidir.",
+   "keyPoints": [
+    "Var olup olmadığı problemi",
+    "Ne olduğu problemi"
+   ],
+   "maxPoints": 5,
+   "explanation": "“Var mı?” ve “ne?” sorularını ayır: ilki varlığın kabulü, ikincisi niteliği.",
+   "category": "Benzer soru: Varlık felsefesi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Dışımızdaki dünya zihnimizin ürünüdür, gerçek olan sadece düşüncedir.” görüşü hangi felsefi akıma yakındır? Gerekçesini yazınız.",
+   "correctAnswer": "İdealizm: gerçekliği düşünsel/zihinsel olana bağlar, maddi dünyayı ikincil görür.",
+   "keyPoints": [
+    "İdealizm",
+    "Düşünsel gerçeklik gerekçesi"
+   ],
+   "maxPoints": 4,
+   "explanation": "Düşünsel, mutlak ve değişmez gerçeklik vurgusu idealizmdir.",
+   "category": "Benzer soru: Varlık felsefesi akımları",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Hiçbir şey olduğu gibi kalmaz; nehir de, insan da, düşünce de sürekli değişir.” cümlesi hangi akıma uygundur ve neden?",
+   "correctAnswer": "Oluş felsefesi: varlığı değişim ve akış olarak açıklar.",
+   "keyPoints": [
+    "Oluş felsefesi",
+    "Değişim gerekçesi"
+   ],
+   "maxPoints": 4,
+   "explanation": "Herakleitos’un “her şey akar” görüşüne benzer.",
+   "category": "Benzer soru: Varlık felsefesi akımları",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Var olan, dokunabildiğim, ölçebildiğim ve gözlemleyebildiğim her şeydir; yalnızca düşüncede var olan bir şeyi varlık saymam.” Bu görüşü hangi akıma bağlarsınız?",
+   "correctAnswer": "Materyalizm: varlığı madde ve algılanabilir somut şeylerle sınırlar.",
+   "keyPoints": [
+    "Materyalizm",
+    "Somut ve algılanabilir"
+   ],
+   "maxPoints": 4,
+   "explanation": "Konferans metninde ikinci filozofun (algılanabilir somut) görüşüne benzer.",
+   "category": "Benzer soru: Varlık felsefesi akımları",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Materyalizm, idealizm ve oluş felsefesinin ortak ve farklı yönlerini bir cümlede özetleyiniz.",
+   "correctAnswer": "Üçü de varlığın var olduğunu kabul eder; fakat varlığın madde mi, düşünsel mi yoksa değişim mi olduğu konusunda ayrışır.",
+   "keyPoints": [
+    "Ortak: varlığın var olduğu",
+    "Farklı: varlığın ne olduğu"
+   ],
+   "maxPoints": 8,
+   "explanation": "Ortak: “var mı?” sorusuna evet; farklı: “nedir?” sorusuna cevap.",
+   "category": "Benzer soru: Varlık felsefesi akımları",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Bütün gerçeklik tek bir ruhsal ilkenin görünümüdür.” görüşü hakkında materyalist ve oluş felsefesi savunucuları ne söyleyebilir?",
+   "correctAnswer": "Materyalist: gerçekliğin temeli ruhsal değil maddedir; algılanabilir şeyler esas alınmalıdır. Oluş felsefesi savunucusu: gerçeklik tek ve değişmez değil, sürekli değişim hâlindedir.",
+   "keyPoints": [
+    "Materyalist itiraz",
+    "Oluş felsefesi itirazı"
+   ],
+   "maxPoints": 8,
+   "explanation": "İdealizme karşı iki akımın farklı itirazı: madde vurgusu ve değişim vurgusu.",
+   "category": "Benzer soru: Varlık felsefesi akımları",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir bilim insanı “ancak deneyle sınanabilen şeyler varlık sayılır” diyorsa hangi akıma yakındır? Bu durumda bilgi felsefesinde bilginin kaynağı ne olur?",
+   "correctAnswer": "Materyalizme yakındır; bilginin kaynağı duyu ve deney yani empirik gözlemdir.",
+   "keyPoints": [
+    "Materyalizm",
+    "Duyu-deney"
+   ],
+   "maxPoints": 5,
+   "explanation": "Varlık anlayışı ile bilgi anlayışı arasındaki ilişkiyi kurar.",
+   "category": "Benzer soru: Varlık felsefesi akımları",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Doğru bilgi mümkün değildir, çünkü her bilgi kaynağı hata yapabilir.” diyen kişi bilginin olanağı, kaynağı ve ölçütü açısından nasıl bir tutum içindedir?",
+   "correctAnswer": "Olanak: doğru bilgi olanaksızdır. Kaynak: hiçbir kaynağa mutlak güvenilemez. Ölçüt: kesin bir doğruluk ölçütü yoktur. Bu tavır şüpheciliktir (septisizm).",
+   "keyPoints": [
+    "Olanaksızlık",
+    "Kaynak güvensizliği",
+    "Ölçüt yokluğu"
+   ],
+   "maxPoints": 8,
+   "explanation": "Ezgi her üç soruda da kesinliği reddeder: bilgi olanaksız, kaynaklar güvenilmez, nihai ölçüt yoktur; bu tavır septisizmdir.",
+   "category": "Benzer soru: Bilgi felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Gördüğüme, dokunduğuma, ölçtüğüme inanırım; bilgi deneyimle kazanılır; bir önerme gerçeklikle örtüşüyorsa doğrudur.” Bu kişi bilgi felsefesinin üç sorusuna nasıl cevap verir?",
+   "correctAnswer": "Olanak: doğru bilgi mümkündür. Kaynak: duyular ve deney. Ölçüt: uygunluk, yani gerçeklikle örtüşme.",
+   "keyPoints": [
+    "Olanaklı",
+    "Duyu-deney",
+    "Uygunluk"
+   ],
+   "maxPoints": 8,
+   "explanation": "Duyu ve deneyi kaynak, uygunluğu ölçüt alan ve doğru bilginin mümkün olduğunu savunan kişi Ali ile aynı çizgidedir.",
+   "category": "Benzer soru: Bilgi felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir öğrenci “Matematikte bilgi akıl yoluyla bulunur, deneye gerek yoktur.” diyor. Bu görüş bilgi kaynağı açısından hangi yaklaşıma yakındır ve Ali’nin yaklaşımıyla farkı nedir?",
+   "correctAnswer": "Rasyonalizme yakındır: bilgi kaynağı akıldır. Ali ise bilgiyi duyulardan ve deneyimden elde edilir sayar (empirizm).",
+   "keyPoints": [
+    "Rasyonalizm",
+    "Empirizmle fark"
+   ],
+   "maxPoints": 6,
+   "explanation": "Bilgi kaynağı sorusunda temel ayrım akıl (rasyonalizm) ve duyu-deney (empirizm) arasındadır; matematikte akla vurgu rasyonalizmdir.",
+   "category": "Benzer soru: Bilgi felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Bir önerme diğer bilinen önermelerle çelişmiyorsa doğrudur.” Bu görüş hangi doğruluk ölçütüne aittir ve uygunluk ölçütünden farkı nedir?",
+   "correctAnswer": "Tutarlılık ölçütü: önermenin bilgi sistemi içindeki uyumuna bakar. Uygunluk ise önermenin dış dünyadaki nesneyle örtüşüp örtüşmediğine bakar.",
+   "keyPoints": [
+    "Tutarlılık",
+    "Uygunlukla fark"
+   ],
+   "maxPoints": 6,
+   "explanation": "Tutarlılık önermenin diğer önermelerle iç uyumuna, uygunluk ise önermenin dış dünyadaki nesneyle örtüşmesine bakar.",
+   "category": "Benzer soru: Bilgi felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Bir bilgi işe yarıyorsa doğrudur.” Bu cümle hangi doğruluk ölçütüne uygundur? Bu ölçütün zayıf yanını yazınız.",
+   "correctAnswer": "Yararlılık ölçütü. Zayıf yanı: yararlı olan her bilgi doğru olmayabilir; yararlı bir yanılgı da olabilir.",
+   "keyPoints": [
+    "Yararlılık",
+    "Zayıf yan"
+   ],
+   "maxPoints": 6,
+   "explanation": "Yararlılık ölçütünü tanımla (işe yarayan doğrudur), sonra yararlı ama yanlış olabilecek bilgilere işaret ederek eleştiri getir.",
+   "category": "Benzer soru: Bilgi felsefesi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Ali ve Ezgi tartışmasında Ali’nin “her şeyden şüphe edersek bilgi mümkün olmaz” cümlesi ne anlatır?",
+   "correctAnswer": "Aşırı şüphenin bilgiyi imkânsız kıldığını, şüphenin bir yöntemle dengelenmesi gerektiğini ve gözleme dayalı bilginin ilerlemesini savunur.",
+   "keyPoints": [
+    "Aşırı şüphenin sonucu",
+    "Yöntem vurgusu"
+   ],
+   "maxPoints": 5,
+   "explanation": "Ali septisizmi bilginin ilerlemesiyle çürütmeye çalışır (Ay’a gittik, Mars’a araç gönderdik).",
+   "category": "Benzer soru: Bilgi felsefesi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Ezgi’nin “Ne kadar bilirsek bilelim, her bilgi varsayım içerir.” sözünü bilgi felsefesinde hangi tutum olarak adlandırırsınız?",
+   "correctAnswer": "Septisizm (şüphecilik): her bilginin güvenilirliği tartışmalıdır.",
+   "keyPoints": [
+    "Septisizm"
+   ],
+   "maxPoints": 3,
+   "explanation": "Kesinlik yok, varsayım var, ölçüt yok: şüphecilik.",
+   "category": "Benzer soru: Bilgi felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir hâkim, bir iddianın doğru olup olmadığına karar verirken tanıkların anlattıklarının kamera görüntüleriyle örtüşüp örtüşmediğine bakıyor. Hangi doğruluk ölçütünü kullanır? Gerekçeyi yazınız.",
+   "correctAnswer": "Uygunluk: iddia, gerçekle (görüntülerle) örtüşüyorsa doğru kabul edilir.",
+   "keyPoints": [
+    "Uygunluk",
+    "Örtüşme gerekçesi"
+   ],
+   "maxPoints": 4,
+   "explanation": "Bildirilen iddia ile nesne/olay arasındaki örtüşme.",
+   "category": "Benzer soru: Bilgi felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bilgi felsefesi ile varlık felsefesi arasındaki temel soru farkını bir örnekle gösteriniz.",
+   "correctAnswer": "Varlık felsefesi “Varlık var mı, nedir?” sorusunu sorar; bilgi felsefesi “Bu varlığı bilebilir miyiz, nasıl, hangi ölçütle?” sorusunu sorar. Örnek: ağacın var olup olmadığı varlık, ağaç hakkında doğru bilgi edinip edinemeyeceğimiz bilgi felsefesi sorusudur.",
+   "keyPoints": [
+    "Varlık sorusu",
+    "Bilgi sorusu",
+    "Örnek"
+   ],
+   "maxPoints": 6,
+   "explanation": "Konferans metni varlık, uzay tartışması bilgi felsefesi üzerinedir.",
+   "category": "Benzer soru: Bilgi felsefesi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Felsefenin bilim, din ve sanatla ortak yönü aşağıdakilerden hangisidir?",
+   "options": [
+    "Evreni ve insanı anlama ve açıklama çabası",
+    "Deney ve gözleme dayanma",
+    "Yalnızca inanca dayanma",
+    "Yalnızca duygulara dayanma"
+   ],
+   "correct": 0,
+   "explanation": "Ortak yön amaçtır; deney bilimin, inanç dinin, duygu sanatın yöntemidir.",
+   "category": "Felsefe ve diğer alanlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi felsefenin diğer alanlardan farkını en iyi açıklar?",
+   "options": [
+    "Yalnızca duygulara dayanması",
+    "Akıl ve mantık ilkelerine bağlı sorgulama ile varlığın tamamını konu edinmesi",
+    "Yalnızca sınanabilir olanı incelemesi",
+    "Hiçbir yöntem kullanmaması"
+   ],
+   "correct": 1,
+   "explanation": "Felsefe yöntem (akıl-mantık) ve kapsam (varlığın tamamı) bakımından farklıdır.",
+   "category": "Felsefe ve diğer alanlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "“Onlar ... hem irdeler hem de onlardan faydalanır.” ifadesi felsefenin diğer alanlarla hangi ilişkisini gösterir?",
+   "options": [
+    "Tamamen bağımsızlığını",
+    "Onları yok saydığını",
+    "Karşılıklı ilişkisini",
+    "Yalnızca sanatla ilişkisini"
+   ],
+   "correct": 2,
+   "explanation": "Hem eleştirmek hem yararlanmak karşılıklı ilişkidir.",
+   "category": "Felsefe ve diğer alanlar",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi “oluş” kavramına örnektir?",
+   "options": [
+    "Masanın yer kaplaması",
+    "Bir varlığı varlık yapan temel özellik",
+    "İnsanın anlamını sorgulaması",
+    "Tohumun fidana, fidanın ağaca dönüşmesi"
+   ],
+   "correct": 3,
+   "explanation": "Oluş dönüşüm sürecidir. Diğer seçenekler madde, öz ve varoluşu gösterir.",
+   "category": "Varlık felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "“Varlığı o varlık yapan ve değişmeden kalan özellikler” hangi kavramdır?",
+   "options": [
+    "Öz",
+    "Oluş",
+    "Madde",
+    "Varoluş"
+   ],
+   "correct": 0,
+   "explanation": "Öz, bir varlığı o varlık yapan ve değişmeden kalan niteliktir; oluş ise değişim sürecidir.",
+   "category": "Varlık felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "“Biz gerçek miyiz? Bizim dışımızdaki şeyler var mı?” soruları hangi felsefi problemi gösterir?",
+   "options": [
+    "Varlığın ne olduğu",
+    "Varlığın var olup olmadığı",
+    "Doğruluk ölçütü",
+    "İyinin tanımı"
+   ],
+   "correct": 1,
+   "explanation": "Bu sorular varlığın var olup olmadığını sorgular; neyin gerçek sayılacağı sorusu ise varlığın ne olduğu problemidir.",
+   "category": "Varlık felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "“Tek gerçeklik mutlak, kalıcı, değişmez ve düşünseldir.” sözü hangi akımın görüşüdür?",
+   "options": [
+    "Materyalizm",
+    "Oluş felsefesi",
+    "İdealizm",
+    "Septisizm"
+   ],
+   "correct": 2,
+   "explanation": "Düşünsel ve değişmez gerçeklik idealizmdir.",
+   "category": "Varlık felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Ezgi’nin bilgi anlayışı için hangisi doğrudur?",
+   "options": [
+    "Bilgi yalnızca duyulardan gelir ve doğrudur",
+    "Bilgi yalnızca akıldan gelir ve kesindir",
+    "Bilgi ölçütü uygunluktur",
+    "Hiçbir kaynağa mutlak güvenilemez ve kesin bilgi yoktur"
+   ],
+   "correct": 3,
+   "explanation": "Ezgi şüpheci yaklaşır; uygunluk ölçütü Ali’nindir.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Ali’ye göre doğruluğun ölçütü nedir?",
+   "options": [
+    "İfadenin bildirdiği nesneyle örtüşmesi",
+    "İfadenin işe yaraması",
+    "İfadenin çoğunluk tarafından kabul edilmesi",
+    "İfadenin inançla uyumlu olması"
+   ],
+   "correct": 0,
+   "explanation": "Ali, ifadenin bildirdiği nesneyle uyumlu ve örtüşüyorsa doğru sayar; bu uygunluk ölçütüdür.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi bilginin kaynağı olarak akla vurgu yapar?",
+   "options": [
+    "Empirizm",
+    "Rasyonalizm",
+    "Septisizm",
+    "Materyalizm"
+   ],
+   "correct": 1,
+   "explanation": "Rasyonalizm akıl, empirizm duyu-deney der.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Bir argümanın sonucu hangi sözcüklerle işaretlenebilir?",
+   "options": [
+    "Ayrıca, örneğin, ancak",
+    "Belki, galiba, sanki",
+    "Kısacası, bu nedenle, dolayısıyla",
+    "Çünkü, zira, nasıl ki"
+   ],
+   "correct": 2,
+   "explanation": "Sonuç bağlaçları bu sözcüklerdir; “çünkü” öncülü işaret eder.",
+   "category": "Argüman",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "“Bu iddiada bulunurken varlığı ne olarak kabul ediyorsunuz?” sorusu hangi felsefi problemi çağrıştırır?",
+   "options": [
+    "Varlığın var olup olmadığı",
+    "Bilginin kaynağı",
+    "Sanat eserinin değeri",
+    "Varlığın ne olduğu"
+   ],
+   "correct": 3,
+   "explanation": "Filozof yazılımcıdan varlığın tanımını ister.",
+   "category": "Varlık felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "true-false",
+   "question": "Felsefe bilim, din ve sanatı yok sayar.",
+   "correct": false,
+   "explanation": "Felsefe onlarla karşılıklı ilişki içindedir; eleştirir ve yararlanır.",
+   "category": "Felsefe ve diğer alanlar",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Bilim sınanabilir olanı, felsefe varlığın tamamını konu edinir.",
+   "correct": true,
+   "explanation": "Bilim sınanabilir varlıkları inceler; felsefe ise varlığın tamamını konu edinir, bu kapsayıcılık farkıdır.",
+   "category": "Felsefe ve diğer alanlar",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Oluş kavramı değişmeyen özü ifade eder.",
+   "correct": false,
+   "explanation": "Oluş değişimi, öz değişmeyeni ifade eder.",
+   "category": "Varlık felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Ali doğru bilginin olanaklı olduğunu savunur.",
+   "correct": true,
+   "explanation": "Ali bilginin duyu ve deneyle elde edilebileceğini söyler.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Tüm felsefi akımlar varlığın ne olduğu konusunda aynı görüştedir.",
+   "correct": false,
+   "explanation": "Akımların ortak yönü varlığı kabul etmeleri, farkı ne olduğu konusudur.",
+   "category": "Varlık felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Argümanda sonuç önermesi öncüllerden çıkarılan yargıdır.",
+   "correct": true,
+   "explanation": "Sonuç önermesi, öncüllerin desteklediği ve onlardan çıkarılan yargıdır; öncüller sonuca dayanak olur.",
+   "category": "Argüman",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Varlık uzayda ve mekânda yer kaplayan, hacmi olandır: bu tanım ____ kavramına aittir.",
+   "answers": [
+    "madde"
+   ],
+   "explanation": "Madde yer kaplayan ve hacmi olan şeydir.",
+   "category": "Varlık felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Doğru bilginin olanaksız olduğunu savunan görüşe ____ denir.",
+   "answers": [
+    "septisizm",
+    "şüphecilik"
+   ],
+   "explanation": "Doğru bilginin olanaksız olduğunu savunan Ezgi’nin tavrı septisizm (şüphecilik) olarak adlandırılır.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Bilginin kaynağını duyu ve deneyde gören görüş ____.",
+   "answers": [
+    "empirizm"
+   ],
+   "explanation": "Ali bilginin kaynağını duyular ve dış dünyadan edinilen deneyim olarak görür; bu empirizmdir.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Bilgi felsefesine ____ de denir.",
+   "answers": [
+    "epistemoloji"
+   ],
+   "explanation": "Epistemoloji, bilginin olanağını, kaynağını ve doğruluk ölçütünü inceleyen bilgi felsefesinin adıdır.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "matching",
+   "question": "Kavramları açıklamalarıyla eşleştiriniz.",
+   "pairs": [
+    {
+     "left": "Oluş",
+     "right": "Süreç içinde bir hâlden başka hâle dönüşme"
+    },
+    {
+     "left": "Öz",
+     "right": "Değişmeden kalan karakteristik özellik"
+    },
+    {
+     "left": "Varoluş",
+     "right": "İnsanın kendini gerçekleştirmesi"
+    },
+    {
+     "left": "Madde",
+     "right": "Uzayda yer kaplayan, hacmi olan"
+    }
+   ],
+   "explanation": "Oluş değişim sürecini, öz değişmeyen niteliği, varoluş insana özgü kendini gerçekleştirmeyi, madde yer kaplamayı anlatır.",
+   "category": "Varlık felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "matching",
+   "question": "Akımları temel iddialarıyla eşleştiriniz.",
+   "pairs": [
+    {
+     "left": "Materyalizm",
+     "right": "Gerçek olan duyumsanabilir somut maddedir"
+    },
+    {
+     "left": "İdealizm",
+     "right": "Gerçek olan düşünsel, mutlak ve değişmezdir"
+    },
+    {
+     "left": "Oluş felsefesi",
+     "right": "Var olan sürekli değişim hâlindedir"
+    }
+   ],
+   "explanation": "Konferans metnindeki üç filozofun görüşleri.",
+   "category": "Varlık felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "matching",
+   "question": "Ali ve Ezgi’yi görüşleriyle eşleştiriniz.",
+   "pairs": [
+    {
+     "left": "Ali – kaynak",
+     "right": "Duyular ve deneyim"
+    },
+    {
+     "left": "Ali – ölçüt",
+     "right": "Uygunluk"
+    },
+    {
+     "left": "Ezgi – olanak",
+     "right": "Doğru bilgi olanaksız"
+    },
+    {
+     "left": "Ezgi – ölçüt",
+     "right": "Nihai bir ölçüt yok"
+    }
+   ],
+   "explanation": "Ali kaynağı duyu, ölçütü uygunluk sayar; Ezgi bilgiyi olanaksız bulur ve nihai ölçüt tanımaz; bu eşleşmeler 6. sorunun cevabıdır.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Bilgin yazdığı kuramı hiç denemeden doğru sayıyor; diğer bilgin ise her yeni gözlemde kuramını yeniden sınıyor.” Bu iki tutum bilginin doğası bakımından hangi iki anlayışı gösterir?",
+   "correctAnswer": "Birinci tutum bilginin kesin ve değişmez olduğunu varsayar (dogmatik/kesinlikçi bakış); ikincisi bilginin gözlemle sınanıp değişebileceğini kabul eder (eleştirel bakış).",
+   "keyPoints": [
+    "Kesin ve değişmez bilgi",
+    "Sınanıp değişebilen bilgi"
+   ],
+   "maxPoints": 6,
+   "explanation": "Sınama ve yeniden değerlendirme gelişmeye açıklığı gösterir; denemeden doğru saymak dogmatizme yakındır.",
+   "category": "Benzer soru: Bilgi felsefesi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Ayşe’ye göre, bir kuşun yuvasını gördüğü için “bu ağaçta kuş vardır” demek doğrudur. Mert’e göre ise yuva boş olabilir, gözlem yeterli değildir. Ayşe ve Mert’in bilgi anlayışlarını “kaynak” ve “olanak” bakımından karşılaştırınız.",
+   "correctAnswer": "Ayşe: kaynak duyu/gözlem; doğru bilgi olanaklıdır. Mert: gözlemin tek başına yeterli olmadığını, bilginin güvenilirliğinin tartışmalı olduğunu savunur; şüpheci eğilim gösterir.",
+   "keyPoints": [
+    "Ayşe: gözlem ve olanaklılık",
+    "Mert: şüphe ve yetersizlik"
+   ],
+   "maxPoints": 6,
+   "explanation": "Ali–Ezgi karşılaştırmasının küçük örneği.",
+   "category": "Benzer soru: Bilgi felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir sosyal bilimci, “Toplumsal olayları gözlemleriz ama gözlem yaparken kendi değer yargılarımız da devreye girer.” diyor. Bu cümle Ezgi’nin hangi cümlesine benzer ve neden?",
+   "correctAnswer": "“Duyularımız ve onları taklit eden araçlarımız yanılabilir” cümlesine benzer; gözlemin tarafsız ve kesin olmayabileceğini vurgular.",
+   "keyPoints": [
+    "İlgili cümle",
+    "Gözlemin kesinlik taşımaması"
+   ],
+   "maxPoints": 5,
+   "explanation": "Benzerlik: gözlemin sınırı ve yanılabilirliği.",
+   "category": "Benzer soru: Bilgi felsefesi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Felsefenin “derinlemesine sorgulayan bilinç” özelliği bir bilim insanı ya da teolog için neden önemlidir?",
+   "correctAnswer": "Çünkü kendi alanlarının yöntemlerini ve sonuçlarını dışarıdan eleştirel olarak değerlendirmeyi sağlar; bilim ve inanç ürünlerinin güvenilirliğini ve yaşama etkisini düşünmeye yardımcı olur.",
+   "keyPoints": [
+    "Dış eleştirel bakış",
+    "Yöntem ve etki değerlendirmesi"
+   ],
+   "maxPoints": 5,
+   "explanation": "Metinde filozof sorgulayarak alanlara katkı sunar; karşılıklı ilişkinin örneğidir.",
+   "category": "Benzer soru: Felsefe ve diğer alanlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdaki ifadelerden hangisi “madde” kavramıyla açıklanabilir?",
+   "options": [
+    "Hacmi olan ve uzayda yer kaplayan varlık",
+    "Değişmeyen karakteristik özellik",
+    "İnsanın kendini gerçekleştirmesi",
+    "Sürecin hâlden hâle dönüşmesi"
+   ],
+   "correct": 0,
+   "explanation": "Madde yer kaplayan, hacmi olan şeydir; diğer seçenekler öz, varoluş ve oluşu anlatır.",
+   "category": "Varlık felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Bir argümanda öncüllerin sonucu desteklemesi için hangisi gerekir?",
+   "options": [
+    "Öncüllerin çok uzun olması",
+    "Öncüllerle sonuç arasında anlamlı ve mantıksal bir bağ olması",
+    "Sonucun metnin başında yer alması",
+    "Öncüllerin duygusal olması"
+   ],
+   "correct": 1,
+   "explanation": "Argümanın gücü, öncüllerin sonucu desteklemesindedir; sıra veya uzunluk belirleyici değildir.",
+   "category": "Argüman",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Ali’nin “Suyun canlılar için yaşamsal değeri vardır.” cümlesi bilgiye ulaşmada neyi gösterir?",
+   "options": [
+    "Hiçbir bilginin doğru olmadığını",
+    "Bilginin yalnızca akıldan geldiğini",
+    "Gözleme ve deneyime dayalı genel bir bilginin geçerli sayıldığını",
+    "Şüphenin gerekli olmadığını"
+   ],
+   "correct": 2,
+   "explanation": "Ali, canlılara bakarak doğrulanabilen deneysel bir bilgiyi örnek verir.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi varlık felsefesinin değil, bilgi felsefesinin sorusudur?",
+   "options": [
+    "Varlık var mı?",
+    "Varlık nedir?",
+    "Oluş nedir?",
+    "Doğruluğun ölçütü nedir?"
+   ],
+   "correct": 3,
+   "explanation": "Doğruluk ölçütü bilgi felsefesi konusudur.",
+   "category": "Bilgi felsefesi",
+   "difficulty": "medium"
+  }
+ ],
+ "sources": [
+  {
+   "id": "src1",
+   "name": "10. Sınıf Felsefe - 1. Dönem 2. Yazılı (OGM Yazılıya Hazırlanıyorum)",
+   "kind": "file",
+   "text": "=== Page 1 ===\nYAZILIYA HAZIRLANIYORUM\n1. DÖNEM - 2. YAZILI\nFELSEFE\n1. Metinden hareketle aşağıdaki soruları cevaplayınız.\nFilozof ne mi yapar? Sanatçı, teolog ve bilim insanının kendilerine has yöntemlerle sunduğu hakikat, anlam ve\ngüzellik iddialarını, akıl ve mantık süzgecinden geçirir. Onların kendilerine has yöntemlerinin ne kadar güvenilir\nolduğunu sorgular. Ortaya çıkardıkları ürünlerin oluşum sürecini ve yaşama etkisini değerlendirme konusu yapar.\nHayatı kolaylaştırmak, ruhu dinginleştirmek, eğlenmek gibi belirli ihtiyaçların tatminine genelgeçer yöntemler\nbulmaya çalışmaz. Ama bunu yapmaya çalışanların amaçlarını, yöntemlerini ve ulaştıkları verileri ele alır. Onları\nhem irdeler hem de onlardan faydalanır. Filozof yalnızca teknik bilgiyle, inançla veya hazla değil derinlemesine\nsorgulayan bir bilinçle yaşamın pratikleri içinde arayışını gerçekleştirir. Çünkü yaşamı anlamak ve onun bir parçası\nolmayı sürdürmek bunu gerektirir. Hem somut, işe yarar, görece kesin sonuçlu bilgilere hem de bu tür bilgilerin\ngelişebilmesi ve artabilmesi için eleştiri ve sorgulamaya ihtiyaç vardır.\na) Felsefenin metinde belirtilen sanat, din ve bilim alanlarıyla ilişkisine dair neler söylenebilir? Yazınız. (5 Puan)\nb) Felsefenin metinde belirtilen sanat, din ve bilim alanlarıyla benzer ve farklı yönlerini yazınız. (2x5 Puan)\nBenzer yönü:\nFarklı yönü:\n2. İnsanların duygularını ve bakış açılarını anlamaya çalışmak, güçlü sosyal bağlar kurmanın temelidir. Bu tür bağlar,\nbireylerin kendini güvende ve değerli hissetmesini sağlar. Kendini değerli hisseden insanlar ise çevresindeki\nkişilere karşı daha yapıcı tutumlar geliştirir. Bu yapıcı tutumlar da karşılıklı saygıyı artırır ve daha huzurlu bir ortam\noluşmasına katkıda bulunur. Kısacası, empati sayesinde kurulan güçlü ilişkiler hem bireysel mutluluğu hem de\ntoplumsal huzuru destekler.\nMetindeki argümanın öncüllerini ve sonuç önermesini yazınız. (5x3 Puan)\n1. Öncül:\n2. Öncül:\n3. Öncül:\n4. Öncül:\nSonuç Önermesi:\n=== Page 2 ===\nYAZILIYA HAZIRLANIYORUM (1. DÖNEM-2. YAZILI)\n3. Yazılımcı: Nasıl ki bir tohum fidana sonrasında da ağaca; bir bebek çocuğa sonra bir yetişkine dönüşüyorsa\nvarlıklara ilişkin bu durum yapay zekâ için de geçerlidir.\nFilozof: Yapay zekâ ile insanı varlık olmak bakımından aynı kefeye koymuyorsunuzdur umarım.\nYazılımcı: Tabi ki her varlık birbirinden bazı yönlerden ayrılır. Zaten o varlığı “o varlık” yapan da onu diğerlerinden\nayıran ve değişmeden kalan karakteristik özellikleridir. Ancak yapay zekâ da gelinen noktada “İnsan gibi sorgulama\nve değerlendirme yapmaya başladı.” diyebiliriz.\nFilozof: Yapay zekâ ya da onunla üretilen herhangi bir araç kendi anlamını sorgulayamaz, kendini\ngerçekleştiremez. Bu yalnızca insana özgü bir durumdur.\nYazılımcı: Bunu kabul edebilirim ama yine de onun bir varlık olduğunu savunmaktan vazgeçmem.\nFilozof: Bu iddiada bulunurken varlığı ne olarak kabul ediyorsunuz? Yapay zekânın varlık olduğunu iddia etmenize\nneden olan varlık anlayışınızı merak ediyorum. Varlık dediğimizde aklınıza ne geliyor mesela?\nYazılımcı: Benden bir varlık tanımı yapmamı beklemeyin. Ben filozof değilim. Ama düşüncemi netleştirmek ve\nyeniden değerlendirmek için sizin varlık tanımınızı duymak isterim.\nFilozof: Varlık uzayda ve mekânda yer kaplayan, hacmi olandır.\nDiyalogda verilen ifadelerle ilişkilendirilebilecek olan varlık felsefesinin temel kavramlarını bulunuz.\nBu kavramları ve kavramlarla ilişkili açıklamaların diyalogda geçtiği cümle/cümleleri tablodaki uygun\nboşluklara yazınız.\nVARLIK FELSEFESININ TEMEL\nKAVRAMLARI\n(4x2 Puan)\nKAVRAMLARLA ILIŞKILI AÇIKLAMALARIN DIYALOGDA\nGEÇTIĞI CÜMLE/CÜMLELER\n(4x3 Puan)\n1.\n2.\n3.\n4.\nMetinden hareketle 4. ve 5. soruları cevaplayınız.\nBir grup filozof ve bilim insanı bir konferansta karşılaşmışlar. Selamlaşıp hâl hatır sorduktan sonra kendilerini\ntartışırken bulmuşlar. Bir filozof “Biz gerçek miyiz? Bizim dışımızdaki şeyler var mı? Neye gerçek diyebiliriz?” diye\nsormuş. Bilim insanı hemen cevap vermiş: “Tabi ki biz gerçeğiz ve varız, tıpkı karşımızdaki şu ağaç gibi.” Bir diğer\nfilozof “Bir yerde duyumsayabildiğimiz, algılayabildiğimiz somut bir şey varsa işte o varlıktır.” diyerek bilim insanını\nonaylamış. Bir başka filozof: “Hepiniz yanılıyorsunuz. Ne bir şeylerin var olduğundan şüphe duyulabilir ne de var\nolan bu şekilde açıklanabilir. O ağaç şimdi var ama bin yıl sonra olmayacak, hatta birkaç ay sonra bile şimdiki\ngibi görünmeyecek. Bizler de öyle. Oysa tek bir gerçeklik var, o mutlak anlamda bir, kalıcı, sürekli, değişmez ve\ndüşünseldir. Onun dışındakiler için söylenen her şey hatalı.” demiş. Başka bir filozof da öfkeyle “Biz insanız, merak\nediyor, anlamaya, bilmeye çalışıyoruz ve birçok şeyi de anlayabildik bugüne kadar. Bizler var ve yok oluyoruz.\nDünya diye bir gezegen var ve bu gezegende olup bitenler de belli neden-sonuç ilişkilerine bağlı. İşte biz var olanı\ntam da bu değişim hâliyle açıklayabiliriz.” demiş.\n=== Page 3 ===\nYAZILIYA HAZIRLANIYORUM (1. DÖNEM-2. YAZILI)\n4. Metinde tartışılan felsefi problemlerin neler olduğunu yazınız. (10 Puan)\n5. Metindeki tartışmada savunulan felsefi akımlar ile bu akımların ortak ve farklı yönlerinin neler olduğunu\ntablodaki uygun yerlere yazınız.\nFelsefi Akımlar (3x4) Ortak Yönü (4 puan) Farklı Yönü (4 Puan)\n1.\n2.\n3.\n6. Ali: Uzayda hayat olabileceğine inanıyorum. Artık elimizde birçok gözlemsel veri var: Ötegezegenler, su buzu,\nyaşama elverişli sıcaklıklar… Eğer teleskoplarımızla bir gezegende yaşam izine dair kanıtlar bulabiliyorsak bu\ndurum bize uzayla ilgili doğru bilgi edinme şansı verir. Çünkü bilgiye duyular ve yaşantılar yoluyla ulaşılabilir.\nEzgi: Ama senin “kanıt” dediğin şeyler aslında varsayımlara dayanıyor. Su bulmak yaşamı garanti etmez.\nGözlemlerimiz sınırlı olabilir veya araçlarımızla edindiğimiz bilgiler hatalı olabilir. Bir şeyin gözlemlenmesi, onun\nkesinlikle doğru olduğu anlamına gelmez çünkü duyular yanıltıcıdır. “Uzayda hayat vardır.” demek, elimizde yeterli\nbilgi olmadan hüküm vermektir.\nAli: Dünya’daki yaşam belirli koşullarda oluşmuştur. Bu koşulları başka gezegenlerde de gözlemliyorsak benzer\nsonuçlara ulaşabiliriz. Mesela “Suyun canlılar için yaşamsal değeri vardır.” iddiası şüphe barındırmaz. Suyun\nolmadığı yerde yaşamın da olamadığını etrafımızdaki canlılara bakarak doğrulayabiliriz. Şüphe etmek doğaldır ama\nbunun karşısına bir yöntem koymalısın.\nEzgi: Alternatif sunmak zorunda değilim. Sadece şunu söylüyorum: Hiçbir bilgi kesinlik içermez. Biz bu konuda\nkesinliğe ulaşamayız. Duyularımız ve onları taklit eden araçlarımız yanılabilir. Belki de “Uzayda hayat var.” iddiası\nyalnızca bizim beklentimize bağlı öne sürülen bir yanılsamadır. Ne biliyoruz ki? Ne kadar bilirsek bilelim, her bilgi\nvarsayım içerir.\nAli: Eğer her şeyden şüphe edersek, bilgi diye bir şey mümkün olmaz. Oysa insanlık bilgiyi biriktirerek ilerledi. Ay’a\ngittik, Mars’a araç gönderdik. Bunlar gözleme dayalı bilgilerin sonucudur.\nDiyalogdan hareketle, Ali ve Ezgi'nin bilgi anlayışlarını değerlendirerek aşağıda verilen sorulara\nverebilecekleri olası cevapları tabloya yazınız.\nSORU ALI EZGI\n1. Doğru bilgi olanaklı mıdır?\n(2x2=4 Puan)\n2. Bilgiye ulaşmada hangi\nkaynaklar esas alınır?\n(2x4=8 Puan)\n3. Doğruluğun ölçütü nedir?\n(2x4=8 Puan)\n=== Page 4 ===\nYAZILIYA HAZIRLANIYORUM (1. DÖNEM-2. YAZILI)\nSORU\nNO ÖĞRENME ÇIKTISI BECERILER\n1\nFEL.10.1.2. Felsefenin özelliklerini, farklı alanlarla\nilişkisini ve işlevini sorgulayabilme\nc) Felsefenin bilim, din ve sanat alanlarıyla ilişkisine\neleştirel yaklaşır.\nAlan Becerileri\nSBAB13. Felsefi Sorgulama\nKavramsal Beceriler (Beceriler Arası Ilişkiler)\nKB2.8. Sorgulama\nKB2.10. Çıkarım Yapma\nKB3.3. Eleştirel Düşünme\nKB2.7. Karşılaştırma\n2\nFEL.10.2.1. Mantık ve argümantasyonda kullanılan\ntemel kavramları yorumlayabilme\nc) Günlük dilde verilen argümanları mantığın\nbiçimsel diline dönüştürerek yeniden ifade eder.\nAlan Becerileri\nSBAB14. Felsefi Muhakeme\n(KB2.14. Yorumlama)\nKavramsal Beceriler (Beceriler Arası Ilişkiler)\nKB2.10. Çıkarım Yapma\nKB3.1. Karar Verme\n3\nFEL.10.3.1. Varlık felsefesinin konusunu,\nkavramlarını ve problemlerini muhakeme edebilme\na) Varlık felsefesinin konusunu ve temel\nkavramlarını açıklar.\nAlan Becerileri\nSBAB14. Felsefi Muhakeme\n(SBAB14.2. Felsefi Düşünce\nve Argümanları Değerlendirme)\nKavramsal Beceriler (Beceriler Arası Ilişkiler)\nKB2.10. Çıkarım Yapma\nKB2.7. Karşılaştırma\n4\nFEL.10.3.1. Varlık felsefesinin konusunu,\nkavramlarını ve problemlerini muhakeme edebilme\nc) Varlık felsefesinin temel problemlerine yönelik\ndüşünce ve argümanları değerlendirir.\nAlan Becerileri\nSBAB14. Felsefi Muhakeme\n(SBAB14.1. Felsefi Problemleri Anlama,\nSBAB14.2. Felsefi Düşünce ve Argümanları Değerlendirme)\nKavramsal Beceriler (Beceriler Arası Ilişkiler)\nKB2.7. Karşılaştırma\nKB2.10. Çıkarım Yapma\nKB3.3. Eleştirel Düşünme\n5\nFEL.10.3.1. Varlık felsefesinin konusunu,\nkavramlarını ve problemlerini muhakeme edebilme\nc) Varlık felsefesinin temel problemlerine yönelik\ndüşünce ve argümanları değerlendirir.\nAlan Becerileri\nSBAB14. Felsefi Muhakeme\n(SBAB14.1. Felsefi Problemleri Anlama,\nSBAB14.2. Felsefi Düşünce ve Argümanları Değerlendirme)\nKavramsal Beceriler (Beceriler Arası Ilişkiler)\nKB2.7. Karşılaştırma\nKB2.10. Çıkarım Yapma\nKB3.3. Eleştirel Düşünme\n6\nFEL.10.4.1. Bilgi felsefesinin konusunu, kavramlarını\nve problemlerini muhakeme edebilme\nb) Bilgi felsefesinin temel problemlerini açıklar.\nAlan Becerileri\nSBAB14. Felsefi Muhakeme\n(SBAB14.1. Felsefi Problemleri Anlama,\nSBAB14.2. Felsefi Düşünce ve Argümanları Değerlendirme)\nKavramsal Beceriler (Beceriler Arası Ilişkiler)\nKB2.7. Karşılaştırma\nKB2.8. Sorgulama\nKB2.10. Çıkarım Yapma\n=== Page 5 ===\nYAZILIYA HAZIRLANIYORUM (1. DÖNEM-2. YAZILI)\nPUANLAMA TABLOSU\n1.a 1.b 2 3 4 5 6 TOPLAM\n5 10 15 20 10 20 20 100\nÇÖZÜMLER\n1. a) Doğru Cevap:\nTAM CEVAP: (5 PUAN)\nÖğrencinin açıklamasında değindiği kriterler için verilecek puanlar aşağıdaki gibi olacaktır.\n• Felsefenin metinde belirtilen sanat, din ve bilim alanlarıyla karşılıklı ilişki içinde olduğuna değinme (3 puan)\n• Felsefenin metinde belirtilen sanat, din ve bilim alanlarına eleştirel yaklaşarak konu evrenini genişlettiğini belirtme\n(2 puan)\nÖğrencilerden tüm kriterleri içeren bir açıklama yapması beklenir. Bu açıklamayı yapması durumunda 5 tam puan verilir.\nÖrnek Cevap:\nFelsefenin metinde belirtilen sanat, din ve bilim alanlarıyla ilişkisi: Felsefe ile bilim, din, sanat gibi alanlar\nkarşılıklı ilişki içindedir. Felsefe metinde belirtilen diğer bilgi alanlarını çeşitli yönlerden eleştirir ve değerlendirir. Aynı\nzamanda onları kendine konu edinirken konu alanı genişler.\nKISMI CEVAP: (2-3 PUAN)\nFelsefenin metinde belirtilen sanat, din ve bilim alanlarıyla karşılıklı ilişki içinde olduğuna değinmemesi durumunda\n3 puan; sanat, din ve bilim alanlarına eleştirel yaklaşarak konu evrenini genişlettiğini belirtmemesi durumunda 2\npuan eksik verilir.\nYANLIŞ CEVAP: (0 PUAN)\nVerilen kriterlere değinilmemesi, ilişkisiz cevap verilmesi ve boş bırakılması durumunda 0 puan verilir.\nb) Doğru Cevap:\nTAM CEVAP: (10 PUAN)\nFelsefenin metinde belirtilen sanat, din ve bilim alanlarıyla benzer yönünün evreni anlama ve açıklama çabası\nolduğunu belirtmesi durumunda 5 puan; farklı yönünün kullandığı yöntem ve kapsayıcılık olduğunu belirtmesi\ndurumunda 5 puan olmak üzere toplam 10 puan verilir.\nÖrnek Cevap:\nFelsefenin metinde belirtilen sanat, din ve bilim alanlarıyla benzer yönü: Tüm bilgi alanları gibi felsefe de\nevreni ve insanı anlamayı amaçlar.\nFelsefenin metinde belirtilen sanat, din ve bilim alanlarıyla farklı yönü: Bilim deney ve gözleme, din inanca,\nsanat duygulara ve yaratıcılığa dayalı bir yöntemi benimser. Felsefe ise derinlemesine sorgulayan bir bilinçle akıl ve\nmantık ilkelerine bağlı olarak bilgi üretir. Bu nedenle bilim sınanabilir bilgiler elde edebileceği varlıkları, din kutsalla\nilgili olanı, sanat ise güzel olanı inceleme konusu yapar. Felsefe ise varlığın tamamını konu edinir. Dolayısıyla\nfelsefe diğer bilgi alanlarıyla yöntemleri ve ele aldığı konuların çeşitli olması nedeniyle bütüncül bir çerçeve sunması\nbakımından farklılaşır.\nKISMI CEVAP: (5 PUAN)\nFelsefenin metinde belirtilen sanat, din ve bilim alanlarıyla benzer yönünün evreni anlama ve açıklama çabası\nolduğunu belirtmemesi durumunda 5 puan; farklı yönünün kullandığı yöntem ve kapsayıcılık olduğunu belirtmemesi\ndurumunda 5 puan eksik verilir.\nYANLIŞ CEVAP: (0 PUAN)\nFelsefenin metinde belirtilen sanat, din ve bilim alanlarıyla benzer ve farklı yönüne değinilmemesi, ilişkisiz cevap\nverilmesi ve boş bırakılması durumunda 0 puan verilir.\n=== Page 6 ===\nYAZILIYA HAZIRLANIYORUM (1. DÖNEM-2. YAZILI)\n2. Doğru Cevap:\nTAM CEVAP: (15 PUAN)\nCevapta empatinin veya başkasını anlamanın, sosyal bağların temeli olduğunu belirten bir öncüle yer verilmesi\ndurumunda 3 puan; sosyal bağların, bireylerin daha iyi hissetmesini sağladığını belirten bir öncüle yer verilmesi\ndurumunda 3 puan; değerli hisseden bireylerin yapıcı tutumlar sergilediğini belirten bir öncüle yer verilmesi\ndurumunda 3 puan; yapıcı tutumların, bireyler arasındaki karşılıklı saygıyı desteklediğini ve huzurlu bir ortam\noluşturulmasını sağladığını belirten bir öncüle yer verilmesi durumunda 3 puan; empati temelli ilişkilerin, bireysel\nmutluluğu ve toplumsal huzuru desteklediğini belirten bir sonuç önermesine yer verilmesi durumunda 3 puan olmak\nüzere toplam 15 tam puan verilir.\nÖrnek Cevaplar:\nAlternatif 1:\n1. Öncül: Empati, güçlü sosyal bağların oluşmasını sağlar.\n2. Öncül: Güçlü sosyal bağlar, bireylerin kendini değerli hissetmesini sağlar.\n3. Öncül: Kendini değerli hissedenler, etrafındaki insanlara yapıcı davranır.\n4. Öncül: Yapıcı tutumlar, karşılıklı saygıyı destekler ve huzurlu bir ortam oluşturur.\nSonuç Önermesi: Empati temelli güçlü ilişkiler, bireysel mutluluğa ve toplumsal huzura katkı sağlar.\nAlternatif 2:\n1. Öncül: İnsanların ne hissettiğini anlamaya çalışmak, bireyler arası ilişkileri güçlendirir.\n2. Öncül: Güçlü ilişkiler kuran bireyler kendilerini daha değerli ve güvende hissederler.\n3. Öncül: Kendini iyi hisseden kişiler, çevrelerine daha destekleyici davranışlar gösterme eğilimindedir.\n4. Öncül: Olumlu davranışlar, toplum içinde karşılıklı saygı ve huzurun oluşmasına yardımcı olur.\nSonuç Önermesi: Başkalarını anlamaya çalışmak hem bireylerin mutluluğunu artırır hem de toplumun daha huzurlu\nolmasını sağlar.\nKISMI CEVAP: (3-12 PUAN)\nCevapta empatinin veya başkasını anlamanın, sosyal bağların temeli olduğunu belirten bir öncüle yer verilmemesi\ndurumunda 3 puan; sosyal bağların, bireylerin daha iyi hissetmesini sağladığını belirten bir öncüle yer verilmemesi\ndurumunda 3 puan; değerli hisseden bireylerin yapıcı tutumlar sergilediğini belirten bir öncüle yer verilmemesi\ndurumunda 3 puan; yapıcı tutumların, bireyler arasındaki karşılıklı saygıyı desteklediğini ve huzurlu bir ortam\noluşturulmasını sağladığını belirten bir öncüle yer verilmemesi durumunda 3 puan; empati temelli ilişkilerin, bireysel\nmutluluğu ve toplumsal huzuru desteklediğini belirten bir sonuç önermesine yer verilmemesi durumunda 3 puan\neksik verilir.\nYANLIŞ CEVAP: (0 PUAN)\nÖncüller ve sonuç doğru belirlenmemişse ya da herhangi bir cevap verilmemişse 0 puan verilir.\n3. Doğru Cevap:\nTAM CEVAP: (20 Puan)\nCevapta varlık felsefesinin temel kavramları ve bu kavramların diyalogda geçtiği cümle/cümleler yazılmışsa 20 tam\npuan verilir.\nDiyalogda verilen açıklamalarla ilişkilendirilebilecek olan varlık felsefesinin temel kavramları ve bu kavramların\ngeçtiği cümle/cümleler aşağıdaki gibidir:\n=== Page 7 ===\nYAZILIYA HAZIRLANIYORUM (1. DÖNEM-2. YAZILI)\nVARLIK FELSEFESININ TEMEL\nKAVRAMLARI\n(4x2 Puan)\nKAVRAMLARLA ILIŞKILI AÇIKLAMALARIN DIYALOGDA\nGEÇTIĞI CÜMLE/CÜMLELER\n(4x3 Puan)\n1. Oluş\nNasıl ki bir tohum fidana sonrasında da ağaca; bir bebek\nçocuğa sonra bir yetişkine dönüşüyorsa varlıklara ilişkin bu\ndurum yapay zekâ için de geçerlidir. Yapay zekâ da diğer bütün\nvarlıklar gibi bir süreçten geçerek mevcut durumuna gelebildi.\n2. Öz Zaten o varlığı “o varlık” yapan da onu diğerlerinden ayıran ve değişmeden kalan karakteristik özellikleridir.\n3. Varoluş\nYapay zekâ ya da onunla üretilen herhangi bir araç kendi\nanlamını sorgulayamaz, kendini gerçekleştiremez. Bu yalnızca\ninsana özgü bir durumdur.\n4. Madde Varlık uzayda ve mekânda yer kaplayan, hacmi olandır.\nKISMI CEVAP: (2-17 PUAN)\nDiyalogla ilişkili kavramlardan her birini yazmaması durumunda 2 puan; kavramın geçtiği cümle/cümleleri\nyazmaması durumunda 3 puan eksik verilir. Öğrencinin kavramları bulmadan diyalogda geçtiği cümle/cümleleri\nbelirtmesi mümkün değildir. Bu nedenle yalnızca kavramların diyalogda geçtiği cümle/cümlelerin yazılması durumda\nöğrenciye puan verilmez.\nYANLIŞ CEVAP: (0 PUAN)\nKavramların belirlenmemesi, yanlış kavram belirlenmesi ya da cevap alanının boş bırakılması hâlinde 0 puan verilir.\n4. Doğru Cevap:\nTAM CEVAP: (10 PUAN)\nÖğrenciye varlık felsefesinin temel problemlerinden biri olan “Varlığın var olup olmadığı” problemini yazması\ndurumunda 5 puan; bir diğeri olan “Varlığın ne olduğu” problemini yazması durumunda 5 puan verilir. Toplamda 10\ntam puan verilir.\nKISMI CEVAP: (5 PUAN)\nÖğrenciye varlık felsefesinin temel problemlerinden biri olan “Varlığın var olup olmadığı” problemini yazmaması\ndurumunda 5 puan; bir diğeri olan “Varlığın ne olduğu” problemini yazmaması durumunda 5 puan eksik verilir.\nYANLIŞ CEVAP: (0 PUAN)\nÖğrenci bu problemler yerine ilgisiz başka problemler yazdıysa ya da boş bıraktıysa 0 puan verilir.\n5. Doğru Cevap:\nTAM CEVAP: (20 PUAN)\nÖğrenciye doğru yazdığı her akım için 4’er puan; akımların ortak yönünü doğru yazması durumunda 4 puan;\nakımların farklı yönünü doğru yazması durumunda 4 puan verilir. Toplam 20 tam puan verilir.\n=== Page 8 ===\nYAZILIYA HAZIRLANIYORUM (1. DÖNEM-2. YAZILI)\nFelsefi Akımlar (3x4) Ortak Yönü (4 puan) Farklı Yönü (4 Puan)\n1. Materyalizm\nAkımların tamamı varlığın var\nolduğunu kabul etmektedir.\nAkımların tamamı varlığın ne olduğu ve\nnitelikleri konusunda farklı görüşler ileri\nsürmektedir.\n2. İdealizm\n3. Oluş Felsefesi\nKISMI CEVAP: (4-16 PUAN)\nÖğrencinin yanlış yazdığı ya da yazmadığı her akım için 4’er puan; akımların ortak yönünü yanlış yazdığı ya da\nyazmadığı durumda 4 puan; akımların farklı yönünü yanlış yazdığı ya da yazmadığı durumda 4 puan eksik verilir.\nYANLIŞ CEVAP: (0 PUAN)\nÖğrenciye felsefi akımlar ile bu akımların ortak ve farklı yönlerini yanlış yazdığı ve boş bıraktığı durumda 0 puan verilir.\n6. Doğru Cevap:\nTAM CEVAP: (20 PUAN)\nÖğrenciye ilk soruya verdikleri cevapların doğru olması durumunda her cevap için 2’şer puan; ikinci ve üçüncü sorulara\nverdikleri cevapların doğru olması durumunda her cevap için 4’er puan olmak üzere toplam 20 tam puan verilir.\nSORU ALI EZGI\n1. Doğru bilgi olanaklı mıdır?\n(2x2=4 Puan) Evet olanaklıdır. Hayır olanaklı değildir.\n2. Bilgiye ulaşmada hangi\nkaynaklar esas alınır?\n(2x4=8 Puan)\nBilginin kaynağı duyulardır ve\nbilgi dış dünyadan deneyim\nyoluyla elde edilir.\nHiçbir kaynağa mutlak güven\nduyulamaz. Tüm bilgi kaynaklarına,\niddialarına ve bilginin güvenilirliğine\nşüpheyle yaklaşılmalıdır.\n3. Doğruluğun ölçütü nedir?\n(2x4=8 Puan)\nUygunluktur. Bir ifade\nbildirdiği iddianın nesnesi ile\nuyumluysa ve örtüşüyorsa\ndoğrudur.\nKesin bilgi ve mutlak doğru yoktur. Her\nönerme şüphelidir ve nihai bir ölçütle\ndoğrulanamaz.\nKISMI CEVAP: (2-18 PUAN)\nÖğrenciye ilk soruya verdikleri cevapların hatalı veya ilgisiz olması durumunda her yanlış cevap için 2’şer puan;\nikinci ve üçüncü sorulara verdikleri cevapların hatalı veya ilgisiz olması durumunda her yanlış cevap için 4’er puan\neksik verilir.\nYANLIŞ CEVAP: (0 PUAN)\nVerilen cevapların ilgisiz, yanlış ve boş olması durumunda 0 puan verilir."
+  }
+ ]
+}

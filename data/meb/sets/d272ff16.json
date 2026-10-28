@@ -1,0 +1,2638 @@
+{
+ "title": "9. Sınıf Biyoloji – 2. Dönem 2. Yazılı (Yazılıya Hazırlanıyorum, OGM): Çözümlü Senaryo Soruları ve Konu Anlatımı",
+ "meta": {
+  "fileId": "d272ff16",
+  "grade": [
+   9
+  ],
+  "subject": "Biyoloji",
+  "schoolYear": "",
+  "examType": "ogm-yazili",
+  "kind": "booklet",
+  "sourceUrl": "https://ogm-large-cdn.eba.gov.tr/materyal/Etkilesimlikitap/90ccfc17-e90d-46bd-b280-41b979b6b062/pdf.pdf",
+  "counts": {
+   "sections": 14,
+   "cards": 130,
+   "questions": 83,
+   "sourceQuestions": 5,
+   "skippedNeedingFigure": 6
+  }
+ },
+ "notes": {
+  "summary": "Bu dosya, MEB OGM’nin ‘Yazılıya Hazırlanıyorum’ serisinden 9. sınıf Biyoloji 2. dönem 2. yazılıdır: 8 senaryo sorusu (11 alt soru), açık uçlu ve tablo/grafik doldurmalı, toplam 100 puan. Konular: bakteri–arke–öglena bilgi kartları (12), DNA/RNA nükleotit sayımı (10), fosfolipitler (10), enzim–sıcaklık deneyi grafikleri (10), prokaryot/ökaryot hücre (16), organel tabloları (12), madde geçişleri (20), ozmoz–plazmoliz (10). Bu sette metinde olan sorular (1, 2, 3, 4) çözümlü olarak dönüştürülmüştür; görsel isteyen sorular için konu notları ve özgün benzer sorular eklenmiştir.\n\nBu dosyadan sınavda ne beklemeli / nasıl çalışmalı:\n1) Domain kartlarında boşlukları doldur (prokaryot, halkasal, var, histon…), sonra canlıyı gerekçeyle belirle.\n2) Nükleotit sayımında 8 nükleotit mantığını kullan: 8 fosfat, 4 riboz, 4 deoksiriboz, A2 G2 C2 T1 U1.\n3) Fosfolipit sorusunda baş (fosfat + gliserol) ve kuyruk (2 yağ asidi) ile çift tabaka dizilişini gerekçele.\n4) Enzim–sıcaklık grafiklerinde düşük sıcaklık (geri döner) ile yüksek sıcaklık (denatürasyon) farkını göster.\n5) Görsel isteyen konularda (organel özellikleri, madde geçişi türleri, plazmoliz–deplazmoliz) konu notlarını ve Benzer soruları çalış.\n6) Çalışma sırası: domain kartları → nükleik asit → zar → enzim → hücre ve organel → madde geçişi → ozmoz → Benzer sorular.\n\nNot: 5.1 ve 5.2 (iki hücre tipinin görselleri), 6. soru (organel görselleri ve tablolar), 7. soru (madde geçişi görseli) ve 8.1, 8.2 (bitki hücresi durumlarının görselleri) metinde olmadığı için atlandı; cevaplar yalnızca anahtarda göründüğü için yeniden kurulmadı. 4. soru grafik çizimi gerektirir; bu sette grafiğin sözel anlatımı istenecek şekilde dönüştürüldü (senaryo metni eksiksizdir, resmî anahtar grafikleri sözle açıklıyor).",
+  "sections": [
+   {
+    "title": "Üç domain: bakteri, arke, ökarya karşılaştırması",
+    "content": "Canlılar hücre yapılarına ve moleküler özelliklerine göre üç domainde toplanır. Bakteri ve arke prokaryottur: belirgin çekirdek ve zarla çevrili organeller yoktur, DNA genellikle halkasaldır. Ökarya domaininde (protista, mantarlar, bitkiler, hayvanlar) çekirdek, zarlı organeller ve doğrusal DNA bulunur; DNA histon proteinine sarılıdır. Bakteri ile arke arasındaki ayrım moleküler düzeydedir: hücre duvarlarındaki protein-karbohidrat grupları farklıdır, ribozomal RNA dizileri farklıdır, bazı arkelerde DNA histon proteinine sarılıdır, bakterilerde histon yoktur. Arkeler genellikle aşırı sıcak, tuzlu veya asidik ortamlarda bulunan türleriyle bilinir.",
+    "bulletPoints": [
+     "Bakteri: prokaryot, halkasal DNA, histon yok, zarlı organel yok.",
+     "Arke: prokaryot, halkasal DNA, bazı türlerinde histon var, zarlı organel yok.",
+     "Ökarya: çekirdek var, doğrusal DNA, histon var, zarlı organeller var.",
+     "Bakteri/arke farkları: hücre duvarı yapısı, rRNA dizileri, histon.",
+     "Ökarya âlemleri: protista, mantarlar, bitkiler, hayvanlar.",
+     "Her domainde hem tek hücreli hem çok hücreli örnek olmayabilir; prokaryotlar tek hücrelidir."
+    ],
+    "keyTerms": [
+     {
+      "term": "Prokaryot",
+      "definition": "Belirgin çekirdeği ve zarlı organelleri olmayan hücre."
+     },
+     {
+      "term": "Ökaryot",
+      "definition": "Çekirdeği ve zarlı organelleri olan hücre."
+     },
+     {
+      "term": "Histon",
+      "definition": "DNA’nın sarıldığı protein."
+     },
+     {
+      "term": "rRNA",
+      "definition": "Ribozomun yapısında bulunan RNA."
+     }
+    ]
+   },
+   {
+    "title": "DNA ve RNA: yapı ve karşılaştırma",
+    "content": "Nükleik asitlerin monomeri nükleotittir. Bir nükleotit = fosfat grubu + beş karbonlu şeker (pentoz) + azotlu organik baz. DNA’da şeker deoksiribozdur, bazlar A, T, G, C; çift sarmal yapıdadır; genetik bilginin uzun süreli depolanması ve aktarılmasında görevlidir. RNA’da şeker ribozdur, bazlar A, U, G, C; çoğunlukla tek zincirlidir; genetik bilginin aktarılması ve protein sentezinde aracıdır (mRNA, tRNA, rRNA). Çift sarmalda A–T arası 2, G–C arası 3 hidrojen bağı vardır. Nükleotitler arası bağ, şeker ile fosfat arasında kurulan (fosfodiester) bağdır. Kart sorularında hatalı bilgiyi bulmak için her satırı DNA/RNA bilgisiyle tek tek karşılaştır.",
+    "bulletPoints": [
+     "Nükleotit = fosfat + pentoz + azotlu baz.",
+     "DNA: deoksiriboz, A-T-G-C, çift sarmal.",
+     "RNA: riboz, A-U-G-C, tek zincir.",
+     "A=T (2 H bağı), G≡C (3 H bağı).",
+     "RNA türleri: mRNA, tRNA, rRNA.",
+     "DNA’da timin vardır, RNA’da urasil vardır."
+    ],
+    "keyTerms": [
+     {
+      "term": "Nükleotit",
+      "definition": "Nükleik asidin monomeri (fosfat + pentoz + baz)."
+     },
+     {
+      "term": "Pentoz",
+      "definition": "Beş karbonlu şeker (riboz, deoksiriboz)."
+     },
+     {
+      "term": "Çift sarmal",
+      "definition": "İki polinükleotit zincirinin bazlar aracılığıyla eşleşmesi."
+     },
+     {
+      "term": "Azotlu organik baz",
+      "definition": "A, T, G, C, U."
+     }
+    ]
+   },
+   {
+    "title": "Pürin–pirimidin ve nükleotit sayma",
+    "content": "Azotlu bazlar iki gruptur: pürinler (adenin, guanin; çift halkalı) ve pirimidinler (sitozin, timin, urasil; tek halkalı). Çift zincirli DNA’da A=T ve G≡C eşleşir; bu yüzden toplam pürin sayısı (A+G) toplam pirimidin sayısına (T+C) eşittir. RNA tek zincirli olduğunda baz eşleşmesi zorunlu olmadığından pürin ve pirimidin sayısı eşit olmak zorunda değildir (tesadüfen eşit olabilir). Sayma sorusu: ‘DNA ve RNA’ya ait tüm nükleotit çeşitlerini yapmak için kaç molekül gerekir?’ DNA’da 4 çeşit nükleotit (A, T, G, C) ve RNA’da 4 çeşit (A, U, G, C) vardır: toplam 8 nükleotit, dolayısıyla 8 fosfat. Şeker: DNA için 4 deoksiriboz, RNA için 4 riboz. Bazlar: adenin 2 (DNA’da 1, RNA’da 1), guanin 2, sitozin 2, timin 1, urasil 1.",
+    "bulletPoints": [
+     "Pürin: A, G. Pirimidin: C, T, U.",
+     "Çift zincirli DNA: A+G = T+C.",
+     "RNA tek zincir: pürin/pirimidin eşitliği şart değildir.",
+     "Her nükleotit 1 fosfat, 1 şeker, 1 baz içerir.",
+     "8 çeşit nükleotit: 8 fosfat, 4 deoksiriboz, 4 riboz.",
+     "Baz sayıları: A2, G2, C2, T1, U1."
+    ],
+    "keyTerms": [
+     {
+      "term": "Pürin",
+      "definition": "Çift halkalı azotlu baz (A, G)."
+     },
+     {
+      "term": "Pirimidin",
+      "definition": "Tek halkalı azotlu baz (C, T, U)."
+     },
+     {
+      "term": "Chargaff kuralı",
+      "definition": "Çift sarmal DNA’da A=T ve G=C."
+     }
+    ]
+   },
+   {
+    "title": "Fosfolipitin yapısı ve zardaki dizilişi",
+    "content": "Lipitler suda çözünmeyen organik moleküllerdir. Fosfolipit, hücre zarının temel yapıtaşıdır ve iki zıt kısımdan oluşur: hidrofilik (suyu seven) baş = fosfat grubu + gliserol; hidrofobik (suyu sevmeyen) kuyruk = 2 yağ asidi. Hücre içi ve dışı sıvıları su bazlı olduğundan fosfolipitler çift tabaka biçiminde dizilir: hidrofilik başlar iki yüzeyde suya dönük, hidrofobik kuyruklar zarın iç kısmında birbirine dönüktür. Bu iç kısım polar ve yüklü moleküllerin zardan kolayca geçmesini engeller. Tam puan için hem molekül adlarını (fosfat + gliserol, 2 yağ asidi) hem de dizilişi gerekçesiyle yazman gerekir.",
+    "bulletPoints": [
+     "Baş: fosfat + gliserol (hidrofilik).",
+     "Kuyruk: 2 yağ asidi (hidrofobik).",
+     "Çift tabaka: başlar dışa, kuyruklar içe.",
+     "Neden böyle? Hücre içi ve dışı sulu ortam; hidrofobik kısım sudan kaçınır.",
+     "Hidrofobik iç bölge polar moleküllere engel olur.",
+     "Triaçilgliserol (yağ) 3 yağ asidi + gliserol; fosfolipit 2 yağ asidi + fosfat + gliserol."
+    ],
+    "keyTerms": [
+     {
+      "term": "Hidrofilik",
+      "definition": "Suyu seven, polar."
+     },
+     {
+      "term": "Hidrofobik",
+      "definition": "Suyu sevmeyen, apolar."
+     },
+     {
+      "term": "Fosfolipit",
+      "definition": "Fosfat–gliserol başlı, iki yağ asidi kuyruklu zar lipiti."
+     },
+     {
+      "term": "Çift tabaka",
+      "definition": "Fosfolipitlerin iki sıra hâlinde dizilmesi."
+     }
+    ]
+   },
+   {
+    "title": "Hücre zarı: akışkan mozaik model ve seçici geçirgenlik",
+    "content": "Hücre zarı akışkan mozaik modelle açıklanır: fosfolipit çift tabakası akışkandır; içine gömülü proteinler mozaik gibi dağılmıştır. Hayvan hücre zarında kolesterol de bulunur. Zar üzerinde karbonhidratlar tanıma ve haberleşmede görev alır. Proteinlerin bir kısmı taşıyıcı ve kanal görevi yapar. Zar seçici geçirgendir: bazı maddeleri geçirir, bazılarını geçirmez. Bu özellik hücrenin iç dengesini korumasını sağlar. Küçük apolar moleküller (O₂, CO₂) fosfolipitlerin arasından doğrudan geçer; iyonlar ve polar moleküller proteinlerle geçer; büyük parçalar kesecikle taşınır.",
+    "bulletPoints": [
+     "Fosfolipit çift tabakası + proteinler = akışkan mozaik model.",
+     "Taşıyıcı ve kanal proteinleri madde geçişini sağlar.",
+     "Kolesterol (hayvan hücresinde) zarın akışkanlığını dengeler.",
+     "Karbonhidratlar hücreler arası tanımada rol alır.",
+     "Seçici geçirgenlik hücre içi dengeyi korur.",
+     "O₂ ve CO₂ doğrudan geçer."
+    ],
+    "keyTerms": [
+     {
+      "term": "Seçici geçirgen",
+      "definition": "Bazı maddeleri geçirip bazılarını geçirmeyen zar."
+     },
+     {
+      "term": "Taşıyıcı protein",
+      "definition": "Maddeyi bir yüzden diğerine taşıyan zar proteini."
+     },
+     {
+      "term": "Kanal protein",
+      "definition": "Maddenin geçtiği tünel oluşturan zar proteini."
+     }
+    ]
+   },
+   {
+    "title": "Enzimler: yapı, özellikler ve etkinliği etkileyen faktörler",
+    "content": "Enzimler biyolojik katalizördür; tepkime hızını artırır, aktivasyon enerjisini düşürür, tepkimede harcanmaz, tekrar kullanılır. Çoğu protein yapılıdır. Her enzim belirli bir substrata uyar (özgüllük, anahtar–kilit). Substrat enzimin aktif bölgesine bağlanır, ürün oluşur. Etkinlik sıcaklığa, pH’a, enzim ve substrat miktarına bağlıdır. Her enzimin optimum sıcaklık ve pH’ı vardır (insan enzimleri için optimum sıcaklık yaklaşık 37 °C). Düşük sıcaklıkta etkinlik azalır ama enzim bozulmaz; sıcaklık artınca yeniden artar. Çok yüksek sıcaklıkta enzim denatüre olur (şekli bozulur), aktif bölge işlevini kaybeder ve soğuyunca geri dönmez. pH uç değerlerde de denatürasyon yapar: pepsin asidik ortamda, tripsin ve pankreas amilazı bazik/nötre yakın ortamda çalışır.",
+    "bulletPoints": [
+     "Enzim: biyolojik katalizör; aktivasyon enerjisini düşürür.",
+     "Özgüllük: bir enzim belirli substratı keser/bağlar.",
+     "Tepkimede harcanmaz, tekrar kullanılır.",
+     "Optimum sıcaklık ve pH değerleri vardır.",
+     "Yüksek ısı → denatürasyon (geri dönüşümsüz).",
+     "Düşük ısı → yavaşlama (ısınca tekrar artar)."
+    ],
+    "keyTerms": [
+     {
+      "term": "Katalizör",
+      "definition": "Tepkime hızını artıran, tepkimede harcanmayan madde."
+     },
+     {
+      "term": "Aktif bölge",
+      "definition": "Substratın bağlandığı enzim bölgesi."
+     },
+     {
+      "term": "Denatürasyon",
+      "definition": "Enzimin yapısının bozularak işlevini kaybetmesi."
+     },
+     {
+      "term": "Optimum",
+      "definition": "Etkinliğin en yüksek olduğu koşul."
+     }
+    ]
+   },
+   {
+    "title": "Enzim deneyleri ve grafik yorumlama",
+    "content": "Enzim deneylerinde bağımsız değişken (sıcaklık veya pH) değiştirilir, diğer koşullar optimum tutulur; bağımlı değişken ürün miktarı, substrat miktarı veya reaksiyon hızıdır. Grafik okuma kuralları: Sıcaklık–hız grafiği çan eğrisine benzer: optimuma kadar artar, sonra hızla düşer (denatürasyon). Substrat tükenmesi grafiği: zamanla azalır; enzim yoksa/denatüre ise düz kalır. Örnek deney: iki tüpte su, 10 g nişasta ve amilaz var. Tüp I 0 °C’de, tüp II 70 °C’de bekletilip ardından 35 °C’ye getiriliyor. Tüp I’de enzim bozulmadığı için sıcaklık 35 °C’ye çıkınca reaksiyon hızı artar. Tüp II’de enzim 70 °C’de denatüre olduğu için 35 °C’de bile reaksiyon olmaz ve nişasta miktarı değişmez (10 g kalır). Kendi anlatımınla grafiği tarif etmek (eksenler, eğilim, gerekçe) sınavda tam puan getirir.",
+    "bulletPoints": [
+     "Bağımsız değişken: sıcaklık/pH; bağımlı: hız, ürün, substrat.",
+     "Sıcaklık–hız eğrisi: optimuma kadar yükselir, sonra düşer.",
+     "Denatüre enzimde substrat miktarı değişmez (düz çizgi).",
+     "Aktif enzimde substrat zamanla azalır.",
+     "Kontrol grubu ve tekrar deney güvenirlik sağlar.",
+     "Grafik yorumunda eksenleri ve birimleri belirt."
+    ],
+    "keyTerms": [
+     {
+      "term": "Reaksiyon hızı",
+      "definition": "Birim zamanda oluşan ürün veya harcanan substrat miktarı."
+     },
+     {
+      "term": "Substrat",
+      "definition": "Enzimin etki ettiği madde."
+     },
+     {
+      "term": "Optimum sıcaklık",
+      "definition": "Enzimin en etkin çalıştığı sıcaklık."
+     }
+    ]
+   },
+   {
+    "title": "Prokaryot ve ökaryot hücre karşılaştırması",
+    "content": "Prokaryot hücrede (bakteri, arke) zarla çevrili çekirdek ve organeller yoktur; DNA halkasaldır ve sitoplazmada nükleoid bölgesinde bulunur; ribozom ve hücre zarı vardır, çoğunda hücre duvarı bulunur. Ökaryot hücrede (protista, mantar, bitki, hayvan) zarlı çekirdek ve zarlı organeller vardır; DNA doğrusal ve histon proteinine sarılıdır. Çift zarlı yapılar: çekirdek, mitokondri, kloroplast. Her iki hücre tipinde ortak bulunanlar: hücre zarı, sitoplazma, ribozom, DNA (genetik materyal). Karşılaştırma tablosu sorularında satırları şöyle doldur: DNA’nın bulunduğu yer, DNA’nın şekli, çift zarlı organel var/yok.",
+    "bulletPoints": [
+     "Prokaryot: çekirdek yok; DNA nükleoidde, halkasal.",
+     "Ökaryot: zarlı çekirdek; DNA doğrusal, histonlu.",
+     "Ortak: hücre zarı, sitoplazma, ribozom, DNA.",
+     "Çift zarlı: çekirdek, mitokondri, kloroplast.",
+     "Prokaryotta zarlı organel yok; ribozom var.",
+     "Ökaryot hücreler genelde daha büyüktür."
+    ],
+    "keyTerms": [
+     {
+      "term": "Nükleoid",
+      "definition": "Prokaryotta DNA’nın bulunduğu sitoplazma bölgesi."
+     },
+     {
+      "term": "Organel",
+      "definition": "Hücre içinde belirli işlev gören yapı."
+     },
+     {
+      "term": "Sitoplazma",
+      "definition": "Hücre zarı ile çekirdek arasındaki sıvı ve organeller."
+     }
+    ]
+   },
+   {
+    "title": "Mitokondri, kloroplast ve çekirdek (çift zarlı yapılar)",
+    "content": "Mitokondri: çift zarlı, iç zar kıvrımları krista; kendi halkasal DNA’sı, RNA’sı ve ribozomları vardır; hücresel solunumla ATP üretir (enerji). Kloroplast: çift zarlı, klorofil taşıyan bitki ve alg organeli; fotosentez yapar; kendi DNA’sı ve ribozomları bulunur. Çekirdek: çift zarlı, DNA’yı içerir, hücreyi yönetir. Tablolu sorularda mitokondri için özellikler: enerji üretimi (+), ribozom (+), DNA (+), RNA (+), zarlı (+). ‘Krista’ kelimesi mitokondri ipucudur. Mitokondri ve kloroplastta DNA ve ribozom bulunması bu organellerin kendi proteinlerinin bir kısmını üretebilmesini sağlar.",
+    "bulletPoints": [
+     "Mitokondri: krista, ATP üretimi, DNA + RNA + ribozom, çift zar.",
+     "Kloroplast: klorofil, fotosentez, DNA + ribozom, çift zar.",
+     "Çekirdek: çift zar, DNA, hücre yönetimi.",
+     "Her canlı hücrede mitokondri bulunmaz (bakteride yok).",
+     "Bitki hücresinde hem mitokondri hem kloroplast bulunur.",
+     "Hayvan hücresinde kloroplast bulunmaz."
+    ],
+    "keyTerms": [
+     {
+      "term": "Krista",
+      "definition": "Mitokondri iç zarının kıvrımları."
+     },
+     {
+      "term": "ATP",
+      "definition": "Hücrenin enerji molekülü."
+     },
+     {
+      "term": "Klorofil",
+      "definition": "Işığı soğuran yeşil pigment."
+     }
+    ]
+   },
+   {
+    "title": "Golgi, endoplazmik retikulum, lizozom, ribozom ve diğer yapılar",
+    "content": "Ribozom: zarsız, rRNA ve protein; protein sentezi yapar. Granüllü (kaba) endoplazmik retikulum üzerinde ribozom taşır, protein işler ve taşır; granülsüz ER lipit sentezi ve zehir temizliğinde rol alır. Golgi aygıtı: tek zarlı, yassı keseciklerden oluşur; madde paketler, salgı oluşturur ve salgı keseciklerini dışarı gönderir. Golgi’nin tablodaki özellikleri: enerji üretimi (–), ribozom (–), DNA (–), RNA (–), zarlı yapı (+). Lizozom: sindirim enzimleri taşıyan kesecik, hücre içi sindirim yapar. Koful: depo ve ozmotik denge (bitkide büyük merkezî koful). Sentrozom: hayvan hücre bölünmesinde görevli, zarsız. Hücre iskeleti: şekil ve hareket.",
+    "bulletPoints": [
+     "Ribozom: zarsız, protein sentezi.",
+     "Granüllü ER: ribozomlu, protein işleme–taşıma.",
+     "Golgi: tek zar, paketleme ve salgı; ribozom ve DNA yok.",
+     "Lizozom: sindirim enzimleri, hücre içi sindirim.",
+     "Koful: depolama, bitkide ozmotik denge.",
+     "Sentrozom ve ribozom zarsızdır."
+    ],
+    "keyTerms": [
+     {
+      "term": "Salgı",
+      "definition": "Hücrenin dışarı verdiği madde."
+     },
+     {
+      "term": "Lizozom",
+      "definition": "Sindirim enzimleri taşıyan kesecik."
+     },
+     {
+      "term": "ER",
+      "definition": "Endoplazmik retikulum."
+     },
+     {
+      "term": "Golgi aygıtı",
+      "definition": "Madde paketleyen ve salgı üreten organel."
+     }
+    ]
+   },
+   {
+    "title": "Pasif ve aktif taşıma: difüzyon, kolaylaştırılmış difüzyon, aktif taşıma",
+    "content": "Madde geçişi iki gruba ayrılır. Pasif taşıma enerji harcamaz, madde yoğundan seyrek ortama doğru gider: basit difüzyon (O₂, CO₂ gibi küçük apolar moleküller fosfolipitler arasından), kolaylaştırılmış difüzyon (glikoz, iyon gibi maddeler taşıyıcı veya kanal proteinle, yine enerji harcanmadan ve derişim farkı yönünde), ozmoz (suyun geçişi). Aktif taşıma enerji (ATP) harcar, taşıyıcı proteinlerle ve derişim farkına karşı (seyrekten yoğuna) gerçekleşir; Na-K pompası örnek. Büyük moleküller ve parçacıklar endositoz ve ekzositozla taşınır. Tabloda soracakları şunlardır: adı, enerji kullanımı, yoğunluk farkı etkili mi, madde hücre zarından geçebilecek büyüklükte mi.",
+    "bulletPoints": [
+     "Difüzyon: enerji yok, yoğundan seyreğe, küçük apolar moleküller.",
+     "Kolaylaştırılmış difüzyon: taşıyıcı protein, enerji yok.",
+     "Aktif taşıma: enerji (ATP) var, seyrekten yoğuna, taşıyıcı protein.",
+     "Ozmoz: suyun yarı geçirgen zardan geçişi.",
+     "Pasif taşımada derişim farkı itici güçtür.",
+     "Aktif taşıma hücreye gerekli maddeyi biriktirmeyi sağlar."
+    ],
+    "keyTerms": [
+     {
+      "term": "Difüzyon",
+      "definition": "Maddelerin yoğun ortamdan seyrek ortama yayılması."
+     },
+     {
+      "term": "Aktif taşıma",
+      "definition": "Enerji harcayarak derişime karşı taşıma."
+     },
+     {
+      "term": "Derişim farkı",
+      "definition": "İki ortam arasındaki yoğunluk farkı."
+     },
+     {
+      "term": "Na-K pompası",
+      "definition": "Aktif taşıma ile sodyum ve potasyumu taşıyan protein."
+     }
+    ]
+   },
+   {
+    "title": "Endositoz ve ekzositoz",
+    "content": "Zardan geçemeyecek kadar büyük maddeler (bakteri, protein kümesi, hormon) kesecikler yoluyla taşınır. Endositoz: zar maddeyi kuşatır, kesecik oluşturarak hücre içine alır; katı alımına fagositoz, sıvı alımına pinositoz denir. Ekzositoz (ektositoz): kesecik zarla birleşerek içeriğini dışarı boşaltır (salgı). Her ikisi de enerji (ATP) harcar; derişim farkı belirleyici değildir; molekül zardan doğrudan geçebilecek büyüklükte değildir. Akyuvarların bakteriyi yutması fagositoz, pankreasın insülini salgılaması ekzositozdur.",
+    "bulletPoints": [
+     "Endositoz: hücre içine alma (fagositoz, pinositoz).",
+     "Ekzositoz: hücre dışına atma, salgı.",
+     "Enerji (ATP) harcanır.",
+     "Büyük parçalar kesecikle taşınır.",
+     "Yoğunluk farkı belirleyici değildir.",
+     "Zar alanı kesecik oluşum ve birleşmesiyle değişir."
+    ],
+    "keyTerms": [
+     {
+      "term": "Fagositoz",
+      "definition": "Katı parçacıkların yutulması."
+     },
+     {
+      "term": "Pinositoz",
+      "definition": "Sıvı damlacıklarının alınması."
+     },
+     {
+      "term": "Ekzositoz",
+      "definition": "Kesecik içeriğinin dışarı verilmesi."
+     },
+     {
+      "term": "Kesecik",
+      "definition": "Zarla çevrili küçük taşıma kesesi."
+     }
+    ]
+   },
+   {
+    "title": "Ozmoz: hipertonik, hipotonik, izotonik; plazmoliz–deplazmoliz",
+    "content": "Ozmoz, suyun yarı geçirgen zardan su derişiminin yüksek olduğu (çözünen derişiminin düşük olduğu) yerden düşük olduğu yere geçişidir. Kısaca: su, çözeltisi daha yoğun olan tarafa gider. Hücrenin dışındaki çözelti hücre içinden daha yoğunsa (hipertonik) hücre su kaybeder; daha seyreltikse (hipotonik) hücre su alır; eşitse (izotonik) net geçiş yoktur. Bitki hücresinde hipertonik ortamda su kaybı sonucu hücre zarı ve sitoplazma hücre duvarından ayrılır: plazmoliz. Bu hücre hipotonik ortama alınırsa su alıp eski hâline döner: deplazmoliz. Bitki hücresi hipotonikte duvar sayesinde patlamaz, şişkin (turgor) kalır. Hayvan hücresi hipotonikte şişip patlayabilir, hipertonikte büzüşür.",
+    "bulletPoints": [
+     "Su, çözünen derişiminin fazla olduğu yere gider.",
+     "Hipertonik çözelti: hücreden daha yoğun → hücre su kaybeder.",
+     "Hipotonik çözelti: hücreden daha seyreltik → hücre su alır.",
+     "İzotonik: derişim eşit, net su geçişi yok.",
+     "Plazmoliz: bitki hücresinin hipertonikte büzülmesi.",
+     "Deplazmoliz: plazmoliz geçirmiş hücrenin hipotonikte eski hâline dönmesi."
+    ],
+    "keyTerms": [
+     {
+      "term": "Ozmoz",
+      "definition": "Suyun yarı geçirgen zardan geçişi."
+     },
+     {
+      "term": "Hipertonik",
+      "definition": "Karşısındakinden daha yoğun çözelti."
+     },
+     {
+      "term": "Hipotonik",
+      "definition": "Karşısındakinden daha seyreltik çözelti."
+     },
+     {
+      "term": "Turgor",
+      "definition": "Bitki hücresinin su dolu, gergin hâli."
+     }
+    ]
+   },
+   {
+    "title": "Bu yazılıda puan nasıl kazanılır? Puanlama tablosu ve cevap kalıpları",
+    "content": "Puan dağılımı: 1. soru 12; 2. soru 10; 3.1 ve 3.2 5’er (3. soru toplam 10); 4. soru 10; 5.1 ve 5.2 8’er; 6. soru 12; 7. soru 20; 8.1 ve 8.2 5’er (toplam 100). Kısmî puan mantığı: 1. soruda doğru tespit her canlı için 1 puan, doğru tespit ve gerekçe için 2 puan, her doğru doldurulan boşluk 1 puandır. 2. soruda yanlış sayıları belirtip düzeltmemek 5 puandır; doğru sayıları yanlış saymak da 5 puana düşürür. 3. soruda iki parçadan biri yazılırsa 3 puan. 4. soruda grafiklerden biri doğruysa 5 puan. 7. soruda doğru her kutucuk 1 puandır. 8. soruda adı doğru yazıp gerekçesiz bırakmak veya gerekçeyi yazıp adı yazmamak 5 puandır.",
+    "bulletPoints": [
+     "1. soru (12 p): doldur + belirle + gerekçele; her adım ayrı puan.",
+     "2. soru (10 p): yanlış üç sayı: adenin 4→2, timin 4→1, riboz 2→4.",
+     "3. soru (3.1 + 3.2 = 10 p): baş = fosfat + gliserol; kuyruk = 2 yağ asidi; çift tabaka düzeni.",
+     "4. soru (10 p): I. tüp hız artar; II. tüp nişasta sabit kalır.",
+     "5–8. sorular (görsel isteyenler): bu sette atlanmış, konu notlarından çalış.",
+     "Doğru sayıyı/bilgiyi yanlış sayma (kısmî puan kaybı).",
+     "Gerekçe yazmadan yalnızca sonuç yazma kısmî puandır."
+    ],
+    "keyTerms": [
+     {
+      "term": "Nükleotit",
+      "definition": "Fosfat + pentoz + azotlu baz."
+     },
+     {
+      "term": "Denatürasyon",
+      "definition": "Enzimin yapısının bozulması."
+     },
+     {
+      "term": "Hidrofilik/Hidrofobik",
+      "definition": "Suyu seven/sevmeyen."
+     }
+    ]
+   }
+  ],
+  "importantDates": [],
+  "commonMistakes": [
+   "Bütün prokaryotlar bakteridir, doğru mu? Cevap: Yanlış. Arkeler de prokaryottur ama ayrı bir domaindir.",
+   "RNA’da timin bulunur, doğru mu? Cevap: Yanlış; RNA’da timin yerine urasil bulunur.",
+   "Her nükleik asitte A=T’dir, doğru mu? Cevap: Yanlış; bu yalnızca çift zincirli DNA için geçerlidir. RNA’da timin yoktur.",
+   "Fosfolipitler hücre zarında tek tabaka mı oluşturur? Cevap: Hayır; çift tabaka oluşturur.",
+   "Zar yalnızca fosfolipitten oluşur, doğru mu? Cevap: Yanlış; proteinler, karbonhidratlar ve (hayvanlarda) kolesterol de vardır.",
+   "Enzim tepkimeyi başlatır, doğru mu? Cevap: Hayır; olabilecek tepkimeyi hızlandırır. Tepkime olmayacaksa enzim başlatamaz.",
+   "Düşük sıcaklıkta enzim ölür, doğru mu? Cevap: Yanlış; enzim canlı değildir, düşük sıcaklıkta yalnızca yavaşlar.",
+   "Prokaryotlarda DNA yoktur, doğru mu? Cevap: Yanlış; DNA vardır ama zarla çevrili çekirdeğe sarılı değildir.",
+   "Mitokondri fotosentez yapar, doğru mu? Cevap: Yanlış; mitokondri solunum, kloroplast fotosentez yapar.",
+   "Ribozom zarlı bir organeldir, doğru mu? Cevap: Yanlış; ribozom zarsızdır.",
+   "Kolaylaştırılmış difüzyon aktif taşıma mıdır? Cevap: Hayır; enerji harcamayan pasif taşımadır.",
+   "Endositoz pasif taşımadır, doğru mu? Cevap: Yanlış; enerji harcayan aktif bir işlemdir.",
+   "Hipertonik çözelti ‘hücreden daha seyreltik’ demektir, doğru mu? Cevap: Yanlış; hipertonik daha yoğun demektir.",
+   "Soru kökünü cevap gibi tekrar etmek puan getirmez; her zaman ad ve gerekçeyi ayrı ayrı yaz.",
+   "Çok parçalı soruda parçalardan birini atlamak tam puanı engeller; önce parça sayısını say.",
+   "Doğru bilgiyi yanlış saymak (veya tersi) kısmî puanı da düşürür; ifadeleri tek tek sına."
+  ],
+  "diagrams": [],
+  "mindmap": {
+   "label": "9. Sınıf Biyoloji 2. Dönem 2. Yazılı",
+   "children": [
+    {
+     "label": "Üç domain",
+     "detail": "Üç Üst Âlem (Domain) Sistemi",
+     "children": [
+      {
+       "label": "Bakteri: prokaryot, halkasal DNA, histon yok, zarlı organel yok.",
+       "children": []
+      },
+      {
+       "label": "Arke: prokaryot, halkasal DNA, bazı türlerinde histon var, zarlı organel yok.",
+       "children": []
+      },
+      {
+       "label": "Ökarya: çekirdek var, doğrusal DNA, histon var, zarlı organeller var.",
+       "children": []
+      },
+      {
+       "label": "Bakteri/arke farkları: hücre duvarı yapısı, rRNA dizileri, histon.",
+       "children": []
+      },
+      {
+       "label": "Ökarya âlemleri: protista, mantarlar, bitkiler, hayvanlar.",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "DNA ve RNA",
+     "detail": "Nükleik Asitler",
+     "children": [
+      {
+       "label": "Nükleotit = fosfat + pentoz + azotlu baz.",
+       "children": []
+      },
+      {
+       "label": "DNA: deoksiriboz, A-T-G-C, çift sarmal.",
+       "children": []
+      },
+      {
+       "label": "RNA: riboz, A-U-G-C, tek zincir.",
+       "children": []
+      },
+      {
+       "label": "A=T (2 H bağı), G≡C (3 H bağı).",
+       "children": []
+      },
+      {
+       "label": "RNA türleri: mRNA, tRNA, rRNA.",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Pürin–pirimidin ve nükleotit sayma",
+     "detail": "Nükleik Asitler",
+     "children": [
+      {
+       "label": "Pürin: A, G. Pirimidin: C, T, U.",
+       "children": []
+      },
+      {
+       "label": "Çift zincirli DNA: A+G = T+C.",
+       "children": []
+      },
+      {
+       "label": "RNA tek zincir: pürin/pirimidin eşitliği şart değildir.",
+       "children": []
+      },
+      {
+       "label": "Her nükleotit 1 fosfat, 1 şeker, 1 baz içerir.",
+       "children": []
+      },
+      {
+       "label": "8 çeşit nükleotit: 8 fosfat, 4 deoksiriboz, 4 riboz.",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Fosfolipitin yapısı ve zardaki dizilişi",
+     "detail": "Fosfolipitler ve Hücre Zarı",
+     "children": [
+      {
+       "label": "Baş: fosfat + gliserol (hidrofilik).",
+       "children": []
+      },
+      {
+       "label": "Kuyruk: 2 yağ asidi (hidrofobik).",
+       "children": []
+      },
+      {
+       "label": "Çift tabaka: başlar dışa, kuyruklar içe.",
+       "children": []
+      },
+      {
+       "label": "Neden böyle? Hücre içi ve dışı sulu ortam; hidrofobik kısım sudan kaçınır.",
+       "children": []
+      },
+      {
+       "label": "Hidrofobik iç bölge polar moleküllere engel olur.",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Hücre zarı",
+     "detail": "Fosfolipitler ve Hücre Zarı",
+     "children": [
+      {
+       "label": "Fosfolipit çift tabakası + proteinler = akışkan mozaik model.",
+       "children": []
+      },
+      {
+       "label": "Taşıyıcı ve kanal proteinleri madde geçişini sağlar.",
+       "children": []
+      },
+      {
+       "label": "Kolesterol (hayvan hücresinde) zarın akışkanlığını dengeler.",
+       "children": []
+      },
+      {
+       "label": "Karbonhidratlar hücreler arası tanımada rol alır.",
+       "children": []
+      },
+      {
+       "label": "Seçici geçirgenlik hücre içi dengeyi korur.",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Enzimler",
+     "detail": "Enzimler",
+     "children": [
+      {
+       "label": "Enzim: biyolojik katalizör; aktivasyon enerjisini düşürür.",
+       "children": []
+      },
+      {
+       "label": "Özgüllük: bir enzim belirli substratı keser/bağlar.",
+       "children": []
+      },
+      {
+       "label": "Tepkimede harcanmaz, tekrar kullanılır.",
+       "children": []
+      },
+      {
+       "label": "Optimum sıcaklık ve pH değerleri vardır.",
+       "children": []
+      },
+      {
+       "label": "Yüksek ısı → denatürasyon (geri dönüşümsüz).",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Enzim deneyleri ve grafik yorumlama",
+     "detail": "Enzimler",
+     "children": [
+      {
+       "label": "Bağımsız değişken: sıcaklık/pH; bağımlı: hız, ürün, substrat.",
+       "children": []
+      },
+      {
+       "label": "Sıcaklık–hız eğrisi: optimuma kadar yükselir, sonra düşer.",
+       "children": []
+      },
+      {
+       "label": "Denatüre enzimde substrat miktarı değişmez (düz çizgi).",
+       "children": []
+      },
+      {
+       "label": "Aktif enzimde substrat zamanla azalır.",
+       "children": []
+      },
+      {
+       "label": "Kontrol grubu ve tekrar deney güvenirlik sağlar.",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Prokaryot ve ökaryot hücre karşılaştırması",
+     "detail": "Hücre: Prokaryot ve Ökaryot",
+     "children": [
+      {
+       "label": "Prokaryot: çekirdek yok; DNA nükleoidde, halkasal.",
+       "children": []
+      },
+      {
+       "label": "Ökaryot: zarlı çekirdek; DNA doğrusal, histonlu.",
+       "children": []
+      },
+      {
+       "label": "Ortak: hücre zarı, sitoplazma, ribozom, DNA.",
+       "children": []
+      },
+      {
+       "label": "Çift zarlı: çekirdek, mitokondri, kloroplast.",
+       "children": []
+      },
+      {
+       "label": "Prokaryotta zarlı organel yok; ribozom var.",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Mitokondri, kloroplast ve çekirdek (çift zarlı yapılar)",
+     "detail": "Hücresel Yapılar ve İşlevleri",
+     "children": [
+      {
+       "label": "Mitokondri: krista, ATP üretimi, DNA + RNA + ribozom, çift zar.",
+       "children": []
+      },
+      {
+       "label": "Kloroplast: klorofil, fotosentez, DNA + ribozom, çift zar.",
+       "children": []
+      },
+      {
+       "label": "Çekirdek: çift zar, DNA, hücre yönetimi.",
+       "children": []
+      },
+      {
+       "label": "Her canlı hücrede mitokondri bulunmaz (bakteride yok).",
+       "children": []
+      },
+      {
+       "label": "Bitki hücresinde hem mitokondri hem kloroplast bulunur.",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Golgi, endoplazmik retikulum, lizozom, ribozom ve diğer yapı",
+     "detail": "Hücresel Yapılar ve İşlevleri",
+     "children": [
+      {
+       "label": "Ribozom: zarsız, protein sentezi.",
+       "children": []
+      },
+      {
+       "label": "Granüllü ER: ribozomlu, protein işleme–taşıma.",
+       "children": []
+      },
+      {
+       "label": "Golgi: tek zar, paketleme ve salgı; ribozom ve DNA yok.",
+       "children": []
+      },
+      {
+       "label": "Lizozom: sindirim enzimleri, hücre içi sindirim.",
+       "children": []
+      },
+      {
+       "label": "Koful: depolama, bitkide ozmotik denge.",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Pasif ve aktif taşıma",
+     "detail": "Hücre Zarından Madde Geçişi",
+     "children": [
+      {
+       "label": "Difüzyon: enerji yok, yoğundan seyreğe, küçük apolar moleküller.",
+       "children": []
+      },
+      {
+       "label": "Kolaylaştırılmış difüzyon: taşıyıcı protein, enerji yok.",
+       "children": []
+      },
+      {
+       "label": "Aktif taşıma: enerji (ATP) var, seyrekten yoğuna, taşıyıcı protein.",
+       "children": []
+      },
+      {
+       "label": "Ozmoz: suyun yarı geçirgen zardan geçişi.",
+       "children": []
+      },
+      {
+       "label": "Pasif taşımada derişim farkı itici güçtür.",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Endositoz ve ekzositoz",
+     "detail": "Hücre Zarından Madde Geçişi",
+     "children": [
+      {
+       "label": "Endositoz: hücre içine alma (fagositoz, pinositoz).",
+       "children": []
+      },
+      {
+       "label": "Ekzositoz: hücre dışına atma, salgı.",
+       "children": []
+      },
+      {
+       "label": "Enerji (ATP) harcanır.",
+       "children": []
+      },
+      {
+       "label": "Büyük parçalar kesecikle taşınır.",
+       "children": []
+      },
+      {
+       "label": "Yoğunluk farkı belirleyici değildir.",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Ozmoz",
+     "detail": "Ozmoz, Plazmoliz ve Turgor",
+     "children": [
+      {
+       "label": "Su, çözünen derişiminin fazla olduğu yere gider.",
+       "children": []
+      },
+      {
+       "label": "Hipertonik çözelti: hücreden daha yoğun → hücre su kaybeder.",
+       "children": []
+      },
+      {
+       "label": "Hipotonik çözelti: hücreden daha seyreltik → hücre su alır.",
+       "children": []
+      },
+      {
+       "label": "İzotonik: derişim eşit, net su geçişi yok.",
+       "children": []
+      },
+      {
+       "label": "Plazmoliz: bitki hücresinin hipertonikte büzülmesi.",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Yazılı teknikleri ve puanlama",
+     "detail": "TAM / KISMÎ / SIFIR PUAN",
+     "children": [
+      {
+       "label": "Tam puan: ad + gerekçe",
+       "children": []
+      },
+      {
+       "label": "Kısmî puan: gerekçesiz veya eksik cevap",
+       "children": []
+      },
+      {
+       "label": "Sıfır puan: cevap yok, yanlış, soru kökü tekrarı",
+       "children": []
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "flashcards": [
+  {
+   "front": "Hangi domainler prokaryottur?",
+   "back": "Bakteri ve Arke.",
+   "category": "Üç Üst Âlem (Domain) Sistemi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Ökarya domaininde hangi âlemler vardır?",
+   "back": "Protista, mantarlar, bitkiler ve hayvanlar.",
+   "category": "Üç Üst Âlem (Domain) Sistemi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Bakterilerde DNA’nın şekli nedir?",
+   "back": "Halkasaldır; histon proteini yoktur.",
+   "category": "Üç Üst Âlem (Domain) Sistemi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Arkelerde histon var mıdır?",
+   "back": "Bazı arke türlerinde DNA histon proteinine sarılıdır.",
+   "category": "Üç Üst Âlem (Domain) Sistemi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Ökaryot DNA’sı nasıldır?",
+   "back": "Doğrusaldır ve histon proteinine sarılıdır.",
+   "category": "Üç Üst Âlem (Domain) Sistemi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Bakteri ile arkeyi ayıran üç moleküler fark nedir?",
+   "back": "Hücre duvarındaki protein-karbohidrat grupları, ribozomal RNA dizileri ve histon varlığı.",
+   "category": "Üç Üst Âlem (Domain) Sistemi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Zarlı organel ve gerçek çekirdek hangi domainde bulunur?",
+   "back": "Yalnızca Ökarya domaininde.",
+   "category": "Üç Üst Âlem (Domain) Sistemi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Arkeler genelde nerelerde yaşar?",
+   "back": "Aşırı koşullarda: yüksek sıcaklık, tuzluluk, asitlik gibi ortamlarda (ama her yerde de bulunabilir).",
+   "category": "Üç Üst Âlem (Domain) Sistemi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuzak: Bütün prokaryotlar bakteridir, doğru mu?",
+   "back": "Yanlış. Arkeler de prokaryottur ama ayrı bir domaindir.",
+   "category": "Üç Üst Âlem (Domain) Sistemi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Nükleotit hangi üç bileşenden oluşur?",
+   "back": "Fosfat grubu, pentoz şeker ve azotlu organik baz.",
+   "category": "Nükleik Asitler",
+   "difficulty": "easy"
+  },
+  {
+   "front": "DNA’da bulunan bazlar nelerdir?",
+   "back": "Adenin, timin, guanin, sitozin (A, T, G, C).",
+   "category": "Nükleik Asitler",
+   "difficulty": "easy"
+  },
+  {
+   "front": "RNA’da bulunan bazlar nelerdir?",
+   "back": "Adenin, urasil, guanin, sitozin (A, U, G, C).",
+   "category": "Nükleik Asitler",
+   "difficulty": "easy"
+  },
+  {
+   "front": "DNA’nın şekeri nedir?",
+   "back": "Deoksiriboz.",
+   "category": "Nükleik Asitler",
+   "difficulty": "easy"
+  },
+  {
+   "front": "RNA’nın şekeri nedir?",
+   "back": "Riboz.",
+   "category": "Nükleik Asitler",
+   "difficulty": "easy"
+  },
+  {
+   "front": "RNA kaç zincirlidir?",
+   "back": "Çoğunlukla tek zincirlidir.",
+   "category": "Nükleik Asitler",
+   "difficulty": "easy"
+  },
+  {
+   "front": "A–T arasında kaç hidrojen bağı vardır?",
+   "back": "2.",
+   "category": "Nükleik Asitler",
+   "difficulty": "medium"
+  },
+  {
+   "front": "G–C arasında kaç hidrojen bağı vardır?",
+   "back": "3.",
+   "category": "Nükleik Asitler",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuzak: RNA’da timin bulunur, doğru mu?",
+   "back": "Yanlış; RNA’da timin yerine urasil bulunur.",
+   "category": "Nükleik Asitler",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Pürin bazları nelerdir?",
+   "back": "Adenin ve guanin.",
+   "category": "Nükleik Asitler",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Pirimidin bazları nelerdir?",
+   "back": "Sitozin, timin ve urasil.",
+   "category": "Nükleik Asitler",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Çift zincirli DNA’da pürin–pirimidin ilişkisi nedir?",
+   "back": "Toplam pürin sayısı toplam pirimidin sayısına eşittir.",
+   "category": "Nükleik Asitler",
+   "difficulty": "medium"
+  },
+  {
+   "front": "RNA’da pürin sayısı pirimidin sayısına neden eşit olmak zorunda değildir?",
+   "back": "Tek zincirli olduğu için baz eşleşmesi görülmez.",
+   "category": "Nükleik Asitler",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tüm DNA ve RNA nükleotit çeşitlerini yapmak için kaç fosfat gerekir?",
+   "back": "8 (4 DNA + 4 RNA nükleotiti).",
+   "category": "Nükleik Asitler",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Aynı örnekte kaç riboz ve kaç deoksiriboz gerekir?",
+   "back": "4 riboz ve 4 deoksiriboz.",
+   "category": "Nükleik Asitler",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Aynı örnekte adenin kaç adet gerekir?",
+   "back": "2 (biri DNA, biri RNA nükleotiti için).",
+   "category": "Nükleik Asitler",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Aynı örnekte timin ve urasil kaç adet?",
+   "back": "Timin 1 (yalnız DNA), urasil 1 (yalnız RNA).",
+   "category": "Nükleik Asitler",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Tuzak: Her nükleik asitte A=T’dir, doğru mu?",
+   "back": "Yanlış; bu yalnızca çift zincirli DNA için geçerlidir. RNA’da timin yoktur.",
+   "category": "Nükleik Asitler",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Fosfolipitin hidrofilik başı neden oluşur?",
+   "back": "Fosfat grubu ve gliserol.",
+   "category": "Fosfolipitler ve Hücre Zarı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Fosfolipitin hidrofobik kuyruğu nedir?",
+   "back": "İki yağ asidi zinciri.",
+   "category": "Fosfolipitler ve Hücre Zarı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Hidrofilik ne demektir?",
+   "back": "Suyu seven, suyla etkileşen.",
+   "category": "Fosfolipitler ve Hücre Zarı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Hidrofobik ne demektir?",
+   "back": "Suyu sevmeyen, sudan kaçınan.",
+   "category": "Fosfolipitler ve Hücre Zarı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Hücre zarında başlar nereye bakar?",
+   "back": "Zarın iki yüzeyinde sulu ortama (hücre içi ve dışı).",
+   "category": "Fosfolipitler ve Hücre Zarı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Hücre zarında kuyruklar nereye bakar?",
+   "back": "Zarın iç kısmında birbirine dönük.",
+   "category": "Fosfolipitler ve Hücre Zarı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Hidrofobik iç kısmın görevi nedir?",
+   "back": "Polar ve yüklü moleküllerin zardan serbestçe geçmesini engeller.",
+   "category": "Fosfolipitler ve Hücre Zarı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yağ (triaçilgliserol) ile fosfolipit farkı nedir?",
+   "back": "Yağda 3 yağ asidi, fosfolipitte 2 yağ asidi ve bir fosfat grubu bulunur.",
+   "category": "Fosfolipitler ve Hücre Zarı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Tuzak: Fosfolipitler hücre zarında tek tabaka mı oluşturur?",
+   "back": "Hayır; çift tabaka oluşturur.",
+   "category": "Fosfolipitler ve Hücre Zarı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Akışkan mozaik model nedir?",
+   "back": "Hücre zarının akışkan fosfolipit çift tabakası ve içinde mozaik gibi dağılmış proteinlerden oluştuğunu açıklayan modeldir.",
+   "category": "Fosfolipitler ve Hücre Zarı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Zar proteinlerinin görevleri nelerdir?",
+   "back": "Madde taşıma, tanıma, enzim görevi, haberleşme.",
+   "category": "Fosfolipitler ve Hücre Zarı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kolesterol hangi hücre zarında bulunur?",
+   "back": "Hayvan hücre zarında (zarın akışkanlığını dengeler).",
+   "category": "Fosfolipitler ve Hücre Zarı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Seçici geçirgenlik ne demektir?",
+   "back": "Zarın bazı maddeleri geçirip bazılarını geçirmemesi.",
+   "category": "Fosfolipitler ve Hücre Zarı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "O₂ ve CO₂ zardan nasıl geçer?",
+   "back": "Fosfolipitler arasından basit difüzyonla.",
+   "category": "Fosfolipitler ve Hücre Zarı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "İyonlar zardan nasıl geçer?",
+   "back": "Kanal veya taşıyıcı proteinler aracılığıyla.",
+   "category": "Fosfolipitler ve Hücre Zarı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Zardaki karbonhidratların görevi nedir?",
+   "back": "Hücrelerin birbirini tanımasına katkı.",
+   "category": "Fosfolipitler ve Hücre Zarı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Tuzak: Zar yalnızca fosfolipitten oluşur, doğru mu?",
+   "back": "Yanlış; proteinler, karbonhidratlar ve (hayvanlarda) kolesterol de vardır.",
+   "category": "Fosfolipitler ve Hücre Zarı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Enzim nedir?",
+   "back": "Tepkime hızını artıran, tepkimede harcanmayan, çoğu protein yapılı biyolojik katalizördür.",
+   "category": "Enzimler",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Aktivasyon enerjisi nedir?",
+   "back": "Tepkimenin başlaması için gereken minimum enerjidir; enzimler bunu düşürür.",
+   "category": "Enzimler",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Enzimin özgüllüğü ne demektir?",
+   "back": "Bir enzimin yalnızca belirli bir substrata (aktif bölgesine uyan) etki etmesi.",
+   "category": "Enzimler",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Denatürasyon nedir?",
+   "back": "Aşırı ısı veya uç pH’ta enzimin üç boyutlu yapısının bozulmasıdır.",
+   "category": "Enzimler",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Denatüre olan enzim soğutulunca düzelir mi?",
+   "back": "Hayır; denatürasyon geri dönüşümsüzdür.",
+   "category": "Enzimler",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Düşük sıcaklık enzimi denatüre eder mi?",
+   "back": "Hayır; yalnızca etkinliği çok düşürür; sıcaklık artınca etkinlik tekrar artar.",
+   "category": "Enzimler",
+   "difficulty": "medium"
+  },
+  {
+   "front": "İnsan enzimleri için optimum sıcaklık kaçtır?",
+   "back": "Yaklaşık 37 °C.",
+   "category": "Enzimler",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Pepsin hangi pH’ta çalışır?",
+   "back": "Asidik pH’ta (mide).",
+   "category": "Enzimler",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuzak: Enzim tepkimeyi başlatır, doğru mu?",
+   "back": "Hayır; olabilecek tepkimeyi hızlandırır. Tepkime olmayacaksa enzim başlatamaz.",
+   "category": "Enzimler",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Sıcaklık–enzim hızı grafiği nasıl bir eğridir?",
+   "back": "Optimuma kadar artan, sonra denatürasyonla hızla düşen çan eğrisi benzeri.",
+   "category": "Enzimler",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Denatüre olmuş enzimin substrat grafiği nasıl görünür?",
+   "back": "Substrat miktarı zamanla değişmez; yatay (düz) çizgi.",
+   "category": "Enzimler",
+   "difficulty": "medium"
+  },
+  {
+   "front": "0 °C’de bekletilmiş enzim 35 °C’ye getirilirse ne olur?",
+   "back": "Etkinliği artar, reaksiyon hızlanır; enzim denatüre olmamıştır.",
+   "category": "Enzimler",
+   "difficulty": "medium"
+  },
+  {
+   "front": "70 °C’de bekletilen enzim 35 °C’ye getirilirse ne olur?",
+   "back": "Reaksiyon gerçekleşmez; enzim denatüre olmuştur.",
+   "category": "Enzimler",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Deneyde bağımsız değişken nedir?",
+   "back": "Araştırmacının değiştirdiği etken (sıcaklık veya pH).",
+   "category": "Enzimler",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Enzim deneyinde sabit tutulması gerekenler nelerdir?",
+   "back": "Substrat/enzim miktarı, pH (veya sıcaklık), süre, hacim.",
+   "category": "Enzimler",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Nişasta yerine iyot çözeltisiyle nişasta varlığı nasıl test edilir?",
+   "back": "İyot nişastayla koyu mavi-mor renk verir; renk kaybolursa nişasta sindirilmiştir.",
+   "category": "Enzimler",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Tuzak: Düşük sıcaklıkta enzim ölür, doğru mu?",
+   "back": "Yanlış; enzim canlı değildir, düşük sıcaklıkta yalnızca yavaşlar.",
+   "category": "Enzimler",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Prokaryot hücrede DNA nerede bulunur?",
+   "back": "Sitoplazmada nükleoid bölgesinde.",
+   "category": "Hücre: Prokaryot ve Ökaryot",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Ökaryot hücrede DNA nerede bulunur?",
+   "back": "Zarlı çekirdekte (ayrıca mitokondri ve kloroplastta).",
+   "category": "Hücre: Prokaryot ve Ökaryot",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Prokaryot DNA’sının şekli nasıldır?",
+   "back": "Halkasaldır.",
+   "category": "Hücre: Prokaryot ve Ökaryot",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Ökaryot DNA’sının şekli nasıldır?",
+   "back": "Doğrusaldır.",
+   "category": "Hücre: Prokaryot ve Ökaryot",
+   "difficulty": "easy"
+  },
+  {
+   "front": "İki hücre tipinde de bulunan üç yapı nedir?",
+   "back": "Hücre zarı, sitoplazma, ribozom.",
+   "category": "Hücre: Prokaryot ve Ökaryot",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Çift zarlı organeller hangileridir?",
+   "back": "Mitokondri ve kloroplast (çekirdek de çift zarlıdır).",
+   "category": "Hücre: Prokaryot ve Ökaryot",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Prokaryot hücrede zarlı organel var mıdır?",
+   "back": "Yoktur.",
+   "category": "Hücre: Prokaryot ve Ökaryot",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Bakteri hücresinde ribozom var mıdır?",
+   "back": "Evet; protein sentezi için ribozomlar bulunur.",
+   "category": "Hücre: Prokaryot ve Ökaryot",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuzak: Prokaryotlarda DNA yoktur, doğru mu?",
+   "back": "Yanlış; DNA vardır ama zarla çevrili çekirdeğe sarılı değildir.",
+   "category": "Hücre: Prokaryot ve Ökaryot",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Krista hangi organelde bulunur?",
+   "back": "Mitokondride.",
+   "category": "Hücresel Yapılar ve İşlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Mitokondrinin görevi nedir?",
+   "back": "Hücresel solunumla ATP (enerji) üretmek.",
+   "category": "Hücresel Yapılar ve İşlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kloroplastın görevi nedir?",
+   "back": "Fotosentezle organik besin üretmek.",
+   "category": "Hücresel Yapılar ve İşlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Mitokondri kaç zarlıdır?",
+   "back": "Çift zarlı.",
+   "category": "Hücresel Yapılar ve İşlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Mitokondri DNA’sı var mıdır?",
+   "back": "Evet; halkasal DNA, RNA ve ribozom bulunur.",
+   "category": "Hücresel Yapılar ve İşlevleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Çekirdeğin görevi nedir?",
+   "back": "Genetik materyali barındırır ve hücre faaliyetlerini yönetir.",
+   "category": "Hücresel Yapılar ve İşlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Hayvan hücresinde kloroplast bulunur mu?",
+   "back": "Hayır.",
+   "category": "Hücresel Yapılar ve İşlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "ATP nedir?",
+   "back": "Hücrenin kullandığı doğrudan enerji molekülü.",
+   "category": "Hücresel Yapılar ve İşlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Tuzak: Mitokondri fotosentez yapar, doğru mu?",
+   "back": "Yanlış; mitokondri solunum, kloroplast fotosentez yapar.",
+   "category": "Hücresel Yapılar ve İşlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Ribozomun görevi nedir?",
+   "back": "Protein sentezi.",
+   "category": "Hücresel Yapılar ve İşlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Golgi aygıtının görevi nedir?",
+   "back": "Madde paketleme, salgı oluşturma ve dışarı gönderme.",
+   "category": "Hücresel Yapılar ve İşlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Golgi zarlı mıdır?",
+   "back": "Evet, tek zarlı.",
+   "category": "Hücresel Yapılar ve İşlevleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Golgi aygıtında DNA ve ribozom var mıdır?",
+   "back": "Yoktur.",
+   "category": "Hücresel Yapılar ve İşlevleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Granüllü ER’yi ayıran özellik nedir?",
+   "back": "Yüzeyinde ribozom taşır.",
+   "category": "Hücresel Yapılar ve İşlevleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Lizozom ne işe yarar?",
+   "back": "Sindirim enzimleriyle hücre içi sindirim yapar.",
+   "category": "Hücresel Yapılar ve İşlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Hangi organeller zarsızdır?",
+   "back": "Ribozom ve sentrozom.",
+   "category": "Hücresel Yapılar ve İşlevleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Bitkilerde büyük koful ne işe yarar?",
+   "back": "Madde depolar, ozmotik dengeye katkı sağlar (turgor).",
+   "category": "Hücresel Yapılar ve İşlevleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuzak: Ribozom zarlı bir organeldir, doğru mu?",
+   "back": "Yanlış; ribozom zarsızdır.",
+   "category": "Hücresel Yapılar ve İşlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Difüzyon enerji harcar mı?",
+   "back": "Hayır; pasif taşımadır.",
+   "category": "Hücre Zarından Madde Geçişi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Aktif taşıma enerji harcar mı?",
+   "back": "Evet; ATP kullanır.",
+   "category": "Hücre Zarından Madde Geçişi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Aktif taşıma hangi yöne gerçekleşir?",
+   "back": "Yoğunluğun az olduğu yerden fazla olduğu yere (derişime karşı).",
+   "category": "Hücre Zarından Madde Geçişi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kolaylaştırılmış difüzyonda ne kullanılır?",
+   "back": "Taşıyıcı veya kanal protein; enerji harcanmaz.",
+   "category": "Hücre Zarından Madde Geçişi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "O₂ ve CO₂ nasıl taşınır?",
+   "back": "Basit difüzyonla.",
+   "category": "Hücre Zarından Madde Geçişi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Ozmoz nedir?",
+   "back": "Suyun yarı geçirgen zardan geçişidir.",
+   "category": "Hücre Zarından Madde Geçişi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Na-K pompası hangi taşıma türüdür?",
+   "back": "Aktif taşıma.",
+   "category": "Hücre Zarından Madde Geçişi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Pasif taşımada itici güç nedir?",
+   "back": "Derişim (yoğunluk) farkı.",
+   "category": "Hücre Zarından Madde Geçişi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuzak: Kolaylaştırılmış difüzyon aktif taşıma mıdır?",
+   "back": "Hayır; enerji harcamayan pasif taşımadır.",
+   "category": "Hücre Zarından Madde Geçişi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Endositoz nedir?",
+   "back": "Zarın maddeyi kuşatıp keseciğe alarak hücre içine almasıdır.",
+   "category": "Hücre Zarından Madde Geçişi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Ekzositoz nedir?",
+   "back": "Kesecik içeriğinin hücre zarıyla birleşerek dışarı verilmesidir.",
+   "category": "Hücre Zarından Madde Geçişi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Fagositoz nedir?",
+   "back": "Katı parçacıkların yutulması (akyuvarın bakteriyi yutması).",
+   "category": "Hücre Zarından Madde Geçişi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Pinositoz nedir?",
+   "back": "Sıvı damlacıklarının alınması.",
+   "category": "Hücre Zarından Madde Geçişi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Endositoz enerji kullanır mı?",
+   "back": "Evet, ATP harcar.",
+   "category": "Hücre Zarından Madde Geçişi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Pankreasın insülin salgılaması hangi taşımadır?",
+   "back": "Ekzositoz.",
+   "category": "Hücre Zarından Madde Geçişi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Endositoz–ekzositozda yoğunluk farkı etkili midir?",
+   "back": "Hayır; kesecikle taşıma derişim farkına bağlı değildir.",
+   "category": "Hücre Zarından Madde Geçişi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Hücre zarından geçebilecek büyüklükte midir endositozla alınan madde?",
+   "back": "Hayır; zardan doğrudan geçemeyecek kadar büyüktür.",
+   "category": "Hücre Zarından Madde Geçişi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuzak: Endositoz pasif taşımadır, doğru mu?",
+   "back": "Yanlış; enerji harcayan aktif bir işlemdir.",
+   "category": "Hücre Zarından Madde Geçişi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Ozmozda su hangi yöne gider?",
+   "back": "Çözünen derişiminin fazla olduğu (daha yoğun) tarafa.",
+   "category": "Ozmoz, Plazmoliz ve Turgor",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Hipertonik çözeltide hücre ne olur?",
+   "back": "Su kaybeder, büzülür.",
+   "category": "Ozmoz, Plazmoliz ve Turgor",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Hipotonik çözeltide hücre ne olur?",
+   "back": "Su alır, şişer.",
+   "category": "Ozmoz, Plazmoliz ve Turgor",
+   "difficulty": "easy"
+  },
+  {
+   "front": "İzotonik çözeltide ne olur?",
+   "back": "Net su geçişi olmaz.",
+   "category": "Ozmoz, Plazmoliz ve Turgor",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Plazmoliz nedir?",
+   "back": "Bitki hücresinin su kaybederek zar ve sitoplazmanın duvardan ayrılmasıdır.",
+   "category": "Ozmoz, Plazmoliz ve Turgor",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Deplazmoliz nedir?",
+   "back": "Plazmoliz geçiren hücrenin hipotonik ortamda su alıp eski hâline dönmesidir.",
+   "category": "Ozmoz, Plazmoliz ve Turgor",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Hayvan hücresi hipotonik ortamda ne olur?",
+   "back": "Su alıp şişer, patlayabilir (duvar yoktur).",
+   "category": "Ozmoz, Plazmoliz ve Turgor",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Bitki hücresi neden patlamaz?",
+   "back": "Hücre duvarı şişmeyi sınırlar; turgor oluşur.",
+   "category": "Ozmoz, Plazmoliz ve Turgor",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuzak: Hipertonik çözelti ‘hücreden daha seyreltik’ demektir, doğru mu?",
+   "back": "Yanlış; hipertonik daha yoğun demektir.",
+   "category": "Ozmoz, Plazmoliz ve Turgor",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Yazılıda TAM PUAN için temel kural nedir?",
+   "back": "Soru kökünde istenen her parçayı ayrı ayrı yazmak: ad/karar + gerekçe/açıklama.",
+   "category": "Yazılı Teknikleri ve Puanlama",
+   "difficulty": "easy"
+  },
+  {
+   "front": "KISMÎ PUAN hangi durumda verilir?",
+   "back": "Doğru fikri adlandırıp gerekçe yazmadığında ya da istenen parçalardan yalnızca birini yazdığında.",
+   "category": "Yazılı Teknikleri ve Puanlama",
+   "difficulty": "easy"
+  },
+  {
+   "front": "SIFIR PUAN hangi durumda verilir?",
+   "back": "Cevap yoksa, tamamen yanlışsa veya yalnızca soru kökü tekrar edilmişse.",
+   "category": "Yazılı Teknikleri ve Puanlama",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Soru kökünü tekrar eden cevap puan getirir mi?",
+   "back": "Hayır; resmî anahtarlarda bu cevaplar sıfır puan alır.",
+   "category": "Yazılı Teknikleri ve Puanlama",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Senaryo sorusunda ilk adım nedir?",
+   "back": "İstenenleri işaretle (kaç parça?) ve metindeki ipuçlarının altını çiz.",
+   "category": "Yazılı Teknikleri ve Puanlama",
+   "difficulty": "easy"
+  },
+  {
+   "front": "‘Gerekçesiyle açıklayınız’ ne demektir?",
+   "back": "Kararın nedenini ‘çünkü …’ ile bir cümlede yazmak.",
+   "category": "Yazılı Teknikleri ve Puanlama",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Doğru bir ifadeyi yanlış saymak puanı nasıl etkiler?",
+   "back": "Kısmî puana düşürür; yalnızca hatalı olanı düzelt.",
+   "category": "Yazılı Teknikleri ve Puanlama",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Çok parçalı soruda cevabı nasıl düzenlersin?",
+   "back": "Madde madde yaz; her maddeye bir ad ve bir gerekçe cümlesi koy.",
+   "category": "Yazılı Teknikleri ve Puanlama",
+   "difficulty": "easy"
+  },
+  {
+   "front": "1. soruda Kart 1 hangi canlıya aittir?",
+   "back": "Bakteriye: prokaryot, halkasal DNA, çekirdek-zarlı organel-histon yok.",
+   "category": "Yazılı Teknikleri ve Puanlama",
+   "difficulty": "medium"
+  },
+  {
+   "front": "1. soruda Kart 3 hangi canlıya aittir?",
+   "back": "Arkeye: prokaryot, halkasal DNA, bazı türlerinde histon var.",
+   "category": "Yazılı Teknikleri ve Puanlama",
+   "difficulty": "medium"
+  },
+  {
+   "front": "2. soruda yanlış üç sayı hangisidir?",
+   "back": "Adenin (4→2), timin (4→1), riboz (2→4).",
+   "category": "Yazılı Teknikleri ve Puanlama",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Bu sette hangi sorular görsel nedeniyle atlanmıştır?",
+   "back": "5.1, 5.2, 6, 7, 8.1, 8.2 (görselleri metinde olmayan hücre, organel, madde geçişi ve ozmoz soruları).",
+   "category": "Yazılı Teknikleri ve Puanlama",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Mitokondri için hangi özellik doğrudur: enerji üretimi, ribozom, DNA, RNA, zarlı yapı?",
+   "back": "Hepsi: mitokondri ATP üretir, kendi ribozomu, DNA ve RNA’sı vardır, çift zarlıdır.",
+   "category": "Yazılı Teknikleri ve Puanlama",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Golgi aygıtı için enerji üretimi, ribozom, DNA, RNA ve zarlı yapı özellikleri nasıldır?",
+   "back": "Enerji üretimi, ribozom, DNA ve RNA yoktur; yalnızca zarlı yapıdadır.",
+   "category": "Yazılı Teknikleri ve Puanlama",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Endositozda yoğunluk farkı etkili midir?",
+   "back": "Hayır; büyük madde kesecikle ve enerji harcanarak alınır.",
+   "category": "Yazılı Teknikleri ve Puanlama",
+   "difficulty": "medium"
+  }
+ ],
+ "quiz": [
+  {
+   "type": "open-ended",
+   "question": "(1. soru, 12 puan) Üç üst âlem (domain) sisteminde yer alan öglena, arke ve bakteri canlılarına ait bazı özelliklerin yer aldığı numaralı bilgi kartları karışık olarak verilmiştir.\nKart 1: Hücre Yapısı: ............; Belirgin Çekirdek: Yok; Zarlı Organeller: Yok; DNA: ............; Histon proteini: Yok.\nKart 2: Hücre Yapısı: Ökaryot; Belirgin Çekirdek: ............; Zarlı Organeller: Var; DNA: Doğrusal; Histon proteini: ............\nKart 3: Hücre Yapısı: ............; Belirgin Çekirdek: Yok; Zarlı Organeller: ............; DNA: Halkasal; Histon proteini: Bazı türlerinde var.\n\nNumaralandırılmış kartlardaki boş bırakılan özellikleri tamamlayınız. 1, 2 ve 3 numaralı bilgi kartlarının verilen canlılardan hangisine ait olduğunu gerekçesiyle açıklayınız.",
+   "correctAnswer": "Kart 1: Prokaryot, Halkasal; BAKTERİ (zarlı organelleri ve belirgin çekirdeği yoktur, DNA’sında histon proteini bulunmaz). Kart 2: Çekirdek Var, Histon Var; ÖGLENA (ökaryot hücre yapısı, belirgin çekirdek ve zarlı organeller). Kart 3: Prokaryot, Zarlı organeller Yok; ARKE (zarlı organelleri ve belirgin çekirdeği yoktur, bazı türlerinde DNA histon proteinine sarılıdır).",
+   "keyPoints": [
+    "Kart 1: Prokaryot, Halkasal → bakteri",
+    "Kart 2: Çekirdek Var, Histon Var → öglena",
+    "Kart 3: Prokaryot, Zarlı organel Yok → arke",
+    "Her canlı için gerekçe"
+   ],
+   "maxPoints": 12,
+   "explanation": "Adım 1: Boşlukları doldur. Kart 1’de çekirdek ve organel yok: prokaryot; DNA halkasal. Kart 2’de ökaryot: çekirdek var, histon var. Kart 3’te çekirdek yok → prokaryot, zarlı organel yok. Adım 2: Canlıyı bul: histon yok + halkasal = bakteri; ökaryot = öglena; histon bazı türlerde var + prokaryot = arke. Adım 3: Her biri için kısa gerekçe yaz. Puanlama: TAM PUAN 12. KISMÎ PUAN: doğru tespit ettiğin her canlı 1 puan, doğru tespit + gerekçe 2 puan, doğru doldurduğun her özellik 1 puan. SIFIR: cevap yok/yanlış.",
+   "category": "Üç Üst Âlem (Domain) Sistemi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "(2. soru, 10 puan) Nükleik asitlerin monomeri olan nükleotitlerin yapısında bulunabilen moleküller şematize edilmiştir: Azotlu organik bazlar: U, A, T, C, G; Beş karbonlu şekerler (pentozlar): riboz, deoksiriboz; Fosfat grubu. Bir araştırmacı, DNA ve RNA’ya ait tüm nükleotit çeşitlerini oluşturmak için gerekli molekül sayılarını tabloda belirtmiştir. Ancak tabloyu tekrar incelediğinde bazı hatalar yaptığını fark etmiştir.\nKullanılan molekül – Kullanım sayısı: Fosfat 8; Adenin 4; Guanin 2; Sitozin 2; Urasil 1; Timin 4; Riboz 2; Deoksiriboz 4.\n\nTabloda verilen kullanım sayılarından yanlış olanları tespit ederek düzeltilmiş hâlini gerekçeleriyle yazınız.",
+   "correctAnswer": "Adenin, timin ve riboz sayıları yanlıştır. Adenin sayısı 2 olmalıdır: DNA ve RNA’da adenin, guanin, sitozin ortak bazlardır. Timin sayısı 1 olmalıdır: timin yalnızca DNA nükleotitlerinde bulunur. Riboz sayısı 4 olmalıdır: RNA’da A, G, C ve U bazları bulunur, 4 çeşit nükleotit oluşacağı için 4 riboza ihtiyaç vardır.",
+   "keyPoints": [
+    "Adenin 4 → 2",
+    "Timin 4 → 1",
+    "Riboz 2 → 4",
+    "Doğru sayılar (fosfat 8, guanin 2, sitozin 2, urasil 1, deoksiriboz 4) yanlış sayılmaz"
+   ],
+   "maxPoints": 10,
+   "explanation": "Adım 1: Nükleotit çeşitlerini listele: DNA: A, T, G, C (4); RNA: A, U, G, C (4); toplam 8 nükleotit. Adım 2: Her molekülün sayısını çıkar: fosfat 8; deoksiriboz 4 (DNA); riboz 4 (RNA); adenin 2 (DNA’da 1, RNA’da 1); guanin 2; sitozin 2; timin 1; urasil 1. Adım 3: Tabloyla karşılaştır; farklı olanlar adenin (4), timin (4), riboz (2). Puanlama: TAM PUAN 10: üç yanlışı bul, doğrusunu ve gerekçesini yaz, doğru sayıları yanlış sayma. KISMÎ PUAN 5: yanlış sayıları bulup düzeltmemek veya doğru sayıları da yanlış saymak.",
+   "category": "Nükleik Asitler",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "(3.1, 5 puan) Fosfolipitler hücre zarlarının ana bileşenlerinden biridir. Suyu seven (hidrofilik) ve suyu sevmeyen (hidrofobik) olmak üzere iki kısımdan oluşur. (Şekilde hidrofilik baş ve hidrofobik kuyruk gösterilmiştir.)\n\nFosfolipitlerin hidrofilik ve hidrofobik kısımlarını oluşturan moleküllerin adlarını yazınız.",
+   "correctAnswer": "Hidrofilik baş: fosfat grubu + gliserol. Hidrofobik kuyruk: 2 yağ asidi.",
+   "keyPoints": [
+    "Hidrofilik baş: fosfat grubu ve gliserol",
+    "Hidrofobik kuyruk: iki yağ asidi"
+   ],
+   "maxPoints": 5,
+   "explanation": "Adım 1: Hidrofilik = suyu seven polar baş: fosfat + gliserol. Adım 2: Hidrofobik = suyu sevmeyen kuyruk: iki yağ asidi zinciri. KISMÎ PUAN (3): yalnızca birinin adını yazmak. Gliserolü atlamamaya dikkat et.",
+   "category": "Fosfolipitler ve Hücre Zarı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "(3.2, 5 puan) Fosfolipitler hücre zarlarının ana bileşenlerinden biridir; hidrofilik baş ve hidrofobik kuyruktan oluşur.\n\nHücre zarı oluşurken fosfolipitlerin hidrofilik ve hidrofobik kısımlarının nasıl konumlandığını gerekçesi ile açıklayınız.",
+   "correctAnswer": "Fosfolipitler çift tabaka hâlinde düzenlenir. Hidrofilik kısımlar suyu seven polar gruplardan oluşur; hücre içi ve dışı sıvıları su bazlı olduğu için zarın her iki yüzeyinde suya dönük konumlanır. Hidrofobik kısımlar yağ asidi zincirlerinden oluşur, sudan kaçındığı için zarın iç kısmında birbirine dönük hizalanır; bu hidrofobik iç kısım polar ve yüklü moleküllerin zardan kolayca geçmesini engeller.",
+   "keyPoints": [
+    "Çift fosfolipit tabakası",
+    "Hidrofilik başlar zarın iki yüzünde suya dönük",
+    "Hidrofobik kuyruklar iç kısımda birbirine dönük",
+    "Gerekçe: iç ve dış ortam sulu; iç bölge polar moleküllere engel"
+   ],
+   "maxPoints": 5,
+   "explanation": "Adım 1: ‘Çift tabaka’ ifadesini yaz. Adım 2: Başların nereye baktığını gerekçele: hücre içi ve dışı su bazlıdır, başlar suyu sever. Adım 3: Kuyrukların nereye baktığını gerekçele: sudan kaçınırlar, bu yüzden içte toplanırlar. Adım 4: İç bölgenin işlevini ekle. KISMÎ PUAN (3): yalnızca bir kısmın konumunu açıklamak ya da gerekçeyi eksik yazmak.",
+   "category": "Fosfolipitler ve Hücre Zarı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "(4. soru, 10 puan; grafik çizimi bu sette sözlü anlatım olarak sorulmuştur) Bir deney ortamında sıcaklık dışında tüm koşullar optimum tutularak içinde su, 10 g nişasta ve nişastayı sindiren enzim bulunan iki deney tüpü hazırlanmıştır.\n• Birinci deney tüpü 0 °C’de, ikinci deney tüpü ise 70 °C’de bir süre bekletilmiştir.\n• Bir süre bekletildikten sonra her iki deney tüpünün de sıcaklığı 35 °C’ye getirilmiştir.\n\nBuna göre sıcaklığa bağlı olarak birinci deney tüpünde reaksiyon hızında, ikinci deney tüpünde ise nişasta miktarında meydana gelen değişimi (resmî soruda iki grafik çizilir: I. tüp için sıcaklık–reaksiyon hızı, II. tüp için sıcaklık–nişasta miktarı) sözle tarif ediniz; her grafikte eğilimi ve nedenini yazınız.",
+   "correctAnswer": "Birinci tüpte sıcaklık 35 °C’ye çıkarıldığında enzimin etkinliği ve reaksiyon hızı artar (enzim 0 °C’de denatüre olmaz, yalnızca yavaşlamıştır). İkinci tüpte enzim 70 °C’de bekletilme sonucunda denatüre olduğundan sıcaklık 35 °C’ye düşürülse bile reaksiyon gerçekleşmez ve nişasta miktarı değişmez (10 g’da sabit kalır).",
+   "keyPoints": [
+    "I. tüp: 35 °C’ye çıkınca enzim etkinliği ve reaksiyon hızı artar",
+    "II. tüp: 70 °C’de enzim denatüre olur",
+    "II. tüp: 35 °C’de bile reaksiyon yok, nişasta miktarı sabit",
+    "Gerekçe: düşük sıcaklık denatürasyon yapmaz; yüksek sıcaklık yapar"
+   ],
+   "maxPoints": 10,
+   "explanation": "Adım 1: I. tüp: 0 °C’de enzim yavaşlar ama bozulmaz; sıcaklık 35 °C’ye çıkınca hız artar → hız–sıcaklık grafiği yükselir. Adım 2: II. tüp: 70 °C’de enzim denatüre olur, işlevini kalıcı olarak kaybeder → 35 °C’ye inince bile çalışmaz → nişasta miktarı ilk değerde (10 g) yatay kalır. Adım 3: İki sonucu nedenleriyle yaz. Puanlama: TAM PUAN 10: iki grafik de doğru. KISMÎ PUAN 5: grafiklerden yalnızca birini doğru yapmak. Not: bu sette çizim yerine sözel anlatım istendiği için ölçüt aynen sözle uygulanır.",
+   "category": "Enzimler",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir canlının hücrelerinde belirgin çekirdek yoktur, zarlı organeller yoktur, DNA’sı halkasaldır ve histon proteini yoktur. Bu canlı hangi domaindedir? Gerekçesiyle yazınız.",
+   "correctAnswer": "Bakteri domaininde yer alır; prokaryot yapıdadır (çekirdek ve zarlı organel yok), DNA halkasaldır ve histon proteini bulunmaz (arkelerin bazı türlerinde histon vardır).",
+   "keyPoints": [
+    "Bakteri der",
+    "En az iki özelliği gerekçe yapar"
+   ],
+   "maxPoints": 10,
+   "explanation": "1) Çekirdek/organel yok → prokaryot. 2) Histon yok → arke değil, bakteri. 3) Gerekçeyi cümle içinde yaz. Beklenen cevabın ölçütleri: Bakteri der; En az iki özelliği gerekçe yapar. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Üç Üst Âlem (Domain) Sistemi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Hücre yapısı ökaryot, DNA’sı doğrusal, histon proteini var, zarlı organelleri var. Bu kart hangi domaine aittir? Neden?",
+   "correctAnswer": "Ökarya domainine aittir; çünkü çekirdeği ve zarlı organelleri vardır, DNA’sı doğrusaldır ve histon proteinine sarılıdır.",
+   "keyPoints": [
+    "Ökarya der",
+    "Gerekçe yazar"
+   ],
+   "maxPoints": 5,
+   "explanation": "Çekirdek + zarlı organel ökaryot ayrımı için yeterlidir. Beklenen cevabın ölçütleri: Ökarya der; Gerekçe yazar. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Üç Üst Âlem (Domain) Sistemi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bakteri ve arkelerin üç moleküler farkını yazınız.",
+   "correctAnswer": "Hücre duvarlarındaki protein-karbohidrat grupları farklıdır; ribozomal RNA dizileri farklıdır; bazı arkelerde histon bulunurken bakterilerde bulunmaz.",
+   "keyPoints": [
+    "Üç farkı yazar"
+   ],
+   "maxPoints": 10,
+   "explanation": "Üçünü de yazınca tam puan, yalnızca birini yazarsan kısmî puan olur. Beklenen cevabın ölçütleri: Üç farkı yazar. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Üç Üst Âlem (Domain) Sistemi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Çekirdeksiz, zarlı organelsiz, DNA’sı halkasal ve bazı türlerinde histon proteini bulunan canlı hangi domaindedir? Nedeniyle açıklayınız.",
+   "correctAnswer": "Arke domainindedir; prokaryot yapıdadır ancak bazı türlerinde histon bulunması bakterilerden ayıran özelliktir.",
+   "keyPoints": [
+    "Arke der",
+    "Histon ayrımını yazar"
+   ],
+   "maxPoints": 10,
+   "explanation": "Prokaryot + histon (bazı türlerde) → arke. Beklenen cevabın ölçütleri: Arke der; Histon ayrımını yazar. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Üç Üst Âlem (Domain) Sistemi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi yalnızca ökaryotlarda bulunur?",
+   "options": [
+    "Zarla çevrili organeller",
+    "Ribozom",
+    "Hücre zarı",
+    "DNA"
+   ],
+   "correct": 0,
+   "explanation": "Ribozom, hücre zarı ve DNA her canlı hücrede bulunur. Zarla çevrili organeller ve gerçek çekirdek ökaryotlara özgüdür.",
+   "category": "Konu tekrarı: Üç Üst Âlem (Domain) Sistemi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Arkeler ökaryot hücre yapısına sahiptir.",
+   "correct": false,
+   "explanation": "Arkeler prokaryottur; belirgin çekirdek ve zarlı organelleri yoktur.",
+   "category": "Konu tekrarı: Üç Üst Âlem (Domain) Sistemi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir öğrenci DNA kartına ‘Şekeri ribozdur’ yazmıştır. Hatayı bulup düzeltiniz.",
+   "correctAnswer": "Hata: DNA’nın şekeri deoksiribozdur; riboz RNA’nın şekeridir.",
+   "keyPoints": [
+    "Hatayı bulur",
+    "Düzeltir"
+   ],
+   "maxPoints": 5,
+   "explanation": "DNA = deoksi (bir oksijen eksik). RNA = riboz. Beklenen cevabın ölçütleri: Hatayı bulur; Düzeltir. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Nükleik Asitler",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir RNA kartında ‘Çift sarmal yapıdadır ve timin içerir’ yazıyor. Hataları belirleyip gerekçesiyle düzeltiniz.",
+   "correctAnswer": "RNA genellikle tek zincirlidir ve timin yerine urasil içerir; çift sarmal ve timin DNA’ya ait özelliklerdir.",
+   "keyPoints": [
+    "İki hata",
+    "Düzeltmeler"
+   ],
+   "maxPoints": 10,
+   "explanation": "Her iki özelliği DNA ile karşılaştırarak düzelt. Beklenen cevabın ölçütleri: İki hata; Düzeltmeler. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Nükleik Asitler",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "DNA ve RNA’nın görev bakımından farkını yazınız.",
+   "correctAnswer": "DNA genetik bilginin uzun süreli depolanması ve aktarılmasında; RNA genetik bilginin aktarılması ve protein sentezinde aracı olarak görev yapar.",
+   "keyPoints": [
+    "DNA görevi",
+    "RNA görevi"
+   ],
+   "maxPoints": 5,
+   "explanation": "DNA = depo; RNA = aracı. Beklenen cevabın ölçütleri: DNA görevi; RNA görevi. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Nükleik Asitler",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir nükleotidin yapısında hangi üç bileşen bulunur? DNA ve RNA nükleotitlerinde hangisi farklıdır?",
+   "correctAnswer": "Fosfat, pentoz, azotlu baz. Pentoz (deoksiriboz-riboz) ve bazlardan biri (timin-urasil) farklıdır.",
+   "keyPoints": [
+    "Üç bileşen",
+    "Farklı olanlar"
+   ],
+   "maxPoints": 10,
+   "explanation": "Fosfat her ikisinde aynı. Beklenen cevabın ölçütleri: Üç bileşen; Farklı olanlar. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Nükleik Asitler",
+   "difficulty": "hard"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi hem DNA hem RNA nükleotitinde bulunur?",
+   "options": [
+    "Timin",
+    "Fosfat grubu",
+    "Urasil",
+    "Deoksiriboz"
+   ],
+   "correct": 1,
+   "explanation": "Timin yalnızca DNA’da, urasil yalnızca RNA’da, deoksiriboz yalnızca DNA’dadır. Fosfat ikisinde de vardır.",
+   "category": "Konu tekrarı: Nükleik Asitler",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "DNA ve RNA’nın ikisinde de adenin bulunur.",
+   "correct": true,
+   "explanation": "Adenin hem DNA hem RNA’da ortak baz olarak bulunur.",
+   "category": "Konu tekrarı: Nükleik Asitler",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir öğrenci DNA ve RNA bilgi kartlarında ‘Yapısındaki toplam pürin sayısı toplam pirimidin sayısına eşittir’ ifadesini her iki karta da yazmıştır. Hangi kartta hata vardır? Gerekçesini yazınız.",
+   "correctAnswer": "RNA kartında hata vardır. RNA tek sarmallı olduğundan organik baz eşleşmesi görülmez; pürin/pirimidin oranı eşit veya farklı olabilir. DNA çift sarmal olduğu için pürin sayısı pirimidin sayısına eşittir.",
+   "keyPoints": [
+    "RNA kartını belirler",
+    "Tek sarmal-eşleşme yok gerekçesi"
+   ],
+   "maxPoints": 10,
+   "explanation": "1) Çift sarmal → eşleşme (A-T, G-C) → eşitlik. 2) RNA tek sarmal → eşleşme zorunlu değil → eşitlik zorunlu değil. Yalnızca ‘RNA hatalı’ yazarsan kısmî puan.",
+   "category": "Benzer soru: Nükleik Asitler",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Yalnızca RNA nükleotitleri oluşturulacaksa (A, U, G, C) toplam kaç fosfat, kaç riboz ve kaç baz molekülü gerekir? Açıklayınız.",
+   "correctAnswer": "4 çeşit nükleotit olacağı için 4 fosfat, 4 riboz ve 4 baz (A, U, G, C birer tane) gerekir.",
+   "keyPoints": [
+    "4 fosfat, 4 riboz",
+    "4 baz çeşidi"
+   ],
+   "maxPoints": 10,
+   "explanation": "Her nükleotitte bir fosfat, bir şeker, bir baz vardır; 4 nükleotit → 4 üçlü. Beklenen cevabın ölçütleri: 4 fosfat, 4 riboz; 4 baz çeşidi. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Nükleik Asitler",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir DNA parçasında 30 adenin varsa toplam timin sayısı kaçtır? Guaninle ilgili ne söylenebilir?",
+   "correctAnswer": "Timin 30’dur (A=T). Guanin sayısı sitozin sayısına eşittir (G=C) ama adeninden bağımsızdır.",
+   "keyPoints": [
+    "Timin 30",
+    "Guanin = sitozin"
+   ],
+   "maxPoints": 5,
+   "explanation": "Çift sarmalda eşleşen bazlar eşit sayıdadır. Beklenen cevabın ölçütleri: Timin 30; Guanin = sitozin. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Nükleik Asitler",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Tabloya ‘Urasil: 2’ yazılmıştır ve DNA’ya ait tüm nükleotit çeşitleri hedeflenmektedir. Bu sayı doğru mudur? Nedenini yazınız.",
+   "correctAnswer": "Doğru değildir; urasil yalnızca RNA’da bulunur, DNA’da kullanılmaz. Sadece DNA nükleotitleri için urasil sayısı 0’dır.",
+   "keyPoints": [
+    "Yanlış der",
+    "Urasilin RNA’ya özgü olduğunu belirtir"
+   ],
+   "maxPoints": 5,
+   "explanation": "Her baz için hangi nükleik asitte bulunduğunu hatırla. Beklenen cevabın ölçütleri: Yanlış der; Urasilin RNA’ya özgü olduğunu belirtir. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Nükleik Asitler",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "A, T, G ve C bazlarından oluşan çift zincirli bir DNA’da toplam pürin sayısı 50 ise toplam pirimidin sayısı kaçtır?",
+   "options": [
+    "25",
+    "100",
+    "50",
+    "Hesaplanamaz"
+   ],
+   "correct": 2,
+   "explanation": "Çift zincirli DNA’da A+G = T+C olduğundan pürin ve pirimidin sayıları eşittir.",
+   "category": "Konu tekrarı: Nükleik Asitler",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Urasil bir pürin bazıdır.",
+   "correct": false,
+   "explanation": "Urasil tek halkalı bir pirimidindir; pürinler adenin ve guanindir.",
+   "category": "Konu tekrarı: Nükleik Asitler",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Fosfolipitlerin hidrofilik baş ve hidrofobik kuyruk kısımlarını oluşturan molekülleri yazınız.",
+   "correctAnswer": "Hidrofilik baş: fosfat grubu + gliserol. Hidrofobik kuyruk: 2 yağ asidi.",
+   "keyPoints": [
+    "Baş molekülleri",
+    "Kuyruk molekülü"
+   ],
+   "maxPoints": 5,
+   "explanation": "Yalnızca birini yazarsan kısmî puan. Beklenen cevabın ölçütleri: Baş molekülleri; Kuyruk molekülü. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Fosfolipitler ve Hücre Zarı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Fosfolipitler hücre zarını oluştururken hidrofilik ve hidrofobik kısımların nasıl konumlandığını gerekçesiyle açıklayınız.",
+   "correctAnswer": "Çift tabaka oluşturur. Hidrofilik başlar hücre içi ve dışı sulu ortama dönük, hidrofobik yağ asidi kuyrukları suyu sevmediğinden zarın iç kısmında birbirine dönük durur; bu iç kısım polar ve yüklü moleküllerin geçişini engeller.",
+   "keyPoints": [
+    "Çift tabaka",
+    "Başlar suya dönük",
+    "Kuyruklar içte, gerekçeli"
+   ],
+   "maxPoints": 10,
+   "explanation": "Üç parçayı yaz: dizilim, konum, gerekçe. Beklenen cevabın ölçütleri: Çift tabaka; Başlar suya dönük; Kuyruklar içte, gerekçeli. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Fosfolipitler ve Hücre Zarı",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir fosfolipit tek başına suya konulursa küre biçiminde bir yapı oluşturabilir. Başları ve kuyrukları nasıl dizilir?",
+   "correctAnswer": "Başlar dışta suya dönük, kuyruklar içte birbirine dönük şekilde dizilir; kuyruklar sudan korunur.",
+   "keyPoints": [
+    "Başlar dışta",
+    "Kuyruklar içte"
+   ],
+   "maxPoints": 5,
+   "explanation": "Aynı dizilim ilkesi: hidrofobik kısım sudan uzak. Beklenen cevabın ölçütleri: Başlar dışta; Kuyruklar içte. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Fosfolipitler ve Hücre Zarı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Hücre zarının seçici geçirgen olmasında fosfolipit yapısının rolü nedir?",
+   "correctAnswer": "Hidrofobik iç bölge polar ve yüklü moleküllerin serbest geçişini engeller, küçük apolar moleküller geçebilir; böylece geçiş seçici olur.",
+   "keyPoints": [
+    "İç bölgenin engelleyici rolü",
+    "Hangi moleküllerin geçtiği"
+   ],
+   "maxPoints": 10,
+   "explanation": "Seçici geçirgenlik: bazı moleküller geçer, bazılar geçemez. Beklenen cevabın ölçütleri: İç bölgenin engelleyici rolü; Hangi moleküllerin geçtiği. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Fosfolipitler ve Hücre Zarı",
+   "difficulty": "hard"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Fosfolipit çift tabakasında hidrofobik kısımlar nerede bulunur?",
+   "options": [
+    "Zarın dış yüzeyinde sulu ortama dönük",
+    "Yalnızca hücre içi yüzeyde",
+    "Zarın dışında",
+    "Zarın iç kısmında birbirine dönük"
+   ],
+   "correct": 3,
+   "explanation": "Sudan kaçınan yağ asidi kuyrukları iç bölgede toplanır, başlar sulu ortama bakar.",
+   "category": "Konu tekrarı: Fosfolipitler ve Hücre Zarı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Fosfolipitin hidrofobik kuyruğu ____ yağ asidinden oluşur.",
+   "answers": [
+    "iki",
+    "2"
+   ],
+   "explanation": "Fosfolipitte gliserole iki yağ asidi ve bir fosfat bağlanmıştır.",
+   "category": "Konu tekrarı: Fosfolipitler ve Hücre Zarı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Hücre zarında bulunan proteinlerin madde geçişindeki rolünü açıklayınız.",
+   "correctAnswer": "Taşıyıcı ve kanal proteinler, fosfolipit çift tabakasından doğrudan geçemeyen iyon ve polar molekülleri hücre zarından geçirir.",
+   "keyPoints": [
+    "Protein rolü",
+    "Hangi maddeler"
+   ],
+   "maxPoints": 5,
+   "explanation": "Fosfolipitler engel olur; proteinler çözüm sunar. Beklenen cevabın ölçütleri: Protein rolü; Hangi maddeler. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Fosfolipitler ve Hücre Zarı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Hücre zarının seçici geçirgen olması hücre için neden önemlidir?",
+   "correctAnswer": "Hücreye gerekli maddelerin girmesini, zararlı maddelerin ve gereksiz maddelerin girmesinin sınırlanmasını sağlar; hücrenin iç dengesi korunur.",
+   "keyPoints": [
+    "Seçici girişi",
+    "İç dengenin korunması"
+   ],
+   "maxPoints": 10,
+   "explanation": "Önem sorusu: sonuç cümlesi gerekir. Beklenen cevabın ölçütleri: Seçici girişi; İç dengenin korunması. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Fosfolipitler ve Hücre Zarı",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Akışkan mozaik modeldeki ‘akışkan’ ve ‘mozaik’ sözcüklerinin anlamını yazınız.",
+   "correctAnswer": "Akışkan: fosfolipitler ve proteinler zar içinde hareket edebilir. Mozaik: proteinlerin çift tabaka içinde mozaik gibi dağınık yerleşmesi.",
+   "keyPoints": [
+    "Akışkan",
+    "Mozaik"
+   ],
+   "maxPoints": 5,
+   "explanation": "İki sözcüğü ayrı ayrı yaz. Beklenen cevabın ölçütleri: Akışkan; Mozaik. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Fosfolipitler ve Hücre Zarı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir hücrenin yağda çözünen küçük bir molekülü kolayca zardan geçirmesini fosfolipit yapısıyla ilişkilendiriniz.",
+   "correctAnswer": "Zarın iç kısmı hidrofobik yağ asidi kuyruklarından oluştuğundan yağda çözünen küçük moleküller bu bölgeden kolayca geçebilir.",
+   "keyPoints": [
+    "Hidrofobik iç bölge",
+    "Yağda çözünme ilişkisi"
+   ],
+   "maxPoints": 5,
+   "explanation": "Benzer benzeri çözer: apolar madde apolar bölgeden geçer. Beklenen cevabın ölçütleri: Hidrofobik iç bölge; Yağda çözünme ilişkisi. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Fosfolipitler ve Hücre Zarı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi hücre zarının yapısında bulunmaz?",
+   "options": [
+    "Selüloz",
+    "Fosfolipit",
+    "Protein",
+    "Karbonhidrat"
+   ],
+   "correct": 0,
+   "explanation": "Selüloz bitki hücre duvarında bulunur, hücre zarında değil.",
+   "category": "Konu tekrarı: Fosfolipitler ve Hücre Zarı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Hücre zarı seçici geçirgendir.",
+   "correct": true,
+   "explanation": "Zar bazı maddeleri geçirir, bazılarını geçirmez.",
+   "category": "Konu tekrarı: Fosfolipitler ve Hücre Zarı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aynı enzimi içeren iki tüpten biri 0 °C’de, diğeri 70 °C’de bekletildikten sonra ikisi de 35 °C’ye getiriliyor. Hangisinde tepkime gerçekleşir? Gerekçesini açıklayınız.",
+   "correctAnswer": "0 °C’de bekletilen tüpte tepkime gerçekleşir; düşük sıcaklık enzimi bozmaz, yalnızca etkinliğini azaltır. 70 °C’de bekletilen tüpte enzim denatüre olduğundan 35 °C’de tepkime olmaz.",
+   "keyPoints": [
+    "0 °C tüpü: tepkime olur",
+    "70 °C tüpü: denatürasyon",
+    "Gerekçeler"
+   ],
+   "maxPoints": 10,
+   "explanation": "1) Düşük sıcaklık = geri dönüşümlü yavaşlama. 2) Yüksek sıcaklık = geri dönüşümsüz denatürasyon. 3) İki tüpü ayrı değerlendir.",
+   "category": "Benzer soru: Enzimler",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Mide asidik, ince bağırsak bazik ortamdır. Pepsin ince bağırsakta çalışır mı? Nedenini yazınız.",
+   "correctAnswer": "Çalışmaz; pepsin asidik ortamda optimum etkinlik gösterir, bazik ortamda etkinliği düşer ve denatüre olabilir.",
+   "keyPoints": [
+    "Çalışmaz der",
+    "pH–optimum ilişkisi"
+   ],
+   "maxPoints": 10,
+   "explanation": "Her enzimin kendine özgü optimum pH’ı vardır. Beklenen cevabın ölçütleri: Çalışmaz der; pH–optimum ilişkisi. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Enzimler",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Amilaz nişastayı sindirir ancak proteinleri sindirmez. Bu durum enzimlerin hangi özelliğiyle açıklanır?",
+   "correctAnswer": "Özgüllük; amilazın aktif bölgesi yalnızca nişastaya uyar, proteine uymaz.",
+   "keyPoints": [
+    "Özgüllüğü belirtir",
+    "Aktif bölge uyumu"
+   ],
+   "maxPoints": 5,
+   "explanation": "Anahtar–kilit benzetmesi kullan. Beklenen cevabın ölçütleri: Özgüllüğü belirtir; Aktif bölge uyumu. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Enzimler",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir enzimin tepkimede harcanmaması canlıya hangi yararı sağlar?",
+   "correctAnswer": "Aynı enzim molekülü defalarca kullanılır, az miktarda enzim çok sayıda tepkimeyi katalizler.",
+   "keyPoints": [
+    "Tekrar kullanım",
+    "Az enzim yeterli"
+   ],
+   "maxPoints": 5,
+   "explanation": "Katalizör özelliği. Beklenen cevabın ölçütleri: Tekrar kullanım; Az enzim yeterli. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Enzimler",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Bir enzimin optimum sıcaklığından çok daha yüksek bir sıcaklığa maruz kalması sonucunda aşağıdakilerden hangisi olur?",
+   "options": [
+    "Aktivasyon enerjisi artar ve tepkime hızlanır",
+    "Enzim denatüre olur ve etkinliği kalıcı olarak kaybolur",
+    "Enzim substratı seçme yeteneğini artırır",
+    "Enzim yeniden yapılanarak daha aktif hâle gelir"
+   ],
+   "correct": 1,
+   "explanation": "Aşırı ısıda protein yapısı bozulur; soğuyunca bile geri dönmez.",
+   "category": "Konu tekrarı: Enzimler",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Enzimler tepkimede harcanır.",
+   "correct": false,
+   "explanation": "Enzimler katalizördür, tepkimede harcanmaz ve tekrar kullanılır.",
+   "category": "Konu tekrarı: Enzimler",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir öğrenci katalaz enzimi içeren karaciğer parçasını farklı sıcaklıklarda hidrojen peroksitle denemiştir. 80 °C’de köpürme gözlenmemiştir. Bu sonucu açıklayınız.",
+   "correctAnswer": "80 °C’de enzim denatüre olduğundan hidrojen peroksit parçalanamamış, oksijen gazı çıkışı (köpürme) olmamıştır.",
+   "keyPoints": [
+    "Denatürasyonu belirtir",
+    "Köpürme-gaz ilişkisi"
+   ],
+   "maxPoints": 10,
+   "explanation": "Gaz çıkışı enzimin çalıştığını gösterir. Çıkmıyorsa enzim aktif değildir. Beklenen cevabın ölçütleri: Denatürasyonu belirtir; Köpürme-gaz ilişkisi. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Enzimler",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir tüpteki enzim 25 °C’den 35 °C’ye çıkarılırken reaksiyon hızı artmıştır. 35 °C’den 75 °C’ye çıkarıldığında nasıl bir değişim beklenir? Nedenini yazınız.",
+   "correctAnswer": "Önce optimuma yakın artış olur, ardından hız hızla düşer ve durur; çünkü 75 °C’de enzim denatüre olur.",
+   "keyPoints": [
+    "Hızın düştüğünü söyler",
+    "Denatürasyon gerekçesi"
+   ],
+   "maxPoints": 10,
+   "explanation": "Grafikte tepe noktası optimumdur; sonrası düşüş. Beklenen cevabın ölçütleri: Hızın düştüğünü söyler; Denatürasyon gerekçesi. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Enzimler",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Nişasta + amilaz tüpünde zamanla nişasta miktarı azalırken, kaynatılmış amilaz tüpünde değişmemiştir. Kaynatma ne yapmıştır?",
+   "correctAnswer": "Kaynatma amilazı denatüre etmiş, enzim işlevini kaybetmiş; bu yüzden nişasta sindirilmemiştir.",
+   "keyPoints": [
+    "Denatürasyon",
+    "Sonuç"
+   ],
+   "maxPoints": 5,
+   "explanation": "Kaynatma = aşırı sıcaklık. Beklenen cevabın ölçütleri: Denatürasyon; Sonuç. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Enzimler",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir enzim deneyinde sıcaklık etkisini incelemek için hangi değişkenler sabit tutulmalıdır? İki örnek yazınız.",
+   "correctAnswer": "pH, enzim miktarı, substrat miktarı ve süre gibi koşullar sabit tutulmalıdır; yalnızca sıcaklık değişir.",
+   "keyPoints": [
+    "İki doğru sabit değişken"
+   ],
+   "maxPoints": 5,
+   "explanation": "Değişkenleri kontrol etmek sonucu güvenilir kılar. Beklenen cevabın ölçütleri: İki doğru sabit değişken. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Enzimler",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Bir deneyde 70 °C’de bekletilmiş amilaz tüpü 35 °C’ye getirilmiştir. Nişasta miktarı zamanla nasıl değişir?",
+   "options": [
+    "Hızla azalır",
+    "Önce artar sonra azalır",
+    "Değişmez",
+    "Tamamen sıfırlanır"
+   ],
+   "correct": 2,
+   "explanation": "Amilaz 70 °C’de denatüre olduğundan 35 °C’de çalışamaz, nişasta olduğu gibi kalır.",
+   "category": "Konu tekrarı: Enzimler",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "0 °C’de bekletilen enzim kalıcı olarak denatüre olur.",
+   "correct": false,
+   "explanation": "Düşük sıcaklıkta enzim yalnızca yavaşlar, sıcaklık artınca yeniden etkinleşir.",
+   "category": "Konu tekrarı: Enzimler",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "İki hücre çiziminden I’de halkasal DNA sitoplazmada yer alıyor, II’de çekirdek ve mitokondri bulunuyor. Hücre tipleri nedir? Üç özelliği karşılaştırınız.",
+   "correctAnswer": "I prokaryot, II ökaryot hücredir. DNA yeri: I’de nükleoid, II’de çekirdek. DNA şekli: I halkasal, II doğrusal. Çift zarlı organel: I’de yok, II’de var (çekirdek, mitokondri).",
+   "keyPoints": [
+    "Hücre tipleri",
+    "Üç karşılaştırma"
+   ],
+   "maxPoints": 10,
+   "explanation": "Tablo sorusunda her satırı doldur: yer, şekil, çift zarlı organel. Beklenen cevabın ölçütleri: Hücre tipleri; Üç karşılaştırma. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Hücre: Prokaryot ve Ökaryot",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Her iki hücre tipinde ortak bulunabilecek üç yapıyı yazınız ve her birinin görevini söyleyiniz.",
+   "correctAnswer": "Hücre zarı (madde geçişini düzenler), sitoplazma (organeller ve tepkimeler için ortam), ribozom (protein sentezi).",
+   "keyPoints": [
+    "Üç yapı",
+    "Görevler"
+   ],
+   "maxPoints": 10,
+   "explanation": "Ortak yapı: zar, sitoplazma, ribozom (DNA da). Beklenen cevabın ölçütleri: Üç yapı; Görevler. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Hücre: Prokaryot ve Ökaryot",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bakteri hücrelerinde mitokondri olmamasına rağmen enerji üretimi nasıl yapılır?",
+   "correctAnswer": "Solunum tepkimeleri hücre zarı ve sitoplazmada gerçekleşir.",
+   "keyPoints": [
+    "Organelsiz enerji üretimi"
+   ],
+   "maxPoints": 5,
+   "explanation": "Prokaryotta enerji üretimi zarlı organele ihtiyaç duymaz. Beklenen cevabın ölçütleri: Organelsiz enerji üretimi. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Hücre: Prokaryot ve Ökaryot",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Ökaryot hücrelerin çekirdeğinin işlevini yazınız.",
+   "correctAnswer": "Genetik materyali içerir, hücre faaliyetlerini yönetir ve DNA’yı korur.",
+   "keyPoints": [
+    "Genetik materyal",
+    "Yönetim"
+   ],
+   "maxPoints": 5,
+   "explanation": "Çekirdek = kontrol merkezi. Beklenen cevabın ölçütleri: Genetik materyal; Yönetim. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Hücre: Prokaryot ve Ökaryot",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi prokaryot hücrelerde bulunabilir?",
+   "options": [
+    "Mitokondri",
+    "Golgi aygıtı",
+    "Zarlı çekirdek",
+    "Ribozom"
+   ],
+   "correct": 3,
+   "explanation": "Ribozom tüm hücrelerde bulunur. Diğerleri zarlı yapılardır ve ökaryotlara özgüdür.",
+   "category": "Konu tekrarı: Hücre: Prokaryot ve Ökaryot",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Prokaryot hücrelerde çift zarlı organel bulunur.",
+   "correct": false,
+   "explanation": "Prokaryot hücrelerde zarlı organel bulunmaz; çift zarlı organeller (mitokondri, kloroplast) ve çekirdek ökaryotlara özgüdür.",
+   "category": "Konu tekrarı: Hücre: Prokaryot ve Ökaryot",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Kristalı, çift zarlı ve kendi DNA’sı olan bir organelin adını yazınız ve tablodaki enerji üretimi, ribozom, DNA, RNA ve zarlı yapı özelliklerini ‘+’ veya ‘–’ ile belirtiniz.",
+   "correctAnswer": "Mitokondri: enerji üretimi (+), ribozom (+), DNA (+), RNA (+), zarlı yapı (+).",
+   "keyPoints": [
+    "Organel adı",
+    "Beş özelliğin doğru işareti"
+   ],
+   "maxPoints": 10,
+   "explanation": "Krista = mitokondri ipucu. Mitokondri hem DNA hem RNA hem ribozom içerir. Beklenen cevabın ölçütleri: Organel adı; Beş özelliğin doğru işareti. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Hücresel Yapılar ve İşlevleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bitki hücresindeki mitokondri ve kloroplastın görevlerini karşılaştırınız.",
+   "correctAnswer": "Mitokondri organik besinleri yıkıp ATP üretir (solunum); kloroplast ışık enerjisiyle organik besin üretir (fotosentez).",
+   "keyPoints": [
+    "Mitokondri görevi",
+    "Kloroplast görevi"
+   ],
+   "maxPoints": 10,
+   "explanation": "Solunum yıkım, fotosentez yapım. Beklenen cevabın ölçütleri: Mitokondri görevi; Kloroplast görevi. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Hücresel Yapılar ve İşlevleri",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Mitokondri ve kloroplastta kendi ribozomlarının ve DNA’sının bulunması ne işe yarar?",
+   "correctAnswer": "Bu organeller kendi proteinlerinin bir kısmını üretebilir ve kendi bölünmelerini yönetebilir.",
+   "keyPoints": [
+    "Protein üretimi"
+   ],
+   "maxPoints": 5,
+   "explanation": "DNA + ribozom = kendi protein sentezi. Beklenen cevabın ölçütleri: Protein üretimi. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Hücresel Yapılar ve İşlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Kas hücrelerinde mitokondri sayısı derinin üst hücrelerine göre fazladır. Nedenini yazınız.",
+   "correctAnswer": "Kas hücreleri çok enerji harcar; mitokondri ATP ürettiği için daha fazla mitokondri bulunur.",
+   "keyPoints": [
+    "Enerji ihtiyacı",
+    "ATP üretimi"
+   ],
+   "maxPoints": 5,
+   "explanation": "Organel sayısı işlev yoğunluğuna bağlıdır. Beklenen cevabın ölçütleri: Enerji ihtiyacı; ATP üretimi. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Hücresel Yapılar ve İşlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi mitokondrinin özelliği değildir?",
+   "options": [
+    "Klorofil bulundurması",
+    "Çift zarlı olması",
+    "Kendi DNA’sının bulunması",
+    "ATP üretmesi"
+   ],
+   "correct": 0,
+   "explanation": "Klorofil kloroplasta aittir. Mitokondri çift zarlıdır, DNA taşır ve ATP üretir.",
+   "category": "Konu tekrarı: Hücresel Yapılar ve İşlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Krista kloroplastın iç zar kıvrımlarıdır.",
+   "correct": false,
+   "explanation": "Krista mitokondri iç zarının kıvrımlarıdır; kloroplastta tilakoitler bulunur.",
+   "category": "Konu tekrarı: Hücresel Yapılar ve İşlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Tabloda ‘Salgı üretimi’ özelliği verilen organelin adını yazınız ve enerji üretimi, ribozom, DNA, RNA ve zarlı yapı özelliklerini ‘+’ veya ‘–’ ile işaretleyiniz.",
+   "correctAnswer": "Golgi aygıtı: enerji üretimi (–), ribozom (–), DNA (–), RNA (–), zarlı yapı (+).",
+   "keyPoints": [
+    "Organel adı",
+    "Beş özellik işareti"
+   ],
+   "maxPoints": 10,
+   "explanation": "Golgi paketleme/salgı organelidir; yalnızca zarlıdır. Beklenen cevabın ölçütleri: Organel adı; Beş özellik işareti. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Hücresel Yapılar ve İşlevleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Pankreas hücrelerinin sindirim enzimi salgılarken hangi organeller sırasıyla görev alır? Açıklayınız.",
+   "correctAnswer": "Ribozom enzimi sentezler, granüllü ER işler ve taşır, Golgi paketler ve salgı kesecikleriyle dışarı gönderir.",
+   "keyPoints": [
+    "Sıra: ribozom → ER → Golgi",
+    "Görev açıklamaları"
+   ],
+   "maxPoints": 10,
+   "explanation": "Protein salgı yolu: ribozom → ER → Golgi → kesecik. Beklenen cevabın ölçütleri: Sıra: ribozom → ER → Golgi; Görev açıklamaları. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Hücresel Yapılar ve İşlevleri",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Lizozomların hücre içi görevi nedir? Bu işlev eksik olursa ne olabilir?",
+   "correctAnswer": "Lizozomlar yaşlı organelleri ve alınan partikülleri sindirir; eksikliğinde atıklar hücrede birikir.",
+   "keyPoints": [
+    "Görev",
+    "Eksiklik sonucu"
+   ],
+   "maxPoints": 5,
+   "explanation": "Lizozom = hücrenin sindirim ve temizlik organeli. Beklenen cevabın ölçütleri: Görev; Eksiklik sonucu. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Hücresel Yapılar ve İşlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bitki hücresinde büyük merkezî kofulun hücre için önemi nedir?",
+   "correctAnswer": "Su ve madde depolar, turgor basıncını sağlayarak hücrenin dik ve şekilli durmasına yardım eder.",
+   "keyPoints": [
+    "Depolama",
+    "Turgor"
+   ],
+   "maxPoints": 5,
+   "explanation": "Kofuldaki su turgoru oluşturur. Beklenen cevabın ölçütleri: Depolama; Turgor. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Hücresel Yapılar ve İşlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdaki organellerden hangisi zarsızdır?",
+   "options": [
+    "Golgi aygıtı",
+    "Ribozom",
+    "Lizozom",
+    "Mitokondri"
+   ],
+   "correct": 1,
+   "explanation": "Ribozom rRNA ve proteinden oluşur, zarsızdır. Diğerleri zarlıdır.",
+   "category": "Konu tekrarı: Hücresel Yapılar ve İşlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Hücrede protein sentezi ____ organelinde yapılır.",
+   "answers": [
+    "ribozom"
+   ],
+   "explanation": "Ribozom tüm hücrelerde bulunan protein sentez yapısıdır.",
+   "category": "Konu tekrarı: Hücresel Yapılar ve İşlevleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir hücre bağırsak boşluğundaki glikozu yoğunluk farkına karşı hücre içine alıyor ve bunun için ATP harcıyor. Bu madde geçişinin adı nedir? Gerekçesini yazınız.",
+   "correctAnswer": "Aktif taşımadır; enerji (ATP) harcanır ve madde seyrek ortamdan yoğun ortama taşınır.",
+   "keyPoints": [
+    "Adı doğru",
+    "Enerji ve yön gerekçesi"
+   ],
+   "maxPoints": 10,
+   "explanation": "Enerji harcıyor + derişime karşı = aktif taşıma. Beklenen cevabın ölçütleri: Adı doğru; Enerji ve yön gerekçesi. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Hücre Zarından Madde Geçişi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "O₂’nin akciğer alveolünden kılcal damara geçişi hangi taşıma türüdür? Enerji gerekir mi? Yoğunluk farkı etkili midir?",
+   "correctAnswer": "Basit difüzyondur; enerji gerekmez, yoğunluk farkı (alveolde O₂ fazla) etkilidir, molekül zardan geçecek kadar küçüktür.",
+   "keyPoints": [
+    "Adı",
+    "Enerji yok",
+    "Yoğunluk farkı etkili"
+   ],
+   "maxPoints": 10,
+   "explanation": "Tablo sorusunda her sütun için cevap ver. Beklenen cevabın ölçütleri: Adı; Enerji yok; Yoğunluk farkı etkili. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Hücre Zarından Madde Geçişi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Kolaylaştırılmış difüzyon ile aktif taşımayı iki ölçütte karşılaştırınız.",
+   "correctAnswer": "Her ikisinde de taşıyıcı protein kullanılır; kolaylaştırılmış difüzyonda enerji harcanmaz ve derişim yönünde ilerlenir, aktif taşımada enerji harcanır ve derişime karşı ilerlenir.",
+   "keyPoints": [
+    "Enerji",
+    "Yön"
+   ],
+   "maxPoints": 10,
+   "explanation": "Ortak: protein. Fark: enerji ve yön. Beklenen cevabın ölçütleri: Enerji; Yön. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Hücre Zarından Madde Geçişi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir madde zardan geçemeyecek kadar büyükse hücre içine nasıl alınabilir?",
+   "correctAnswer": "Endositozla; zar maddeyi kuşatıp kesecik oluşturur, enerji harcanır.",
+   "keyPoints": [
+    "Endositoz",
+    "Enerji"
+   ],
+   "maxPoints": 5,
+   "explanation": "Büyük partiküller kesecikle taşınır. Beklenen cevabın ölçütleri: Endositoz; Enerji. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Hücre Zarından Madde Geçişi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi enerji harcanan bir madde geçişidir?",
+   "options": [
+    "Basit difüzyon",
+    "Ozmoz",
+    "Aktif taşıma",
+    "Kolaylaştırılmış difüzyon"
+   ],
+   "correct": 2,
+   "explanation": "Aktif taşıma ATP harcar. Diğerleri pasif taşımadır.",
+   "category": "Konu tekrarı: Hücre Zarından Madde Geçişi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Basit difüzyonda madde seyrek ortamdan yoğun ortama geçer.",
+   "correct": false,
+   "explanation": "Basit difüzyon yoğundan seyreğe doğrudur ve enerji gerektirmez.",
+   "category": "Konu tekrarı: Hücre Zarından Madde Geçişi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir akyuvar hücresi bakteriyi çevreleyerek içine almaktadır. Bu madde geçişinin adı nedir? Enerji ve yoğunluk farkı bakımından açıklayınız.",
+   "correctAnswer": "Fagositoz (endositoz) tir; enerji (ATP) harcanır, yoğunluk farkı etkili değildir ve bakteri zardan geçemeyecek kadar büyüktür.",
+   "keyPoints": [
+    "Adı",
+    "Enerji",
+    "Yoğunluk/büyüklük"
+   ],
+   "maxPoints": 10,
+   "explanation": "Büyük partikül = kesecik = enerji. Beklenen cevabın ölçütleri: Adı; Enerji; Yoğunluk/büyüklük. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Hücre Zarından Madde Geçişi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Tükürük bezi hücreleri sindirim enzimini kesecik içinde dışarı veriyor. Bu işlem nedir? Süreci anlatınız.",
+   "correctAnswer": "Ekzositozdur; enzim Golgi’de paketlenip kesecikle hücre zarına gelir, zarla birleşir ve içeriğini dışarı boşaltır; enerji harcanır.",
+   "keyPoints": [
+    "Ekzositoz",
+    "Süreç basamakları"
+   ],
+   "maxPoints": 10,
+   "explanation": "Kesecik zarla birleşir, içeriği dışarı atılır. Beklenen cevabın ölçütleri: Ekzositoz; Süreç basamakları. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Hücre Zarından Madde Geçişi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Endositoz ve ekzositozun ortak özelliklerini iki madde ile yazınız.",
+   "correctAnswer": "İkisinde de kesecik kullanılır ve enerji (ATP) harcanır.",
+   "keyPoints": [
+    "İki ortak özellik"
+   ],
+   "maxPoints": 5,
+   "explanation": "Ortaklar: kesecik, enerji, büyük madde. Beklenen cevabın ölçütleri: İki ortak özellik. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Hücre Zarından Madde Geçişi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Amip besinini nasıl alır? Hangi taşıma türüdür?",
+   "correctAnswer": "Yalancı ayaklarla besini çevreleyip içeri alır; fagositozdur (endositoz).",
+   "keyPoints": [
+    "Yalancı ayak",
+    "Fagositoz"
+   ],
+   "maxPoints": 5,
+   "explanation": "Amip heterotroftur, besini katı alır. Beklenen cevabın ölçütleri: Yalancı ayak; Fagositoz. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Hücre Zarından Madde Geçişi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Hücre zarından geçemeyecek kadar büyük bir parçacığın hücreye alınması hangisidir?",
+   "options": [
+    "Ekzositoz",
+    "Basit difüzyon",
+    "Ozmoz",
+    "Endositoz"
+   ],
+   "correct": 3,
+   "explanation": "Hücre içine alma endositozdur; dışarı atma ekzositozdur.",
+   "category": "Konu tekrarı: Hücre Zarından Madde Geçişi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Ekzositozda maddeler hücre içine alınır.",
+   "correct": false,
+   "explanation": "Ekzositoz dışarı atma, endositoz içeri alma işlemidir.",
+   "category": "Konu tekrarı: Hücre Zarından Madde Geçişi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Ozmotik dengede olan bir bitki hücresi X çözeltisine konulunca büzülmüş (I. durum), sonra Y çözeltisine alınınca eski hâline dönmüştür (II. durum). X ve Y çözeltilerinin türünü ve hücredeki olayları gerekçesiyle yazınız.",
+   "correctAnswer": "X hipertonik: hücreden daha yoğun olduğu için hücre su kaybedip büzülür (plazmoliz). Y hipotonik: hücreden daha seyreltik olduğu için hücre su alıp eski hâline döner (deplazmoliz).",
+   "keyPoints": [
+    "X hipertonik, Y hipotonik",
+    "Plazmoliz",
+    "Deplazmoliz"
+   ],
+   "maxPoints": 10,
+   "explanation": "1) Büzülme = su kaybı = ortam daha yoğun = hipertonik. 2) Tekrar şişme = su alma = hipotonik. 3) Olay adlarını yaz. Adı yazıp gerekçe vermezsen kısmî puan.",
+   "category": "Benzer soru: Ozmoz, Plazmoliz ve Turgor",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Marul yapraklarının tuzlu suda bekletildiğinde yumuşadığını, saf suda ise dik kaldığını açıklayınız.",
+   "correctAnswer": "Tuzlu su hipertonik olduğundan hücreler su kaybeder, turgor azalır ve yaprak yumuşar. Saf su hipotoniktir, hücreler su alır, turgor artar ve yaprak diktir.",
+   "keyPoints": [
+    "Tuzlu su–hipertonik–su kaybı",
+    "Saf su–hipotonik–turgor"
+   ],
+   "maxPoints": 10,
+   "explanation": "Turgor basıncı bitkinin dikliğini sağlar. Beklenen cevabın ölçütleri: Tuzlu su–hipertonik–su kaybı; Saf su–hipotonik–turgor. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Ozmoz, Plazmoliz ve Turgor",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Kan hücreleri (alyuvar) saf suya konulursa ne olur? Nedeni nedir?",
+   "correctAnswer": "Saf su hipotoniktir; alyuvar su alır, şişer ve hücre duvarı olmadığı için patlayabilir.",
+   "keyPoints": [
+    "Şişme/patlama",
+    "Hipotonik, duvar yok"
+   ],
+   "maxPoints": 5,
+   "explanation": "Hayvan hücresinde duvar yok. Beklenen cevabın ölçütleri: Şişme/patlama; Hipotonik, duvar yok. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Ozmoz, Plazmoliz ve Turgor",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir hücre izotonik çözeltide durmaktadır. Su molekülleri hareket etmiyor mu? Açıklayınız.",
+   "correctAnswer": "Su molekülleri iki yönde de hareket eder ancak giren su miktarı çıkan su miktarına eşit olduğundan net su geçişi yoktur.",
+   "keyPoints": [
+    "İki yönlü hareket",
+    "Net geçiş yok"
+   ],
+   "maxPoints": 5,
+   "explanation": "Dinamik denge kavramı. Beklenen cevabın ölçütleri: İki yönlü hareket; Net geçiş yok. Bunlardan yalnızca bir kısmını yazarsan kısmî puan alırsın.",
+   "category": "Benzer soru: Ozmoz, Plazmoliz ve Turgor",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Bitki hücresi hipertonik bir çözeltiye konulduğunda aşağıdakilerden hangisi gerçekleşir?",
+   "options": [
+    "Hücre zarı duvardan ayrılır (plazmoliz)",
+    "Hücre şişip patlar",
+    "Net su girişi olur",
+    "Turgor basıncı artar"
+   ],
+   "correct": 0,
+   "explanation": "Hipertonik ortamda hücre su kaybeder, sitoplazma büzülür ve zar duvardan ayrılır.",
+   "category": "Konu tekrarı: Ozmoz, Plazmoliz ve Turgor",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Plazmoliz geçirmiş hücrenin hipotonik ortamda eski hâline dönmesine ____ denir.",
+   "answers": [
+    "deplazmoliz"
+   ],
+   "explanation": "Hücre hipertonik ortamda su kaybedip büzülür (plazmoliz); hipotonik ortamda su alıp eski hâline döner, bu olaya deplazmoliz denir.",
+   "category": "Konu tekrarı: Ozmoz, Plazmoliz ve Turgor",
+   "difficulty": "medium"
+  }
+ ],
+ "sources": [
+  {
+   "id": "src1",
+   "name": "Yazılıya Hazırlanıyorum – Biyoloji 9. Sınıf – 2. Dönem 2. Yazılı (OGM Materyal)",
+   "kind": "file",
+   "text": "=== Page 1 ===\r\n2. DÖNEM - 2. YAZILI\r\nBİYOLOJİ\r\n1. Üç üst âlem (domain) sisteminde yer alan öğlena, arke ve bakteri canlılarına ait bazı özelliklerin yer aldığı numaralı \r\nbilgi kartları karışık olarak verilmiştir. \r\nCanlının Özellikleri\r\n• Hücre Yapısı : .............\r\n• Belirgin Çekirdek: Yok\r\n• Zarlı Organeller : Yok\r\n• DNA : .............\r\n• Histon proteini : Yok\r\n1\r\nCanlının Özellikleri\r\n• Hücre Yapısı : Ökaryot\r\n• Belirgin Çekirdek: ............ \r\n• Zarlı Organeller : Var\r\n• DNA : Doğrusal\r\n• Histon proteini : ............ \r\n2\r\nCanlının Özellikleri\r\n• Hücre Yapısı : ............\r\n• Belirgin Çekirdek: Yok\r\n• Zarlı Organeller : ............ \r\n• DNA : Halkasal\r\n• Histon proteini : Bazı türlerinde\r\n var\r\n3\r\n Numaralandırılmış kartlardaki boş bırakılan özellikleri tamamlayınız. 1, 2 ve 3 numaralı bilgi kartlarının \r\nverilen canlılardan hangisine ait olduğunu gerekçesiyle açıklayınız.\r\n=== Page 2 ===\r\n2. Nükleik asitlerin monomeri olan nükleotitlerin yapısında bulunabilen moleküller aşağıda şematize edilmiştir.\r\nAzotlu Organik Bazlar\r\nU\r\nA T\r\nC G\r\nBeş Karbonlu Şekerler (Pentozlar)\r\nRİBOZ DEOKSİRİBOZ\r\nFosfat Grubu\r\nO\r\nPOˉ Oˉ\r\nOˉ\r\n Bir araştırmacı, DNA ve RNA’ya ait tüm nükleotit çeşitlerini oluşturmak için gerekli molekül sayılarını aşağıdaki \r\ntabloda belirtmiştir. Ancak tabloyu tekrar incelediğinde bazı hatalar yaptığını fark etmiştir.\r\nKULLANILAN \r\nMOLEKÜL\r\nKULLANIM \r\nSAYISI\r\nFosfat 8\r\nAdenin 4\r\nGuanin 2\r\nSitozin 2\r\nUrasil 1\r\nTimin 4\r\nRiboz 2\r\nDeoksiriboz 4\r\n Tabloda verilen kullanım sayılarından yanlış olanları tespit ederek düzeltilmiş hâlini gerekçeleriyle yazınız.\r\n=== Page 3 ===\r\n3. Fosfolipitler hücre zarlarının ana bileşenlerinden biridir. Suyu seven (hidrofilik) ve suyu sevmeyen (hidrofobik) olmak \r\nüzere iki kısımdan oluşur. \r\n Hidrofilik baş\r\nFosfolipit\r\nHidrofobik kuyruk\r\n3.1. Fosfolipitlerin hidrofilik ve hidrofobik kısımlarını oluşturan moleküllerin adlarını yazınız.\r\n3.2. Hücre zarı oluşurken fosfolipitlerin hidrofilik ve hidrofobik kısımlarının nasıl konumlandığını gerekçesi \r\nile açıklayınız.\r\n=== Page 4 ===\r\n4. Bir deney ortamında sıcaklık dışında tüm koşullar optimum tutularak içinde su, 10 g nişasta ve nişastayı sindiren \r\nenzim bulunan iki deney tüpü hazırlanmıştır. \r\n • Birinci deney tüpü 00C’ de, ikinci deney tüpü ise 700C’ de bir süre bekletilmiştir.\r\n • Bir süre bekletildikten sonra her iki deney tüpünün de sıcaklığı 350C’ ye getirilmiştir.\r\n Buna göre sıcaklığa bağlı olarak birinci deney tüpünde reaksiyon hızında, ikinci deney tüpünde ise nişasta \r\nmiktarında meydana gelen değişimi aşağıdaki grafiklere çiziniz.\r\nNişasta \r\nMiktarı (g)\r\nII. tüpI. tüp\r\n5 15 25 35 5 10 15 20\r\n70\r\n35\r\nSıcaklık (0C)\r\nSıcaklık (0C)Reaksiyon Hızı\r\n=== Page 5 ===\r\n5. İki farklı hücre tipine ait görseller numaralandırılarak aşağıda verilmiştir.\r\n I II\r\n 5.1. Görselleri verilen her iki hücre tipinde ortak bulunabilecek hücresel yapılardan üç tanesini yazınız.\r\nOrtak Bulunabilecek Hücresel Yapılar\r\n1.\r\n2.\r\n3.\r\n 5.2. Görselleri verilen iki farklı hücre tipinin tabloda yer alan özelliklerini yazınız.\r\nHücre Tipi\r\nÖzellikler\r\nI II\r\nDNA'nın bulunduğu hücresel kısım\r\nGenetik materyalin şekli\r\nBulundurabileceği çift zarlı organeller\r\n=== Page 6 ===\r\n6. Ökaryot hücrelerde bulunan bazı hücresel yapıların görselleri, karakteristik yapı ve özelliklerini belirten tablolar \r\naşağıda verilmiştir. \r\n Görselleri ve karakteristik özellikleri verilen hücresel yapıların adını tablodaki ilgili boşluğa yazarak \r\nbelirtilen diğer özellikleri \"+\" ya da \"–\" ile işaretleyiniz.\r\n 1. Hücresel yapı: \r\n Tablo I:\r\nKarakteristik \r\nyapı\r\nOrganel \r\nadı\r\nEnerji \r\nüretimi\r\nRibozom \r\nbulundurma\r\nDNA \r\nbulundurma\r\nRNA \r\nbulundurma\r\nZarlı yapıda \r\nolma\r\nKrista\r\n Not: \"+\" özelliğin bulunduğunu, \"–\" özelliğin bulunmadığını ifade edecektir.\r\n 2. Hücresel yapı: \r\n Tablo II:\r\nKarakteristik \r\nözellik\r\nOrganel \r\nadı\r\nEnerji \r\nüretimi\r\nRibozom \r\nbulundurma\r\nDNA \r\nbulundurma\r\nRNA \r\nbulundurma\r\nZarlı yapıda \r\nolma\r\nSalgı üretimi\r\n Not: \"+\" özelliğin bulunduğunu, \"–\" özelliğin bulunmadığını ifade edecektir.\r\n=== Page 7 ===\r\n7. Hayvan hücrelerinde gerçekleşen hücre zarından madde geçişlerine ait bazı örnekler numaralandırılarak aşağıdaki \r\ngörselde verilmiştir.\r\n Numaralandırılmış örnekler ile ilgili tabloda yer alan soruların cevabını yazınız.\r\n Madde Geçişinin \r\nAdı Nedir?\r\nEnerji Kullanımı \r\nVar mı? (Evet/Hayır)\r\nYoğunluk Farkı \r\nEtkili mi? \r\n(Evet/Hayır)\r\nHücre Zarından \r\nGeçebilecek \r\nBüyüklükte mi? \r\n(Evet/Hayır)\r\nI.\r\nII.\r\nIII.\r\nIV.\r\nV.\r\n=== Page 8 ===\r\n8. Ozmotik dengede olan bir bitki hücresi X çözeltisine konulduktan bir süre sonra I. duruma, X çözeltisinden alınıp Y \r\nçözeltisine konulduktan bir süre sonra ise II. duruma geçmiştir. X ve Y çözeltilerinin yoğunlukları birbirinden ve bitki \r\nhücresinden farklıdır.\r\nX çözeltisi I. durum\r\nY çözeltisiII. durum\r\n8.1. Hücrenin konulduğu çözelti çeşitlerinin adlarını ve çözeltilerin özelliğini dikkate alarak hücrede \r\nmeydana gelen değişimlerin sebebini yazınız.\r\n8.2. Hücrede I ve II. duruma neden olan olayların adlarını yazarak açıklayınız.\r\n=== Page 9 ===\r\nSORU \r\nNO ÖĞRENME ÇIKTISI BECERİLER\r\n1 BİY.9.1.6. Üç üst âlem (domain) sisteminde yer alan canlıların özellikleri ile ilgili çıkarım yapabilme KB2.10. Çıkarım Yapma\r\n2 BİY.9.2.2. Organik moleküllerin yapısı ve çeşitleriyle ilgili bilgi toplayabilme KB2.6. Bilgi Toplama\r\n3 BİY.9.2.2. Organik moleküllerin yapısı ve çeşitleriyle ilgili bilgi toplayabilme KB2.6. Bilgi Toplama\r\n4 BİY.9.2.4. pH ve sıcaklığın enzim aktivitesini etkilediğini gösteren deney yapabilme FBAB7. Deney Yapma\r\n5 BİY.9.2.5. Hücre alt birimlerini ve bu birimlerin işlevleri arasındaki ilişkileri çözümleyebilme KB2.4. Çözümleme\r\n6 BİY.9.2.5. Hücre alt birimlerini ve bu birimlerin işlevleri arasındaki ilişkileri çözümleyebilme KB2.4. Çözümleme\r\n7 BİY.9.2.6. Hücre zarından madde geçişlerini sınıflandırabilme FBAB2. Sınıflandırma\r\n8 BİY.9.2.7. Küçük moleküllerin hücre zarından pasif geçişi ile ilgili deney yapabilme FBAB7. Deney Yapmaa\r\nPUANLAMA TABLOSU\r\n1 2\r\n3\r\n4\r\n5\r\n6 7\r\n8 TOPLAM\r\n3.1 3.2 5.1 5.2 8.1 8.2\r\n12 10 5 5 10 8 8 12 20 5 5 100\r\n=== Page 10 ===\r\nÇÖZÜMLER\r\n1. TAM PUAN (12 PUAN) \r\nHer üç canlıyı da doğru şekilde tespit eder ve gerekçeleriyle açıklayarak tam puan alır.\r\n 1 numaralı kart “bakteriye” aittir. Çünkü zarlı organelleri, belirgin çekirdekleri yoktur. Ayrıca DNA’larında histon \r\nproteini bulunmaz.\r\n 2 numaralı kart “öglenaya” aittir. Çünkü ökaryot hücre yapısına sahiptir. Belirgin bir çekirdeği ve zarla çevrili \r\norganelleri vardır.\r\n 3 numaralı kart “arkeye” aittir. Çünkü zarla çevrili organellere ve belirgin bir çekirdeğe sahip değildir. Bazı \r\ntürlerinde DNA’ları histon proteinine sarılı şekilde kompleks oluşturur.\r\nCanlının Özellikleri\r\n• Hücre Yapısı : Prokaryot\r\n• Belirgin Çekirdek: Yok\r\n• Zarlı Organeller : Yok\r\n• DNA : Halkasal\r\n• Histon proteini : Yok\r\n1\r\nBakteri\r\nCanlının Özellikleri\r\n• Hücre Yapısı : Ökaryot\r\n• Belirgin Çekirdek: Var\r\n• Zarlı Organeller : Var\r\n• DNA : Doğrusal\r\n• Histon proteini : Var\r\n2\r\nÖglena\r\nCanlının Özellikleri\r\n• Hücre Yapısı : Prokaryot\r\n• Belirgin Çekirdek: Yok\r\n• Zarlı Organeller : Yok\r\n• DNA : Halkasal\r\n• Histon proteini : Bazı türlerinde\r\n var\r\n3\r\nArke\r\n KISMİ PUAN \r\nDoğru şekilde tespit ettiği her canlı için 1 puan verilir. Doğru olarak tespit edip gerekçesini açıklayabildiği her canlı \r\niçin 2 puan verilir. \r\n Doğru olarak doldurulan her bir özellik için 1 puan verilir.\r\n 1 numaralı kart “bakteriye” ait olmalıdır. Çünkü zarlı organelleri, belirgin çekirdekleri ve histon proteinleri yoktur. (2 puan)\r\n 2 numaralı kart “öglenaya” ait olmalıdır. Çünkü zarlı organelleri vardır ve ökaryot hücre yapısına sahiptir. (2 puan)\r\n 3 numaralı kart “arkeye” ait olmalıdır. Çünkü belirgin çekirdekleri yoktur ancak bazı türlerinde histon proteinleri \r\nvardır. (2 puan)\r\nCanlının Özellikleri\r\n• Hücre Yapısı : Prokaryot Prokaryot \r\n (1 Puan)\r\n• Belirgin Çekirdek: Yok\r\n• Zarlı Organeller : Yok\r\n• DNA : Halkasal Halkasal (1 Puan)\r\n• Histon proteini : Yok\r\n1\r\nBakteri\r\nCanlının Özellikleri\r\n• Hücre Yapısı : Ökaryot\r\n• Belirgin Çekirdek: Var Var (1 Puan)\r\n• Zarlı Organeller : Var\r\n• DNA : Doğrusal\r\n• Histon proteini : Var Var (1 Puan)\r\n2\r\nÖglena\r\nCanlının Özellikleri\r\n• Hücre Yapısı : Prokaryot Prokaryot (1 Puan)\r\n• Belirgin Çekirdek: Yok\r\n• Zarlı Organeller : Yok Yok (1 Puan)\r\n• DNA : Halkasal\r\n• Histon proteini : Bazı türlerinde\r\n var\r\n3\r\nArke\r\n SIFIR PUAN \r\nCevap yok veya tamamen yanlış bilgiler içermektedir.\r\n=== Page 11 ===\r\n2. TAM PUAN (10 PUAN) \r\n Tabloda hatalı olan sayıları tespit etmiş ve yanlış sayıları düzelterek gerekçesini doğru açıklamıştır. Herhangi doğru \r\nbir sayıyı yanlış olarak kabul etmemiştir.\r\n • Adenin, timin ve riboz sayıları yanlış verilmiştir.\r\n • Adenin sayısı 2 olmalıdır. DNA ve RNA moleküllerinde adenin, guanin, sitozin azotlu organik bazları ortak olarak \r\nkullanılan bazlardır. Buna göre adenin sayısı 2 olmalıdır.\r\n • Timin sayısı 1 olmalıdır. Timin sadece DNA’ya ait nükleotitlerde yer alan bir bazdır.\r\n • Riboz sayısı 4 olmalıdır. RNA molekülünde A, G, C ve U bazları bulunur. Dolayısıyla 4 çeşit nükleotit \r\noluşturulacağı için 4 adet riboza ihtiyaç vardır.\r\n KISMİ PUAN \r\n • Tabloda yanlış olan adenin, timin ve riboz sayılarını belirlemiş ancak doğrusuyla düzeltmemiştir. (5 Puan)\r\n • Tabloda yanlış olan sayıları belirtmiş ve doğrusuyla düzeltmiştir. Ancak hatalı olmayan fosfat, guanin, sitozin, \r\nurasil ve deoksiriboz sayılarının hepsini ya da bazılarını da yanlış olarak kabul etmiş ve doğru sayıları hatalıya \r\ndönüştürmüştür. (5 Puan)\r\n SIFIR PUAN \r\n Cevap yok veya tamamen yanlış bilgiler içermektedir.\r\n=== Page 12 ===\r\n3. TAM PUAN (10 PUAN) \r\n3.1. Hidrofilik ve hidrofobik kısımlarını oluşturan moleküllerin adlarını doğru şekilde yazar. \r\n Hidrofilik baş kısmı: Fosfat grubu + Gliserol \r\n Hidrofobik kuyruk kısmı: 2 Yağ asidi\r\n3.2. Fosfolipitler hücre zarını oluştururken hidrofilik ve hidrofobik kısımların konumunu gerekçeleri ile doğru şekilde \r\naçıklar. \r\n Hücre zarı oluşurken fosfolipitler çift fosfolipit tabakası halinde düzenlenirler.\r\n Hidrofilik kısımlar suyu seven polar gruplardan oluşur. Hücre içi ve hücre dışı sıvılar su bazlı olduğu için bu \r\nkısımlar zarın her iki yüzeyinde suya dönük şekilde konumlanır. Böylece su ile etkileşime girerek dengeli bir \r\nyapı oluştururlar. \r\n Hidrofobik kısımlar suyu sevmeyen yağ asidi zincirlerinden oluşur. Bu kısımlar sudan kaçınma eğiliminde \r\nolduğundan, zarın iç kısmında birbirine dönük olacak şekilde hizalanırlar. Hidrofobik iç kısım, polar ve yüklü \r\nmoleküllerin zardan kolayca geçmesini engeller.\r\n KISMİ PUAN \r\n3.1. Hidrofilik ve hidrofobik kısımları oluşturan moleküllerden sadece birinin adını yazar. (3 Puan)\r\n3.2. Hidrofilik ve hidrofobik kısımlardan birinin konumunu açıklar. Gerekçeleri eksik açıklar. (3 Puan)\r\n SIFIR PUAN \r\n Cevap yok veya tamamen yanlış bilgiler içermektedir.\r\n=== Page 13 ===\r\n4. TAM PUAN (10 PUAN) \r\n Grafikleri tam ve doğru olarak çizer.\r\n Birinci deney tüpü için sıcaklık 350C' ye çıkarıldığında enzimin etkinliği ve reaksiyon hızı artacaktır. İkinci deney \r\ntüpünde ise 700C' de bekletilme sonucu enzimin denatüre olmasıyla sıcaklık 350C' ye düşürülse bile reaksiyon \r\ngerçekleşmeyecek ve nişasta miktarı değişmeyecektir.\r\nNişasta \r\nMiktarı (g)\r\nII. tüp\r\n5 10 15 20\r\n70\r\n35\r\nSıcaklık (0C)\r\nI. tüp\r\n5 15 25 35\r\nSıcaklık (0C)\r\nReaksiyon Hızı\r\n KISMİ PUAN \r\n Grafiklerden herhangi birini doğru olarak çizer. (5 PUAN)\r\nNişasta \r\nMiktarı (g)\r\nII. tüp\r\n5 10 15 20\r\n70\r\n35\r\nSıcaklık (0C)\r\nI. tüp\r\n5 15 25 35\r\nSıcaklık (0C)\r\nReaksiyon Hızı\r\n SIFIR PUAN \r\n Cevap yok veya tamamen yanlış bilgiler içermektedir.\r\n=== Page 14 ===\r\n5.\r\n 5.1 TAM PUAN (8 PUAN) \r\n Görselleri verilen her iki hücre tipinde ortak bulunabilecek hücresel yapılardan üç tanesini doğru ve eksiksiz yazar.\r\nOrtak Bulunabilecek Hücresel Yapılar\r\n1. Hücre zarı\r\n2. Sitoplazma\r\n3. Ribozom\r\n KISMİ PUAN\r\n Ortak bulunabilecek yapıları eksik yazar.\r\nOrtak Bulunabilecek Hücresel Yapılar\r\n1. Hücre zarı (2 P)\r\n2. Sitoplazma (3 P)\r\n3. Ribozom (3 P)\r\n SIFIR PUAN \r\n Cevap yok veya tamamen yanlış bilgiler içermektedir. \r\n 5.2 TAM PUAN (8 PUAN) \r\n Görselleri verilen iki farklı hücre tipinin tabloda yer alan özelliklerini doğru ve eksiksiz yazar.\r\nHücre Yapısı\r\nÖzellikler\r\nI II\r\nDNA'nın bulunduğu hücresel kısım Sitoplazmada (nükleoid bölgesinde) yer alır. Çekirdekte yer alır.\r\nGenetik materyalin şekli Halkasaldır. Doğrusaldır.\r\nBulundurabileceği çift zarlı organeller Zarla çevrili organel bulundurmazlar. Çekirdek, Mitokondri\r\n KISMİ PUAN\r\n Görselleri verilen iki farklı hücre tipinin tabloda yer alan özelliklerini eksik yazar.\r\n Hücre Yapısı\r\nÖzellikler\r\nI II\r\nDNA'nın bulunduğu hücresel kısım Sitoplazmada (nükleoid bölgesinde) yer alır. (2 P)Çekirdekte yer alır. (2 P)\r\nGenetik materyalin şekli Halkasaldır. (1 P) Doğrusaldır. (1 P)\r\nBulundurabileceği çift zarlı organeller Zarla çevrili organel bulundurmazlar. (1 P) Çekirdek, Mitokondri (1 P)\r\n SIFIR PUAN \r\n Cevap yok veya tamamen yanlış bilgiler içermektedir.\r\n=== Page 15 ===\r\n6. TAM PUAN (12 PUAN)\r\n Hücresel yapıların tespitini doğru yapar. Hücresel yapı özelliklerinin bulunma ya da bulunmama durumunu doğru \r\nolarak işaretler. \r\n KISMİ PUAN\r\n Hücresel yapıları yanlış tespit eder ya da özelliklerinden herhangi birini / birilerini yanlış işaretler. \r\n 1. Hücresel yapı: \r\n Tablo I:\r\n Karakteristik \r\nyapı Organel adı Enerji üretimi Ribozom bulundurma DNA bulundurma RNA bulundurma Zarlı yapıda olma\r\nKrista\r\nMitokondri\r\n(1 Puan)\r\n+\r\n(1 Puan)\r\n+\r\n(1 Puan)\r\n+\r\n(1 Puan)\r\n+\r\n(1 Puan)\r\n+\r\n(1 Puan)\r\n 2. Hücresel yapı:\r\n Tablo II: \r\nKarakteristik \r\nözellik Organel adı Enerji üretimi Ribozom bulundurma DNA bulundurma RNA bulundurma Zarlı yapıda olma\r\nSalgı üretimi\r\nGolgi aygıtı\r\n(1 Puan)\r\n–\r\n(1 Puan)\r\n–\r\n(1 Puan)\r\n–\r\n(1 Puan)\r\n–\r\n(1 Puan)\r\n+\r\n(1 Puan)\r\n SIFIR PUAN \r\n Cevap yok veya tamamen yanlış bilgiler içermektedir.\r\n=== Page 16 ===\r\n7. TAM PUAN (20 PUAN)\r\n Öğrenci tabloda sorulan her kutucuğa doğru cevap verir.\r\n Madde Geçişinin \r\nAdı Nedir?\r\nEnerji Kullanımı\r\nVar mı? (Evet/Hayır)\r\nYoğunluk Farkı \r\nEtkili mi? (Evet/\r\nHayır)\r\nMolekül Hücre \r\nZarından \r\nGeçebilecek \r\nBüyüklükte mi? \r\n(Evet/Hayır)\r\nI. Difüzyon Hayır Evet Evet\r\nII. Difüzyon Hayır Evet Evet\r\nIII. Aktif taşıma Evet Evet Evet\r\nIV. Endositoz Evet Hayır Hayır\r\nV. Ektositoz Evet Hayır Hayır\r\n KISMİ PUAN\r\n Öğrenci tablodaki doğru olarak cevapladığı her kutucuktan bir puan alır.\r\n SIFIR PUAN \r\n Cevap yok veya tamamen yanlış bilgiler içermektedir.\r\n=== Page 17 ===\r\n8. TAM PUAN (10 PUAN)\r\n8.1. Öğrenci; X için hipertonik çözelti, Y için hipotonik çözelti yazarak gerekçesini doğru bir şekilde açıklar.\r\n X hipertonik çözeltidir çünkü madde yoğunluğu kendisinden daha fazla olan çözeltiye konulan hücre su \r\nkaybeder. Y ise hipotonik çözeltidir çünkü madde yoğunluğu kendisinden daha az olan çözeltiye konulan \r\nhücre su alır.\r\n8.2. Öğrenci plazmoliz ve deplazmoliz olaylarını tam ve doğru olarak açıklar.\r\n Bitki hücresi, X çözeltisine konulduğunda su kaybetmiş ve büzülmüştür. Bu olaya plazmoliz denir. Plazmoliz \r\nolan hücre, Y çözeltisine konulduğunda ise su alarak eski hâline dönmüştür. Bu olaya ise deplazmoliz denir.\r\n KISMİ PUAN (5 PUAN)\r\n8.1. Öğrenci X ve Y çözeltilerinin hipertonik ve hipotonik olduğunu belirtir. Bu çözeltilerin hipertonik ya da hipotonik \r\nolmasının nasıl bir duruma ilişkin olarak adlandırıldığını yazmaz.\r\n Öğrenci hipotonik ve hipertonik yazmaz. Sadece çözelti yoğunluklarına ilişkin doğru yorumda bulunur.\r\n8.2. Öğrenci plazmoliz ve deplazmoliz yazmaz ancak gerekçeyi açıklar.\r\n Öğrenci plazmoliz ve deplazmoliz yazar ancak gerekçeyi açıklamaz.\r\n SIFIR PUAN \r\n Cevap yok veya tamamen yanlış bilgiler içermektedir."
+  }
+ ]
+}

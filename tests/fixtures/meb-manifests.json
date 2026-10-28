@@ -26,5 +26,11 @@
     { "title": "YKS Hazırlık | 3 Adım Soru Bankası | AYT | Fizik", "grade": "YKS (11-12)", "subject": "Fizik", "unit": "AYT", "kind": "soru-bankasi", "schoolYear": "2025-2026 (as listed on site; not stated per file)", "sourceUrl": "https://ogmmateryal.eba.gov.tr/", "fileUrl": "https://ogm-large-cdn.eba.gov.tr/ogm-test-images/abc/fizik.pdf", "sizeBytes": 20525420, "notes": "" },
     { "title": "YKS Hazırlık | YDT Kitapları | Reading for YDT 11", "grade": "YDT (11-12)", "subject": "Reading for YDT 11", "unit": "YDT Kitapları", "kind": "diger", "sourceUrl": "https://ogmmateryal.eba.gov.tr/", "fileUrl": "https://ogm-large-cdn.eba.gov.tr/ogm-test-images/abc/reading.pdf", "sizeBytes": null, "notes": "skipped >60MB" },
     { "title": "no url", "grade": "YKS (11-12)", "subject": "Kimya", "sourceUrl": "https://ogmmateryal.eba.gov.tr/", "fileUrl": "", "notes": "" }
+  ],
+  "ogmYazili": [
+    { "grade": 10, "course": "Biyoloji", "term": 1, "yazili": 1, "title": "10. Sınıf Biyoloji - 1. Dönem 1. Yazılı", "url": "https://ogm-large-cdn.eba.gov.tr/materyal/Etkilesimlikitap/88dbfe33-1cd4-4062-b37c-350fccd41ba3/pdf.pdf", "localFile": "C:\\data\\ogm\\yazili\\10_Biyoloji_d1_y1.pdf", "sizeBytes": 1239236 }
+  ],
+  "ogmKazanim": [
+    { "grade": 9, "course": "Matematik", "title": "9. Sınıf Matematik - Kazanım Kavrama", "url": "", "localFile": "C:\\data\\ogm\\kazanim\\9_Matematik_k1.pdf", "sizeBytes": null }
   ]
 }

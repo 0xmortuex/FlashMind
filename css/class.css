@@ -40,7 +40,7 @@
 .cls-privacy { font-size: 0.78rem; color: var(--text-muted); margin: 12px 0 0; line-height: 1.45; }
 .cls-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; margin-top: 16px; }
 .cls-mini { padding: 4px 10px; font-size: 0.78rem; }
-.cls-danger { color: var(--wrong); border-color: color-mix(in srgb, var(--wrong) 40%, var(--border)); }
+.cls-danger { color: var(--bad-text); border-color: color-mix(in srgb, var(--wrong) 40%, var(--border)); }
 .cls-empty { color: var(--text-muted); font-size: 0.86rem; }
 .cls-note { color: var(--text-muted); font-size: 0.76rem; margin-top: 10px; }
 
@@ -71,7 +71,7 @@
 }
 .cls-item-title { font-weight: 600; flex: 1 1 160px; min-width: 0; overflow-wrap: anywhere; }
 .cls-item-meta { color: var(--text-muted); font-size: 0.78rem; flex: 1 1 100%; order: 3; }
-.cls-teacher-tag { font-size: 0.7rem; padding: 2px 8px; border-radius: 999px; background: var(--primary-tint); color: var(--primary); vertical-align: middle; }
+.cls-teacher-tag { font-size: 0.7rem; padding: 2px 8px; border-radius: 999px; background: var(--primary-tint); color: var(--primary-text); vertical-align: middle; }
 
 .cls-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px; }
 .cls-stat { display: flex; flex-direction: column; gap: 2px; padding: 10px; border-radius: var(--radius-sm); background: var(--card-raised); border: 1px solid var(--border); font-size: 0.76rem; color: var(--text-muted); }
@@ -210,7 +210,7 @@ body.btl-open { overflow: hidden; }
 .btl-bar-col.btl-c2 .btl-bar-fill { background: var(--c2); } .btl-bar-col.btl-c3 .btl-bar-fill { background: var(--c3); }
 .btl-bar-col.btl-c4 .btl-bar-fill { background: var(--c4); }
 .btl-bar-col.btl-right { outline: none; }
-.btl-bar-col.btl-right .btl-bar-key { color: var(--correct); }
+.btl-bar-col.btl-right .btl-bar-key { color: var(--ok-text); }
 .btl-bar-n { font-weight: 700; margin-bottom: 4px; }
 .btl-bar-key { margin-top: 6px; font-weight: 700; font-size: 0.9rem; white-space: nowrap; }
 .btl-correct-line { margin: 0 0 10px; }

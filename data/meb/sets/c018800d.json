@@ -1,0 +1,2135 @@
+{
+ "title": "9. Sınıf Tarih - 1. Dönem 2. Yazılı (OGM Yazılıya Hazırlanıyorum)",
+ "meta": {
+  "fileId": "c018800d",
+  "grade": [
+   9
+  ],
+  "subject": "Tarih",
+  "schoolYear": "",
+  "examType": "ogm-yazili",
+  "kind": "booklet",
+  "sourceUrl": "https://ogm-large-cdn.eba.gov.tr/materyal/Etkilesimlikitap/53d04d8c-8dfb-49b1-809f-2f5042e0d610/pdf.pdf",
+  "counts": {
+   "sections": 14,
+   "cards": 103,
+   "questions": 71,
+   "sourceQuestions": 7,
+   "skippedNeedingFigure": 2
+  }
+ },
+ "notes": {
+  "summary": "Bu set, OGM Materyal \"Yazılıya Hazırlanıyorum\" serisindeki 9. Sınıf Tarih 1. Dönem 2. Yazılı örneğini çalışılabilir hâle getirir. Sınav üç bloktan oluşur: (1) tarihsel bilginin son aşaması ve dijital tarih yazıcılığı (bilimsel eser kriterleri, dijital avantajlar, etik sorunlar), (2) Tarım Devrimi'nin toplum ve kültüre etkisi, (3) Eski Çağ'da yönetim anlayışı ve hukuk (Hammurabi Kanunları).\n\nNot: Orijinal yazılının 4. sorusu bir kelime bulutu görseline ve 5.1 sorusu Hitit-Hun metin görsellerine dayanır; bu görsellerin içeriği çıkarılan metinde bulunmadığı için bu iki soru sete alınmamıştır (meta'da \"skippedNeedingFigure\" olarak sayılmıştır). Konuları yine de notlarda ve benzer sorularda çalışabilirsiniz.\n\nBu dosyadan sınavda ne beklemeli / nasıl çalışmalı:\n1. Bilimsel eserin 4 ölçütünü (kaynakça, akademik yazım, bağlam+kronoloji, yeni bakış) ezberleme; her ölçütün gerekçesini bir cümleyle bağla.\n2. Dijital tarihin avantajlarını 7 başlıkla öğren; sınavda 4 tanesini yazmak tam puandır.\n3. Etik sorun sorusunda iki kavramı (telif hakkı, yanıltıcı bilgi) ve her biri için örnek yaz.\n4. Tarım Devrimi'nin toplumsal sonuçlarını zincir hâlinde kur: nüfus, özel mülkiyet, yeni meslekler, sınıflar.\n5. Tanrı kaynaklı egemenliğin iki nedenini hazırla: dinî inanç ve meşruiyet/itaat.\n6. Hammurabi'de ceza türleri (görevden alma, tazminat, kısas) ve statüye göre farklılaşma örneklerini bil.\n7. Her cevabı numaralı maddelerle ve metinden örnekle yaz; tam puan maddelere dağıtılmıştır.",
+  "sections": [
+   {
+    "title": "Bilimsel Bir Tarih Eserinin Ölçütleri",
+    "content": "Tarihsel bilginin üretim sürecinin son aşamasında araştırmacı bilimsel bir eser ortaya koyar. Eserin \"bilimsel\" sayılması için dört ölçüt aranır:\n\n1. Kaynakça: Yararlanılan kaynaklara atıf yapılır ve kaynakça bölümünde gösterilir. Gerekçe: bilimsel ve mesleki etik için zorunludur, eserin doğruluğunu ve güvenilirliğini artırır; okuyucu kaynakları kontrol edebilir.\n2. Akademik yazım standartları: Açık, anlaşılır, mantıksal yapıda yazılmalıdır. Gerekçe: okuyucunun doğru anlam çıkarabilmesi için gerekir.\n3. Tarihsel bağlam ve kronolojik sıra: Olaylar kendi dönemi içinde ve zaman sırasıyla aktarılır. Gerekçe: olaylar arasındaki ilişkinin doğru kurulması ve dönemin şartlarına göre yorumlanması için zorunludur.\n4. Yeni bir bakış açısı veya bilgi: Çalışma literatüre katkı sağlar. Gerekçe: tarihsel bilginin gelişmesine hizmet eder.\n\nSınavda nasıl sorulur: Bir metin verilir, \"bilimsel olabilmesi için kriterler nelerdir? gerekçeleriyle açıklayınız\". Her ölçüt gerekçesiyle birlikte yazılırsa madde puanını alırsınız; gerekçesiz yazarsanız madde puanı yarıya düşer (2-4-6-8).",
+    "bulletPoints": [
+     "Dört ölçüt: kaynakça, akademik yazım, bağlam+kronoloji, yeni bakış açısı/bilgi.",
+     "Her ölçüt için \"ne\" ve \"neden\" birlikte yazılmalı.",
+     "Kaynakça: etik zorunluluk + güvenilirlik.",
+     "Kronolojik sıra ve bağlam: olaylar arası ilişki doğru kurulur.",
+     "Yeni bakış: literatüre katkı."
+    ],
+    "keyTerms": [
+     {
+      "term": "Atıf",
+      "definition": "Kullanılan bilginin kaynağını eserde belirtme."
+     },
+     {
+      "term": "Literatür",
+      "definition": "Konuyla ilgili daha önce yapılmış çalışmaların tamamı."
+     }
+    ]
+   },
+   {
+    "title": "Bilimsel Etik ve Kaynakça",
+    "content": "Bilimsel etik, araştırmacının dürüst ve sorumlu davranmasıdır. Başkasının fikrini kendi fikriymiş gibi sunmak (intihal) etik dışıdır. Kaynakça, araştırmacının bilgiyi nereden aldığını gösterir. Kaynakça verilmeyen bir eserin doğruluğu denetlenemez.\n\nNeden önemli? (1) Hak teslimi: Önceki araştırmacıların emeği kabul edilir. (2) Doğrulanabilirlik: Okuyucu kaynağı kontrol edebilir. (3) Güvenilirlik: Kanıta dayalı eser olarak kabul edilir.\n\nÖrnek: Bir öğrenci projesinde kullandığı fotoğrafın kaynağını belirtmezse hem etik hem güvenilirlik sorunu doğurur.\n\nSınavda ilişki: Kaynakçanın belirtilmesi, 1. soruda 4 puanlık ilk maddedir; gerekçesi \"bilimsel ve mesleki etik için zorunludur, güvenilirliği artırır\" olmalıdır.",
+    "bulletPoints": [
+     "Atıf yapmak ve kaynakça vermek etik zorunluluktur.",
+     "İntihal etik dışıdır ve eserin güvenilirliğini zedeler.",
+     "Kaynakça doğrulanabilirliği sağlar.",
+     "Kaynak göstermek önceki araştırmacıların emeğini kabul etmektir.",
+     "Dijital kaynaklarda da erişim bilgisi ile atıf yapılmalıdır."
+    ],
+    "keyTerms": [
+     {
+      "term": "İntihal",
+      "definition": "Başkasının eserini veya fikrini kaynak göstermeden kendininmiş gibi kullanmak."
+     },
+     {
+      "term": "Kaynakça",
+      "definition": "Eserde yararlanılan kaynakların listesi."
+     }
+    ]
+   },
+   {
+    "title": "Geleneksel ve Dijital Tarih Yazıcılığı",
+    "content": "Geleneksel tarih araştırmasında araştırmacı kütüphane, arşiv, müze ve saha çalışması gibi fiziksel ortamlara gider. El yazmaları, resmî belgeler ve gazete arşivleri gibi birincil kaynakları doğrudan inceler; metinleri elle okuyup yorumlar ve olaylar arasındaki bağlantıları kendisi kurar.\n\nDijital tarih yazıcılığında ise kaynaklara çevrim içi veri tabanları, dijital arşivler ve e-kitaplar yoluyla internetten ulaşılır. Dijitalleştirilmiş el yazmaları, belgeler ve multimedya içerikleri kullanılır. Büyük veri setleri istatistiksel araçlar ve veri görselleştirme ile çözümlenir; sosyal ağ analizi, coğrafi bilgi sistemleri (CBS/GIS) ve doğal dil işleme (NLP) gibi yöntemler uygulanır.\n\nKarşılaştırma: Geleneksel: fiziksel erişim, el ile okuma, tek araştırmacı ağırlıklı. Dijital: çevrim içi erişim, otomatik çözümleme, eşzamanlı ortak çalışma.\n\nDikkat: Dijital tarih de bir yöntemdir; tarihçinin eleştirel yorumunun yerine geçmez.",
+    "bulletPoints": [
+     "Geleneksel: arşiv, kütüphane, müze, saha; el ile okuma.",
+     "Dijital: çevrim içi veri tabanları, dijital arşivler, e-kitaplar.",
+     "Dijital yöntemler: istatistik, veri görselleştirme, sosyal ağ analizi, CBS, NLP.",
+     "Dijital tarih büyük veri setlerini kısa sürede çözümler.",
+     "Dijital kaynakların güvenilirliği yine sorgulanmalıdır."
+    ],
+    "keyTerms": [
+     {
+      "term": "CBS (GIS)",
+      "definition": "Coğrafi bilgi sistemleri; verileri harita üzerinde analiz eder."
+     },
+     {
+      "term": "NLP (doğal dil işleme)",
+      "definition": "Bilgisayarların metinleri anlayıp çözümlemesi."
+     },
+     {
+      "term": "Dijital arşiv",
+      "definition": "Belgelerin dijital ortama aktarılıp saklandığı koleksiyon."
+     }
+    ]
+   },
+   {
+    "title": "Dijital Tarih Yazıcılığının Avantajları (7 Madde)",
+    "content": "Sınavın 2.1 sorusu dört avantaj ister. Metne göre başlıca avantajlar:\n1. Erişim kolaylığı: Kaynaklara internetten kolayca ulaşılır.\n2. Hızlı inceleme: Veriler geleneksel yönteme göre kısa sürede taranır.\n3. Büyük veri setlerini analiz etme: Çok sayıda belge dijital araçlarla etkin biçimde incelenir.\n4. Gelişmiş analiz yöntemleri: Veri görselleştirme, sosyal ağ analizi, CBS, NLP kullanılabilir.\n5. İş birliğine dayalı çalışma: Birden fazla araştırmacı aynı veri üzerinde eşzamanlı çalışabilir.\n6. Verilerin düzenlenmesi ve saklanması: Dijital ortamda sınıflandırılır, uzun süre korunur.\n7. Zaman ve maliyet verimliliği: Seyahat ve elle tarama ihtiyacı azalır.\n\nPuanlama: Bir avantaj 3, iki avantaj 5, üç avantaj 8, dört avantaj 10 puandır. Kısa ve net yazmak yeterlidir; her avantajı ayrı cümleyle verin.",
+    "bulletPoints": [
+     "Avantajları 7 başlıkta ezberle, sınavda 4 tanesini yaz.",
+     "Her avantaj bir yönü ifade eder: erişim, hız, ölçek, yöntem, ortak çalışma, saklama, maliyet.",
+     "Cevabı metinden alın: \"internet\", \"veri görselleştirme\", \"NLP\" gibi kavramlar kanıttır.",
+     "Avantajları geleneksel yöntemle karşılaştırarak yazın.",
+     "Zorlukları (telif, bağlamdan kopma, veri kaybı) avantaj olarak yazmayın."
+    ],
+    "keyTerms": [
+     {
+      "term": "Eşzamanlı çalışma",
+      "definition": "Birden fazla kişinin aynı anda aynı veri üzerinde çalışması."
+     },
+     {
+      "term": "Veri görselleştirme",
+      "definition": "Verilerin grafik ve harita gibi görsellerle sunulması."
+     }
+    ]
+   },
+   {
+    "title": "Dijitalleştirmenin Etik Sorunları ve Riskleri",
+    "content": "Tarihî belgelerin dijitalleştirilmesi birçok kolaylık sağlasa da sorunlar da doğurur. Metin üç riski sayar: telif hakkı sorunları, içeriğin tarihsel bağlamdan koparılması ve dijital verilerin korunamayıp kaybolması.\n\nSınavın 2.2 sorusu etik sorunları iki ilişkiyle ister:\n1. Telif hakkı - etik: Dijitalleştirilen eserlerin izin alınmadan yayımlanması hem etik hem yasal sorun yaratır. Örnek: bir yazarın hakkı olan eserin izinsiz taranıp internete konması.\n2. Yanıltıcı bilginin yayılması - etik: Dijital ortamdaki içerik bağlamından koparılabilir, manipüle edilebilir ya da yanlış yorumlanabilir; yanlış bilgi hızla yayılır. Örnek: sosyal medyada sahte bir içeriğin \"tarihî belge\" diye paylaşılması.\n\nPuanlama: İkisini örnekle yazarsanız 10 puan; yalnız birini örnekle yazarsanız 5; örnek vermeden birini 3, diğerini 5 puan alır.\n\nÇözüm yolu: İzin ve lisans alma, kaynağı belirtme, güvenilir veri tabanı kullanma, yedekleme.",
+    "bulletPoints": [
+     "Telif hakkı ihlali: izinsiz yayımlama.",
+     "Yanıltıcı bilgi: bağlamdan kopma, manipülasyon, sahte belge.",
+     "Veri kaybı: dijital verinin uygun korunmaması.",
+     "Her etik sorun için bir örnek yazmayı unutmayın.",
+     "Çözüm önerisi sorulursa: izin, kaynak belirtme, doğrulama, yedekleme."
+    ],
+    "keyTerms": [
+     {
+      "term": "Telif hakkı",
+      "definition": "Eser sahibinin eseri üzerindeki yasal haklarının bütünü."
+     },
+     {
+      "term": "Manipülasyon",
+      "definition": "Bir bilgiyi çarpıtarak yanlış izlenim yaratma."
+     }
+    ]
+   },
+   {
+    "title": "Paleolitik Çağ ve Avcı-Toplayıcı Toplum",
+    "content": "Paleolitik (Eski Taş) Çağ, metne göre MÖ 600.000 - MÖ 12.000 arası tarihlendirilir. İnsanlar besin ihtiyaçlarını avcılık ve toplayıcılıkla karşılardı. Avlanma faaliyetlerinin erkekler, bitki toplayıcılığının ise kadınlar ve çocuklar tarafından yürütüldüğü düşünülmektedir.\n\nBugünkü anlamda mülkiyet kavramı henüz gelişmemişti. Toplumsal yapı iş birliği, eşitlik ve dayanışma temelindeydi. İnsanlar yiyecek aramak için sık sık yer değiştirirdi, kalıcı yerleşim yoktu.\n\nBu yaşam biçimi Tarım Devrimi'yle değişecektir: üretim kontrol edilebilir hâle gelir, yerleşik yaşam başlar.\n\nSınavda ilişki: Paleolitik toplumun özelliklerini bilmek, Tarım Devrimi'nin toplum yapısını değiştirdiğini kanıtlamak için gerekir (karşılaştırma: eşitlik ↔ sınıf ayrımı).",
+    "bulletPoints": [
+     "Dönem: MÖ 600.000 - MÖ 12.000 (metne göre).",
+     "Geçim: avcılık ve toplayıcılık.",
+     "İş bölümü: avcılık erkek, toplayıcılık kadın ve çocuk (varsayım).",
+     "Mülkiyet yok; iş birliği, eşitlik, dayanışma.",
+     "Kalıcı yerleşim yok; besin için hareketlilik."
+    ],
+    "keyTerms": [
+     {
+      "term": "Paleolitik Çağ",
+      "definition": "Eski Taş Çağı; avcı-toplayıcı yaşam dönemi."
+     },
+     {
+      "term": "Avcılık-toplayıcılık",
+      "definition": "Besini avlanarak ve bitki toplayarak karşılama."
+     }
+    ]
+   },
+   {
+    "title": "Tarım Devrimi: Ne Oldu?",
+    "content": "Tarım Devrimi, insanların bitki yetiştirmeyi ve hayvanları evcilleştirmeyi öğrenerek besin üretimine geçmesidir. Metne göre MÖ 10.000 civarında Mezopotamya'da yabani buğdayın evcilleştirilmesiyle başladı. Bu, bölge halkına besin üretimini kontrol etme ve artırma imkânı sundu.\n\nSonuçlar zinciri: Günlük besin bulma kaygısı azaldı. Çiftçi topluluklar tarım yaptıkları arazilerin etrafına yerleşti. Önce köyler, sonra şehirler kuruldu. Yeni uğraşlar (zanaat, ticaret, yönetim) ortaya çıktı. Beslenme değişimi ve işgücü ihtiyacı nüfusu artırdı.\n\nNeden \"devrim\"? Çünkü insanın doğayla ilişkisini kökten değiştirdi: toplayıcıdan üreticiye geçildi.\n\nGöbeklitepe örneği (1. yazılıdan): inanç merkezleri, yerleşik yaşama geçiş sürecinde dinin rolünü gösterir.",
+    "bulletPoints": [
+     "MÖ 10.000 civarı, Mezopotamya, yabani buğday.",
+     "Üretimi kontrol ve artırma → besin kaygısı azalır.",
+     "Tarım yapılan arazi çevresinde yerleşik yaşam başlar.",
+     "Köyler ve şehirler kurulur.",
+     "Yeni uğraşlar ve kalabalık toplum ortaya çıkar."
+    ],
+    "keyTerms": [
+     {
+      "term": "Tarım Devrimi",
+      "definition": "Besin toplayıcılığından üretimine geçiş."
+     },
+     {
+      "term": "Yerleşik yaşam",
+      "definition": "Bir yerde kalıcı olarak yaşama düzeni."
+     },
+     {
+      "term": "Evcilleştirme",
+      "definition": "Bitki ve hayvanların insanın denetiminde yetiştirilmesi."
+     }
+    ]
+   },
+   {
+    "title": "Tarım Devrimi'nin Toplum Yapısına Etkileri (4 Madde)",
+    "content": "Sınavın 3. sorusu Tarım Devrimi'nin Mezopotamya'nın toplum yapısında yarattığı değişiklikleri sorar. Tam puan için dört madde gerekir:\n\n1. Nüfus artışı: Besin bulma kaygısının azalması ve işgücü ihtiyacının artması insan sayısını hızla artırdı.\n2. Özel mülkiyetin ortaya çıkması: Artan üretimle insanlar üretim araçlarını ve ürünlerini sahiplenmeye başladı.\n3. Yeni meslek grupları: Köy ve şehirler kurulunca yöneticiler, askerler, çiftçiler, tüccarlar gibi farklı uğraşlar doğdu; iş bölümü yaygınlaştı.\n4. Sınıf ayrımı: Farklı sınıflar oluştu ve sınıf ayrımına dayanan yeni bir toplum yapısı ortaya çıktı.\n\nPaleolitik toplumla kıyas: Eşitlikçi, mülkiyetsiz, küçük gruplar → mülkiyetli, işbölümlü, kalabalık, sınıflı toplum.\n\nPuanlama: her madde 4 puan (dördüncü 3 puan, toplam 15). Zincir hâlinde yazmak anlamlıdır ama puan maddelere göre verilir; bu yüzden dört maddeyi de ayrı cümleyle belirtin.",
+    "bulletPoints": [
+     "Nüfus artışı.",
+     "Özel mülkiyet.",
+     "Yeni meslek grupları ve iş bölümü.",
+     "Sınıf ayrımı.",
+     "Çiftçi, tüccar, asker, yönetici gibi grupların doğuşu."
+    ],
+    "keyTerms": [
+     {
+      "term": "Özel mülkiyet",
+      "definition": "Bir kişinin veya ailenin üretim araçlarına ve ürünlere sahip olması."
+     },
+     {
+      "term": "İş bölümü",
+      "definition": "Farklı işlerin farklı kişilere dağılması."
+     },
+     {
+      "term": "Sınıf",
+      "definition": "Ekonomik ve toplumsal konumuna göre ayrılan toplum katmanı."
+     }
+    ]
+   },
+   {
+    "title": "Tarım Devrimi ve Kültürel Faaliyetler",
+    "content": "Tarım Devrimi yalnızca ekonomiyi değil kültürü de değiştirdi. Zincir şöyledir (resmî çözümde anlatılan akış):\nSulama faaliyetleri başladı → üretim teknikleri gelişti → insanlar daha fazla artı ürün biriktirdi → artı ürünün pazarlanma ihtiyacı ticareti başlattı ve toplumlar arası etkileşimi artırdı → ihtiyaçlar çeşitlendi, bilgi birikimi arttı → kayıt tutma ve düzenli bilgi aktarma ihtiyacı doğdu → yazı ortaya çıktı.\nYazı ile arazi hesaplamaları, vergi kayıtları, doğa olayları ve teknolojik deneyimler kayıt altına alındı.\n\nBöylece yazı, kültürel hayatın temel taşlarından biri oldu. Din, devlet, hesaplama, tarla ölçümü, gözlem ve takvim bilgisi de bu birikimin ürünleridir.\n\nDikkat: Bu bölüm sınavda kelime bulutlu bir yazma sorusunun konusudur (bu sete alınmadı); ancak konu hâlâ benzer sorulara hazırlık için çok değerlidir.",
+    "bulletPoints": [
+     "Sulama → üretim teknikleri → artı ürün.",
+     "Artı ürün → ticaret → toplumlar arası etkileşim.",
+     "Bilgi birikimi → kayıt tutma → yazı.",
+     "Yazı: vergi, tarla ölçümü, hesaplama, gözlem, doğa olaylarını kaydetmeye yarar.",
+     "Kültürel hayatın temelleri: yazı, din, devlet, takvim."
+    ],
+    "keyTerms": [
+     {
+      "term": "Artı ürün",
+      "definition": "Tüketimden fazla üretilen ürün."
+     },
+     {
+      "term": "Kayıt tutma",
+      "definition": "Bilgi, hesap ve olayları yazıyla saklama."
+     },
+     {
+      "term": "Yazı",
+      "definition": "Düşünceleri ve kayıtları işaretlerle saklama sistemi."
+     }
+    ]
+   },
+   {
+    "title": "Eski Çağ'da Yönetim: Egemenliğin Tanrısal Kaynağı",
+    "content": "Eski Çağ devletlerinin birçoğunda egemenlik, yani yönetme hakkı Tanrı'dan (tanrılardan) geldiğine inanılırdı. Hükümdar ya Tanrı'nın yeryüzündeki temsilcisi ya da onun seçtiği kişi sayılırdı.\n\nBu anlayışın nedenleri (5.2 sorusu): (1) Dinî inanç: Evrende olup biten her şeyin Tanrı'nın (tanrıların) elinde olduğuna inanılırdı; dolayısıyla hükümdarın da Tanrı tarafından yetkilendirildiğine inanılırdı. (2) Meşruiyet: Hükümdar, egemenliğini haklı ve kabul edilebilir kılmak, halkın itaatini sağlamak ve iktidarını pekiştirmek için iktidarını dinî temellere dayandırırdı. Tanrı'dan aldığı yetki, yönetimini sorgulanamaz bir otoriteye dönüştürürdü.\n\nÖrnekler: Mısır'da firavun tanrısal kabul edilirdi; Hititlerde kral tanrının vekili sayılırdı; Asya Hun ve Göktürklerde hükümdar gücünü Gök Tanrı'dan aldığına inanılan \"kut\"la meşrulaştırırdı.\n\nPuanlama: İki nedenden biri 5, ikisi 10 puandır.",
+    "bulletPoints": [
+     "Egemenlik kaynağı Tanrı idi.",
+     "Hükümdar Tanrı'nın temsilcisi/vekili/seçtiği kişi kabul edilirdi.",
+     "Neden 1: Dinî inanç; evren tanrı eliyle yönetilir.",
+     "Neden 2: Meşruiyet; halkın itaati ve iktidarın sağlamlaşması.",
+     "Hükümdarın yetkisi sorgulanamazdı."
+    ],
+    "keyTerms": [
+     {
+      "term": "Egemenlik",
+      "definition": "Devleti yönetme ve karar verme yetkisi."
+     },
+     {
+      "term": "Meşruiyet",
+      "definition": "Yönetimin halk nezdinde haklı ve kabul edilebilir sayılması."
+     },
+     {
+      "term": "Kut",
+      "definition": "Türklerde hükümdara Tanrı tarafından verildiğine inanılan yönetme yetkisi."
+     }
+    ]
+   },
+   {
+    "title": "Hitit ve Asya Hun Devletlerinin Yönetim Anlayışı",
+    "content": "Not: Orijinal sorudaki iki kaynak metin (görsel) çıkarılan metinde bulunmadığı için 5.1 sete alınmamıştır; aşağıdaki bilgi resmî çözümde yer alan benzerliklere dayanır.\n\nBenzerlikler:\n1. Tanrı-kral ilişkisi: Her iki devlette egemenliğin kaynağı Tanrı idi; hükümdarlar ülkeyi Tanrı adına yönetirdi.\n2. Meclis yapısı: Ülke yönetiminde önemli rol oynayan meclisler vardı. Hititlerde bu meclise pankuş, Asya Hunlarında kurultay (toy) denirdi.\n3. Tahtın devri: Veraset geçerliydi; hükümdardan sonra soyundan gelen vârislerden biri tahta çıkardı.\n\nPankuş, kralın yanında önemli kararlara katılan soylular meclisiydi. Kurultay (toy) ise hükümdar seçimi, savaş-barış gibi önemli konularda toplanırdı.\n\nHititlerde kral aynı zamanda başkomutan, başyargıç ve başrahip gibi görevlere sahipti. Asya Hun hükümdarına \"şanyü\" denirdi.",
+    "bulletPoints": [
+     "Her iki devlette egemenlik Tanrı'dan gelir.",
+     "Hititlerde meclis: pankuş.",
+     "Asya Hunlarında meclis: kurultay / toy.",
+     "Her ikisinde de veraset (soydan gelen vâris).",
+     "Asya Hun hükümdarına şanyü denirdi."
+    ],
+    "keyTerms": [
+     {
+      "term": "Pankuş",
+      "definition": "Hititlerde kralın yönetiminde etkili olan soylular meclisi."
+     },
+     {
+      "term": "Kurultay (toy)",
+      "definition": "Türk devletlerinde önemli kararların alındığı meclis."
+     },
+     {
+      "term": "Veraset",
+      "definition": "Tahtın hükümdarın soyundan gelen birine geçmesi."
+     }
+    ]
+   },
+   {
+    "title": "Eski Çağ'da Hukuk ve Hammurabi Kanunları",
+    "content": "Hukuk, toplumsal düzeni sağlayan kurallar bütünüdür. Eski Çağ'da yazılı kanunlar Mezopotamya'da ortaya çıkmıştır. Hammurabi, MÖ 18. yüzyılda Babil'i yönetmiş ünlü bir kraldır; kanunları bir stele yazdırmıştır. (Daha eski kanunlar: Sümer'de Ur-Nammu Kanunları.)\n\nMetindeki dört madde ve ceza türleri:\n1. Yargıcın yanlış karar verip belgeyi değiştirmesi → görevden alınma ve bir daha yargıçlık yapamama (görevden alma/men cezası).\n2. Hayvan hırsızlığı → çalınan şeyin Tanrı'ya/mahkemeye aitse 30 katı, özgür vatandaşa aitse 10 katı ödeme (tazminat/para cezası).\n3. Eşit statüdeki birinin dişini kırmak → kendi dişinin kırılması (kısas, bedensel ceza).\n4. Azat edilmiş (özgürlüğüne kavuşmuş) birinin dişini kırmak → bir mina altının üçte biri (tazminat).\n\nPuanlama (6.1): Görevden alma (2), tazminat (2), kısas (1): toplam 5. Doğru olarak bir ceza türü 2, iki ceza türü 4, üçü 5 puandır.",
+    "bulletPoints": [
+     "Hammurabi Babil kralıdır; kanunları yazılıdır.",
+     "Ceza türleri: görevden alma (men), tazminat (para), kısas (bedensel).",
+     "Kısas: suçlunun mağdura verdiği zarar kadar cezalandırılması (\"göze göz, dişe diş\").",
+     "Tazminat: mali ceza; çalınan malın birkaç katı ödenir.",
+     "Yargıçlara bile yaptırım uygulanır; hukuk görevlileri de denetlenir."
+    ],
+    "keyTerms": [
+     {
+      "term": "Kısas",
+      "definition": "Suçlunun, verdiği zarar kadar cezalandırılması."
+     },
+     {
+      "term": "Tazminat",
+      "definition": "Verilen zararı para veya mal ile ödeme."
+     },
+     {
+      "term": "Azat edilmiş kişi",
+      "definition": "Köleliğinden kurtarılmış özgür kişi."
+     }
+    ]
+   },
+   {
+    "title": "Hukukta Sınıflı Toplum: Hammurabi Örneği",
+    "content": "Hammurabi Kanunları'nda cezalar herkes için aynı değildir; suçun kime işlendiğine göre değişir. Bu, Babil toplumunun sınıflı yapısının hukuka yansımasıdır.\n\nMetinden kanıt: Eşit statüdeki birinin dişini kıran kişi kısasla cezalandırılırken (dişi kırılır), azat edilmiş birinin dişini kıran kişi kısas yerine tazminat (bir mina altının üçte biri) öder. Aynı fiil (diş kırma), mağdurun statüsüne göre farklı yaptırım doğurur. Benzer şekilde hırsızlıkta tanrıya/mahkemeye ait mal için 30 kat, özgür vatandaş için 10 kat ödeme istenir.\n\nPuanlama (6.2): \"Cezalar statüye göre değişir\" demek 3 puan, metinden örnek vermek 2 puan (toplam 5; cevap sadece birini içerirse 3). Bu nedenle hem genellemeyi hem örneği yazın.\n\nKarşılaştırma notu: İkinci yazılıda (2. dönem 1. yazılı) Sümer ve Babil kanunlarını karşılaştırır; Sümer daha çok tazminata, Babil kısasa dayalıdır.",
+    "bulletPoints": [
+     "Cezanın şiddeti kişinin toplumsal statüsüne göre değişir.",
+     "Eşit statüde → kısas; azat edilmiş → tazminat (örnek).",
+     "Tanrı/mahkeme malı hırsızlığı 30 kat, özgür vatandaş malı 10 kat.",
+     "Hukuk eşitlik değil sınıf ayrımını yansıtır.",
+     "Cevapta genelleme + metinden örnek birlikte yazılmalı."
+    ],
+    "keyTerms": [
+     {
+      "term": "Statü",
+      "definition": "Bir kişinin toplumdaki konumu."
+     },
+     {
+      "term": "Sınıflı toplum",
+      "definition": "Hukuki ve ekonomik hakları farklı katmanlara ayrılmış toplum."
+     }
+    ]
+   },
+   {
+    "title": "Yazılıda Cevap Kurma Teknikleri (2. Yazılı)",
+    "content": "Bu yazılıda puan genellikle \"tam puan maddeleri\" üzerinden verilir. Her sorudaki ortak yapı: istenen kavramı adlandır + kısa gerekçe/örnek ver.\n\nTeknik 1 (nedenleri sorulduğunda): Madde sayısı = puan basamağı. 1. soru: 4 madde; 3. soru: 4 madde; 5.2: 2 madde; 6.1: 3 ceza türü; 2.1: 4 avantaj.\nTeknik 2 (gerekçe isteyen sorularda): \"Çünkü...\" ile bağla; gerekçesiz yalnızca madde adı verilirse yarım puan.\nTeknik 3 (örnek isteyen sorularda): Metinden somut ifade alıntıla (\"dişi kırılır\", \"izinsiz yayımlanan eser\").\nTeknik 4: Metin sorusunu yeniden yazmayın; doğrudan cevabın maddelerini yazın.\nTeknik 5: Aynı fikri farklı sözlerle tekrar etmek puan getirmez; yeni madde yazmak getirir.\n\nKontrol listesi: Madde sayısı yeterli mi? Her maddede gerekçe/örnek var mı? Metne bağlı kalındı mı?",
+    "bulletPoints": [
+     "Madde sayısı genellikle puanı belirler.",
+     "Gerekçeli cevap, gerekçesizden yüksek puan alır.",
+     "Metinden somut ifade alıntıla.",
+     "Aynı fikri tekrarlama; yeni madde ekle.",
+     "Boş bırakma, eksik de olsa doğru madde puan getirir."
+    ],
+    "keyTerms": [
+     {
+      "term": "Gerekçe",
+      "definition": "Bir iddiayı destekleyen neden açıklaması."
+     },
+     {
+      "term": "Madde",
+      "definition": "Cevabın bağımsız olarak puanlanan her bir parçası."
+     }
+    ]
+   }
+  ],
+  "importantDates": [
+   "MÖ 600.000 - MÖ 12.000: Paleolitik Çağ (metne göre).",
+   "MÖ 10.000 civarı: Mezopotamya'da yabani buğdayın evcilleştirilmesiyle Tarım Devrimi'nin başlaması.",
+   "MÖ 18. yüzyıl: Babil Kralı Hammurabi'nin kanunları (yaklaşık).",
+   "Yazının ortaya çıkışı: Tarım Devrimi'nden sonra kayıt tutma ihtiyacının sonucu."
+  ],
+  "commonMistakes": [
+   "Bilimsel eserin ölçütlerini gerekçesiz yazmak: gerekçesiz cevap yarım puan alır.",
+   "Dijital tarihin zorluklarını (telif, veri kaybı) avantaj olarak yazmak.",
+   "Etik soruda örnek vermemek: telif hakkı ve yanıltıcı bilgi için ayrı örnek gerekir.",
+   "Tarım Devrimi'ni yalnızca \"yerleşik hayat\" diye geçmek; nüfus artışı, özel mülkiyet, meslek grupları, sınıf ayrımı dört ayrı maddedir.",
+   "Mülkiyet kavramının Paleolitik Çağ'da var olduğunu söylemek; metne göre henüz gelişmemişti.",
+   "Hükümdarın gücünü Tanrı'dan alması ile halk iradesinden alması anlayışlarını karıştırmak.",
+   "Hammurabi'de cezaların herkese eşit uygulandığını söylemek: ceza statüye göre değişir.",
+   "Kısas ile tazmini karıştırmak: kısas bedensel, tazminat mali cezadır.",
+   "Pankuş ile kurultay'ı karıştırmak: pankuş Hititlerde, kurultay (toy) Asya Hunlarında.",
+   "Benzerlik sorusunda farklılık yazmak ya da tersi."
+  ],
+  "diagrams": [
+   {
+    "title": "Tarım Devrimi'nden Yazıya Zincir",
+    "nodes": [
+     {
+      "id": "a",
+      "label": "Sulama ve üretim teknikleri",
+      "type": "input"
+     },
+     {
+      "id": "b",
+      "label": "Artı ürün",
+      "type": "process"
+     },
+     {
+      "id": "c",
+      "label": "Ticaret ve etkileşim",
+      "type": "process"
+     },
+     {
+      "id": "d",
+      "label": "Bilgi birikimi",
+      "type": "process"
+     },
+     {
+      "id": "e",
+      "label": "Yazı",
+      "type": "output"
+     }
+    ],
+    "connections": [
+     {
+      "from": "a",
+      "to": "b"
+     },
+     {
+      "from": "b",
+      "to": "c"
+     },
+     {
+      "from": "c",
+      "to": "d"
+     },
+     {
+      "from": "d",
+      "to": "e"
+     }
+    ]
+   }
+  ],
+  "mindmap": {
+   "label": "9. Sınıf Tarih 1. Dönem 2. Yazılı",
+   "children": [
+    {
+     "label": "Bilimsel Tarih Yazımı",
+     "children": [
+      {
+       "label": "Kaynakça",
+       "children": []
+      },
+      {
+       "label": "Akademik yazım",
+       "children": []
+      },
+      {
+       "label": "Bağlam ve kronoloji",
+       "children": []
+      },
+      {
+       "label": "Yeni bakış / bilgi",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Dijital Tarih Yazıcılığı",
+     "children": [
+      {
+       "label": "Avantajlar",
+       "children": [
+        {
+         "label": "Erişim, hız, büyük veri",
+         "children": []
+        },
+        {
+         "label": "Analiz araçları, iş birliği",
+         "children": []
+        },
+        {
+         "label": "Saklama, maliyet",
+         "children": []
+        }
+       ]
+      },
+      {
+       "label": "Etik sorunlar",
+       "children": [
+        {
+         "label": "Telif hakkı",
+         "children": []
+        },
+        {
+         "label": "Yanıltıcı bilgi",
+         "children": []
+        },
+        {
+         "label": "Veri kaybı",
+         "children": []
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "label": "Tarım Devrimi",
+     "children": [
+      {
+       "label": "Paleolitik: avcı-toplayıcı",
+       "children": []
+      },
+      {
+       "label": "Toplumsal sonuçlar",
+       "children": [
+        {
+         "label": "Nüfus artışı",
+         "children": []
+        },
+        {
+         "label": "Özel mülkiyet",
+         "children": []
+        },
+        {
+         "label": "Yeni meslekler",
+         "children": []
+        },
+        {
+         "label": "Sınıflar",
+         "children": []
+        }
+       ]
+      },
+      {
+       "label": "Kültürel sonuçlar",
+       "children": [
+        {
+         "label": "Artı ürün, ticaret",
+         "children": []
+        },
+        {
+         "label": "Kayıt tutma ve yazı",
+         "children": []
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "label": "Yönetim Anlayışı",
+     "children": [
+      {
+       "label": "Tanrı kaynaklı egemenlik",
+       "children": [
+        {
+         "label": "Dinî inanç",
+         "children": []
+        },
+        {
+         "label": "Meşruiyet",
+         "children": []
+        }
+       ]
+      },
+      {
+       "label": "Hitit ve Asya Hun",
+       "children": [
+        {
+         "label": "Meclis: pankuş / kurultay",
+         "children": []
+        },
+        {
+         "label": "Veraset",
+         "children": []
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "label": "Hukuk",
+     "children": [
+      {
+       "label": "Hammurabi",
+       "children": [
+        {
+         "label": "Görevden alma",
+         "children": []
+        },
+        {
+         "label": "Tazminat",
+         "children": []
+        },
+        {
+         "label": "Kısas",
+         "children": []
+        }
+       ]
+      },
+      {
+       "label": "Sınıflı toplum yansıması",
+       "children": []
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "flashcards": [
+  {
+   "front": "Bilimsel eserin dört ölçütü?",
+   "back": "Kaynakça, akademik yazım standartları, tarihsel bağlam+kronolojik sıra, yeni bakış açısı veya bilgi.",
+   "category": "Bilimsel Tarih Yazımı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kaynakçanın gerekçesi?",
+   "back": "Bilimsel ve mesleki etik için zorunludur; eserin doğruluğunu ve güvenilirliğini artırır.",
+   "category": "Bilimsel Tarih Yazımı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Akademik yazım standardının gerekçesi?",
+   "back": "Metnin açık, anlaşılır ve tutarlı olması okuyucunun doğru anlam çıkarması için gereklidir.",
+   "category": "Bilimsel Tarih Yazımı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Bağlam ve kronolojinin gerekçesi?",
+   "back": "Olaylar arası ilişkinin doğru anlaşılması ve dönemin şartlarına göre yorumlanması için zorunludur.",
+   "category": "Bilimsel Tarih Yazımı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yeni bakış açısı ölçütünün gerekçesi?",
+   "back": "Tarihsel bilginin gelişmesine ve literatüre katkı sağlar.",
+   "category": "Bilimsel Tarih Yazımı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Atıf nedir?",
+   "back": "Kullanılan bilginin kaynağını eserde belirtmek.",
+   "category": "Bilimsel Tarih Yazımı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Literatür nedir?",
+   "back": "Konuyla ilgili daha önce yapılmış tüm çalışmalar.",
+   "category": "Bilimsel Tarih Yazımı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "İntihal nedir?",
+   "back": "Başkasının eserini veya fikrini kaynak göstermeden kendi eseriymiş gibi sunmak; etik dışıdır.",
+   "category": "Bilimsel Tarih Yazımı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kaynakçası olmayan eserin sorunu?",
+   "back": "Bilgilerin doğrulanamaması; güvenilirliğin ve etiğin zedelenmesi.",
+   "category": "Bilimsel Tarih Yazımı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tarihsel bilginin üretiminin son aşaması?",
+   "back": "Kanıta dayalı ürün oluşturma (bilimsel eser).",
+   "category": "Bilimsel Tarih Yazımı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Gerekçesiz yazılan bilimsel ölçüt kaç puan alır?",
+   "back": "Gerekçesi açıklanmadan yazılan ölçütler 2-4-6-8 puan basamağıyla değerlendirilir; gerekçeli cevap 4-8-12-15.",
+   "category": "Sınav Tekniği",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Geleneksel tarih araştırmasında kaynağa erişim yolu?",
+   "back": "Kütüphane, arşiv, müze ve saha çalışması gibi fiziksel ortamlar.",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Geleneksel yöntemde metinleri kim yorumlar?",
+   "back": "Araştırmacı, metinleri manuel okuyup bağlantıları kendisi kurar.",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Dijital tarih yazıcılığında kaynaklara erişim?",
+   "back": "Çevrim içi veri tabanları, dijital arşivler ve e-kitaplar üzerinden internetle.",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Dijital tarihin birinci avantajı?",
+   "back": "Erişim kolaylığı: kaynaklara internetle kolayca ulaşılır.",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Dijital tarihin ikinci avantajı?",
+   "back": "Hızlı inceleme: veriler çok daha kısa sürede taranır.",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Dijital tarihin üçüncü avantajı?",
+   "back": "Büyük veri setlerini dijital araçlarla etkin analiz edebilme.",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Dijital tarihin dördüncü avantajı?",
+   "back": "Gelişmiş analiz araçları: veri görselleştirme, sosyal ağ analizi, CBS, NLP.",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Dijital tarihin beşinci avantajı?",
+   "back": "İş birliğine dayalı çalışma: birçok araştırmacı aynı veri üzerinde eşzamanlı çalışır.",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Dijital tarihin altıncı avantajı?",
+   "back": "Verilerin düzenli sınıflandırılması ve uzun süre saklanması.",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Dijital tarihin yedinci avantajı?",
+   "back": "Zaman ve maliyet verimliliği: seyahat ve elle tarama azalır.",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "2.1 sorusunda puanlama?",
+   "back": "Bir avantaj 3, iki avantaj 5, üç avantaj 8, dört avantaj 10 puan.",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "CBS/GIS nedir?",
+   "back": "Coğrafi bilgi sistemleri; verileri harita üzerinde çözümler.",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "NLP nedir?",
+   "back": "Doğal dil işleme: bilgisayarla metinleri çözümleme.",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Sosyal ağ analizi tarihte ne işe yarar?",
+   "back": "Kişi/kurum ilişkilerini ağ olarak çözümleyerek bağlantıları ortaya çıkarmak.",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Dijitalleştirmenin üç riski (metne göre)?",
+   "back": "Telif hakkı sorunları, içeriğin tarihsel bağlamdan koparılması, verilerin korunamayıp kaybolması.",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Telif hakkı - etik örneği?",
+   "back": "Bir eserin izin alınmadan dijitalleştirilip yayımlanması.",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yanıltıcı bilgi - etik örneği?",
+   "back": "Sosyal medyada bağlamından koparılmış ya da sahte bir içeriğin \"tarihî belge\" diye yayılması.",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "2.2 sorusunda tam puan için gereken?",
+   "back": "İki ilişkiyi (telif-etik, yanıltıcı bilgi-etik) birer örnekle açıklamak (10 puan).",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Dijital verinin kaybolma riskine çözüm?",
+   "back": "Uygun saklama, yedekleme ve güvenilir dijital arşivler.",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Dijital tarih geleneksel yöntemin yerini tamamen alır mı?",
+   "back": "Hayır; yöntemler birbirini tamamlar, eleştirel yorum tarihçide kalır.",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Paleolitik Çağ'ın tarihi (metne göre)?",
+   "back": "MÖ 600.000 - MÖ 12.000.",
+   "category": "Paleolitik ve Tarım Devrimi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Paleolitik insanın geçim yolu?",
+   "back": "Avcılık ve toplayıcılık.",
+   "category": "Paleolitik ve Tarım Devrimi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Paleolitik iş bölümü (düşünülen)?",
+   "back": "Avlanma erkekler; bitki toplama kadınlar ve çocuklar.",
+   "category": "Paleolitik ve Tarım Devrimi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Paleolitik toplumun yapısı?",
+   "back": "İş birliği, eşitlik ve dayanışma; mülkiyet kavramı gelişmemişti.",
+   "category": "Paleolitik ve Tarım Devrimi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Tarım Devrimi ne zaman başladı (metin)?",
+   "back": "MÖ 10.000 civarında Mezopotamya'da.",
+   "category": "Paleolitik ve Tarım Devrimi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Tarım Devrimi nasıl başladı?",
+   "back": "Yabani buğdayın evcilleştirilmesiyle.",
+   "category": "Paleolitik ve Tarım Devrimi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Tarım Devrimi'nin insana sağladığı imkân?",
+   "back": "Besin üretimini kontrol etme ve artırma.",
+   "category": "Paleolitik ve Tarım Devrimi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tarım Devrimi neden \"devrim\"?",
+   "back": "İnsanın doğayla ilişkisini kökten değiştirip toplayıcılıktan üreticiliğe geçirdi.",
+   "category": "Paleolitik ve Tarım Devrimi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tarım Devrimi sonrası yerleşim nasıl değişti?",
+   "back": "Çiftçiler tarım yaptıkları arazinin çevresinde yerleşti; önce köyler, sonra şehirler kuruldu.",
+   "category": "Paleolitik ve Tarım Devrimi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Nüfus artışının iki nedeni (metin)?",
+   "back": "Besin bulma kaygısının azalması ve işgücü ihtiyacının artması.",
+   "category": "Tarım Devrimi ve Toplumsal Yapı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Özel mülkiyet neden ortaya çıktı?",
+   "back": "Artan üretimle insanlar üretim araçlarını ve ürünleri sahiplenmeye başladı.",
+   "category": "Tarım Devrimi ve Toplumsal Yapı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tarım Devrimi sonrası ortaya çıkan meslekler?",
+   "back": "Yönetici, asker, çiftçi, tüccar.",
+   "category": "Tarım Devrimi ve Toplumsal Yapı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "İş bölümü nedir?",
+   "back": "Farklı işlerin farklı kişilere/gruplara dağılması.",
+   "category": "Tarım Devrimi ve Toplumsal Yapı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Sınıf ayrımı nasıl ortaya çıktı?",
+   "back": "Yeni meslekler ve mülkiyet farkları toplumu farklı sınıflara ayırdı.",
+   "category": "Tarım Devrimi ve Toplumsal Yapı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "3. soruda dört madde?",
+   "back": "Nüfus artışı, özel mülkiyet, yeni meslek grupları, sınıf ayrımı.",
+   "category": "Tarım Devrimi ve Toplumsal Yapı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "3. sorunun puanlaması?",
+   "back": "Birinci madde 4, ikincisi 8, üçüncüsü 12, dördüncüsü ile 15 puan.",
+   "category": "Tarım Devrimi ve Toplumsal Yapı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Paleolitik ile Tarım Devrimi sonrası toplum farkı?",
+   "back": "Eşitlikçi/mülkiyetsiz yapı → mülkiyetli, işbölümlü, sınıflı toplum.",
+   "category": "Tarım Devrimi ve Toplumsal Yapı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Artı ürün nedir?",
+   "back": "Tüketimden fazla üretilen ürün.",
+   "category": "Tarım Devrimi ve Toplumsal Yapı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Artı ürünün sonucu?",
+   "back": "Pazarlanma ihtiyacı ticareti ve toplumlar arası etkileşimi başlattı.",
+   "category": "Tarım Devrimi ve Toplumsal Yapı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yazı neden ortaya çıktı?",
+   "back": "Bilgi birikimi, ihtiyaçların çeşitlenmesi ve kayıt tutma/düzenli bilgi aktarma ihtiyacı nedeniyle.",
+   "category": "Tarım Devrimi ve Toplumsal Yapı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yazının ilk kullanım alanları?",
+   "back": "Arazi hesaplamaları, vergi kayıtları, doğa olayları ve teknolojik deneyimler.",
+   "category": "Tarım Devrimi ve Toplumsal Yapı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Sulamanın sonucu?",
+   "back": "Üretim teknikleri gelişti ve artı ürün birikti.",
+   "category": "Tarım Devrimi ve Toplumsal Yapı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tarım Devrimi'nin kültürel faaliyetlere etkisi?",
+   "back": "Ticaret ve kayıt tutma ihtiyacıyla yazı gelişti; din, devlet, hesaplama ve gözlem de güçlendi.",
+   "category": "Tarım Devrimi ve Toplumsal Yapı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Hitit meclisi?",
+   "back": "Pankuş.",
+   "category": "Yönetim Anlayışları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Asya Hun meclisi?",
+   "back": "Kurultay (toy).",
+   "category": "Yönetim Anlayışları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Hitit ve Hunlarda egemenliğin kaynağı?",
+   "back": "Tanrı; hükümdarlar ülkeyi Tanrı adına yönetirdi.",
+   "category": "Yönetim Anlayışları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Hitit ve Hunlarda tahtın devri?",
+   "back": "Veraset; hükümdarın soyundan gelen vârislerden biri tahta çıkardı.",
+   "category": "Yönetim Anlayışları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Hititlerde kralın görevleri?",
+   "back": "Başkomutan, başyargıç ve başrahip gibi görevler.",
+   "category": "Yönetim Anlayışları",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Asya Hun hükümdarı unvanı?",
+   "back": "Şanyü.",
+   "category": "Yönetim Anlayışları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Eski Çağ'da egemenliğin tanrısal kaynağı ne anlama gelir?",
+   "back": "Hükümdarın yetkisinin Tanrı'dan geldiği inancı.",
+   "category": "Yönetim Anlayışları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Tanrı kaynaklı egemenliğin 1. nedeni?",
+   "back": "Evrende olan her şeyin Tanrı'dan geldiği inancı; hükümdar da Tanrı tarafından yetkilendirilmiş sayılırdı.",
+   "category": "Yönetim Anlayışları",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tanrı kaynaklı egemenliğin 2. nedeni?",
+   "back": "Hükümdarın iktidarını meşrulaştırması ve halkın itaatini sağlaması.",
+   "category": "Yönetim Anlayışları",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Meşruiyet nedir?",
+   "back": "Yönetimin halk gözünde haklı ve kabul edilebilir sayılması.",
+   "category": "Yönetim Anlayışları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Hükümdarın yetkisi neden sorgulanamazdı?",
+   "back": "Tanrı tarafından atandığı kabul edildiği için.",
+   "category": "Yönetim Anlayışları",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Türklerde tanrısal yönetme yetkisi?",
+   "back": "Kut.",
+   "category": "Yönetim Anlayışları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Mısır'da yönetici kimdi?",
+   "back": "Firavun; tanrısal yetkiyle yönetirdi.",
+   "category": "Yönetim Anlayışları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "5.2 sorusunun puanı?",
+   "back": "İki madde: biri 5, ikisi 10 puan.",
+   "category": "Yönetim Anlayışları",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Meşrulaştırma bir araç mıdır?",
+   "back": "Evet; iktidarı pekiştirmek ve itaati sağlamak için kullanılmıştır.",
+   "category": "Yönetim Anlayışları",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Hukuk nedir?",
+   "back": "Toplumsal düzeni sağlayan kurallar bütünü.",
+   "category": "Hukuk ve Hammurabi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Hammurabi kimdir?",
+   "back": "Babil Kralı; yazılı kanunlarıyla ünlüdür.",
+   "category": "Hukuk ve Hammurabi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Hammurabi Kanunları ne zaman yazıldı?",
+   "back": "MÖ 18. yüzyıl (yaklaşık).",
+   "category": "Hukuk ve Hammurabi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Hammurabi'de yargıç hatası cezası?",
+   "back": "Görevden alınma ve bir daha yargıçlık yapamama.",
+   "category": "Hukuk ve Hammurabi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Hammurabi'de hırsızlık cezası?",
+   "back": "Çalınan malın katını ödeme: Tanrı'ya/mahkemeye ait ise 30 kat, özgür vatandaşa ait ise 10 kat.",
+   "category": "Hukuk ve Hammurabi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Eşit statüde diş kırma cezası?",
+   "back": "Kısas: failin dişi de kırılır.",
+   "category": "Hukuk ve Hammurabi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Azat edilmiş kişinin dişini kırma cezası?",
+   "back": "Bir mina altının üçte biri (tazminat).",
+   "category": "Hukuk ve Hammurabi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Üç ceza türü?",
+   "back": "Görevden alma (men), tazminat (para cezası), kısas (bedensel ceza).",
+   "category": "Hukuk ve Hammurabi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kısas nedir?",
+   "back": "Suçlunun verdiği zarar kadar cezalandırılması.",
+   "category": "Hukuk ve Hammurabi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Tazminat nedir?",
+   "back": "Zararı para veya mal ile ödemek.",
+   "category": "Hukuk ve Hammurabi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Azat edilmiş kişi kimdir?",
+   "back": "Köleliğinden kurtarılıp özgür olmuş kişi.",
+   "category": "Hukuk ve Hammurabi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "6.1 sorusunda puanlama?",
+   "back": "Görevden alma 2, tazminat 2, kısas 1 puan; toplam 5.",
+   "category": "Hukuk ve Hammurabi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Hammurabi'de sınıflı yapı nasıl görülür?",
+   "back": "Aynı suç (diş kırma) mağdurun statüsüne göre farklı cezalandırılır.",
+   "category": "Hukuk ve Hammurabi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Sınıflı yapının hukuka yansıması kanıtı?",
+   "back": "Eşit statüde kısas, azat edilmişte tazminat uygulanması.",
+   "category": "Hukuk ve Hammurabi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "6.2 sorusunda puanlama?",
+   "back": "Cezanın statüye göre değiştiğini belirtmek 3, metinden örnek vermek 2 puan (tam 5).",
+   "category": "Hukuk ve Hammurabi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Hukukun toplumsal düzendeki rolü?",
+   "back": "Haklı-haksız ayrımını belirler, suçu caydırır, düzeni korur.",
+   "category": "Hukuk ve Hammurabi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yazılı hukukun önemi?",
+   "back": "Kuralları herkesin bilebilmesi, keyfî uygulamayı azaltması ve güvenilirlik sağlaması.",
+   "category": "Hukuk ve Hammurabi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Ur-Nammu Kanunları hangi uygarlığa aittir?",
+   "back": "Sümerlere.",
+   "category": "Hukuk ve Hammurabi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Hammurabi sınıfları hakkında hangi sonuç çıkar?",
+   "back": "Babil toplumu özgür, azat edilmiş ve diğer katmanlara ayrılmış sınıflı bir toplumdur.",
+   "category": "Hukuk ve Hammurabi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Hammurabi'de yargıcın cezasının anlamı?",
+   "back": "Hukuk görevlileri de hesap vermek zorundaydı; yargının güvenilirliği korunmak istenirdi.",
+   "category": "Hukuk ve Hammurabi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Kelime bulutlu yazma sorusunda kural?",
+   "back": "Her cümlede bulutta yer alan en az bir kavramı kullanıp konuya uygun beş cümle kurmak.",
+   "category": "Sınav Tekniği",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Cevabı numaralamak neden iyi?",
+   "back": "Her madde ayrı puanlanır; değerlendiren maddeyi kolay bulur.",
+   "category": "Sınav Tekniği",
+   "difficulty": "easy"
+  },
+  {
+   "front": "\"Gerekçesiyle açıklayınız\" ne ister?",
+   "back": "Her maddeyi \"çünkü...\" ile nedenine bağlamak.",
+   "category": "Sınav Tekniği",
+   "difficulty": "easy"
+  },
+  {
+   "front": "\"Örnek vererek açıklayınız\" ne ister?",
+   "back": "Metinden veya bilinen tarihî örnekten somut bir ifade yazmak.",
+   "category": "Sınav Tekniği",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Boş bıraktığınız madde ne olur?",
+   "back": "O maddeden puan alınamaz; bu yüzden en az bir doğru ifade yazılmalı.",
+   "category": "Sınav Tekniği",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Dijital tarih avantajı mı risk mi: eşzamanlı çalışma?",
+   "back": "Avantaj (iş birliği).",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Dijital tarih avantajı mı risk mi: izinsiz yayın?",
+   "back": "Risk (telif hakkı sorunu).",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Tarım Devrimi kimlerce başlatıldı (metin)?",
+   "back": "Mezopotamya'da yaşayan insanlar.",
+   "category": "Paleolitik ve Tarım Devrimi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Yerleşik yaşamın bir sonucu?",
+   "back": "Köy ve şehirler, yeni uğraşlar, kalabalık toplum, nüfuzlu gruplar.",
+   "category": "Paleolitik ve Tarım Devrimi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Nüfuzlu gruplar neden doğdu?",
+   "back": "Kalabalık toplumda üretim, ticaret ve yönetimi elinde tutanların gücü arttı.",
+   "category": "Tarım Devrimi ve Toplumsal Yapı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Dijital tarihte \"eşzamanlı çalışma\" ne demektir?",
+   "back": "Birden fazla araştırmacının aynı veri üzerinde aynı anda çalışabilmesi.",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tanrı-kral ilişkisinin sınavdaki puanı (Hitit-Hun)?",
+   "back": "Yönetim anlayışı benzerliğinde Tanrı-kral ilişkisi 4, meclis 3, tahtın devri 3 puandır (toplam 10).",
+   "category": "Yönetim Anlayışları",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Sınıf ayrımı hukuka nasıl yansır?",
+   "back": "Aynı suç farklı statüdeki mağdurlar için farklı cezayla karşılanır.",
+   "category": "Hukuk ve Hammurabi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Paleolitik Çağ'da yerleşim düzeni?",
+   "back": "Kalıcı yerleşim yoktu; besin için dolaşılırdı.",
+   "category": "Paleolitik ve Tarım Devrimi",
+   "difficulty": "easy"
+  }
+ ],
+ "quiz": [
+  {
+   "type": "open-ended",
+   "question": "Soru 1 (15 puan). \"Tarihsel bilginin üretim sürecinin son aşamasında bilimsel bir eser ortaya koyan araştırmacılar, yararlandıkları kaynaklara mutlaka atıf yapmalı ve bu kaynakları çalışmanın kaynakça bölümünde göstermelidir. Kaynakçanın belirtilmesi, bilimsel ve mesleki etik açısından zorunludur. Akademik yazım standartlarına uyulmalı; açık, anlaşılır ve mantıksal bir yapı benimsenmelidir. Tarihsel olaylar, kendi bağlamı içinde ve kronolojik bir sıra izlenerek aktarılmalıdır. Hazırlanan çalışma, mevcut literatüre katkı sağlayan yeni bir bakış açısı veya bilgi sunmalıdır.\"\nBuna göre bir tarih eserinin \"bilimsel\" olabilmesi için taşıması gereken kriterler nelerdir? Gerekçeleriyle açıklayınız.",
+   "correctAnswer": "1) Kaynakçanın belirtilmesi: bilimsel etik için zorunludur, eserin doğruluğunu ve güvenilirliğini artırır. 2) Akademik yazım standartlarına uyum: metnin açık, anlaşılır ve tutarlı olması okuyucunun doğru anlam çıkarması için gereklidir. 3) Tarihsel bağlamın ve kronolojik sıralamanın takip edilmesi: olaylar arasındaki ilişkinin doğru anlaşılması ve dönemin şartlarına göre yorumlanması için gereklidir. 4) Yeni bir bakış açısı veya bilgi sunulması: tarihsel bilginin gelişmesine katkı sağlar.",
+   "keyPoints": [
+    "Kaynakçanın belirtilmesi + gerekçe (etik, güvenilirlik)",
+    "Akademik yazım standartlarına uyum + gerekçe (anlaşılırlık)",
+    "Tarihsel bağlam ve kronolojik sıra + gerekçe (olaylar arası ilişki)",
+    "Yeni bakış açısı veya bilgi + gerekçe (literatüre katkı)"
+   ],
+   "maxPoints": 15,
+   "explanation": "Adım 1: Metindeki dört cümle grubunu ayrı ayrı işaretleyin: atıf/kaynakça, yazım standartları, bağlam/kronoloji, yeni bakış. Bunlar dört kriterdir. Adım 2: Her kriterin yanına \"çünkü\" ile gerekçesini ekleyin; metindeki \"etik açıdan zorunludur\", \"açık ve anlaşılır\" gibi ifadeler gerekçe için ipucu verir. Adım 3: Dört maddeyi ayrı cümlelerle yazın. Puanlama: Gerekçeli her kriter için 4 puan; dördüncü kriter ile tam 15 olur (4-8-12-15). Gerekçe yazmadan yalnızca kriter adlarını sıralarsanız 2-4-6-8 puan alırsınız. Metin dışı ilgisiz bilgi veya boş cevap 0 puandır. İpucu: Kriter adını mutlaka metindeki kavramlarla yazın (kaynakça, akademik yazım, bağlam/kronoloji, yeni bakış).",
+   "category": "Bilimsel Tarih Yazımı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 2.1 (10 puan). Geleneksel tarih araştırmalarında araştırmacılar, kaynaklara genellikle kütüphaneler, arşivler, müzeler ve saha çalışmaları gibi fiziksel ortamlarda erişir. Bu süreçte el yazmaları, resmî belgeler ve gazete arşivleri gibi birincil kaynaklar doğrudan incelenir. Araştırmacılar, bu kaynakları analiz ederken metinleri manuel olarak okuyup yorumlar ve olaylar arasındaki bağlantıları kendileri kurar. Dijital tarih yazıcılığında ise kaynaklara çevrim içi veri tabanları, dijital arşivler ve e-kitaplar üzerinden internet aracılığıyla erişim sağlanır. Dijitalleştirilmiş el yazmaları, belgeler ve multimedya içerikler araştırmalarda yaygın şekilde kullanılmaktadır. Bu yaklaşımda büyük veri setlerini çözümlemek için istatistiksel araçlardan ve veri görselleştirme tekniklerinden yararlanılır. Ayrıca sosyal ağ analizi, coğrafi bilgi sistemleri (GIS) ve doğal dil işleme (NLP) gibi modern yöntemler de sıklıkla uygulanmaktadır. Bununla birlikte, dijital tarih çalışmalarında telif hakkı sorunları, içeriklerin tarihsel bağlamından koparılma riski ve dijital verilerin uygun şekilde korunamaması nedeniyle kaybolma tehlikesi gibi bazı zorluklarla da karşılaşılabilmektedir.\n\n2.1. Buna göre dijital tarih yazıcılığının, verilerin toplanması ve analizinde geleneksel tarih yazımına göre sağladığı dört avantajı yazınız.",
+   "correctAnswer": "Dijital tarih yazıcılığının avantajları: erişim kolaylığı (kaynaklara internetten kolayca ulaşılır); hızlı inceleme (veriler kısa sürede taranır); büyük veri setlerini analiz etme (çok sayıda belge dijital araçlarla etkin biçimde incelenir); gelişmiş analiz yöntemleri (veri görselleştirme, sosyal ağ analizi, CBS, NLP). Ek olarak iş birliğine dayalı çalışma, verilerin düzenlenmesi ve saklanması, zaman-maliyet verimliliği de kabul edilir.",
+   "keyPoints": [
+    "Erişim kolaylığı",
+    "Hızlı inceleme",
+    "Büyük veri setlerini analiz etme",
+    "Gelişmiş/modern analiz yöntemleri ve araçları",
+    "İş birliğine dayalı çalışma / verilerin saklanması / zaman-maliyet verimliliği"
+   ],
+   "maxPoints": 10,
+   "explanation": "Adım 1: Metnin ikinci yarısını (dijital kısım) okuyun; \"internet aracılığıyla erişim\" erişim kolaylığıdır, \"büyük veri setleri\" ve \"istatistiksel araçlar\" analiz kapasitesidir, \"sosyal ağ analizi, GIS, NLP\" gelişmiş yöntemlerdir. Adım 2: Geleneksel yöntemle karşılaştırarak \"fiziksel ortam yerine çevrim içi erişim\", \"manuel okuma yerine otomatik çözümleme\" yazabilirsiniz. Adım 3: Son cümledeki telif hakkı, bağlamdan kopma ve veri kaybı zorluktur; avantaj olarak yazmayın. Puanlama: bir avantaj 3, iki 5, üç 8, dört 10 puandır. Yedi avantajdan herhangi dördü yeterlidir.",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 2.2 (10 puan). Yukarıdaki metne göre tarihsel belgelerin dijitalleştirilmesi sürecinde meydana gelebilecek etik sorunlar neler olabilir? Örnek vererek açıklayınız.",
+   "correctAnswer": "1) Telif hakkı ve etik: Dijitalleştirilen eserler izin alınmadan yayımlanabilir; bu hem etik hem yasal sorun yaratır. Örnek: izin alınmadan dijitalleştirilip yayımlanan bir eser. 2) Yanıltıcı bilginin yayılması ve etik: Dijital ortamda içerikler tarihsel bağlamdan koparılabilir, manipüle edilebilir, yanlış yorumlanabilir; yanlış bilgi hızla yayılır. Örnek: bir sosyal medya platformunda \"tarihî belge\" diye gerçek olmayan bir içeriğin paylaşılması.",
+   "keyPoints": [
+    "Telif hakkı ihlali ile etik ilişkisi",
+    "Telif hakkı için örnek (izinsiz yayımlanan eser)",
+    "Yanıltıcı bilgilerin yayılması ile etik ilişkisi",
+    "Yanıltıcı bilgi için örnek (sosyal medyada sahte veya bağlamından koparılmış belge)"
+   ],
+   "maxPoints": 10,
+   "explanation": "Adım 1: Metindeki üç zorluktan etik olanlara odaklanın: telif hakkı ve bağlamdan koparma (yanıltıcı bilgi). Veri kaybı etik sorun değil teknik risktir. Adım 2: Her sorun için \"sorun + neden etik dışı + örnek\" kurun. Adım 3: İki sorunu ayrı paragraf/cümle ile yazın. Puanlama: İkisi de örnekle açıklanırsa 10; yalnızca birini örnekle açıklarsanız 5; örnek vermeden telif hakkını açıklarsanız 3, yanıltıcı bilgiyi açıklarsanız 5 puan verilir. Tuzak: Veri kaybı veya sunucu arızası gibi teknik risklere odaklanmak soruyu bağlam dışına taşır.",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 3 (15 puan). MÖ 600.000-MÖ 12.000 arasında tarihlendirilen Paleolitik Çağ'da insanlar, besin ihtiyaçlarını avcılık ve toplayıcılık faaliyetleriyle karşılamaktaydı. Avlanma faaliyetlerinin erkekler, bitki toplayıcılığının ise kadınlar ve çocuklar tarafından yürütüldüğü düşünülmektedir. Bugünkü anlamda mülkiyet kavramının henüz gelişmediği bu dönemde, toplumsal yapı; iş birliği, eşitlik ve dayanışma temelinde şekillenmişti. MÖ 10.000 yılı civarında Mezopotamya'da yaşayan insanların yabani buğdayı evcilleştirmesiyle başlayan Tarım Devrimi, bölge halkına besin üretimini kontrol etme ve artırma imkânı sundu. Günü gününe besin bulma kaygısından kurtulan çiftçi topluluklar, tarım yaptıkları arazilerin etrafında yerleşmeye başladı. Bununla birlikte köy ve şehir gibi yerleşim alanlarının kurulması, yeni uğraşıları ortaya çıkardı. Beslenme alışkanlıklarındaki değişim ve çalışana duyulan ihtiyacın artması kalabalık bir toplum doğurdu ve toplum içinde nüfuzlu gruplar görülmeye başlandı.\nBuna göre Tarım Devrimi'nin Mezopotamya'nın toplum yapısında meydana getirdiği değişiklikler neler olabilir? Açıklayınız.",
+   "correctAnswer": "1) Nüfus artışı: besin bulma kaygısı azaldı, işgücü ihtiyacı arttı, insan sayısı hızla çoğaldı. 2) Özel mülkiyetin ortaya çıkması: artan üretimle insanlar üretim araçlarını ve ürünlerini sahiplenmeye başladı. 3) Yeni meslek gruplarının ortaya çıkması: köy ve şehirlerle yöneticiler, askerler, çiftçiler, tüccarlar gibi gruplar oluştu, iş bölümü yaygınlaştı. 4) Sınıf ayrımının ortaya çıkması: sınıf ayrımına dayanan yeni bir toplum yapısı doğdu.",
+   "keyPoints": [
+    "Nüfus artışı",
+    "Özel mülkiyetin ortaya çıkması",
+    "Yeni meslek gruplarının (iş bölümünün) ortaya çıkması",
+    "Sınıf ayrımının ortaya çıkması"
+   ],
+   "maxPoints": 15,
+   "explanation": "Adım 1: Paleolitik toplum ile sonrası arasındaki farkı düşünün: eşitlik/mülkiyetsizlik ↔ nüfuzlu gruplar. Adım 2: Metindeki ipuçlarını eşleyin: \"besin kaygısından kurtulan, çalışana duyulan ihtiyaç, kalabalık toplum\" = nüfus artışı; \"mülkiyet kavramı henüz gelişmemişti\" ile karşılaştırınca özel mülkiyet; \"yeni uğraşlar\" = yeni meslekler; \"nüfuzlu gruplar\" = sınıf ayrımı. Adım 3: Dört maddeyi ayrı cümlelerle yazın. Puanlama: 4-8-12-15 (dördüncü madde 3 puan). Tarım Devrimi dışındaki konulara (ör. Hammurabi) geçmek sıfır puan nedenidir.",
+   "category": "Tarım Devrimi ve Toplumsal Yapı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 5.2 (10 puan). Eski Çağ'da gücünü Tanrı'dan alan bir egemenlik anlayışının benimsenmesinin sebepleri neler olabilir? Açıklayınız.",
+   "correctAnswer": "Eski Çağ'da Tanrı'nın (tanrıların) evrenin düzenini ve insan yaşamını kontrol eden yüce varlıklar olduğuna dair dinî inanç, hükümdarların Tanrı tarafından görevlendirildiği anlayışını doğurmuştur (5 puan). Hükümdarlar egemenliklerini meşrulaştırmak, halkın itaatini sağlamak ve iktidarlarını pekiştirmek için iktidarlarını dinî temellere dayandırmışlardır; Tanrı'nın seçtiği veya vekili olduğu için yönetimleri sorgulanamaz bir otoriteye sahipti (5 puan).",
+   "keyPoints": [
+    "Evrende her şeyin Tanrı eliyle gerçekleştiği inancı; hükümdar da Tanrı tarafından yetkilendirilmiş sayılırdı",
+    "Hükümdarların egemenliklerini meşru hâle getirmek, halk nezdinde kabul görmek için iktidarı dinî temellere dayandırması"
+   ],
+   "maxPoints": 10,
+   "explanation": "Adım 1: \"Neden böyle düşünülürdü?\" sorusunu iki kutuda cevaplayın: (a) inanç dünyası (b) siyasi kullanım. Adım 2: Birinci madde \"inanç\": evrenin düzenini Tanrı sağlar, o hâlde hükümdar da Tanrı'nın vekilidir. İkinci madde \"meşruiyet\": hükümdar halkın itaatini sağlamak ve iktidarı pekiştirmek için bu inancı kullanır. Adım 3: Örnek eklemek zorunlu değildir; ancak Mısır'da firavun, Türklerde kut gibi örnekler cevabı güçlendirir. Puanlama: iki maddeden biri 5, ikisi 10 puandır. Tanrısal yetkilendirme veya dinî temelli meşrulaştırmadan hiç söz etmemek 0 puandır.",
+   "category": "Yönetim Anlayışları",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 6.1 (5 puan). Aşağıda Babil Kralı Hammurabi tarafından hazırlanan kanunlardan bazı maddeler verilmiştir. Bu maddeleri inceleyerek soruları cevaplayınız.\n• Bir yargıç yanlış karar verip belgeyi değiştirirse görevinden alınır ve bir daha yargıçlık yapamaz.\n• Bir adam, koyun, öküz, domuz veya keçi çaldığında eğer o çaldığı şey Tanrı'ya ya da mahkemeye aitse otuz katını öder, eğer kralın özgür bir vatandaşına aitse on katını öder.\n• Bir adam kendisi ile eşit olan birinin dişini kırarsa onun da dişi kırılır.\n• Bir kişi azat edilmiş bir adamın dişini kırarsa bir mina altının üçte birini verir.\n6.1. Buna göre Hammurabi Kanunları'nda toplumsal düzeni sağlamak için uygulanan farklı ceza türlerini belirtiniz.",
+   "correctAnswer": "Görevden alma (men) cezası: yanlış karar verip belgeyi değiştiren yargıcın görevden alınması ve bir daha yargıçlık yapamaması. Tazminat (para/mali) cezası: hırsızlıkta çalınan şeyin 30 veya 10 katının ödenmesi; azat edilmiş kişinin dişini kıran kişinin bir mina altının üçte birini ödemesi. Kısas (bedensel) cezası: eşit statüdeki birinin dişini kıran kişinin dişinin de kırılması.",
+   "keyPoints": [
+    "Görevden alma (men) cezası",
+    "Tazminat (fidye, para, mali) cezası",
+    "Kısas (bedensel) cezası"
+   ],
+   "maxPoints": 5,
+   "explanation": "Adım 1: Dört maddeyi tek tek okuyup her birinde cezanın neye dönüştüğünü yazın. Madde 1: yargıç görevden alınır; madde 2 ve 4: para ödenir; madde 3: fail aynı zararı görür. Adım 2: Ceza türlerini adlandırın: görevden alma, tazminat, kısas. Adım 3: Her tür için maddeden bir kanıt ekleyin. Puanlama: görevden alma 2, tazminat 2, kısas 1; üçü birlikte 5 puan. Tek tür 2, iki tür 4 puandır.",
+   "category": "Hukuk ve Hammurabi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 6.2 (5 puan). Babil toplumunun sınıflı yapısının Hammurabi Kanunları'na nasıl yansıdığını metinden örnek vererek açıklayınız. (Metin: 6.1'deki dört kanun maddesi.)",
+   "correctAnswer": "Eşit statüde iki kişi arasında birinin dişini kıran kişi kısasla cezalandırılırken, azat edilmiş birinin dişini kıran kişi kısas yerine tazminat (para cezası) öder. Bu, cezanın kişinin toplumsal statüsüne göre değiştiğini; yani sınıf ayrımının hukuka da yansıdığını gösterir.",
+   "keyPoints": [
+    "Cezaların kişilerin toplumsal statüsüne göre değiştiğini belirtme",
+    "Metinden örnek verme (eşitler arasında kısas, azat edilmişte tazminat veya 30 kat / 10 kat farkı)"
+   ],
+   "maxPoints": 5,
+   "explanation": "Adım 1: Genel yargıyı yazın: \"Cezalar herkes için aynı değildir, mağdurun statüsüne göre değişir.\" Adım 2: Metinden aynı suçun (diş kırma) farklı sonuçlanan iki örneğini yan yana koyun. Alternatif örnek: hırsızlıkta Tanrı/mahkeme malı 30 kat, özgür vatandaş malı 10 kat. Adım 3: Sonucu \"bu durum Babil toplumunun sınıflı yapısını yansıtır\" cümlesiyle bağlayın. Puanlama: genel yargı 3, örnek 2 puandır; yalnızca birini yazarsanız 3 puan. Konu dışı veya boş cevap 0.",
+   "category": "Hukuk ve Hammurabi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "\"Bir araştırmacı yazdığı makalede başkalarının görüşlerini kaynak göstermeden kullanmış, olaylar arasında zaman sırasını gözetmeden anlatım yapmıştır.\" Bu eserin bilimsel olmasını engelleyen iki eksikliği gerekçesiyle yazınız.",
+   "correctAnswer": "Kaynakça/atıf eksikliği: bilimsel etik için zorunlu olduğundan bilgiler doğrulanamaz ve güvenilirlik düşer. Kronolojik sıra ve bağlamın izlenmemesi: olaylar arası ilişki yanlış kurulur, dönem şartları göz ardı edilir.",
+   "keyPoints": [
+    "Kaynak göstermeme + gerekçe (etik, güvenilirlik)",
+    "Kronoloji/bağlam eksikliği + gerekçe (olayların ilişkisi)"
+   ],
+   "maxPoints": 8,
+   "explanation": "Soru, 1. soruyla aynı yapıdadır: eksik ölçütü bul, nedenini ekle. Gerekçesiz yazarsanız yarım puan alırsınız.",
+   "category": "Benzer soru: Bilimsel Tarih Yazımı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir araştırmacı, yeni bulduğu ferman metnini literatürde daha önce hiç değinilmeyen bir bakış açısıyla yorumlamıştır. Bilimsel eserin hangi ölçütünü karşılamıştır? Bu ölçüt neden önemlidir?",
+   "correctAnswer": "Yeni bir bakış açısı veya bilgi sunma ölçütünü karşılamıştır. Bu ölçüt tarihsel bilginin gelişmesine ve literatüre katkı sağlaması nedeniyle önemlidir.",
+   "keyPoints": [
+    "Ölçüt: yeni bir bakış açısı/bilgi sunma",
+    "Gerekçe: literatüre ve tarihsel bilginin gelişimine katkı"
+   ],
+   "maxPoints": 6,
+   "explanation": "Dört ölçütü bilmek yetmez; hangi cümlenin hangi ölçüte denk geldiğini bulmak gerekir. \"Daha önce değinilmemiş\" ifadesi yeni bakış açısını gösterir.",
+   "category": "Benzer soru: Bilimsel Tarih Yazımı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "\"Birinci elden kaynaklardan yararlandım ama kaynakçada hiçbirinin adını belirtmedim.\" diyen araştırmacının etik açıdan hatasını açıklayınız.",
+   "correctAnswer": "Kaynakçanın belirtilmemesi bilimsel ve mesleki etik açısından kabul edilemez; okuyucu bilgileri doğrulayamaz, eserin güvenilirliği azalır ve önceki araştırmacıların emeği yok sayılır.",
+   "keyPoints": [
+    "Kaynakçanın etik zorunluluğu",
+    "Doğrulanamama / güvenilirlik kaybı"
+   ],
+   "maxPoints": 6,
+   "explanation": "Birinci elden kaynak kullanmak kaynak göstermeyi gereksiz kılmaz. Etik gerekçeyi açık yazın.",
+   "category": "Benzer soru: Bilimsel Tarih Yazımı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir tarih öğrencisi 16. yüzyıla ait el yazması defterleri dijital arşivden indirmiş, kelime sıklığını bulan bir yazılımla incelemiştir. Dijital tarih yazıcılığının bu çalışmaya sağladığı üç avantajı yazınız.",
+   "correctAnswer": "Erişim kolaylığı (defterlere internetten ulaşma), hızlı inceleme (kelime sıklığını kısa sürede bulma) ve gelişmiş analiz araçlarından (yazılım/NLP) yararlanma.",
+   "keyPoints": [
+    "Erişim kolaylığı",
+    "Hızlı inceleme",
+    "Gelişmiş analiz araçları"
+   ],
+   "maxPoints": 9,
+   "explanation": "Cevaptaki her avantajı örnekteki bir ifadeyle bağlayın: \"dijital arşivden indirmiş\" = erişim; \"yazılım\" = analiz aracı; sıklık hesabı = hız.",
+   "category": "Benzer soru: Dijital Tarih Yazıcılığı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Üç araştırmacı aynı dijital arşivdeki belgeleri farklı ülkelerden eşzamanlı olarak inceleyip ortak bir veri tablosu hazırlamaktadır. Bu çalışma biçiminin dijital tarih yazıcılığına özgü iki yararını açıklayınız.",
+   "correctAnswer": "İş birliğine dayalı çalışma imkânı (birden çok araştırmacı aynı veri üzerinde eşzamanlı çalışır) ve zaman-maliyet verimliliği (seyahat ve fiziksel tarama gerekmez).",
+   "keyPoints": [
+    "İş birliğine dayalı çalışma",
+    "Zaman ve maliyet verimliliği"
+   ],
+   "maxPoints": 6,
+   "explanation": "Cevabı \"farklı ülkelerden\" ve \"eşzamanlı\" ifadeleriyle bağlayın.",
+   "category": "Benzer soru: Dijital Tarih Yazıcılığı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Sosyal medyada paylaşılan bir fotoğrafın altına \"1920'lerden kalma tarihî belge\" yazılmış, fotoğraf başka bir ülkenin görüntüsü olduğu hâlde on binlerce kez paylaşılmıştır. Bu durumu etik açıdan değerlendiriniz.",
+   "correctAnswer": "Bu durum yanıltıcı bilginin yayılmasına örnektir. İçerik tarihsel bağlamından koparılmış, yanlış yorumlanmıştır. Doğruluğu denetlenmeden paylaşılması bilimsel ve toplumsal etiğe aykırıdır; kaynağı doğrulamak gerekir.",
+   "keyPoints": [
+    "Yanıltıcı bilginin yayılması",
+    "Bağlamdan kopma / yanlış yorum",
+    "Etik dışı olması ve doğrulama gerekliliği"
+   ],
+   "maxPoints": 9,
+   "explanation": "Çözüm örneği: kaynağı araştırma, güvenilir arşivleri kullanma, paylaşmadan önce doğrulama.",
+   "category": "Benzer soru: Dijital Tarih Yazıcılığı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir müzenin yazarın izni olmadan taranıp çevrim içi satışa sunulan nadir bir kitabı için hangi etik sorun ortaya çıkar? Nedenini yazınız.",
+   "correctAnswer": "Telif hakkı ihlali: Eser sahibinin yasal hakları izin alınmadan kullanıldığı için hem etik hem yasal sorun doğar.",
+   "keyPoints": [
+    "Telif hakkı ihlali",
+    "İzin alınmaması nedeniyle etik ve yasal sorun"
+   ],
+   "maxPoints": 6,
+   "explanation": "Bu soru 2.2'nin telif hakkı maddesinin bir örneğidir.",
+   "category": "Benzer soru: Dijital Tarih Yazıcılığı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Paleolitik toplumla Tarım Devrimi sonrası toplumu \"mülkiyet\" ve \"toplumsal eşitlik\" açısından karşılaştırınız.",
+   "correctAnswer": "Paleolitik toplumda bugünkü anlamda mülkiyet yoktu ve yapı iş birliği, eşitlik ve dayanışmaya dayanıyordu. Tarım Devrimi sonrasında artan üretimle özel mülkiyet doğdu, yeni meslekler ve nüfuzlu gruplar ortaya çıktı; eşitlik yerine sınıf ayrımına dayalı bir yapı oluştu.",
+   "keyPoints": [
+    "Paleolitik: mülkiyet yok, eşitlik",
+    "Tarım sonrası: özel mülkiyet",
+    "Tarım sonrası: sınıf ayrımı"
+   ],
+   "maxPoints": 9,
+   "explanation": "Karşılaştırma sorusunda iki dönemi ayrı ayrı yazın.",
+   "category": "Benzer soru: Tarım Devrimi ve Toplumsal Yapı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir köy halkı yabani tahılı ilk kez tarlada ekmeye başlamış, çevresine ev yapmıştır. Birkaç kuşak sonra kasabada demirci, tüccar ve yönetici gruplar oluşmuştur. Bu gelişmeyi tarım devrimi sürecinin hangi toplumsal sonuçlarıyla açıklarsınız?",
+   "correctAnswer": "Yerleşik yaşam ve nüfus artışı, yeni meslek gruplarının (demirci, tüccar, yönetici) ortaya çıkması, iş bölümünün yaygınlaşması ve buna bağlı sınıf ayrımı.",
+   "keyPoints": [
+    "Yerleşik yaşam/nüfus artışı",
+    "Yeni meslek grupları ve iş bölümü",
+    "Sınıf ayrımı"
+   ],
+   "maxPoints": 9,
+   "explanation": "Örnekteki \"demirci, tüccar, yönetici\" doğrudan meslek grubudur; \"kuşaklar sonra\" nüfus artışına işaret eder.",
+   "category": "Benzer soru: Tarım Devrimi ve Toplumsal Yapı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Mezopotamya'da vergi kayıtlarının tutulması ve tarla ölçümlerinin yapılması Tarım Devrimi'nin kültürel hayata etkisini nasıl gösterir?",
+   "correctAnswer": "Artı ürün ve ticaretin artması, devletin vergi toplaması ve toprağın ölçülmesi gereğini doğurdu; kayıt tutma ihtiyacı yazının ortaya çıkmasını sağladı. Yazı hesaplama ve bilgi aktarımı yoluyla kültürel hayatın temel taşı oldu.",
+   "keyPoints": [
+    "Artı ürün/ticaret ve vergi ihtiyacı",
+    "Kayıt tutma ihtiyacı → yazı",
+    "Yazının kültürel hayattaki rolü"
+   ],
+   "maxPoints": 9,
+   "explanation": "Zincir: artı ürün → ticaret/vergi → kayıt → yazı. Her halkayı ayrı bir cümleyle bağlayın.",
+   "category": "Benzer soru: Tarım Devrimi ve Toplumsal Yapı",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki cümleyi tamamlayarak açıklayınız: \"Tanrı kaynaklı egemenlik anlayışı hükümdarın yönetimini ........ bir otoriteye dönüştürürdü, çünkü ......\"",
+   "correctAnswer": "Sorgulanamaz bir otoriteye dönüştürürdü; çünkü hükümdarın Tanrı tarafından seçildiğine veya Tanrı'nın vekili olduğuna inanılırdı ve bu inanç halkın itaatini sağlardı.",
+   "keyPoints": [
+    "Sorgulanamaz otorite",
+    "Tanrı tarafından seçilme/vekil olma gerekçesi"
+   ],
+   "maxPoints": 6,
+   "explanation": "Gerekçe cümlesi \"çünkü\" ile Tanrı ilişkisini kurmalıdır.",
+   "category": "Benzer soru: Yönetim Anlayışları",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Mısır'da firavunun tanrısal kabul edilmesi ile Göktürklerde \"kut\" anlayışının ortak yönünü ve bunun hükümdar açısından amacını açıklayınız.",
+   "correctAnswer": "Her ikisinde de egemenliğin kaynağı tanrısal güçtür; hükümdar yetkisini Tanrı'dan aldığına inanılırdı. Amaç, hükümdarın otoritesini meşrulaştırmak ve halkın itaatini sağlamaktır.",
+   "keyPoints": [
+    "Ortak yön: egemenliğin tanrısal kaynağı",
+    "Amaç: meşruiyet ve itaat"
+   ],
+   "maxPoints": 6,
+   "explanation": "Mısır için firavun tanrısal sayılır; Türklerde kut, hükümdara Tanrı tarafından verilir. Farklı ifadeler aynı ilkeyi gösterir.",
+   "category": "Benzer soru: Yönetim Anlayışları",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Hitit ve Asya Hun devletlerinde meclislerin ülke yönetimindeki rolünü ve adlarını yazınız.",
+   "correctAnswer": "Her iki devlette ülke yönetiminde önemli rol oynayan meclisler vardı. Hititlerde meclise pankuş, Asya Hunlarında kurultay (toy) denirdi.",
+   "keyPoints": [
+    "Meclislerin yönetimde önemli rolü",
+    "Pankuş (Hitit)",
+    "Kurultay/toy (Asya Hun)"
+   ],
+   "maxPoints": 6,
+   "explanation": "Bu tür soruda iki ad ve ortak işlev yazılır.",
+   "category": "Benzer soru: Yönetim Anlayışları",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir kral, eski bir kanunu değiştirip yargıçların yanlış karar vermelerini önlemek için yargıçlara ağır yaptırımlar öngörmüştür. Hammurabi örneğinden hareketle bu uygulamayı yorumlayınız.",
+   "correctAnswer": "Hammurabi Kanunları'nda yargıç yanlış karar verip belgeyi değiştirirse görevden alınır ve bir daha yargıçlık yapamaz. Yargıcın da hesap vermesi, adaletin sağlanması ve hukuka güvenin korunması amacını taşır; görevden alma ceza türüdür.",
+   "keyPoints": [
+    "Yargıca görevden alma cezası",
+    "Adalet ve hukuka güven amacı"
+   ],
+   "maxPoints": 6,
+   "explanation": "Hammurabi'deki görevden alma maddesini somut olarak anın.",
+   "category": "Benzer soru: Hukuk ve Hammurabi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir kanun maddesi şöyledir: \"Bir adam başkasının kölesinin dişini kırarsa köle sahibine bir mina gümüşün üçte birini öder.\" Bu maddeyi Hammurabi örneğindeki sınıflı yapı açısından yorumlayınız.",
+   "correctAnswer": "Köle başkasının malı sayıldığı için ceza, kısas yerine tazminat (para) olarak sahibine ödenir; bu, cezanın mağdurun toplumsal statüsüne göre değiştiğini ve sınıf ayrımının hukuka yansıdığını gösterir.",
+   "keyPoints": [
+    "Ceza statüye göre belirlenir",
+    "Tazminat/mali ceza örneği",
+    "Sınıflı yapının hukuka yansıması"
+   ],
+   "maxPoints": 9,
+   "explanation": "Yorumlarken metinden bir örnek (azat edilmişte tazminat) ile bu maddeyi kıyaslayın. Bu örnek kurgusaldır; ilkeyi çalışmaya yarar.",
+   "category": "Benzer soru: Hukuk ve Hammurabi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki ceza örneklerini \"görevden alma, tazminat, kısas\" olarak sınıflandırınız: (a) Çaldığı koyunun on katını ödeme, (b) Başkasının gözünü çıkaran kişinin gözünün çıkarılması, (c) Hatalı karar veren hâkimin hâkimlikten alınması.",
+   "correctAnswer": "(a) tazminat (mali ceza), (b) kısas (bedensel ceza), (c) görevden alma.",
+   "keyPoints": [
+    "a = tazminat",
+    "b = kısas",
+    "c = görevden alma"
+   ],
+   "maxPoints": 6,
+   "explanation": "Cezanın niteliğine bakın: para → tazminat; aynı zarar → kısas; makam kaybı → görevden alma.",
+   "category": "Benzer soru: Hukuk ve Hammurabi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir hukuk sisteminde zengin kişinin suçu ile fakir kişinin aynı suçu farklı cezalandırılıyorsa bu durum toplumun hangi özelliğini gösterir? Hammurabi'den bir örnekle destekleyiniz.",
+   "correctAnswer": "Toplumun sınıflı olduğunu ve hukukun statüye göre farklı uygulandığını gösterir. Hammurabi'de eşitler arasında diş kırma kısasla, azat edilmişe karşı aynı fiil tazminatla cezalandırılırdı.",
+   "keyPoints": [
+    "Sınıflı toplum",
+    "Statüye göre ceza",
+    "Hammurabi örneği"
+   ],
+   "maxPoints": 9,
+   "explanation": "Genelleme + örnek ikilisi 6.2'nin kalıbıdır.",
+   "category": "Benzer soru: Hukuk ve Hammurabi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Tarım Devrimi'nin Mezopotamya'daki ekonomik etkilerini en az üç madde hâlinde yazınız.",
+   "correctAnswer": "Üretimin kontrol edilip artırılması; artı ürünün birikmesi; ticaretin başlaması; sulama ve üretim tekniklerinin gelişmesi; yeni meslek ve uğraşların doğması.",
+   "keyPoints": [
+    "Üretim artışı/artı ürün",
+    "Ticaretin başlaması",
+    "Sulama ve üretim teknikleri/yeni uğraşlar"
+   ],
+   "maxPoints": 9,
+   "explanation": "Ekonomik etkileri toplumsal etkilerle (nüfus, sınıf) karıştırmayın; burada ürün, ticaret, teknik önemlidir.",
+   "category": "Benzer soru: Paleolitik ve Tarım Devrimi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Avcı-toplayıcı yaşam ile yerleşik tarım toplumunun beslenme düzenini kıyaslayarak insan davranışında ne tür değişimler olabileceğini yorumlayınız.",
+   "correctAnswer": "Avcı-toplayıcılar sürekli yer değiştirerek hazır besin ararken, tarım toplumu üretimi kontrol edip bir yerde kalıcı yaşar. Bu durum yerleşim, nüfus artışı ve mülkiyet, iş bölümü gibi davranış ve düzen değişimlerine yol açar.",
+   "keyPoints": [
+    "Avcı-toplayıcı: hareketli, hazır besin",
+    "Tarım toplumu: kalıcı yerleşim, üretim",
+    "Düzen değişimi: nüfus, mülkiyet, iş bölümü"
+   ],
+   "maxPoints": 9,
+   "explanation": "Zıtlıklar kurarak yazın: hareketli ↔ yerleşik, toplama ↔ üretim.",
+   "category": "Benzer soru: Paleolitik ve Tarım Devrimi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi dijital tarih yazıcılığının bir avantajı değildir?",
+   "options": [
+    "Birçok araştırmacının aynı veri üzerinde eşzamanlı çalışabilmesi",
+    "Dijital verilerin korunamaması nedeniyle kaybolma riski",
+    "Büyük veri setlerinin kısa sürede çözümlenmesi",
+    "Belgelere internet üzerinden erişilebilmesi"
+   ],
+   "correct": 1,
+   "explanation": "Veri kaybı riski bir zorluktur. Diğer seçenekler metinde belirtilen avantajlardır.",
+   "category": "Benzer soru: Dijital Tarih Yazıcılığı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Sosyal medyada sahte bir görselin \"tarihî belge\" diye yayılması hangi etik sorunla ilgilidir?",
+   "options": [
+    "Yanıltıcı bilginin yayılması",
+    "Telif hakkı süresinin dolması",
+    "Kaynakça listesinin uzaması",
+    "Verilerin hızlı analiz edilmesi"
+   ],
+   "correct": 0,
+   "explanation": "Sahte veya bağlamdan koparılmış içerik yanlış bilgi yayılmasına yol açar; bu etik dışıdır.",
+   "category": "Benzer soru: Dijital Tarih Yazıcılığı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Bilimsel bir eserde olayların dönemin şartları içinde ve zaman sırasıyla aktarılması hangi ölçüte karşılık gelir?",
+   "options": [
+    "Kaynakça gösterme",
+    "Yeni bilgi sunma",
+    "Akademik dil kullanma",
+    "Tarihsel bağlam ve kronolojik sıra"
+   ],
+   "correct": 3,
+   "explanation": "Bağlam ve kronoloji, olaylar arasındaki ilişkinin doğru kurulması için gereklidir.",
+   "category": "Benzer soru: Bilimsel Tarih Yazımı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi Tarım Devrimi'nin doğrudan toplumsal sonuçlarından biri değildir?",
+   "options": [
+    "Özel mülkiyetin ortaya çıkması",
+    "Sınıf ayrımının doğması",
+    "Avcı-toplayıcı yaşamın yaygınlaşması",
+    "Yeni meslek gruplarının oluşması"
+   ],
+   "correct": 2,
+   "explanation": "Tarım Devrimi avcı-toplayıcı yaşamı azaltmış, yerleşik düzene geçişi getirmiştir.",
+   "category": "Benzer soru: Tarım Devrimi ve Toplumsal Yapı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "\"Artı ürünün pazarlanma ihtiyacı\" hangi gelişmeyi başlatmıştır?",
+   "options": [
+    "Avcılık",
+    "Ticaret",
+    "Göçebelik",
+    "Kısas cezası"
+   ],
+   "correct": 1,
+   "explanation": "Artı ürünün pazarlanması ticaret faaliyetlerinin ve toplumlar arası etkileşimin başlamasını sağlamıştır.",
+   "category": "Benzer soru: Tarım Devrimi ve Toplumsal Yapı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Yazının ortaya çıkışında aşağıdakilerden hangisi doğrudan etkilidir?",
+   "options": [
+    "Kayıt tutma ve düzenli bilgi aktarma ihtiyacı",
+    "Hükümdarın tanrısal sayılması",
+    "Kısas ilkesi",
+    "Paleolitik Çağ'ın uzun sürmesi"
+   ],
+   "correct": 0,
+   "explanation": "Artı ürün, ticaret ve vergi gibi gelişmeler kayıt tutma ihtiyacını doğurmuş, yazı böyle ortaya çıkmıştır.",
+   "category": "Benzer soru: Tarım Devrimi ve Toplumsal Yapı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Hititlerde meclise ne ad verilirdi?",
+   "options": [
+    "Kurultay",
+    "Divan",
+    "Ayukı",
+    "Pankuş"
+   ],
+   "correct": 3,
+   "explanation": "Hititlerde meclis pankuştur. Kurultay Türk devletlerinde, divan Sâsânî ve sonraki devletlerde kullanılan adlardır.",
+   "category": "Benzer soru: Yönetim Anlayışları",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Eski Çağ'da hükümdarın gücünü Tanrı'dan aldığına inanılmasının temel sonucu aşağıdakilerden hangisidir?",
+   "options": [
+    "Hükümdarın halk tarafından seçilmesi",
+    "Hukukun ortadan kalkması",
+    "Hükümdarın yönetiminin sorgulanamaz bir otoriteye kavuşması",
+    "Ticaretin yasaklanması"
+   ],
+   "correct": 2,
+   "explanation": "Tanrı tarafından yetkilendirilen hükümdarın yönetimi sorgulanamaz bir otorite olarak görülür, bu da itaati sağlar.",
+   "category": "Benzer soru: Yönetim Anlayışları",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdaki cezalardan hangisi kısas örneğidir?",
+   "options": [
+    "Çalınan malın 10 katının ödenmesi",
+    "Dişini kıran kişinin dişinin kırılması",
+    "Yargıcın görevden alınması",
+    "Bir mina altının üçte birinin ödenmesi"
+   ],
+   "correct": 1,
+   "explanation": "Kısas, suçlunun verdiği zarar kadar cezalandırılmasıdır. Diğerleri tazminat veya görevden alma cezalarıdır.",
+   "category": "Benzer soru: Hukuk ve Hammurabi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Hammurabi Kanunları'nda aynı suçun farklı cezalarla karşılanması neyi gösterir?",
+   "options": [
+    "Toplumun sınıflı yapısının hukuka yansımasını",
+    "Hukukun eşitlik ilkesine dayandığını",
+    "Kanunların yazılı olmadığını",
+    "Ticaretin gelişmediğini"
+   ],
+   "correct": 0,
+   "explanation": "Aynı fiilin mağdurun statüsüne göre farklı yaptırım görmesi sınıf ayrımının hukuka yansıdığını gösterir.",
+   "category": "Benzer soru: Hukuk ve Hammurabi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Paleolitik Çağ toplumu ile ilgili aşağıdakilerden hangisi söylenemez?",
+   "options": [
+    "Avcılık ve toplayıcılık yapılırdı.",
+    "İş birliği ve dayanışma vardı.",
+    "Toplumsal yapı eşitlik temelindeydi.",
+    "Özel mülkiyet kavramı yaygındı."
+   ],
+   "correct": 3,
+   "explanation": "Metne göre bugünkü anlamda mülkiyet kavramı henüz gelişmemişti.",
+   "category": "Benzer soru: Paleolitik ve Tarım Devrimi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "true-false",
+   "question": "Kaynakça ve atıf yalnızca öğrenci ödevleri için gereklidir; profesyonel tarihçiler için zorunlu değildir.",
+   "correct": false,
+   "explanation": "Yanlış. Kaynakça bilimsel ve mesleki etik açısından zorunludur.",
+   "category": "Benzer soru: Bilimsel Tarih Yazımı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Dijital veriler hiçbir zaman kaybolmaz.",
+   "correct": false,
+   "explanation": "Yanlış. Dijital veriler uygun korunmazsa kaybolabilir.",
+   "category": "Benzer soru: Dijital Tarih Yazıcılığı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Tarım Devrimi'nin başlangıcı, Mezopotamya'da yabani buğdayın evcilleştirilmesiyle ilişkilendirilmiştir (metne göre).",
+   "correct": true,
+   "explanation": "Doğru. Metne göre MÖ 10.000 civarında Mezopotamya'da başlamıştır.",
+   "category": "Benzer soru: Paleolitik ve Tarım Devrimi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Hammurabi Kanunları'nda cezalar herkese aynı biçimde uygulanırdı.",
+   "correct": false,
+   "explanation": "Yanlış. Cezalar statüye göre değişirdi (kısas ve tazminat farkı).",
+   "category": "Benzer soru: Hukuk ve Hammurabi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Hitit ve Asya Hun devletlerinde veraset geçerliydi.",
+   "correct": true,
+   "explanation": "Doğru. Her iki devlette hükümdarın soyundan gelen vârislerden biri tahta çıkardı.",
+   "category": "Benzer soru: Yönetim Anlayışları",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Yararlanılan kaynakların listelendiği bölüme ____ denir.",
+   "answers": [
+    "kaynakça"
+   ],
+   "explanation": "Kaynakça, eserde kullanılan kaynakların gösterildiği bölümdür.",
+   "category": "Benzer soru: Bilimsel Tarih Yazımı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Eserin telif hakkı sahibinden izin alınmadan yayımlanması ____ hakkı ihlalidir.",
+   "answers": [
+    "telif"
+   ],
+   "explanation": "İzinsiz yayım telif hakkı ihlalidir; bu hem etik hem yasal bir sorundur.",
+   "category": "Benzer soru: Dijital Tarih Yazıcılığı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Suçlunun verdiği zarar kadar cezalandırılmasına ____ denir.",
+   "answers": [
+    "kısas"
+   ],
+   "explanation": "Kısas, bedensel ve karşılıklı ceza ilkesidir.",
+   "category": "Benzer soru: Hukuk ve Hammurabi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Hükümdarın iktidarını halk nezdinde haklı göstermesine ____ denir.",
+   "answers": [
+    "meşruiyet",
+    "meşrulaştırma"
+   ],
+   "explanation": "Meşruiyet yönetimin kabul edilebilir sayılmasıdır.",
+   "category": "Benzer soru: Yönetim Anlayışları",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Dijital tarih yazıcılığında verileri harita üzerinde çözümlemek için hangi yöntem kullanılır?",
+   "options": [
+    "Doğal dil işleme",
+    "Kısas",
+    "Coğrafi bilgi sistemleri (CBS/GIS)",
+    "Atıf"
+   ],
+   "correct": 2,
+   "explanation": "CBS coğrafi verileri harita üzerinde analiz eder. NLP metinleri çözümler.",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Geleneksel tarih araştırmasında hangi ortam kaynaklara erişim için kullanılır?",
+   "options": [
+    "Yalnızca internet",
+    "Arşiv, kütüphane, müze ve saha",
+    "Sosyal medya",
+    "E-kitap"
+   ],
+   "correct": 1,
+   "explanation": "Geleneksel yöntemde fiziksel ortamlar kullanılır.",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Paleolitik Çağ'da bitki toplayıcılığının kadınlar ve çocuklar tarafından yürütüldüğü düşünülmektedir.",
+   "correct": true,
+   "explanation": "Metne göre avlanma erkeklerce, bitki toplama kadın ve çocuklarca yapılırdı (varsayım olarak).",
+   "category": "Paleolitik ve Tarım Devrimi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Tarım Devrimi'yle önce köyler, sonra ____ kuruldu.",
+   "answers": [
+    "şehirler"
+   ],
+   "explanation": "Tarım yapılan bölgelerde önce köyler, ardından şehirler kuruldu.",
+   "category": "Paleolitik ve Tarım Devrimi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "matching",
+   "question": "Kavram - tanım eşleştirmesi",
+   "pairs": [
+    {
+     "left": "Kısas",
+     "right": "Verilen zarar kadar ceza"
+    },
+    {
+     "left": "Tazminat",
+     "right": "Zararı para ile ödeme"
+    },
+    {
+     "left": "Meşruiyet",
+     "right": "Yönetimin kabul görmesi"
+    },
+    {
+     "left": "Pankuş",
+     "right": "Hitit meclisi"
+    }
+   ],
+   "explanation": "Her kavramın tek bir anlamı vardır; sınavda tanım-kavram eşleştirmesi sık sorulur.",
+   "category": "Hukuk ve Hammurabi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "matching",
+   "question": "Ölçüt - gerekçe eşleştirmesi",
+   "pairs": [
+    {
+     "left": "Kaynakça",
+     "right": "Etik ve güvenilirlik"
+    },
+    {
+     "left": "Akademik yazım",
+     "right": "Anlaşılırlık"
+    },
+    {
+     "left": "Kronolojik sıra",
+     "right": "Olaylar arası ilişki"
+    },
+    {
+     "left": "Yeni bakış açısı",
+     "right": "Literatüre katkı"
+    }
+   ],
+   "explanation": "Her ölçütün tek kelimelik gerekçesini bilmek 1. sorunun puanını yükseltir.",
+   "category": "Bilimsel Tarih Yazımı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Dijital tarihin üç zorluğunu yazınız.",
+   "correctAnswer": "Telif hakkı sorunları, içeriklerin tarihsel bağlamından koparılma riski ve dijital verilerin uygun korunamaması nedeniyle kaybolma tehlikesi.",
+   "keyPoints": [
+    "Telif hakkı",
+    "Bağlamdan kopma",
+    "Veri kaybı"
+   ],
+   "maxPoints": 6,
+   "explanation": "Metindeki son cümle üç zorluğu verir; avantajla karıştırmayın.",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Paleolitik Çağ'da toplumsal yapının dayandığı üç ilkeyi yazınız.",
+   "correctAnswer": "İş birliği, eşitlik ve dayanışma.",
+   "keyPoints": [
+    "İş birliği",
+    "Eşitlik",
+    "Dayanışma"
+   ],
+   "maxPoints": 6,
+   "explanation": "Metin \"iş birliği, eşitlik ve dayanışma temelinde\" der. Üçünü de yazın.",
+   "category": "Paleolitik ve Tarım Devrimi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Bilimsel eserde kaynakçanın en önemli işlevi aşağıdakilerden hangisidir?",
+   "options": [
+    "Bilgilerin doğrulanabilmesini ve güvenilirliği sağlamak",
+    "Eseri uzatmak",
+    "Okuyucunun ilgisini çekmek",
+    "Olayların kronolojisini belirlemek"
+   ],
+   "correct": 0,
+   "explanation": "Kaynakça okuyucunun bilgiyi kaynağından kontrol etmesine izin verir; bu doğruluk ve güvenilirlik sağlar.",
+   "category": "Bilimsel Tarih Yazımı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "\"Veriler geleneksel yönteme göre çok daha kısa sürede taranır\" ifadesi hangi avantajı gösterir?",
+   "options": [
+    "Erişim kolaylığı",
+    "İş birliği",
+    "Verilerin saklanması",
+    "Hızlı inceleme"
+   ],
+   "correct": 3,
+   "explanation": "Kısa sürede tarama hızlı incelemedir; erişim kolaylığı ise kaynaklara ulaşmaya ilişkindir.",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi telif hakkı ihlaline örnek olabilir?",
+   "options": [
+    "Kaynakçada kitap adlarının belirtilmesi",
+    "Eski yazıların okunması",
+    "Bir fotoğrafçının fotoğraflarının izinsiz dijitalleştirilip yayımlanması",
+    "Yazının icadının anlatılması"
+   ],
+   "correct": 2,
+   "explanation": "İzin alınmadan yayımlama telif hakkı ihlalidir.",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Mülkiyetin ortaya çıkması aşağıdakilerden hangisinin sonucudur?",
+   "options": [
+    "Avcılığın yaygınlaşması",
+    "Üretimin artması ve ürünlerin sahiplenilmesi",
+    "Yazının unutulması",
+    "Göçebeliğin artması"
+   ],
+   "correct": 1,
+   "explanation": "Artan üretimle insanlar üretim araçlarını ve ürünleri sahiplenmeye başlamış, özel mülkiyet doğmuştur.",
+   "category": "Tarım Devrimi ve Toplumsal Yapı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Tarım Devrimi'nin yerleşik yaşama etkisini en iyi hangi ifade anlatır?",
+   "options": [
+    "Çiftçiler tarım yaptıkları arazilerin çevresine yerleşti.",
+    "İnsanlar sürekli göç etmeye başladı.",
+    "Mülkiyet kavramı ortadan kalktı.",
+    "Besin bulma kaygısı arttı."
+   ],
+   "correct": 0,
+   "explanation": "Üretimi kontrol edebilen çiftçiler tarlalarının yakınında yerleşerek köy ve şehirler kurmuştur.",
+   "category": "Paleolitik ve Tarım Devrimi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi kut kavramını doğru açıklar?",
+   "options": [
+    "Hititlerin meclisi",
+    "Babil'in yazılı kanunu",
+    "Mısır'daki vergi sistemi",
+    "Türklerde hükümdara Tanrı tarafından verildiğine inanılan yönetme yetkisi"
+   ],
+   "correct": 3,
+   "explanation": "Kut, hükümdarın egemenlik yetkisinin tanrısal kaynaklı olduğu anlayışıdır.",
+   "category": "Yönetim Anlayışları",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi tazminat cezası örneğidir?",
+   "options": [
+    "Hâkimin görevden alınması",
+    "Gözün karşılığında göz çıkarılması",
+    "Çalınan malın otuz katının ödenmesi",
+    "Diş kırana diş kırılması"
+   ],
+   "correct": 2,
+   "explanation": "Tazminat mali bir cezadır; mal katlama/para ödemesi şeklinde uygulanır.",
+   "category": "Hukuk ve Hammurabi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Hammurabi Kanunları'ndaki \"azat edilmiş kişi\" ifadesi aşağıdakilerden hangisini belirtir?",
+   "options": [
+    "Tanrı rahibi",
+    "Köleliğinden kurtulmuş kişi",
+    "Yargıç",
+    "Kral"
+   ],
+   "correct": 1,
+   "explanation": "Azat edilmiş, özgürlüğüne kavuşturulmuş eski köledir. Kanunlarda statüsü özgür vatandaştan farklı kabul edilir.",
+   "category": "Hukuk ve Hammurabi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "true-false",
+   "question": "Dijital tarihte kullanılan NLP, bilgisayarlarla metinlerin çözümlenmesini ifade eder.",
+   "correct": true,
+   "explanation": "Doğal dil işleme (NLP) metin verilerinin otomatik olarak çözümlenmesidir; metinde modern yöntemler arasında sayılmıştır.",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "true-false",
+   "question": "Tarım Devrimi sonrası sınıf ayrımının doğması, toplumsal eşitliğin güçlenmesi sonucunu doğurmuştur.",
+   "correct": false,
+   "explanation": "Yanlış. Sınıf ayrımı eşitliğin zayıflamasına, nüfuzlu grupların güçlenmesine yol açmıştır.",
+   "category": "Tarım Devrimi ve Toplumsal Yapı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Hükümdarın Tanrı tarafından seçildiğine inanılması, yönetimini sorgulanamaz hâle getirebilirdi.",
+   "correct": true,
+   "explanation": "Doğru. Dinî temelli meşruiyet halkın itaatini sağlar.",
+   "category": "Yönetim Anlayışları",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Hammurabi Kanunları'nda yargıçlar yaptıkları hatalardan sorumlu tutulmazdı.",
+   "correct": false,
+   "explanation": "Yanlış. Yanlış karar verip belgeyi değiştiren yargıç görevden alınırdı.",
+   "category": "Hukuk ve Hammurabi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Mülkiyet, nüfus artışı ve yeni meslekler Tarım Devrimi'nin ____ yapıdaki etkileridir.",
+   "answers": [
+    "toplumsal",
+    "toplum"
+   ],
+   "explanation": "Bu etkiler toplum yapısını (toplumsal yapıyı) değiştirmiştir.",
+   "category": "Tarım Devrimi ve Toplumsal Yapı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Asya Hunlarında meclise ____ denirdi.",
+   "answers": [
+    "kurultay",
+    "toy"
+   ],
+   "explanation": "Asya Hun meclisi kurultaydır (toy); Hititlerde karşılığı pankuştur.",
+   "category": "Yönetim Anlayışları",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki cümlede yanlış olan ifadeyi bulup düzeltiniz: \"Dijital tarih yazıcılığında kaynaklara yalnızca arşivlere giderek ulaşılır.\"",
+   "correctAnswer": "Yanlış ifade \"yalnızca arşivlere giderek\"tir. Dijital tarih yazıcılığında kaynaklara çevrim içi veri tabanları, dijital arşivler ve e-kitaplar yoluyla internet üzerinden ulaşılır.",
+   "keyPoints": [
+    "Yanlış ifadeyi tespit etme",
+    "Doğru bilgiyi yazma (çevrim içi erişim)"
+   ],
+   "maxPoints": 4,
+   "explanation": "Arşive gitmek geleneksel yöntemdir; dijital yöntemde internet vardır.",
+   "category": "Dijital Tarih Yazıcılığı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Hititlerdeki pankuş ile Asya Hunlarındaki kurultayın ortak yönünü yazınız.",
+   "correctAnswer": "Her ikisi de ülke yönetiminde önemli rol oynayan meclislerdir; hükümdarın yönetimi bu kurullarca da etkilenirdi.",
+   "keyPoints": [
+    "Meclis olmaları",
+    "Yönetimde etkili olmaları"
+   ],
+   "maxPoints": 4,
+   "explanation": "Aynı kurumun iki devletteki adı farklıdır; işlev ortaktır.",
+   "category": "Yönetim Anlayışları",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Mülkiyet kavramı ortaya çıktıktan sonra toplum içinde neden nüfuzlu gruplar görülmeye başlamıştır? Yorumlayınız.",
+   "correctAnswer": "Artı ürünü ve üretim araçlarını elinde tutanlar zenginlik ve güç kazandı; bu da yöneticiler, askerler ve tüccarlar gibi daha etkili grupları ortaya çıkardı. Sınıf ayrımı güç farklarını kalıcılaştırdı.",
+   "keyPoints": [
+    "Üretimin ve ürünün kontrolü",
+    "Yeni gruplar ve güç farkı",
+    "Sınıf ayrımı"
+   ],
+   "maxPoints": 6,
+   "explanation": "Zincir: mülkiyet → servet/güç farkı → nüfuzlu gruplar → sınıf.",
+   "category": "Tarım Devrimi ve Toplumsal Yapı",
+   "difficulty": "hard"
+  }
+ ],
+ "sources": [
+  {
+   "id": "src1",
+   "name": "9. Sınıf Tarih - 1. Dönem 2. Yazılı (Yazılıya Hazırlanıyorum)",
+   "kind": "file",
+   "text": "TARİH\nYAZILIYA HAZIRLANIYORUM\n1. DÖNEM - 2. YAZILI9. SINIF\n1. Tarihsel bilginin üretim sürecinin son aşamasında bilimsel bir eser ortaya koyan araştırmacılar, yararlandıkları\nkaynaklara mutlaka atıf yapmalı ve bu kaynakları çalışmanın kaynakça bölümünde göstermelidir. Kaynakçanın\nbelirtilmesi, bilimsel ve mesleki etik açısından zorunludur. Akademik yazım standartlarına uyulmalı; açık, anlaşılır\nve mantıksal bir yapı benimsenmelidir. Tarihsel olaylar, kendi bağlamı içinde ve kronolojik bir sıra izlenerek\naktarılmalıdır. Hazırlanan çalışma, mevcut literatüre katkı sağlayan yeni bir bakış açısı veya bilgi sunmalıdır.\nBuna göre bir tarih eserinin “bilimsel” olabilmesi için taşıması gereken kriterler nelerdir? Gerekçeleriyle\naçıklayınız.\n2. Geleneksel tarih araştırmalarında araştırmacılar, kaynaklara genellikle kütüphaneler, arşivler, müzeler ve saha\nçalışmaları gibi fiziksel ortamlarda erişir. Bu süreçte el yazmaları, resmî belgeler ve gazete arşivleri gibi birincil\nkaynaklar doğrudan incelenir. Araştırmacılar, bu kaynakları analiz ederken metinleri manuel olarak okuyup yorumlar\nve olaylar arasındaki bağlantıları kendileri kurar. Dijital tarih yazıcılığında ise kaynaklara çevrim içi veri tabanları,\ndijital arşivler ve e-kitaplar üzerinden internet aracılığıyla erişim sağlanır. Dijitalleştirilmiş el yazmaları, belgeler ve\nmultimedya içerikler araştırmalarda yaygın şekilde kullanılmaktadır. Bu yaklaşımda büyük veri setlerini çözümlemek\niçin istatistiksel araçlardan ve veri görselleştirme tekniklerinden yararlanılır. Ayrıca sosyal ağ analizi, coğrafi bilgi\nsistemleri (GIS) ve doğal dil işleme (NLP) gibi modern yöntemler de sıklıkla uygulanmaktadır. Bununla birlikte, dijital\ntarih çalışmalarında telif hakkı sorunları, içeriklerin tarihsel bağlamından koparılma riski ve dijital verilerin uygun\nşekilde korunamaması nedeniyle kaybolma tehlikesi gibi bazı zorluklarla da karşılaşılabilmektedir.\n2.1. Buna göre dijital tarih yazıcılığının, verilerin toplanması ve analizinde geleneksel tarih yazımına göre\nsağladığı dört avantajı yazınız.\n2.2. Buna göre tarihsel belgelerin dijitalleştirilmesi sürecinde meydana gelebilecek etik sorunlar neler\nolabilir? Örnek vererek açıklayınız.\n3. MÖ 600.000-MÖ 12.000 arasında tarihlendirilen Paleolitik Çağ’da insanlar, besin ihtiyaçlarını avcılık ve toplayıcılık\nfaaliyetleriyle karşılamaktaydı. Avlanma faaliyetlerinin erkekler, bitki toplayıcılığının ise kadınlar ve çocuklar\ntarafından yürütüldüğü düşünülmektedir. Bugünkü anlamda mülkiyet kavramının henüz gelişmediği bu dönemde,\ntoplumsal yapı; iş birliği, eşitlik ve dayanışma temelinde şekillenmişti. MÖ 10.000 yılı civarında Mezopotamya’da\nyaşayan insanların yabani buğdayı evcilleştirmesiyle başlayan Tarım Devrimi, bölge halkına besin üretimini kontrol\netme ve artırma imkânı sundu. Günü gününe besin bulma kaygısından kurtulan çiftçi topluluklar, tarım yaptıkları\narazilerin etrafında yerleşmeye başladı. Bununla birlikte köy ve şehir gibi yerleşim alanlarının kurulması, yeni\nuğraşıları ortaya çıkardı. Beslenme alışkanlıklarındaki değişim ve çalışana duyulan ihtiyacın artması kalabalık bir\ntoplum doğurdu ve toplum içinde nüfuzlu gruplar görülmeye başlandı.\nBuna göre Tarım Devrimi'nin Mezopotamya'nın toplum yapısında meydana getirdiği değişiklikler neler\nolabilir? Açıklayınız.\n4. Aşağıda Tarım Devrimi'ne ilişkin kavramların yer aldığı bir kelime bulutu görseli verilmiştir.\nKelime bulutunda yer alan kavramlardan yararlanarak “Tarım Devrimi'nin kültürel faaliyetlere etkisini” anlatan\nbeş cümlelik bir metin yazınız. (Her cümlede kelime bulutundaki kavramlardan en az bir tanesi kullanılmalıdır.)\n5. Aşağıda Hitit ve Asya Hunlarının yönetim anlayışlarına dair metinler verilmiştir.\n5.1. Hitit ve Asya Hun devletlerinin yönetim anlayışındaki benzerlikler nelerdir? Verilen metinleri dikkate\nalarak açıklayınız.\n5.2. Buna göre Eski Çağ’da gücünü Tanrı’dan alan bir egemenlik anlayışının benimsenmesinin sebepleri\nneler olabilir? Açıklayınız.\n6.  Aşağıda Babil Kralı Hammurabi tarafından hazırlanan kanunlardan bazı maddeler verilmiştir. Bu maddeleri\ninceleyerek soruları cevaplayınız.\n• Bir yargıç yanlış karar verip belgeyi değiştirirse görevinden alınır ve bir daha yargıçlık yapamaz.\n• Bir adam, koyun, öküz, domuz veya keçi çaldığında eğer o çaldığı şey Tanrı’ya ya da mahkemeye aitse otuz\nkatını öder, eğer kralın özgür bir vatandaşına aitse on katını öder.\n• Bir adam kendisi ile eşit olan birinin dişini kırarsa onun da dişi kırılır.\n• Bir kişi azat edilmiş bir adamın dişini kırarsa bir mina altının üçte birini verir.\n6.1.  Buna göre Hammurabi Kanunları’nda toplumsal düzeni sağlamak için uygulanan farklı ceza türlerini\nbelirtiniz.\n6.2. Babil toplumunun sınıflı yapısının Hammurabi Kanunları'na nasıl yansıdığını metinden örnek vererek\naçıklayınız.\nSORU\nNO ÖĞRENME ÇIKTISI BECERİLER\n1\nTAR.9.1.3. Tarihsel bilginin\nüretim sürecini çözümleyebilme\nAlan Becerileri:\nSBAB2. Kanıta Dayalı Sorgulama ve Araştırma (SBAB2.2. Kaynaklardan\nBilgi Toplama, SBAB2.3. Kaynağı İnceleme, SBAB2.4. Kaynağı Sorgulama)\nKavramsal Beceriler:\nKB2.4. Çözümleme\n2\nTAR.9.1.4.Dijitalleşmenin tarih\naraştırma ve yazımının dönüşü-\nmüne etkisini değerlendirebilme\nAlan Becerileri:\nSBAB1. Zamanı Algılama ve Kronolojik Düşünme (KB2.17. Değerlendirme)\nKavramsal Beceriler:\nKB3.1. Karar Verme\n3\nTAR.9.2.1. Tarım Devrimi’nin\nEski Çağ medeniyetlerindeki yer-\nleşmeye ve ekonomik faaliyetle-\nre etkisini değerlendirebilme\nAlan Becerileri:\nSBAB2.Kanıta Dayalı Sorgulama ve Araştırma (SBAB2.3. Kaynağı İncele-\nme)\nSBAB3. Tarihsel Empati (KB2.14. Yorumlama, SBAB3.1. Tarihsel Bağlam-\nsallaştırma, KB.2.13. Yapılandırma)\nKavramsal Beceriler:\nKB3.2. Problem Çözme\n4\nTAR.9.2.1. Tarım Devrimi’nin\nEski Çağ medeniyetlerindeki yer-\nleşmeye ve ekonomik faaliyetle-\nre etkisini değerlendirebilme\nAlan Becerileri:\nSBAB2.Kanıta Dayalı Sorgulama ve Araştırma (SBAB2.3. Kaynağı İncele-\nme)\nSBAB3. Tarihsel Empati (KB2.14. Yorumlama, SBAB3.1. Tarihsel Bağlam-\nsallaştırma, KB.2.13. Yapılandırma)\nKavramsal Beceriler:\nKB3.2. Problem Çözme\n5\nTAR.9.2.2. Eski Çağ’daki farklı\nmedeniyetlerin yönetim ve ordu\nsistemlerini özetleyebilme\nAlan Becerileri:\nSBAB1. Zamanı Algılama ve Kronolojik Düşünme (KB2.17. Değerlendirme)\nSBAB2. Kanıta Dayalı Sorgulama ve Araştırma (SBAB2.5. Kaynağı Yorum-\nlama)\nSBAB3. Tarihsel Empati (SBAB3.1. Tarihsel Bağlamsallaştırma) (KB2.14.\nYorumlama)\nKavramsal Beceriler:\nKB2.3. Özetleme\n6\nTAR.9.2.3. Eski Çağ medeni-\nyetlerinde hukukun toplumsal\ndüzeni sağlamadaki rolünü\nsorgulayabilme\nAlan Becerileri:\nSBAB2. Kanıta Dayalı Sorgulama ve Araştırma (SBAB2.5. Kaynağı Yorum-\nlama)\nTarihsel Empati (KB2.14. Yorumlama, SBAB3.1. Tarihsel Bağlamsallaştır-\nma, KB.2.13. Yapılandırma)\nKavramsal Beceriler:\nKB2.3. Özetleme\nPUANLAMA TABLOSU\n1\n2\n3 4\n5 6\nTOPLAM\n2.1. 2.2. 5.1. 5.2. 6.1. 6.2.\n15 10 10 15 20 10 10 5 5 100\nÇÖZÜMLER\n1.  Kaynakçanın Belirtilmesi: Kaynakçanın eksiksiz sunulması, bilimsel etik açısından zorunludur ve eserin\ndoğruluğunu ve güvenilirliğini artırır.\nAkademik Yazım Standartlarına Uyum Sağlanması: Metnin açık, anlaşılır ve tutarlı olması, okuyucunun doğru\nanlam çıkarabilmesi için gereklidir.\nTarihsel Bağlamın ve Kronolojik Sıralamanın Takip Edilmesi: Olaylar arasındaki ilişkinin doğru anlaşılması ve\nolayların dönemin şartlarına göre doğru yorumlanması açısından zorunludur.\nYeni Bir Bakış Açısı veya Bilgi Sunulması: Bu çalışmanın esas amaçlarından olup tarihsel bilginin gelişmesine katkı\nsağlar.\nTAM PUAN (4+4+4+3=15 PUAN)\nÖğrencinin cevabında (yukarıdaki gibi);\nI. kaynakçanın belirtilmesini gerekçesiyle açıklaması,\nII. akademik yazım standartlarına uyumu gerekçesiyle açıklaması,\nIII. tarihsel bağlamın ve kronolojik sıralamanın takip edilmesini gerekçesiyle açıklaması,\nIV. yeni bir bakış açısı veya bilgi sunulmasını gerekçesiyle açıklaması\ndurumunda birincide 4 puan, ikincide 8 puan, üçüncüde 12 puan, dördüncüde ise 15 tam puan kabul edilecektir.\nKISMİ PUAN (4+4+4/2+2+2+2)\nÖğrencinin;\nI. kaynakçanın belirtilmesini gerekçesiyle açıklaması,\nII. akademik yazım standartlarına uyumu gerekçesiyle açıklaması,\nIII. tarihsel bağlamın ve kronolojik sıralamanın takip edilmesini gerekçesiyle açıklaması,\nIV. yeni bir bakış açısı veya bilgi sunulmasını gerekçesiyle açıklaması\ncevaplarından yalnızca birini vermesi durumunda 4 puan, ikisini vermesi durumunda 8 puan, üçünü vermesi\ndurumunda 12 puan kabul edilecektir.\nAyrıca;\nÖğrencinin; “kaynakçanın belirtilmesi, akademik yazım standartlarına uyum, tarihsel bağlamın ve kronolojik\nsıralamanın takip edilmesi, yeni bir bakış açısı veya bilgi sunulması” cevaplarını gerekçelerini açıklamadan vermesi\ndurumunda birincide 2 puan, ikincide 4 puan, üçüncüde 6 puan, dördüncüde 8 puan kabul edilecektir.\nSIFIR PUAN\nÖğrencinin cevabı aşağıdaki durumlardan herhangi birini taşıyorsa 0 (sıfır) puan alır:\n•  Temel akademik kriterleri içermemesi (Kaynak belirtilmemesi, akademik yazım standartlarına uyulmaması,\ntarihsel bağlam ve kronolojik sıralamanın takip edilmemesi veya yeni bir bakış açısı/bilgi sunulmaması).\n• Soruyla ilgisiz veya konunun tarihsel bağlamından kopuk bilgiler içermesi.\n• Hiç cevap yazılmamış olması.\n2.\n2.1.  Metne göre dijital tarih yazıcılığının veri toplama ve analizindeki avantajları şunlardır:\n• Erişim Kolaylığı (Araştırmacılar kaynaklara internet üzerinden kolayca ulaşabilir.)\n• Hızlı İnceleme (Geleneksel yöntemlere kıyasla veriler çok daha kısa sürede taranabilir ve incelenebilir.)\n• Büyük Veri Setlerini Analiz Etme (Çok sayıda belge ve kaynak, dijital araçlarla etkin biçimde analiz edilebilir.)\n• Gelişmiş Analiz Yöntemleri/Araçları (Veri görselleştirme, sosyal ağ analizi, coğrafi bilgi sistemleri (CBS) ve doğal\ndil işleme gibi yöntemler kullanılabilir.)\n• İş Birliğine Dayalı Çalışma İmkânı (Birden fazla araştırmacı aynı veri üzerinde eşzamanlı olarak çalışabilir.)\n• Verilerin Düzenlenmesi ve Saklanması (Dijital ortamda veriler düzenli şekilde sınıflandırılabilir ve uzun süreli\nkorunabilir.)\n• Zaman ve Maliyet Verimliliği (Fiziksel seyahat ve manuel tarama gereksinimini azaltarak kaynak tasarrufu\nsağlar.)\nTAM PUAN (3+2+3+2=10 PUAN)\nÖğrencinin cevabında (yukarıdaki gibi);\nI. erişim kolaylığı,\nII. hızlı inceleme,\nIII. büyük veri setlerini analiz etme,\nIV. gelişmiş (modern) analiz yöntemleri/araçları,\nV. iş birliğine dayalı çalışma imkânı,\nVI. verilerin düzenlenmesi ve saklanması,\nVII. zaman ve maliyet verimliliği\ngibi avantajlardan birine yer vermesi durumunda 3 puan, ikisine yer vermesi durumunda 5 puan, üçüne yer vermesi\ndurumunda 8 puan, dördüne yer vermesi durumunda 10 tam puan kabul edilecektir.\nKISMİ PUAN (3+2+3)\nÖğrencinin;\nI. erişim kolaylığı,\nII. hızlı inceleme,\nIII. büyük veri setlerini analiz etme,\nIV. gelişmiş (modern) analiz yöntemleri/araçları,\nV. iş birliğine dayalı çalışma imkânı,\nVI. verilerin düzenlenmesi ve saklanması,\nVII. zaman ve maliyet verimliliği\ncevaplarından yalnızca birini vermesi durumunda 3 puan, ikisini vermesi durumunda 5 puan, üçünü vermesi\ndurumunda 8 puan kabul edilecektir.\nSIFIR PUAN\nÖğrencinin cevabı “erişim kolaylığı, hızlı inceleme, büyük veri setlerini analiz etme, gelişmiş (modern) analiz\nyöntemleri/araçları, iş birliğine dayalı çalışma imkânı, verilerin düzenlenmesi ve saklanması, zaman ve maliyet\nverimliliği” bilgilerini içermiyorsa, bağlamın dışında bilgiler içeriyorsa veya öğrenci hiç cevap vermemişse 0 (sıfır)\npuan kabul edilecektir.\n2.2. Tarihî belgelerin dijitalleştirilmesi sürecinde telif hakkı ihlalleri söz konusu olabilir. Örneğin dijitalleştirilen\neserler izin alınmadan yayımlanabilir, bu da hem etik hem de yasal sorunlara yol açar. Dijital ortamda yayılan\niçerikler, tarihsel bağlamdan koparılabilir, manipüle edilebilir ya da yanlış yorumlanabilir. Böyle bir durumda\nyanlış veya yanıltıcı bilgiler hızla yayılabilmektedir. Örneğin bir sosyal medya platformunda \"tarihî belge\" diye\ngerçek olmayan bir içerik yayınlanabilir ki bu durum etik anlayışa aykırıdır.\nTAM PUAN\nÖğrenci cevabında aşağıdaki her iki açıklamayı da birer örnekle açıkladığında 10 tam puan alır:\n1. Telif hakkı ve etik ilişkisinin örnekle açıklanması. (Örnek: İzin alınmadan dijitalleştirilip yayımlanan bir eser.)\n2. Yanıltıcı bilgilerin yayılması ve etik ilişkisinin örnekle açıklanması. (Örnek: Sosyal medyada bağlamından\nkoparılmış veya sahte bir belgenin paylaşılması.)\nKISMİ PUAN (5/3+2)\nI. Telif hakkı-etik ilişkisinin bir örnekle açıklanması,\nII. Yanıltıcı bilgilerin yayılması-etik ilişkisinin bir örnekle açıklanması\ncevaplarından yalnızca birine yer verilmesi durumunda 5 puan kabul edilecektir.\nAyrıca;\nI. telif hakkı-etik ilişkisinin,\nII. yanıltıcı bilgilerin yayılması-etik ilişkisinin\nörnek verilmeden açıklanması durumunda birincide 3 puan, ikincide 5 puan kabul edilecektir.\nSIFIR PUAN\nAşağıdaki durumlardan herhangi biri söz konusu olduğunda 0 (sıfır) puan verilir:\n• Cevapla ilgili her iki ilişki dışında konulara değinilmesi,\n• Soruyla ilgisiz veya bağlam dışı bilgiler verilmesi,\n• Hiç cevap yazılmamış olması.\n3. Mezopotamya’da Tarım Devrimi ile birlikte besin bulma kaygısının azalması ve iş gücü ihtiyacının artması gibi\nnedenlerle insan sayısı hızla çoğaldı. Artan üretimle birlikte bölge insanlarının üretim araçlarını ve elde ettikleri\nürünleri sahiplenmeye başlaması özel mülkiyeti ortaya çıkardı. Tarım yapılan bölgelerde önce köyler, ardından\nşehirler kuruldu ve bu süreçle birlikte yöneticiler, askerler, çiftçiler, tüccarlar gibi farklı sınıflar oluştu. Bu gelişmelere\nbağlı olarak iş bölümü yaygınlaşırken aynı zamanla sınıf ayrımına dayanan yeni bir toplum yapısı ortaya çıktı.\nTAM PUAN (4+4+4+3=15 PUAN)\nÖğrencinin (yukarıdaki gibi);\nI. nüfus artışı,\nII. özel mülkiyetin ortaya çıkması,\nIII. yeni meslek gruplarının ortaya çıkması,\nIV. sınıf ayrımının ortaya çıkması\ncevaplarını vermesi durumunda birincide 4 puan, ikincide 8 puan, üçüncüde 12 puan, dördüncüde ise 15 tam puan\nkabul edilecektir.\nKISMİ PUAN (4+4+4)\nÖğrencinin;\nI. nüfus artışı,\nII. özel mülkiyetin ortaya çıkması,\nIII. yeni meslek gruplarının ortaya çıkması,\nIV. sınıf ayrımının ortaya çıkması\ncevaplarından yalnızca birini vermesi durumunda 4 puan, ikisini vermesi durumunda 8 puan, üçünü vermesi\ndurumunda 12 puan kabul edilecektir.\nSIFIR PUAN\nÖğrencinin cevabı aşağıdaki durumlardan herhangi birini taşıyorsa 0 (sıfır) puan alır:\n• Tarım Devrimi'nin Mezopotamya'daki toplumsal yapıda yol açtığı değişimleri içermemesi,\n• Sorunun tarihsel bağlamı dışında veya ilgisiz bilgiler içermesi,\n• Hiç cevap yazılmamış olması.\n4.  Tarım Devrimi başladıktan hemen sonra sulama faaliyetleri devreye girdi, üretim teknikleri gelişti ve insanlar daha\nfazla artı ürün biriktirmeye başladı. Biriken artı ürünlerin pazarlanma ihtiyacı, ticaret faaliyetlerin başlamasına ve\ntoplumlar arasındaki etkileşimlerin artmasına yol açtı. Bu gelişmeler sonucunda ihtiyaçların çeşitlenmesi ve bilgi\nbirikiminin artması, kayıt tutma ve düzenli bilgi aktarımı ihtiyacını doğurdu. Bu süreçte yazı ortaya çıktı ve kültürel\nhayatın temel taşlarından biri hâline geldi. Arazi hesaplamalarından vergi kayıtlarına, doğa olaylarından teknolojik\ndeneyimlere kadar insanlığın birikimi kayıt altına alındı.\nTAM PUAN (2x5) + (2x5) = 20 PUAN\nYukarıdaki gibi her cümlede kelime bulutunda yer alan \"Artı Ürün, Çalışma Zamanı, Devlet, Deneyim, Din, Doğa\nOlayları, Gözlem, Hesaplama, Kayıt Tutma, Sulama, Tarla Ölçümü, Tablet, Ticaret, Üretim Teknikleri, Vergi, Yazı\"\nkavramlarından en az birini kullanmak kaydıyla “Tarım Devrimi'nin kültürel faaliyetlere etkisini” anlatan beş cümle\noluşturulduğunda;\nI. her cümle için 2 puan (2x5),\nII. her kavram için 2 puan (2x5)\nolmak üzere toplamda 20 tam puan kabul edilecektir.\nKISMİ PUAN\nÖğrenci, kelime bulutunda yer alan \"Artı Ürün, Çalışma Zamanı, Devlet, Deneyim, Din, Doğa Olayları, Gözlem,\nHesaplama, Kayıt Tutma, Sulama, Tarla Ölçümü, Tablet, Ticaret, Üretim Teknikleri, Vergi, Yazı\" kavramlardan en\naz birini kullanmak kaydıyla “Tarım Devrimi'nin kültürel faaliyetlere etkisini” anlatan her cümle için (2+2) = 4 puan\nalacaktır.\nSIFIR PUAN\nÖğrencinin cevabı aşağıdaki durumlardan herhangi birini taşıyorsa 0 (sıfır) puan alır:\n• Kelime bulutunda yer alan hiçbir kavramı içermemesi.\n• Kelime bulutundaki kavramlara yer verse bile bunları Tarım Devrimi'nin kültürel faaliyetlere etkisi bağlamında\nkullanmaması veya bu konuyla ilgisiz cümleler kurması.\n• Hiç cevap yazmamış olması.\n5.\n5.1.\n• Her iki devlette egemenliğin kaynağı Tanrı'ydı ve hükümdarlar ülkeyi Tanrı adına yönetirdi.\n• Her iki devlette ülke yönetiminde önemli rol oynayan meclislerin varlığı söz konusuydu. Hititlerde bu meclise\npankuş, Asya Hunlarında ise kurultay ya da toy adı verilirdi.\n• Her iki devlette veraset geçerli olup, mevcut hükümdardan sonra onun soyundan gelen vârislerden birisi tahta\nçıkardı.\nTAM PUAN (4+3+3=10 PUAN)\nÖğrencinin cevabında (yukarıdaki gibi);\nI. Tanrı ve kral ilişkisi,\nII. meclis yapısı,\nIII. tahtın devri\naçıklamalarından birini yapması durumunda 4 puan, ikisini yapması durumunda 7 puan, üçünü yapması durumunda\n10 tam puan verilecektir.\nKISMİ PUAN (4+3)\nÖğrencinin cevabında;\nI. Tanrı ve kral ilişkisi,\nII. meclis yapısı,\nIII. tahtın devri\naçıklamalarından yalnızca birini yapması durumunda 4 puan, ikisini yapması durumunda 7 puan alacaktır.\nSIFIR PUAN\nÖğrencinin cevabı aşağıdaki durumlardan herhangi birini taşıyorsa 0 (sıfır) puan alır:\n• Hitit ve Asya Hun devletlerinin yönetim anlayışları arasındaki benzerlikleri içermemesi,\n• Sorunun tarihsel bağlamı dışında veya ilgisiz bilgiler içermesi,\n• Hiçbir cevap yazılmamış olması.\n5.2. Eski Çağ'da, Tanrı ya da tanrıların evrenin düzenini ve insan yaşamını kontrol eden yüce varlıklar olduğuna\ndair dinî inanç, hükümdarların Tanrı tarafından görevlendirildiği anlayışını doğurmuştur. Hükümdarlar,\negemenliklerini meşrulaştırmak için dinî temellere dayanıyordu. Tanrı tarafından seçildikleri veya Tanrı'nın\nvekili olarak atandıkları için yönetimleri sorgulanamaz bir otoriteye sahipti. Bu anlayış, halkın itaatini sağlamak\nve iktidarlarını pekiştirmek için bir araç olarak kullanılmıştır.\nTAM PUAN (5+5=10 PUAN)\nÖğrencinin cevabında (yukarıdaki gibi);\nI. evrende olup bitenin Tanrı eliyle gerçekleştiği dolayısıyla hükümdarın da Tanrı tarafından yetkilendirildiği,\nII. hükümdarların egemenliklerini meşru hale getirmek, bu sayede halk nezdinde kabul görmek için iktidarını dinî\ntemellere dayandırdığı\naçıklamalarını yapması durumunda birincide 5 puan, ikincide ise 10 tam puan verilecektir.\nKISMİ PUAN (5)\nÖğrencinin cevabında;\nI. evrende olup bitenin Tanrı eliyle gerçekleştiği dolayısıyla hükümdarın da Tanrı tarafından yetkilendirildiği,\nII. hükümdarların egemenliklerini meşru hale getirmek, bu sayede halk nezdinde kabul görmek için iktidarını dinî\ntemellere dayandırdığı\naçıklamalarından yalnızca birine yer vermesi durumunda 5 puan kabul edilecektir.\nSIFIR PUAN\nÖğrencinin cevabı aşağıdaki durumlardan herhangi birini taşıyorsa 0 (sıfır) puan alır:\n• Tanrısal yetkilendirme ve iktidarın dinî temellere dayandırılması ile ilgili açıklamaları içermemesi,\n• Sorunun tarihsel bağlamı dışında veya ilgisiz bilgiler içermesi,\n• Hiçbir cevap yazılmamış olması.\n6.\n6.1.\n• Görevden alma (men) cezası (Yanlış karar verip belgeyi değiştiren yargıcın görevden alınması ve bir daha\nyargıçlık yapamaması).\n• Tazminat (fidye, mali, para) cezası (Hırsızlık yapan kişinin Tanrı’ya, mahkemeye veya bir vatandaşa ait hayvanı\nçaldığında çaldığının belirli katını ödemesi; azat edilmiş bir kişinin dişini kıran kişinin para cezası ödemesi).\n• Kısas cezası (bedensel ceza) (Bir kişinin, kendisiyle eşit olan birinin dişini kırması hâlinde onun da dişinin\nkırılması).\nTAM PUAN (2+2+1=5 PUAN)\nÖğrencinin cevabında (yukarıdaki gibi);\nI. Görevden alma (men)\nII. Tazminat (fidye, mali, para),\nIII. Kısas cezası (bedensel ceza)\ncezalarına yer vermesi durumunda birincide 2 puan, ikincide 4 puan, üçüncüde 5 tam puan verilecektir.\nKISMİ PUAN (2+2=4 PUAN)\nÖğrencinin cevabında (yukarıdaki gibi);\nI. Görevden alma (men)\nII. Tazminat (fidye, mali, para),\nIII. Kısas cezası (bedensel ceza)\ncezalarından yalnızca birine yer vermesi durumunda birincide 2 puan, ikisine yer vermesi durumunda 4 puan\nverilecektir.\nSIFIR PUAN\nÖğrencinin cevabı aşağıdaki durumlardan herhangi birini taşıyorsa 0 (sıfır) puan alır:\n• Hammurabi Kanunları'ndaki ceza türleriyle ilgili olmaması,\n• Kısas, para cezası veya görevden alma gibi ilgili ceza türlerinden hiçbirine yer vermemesi,\n• Sorunun tarihsel bağlamı dışında veya ilgisiz bilgiler içermesi,\n• Hiç cevap yazılmamış olması.\n6.2. Babil toplumunun sınıflı yapısının Hammurabi Kanunları’na yansıması\nEşit statüde iki kişi arasında birinin dişini kıran kişinin kısas ile cezalandırılması ancak azat edilmiş birinin dişini\nkıran kişinin kısas yerine tazminat (para cezası) ödemesi, cezanın kişinin toplumsal statüsüne göre değiştiğini\nkanıtlar. Bu örnekler, Hammurabi Kanunları’nda cezaların herkes için aynı olmadığını; sınıf ayrımının hukuka da\nyansıdığını göstermektedir.\nTAM PUAN (3+2=5 PUAN)\nÖğrencinin cevabında (yukarıdaki gibi);\nI . Cezaların kişilerin toplumsal statüsüne göre değiştiğini belirtmesi,\nII. Cezaların kişilerin toplumsal statüsüne göre değiştiğine dair metinden örnek vermesi\ndurumunda her biri 5 puan kabul edilecektir.\nKISMİ PUAN (3 PUAN)\nÖğrencinin cevabında;\nI. Cezaların kişilerin toplumsal statüsüne göre değiştiğini belirtmesi\nveya\nII. Bu duruma ilişkin metinden örnek vermesi\ndurumlarından yalnızca birine yer vermesi getirmesi hâlinde 3 puan verilecektir.\nNOT: Öğrenci, cevabında cezaların toplumsal statüye göre değiştiğini belirtmiş ancak metinden örnek vermemişse\n3 puan verilecektir. Aynı şekilde, yalnızca metinden örnek verilmiş fakat bunun sınıflı yapıyla ilişkisine\ndeğinilmemişse yine 3 puan kabul edilecektir.\nSIFIR PUAN\nÖğrencinin cevabı Babil toplumunun sınıflı yapısıyla ilgili olmayıp cezaların kişilerin statüsüne göre farklılaştığı\nmetinden örneklerle açıklanmamışsa cevap tarihsel bağlamından kopuk veya ilgisiz bilgiler içeriyorsa ya da öğrenci\nhiç cevap vermemişse 0 (sıfır) puan verilecektir."
+  }
+ ]
+}

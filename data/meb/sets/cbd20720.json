@@ -1,0 +1,2110 @@
+{
+ "title": "9. Sınıf Matematik - 2. Dönem 2. Yazılı (Yazılıya Hazırlanıyorum: benzerlik, çizge, algoritma, istatistik, olasılık)",
+ "meta": {
+  "fileId": "cbd20720",
+  "grade": [
+   9
+  ],
+  "subject": "Matematik",
+  "schoolYear": "",
+  "examType": "ogm-yazili",
+  "kind": "booklet",
+  "sourceUrl": "https://ogm-large-cdn.eba.gov.tr/materyal/Etkilesimlikitap/d182986b-ba12-4868-a81e-779b75eb5186/pdf.pdf",
+  "counts": {
+   "sections": 16,
+   "cards": 108,
+   "questions": 71,
+   "sourceQuestions": 28,
+   "skippedNeedingFigure": 5
+  }
+ },
+ "notes": {
+  "summary": "Bu dosya, OGM'nin \"Yazılıya Hazırlanıyorum\" serisinden 9. sınıf Matematik 2. dönem 2. yazılısıdır: 11 soru, 100 puan. Konular: Öklid ve alan ilişkisi (1), benzerlik ve Pisagor ile görüş doğrultusu (2), çizge kuramı (3), algoritma ve mantık bağlaçları (4), akış şemasında hata bulma (4.b-c), tablodan mantık bağlaçlarıyla sorgulama (5), değişebilirlik türleri (6), araştırma sorusu ölçütleri (7), kutu grafiği (8), histogram ve merkezi eğilim (9), deneysel olasılık (10), örnek uzay ve bileşik olay olasılığı (11). 1. soru (kareler/Öklid) ve 3. soru (çizge) şekil verisi metinde olmadığı için set sorusu yapılmadı (toplam 5 alt soru); yöntemleri notlarda ve Benzer sorularda tam verilerle çalışılır.\n\nBu dosyadan sınavda ne beklemeli / nasıl çalışmalı:\n1) Görüş doğrultusu sorusunda yükseklik farklarını bul, AA benzerliği ve Pisagor üçlülerini kullan; birimleri aynı yap.\n2) Euler kuralını bil: 0 veya 2 tek düğüm çizilir, daha fazlası çizilemez.\n3) Algoritmada ise/ve/veya rollerini yaz; akış şemasındaki hatayı bir karşı örnekle (150) kanıtla ve ∧ ile düzelt.\n4) Tablo sorgularında her satırı iki koşulla tek tek işaretle; \"Yoktur\" cevabını da yaz.\n5) Değişebilirlik türleri ve araştırma sorusu ölçütlerini ipuçlarıyla ezberle.\n6) Beş sayı özeti: çift/tek veri sayısına göre ortanca ve çeyrekler; ortalama mı ortanca mı seçimini aykırı değerle gerekçelendir.\n7) Göreli sıklığı hesapla, tekrar arttıkça kuramsal değere yaklaştığını yaz; bileşik olayda formül ve kesişim.\n8) Önce 23 sınav alt sorusunu çöz, sonra \"Benzer soru\" setiyle tekrar et.",
+  "sections": [
+   {
+    "title": "Benzer üçgenler ile görüş doğrultusu: göz, lamba, kule",
+    "content": "Üç noktanın (göz, lambanın tepesi, kulenin tepesi) aynı doğrultuda olması, yere dik doğru parçalarının oluşturduğu dik üçgenlerin benzer olmasını sağlar. Gözden yere paralel bir doğru çizersen küçük dik üçgen (göz-lamba tepesi) ile büyük dik üçgen (göz-kule tepesi) ortak bir açıya ve birer dik açıya sahip olur; Açı-Açı benzerliği kurulur.",
+    "bulletPoints": [
+     "Yükseklik farklarını bul: lamba tepesi − göz hizası; kule tepesi − göz hizası.",
+     "Yatay uzaklıkları aynı doğru üzerinde topla: göz-lamba ve göz-kule.",
+     "Oran: $\\frac{\\text{lamba yüksekliği farkı}}{\\text{kule yüksekliği farkı}}=\\frac{\\text{göz-lamba uzaklığı}}{\\text{göz-kule uzaklığı}}$.",
+     "Dosyadaki örnek: farklar 120 cm ve 2220 cm; $\\frac{160}{160+x}=\\frac{120}{2220}$ ⇒ $x=2800$ cm $=28$ m.",
+     "Birimleri baştan aynı yap (cm ya da m)."
+    ],
+    "keyTerms": [
+     {
+      "term": "Görüş doğrultusu",
+      "definition": "Gözden bir cismin tepesine çizilen doğru."
+     },
+     {
+      "term": "AA benzerlik",
+      "definition": "İki açısı eşit üçgenlerin benzerliği."
+     }
+    ]
+   },
+   {
+    "title": "Pisagor teoremi ve 3-4-5 ailesi",
+    "content": "Dik üçgende $a^2+b^2=c^2$. Doğrudan hesap yerine Pisagor üçlüsünü tanımak hız kazandırır. Göz hizası ile lamba tepesi arasındaki mesafede dik kenarlar 120 cm ve 160 cm'dir; bunlar 3-4-5 üçgeninin 40 katıdır: hipotenüs $5\\cdot40=200$ cm. Lamba tepesi ile kule tepesi arasında dik kenarlar 28 m ve 21 m: 7·(4, 3) ⇒ hipotenüs 35 m.",
+    "bulletPoints": [
+     "$120^2+160^2=14400+25600=40000=200^2$.",
+     "Aile: 3-4-5, 5-12-13, 8-15-17, 7-24-25 ve katları.",
+     "28-21-35 üçgeni 7 katı alınmış 4-3-5 üçgenidir.",
+     "Çözümde ortak çarpanı yaz: \"3-4-5 üçgeninin 40 katı\" gibi.",
+     "Hipotenüsü karekök bırakmak yerine tam sayı ailesini ara; sınav verileri genelde bu ailelerden seçilir."
+    ],
+    "keyTerms": [
+     {
+      "term": "Pisagor üçlüsü",
+      "definition": "$a^2+b^2=c^2$ sağlayan tam sayılar."
+     }
+    ]
+   },
+   {
+    "title": "Öklid teoremi ve alan ilişkileri",
+    "content": "Dik üçgende hipotenüse inen yükseklik $[AH]$ hipotenüsü $m=|BH|$ ve $n=|HC|$ parçalarına ayırır. Öklid: $h^2=m\\cdot n$; $|AB|^2=m\\cdot(m+n)$; $|AC|^2=n\\cdot(m+n)$. Bu bağıntılar kareler ve dikdörtgenlerin alanlarını eşitler: kenarı $h$ olan karenin alanı, kenarları $m$ ve $n$ olan dikdörtgenin alanına eşittir. Bu dosyanın 1. sorusunda kare alanları bu ilişkiyle karşılaştırılıyordu; şekil metinde olmadığı için set sorusu yapılmadı, yöntem aşağıdaki benzer sorularda çalışılır.",
+    "bulletPoints": [
+     "$h^2=m\\cdot n$ (yükseklik teoremi).",
+     "Dik kenar karesi = o dik kenarın hipotenüs üzerindeki izdüşümü × hipotenüs.",
+     "Örnek: $m=3,\\ n=12$ ⇒ $h=6$, $|AB|^2=45$, $|AC|^2=180$.",
+     "Pisagor kontrolü: $45+180=225=15^2$.",
+     "Alan dili: \"kare alanı = dikdörtgen alanı\" ifadesini Öklid ile kur."
+    ],
+    "keyTerms": [
+     {
+      "term": "Yükseklik teoremi",
+      "definition": "$h^2=m\\cdot n$."
+     },
+     {
+      "term": "İzdüşüm",
+      "definition": "Dik kenarın hipotenüs üzerindeki dik gölgesi."
+     }
+    ]
+   },
+   {
+    "title": "Çizge kuramı: düğüm, ayrıt ve derece",
+    "content": "Çizge, düğümlerden (noktalar) ve onları birleştiren ayrıtlardan (çizgiler) oluşur. Bir düğümün derecesi, o düğüme bağlanan ayrıt sayısıdır. Derecesi tek olan düğüme tek düğüm, çift olana çift düğüm denir. Yüz tanıma örneğinde yüz haritası bir çizge ile gösterilir.",
+    "bulletPoints": [
+     "Düğüm sayısı: çizgedeki noktaların sayısı.",
+     "Her düğümün ayrıt sayısı sayılır; tek/çift diye sınıflandırılır.",
+     "Derece toplamı, ayrıt sayısının iki katıdır (her ayrıt iki düğümün derecesine girer).",
+     "Bu yüzden tek dereceli düğüm sayısı her zaman çifttir.",
+     "Çizge sorusunda şekil gerekir; bu setteki benzer sorular ayrıt listesini yazıyla verir."
+    ],
+    "keyTerms": [
+     {
+      "term": "Çizge",
+      "definition": "Düğümler ve ayrıtlardan oluşan yapı."
+     },
+     {
+      "term": "Derece",
+      "definition": "Düğüme bağlı ayrıt sayısı."
+     },
+     {
+      "term": "Ayrıt",
+      "definition": "İki düğümü birleştiren çizgi."
+     }
+    ]
+   },
+   {
+    "title": "Kalem kaldırmadan çizim (Euler kuralı)",
+    "content": "Bir çizgeyi kalem kaldırmadan ve her ayrıttan yalnız bir kez geçerek çizebilmek derecelere bağlıdır. Tüm düğümler çift derecelidir ⇒ çizilebilir ve başlangıç noktasına dönülür. Tam iki düğüm tek derecelidir ⇒ çizilebilir; tek düğümlerden birinde başlanıp diğerinde bitilir. İkiden fazla tek düğüm varsa ⇒ çizilemez.",
+    "bulletPoints": [
+     "Tek düğüm sayısı 0 ⇒ çizilebilir (başlangıçta biter).",
+     "Tek düğüm sayısı 2 ⇒ çizilebilir (biri başlangıç, diğeri bitiş).",
+     "Tek düğüm sayısı 4, 6, ... ⇒ çizilemez.",
+     "Örnek: kare (derece 2,2,2,2) çizilebilir; kareye bir köşegen eklenince dereceler 3,2,3,2 ⇒ çizilebilir (A'dan başla, C'de bit).",
+     "Her iki köşegen de eklenirse dereceler 3,3,3,3 ⇒ çizilemez."
+    ],
+    "keyTerms": [
+     {
+      "term": "Tek düğüm",
+      "definition": "Derecesi tek olan düğüm."
+     },
+     {
+      "term": "Euler kuralı",
+      "definition": "Tek düğüm sayısı 0 veya 2 ise kalem kaldırmadan çizilir."
+     }
+    ]
+   },
+   {
+    "title": "Algoritma, mantık bağlaçları ve koşul",
+    "content": "Algoritmik doğal dilde \"ise\" bağlacı koşullu karar verir; \"ve\" iki önermenin aynı anda doğru olması gerektiğini, \"veya\" ise en az birinin doğru olmasının yeterli olduğunu anlatır. 15 ile bölünebilme algoritmasında: 3. adım \"ise\" (kalan 0 ise 3 ile bölünür), 4. adım \"ise\" (kalan 0 ise 5 ile bölünür), 5. adım \"ve\" (iki kalan da 0 ise 15 ile bölünür) ve \"veya\" (kalanlardan biri 0 değilse bölünmez).",
+    "bulletPoints": [
+     "Önerme p, q için: $p\\wedge q$ yalnız ikisi de doğruyken doğrudur.",
+     "Önerme p, q için: $p\\vee q$ en az biri doğruysa doğrudur (ikisi de doğruysa da).",
+     "Ters durum: \"kalanlardan biri 0 değil\" = \"bölünmez\": $\\neg(p\\wedge q)\\equiv\\neg p\\vee\\neg q$.",
+     "Aralarında asal iki sayıya bölünen sayı, çarpımlarına da bölünür: 3 ve 5 aralarında asal ⇒ 15.",
+     "3 ile bölünme: rakamlar toplamı 3'e bölünür; 5 ile bölünme: birler basamağı 0 veya 5."
+    ],
+    "keyTerms": [
+     {
+      "term": "Mantık bağlacı",
+      "definition": "Önermeleri bağlayan ve, veya, ise gibi sözcükler."
+     },
+     {
+      "term": "Aralarında asal",
+      "definition": "Ortak böleni yalnız 1 olan sayılar."
+     }
+    ]
+   },
+   {
+    "title": "Akış şeması testi ve hata bulma",
+    "content": "Akış şemasında 150 sayısı 15'in katı olduğu hâlde algoritma \"tam bölünmez\" diyorsa, karar kutusundaki bağlaç yanlıştır. Karar kutusunda (k = 0) ⊻ (t = 0) (\"ya da\", yalnız biri doğru) kullanılırsa her iki şart doğru olduğunda sonuç Hayır çıkar. Doğrusu \"ve\" (∧) bağlacıdır.",
+    "bulletPoints": [
+     "Test: önce örnek seç (150, 123, 30 gibi), akışı adım adım izle, sonucu gerçek değerle karşılaştır.",
+     "150: $y=1+5+0=6$, $k=6\\%3=0$ ✓; $t=0\\%5=0$ ✓. \"Ya da\" ile (1 ⊻ 1) = 0 ⇒ Hayır ⇒ \"bölünmez\" (HATA).",
+     "123: $y=6$, $k=0$ ✓; $t=3\\%5=3\\ne0$ ✗. \"Ya da\" ile (1 ⊻ 0) = 1 ⇒ Evet ⇒ \"bölünür\" (HATA, 123 sayısı 15\\'e bölünmez).",
+     "Düzeltme: karar kutusu $(k=0)\\wedge(t=0)$.",
+     "Hata bildirirken: hatayı yaz, neden hata olduğunu bir örnekle kanıtla, düzeltmeyi öner."
+    ],
+    "keyTerms": [
+     {
+      "term": "Akış şeması",
+      "definition": "Algoritmanın sembollerle gösterimi."
+     },
+     {
+      "term": "Yalnız biri doğru (⊻)",
+      "definition": "İki önermeden tam birinin doğru olduğu bağlaç."
+     }
+    ]
+   },
+   {
+    "title": "Mantık bağlaçlarıyla tablodan veri sorgulama",
+    "content": "Veri tablosunda her satır bir il/kulüp/öğrenci gibi bir kayıttır. Koşullar ∧ ve ∨ ile birleştirilir. Önce her koşulu tek tek tüm satırlarda değerlendir, sonra bağlaca göre birleştir: ∧ için iki koşul da sağlanmalı, ∨ için biri yeterli. İfadeyi sözel yazarken \"en az, en çok, büyük, küçük\" sözcüklerini doğru seç.",
+    "bulletPoints": [
+     "$\\le$ \"en fazla / ... veya daha az\", $\\ge$ \"en az / ... veya daha çok\", $<$ \"den küçük\", $>$ \"den büyük\".",
+     "(Salon ≤ 5) ∧ (Eser > 20): salon sayısı beş veya daha az ve oynanan eser yirmiden fazla olan iller.",
+     "Aralık koşulu: $10000\\le x\\le100000$ = \"en az on bin, en çok yüz bin\".",
+     "Koşulu sağlayan kayıt yoksa \"Yoktur\" yaz; boş bırakma.",
+     "Tüm satırları tek tek işaretle; atlanan satır en sık hatadır."
+    ],
+    "keyTerms": [
+     {
+      "term": "Koşul",
+      "definition": "Doğru ya da yanlış olabilen ifade."
+     }
+    ]
+   },
+   {
+    "title": "Değişebilirlik türleri",
+    "content": "Verilerde farklılık dört ana nedenden doğabilir. Örneklemden kaynaklı: evrenden seçilen kişilerin değişmesi (1000 kişi seçmek). Müdahaleden kaynaklı: aynı işlemi farklı kişilerin uygulaması (aynı tariften farklı pastalar). Doğal ortamdan kaynaklı: doğal koşulların farkı (farklı bölgelerde sıcaklık). Ölçümden kaynaklı: farklı kişi/cihazla ölçüm yapılması (pH ölçümü).",
+    "bulletPoints": [
+     "Soru kalıbı: durumu oku, değişimin kaynağını bul.",
+     "\"Seçilen kişiler/örnek\" ⇒ örneklem.",
+     "\"Aynı işlemi farklı kişiler uygular\" ⇒ müdahale.",
+     "\"Doğal koşullar/bölge/hava\" ⇒ doğal ortam.",
+     "\"Farklı cihaz/ölçen kişi\" ⇒ ölçüm."
+    ],
+    "keyTerms": [
+     {
+      "term": "Değişebilirlik",
+      "definition": "Verilerin birbirinden farklı olması."
+     },
+     {
+      "term": "Örneklem",
+      "definition": "Evrenden seçilen küçük grup."
+     }
+    ]
+   },
+   {
+    "title": "İstatistiksel araştırma sorusunun ölçütleri",
+    "content": "İyi bir nicel araştırma sorusu: amacı açık, betimleme/karşılaştırmaya yönelik, araştırmaya değer, evreni açık, değişkeni açık, veriyle cevaplanabilir, değişebilirliği yansıtan, odaklanılan grubun imkân verdiği ve sayısal veri gerektiren bir sorudur. \"60 yaş üstü bireylerin sosyal medya kullanım süreleri dakika cinsinden nasıl bir eğilim gösterir?\" sorusu sekiz ölçütün tümünü sağlar.",
+    "bulletPoints": [
+     "Evren: 60 yaş üstü bireyler (açık).",
+     "Değişken: sosyal medya kullanım süresi (dakika), nicel.",
+     "Veri toplanarak cevaplanabilir ve değişebilirliği yansıtır (kişiden kişiye süre farklıdır).",
+     "Yorum soruları (\"mutlu mu?\", \"iyi midir?\") nicel veri gerektirmez, ölçütleri sağlamaz.",
+     "Tabloyu doldururken her ölçüt için Evet/Hayır ayrı puanlanır."
+    ],
+    "keyTerms": [
+     {
+      "term": "Evren",
+      "definition": "Araştırmanın hedef grubu."
+     },
+     {
+      "term": "Nicel değişken",
+      "definition": "Sayıyla ölçülen değişken."
+     }
+    ]
+   },
+   {
+    "title": "Beş sayı özeti ve kutu grafiği",
+    "content": "Kutu grafiği, verinin en küçük değerini, alt çeyreği (Ç1), ortancasını, üst çeyreği (Ç3) ve en büyük değerini gösterir. Önce veriyi sırala, ortancayı bul; ortancanın altındaki yarının ortancası Ç1, üstündeki yarının ortancası Ç3'tür. Veri sayısı tek ise ortanca iki yarıya dahil edilmez (resmî çözümdeki yöntem).",
+    "bulletPoints": [
+     "31 veri: ortanca 16. değer $=10$; alt yarı 15 veri ⇒ Ç1 = 8. değer $=8$; üst yarı 15 veri ⇒ Ç3 = 8. değer $=13$.",
+     "Özet: en küçük 4, Ç1 8, ortanca 10, Ç3 13, en büyük 50.",
+     "Kutu Ç1'den Ç3'e, kutu içinde ortanca çizgisi; kollar en küçük ve en büyük değere uzanır.",
+     "Kutu içinde verinin yaklaşık yarısı yer alır (merkeze yığılma).",
+     "Çok uzak değerler (50 gibi) aykırı değerdir; ortalamayı etkiler, ortancayı az etkiler."
+    ],
+    "keyTerms": [
+     {
+      "term": "Çeyrek",
+      "definition": "Sıralı veriyi dört eşit parçaya bölen değerler."
+     },
+     {
+      "term": "Ortanca",
+      "definition": "Sıralı verinin ortasındaki değer."
+     }
+    ]
+   },
+   {
+    "title": "Histogram ve sütun grafiği",
+    "content": "Histogram, sürekli veriyi eşit aralıklı gruplara ayırıp her grubun frekansını sütunla gösterir. Gruplar [5,6), [6,7), ... gibi yarı açık aralıklarla yazılır; her değer tam bir gruba girer. Sütun grafiği ise ayrık kategorileri (70, 80, 90 puan) ve frekanslarını gösterir.",
+    "bulletPoints": [
+     "Önce grupları belirle, sonra veriyi gruplara dağıt, sayımı toplamla doğrula (25 kişi).",
+     "Örnek: [5,6) 4 kişi; [6,7) 6 kişi; [7,8) 6 kişi; [8,9) 4 kişi; [9,10) 3 kişi; [15,16) 1; [16,17) 1.",
+     "Boş gruplar (10-15 arası) frekansı 0 olarak bırakılır ya da kopukluk belirtilir.",
+     "Eksenleri adlandır: yatay = ekran süresi (saat), dikey = kişi sayısı.",
+     "Histogramda dağılımın biçimi (yoğunlaşma, uzak değerler) yorumlanır."
+    ],
+    "keyTerms": [
+     {
+      "term": "Histogram",
+      "definition": "Gruplanmış sürekli verinin sütun grafiği."
+     },
+     {
+      "term": "Frekans",
+      "definition": "Bir değerin ya da grubun tekrar sayısı."
+     }
+    ]
+   },
+   {
+    "title": "Merkezi eğilim: ortalama, ortanca ve aykırı değer",
+    "content": "Aritmetik ortalama tüm verilerin toplamının veri sayısına bölümüdür; uç değerlerden çok etkilenir. Ortanca ise sıralı verinin ortasıdır ve aykırı değerlerden az etkilenir. Ekran süresi verisinde ortalama 7,856, aykırı değerler (15 ve 16) çıkarılınca 7,19; ortanca 7,3'ten 7,1'e iner. Ortanca daha az değiştiği için merkezi tanımlamada ortanca daha güvenilirdir.",
+    "bulletPoints": [
+     "Ortalama $=\\frac{196{,}4}{25}=7{,}856$.",
+     "Aykırı değersiz ortalama $\\frac{165{,}4}{23}\\approx7{,}19$.",
+     "Ortanca 25 verinin 13. değeri: 7,3.",
+     "Karar: sağlık politikası \"ortalama ≤ 8 saat\" ise ortalama 7,856 sınırı geçmez.",
+     "Yorumlarken hangi ölçünün seçildiğini ve nedenini yaz."
+    ],
+    "keyTerms": [
+     {
+      "term": "Aritmetik ortalama",
+      "definition": "Toplam ÷ veri sayısı."
+     },
+     {
+      "term": "Aykırı değer",
+      "definition": "Verinin genelinden çok uzaktaki değer."
+     }
+    ]
+   },
+   {
+    "title": "Deneysel olasılık ve göreli sıklık",
+    "content": "Bir deneyi çok kez tekrarlayıp olayın gerçekleşme sayısını tekrar sayısına bölersek göreli sıklık (deneysel olasılık) bulunur. Tekrar sayısı arttıkça göreli sıklık, olayın kuramsal olasılığına yaklaşır. 90 puanlı iki kart beş karttan ikisi olduğundan beklenen değer $\\frac25=0{,}4$'tür; ölçülen oranlar 0,25; 0,388; 0,396; 0,405.",
+    "bulletPoints": [
+     "$\\frac{194}{500}=0{,}388$; $\\frac{396}{1000}=0{,}396$; $\\frac{810}{2000}=0{,}405$; $\\frac{25}{100}=0{,}25$.",
+     "Tekrar sayısı arttıkça oran 0,4 civarında sabitlenir.",
+     "Küçük örneklemde oran dalgalanabilir (0,25).",
+     "Sütun grafiğinde 70 puan: 35, 80 puan: 40, 90 puan: 25 isabet.",
+     "Yorum: yeteri kadar çok tekrarda deneysel olasılık 0,4'e yaklaşır."
+    ],
+    "keyTerms": [
+     {
+      "term": "Göreli sıklık",
+      "definition": "Olay sayısı ÷ deney sayısı."
+     },
+     {
+      "term": "Deneysel olasılık",
+      "definition": "Gözleme dayalı olasılık tahmini."
+     }
+    ]
+   },
+   {
+    "title": "Örnek uzay, olay ve bileşik olay olasılığı",
+    "content": "İki aşamalı deneyin (çark ve torba) tüm çıktıları tabloyla gösterilir: çarkın 6 sonucu × torbanın 6 topu = 36 çıktı. \"Asal veya negatif\" olayı A = B ∪ C, B: çarkta asal, C: torbada negatif. Bağımsız iki olayın kesişim olasılığı çarpımdır: $P(A\\cap B)=P(A)P(B)$; birleşim: $P(A\\cup B)=P(A)+P(B)-P(A\\cap B)$.",
+    "bulletPoints": [
+     "Çark 1-6, torba −8, −5, −3, 0, 2, 7 ⇒ 36 çıktı.",
+     "B = {2, 3, 5}; C = {−8, −5, −3}; A = B ∪ C = {−8, −5, −3, 2, 3, 5}.",
+     "Çark çift: $P=\\frac36=\\frac12$.",
+     "İki top art arda (iadesiz): çarpım pozitif ⇒ ikisi negatif ($\\frac36\\cdot\\frac25$) veya ikisi pozitif ($\\frac26\\cdot\\frac15$): toplam $\\frac{6}{30}+\\frac{2}{30}=\\frac{4}{15}$.",
+     "$P(A\\cup B)=\\frac12+\\frac4{15}-\\frac2{15}=\\frac{19}{30}$."
+    ],
+    "keyTerms": [
+     {
+      "term": "Örnek uzay",
+      "definition": "Bir deneyin tüm olası sonuçları."
+     },
+     {
+      "term": "Bileşik olay",
+      "definition": "İki olayın \"ve\" ya da \"veya\" ile birleşimi."
+     }
+    ]
+   },
+   {
+    "title": "Şekil gerektiren sorular ve yazılı stratejisi",
+    "content": "Bu dosyada 1. soru (kareler ve Öklid) ile 3. soru (yüz tanıma çizgesi) şekil verisi olmadan çözülemez; bu nedenle set sorusu yapılmadı. Bunların yöntemi (Öklid ile alan eşitliği, çizge dereceleri ve Euler kuralı) notlarda ve Benzer sorularda tam verilerle çalışılır. Yazılıda her alt soru ayrı puanlanır; adım ve gerekçe yaz.",
+    "bulletPoints": [
+     "Önce soruyu oku, verilenleri ve istenenleri ayır.",
+     "Adımları numarala; her adım için gerekçe (teorem, koşul) yaz.",
+     "Hata bulma sorusunda: hata, kanıt (örnek), düzeltme.",
+     "Grafik çizimi: eksen adları, ölçek, işaretli değerler.",
+     "Sonucu birimiyle ve cümleyle yaz; süre kalırsa kontrol et."
+    ],
+    "keyTerms": [
+     {
+      "term": "Gerekçe",
+      "definition": "Bir adımın nedenini söyleyen açıklama."
+     }
+    ]
+   }
+  ],
+  "importantDates": [],
+  "commonMistakes": [
+   "Görüş doğrultusu sorusunda birimleri (cm/m) karıştırmak.",
+   "Benzerlikte oranı karşılıklı olmayan kenarlarla kurmak.",
+   "Pisagor üçlüsünü tanımayıp karekökte hata yapmak.",
+   "Öklid teoreminde dik kenar karesini izdüşüm × parça yerine izdüşüm × izdüşüm yazmak.",
+   "Çizgede dereceleri yanlış saymak; tek düğüm sayısını ikiden fazla olunca bile \"çizilir\" demek.",
+   "Mantık bağlaçlarında ∧ ile ∨ (ve ⊻) karıştırmak.",
+   "Akış şemasında hatayı belirtip kanıt örnek vermemek.",
+   "Tablo sorgusunda ≥ / > ayrımını ve sınır değerleri (20, 40, 10) yanlış yorumlamak.",
+   "Sağlayan kayıt yokken cevabı boş bırakmak (\"Yoktur\" yazılmalı).",
+   "Değişebilirlik türlerini karıştırmak (örneklem ile ölçüm).",
+   "Çift sayıda veride ortancayı tek değer sanmak ya da tek veride ortancayı yarılara dahil etmek (yöntemi tutarlı uygula).",
+   "Histogramda grup sayımlarının toplamını veri sayısıyla karşılaştırmamak.",
+   "Deneysel olasılığı küçük örnekle (100 atış) kesin kabul etmek.",
+   "İadesiz çekilişte ikinci çekimde top sayısını azaltmamak."
+  ],
+  "diagrams": [],
+  "mindmap": {
+   "label": "9. Sınıf Matematik 2. Dönem 2. Yazılı",
+   "children": [
+    {
+     "label": "Benzerlik, Pisagor, Öklid",
+     "children": [
+      {
+       "label": "Göz-lamba-kule AA",
+       "children": []
+      },
+      {
+       "label": "Pisagor üçlüleri",
+       "children": []
+      },
+      {
+       "label": "h² = m·n",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Çizge kuramı",
+     "children": [
+      {
+       "label": "Düğüm, ayrıt, derece",
+       "children": []
+      },
+      {
+       "label": "Euler kuralı (0 veya 2 tek düğüm)",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Algoritma ve mantık",
+     "children": [
+      {
+       "label": "ise / ve / veya / ya da",
+       "children": []
+      },
+      {
+       "label": "15 ile bölünebilme",
+       "children": []
+      },
+      {
+       "label": "Akış şeması testi",
+       "children": []
+      },
+      {
+       "label": "Tablo sorgulama",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "İstatistik",
+     "children": [
+      {
+       "label": "Değişebilirlik türleri",
+       "children": []
+      },
+      {
+       "label": "Araştırma sorusu ölçütleri",
+       "children": []
+      },
+      {
+       "label": "Kutu grafiği, beş sayı özeti",
+       "children": []
+      },
+      {
+       "label": "Histogram",
+       "children": []
+      },
+      {
+       "label": "Ortalama / ortanca",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Olasılık",
+     "children": [
+      {
+       "label": "Göreli sıklık",
+       "children": []
+      },
+      {
+       "label": "Örnek uzay tablosu",
+       "children": []
+      },
+      {
+       "label": "Bileşik olay",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Yazılı stratejisi",
+     "children": [
+      {
+       "label": "Adım + gerekçe + birim",
+       "children": []
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "flashcards": [
+  {
+   "front": "Göz, lamba tepesi, kule tepesi aynı doğrultuda ise ne olur?",
+   "back": "Dik üçgenler AA ile benzer olur; oranlar kurulur.",
+   "category": "Benzerlik, Pisagor ve Öklid",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Benzerlikte hangi uzunlukları oranlarız?",
+   "back": "Eşit açıların karşısındaki kenarları (karşılıklı kenarları).",
+   "category": "Benzerlik, Pisagor ve Öklid",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Görüş doğrultusu problemlerinde önce ne yapılır?",
+   "back": "Göz hizasından yere paralel çizilir; yükseklik farkları bulunur.",
+   "category": "Benzerlik, Pisagor ve Öklid",
+   "difficulty": "medium"
+  },
+  {
+   "front": "300 cm lamba, 180 cm göz hizası: yükseklik farkı?",
+   "back": "$300-180=120$ cm.",
+   "category": "Benzerlik, Pisagor ve Öklid",
+   "difficulty": "easy"
+  },
+  {
+   "front": "24 m kule, 180 cm göz hizası: yükseklik farkı?",
+   "back": "$2400-180=2220$ cm.",
+   "category": "Benzerlik, Pisagor ve Öklid",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Emre-lamba 1,6 m. Emre-kule uzaklığı oranı?",
+   "back": "$\\frac{160}{160+x}=\\frac{120}{2220}$.",
+   "category": "Benzerlik, Pisagor ve Öklid",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Kule-lamba uzaklığı sonucu?",
+   "back": "$x=2800$ cm $=28$ m.",
+   "category": "Benzerlik, Pisagor ve Öklid",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Göz-lamba tepesi arası mesafe nasıl bulunur?",
+   "back": "Dik kenarlar 120 ve 160 ⇒ Pisagor ⇒ 200 cm = 2 m.",
+   "category": "Benzerlik, Pisagor ve Öklid",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Lamba tepesi-kule tepesi arası?",
+   "back": "Dik kenarlar 28 m ve 21 m ⇒ 35 m.",
+   "category": "Benzerlik, Pisagor ve Öklid",
+   "difficulty": "medium"
+  },
+  {
+   "front": "3-4-5'in 40 katı?",
+   "back": "120-160-200.",
+   "category": "Benzerlik, Pisagor ve Öklid",
+   "difficulty": "easy"
+  },
+  {
+   "front": "4-3-5'in 7 katı?",
+   "back": "28-21-35.",
+   "category": "Benzerlik, Pisagor ve Öklid",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Pisagor teoremi?",
+   "back": "$a^2+b^2=c^2$.",
+   "category": "Benzerlik, Pisagor ve Öklid",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Öklid yükseklik teoremi?",
+   "back": "$h^2=m\\cdot n$.",
+   "category": "Benzerlik, Pisagor ve Öklid",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Öklid dik kenar teoremi?",
+   "back": "$|AB|^2=|BH|\\cdot|BC|$.",
+   "category": "Benzerlik, Pisagor ve Öklid",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yükseklik teoreminin alan yorumu?",
+   "back": "Kenarı $h$ olan karenin alanı, kenarları $m$ ve $n$ olan dikdörtgenin alanına eşittir.",
+   "category": "Benzerlik, Pisagor ve Öklid",
+   "difficulty": "hard"
+  },
+  {
+   "front": "$m=3,\\ n=12$ ise $h$?",
+   "back": "$\\sqrt{36}=6$.",
+   "category": "Benzerlik, Pisagor ve Öklid",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Çizge nedir?",
+   "back": "Düğümler ve ayrıtlardan oluşan yapı.",
+   "category": "Çizge kuramı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Düğüm derecesi nedir?",
+   "back": "Düğüme bağlanan ayrıt sayısı.",
+   "category": "Çizge kuramı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Tek düğüm nedir?",
+   "back": "Derecesi tek olan düğüm.",
+   "category": "Çizge kuramı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Çift düğüm nedir?",
+   "back": "Derecesi çift olan düğüm.",
+   "category": "Çizge kuramı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Tüm düğümler çift ise çizim?",
+   "back": "Kalem kaldırmadan çizilir ve başlangıca dönülür.",
+   "category": "Çizge kuramı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tam iki tek düğüm varsa çizim?",
+   "back": "Çizilir; bir tek düğümden başlayıp öbüründe biter.",
+   "category": "Çizge kuramı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "İkiden fazla tek düğüm varsa?",
+   "back": "Kalem kaldırmadan çizilemez.",
+   "category": "Çizge kuramı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tek düğüm sayısı her zaman?",
+   "back": "Çifttir (derece toplamı = 2 × ayrıt sayısı).",
+   "category": "Çizge kuramı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Derece toplamı ile ayrıt ilişkisi?",
+   "back": "Derece toplamı ayrıt sayısının iki katıdır.",
+   "category": "Çizge kuramı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kare çizgesi kalemi kaldırmadan çizilir mi?",
+   "back": "Evet; tüm dereceler 2.",
+   "category": "Çizge kuramı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kare + bir köşegen?",
+   "back": "Dereceler 3,2,3,2; iki tek düğüm ⇒ çizilebilir.",
+   "category": "Çizge kuramı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "4 düğümlü tam çizge (K4)?",
+   "back": "Dereceler 3,3,3,3 ⇒ dört tek düğüm ⇒ çizilemez.",
+   "category": "Çizge kuramı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "5 düğümlü tam çizge (K5)?",
+   "back": "Dereceler 4 ⇒ hepsi çift ⇒ çizilebilir ve dönülür.",
+   "category": "Çizge kuramı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Yüz tanımada çizgenin kullanımı?",
+   "back": "Yüz noktaları düğüm, aralarındaki ölçüler ayrıt olarak çizgeyle gösterilir.",
+   "category": "Çizge kuramı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Algoritmada \"ise\" bağlacı ne yapar?",
+   "back": "Koşullu karar: koşul doğruysa adım uygulanır.",
+   "category": "Algoritma ve mantık bağlaçları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "\"ve\" bağlacı ne zaman doğru?",
+   "back": "İki önerme de doğruysa.",
+   "category": "Algoritma ve mantık bağlaçları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "\"veya\" bağlacı ne zaman doğru?",
+   "back": "En az biri doğruysa.",
+   "category": "Algoritma ve mantık bağlaçları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "\"ya da\" (⊻) ne zaman doğru?",
+   "back": "İkisinden tam biri doğruysa.",
+   "category": "Algoritma ve mantık bağlaçları",
+   "difficulty": "medium"
+  },
+  {
+   "front": "15 ile bölünme için hangi iki sayı?",
+   "back": "3 ve 5 (aralarında asal).",
+   "category": "Algoritma ve mantık bağlaçları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "3 ile bölünebilme testi?",
+   "back": "Rakamlar toplamı 3'e bölünür.",
+   "category": "Algoritma ve mantık bağlaçları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "5 ile bölünebilme testi?",
+   "back": "Birler basamağı 0 veya 5.",
+   "category": "Algoritma ve mantık bağlaçları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "15 algoritmasında 5. adımda neden \"ve\"?",
+   "back": "İki kalan da 0 olmalı; ikisi birden gerekir.",
+   "category": "Algoritma ve mantık bağlaçları",
+   "difficulty": "medium"
+  },
+  {
+   "front": "15 algoritmasında \"bölünmez\" için bağlaç?",
+   "back": "\"veya\": kalanlardan biri 0 değilse bölünmez.",
+   "category": "Algoritma ve mantık bağlaçları",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Akış şemasında ⊻ yerine hangisi gerekir?",
+   "back": "∧ (ve).",
+   "category": "Algoritma ve mantık bağlaçları",
+   "difficulty": "medium"
+  },
+  {
+   "front": "150 örneği neden hata kanıtı?",
+   "back": "150, 15'e bölünür; ⊻ ile (1⊻1)=0 olduğundan algoritma \"bölünmez\" der.",
+   "category": "Algoritma ve mantık bağlaçları",
+   "difficulty": "hard"
+  },
+  {
+   "front": "123 örneği neden hata kanıtı?",
+   "back": "123, 15'e bölünmez; ⊻ ile (1⊻0)=1 ⇒ \"bölünür\" der.",
+   "category": "Algoritma ve mantık bağlaçları",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Algoritma testi nasıl yapılır?",
+   "back": "Örnek girdilerle izlenir ve sonuç gerçek değerle karşılaştırılır.",
+   "category": "Algoritma ve mantık bağlaçları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Akış şemasında karar kutusu?",
+   "back": "Eşkenar dörtgen; Evet/Hayır dalları.",
+   "category": "Algoritma ve mantık bağlaçları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Mod (%) işlemi ne yapar?",
+   "back": "Kalanı verir: $6\\%3=0$, $3\\%5=3$.",
+   "category": "Algoritma ve mantık bağlaçları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "(Salon ≤ 5) ∧ (Eser > 20) sözel?",
+   "back": "Salon sayısı en fazla beş ve oynanan eser yirmiden çok olan iller.",
+   "category": "Veri sorgulama ve araştırma sorusu",
+   "difficulty": "medium"
+  },
+  {
+   "front": "(Salon ≤ 5) ∧ (Eser > 20) sağlayan iller?",
+   "back": "Aksaray, Karaman, Kırıkkale, Sivas.",
+   "category": "Veri sorgulama ve araştırma sorusu",
+   "difficulty": "medium"
+  },
+  {
+   "front": "$10000\\le$ seyirci $\\le100000$ nasıl söylenir?",
+   "back": "En az on bin, en çok yüz bin.",
+   "category": "Veri sorgulama ve araştırma sorusu",
+   "difficulty": "easy"
+  },
+  {
+   "front": "(Salon ≥ 10) ∨ (Seyirci > 190000) iller?",
+   "back": "Ankara, Eskişehir, Kayseri, Konya.",
+   "category": "Veri sorgulama ve araştırma sorusu",
+   "difficulty": "medium"
+  },
+  {
+   "front": "(Salon ≥ 4) ∧ (Seyirci < 1000) iller?",
+   "back": "Yoktur (Yozgat 545 ama salonu 1).",
+   "category": "Veri sorgulama ve araştırma sorusu",
+   "difficulty": "medium"
+  },
+  {
+   "front": "∧ ve ∨ tablo sorgusunda fark?",
+   "back": "∧ iki koşul da; ∨ en az biri sağlanmalı.",
+   "category": "Veri sorgulama ve araştırma sorusu",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Sağlayan kayıt yoksa ne yazılır?",
+   "back": "\"Yoktur\".",
+   "category": "Veri sorgulama ve araştırma sorusu",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Örneklemden kaynaklı değişebilirlik?",
+   "back": "Evrenden farklı kişi seçilmesinden doğan fark (1000 kişi seçmek).",
+   "category": "Değişebilirlik ve istatistik",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Müdahaleden kaynaklı?",
+   "back": "Aynı işlemi farklı kişilerin uygulaması (aynı tarifle pasta).",
+   "category": "Değişebilirlik ve istatistik",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Doğal ortamdan kaynaklı?",
+   "back": "Doğal koşulların farkı (bölgeye göre sıcaklık/verim).",
+   "category": "Değişebilirlik ve istatistik",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Ölçümden kaynaklı?",
+   "back": "Farklı kişi/cihaz ölçümü (pH ölçümü).",
+   "category": "Değişebilirlik ve istatistik",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Araştırma sorusunda evren nedir?",
+   "back": "İlgilenilen grup (ör. 60 yaş üstü bireyler).",
+   "category": "Değişebilirlik ve istatistik",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Araştırma sorusunda değişken nedir?",
+   "back": "Ölçülen özellik (ör. sosyal medya kullanım süresi).",
+   "category": "Değişebilirlik ve istatistik",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Nicel veri nedir?",
+   "back": "Sayıyla ölçülen veri (dakika, kg).",
+   "category": "Değişebilirlik ve istatistik",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Araştırma sorusu ölçütlerinden kaçı?",
+   "back": "Sekiz ölçüt (amaç, değer, evren, değişken, veri, değişebilirlik, imkân, nicel veri).",
+   "category": "Değişebilirlik ve istatistik",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kutu grafiği hangi beş değeri gösterir?",
+   "back": "En küçük, Ç1, ortanca, Ç3, en büyük.",
+   "category": "Kutu grafiği ve histogram",
+   "difficulty": "easy"
+  },
+  {
+   "front": "31 veride ortanca kaçıncı değer?",
+   "back": "16. değer.",
+   "category": "Kutu grafiği ve histogram",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Pil verisi (31 gün) beş sayı özeti?",
+   "back": "4, 8, 10, 13, 50.",
+   "category": "Kutu grafiği ve histogram",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Alt çeyrek nasıl bulunur?",
+   "back": "Ortancanın altındaki yarının ortancası.",
+   "category": "Kutu grafiği ve histogram",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Üst çeyrek nasıl bulunur?",
+   "back": "Ortancanın üstündeki yarının ortancası.",
+   "category": "Kutu grafiği ve histogram",
+   "difficulty": "medium"
+  },
+  {
+   "front": "25 veride Ç1 ve Ç3 nasıl?",
+   "back": "12'şer verilik yarılar (ortanca hariç): 6. ve 7. değerin, 19. ve 20. değerin ortalaması.",
+   "category": "Kutu grafiği ve histogram",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Ekran süresi verisi Ç1, ortanca, Ç3?",
+   "back": "6,25; 7,3; 8,6.",
+   "category": "Kutu grafiği ve histogram",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kutunun içindeki yoğunlaşma?",
+   "back": "Verilerin yaklaşık yarısı Ç1-Ç3 arasındadır.",
+   "category": "Kutu grafiği ve histogram",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Histogram nedir?",
+   "back": "Gruplanmış sürekli verinin sütun grafiği.",
+   "category": "Kutu grafiği ve histogram",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Histogramda grup aralığı yazımı?",
+   "back": "[5,6), [6,7) ... (alt uç dahil, üst uç hariç).",
+   "category": "Kutu grafiği ve histogram",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Sütun grafiği ile histogram farkı?",
+   "back": "Sütun grafiği ayrık kategoriler, histogram sürekli gruplar içindir.",
+   "category": "Kutu grafiği ve histogram",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Aritmetik ortalama?",
+   "back": "Toplam ÷ sayı.",
+   "category": "Kutu grafiği ve histogram",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Ekran süresi ortalaması?",
+   "back": "$196{,}4\\div25=7{,}856$ saat.",
+   "category": "Kutu grafiği ve histogram",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Aykırı değerler hangi ölçüyü daha çok etkiler?",
+   "back": "Aritmetik ortalamayı; ortanca daha az etkilenir.",
+   "category": "Kutu grafiği ve histogram",
+   "difficulty": "medium"
+  },
+  {
+   "front": "15 ve 16 çıkarılınca ortalama?",
+   "back": "$165{,}4\\div23\\approx7{,}19$.",
+   "category": "Kutu grafiği ve histogram",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Merkezi eğilimde güvenilir ölçü (aykırı varsa)?",
+   "back": "Ortanca.",
+   "category": "Kutu grafiği ve histogram",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Ortalama sınırı 8 saat: mevcut ortalama 7,856?",
+   "back": "Sınırı geçmez.",
+   "category": "Kutu grafiği ve histogram",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Göreli sıklık nedir?",
+   "back": "Olayın gerçekleşme sayısı ÷ toplam deney sayısı.",
+   "category": "Olasılık",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Deneysel olasılık nedir?",
+   "back": "Çok sayıda deneyde göreli sıklığın yaklaştığı değer.",
+   "category": "Olasılık",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Deney sayısı artınca göreli sıklık?",
+   "back": "Kuramsal olasılığa yaklaşır.",
+   "category": "Olasılık",
+   "difficulty": "medium"
+  },
+  {
+   "front": "194/500 kaçtır?",
+   "back": "0,388.",
+   "category": "Olasılık",
+   "difficulty": "easy"
+  },
+  {
+   "front": "396/1000 ve 810/2000?",
+   "back": "0,396 ve 0,405.",
+   "category": "Olasılık",
+   "difficulty": "easy"
+  },
+  {
+   "front": "90 puanlı kart olasılığı yaklaşık?",
+   "back": "0,4 (beş kartın ikisi).",
+   "category": "Olasılık",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Örnek uzay nedir?",
+   "back": "Deneyin tüm çıktılarının kümesi.",
+   "category": "Olasılık",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Çark (6) × torba (6) kaç çıktı?",
+   "back": "36.",
+   "category": "Olasılık",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Çarkta asal sayılar kümesi?",
+   "back": "B = {2, 3, 5}.",
+   "category": "Olasılık",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Torbada negatif sayılar kümesi?",
+   "back": "C = {−8, −5, −3}.",
+   "category": "Olasılık",
+   "difficulty": "easy"
+  },
+  {
+   "front": "A = B ∪ C kümesi?",
+   "back": "{−8, −5, −3, 2, 3, 5}.",
+   "category": "Olasılık",
+   "difficulty": "medium"
+  },
+  {
+   "front": "$P(A\\cup B)$ formülü?",
+   "back": "$P(A)+P(B)-P(A\\cap B)$.",
+   "category": "Olasılık",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Bağımsız olaylar için $P(A\\cap B)$?",
+   "back": "$P(A)\\cdot P(B)$.",
+   "category": "Olasılık",
+   "difficulty": "medium"
+  },
+  {
+   "front": "İadesiz ardışık çekimde olasılıklar?",
+   "back": "İlk çekimden sonra top sayısı bir azalır: $\\frac36\\cdot\\frac25$.",
+   "category": "Olasılık",
+   "difficulty": "hard"
+  },
+  {
+   "front": "İki top çarpımı pozitif nasıl olur?",
+   "back": "İkisi negatif ya da ikisi pozitif (0 hariç).",
+   "category": "Olasılık",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Çark çift gelme olasılığı (1-6)?",
+   "back": "$\\frac36=\\frac12$.",
+   "category": "Olasılık",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Yazılıda tuzak: şekil olmadan veri",
+   "back": "Şekil verisini tahmin etme; verilenle çöz.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Yazılıda tuzak: histogramda toplam",
+   "back": "Frekans toplamı veri sayısını (25) vermeli.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yazılıda tuzak: kutu grafiği ölçeği",
+   "back": "Beş değeri sayı doğrusuna ölçekli yerleştir.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yazılıda tuzak: bağlaç",
+   "back": "∧ ile ∨ ve ⊻ karıştırılmaz; tablo satırları tek tek işaretlenir.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kutu grafiğinde veri sayısı çiftse ortanca?",
+   "back": "Ortadaki iki değerin ortalaması.",
+   "category": "Kutu grafiği ve histogram",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kutu grafiğinde veri sayısı tekse yarılar?",
+   "back": "Ortanca dahil edilmez (resmî çözümdeki yöntem); alt ve üst yarının ortancaları Ç1, Ç3.",
+   "category": "Kutu grafiği ve histogram",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Ekran süresi verisinde aykırı değerler?",
+   "back": "15 ve 16 saat (diğerlerinden çok uzak).",
+   "category": "Kutu grafiği ve histogram",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Histogramda [9,10) grubunda kaç kişi (ekran süresi)?",
+   "back": "3 kişi: 9; 9,2; 9,5.",
+   "category": "Kutu grafiği ve histogram",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tiyatro tablosu: (Seyirci 10000-100000) ∨ (Eser ≤ 70) hariç tutulan il?",
+   "back": "Ankara (seyirci 680878, eser 517).",
+   "category": "Veri sorgulama ve araştırma sorusu",
+   "difficulty": "hard"
+  },
+  {
+   "front": "\"≤ 5\" nasıl okunur?",
+   "back": "Beş veya beşten küçük (en fazla beş).",
+   "category": "Veri sorgulama ve araştırma sorusu",
+   "difficulty": "easy"
+  },
+  {
+   "front": "\"> 20\" nasıl okunur?",
+   "back": "Yirmiden büyük (20 dahil değil).",
+   "category": "Veri sorgulama ve araştırma sorusu",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Pil verisinde en büyük değer?",
+   "back": "50 (diğerlerinden çok uzak).",
+   "category": "Kutu grafiği ve histogram",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Torbadan iadesiz iki top: ikinci çekimde paydaya ne olur?",
+   "back": "Top sayısı bir azalır (6 yerine 5).",
+   "category": "Olasılık",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Olasılık değeri hangi aralıktadır?",
+   "back": "0 ile 1 arasındadır.",
+   "category": "Olasılık",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kapsayıcı \"veya\" ile \"yalnız biri\" farkı?",
+   "back": "İkisi de doğruyken \"veya\" doğru, \"yalnız biri\" yanlıştır.",
+   "category": "Algoritma ve mantık bağlaçları",
+   "difficulty": "medium"
+  }
+ ],
+ "quiz": [
+  {
+   "type": "open-ended",
+   "question": "Bir saat kulesine doğru bakan Emre'nin kendi göz hizası, sokak lambası ve saat kulesinin tepe noktaları aynı doğrultudadır. Sokak lambasının boyu 300 cm, saat kulesinin boyu 24 m, Emre'nin göz hizasının yerden yüksekliği 180 cm ve Emre'nin bulunduğu noktanın direğe olan uzaklığı 1,6 m'dir. Saat kulesinin sokak lambasına uzaklığı kaç metredir? (5 puan)",
+   "correctAnswer": "Gözden yere paralel $[EL]$ çizilir: $|EK|=160$ cm, $|KC|=300-180=120$ cm, $|LA|=2400-180=2220$ cm. ALE ve CKE dik üçgenleri E açısı ortak ve dik açı nedeniyle AA ile benzerdir: $\\frac{160}{160+x}=\\frac{120}{2220}$ ⇒ $2\\cdot(160+x)=37\\cdot160$ ⇒ $x=2800$ cm $=28$ m.",
+   "keyPoints": [
+    "Yükseklik farkları 120 ve 2220 cm (1 puan)",
+    "Paralel çizim ve dik üçgenler (1 puan)",
+    "AA benzerlik gerekçesi (1 puan)",
+    "Oran eşitliği (1 puan)",
+    "$x=2800$ cm $=28$ m (1 puan)"
+   ],
+   "maxPoints": 5,
+   "explanation": "Adım 1: Birimleri cm yap: 24 m = 2400 cm, 1,6 m = 160 cm. Adım 2: Göz hizasından yere paralel çiz; lamba tepesi ve kule tepesi için dik kenarlar 120 cm ve 2220 cm. Adım 3: İki dik üçgenin E açısı ortak, ikisi de dik ⇒ AA. Adım 4: $\\frac{|EK|}{|EL|}=\\frac{|KC|}{|LA|}$: $\\frac{160}{160+x}=\\frac{120}{2220}$. 120/2220 = 2/37, içler dışlar: $37\\cdot160=2(160+x)$. Adım 5: $2960=160+x$ ⇒ $x=2800$ cm = 28 m. Her adım 1 puan. Birimi karıştırmak sık hatadır.",
+   "category": "Benzerlik, Pisagor ve Öklid",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aynı sahnede (lamba 300 cm, göz hizası 180 cm, Emre direğe 1,6 m uzaklıkta) Emre'nin göz hizası ile sokak lambasının tepesi arasındaki uzaklık kaç metredir? (3 puan)",
+   "correctAnswer": "CKE dik üçgeninde dik kenarlar $|KC|=120$ cm ve $|EK|=160$ cm. Pisagor: $120^2+160^2=y^2$ ⇒ $y=200$ cm $=2$ m.",
+   "keyPoints": [
+    "Dik kenarlar 120 ve 160 cm (1 puan)",
+    "Pisagor bağıntısı (1 puan)",
+    "$y=200$ cm $=2$ m (1 puan)"
+   ],
+   "maxPoints": 3,
+   "explanation": "Adım 1: Dik üçgenin dik kenarları: yükseklik farkı 300−180 = 120 cm ve yatay uzaklık 160 cm. Adım 2: Pisagor: 14400 + 25600 = 40000. Adım 3: Karekök 200 cm = 2 m. İpucu: 120-160-200, 3-4-5 üçgeninin 40 katıdır. Birimi metreye çevirmeyi unutma.",
+   "category": "Benzerlik, Pisagor ve Öklid",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aynı sahnede sokak lambasının tepesi ile saat kulesinin tepesi arasındaki uzaklık kaç metredir? (Önceki sonuçlardan: kule lambadan 28 m uzakta.) (2 puan)",
+   "correctAnswer": "ALE ve CKE benzerliğinden: $\\frac{200}{200+z}=\\frac{120}{2220}$ ⇒ $2(200+z)=37\\cdot200$ ⇒ $z=3500$ cm $=35$ m. (Kontrol: dik kenarlar 21 m ve 28 m ⇒ 35 m.)",
+   "keyPoints": [
+    "Benzerlikten oran kurmak (1 puan)",
+    "$z=35$ m (1 puan)"
+   ],
+   "maxPoints": 2,
+   "explanation": "Adım 1: Benzer üçgenlerde göz-lamba tepesi 200 cm, göz-kule tepesi $200+z$ cm; $\\frac{200}{200+z}=\\frac{120}{2220}$. Adım 2: Çözüm: $200+z=3700$, $z=3500$ cm = 35 m. Kontrol: lamba tepesi ile kule tepesi arasında yatay 28 m, düşey $24-3=21$ m ⇒ $\\sqrt{28^2+21^2}=35$ m (7·(4,3,5)).",
+   "category": "Benzerlik, Pisagor ve Öklid",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir doğal sayı, aralarında asal iki sayıya bölünebiliyorsa bu sayıların çarpımına da bölünür. Aşağıda bir doğal sayının 15 ile bölünüp bölünmediğini bulduran algoritma algoritmik doğal dille verilmiştir: 1. adım: Başla. 2. adım: Kullanıcıdan bir doğal sayı al. 3. adım: Rakamlar toplamının 3 ile bölümünden kalanı hesapla; kalan 0 ise sayı 3 ile tam bölünür, değilse bölünmez. 4. adım: Birler basamağındaki rakamın 5 ile bölümünden kalanı hesapla; kalan 0 ise sayı 5 ile tam bölünür, değilse bölünmez. 5. adım: 3. adımda VE 4. adımda kalan 0 ise \"Sayı, 15 ile tam bölünür.\" yaz. 3. adımda VEYA 4. adımda kalan 0 değilse \"Sayı, 15 ile tam bölünmez.\" yaz. 6. adım: Bitir. a) Algoritmada mantık bağlaçlarının kullanıldığı adımları yazıp algoritmanın işleyişindeki rollerini açıklayınız. (6 puan)",
+   "correctAnswer": "3. ve 4. adımlarda \"ise\" bağlacı kullanılmıştır; koşula bağlı karar verir (kalan 0 ise bölünür). 5. adımda \"ve\" bağlacı kullanılmıştır: 15 ile bölünebilmek için iki koşulun aynı anda sağlanması gerekir. 5. adımda ayrıca \"veya\" bağlacı kullanılmıştır: iki koşuldan en az biri sağlanmazsa (kalan 0 değilse) sayı 15 ile bölünmez.",
+   "keyPoints": [
+    "\"ise\" bağlacı ve koşullu karar rolü (2 puan)",
+    "\"ve\" bağlacı ve iki koşulun aynı anda gerekliliği (2 puan)",
+    "\"veya\" bağlacı ve en az birinin sağlanmaması durumunda bölünmeme (2 puan)"
+   ],
+   "maxPoints": 6,
+   "explanation": "Adım 1: Metni tara ve bağlaçları işaretle: 3, 4 ve 5. adım. Adım 2: Her bağlacın rolünü yaz: \"ise\" bir koşulu sonuca bağlar (kalan 0 ise ...). \"Ve\" iki önermenin birlikte doğru olmasını ister. \"Veya\" iki önermeden en az birinin (burada \"kalan 0 değil\" olmasının) yeterli olduğunu söyler. Adım 3: İki mesajın birbirinin tersi olduğunu belirt: \"bölünür\" için ∧, \"bölünmez\" için ∨ kullanılır (De Morgan benzeri). Rubrikte her bağlaç 2 puandır. Not: resmî çözümde \"veya\" için \"en az birinin gerçekleşmemesi gereken durumlar\" ifadesi kullanılır, yani koşulun sağlanmaması.",
+   "category": "Algoritma ve mantık bağlaçları",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Üç basamaklı bir doğal sayının (ABC) 15 ile bölünüp bölünmediğini bulduran akış şeması şöyledir: Başla → \"Üç basamaklı bir doğal sayı (ABC) gir\" → y ← A + B + C → k ← y % 3 → t ← C % 5 → karar: (k = 0) ⊻ (t = 0) → Evet: \"Sayı, 15 ile tam bölünür.\" / Hayır: \"Sayı, 15 ile tam bölünmez.\" → Bitir. (Okların yönü metinden okunamadığı için Evet dalının \"bölünür\" mesajına, Hayır dalının \"bölünmez\" mesajına gittiği varsayılmıştır; resmî çözümdeki 150 örneği bu okumayla uyumludur. ⊻ işareti \"ya da (yalnız biri doğru)\" demektir.) b) Algoritmanın düzgün çalışıp çalışmadığını test ediniz. (1 puan)",
+   "correctAnswer": "Algoritma düzgün çalışmamaktadır. Örneğin 150 için k = 0 ve t = 0 ikisi de doğru olduğu hâlde ⊻ sonucu yanlış olur ve \"bölünmez\" yazılır; 150 sayısı 15 ile bölünür.",
+   "keyPoints": [
+    "Algoritmanın düzgün çalışmadığını belirtmek",
+    "Bir örnekle testi göstermek"
+   ],
+   "maxPoints": 1,
+   "explanation": "Adım 1: Örnek seç: 150 (15\\'in katı). Adım 2: $y=1+5+0=6$, $k=0$ ✓; $t=0\\%5=0$ ✓. Adım 3: ⊻ ile iki doğru ⇒ yanlış ⇒ Hayır dalı ⇒ \"bölünmez\". Adım 4: Gerçekte 150 = 15·10; çelişki: algoritma yanlış. Rubrik 1 puandır: \"düzgün çalışmıyor\" cümlesi yeterlidir, ama kanıtı yazmak 2 puanlık sonraki alt soru için hazırlıktır. Başka bir hata örneği: 123 (k = 0 doğru, t = 3 yanlış ⇒ ⊻ doğru ⇒ \"bölünür\", oysa 123 sayısı 15\\'e bölünmez).",
+   "category": "Algoritma ve mantık bağlaçları",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aynı akış şemasında (karar: (k = 0) ⊻ (t = 0)) belirlediğiniz hata varsa yazınız ve bir örnek vererek ispatlayınız. (3 puan)",
+   "correctAnswer": "Hata: karar aşamasında ⊻ (\"ya da\", yalnız biri doğru) kullanılmıştır; doğrusu ∧ (ve) olmalıdır. Örnek: 150 sayısı 15\\'in katıdır. y = 1+5+0 = 6, k = 0 (doğru); C = 0 ⇒ t = 0 (doğru). ⊻ ile 1 ⊻ 1 = 0 ⇒ \"Hayır\" ⇒ \"150, 15 ile tam bölünmez\". Oysa 150 sayısı 15 ile tam bölünür; algoritma yanlış sonuç verir.",
+   "keyPoints": [
+    "Hatanın tespiti: yanlış bağlaç (∧ yerine ⊻/∨) (1 puan)",
+    "150 örneğiyle adım adım izleme",
+    "Algoritmanın verdiği yanlış sonuç: \"bölünmez\" (2 puan)"
+   ],
+   "maxPoints": 3,
+   "explanation": "Adım 1: Neden ⊻ yanlış? 15 ile bölünmek için hem 3 hem 5 ile bölünmek gerekir: ∧. Adım 2: Kanıt için tek bir karşı örnek yeter: 150. Adım 3: İzleme: y = 6, k = 0; t = 0; (1 ⊻ 1) = 0 ⇒ Hayır dalı ⇒ yanlış mesaj. Adım 4: Düzeltme: karar kutusunu (k = 0) ∧ (t = 0) yap. Resmî çözüm hatayı \"∨ yerine ∧ olmalı\" diye yazar; semantik olarak aynı düzeltme. Puan: hata tespiti 1, örnek izleme 2.",
+   "category": "Algoritma ve mantık bağlaçları",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Türkiye İstatistik Kurumu verilerine göre İç Anadolu Bölgesi'nin 2022-2023 tiyatro sezonu tablosu (İl: Tiyatro Salonu Sayısı, Oynanan Eser Sayısı, Seyirci Sayısı): Aksaray 2, 27, 14502; Ankara 68, 517, 680878; Çankırı 4, 5, 2113; Eskişehir 10, 60, 95985; Karaman 5, 31, 10043; Kayseri 10, 95, 50757; Kırıkkale 1, 35, 8219; Kırşehir 1, 18, 10150; Konya 11, 62, 180814; Nevşehir 3, 7, 4870; Niğde 1, 20, 6764; Sivas 4, 42, 61538; Yozgat 1, 1, 545. a) (Tiyatro Salonu Sayısı ≤ 5) ∧ (Oynanan Eser Sayısı > 20) ifadesini sözel olarak yazıp koşulu sağlayan illeri bulunuz. (2 puan)",
+   "correctAnswer": "Sözel: Tiyatro salonu sayısı beş veya beşten küçük olan ve oynanan eser sayısı yirmiden büyük olan iller. Koşulu sağlayan iller: Aksaray, Karaman, Kırıkkale ve Sivas.",
+   "keyPoints": [
+    "Sözel ifade (1 puan)",
+    "Aksaray, Karaman, Kırıkkale, Sivas (1 puan)"
+   ],
+   "maxPoints": 2,
+   "explanation": "Adım 1: ∧ ⇒ iki koşul da. Adım 2: Salon ≤ 5 olan iller: Aksaray (2), Çankırı (4), Karaman (5), Kırıkkale (1), Kırşehir (1), Nevşehir (3), Niğde (1), Sivas (4), Yozgat (1). Adım 3: Bunlardan eser > 20: Aksaray 27, Karaman 31, Kırıkkale 35, Sivas 42 (Niğde 20, Kırşehir 18 değil). Sonuç: 4 il.",
+   "category": "Veri sorgulama ve araştırma sorusu",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "İç Anadolu tiyatro tablosu (Aksaray 2-27-14502; Ankara 68-517-680878; Çankırı 4-5-2113; Eskişehir 10-60-95985; Karaman 5-31-10043; Kayseri 10-95-50757; Kırıkkale 1-35-8219; Kırşehir 1-18-10150; Konya 11-62-180814; Nevşehir 3-7-4870; Niğde 1-20-6764; Sivas 4-42-61538; Yozgat 1-1-545 (il: salon sayısı - oynanan eser - seyirci sayısı)) için (10000 ≤ Seyirci Sayısı ≤ 100000) ∨ (Oynanan Eser Sayısı ≤ 70) ifadesini sözel olarak yazıp koşulu sağlayan illeri bulunuz. (2 puan)",
+   "correctAnswer": "Sözel: Seyirci sayısı en az on bin, en çok yüz bin olan veya oynanan eser sayısı en fazla yetmiş olan iller. Sağlayanlar: Aksaray, Çankırı, Eskişehir, Karaman, Kayseri, Kırıkkale, Kırşehir, Konya, Nevşehir, Niğde, Sivas ve Yozgat (Ankara hariç tümü).",
+   "keyPoints": [
+    "Sözel ifade (1 puan)",
+    "12 ilin doğru listesi (1 puan)"
+   ],
+   "maxPoints": 2,
+   "explanation": "Adım 1: ∨ ⇒ en az biri yeterli. Adım 2: Ankara: seyirci 680878 (aralık dışı) ve eser 517 (>70) ⇒ sağlamaz. Adım 3: Diğer 12 ilin her biri en az bir koşulu sağlar (ör. Konya: eser 62 ≤ 70; Çankırı: eser 5 ≤ 70). Kolay yol: önce sağlamayanları bul, sonra tamamlayıcıyı yaz.",
+   "category": "Veri sorgulama ve araştırma sorusu",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "İç Anadolu tiyatro tablosu (Aksaray 2-27-14502; Ankara 68-517-680878; Çankırı 4-5-2113; Eskişehir 10-60-95985; Karaman 5-31-10043; Kayseri 10-95-50757; Kırıkkale 1-35-8219; Kırşehir 1-18-10150; Konya 11-62-180814; Nevşehir 3-7-4870; Niğde 1-20-6764; Sivas 4-42-61538; Yozgat 1-1-545 (il: salon sayısı - oynanan eser - seyirci sayısı)) için (Tiyatro Salonu Sayısı ≥ 4) ∧ (Seyirci Sayısı < 1000) ifadesini sözel olarak yazıp koşulu sağlayan illeri bulunuz. (2 puan)",
+   "correctAnswer": "Sözel: Tiyatro salonu sayısı dört veya dörtten büyük olan ve seyirci sayısı binden küçük olan iller. Koşulu sağlayan il yoktur (Seyirci < 1000 olan tek il Yozgat'tır ama salonu 1).",
+   "keyPoints": [
+    "Sözel ifade (1 puan)",
+    "\"Yoktur\" sonucu (1 puan)"
+   ],
+   "maxPoints": 2,
+   "explanation": "Adım 1: Seyirci < 1000 olan il: Yozgat (545). Adım 2: Yozgat'ın salon sayısı 1 < 4. Adım 3: ∧ sağlanmaz ⇒ küme boş. Cevap kutusunu boş bırakma: \"Yoktur\" yaz.",
+   "category": "Veri sorgulama ve araştırma sorusu",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "İç Anadolu tiyatro tablosu (Aksaray 2-27-14502; Ankara 68-517-680878; Çankırı 4-5-2113; Eskişehir 10-60-95985; Karaman 5-31-10043; Kayseri 10-95-50757; Kırıkkale 1-35-8219; Kırşehir 1-18-10150; Konya 11-62-180814; Nevşehir 3-7-4870; Niğde 1-20-6764; Sivas 4-42-61538; Yozgat 1-1-545 (il: salon sayısı - oynanan eser - seyirci sayısı)) için (Tiyatro Salonu Sayısı ≥ 10) ∨ (Seyirci Sayısı > 190000) ifadesini sözel olarak yazıp koşulu sağlayan illeri bulunuz. (2 puan)",
+   "correctAnswer": "Sözel: Tiyatro salonu sayısı on veya ondan büyük olan veya seyirci sayısı yüz doksan binden büyük olan iller. Sağlayanlar: Ankara, Eskişehir, Kayseri ve Konya.",
+   "keyPoints": [
+    "Sözel ifade (1 puan)",
+    "Ankara, Eskişehir, Kayseri, Konya (1 puan)"
+   ],
+   "maxPoints": 2,
+   "explanation": "Adım 1: Salon ≥ 10: Ankara 68, Eskişehir 10, Kayseri 10, Konya 11. Adım 2: Seyirci > 190000: Ankara (Konya 180814 değil). Adım 3: Birleşim: 4 il. \"≥\" olduğu için 10 dahil.",
+   "category": "Veri sorgulama ve araştırma sorusu",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki durumlarda ortaya çıkabilecek değişebilirlik türünü belirleyiniz (örneklemden, müdahaleden, doğal ortamdan veya ölçümden kaynaklı): (i) Bir şehirdeki eğitim seviyesini belirlemek için şehirden 1000 kişi seçilip eğitim seviyelerinin belirlenmesi. (ii) Pastacılık kursundaki on kişinin verilen bir tarifi kullanarak yaptığı pastaların kalitesinin belirlenmesi. (iii) Farklı bölgelerde ölçülen hava sıcaklığının domates verimliliğine etkisinin belirlenmesi. (iv) Su kalitesini belirlemek için yapılan pH ölçümlerinin farklı kimyagerler tarafından, farklı cihazlar kullanılarak yapılması. (4 puan)",
+   "correctAnswer": "(i) Örneklemden kaynaklı. (ii) Müdahaleden kaynaklı. (iii) Doğal ortamdan kaynaklı. (iv) Ölçümden kaynaklı.",
+   "keyPoints": [
+    "(i) örneklemden kaynaklı (1 puan)",
+    "(ii) müdahaleden kaynaklı (1 puan)",
+    "(iii) doğal ortamdan kaynaklı (1 puan)",
+    "(iv) ölçümden kaynaklı (1 puan)"
+   ],
+   "maxPoints": 4,
+   "explanation": "Adım 1: Her durumda \"farklılığı ne doğuruyor?\" sorusunu sor. (i) Şehirden seçilen 1000 kişi evrenin yalnız bir kısmıdır ⇒ örneklem. (ii) Herkes aynı tarifi uyguluyor ama farklı eller ⇒ müdahale (uygulama farkı). (iii) Bölgelerin doğal koşulları farklı ⇒ doğal ortam. (iv) Farklı kişi ve cihaz ⇒ ölçüm. Her satır 1 puan. Ayırt edici ipuçları: \"seçilen kişi\", \"aynı işlemi yapan\", \"doğal koşullar\", \"farklı cihaz/ölçen\".",
+   "category": "Değişebilirlik ve istatistik",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "\"60 yaş üstü bireylerin sosyal medya kullanım süreleri dakika cinsinden nasıl bir eğilim gösterir?\" sorusunun nicel veri toplamayı gerektiren istatistiksel araştırma sorusu ölçütlerinden (amaç açık/betimleme veya karşılaştırma; araştırmaya değer; evren açık; değişken açık; veri toplanarak cevaplanabilir; değişebilirliği yansıtır; odaklanılan grup araştırmaya imkân verir; nicel veri gerektirir) hangilerini sağladığını belirleyiniz. (4 puan)",
+   "correctAnswer": "Sekiz ölçütün tümü için \"Evet\": amaç açık ve betimlemeye yönelik; araştırmaya değer; evren (60 yaş üstü bireyler) açık; değişken (sosyal medya kullanım süresi, dakika) açık; veri toplanarak cevaplanabilir; kişiden kişiye süre farklı olduğundan değişebilirliği yansıtır; odaklanılan grup araştırmaya imkân verir; dakika cinsinden nicel veri gerektirir.",
+   "keyPoints": [
+    "Sekiz ölçütün tamamında \"Evet\" işaretlemek (her ölçüt 0,5 puan)",
+    "Evren ve değişkeni açıkça belirtmek",
+    "Nicel veri (dakika) gerekçesi"
+   ],
+   "maxPoints": 4,
+   "explanation": "Adım 1: Sorudaki evreni bul: 60 yaş üstü bireyler. Adım 2: Değişkeni bul: sosyal medya kullanım süresi (dakika). Adım 3: Her ölçütü sırayla sına. \"Eğilim\" sözcüğü betimlemeye işaret eder; \"dakika\" nicel veriyi garanti eder. Adım 4: Tüm ölçütler sağlandığı için sekiz Evet. Rubrik her ölçüte 0,5 puan verir (8×0,5 = 4).",
+   "category": "Değişebilirlik ve istatistik",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir alışveriş merkezinde \"Sıfır Atık Projesi\" kapsamında mayıs ayında toplanan günlük pil sayıları: 4, 5, 6, 6, 7, 7, 7, 8, 8, 9, 9, 9, 10, 10, 10, 10, 11, 11, 12, 12, 12, 12, 12, 13, 13, 13, 14, 15, 15, 17, 50. Toplanan pil sayılarına ait kutu grafiğini çizmek için gereken değerleri bulup grafiğin nasıl çizileceğini yazınız. (7 puan)",
+   "correctAnswer": "31 veri. En küçük = 4; en büyük = 50; ortanca (16. değer) = 10; alt çeyrek (alt 15 verinin ortancası, 8. değer) = 8; üst çeyrek (üst 15 verinin ortancası, 24. değer) = 13. Kutu grafiği: sayı doğrusunda 4, 8, 10, 13, 50 işaretlenir; 8 ile 13 arasına kutu çizilir, kutu içinde 10'da dikey çizgi; kutudan 4'e ve 50'ye birer kol uzatılır.",
+   "keyPoints": [
+    "Veri sayısını ve sıralamayı doğrulamak (1 puan)",
+    "En küçük 4 (1 puan)",
+    "En büyük 50 (1 puan)",
+    "Ortanca 10 (1 puan)",
+    "Alt çeyrek 8 (1 puan)",
+    "Üst çeyrek 13 (1 puan)",
+    "Kutu grafiğinin doğru çizimi (2 puan)"
+   ],
+   "maxPoints": 8,
+   "explanation": "Adım 1: Veri zaten sıralı, 31 tane. Adım 2: Ortanca 16. değer: 10. Adım 3: Ortancanın solundaki 15 veri (4 ... 10) için ortanca 8. değer = 8. Adım 4: Sağdaki 15 veri (11 ... 50) için ortanca 8. değer = 13 (listede 24. değer). Adım 5: Beş sayı özeti 4–8–10–13–50. Adım 6: Çizim: ölçekli sayı doğrusu, kutu [8,13], ortanca çizgisi 10, kollar 4 ve 50. Resmî çözüm kutu grafiğini uç değerlerle (4 ve 50) çizer; 50 görece uzak (aykırı) bir değerdir. Puan dağılımı: değerler 1+1+1+1+1+1 ve çizim 2 (toplam 8; yazılı puan tablosu 8). ",
+   "category": "Kutu grafiği ve histogram",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir teknoloji şirketinde çalışan 25 kişinin ortalama günlük ekran süreleri (saat): 5, 5,2, 5,5, 5,7, 6, 6,2, 6,3, 6,5, 6,7, 6,8, 7, 7,1, 7,3, 7,5, 7,6, 7,8, 8, 8,3, 8,5, 8,7, 9, 9,2, 9,5, 15, 16. a) Çalışma sürelerinin 1 saatlik zaman aralıklarında nasıl yoğunlaştığını gösteren histogramın grup aralıklarını ve kişi sayılarını yazınız. (2 puan)",
+   "correctAnswer": "[5,6): 4; [6,7): 6; [7,8): 6; [8,9): 4; [9,10): 3; [15,16): 1; [16,17): 1 (toplam 25). Histogram bu frekansları sütunlarla gösterir; [10,15) arası boştur.",
+   "keyPoints": [
+    "Gruplamanın doğruluğu (1 puan)",
+    "Histogramın yatay/dikey eksen ve sütunlarla çizimi (1 puan)"
+   ],
+   "maxPoints": 2,
+   "explanation": "Adım 1: Verileri [5,6), [6,7)... aralıklarına dağıt: 5, 5,2, 5,5, 5,7 → 4; 6 ... 6,8 → 6; 7 ... 7,8 → 6; 8 ... 8,7 → 4; 9, 9,2, 9,5 → 3; 15 → 1; 16 → 1. Adım 2: Toplam 4+6+6+4+3+1+1 = 25 ✓. Adım 3: Sütunları çiz; 15 ve 16 uzak değerlerdir. Not: resmî çözüm tablosunda [9,10) için 4 yazılmıştır, ancak verideki değerler 9, 9,2 ve 9,5 olmak üzere 3 tanedir (toplam 25 ile uyumlu olan değer 3 olduğundan burada 3 alınmıştır).",
+   "category": "Kutu grafiği ve histogram",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Ekran süresi verisi (25 çalışan, saat: 5, 5,2, 5,5, 5,7, 6, 6,2, 6,3, 6,5, 6,7, 6,8, 7, 7,1, 7,3, 7,5, 7,6, 7,8, 8, 8,3, 8,5, 8,7, 9, 9,2, 9,5, 15, 16) için çalışma sürelerine ait veri dağılımı saat cinsinden nasıl bir eğilim göstermektedir? Aritmetik ortalama ve ortanca değerlerini hesaplayıp aykırı değerleri de dikkate alarak yorumlayınız. (3 puan)",
+   "correctAnswer": "Toplam $=196{,}4$; ortalama $=196{,}4\\div25=7{,}856$. 15 ve 16 aykırı değerlerdir. Bunlar çıkarılırsa ortalama $165{,}4\\div23\\approx7{,}19$, ortanca 7,3'ten 7,1'e iner. Ortanca aykırı değerlerden daha az etkilendiği için eğilim ortanca ile verilmelidir: çalışma sürelerinin merkezi yaklaşık 7,3 saattir.",
+   "keyPoints": [
+    "Ortalama $7{,}856$ (1 puan)",
+    "Aykırı değerleri belirleyip ölçülerin değişimini karşılaştırmak (1 puan)",
+    "Ortancanın daha uygun olduğu yorumu: 7,3 saat (1 puan)"
+   ],
+   "maxPoints": 3,
+   "explanation": "Adım 1: Topla (196,4) ve 25'e böl. Adım 2: 15 ve 16 diğerlerinden çok uzak ⇒ aykırı. Adım 3: Aykırı değersiz ortalama 7,19 (yaklaşık 0,67 düşüş), ortanca 7,3 → 7,1 (0,2 düşüş). Adım 4: Ortanca daha az etkilendi ⇒ merkez için ortanca (7,3 saat) tercih edilir. Rubrik (1+2): ortalama 1 puan, yorum 2 puan.",
+   "category": "Kutu grafiği ve histogram",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Ekran süresi verisinde (25 çalışan, saat: 5, 5,2, 5,5, 5,7, 6, 6,2, 6,3, 6,5, 6,7, 6,8, 7, 7,1, 7,3, 7,5, 7,6, 7,8, 8, 8,3, 8,5, 8,7, 9, 9,2, 9,5, 15, 16) çalışanların sürelerine ait veri dağılımının merkezine yığılan saatler hangi aralıklarda yoğunlaşmaktadır? Kutu grafiğini çiziniz (beş sayı özeti ile) ve yorumlayınız. (8 puan)",
+   "correctAnswer": "En küçük 5; Ç1 $=\\frac{6{,}2+6{,}3}{2}=6{,}25$; ortanca 7,3; Ç3 $=\\frac{8{,}5+8{,}7}{2}=8{,}6$; en büyük 16. Ç1-Ç3 arasında 13 çalışan (%52) bulunur. Merkeze yığılan saatler 6,25 ile 8,6 arasındadır.",
+   "keyPoints": [
+    "En küçük 5 (1 puan)",
+    "Alt çeyrek 6,25 (1 puan)",
+    "Ortanca 7,3 (1 puan)",
+    "Üst çeyrek 8,6 (1 puan)",
+    "En büyük 16 (1 puan)",
+    "Kutu grafiğinin çizimi (1 puan)",
+    "Yoğunlaşma yorumu: %52, 6,25-8,6 aralığı (2 puan)"
+   ],
+   "maxPoints": 8,
+   "explanation": "Adım 1: 25 veri, ortanca 13. değer 7,3. Adım 2: Alt yarı 12 veri (5 ... 6,8 ... 7,1): 6. ve 7. değerler 6,2 ve 6,3 ⇒ Ç1 = 6,25. Adım 3: Üst yarı 12 veri (7,5 ... 16): 6. ve 7. değerler 8,5 ve 8,7 ⇒ Ç3 = 8,6. Adım 4: Kutu 6,25-8,6 arasında, 7,3 çizgisi. Adım 5: Bu aralıkta (6,3 ... 8,5) 13 kişi vardır ⇒ %52. Rubrik: beş değer 1+1+1+1+1, çizim 1, yorum 2 (toplam 8).",
+   "category": "Kutu grafiği ve histogram",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Şirketin yeni sağlık politikasına göre ortalama ekran süresi en fazla 8 saat olmalıdır. Ekran süresi verisine (5, 5,2, 5,5, 5,7, 6, 6,2, 6,3, 6,5, 6,7, 6,8, 7, 7,1, 7,3, 7,5, 7,6, 7,8, 8, 8,3, 8,5, 8,7, 9, 9,2, 9,5, 15, 16) göre mevcut ortalama bu sınırı geçiyor mu? (1 puan)",
+   "correctAnswer": "Ortalama 7,856 saattir; 8 saatten küçük olduğu için sınır aşılmaz, çalışanların ekran süreleri sınırın altında kalır.",
+   "keyPoints": [
+    "Ortalama 7,856 ile 8'in karşılaştırılması ve sonuç"
+   ],
+   "maxPoints": 1,
+   "explanation": "Adım 1: Politika ortalama üzerine kurulmuş. Adım 2: 7,856 < 8. Adım 3: Cümleyle: \"geçmiyor\". Not: bireysel olarak 15 ve 16 saat gibi uç değerler sağlık açısından sorun olabilir, ama soru ortalamayı sorar.",
+   "category": "Kutu grafiği ve histogram",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Cemil kaleye çektiği 100 şutun tamamını 70, 80 ve 90 puanlık kartlara isabet ettirmiştir (iki adet 90, iki adet 80, bir adet 70 puanlık kart vardır). İsabet edilen puana göre isabetli atış sayıları: 70 puan: 35; 80 puan: 40; 90 puan: 25. a) Puanların sıklık değerlerine ait sütun grafiğini nasıl çizersiniz? (3 puan)",
+   "correctAnswer": "Yatay eksen \"isabet edilen puan\" (70, 80, 90), dikey eksen \"isabetli atış sayısı\" (0-50). Sütun yükseklikleri: 70 → 35, 80 → 40, 90 → 25. Eksenler adlandırılır, sütunlar aynı genişlikte ve aralıklı çizilir.",
+   "keyPoints": [
+    "Eksenlerin adları ve ölçeği (1 puan)",
+    "Üç sütunun doğru yükseklikleri 35, 40, 25 (1 puan)",
+    "Düzgün sütun çizimi (1 puan)"
+   ],
+   "maxPoints": 3,
+   "explanation": "Adım 1: Kategorik eksen: puanlar. Adım 2: Dikey eksen 0'dan 40-50'ye ölçeklenir. Adım 3: Her puana frekansı kadar yüksek bir sütun. Adım 4: Toplam 35+40+25 = 100 ile kontrol et.",
+   "category": "Kutu grafiği ve histogram",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Cemil'in atış sayısı artırılınca 90 puanlı kartlara isabet eden atış sayıları: 500 isabetli atışta 194; 1000 isabetli atışta 396; 2000 isabetli atışta 810. Bu üç duruma göre 90 puanlı kartlara isabet etme olaylarının göreli sıklık (deneysel olasılık) değerlerini hesaplayınız. (3 puan)",
+   "correctAnswer": "$\\frac{194}{500}=0{,}388$; $\\frac{396}{1000}=0{,}396$; $\\frac{810}{2000}=0{,}405$.",
+   "keyPoints": [
+    "0,388 (1 puan)",
+    "0,396 (1 puan)",
+    "0,405 (1 puan)"
+   ],
+   "maxPoints": 3,
+   "explanation": "Adım 1: Göreli sıklık = 90 puanlı isabet ÷ toplam isabetli atış. Adım 2: 194÷500 = 0,388; 396÷1000 = 0,396; 810÷2000 = 0,405. Adım 3: Oranlar birbirine yakın ve 0,4 civarında.",
+   "category": "Olasılık",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Atış tekrar sayısı yeteri kadar artırıldığında 90 puanlı karta isabet etme olayının deneysel olasılık değeri hangi değere yaklaşır? 100, 500, 1000 ve 2000 atışlık göreli sıklıkları yorumlayarak belirleyiniz (100 atışta 25 isabet vardı). (5 puan)",
+   "correctAnswer": "100 atışta $\\frac{25}{100}=0{,}25$; 500'de 0,388; 1000'de 0,396; 2000'de 0,405. Tekrar sayısı arttıkça deneysel olasılık 0,4'e yaklaşır (beş karttan iki tanesi 90 puanlı olduğundan $\\frac25=0{,}4$).",
+   "keyPoints": [
+    "0,25 (1 puan)",
+    "0,388 (1 puan)",
+    "0,396 (1 puan)",
+    "0,405 (1 puan)",
+    "Sonuç: 0,4'e yaklaşır (1 puan)"
+   ],
+   "maxPoints": 5,
+   "explanation": "Adım 1: Dört deneme için oranları hesapla. Adım 2: Küçük örneklemde (100) sapma büyük; örneklem büyüdükçe oranlar 0,4 civarında toplanır. Adım 3: Kuramsal beklenti: beş karttan ikisi 90 ⇒ 2/5 = 0,4. Adım 4: Sonuç cümlesini yaz. Rubrik her oran 1 puan + sonuç 1 puan.",
+   "category": "Olasılık",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "6 eşit parçaya ayrılmış ve parçalarında sırasıyla 1'den 6'ya kadar sayılar yazılı bir çark ile \"−8, −5, −3, 0, 2 ve 7\" yazan, renkleri dışında özdeş 6 topun bulunduğu bir torba vardır. a) Çark bir kez çevrilip torbadan bir top çekildiğinde deneyin tüm çıktılarını tabloyla gösteriniz. (3 puan)",
+   "correctAnswer": "Satırlar çark (1-6), sütunlar torba (−8, −5, −3, 0, 2, 7); 36 çıktı: (1,−8), (1,−5), ..., (6,7).",
+   "keyPoints": [
+    "6 satır × 6 sütun düzeni",
+    "Tüm 36 ikilinin yazılması",
+    "Her hücrenin (çark sayısı, top sayısı) biçiminde olması"
+   ],
+   "maxPoints": 3,
+   "explanation": "Adım 1: Çarkın 6 sonucu satırlara, torbanın 6 topu sütunlara. Adım 2: Çarpma ilkesi: 6·6 = 36. Adım 3: Her hücreyi (çark, top) olarak doldur. Adım 4: Sayıyı kontrol et. Örnek ilk satır: (1,−8), (1,−5), (1,−3), (1,0), (1,2), (1,7).",
+   "category": "Olasılık",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aynı deneyde (çark 1-6, torba −8, −5, −3, 0, 2, 7) çarkın gösterdiği sayının asal olması veya torbadan çekilen topun negatif sayı olması olayı A olsun. A olayını oluşturan olayları B ve C olarak yazınız. (3 puan)",
+   "correctAnswer": "B: çarkta asal sayı gelmesi, $B=\\{2,3,5\\}$. C: torbadan negatif sayı çekilmesi, $C=\\{-8,-5,-3\\}$. $A=B\\cup C=\\{-8,-5,-3,2,3,5\\}$.",
+   "keyPoints": [
+    "B = {2, 3, 5} (1 puan)",
+    "C = {−8, −5, −3} (1 puan)",
+    "A = B ∪ C (1 puan)"
+   ],
+   "maxPoints": 3,
+   "explanation": "Adım 1: 1-6 arasında asallar: 2, 3, 5 (1 asal değildir). Adım 2: Torbada negatifler: −8, −5, −3. Adım 3: \"veya\" birleşimdir: A = B ∪ C. Hata: 1'i asal saymak.",
+   "category": "Olasılık",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Çark bir kez çevrildiğinde ibrenin gösterdiği sayının çift sayı olması VEYA torbadan art arda iki top çekildiğinde (iadesiz) topların üzerindeki sayıların çarpımının pozitif olması olayının olasılığını hesaplayınız. (5 puan)",
+   "correctAnswer": "$P(A)=\\frac36=\\frac12$ (çark çift). Çarpım pozitif: iki negatif $\\frac36\\cdot\\frac25=\\frac15$ veya iki pozitif $\\frac26\\cdot\\frac15=\\frac1{15}$; $P(B)=\\frac{6}{30}+\\frac{2}{30}=\\frac{4}{15}$. Bağımsız: $P(A\\cap B)=\\frac12\\cdot\\frac4{15}=\\frac2{15}$. $P(A\\cup B)=\\frac12+\\frac4{15}-\\frac2{15}=\\frac{19}{30}$.",
+   "keyPoints": [
+    "$P(A)=\\frac12$ (1 puan)",
+    "$P(B)=\\frac4{15}$ (1 puan)",
+    "$P(A\\cap B)=\\frac2{15}$ (1 puan)",
+    "$P(A\\cup B)=\\frac{19}{30}$ (2 puan)"
+   ],
+   "maxPoints": 5,
+   "explanation": "Adım 1: Çark çift: 2, 4, 6 ⇒ 3/6. Adım 2: Torba: 3 negatif, 2 pozitif, 1 sıfır. Çarpım pozitif ⇒ iki negatif ya da iki pozitif (sıfırlı çarpım 0, pozitif değil). Adım 3: İadesiz: ilk negatif 3/6 sonra negatif 2/5; ilk pozitif 2/6 sonra pozitif 1/5. Toplam 6/30 + 2/30 = 8/30 = 4/15. Adım 4: İki deney bağımsız ⇒ kesişim çarpım. Adım 5: Birleşim formülü: 15/30 + 8/30 − 4/30 = 19/30. Rubrik: 1+1+1+2.",
+   "category": "Olasılık",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir göz hizası 150 cm olan kişinin, 300 cm boyunda bir lamba direği ve 18 m boyunda bir kulenin tepe noktaları ile gözü aynı doğrultudadır. Kişi direğe 2 m uzaklıktadır. a) Kulenin lambaya uzaklığı kaç metredir? b) Göz hizası ile lamba tepesi arası kaç metredir? c) Lamba tepesi ile kule tepesi arası kaç metredir? (10 puan)",
+   "correctAnswer": "Yükseklik farkları: lamba 150 cm = 1,5 m; kule $18-1{,}5=16{,}5$ m. a) $\\frac{2}{2+x}=\\frac{1{,}5}{16{,}5}\\Rightarrow2+x=22\\Rightarrow x=20$ m. b) $\\sqrt{2^2+1{,}5^2}=2{,}5$ m. c) Yatay 20 m, düşey $18-3=15$ m ⇒ $\\sqrt{20^2+15^2}=25$ m.",
+   "keyPoints": [
+    "Yükseklik farkları 1,5 ve 16,5 m",
+    "Benzerlikle $x=20$ m",
+    "Pisagor ile 2,5 m",
+    "Pisagor ile 25 m"
+   ],
+   "maxPoints": 10,
+   "explanation": "Adım 1: Göz hizası 1,5 m; lamba 3 m ⇒ fark 1,5 m; kule 18 m ⇒ fark 16,5 m. Adım 2: AA benzerliği: $\\frac{2}{2+x}=\\frac{1{,}5}{16{,}5}=\\frac{1}{11}$ ⇒ $2+x=22$, $x=20$. Adım 3: 1,5-2-2,5 üçgeni 3-4-5 ailesindendir (0,5 katı). Adım 4: Lamba tepesi ile kule tepesi: 20 m ve 15 m dik kenarlar ⇒ 5·(4,3,5) ⇒ 25 m. Dosyadaki saat kulesi sorusunun aynı yapısıdır.",
+   "category": "Benzer soru: Benzerlik, Pisagor ve Öklid",
+   "difficulty": "hard"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Dik kenarları 21 m ve 28 m olan bir dik üçgenin hipotenüsü kaç metredir?",
+   "options": [
+    "35",
+    "49",
+    "$\\sqrt{1225}\\approx 30$",
+    "25"
+   ],
+   "correct": 0,
+   "explanation": "21-28-35, 3-4-5 üçgeninin 7 katıdır: $21^2+28^2=441+784=1225=35^2$. 49 kenarların toplamı olduğu için hatalıdır; 25 ise yanlış üçlüdür.",
+   "category": "Benzer soru: Benzerlik, Pisagor ve Öklid",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Dik üçgende hipotenüse indirilen yükseklik hipotenüsü 3 ve 12 uzunluğunda iki parçaya ayırıyor. Yükseklik ile dik kenarların uzunluklarını Öklid teoremleriyle bulup Pisagor ile kontrol ediniz. (7 puan)",
+   "correctAnswer": "$h^2=3\\cdot12=36\\Rightarrow h=6$. Hipotenüs $=15$. Dik kenarlar: $c_1^2=3\\cdot15=45\\Rightarrow c_1=3\\sqrt5$; $c_2^2=12\\cdot15=180\\Rightarrow c_2=6\\sqrt5$. Kontrol: $45+180=225=15^2$.",
+   "keyPoints": [
+    "$h=6$",
+    "Hipotenüs 15",
+    "$3\\sqrt5$ ve $6\\sqrt5$",
+    "Pisagor kontrolü"
+   ],
+   "maxPoints": 7,
+   "explanation": "Adım 1: Yükseklik teoremi. Adım 2: Hipotenüs parçaların toplamı. Adım 3: Dik kenar karesi = izdüşüm × hipotenüs. Adım 4: Kontrol Pisagor. Alan kontrolü: $\\frac12\\cdot3\\sqrt5\\cdot6\\sqrt5=45=\\frac12\\cdot15\\cdot6$ ✓.",
+   "category": "Benzer soru: Benzerlik, Pisagor ve Öklid",
+   "difficulty": "hard"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Dik üçgende hipotenüse indirilen yükseklik hipotenüsü $m$ ve $n$ parçalarına ayırıyorsa yüksekliğin karesi hangisine eşittir?",
+   "options": [
+    "$m+n$",
+    "$m\\cdot n$",
+    "$m^2+n^2$",
+    "$(m+n)^2$"
+   ],
+   "correct": 1,
+   "explanation": "Yükseklik teoremi: $h^2=m\\cdot n$. Yani kenarı $h$ olan karenin alanı, kenarları $m$ ve $n$ olan dikdörtgenin alanına eşittir.",
+   "category": "Benzer soru: Benzerlik, Pisagor ve Öklid",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir çubuğun boyu 2 m ve gölgesi 3 m iken aynı anda bir ağacın gölgesi 24 m ölçülüyor. Ağacın boyunu bulunuz ve benzerliği gerekçelendiriniz. (4 puan)",
+   "correctAnswer": "Güneş ışınları paralel ve cisimler yere dik ⇒ AA benzerlik. $\\frac23=\\frac{h}{24}\\Rightarrow h=16$ m.",
+   "keyPoints": [
+    "AA gerekçesi",
+    "Oran",
+    "h = 16 m"
+   ],
+   "maxPoints": 4,
+   "explanation": "Adım 1: İki dik üçgen ortak açıya sahip. Adım 2: Boy/gölge sabit: 2/3. Adım 3: $h=24\\cdot\\frac23=16$.",
+   "category": "Benzer soru: Benzerlik, Pisagor ve Öklid",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "5 m uzunluğundaki bir merdiven duvara dayanıyor; alt ucu duvardan 3 m uzaklıkta. Merdivenin duvarda ulaştığı yükseklik kaç metredir? Kullandığınız üçlüyü belirtiniz. (3 puan)",
+   "correctAnswer": "Merdiven hipotenüs: $c=5$, bir dik kenar 3 ⇒ diğer 4: 3-4-5 üçgeni. Yükseklik 4 m.",
+   "keyPoints": [
+    "Dik üçgen modeli",
+    "3-4-5 üçlüsü",
+    "4 m"
+   ],
+   "maxPoints": 3,
+   "explanation": "Adım 1: Duvar yere diktir ⇒ dik üçgen. Adım 2: $5^2-3^2=16$. Adım 3: 4 m.",
+   "category": "Benzer soru: Benzerlik, Pisagor ve Öklid",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "28-21-35 üçgeninin kenarları bir dik üçgen oluşturur.",
+   "correct": true,
+   "explanation": "$28^2+21^2=784+441=1225=35^2$; 4-3-5 üçgeninin 7 katıdır.",
+   "category": "Benzer soru: Benzerlik, Pisagor ve Öklid",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Köşeleri A, B, C, D olan bir çizgenin ayrıtları AB, BC, CD, DA ve AC'dir (kare ve bir köşegen). Her düğümün derecesini yazıp çizgenin kalem kaldırmadan çizilip çizilemeyeceğini; çizilebiliyorsa nereden başlayıp nerede biteceğini belirtiniz. (6 puan)",
+   "correctAnswer": "Dereceler: A: 3 (AB, DA, AC); B: 2; C: 3 (BC, CD, AC); D: 2. Tek düğüm: A ve C (iki tane). Çizilebilir; A'dan başlanıp C'de bitirilir (ör. A-B-C-D-A-C).",
+   "keyPoints": [
+    "Derecelerin doğru sayımı",
+    "Tek düğüm sayısı 2",
+    "Çizilebilirlik ve başlangıç/bitiş",
+    "Örnek yol"
+   ],
+   "maxPoints": 6,
+   "explanation": "Adım 1: Her düğümün ayrıtlarını say. Adım 2: Tek derecelileri bul: A, C. Adım 3: Kural: tam iki tek düğüm ⇒ çizilir, birinden başlanır, diğerinde bitilir. Adım 4: Yol: AB, BC, CD, DA, AC (5 ayrıt, hepsi bir kez). Kontrol: derece toplamı 3+2+3+2 = 10 = 2·5 ✓.",
+   "category": "Benzer soru: Çizge kuramı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Köşeleri A, B, C, D olan bir çizgede AB, AC, AD, BC, BD, CD ayrıtlarının hepsi vardır (tam çizge K4). Çizge kalem kaldırmadan çizilebilir mi? Dereceleri kullanarak açıklayınız. (4 puan)",
+   "correctAnswer": "Her düğümün derecesi 3 (tek). Dört tek düğüm var, ikiden fazla olduğundan kalem kaldırmadan çizilemez.",
+   "keyPoints": [
+    "Dereceler 3,3,3,3",
+    "Tek düğüm sayısı 4 > 2",
+    "Çizilemez sonucu"
+   ],
+   "maxPoints": 4,
+   "explanation": "Adım 1: Her düğüm diğer üçüne bağlı ⇒ derece 3. Adım 2: 4 tek düğüm. Adım 3: Kural: ikiden fazla tek düğüm ⇒ çizilemez. Kontrol: derece toplamı 12 = 2·6 ✓.",
+   "category": "Benzer soru: Çizge kuramı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "5 düğümlü ve her iki düğüm arasında bir ayrıt bulunan çizgede (K5) her düğümün derecesini ve ayrıt sayısını bulunuz; çizge kalem kaldırmadan başlangıç noktasına dönecek biçimde çizilebilir mi? (5 puan)",
+   "correctAnswer": "Her düğüm diğer 4 düğüme bağlı ⇒ derece 4. Ayrıt sayısı $5\\cdot4/2=10$. Tüm düğümler çift derecelidir ⇒ kalem kaldırmadan, başlangıç noktasına dönülerek çizilebilir.",
+   "keyPoints": [
+    "Derece 4",
+    "Ayrıt sayısı 10",
+    "Tümü çift ⇒ çizilir, başlangıca dönülür"
+   ],
+   "maxPoints": 5,
+   "explanation": "Adım 1: Derece = 4. Adım 2: Derece toplamı 5·4 = 20 ⇒ ayrıt 20/2 = 10. Adım 3: Tüm dereceler çift ⇒ kapalı çizim.",
+   "category": "Benzer soru: Çizge kuramı",
+   "difficulty": "hard"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Bir çizgede 5 düğüm ve 8 ayrıt vardır. Düğümlerin derecelerinin toplamı kaçtır?",
+   "options": [
+    "8",
+    "13",
+    "16",
+    "40"
+   ],
+   "correct": 2,
+   "explanation": "Her ayrıt iki düğümün derecesine katkı yapar: derece toplamı $2\\cdot8=16$.",
+   "category": "Benzer soru: Çizge kuramı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Bir çizgede tek dereceli düğümlerin sayısı her zaman çifttir.",
+   "correct": true,
+   "explanation": "Derece toplamı ayrıt sayısının iki katı olduğu için çifttir; çift sayı ancak çift sayıda tek terimin toplamı ile elde edilir.",
+   "category": "Benzer soru: Çizge kuramı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Köşeleri A, B, C, D olan bir çizgede ayrıtlar AB, BC, CA ve CD'dir (üçgen ve bir kuyruk). Dereceleri bulup çizilebilirlik kuralıyla çizip çizilemeyeceğini ve varsa başlangıç-bitiş düğümlerini yazınız. (5 puan)",
+   "correctAnswer": "Dereceler: A: 2; B: 2; C: 3 (BC, CA, CD); D: 1. Tek düğümler C ve D. Çizilebilir; D'den başlanıp C'de bitilir (D-C-A-B-C).",
+   "keyPoints": [
+    "Dereceler",
+    "İki tek düğüm: C, D",
+    "Başlangıç D, bitiş C"
+   ],
+   "maxPoints": 5,
+   "explanation": "Adım 1: Dereceleri say. Adım 2: Tek düğümler C ve D. Adım 3: Birinden başla (D). Adım 4: Yol DC, CA, AB, BC: dört ayrıt ✓ (toplam 4 ayrıt).",
+   "category": "Benzer soru: Çizge kuramı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir doğal sayının 6 ile bölünüp bölünmediğini bulduran bir algoritmayı algoritmik doğal dille yazınız (2 ile bölünme: birler basamağı çift; 3 ile bölünme: rakamlar toplamı 3'ün katı). Mantık bağlaçlarının rollerini belirtiniz. (6 puan)",
+   "correctAnswer": "1. Başla. 2. Bir doğal sayı al. 3. Birler basamağının 2'ye bölümünden kalanı hesapla; 0 ise 2 ile bölünür. 4. Rakamlar toplamının 3'e bölümünden kalanı hesapla; 0 ise 3 ile bölünür. 5. 3. ve 4. adımda kalanlar 0 ise \"Sayı 6 ile tam bölünür.\" yaz; 3. veya 4. adımda kalan 0 değilse \"Sayı 6 ile tam bölünmez.\" yaz. 6. Bitir. \"Ise\" koşullu karar verir; \"ve\" iki koşulun birlikte gerekliliğini; \"veya\" birinin sağlanmamasının yeterli olduğunu gösterir. 2 ve 3 aralarında asal olduğundan çarpımları 6 için yeterlidir.",
+   "keyPoints": [
+    "Girdi, iki test adımı",
+    "\"ise\" rolü",
+    "\"ve\" rolü",
+    "\"veya\" rolü",
+    "Aralarında asal gerekçesi"
+   ],
+   "maxPoints": 6,
+   "explanation": "Adım 1: 6 = 2·3 ve 2, 3 aralarında asal. Adım 2: İki ayrı test. Adım 3: Karar adımında \"ve\" kullan. Adım 4: Bölünmeme mesajı için \"veya\". Aralarında asal olmayan çiftlerde (ör. 4·6) bu yöntem yanlıştır (12 sayısı hem 4'e hem 6'ya bölünür ama 24'e bölünmez).",
+   "category": "Benzer soru: Algoritma ve mantık bağlaçları",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir algoritmanın karar aşamasında 6 ile bölünebilmek için (k = 0) ⊻ (t = 0) kullanılmıştır (k: rakamlar toplamının 3'e bölümünden kalan, t: birler basamağının 2'ye bölümünden kalan). 12 ve 8 sayılarıyla test ederek hatayı kanıtlayınız ve düzeltiniz. (6 puan)",
+   "correctAnswer": "12: rakamlar toplamı 3 ⇒ k = 0 ✓; birler 2 ⇒ t = 0 ✓; (1 ⊻ 1) = 0 ⇒ \"bölünmez\" (HATA, 12 sayısı 6 ile bölünür). 8: toplam 8, k = 2 ✗; birler 8 ⇒ t = 0 ✓; (0 ⊻ 1) = 1 ⇒ \"bölünür\" (HATA, 8 sayısı 6 ile bölünmez). Düzeltme: (k = 0) ∧ (t = 0).",
+   "keyPoints": [
+    "12 örneği ve hata",
+    "8 örneği ve hata",
+    "Düzeltme ∧"
+   ],
+   "maxPoints": 6,
+   "explanation": "Adım 1: 12'yi izle: iki koşul da doğru, ⊻ yanlış ⇒ Hayır. Adım 2: 8'i izle: yalnız ikinci koşul doğru ⇒ ⊻ doğru ⇒ Evet. Adım 3: İki hata da farklı türde: ⊻ hem gerçek bölünenleri hem bölünmeyenleri yanlış sınıflar. Adım 4: Düzeltme ∧.",
+   "category": "Benzer soru: Algoritma ve mantık bağlaçları",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "p ve q iki önerme olsun. $p\\wedge q$ ve $p\\vee q$ için doğruluk tablosunu yazınız (1: doğru, 0: yanlış). (4 puan)",
+   "correctAnswer": "(p, q) = (1,1): ∧ = 1, ∨ = 1. (1,0): ∧ = 0, ∨ = 1. (0,1): ∧ = 0, ∨ = 1. (0,0): ∧ = 0, ∨ = 0.",
+   "keyPoints": [
+    "Dört satırın yazılması",
+    "∧ için doğru sütun",
+    "∨ için doğru sütun"
+   ],
+   "maxPoints": 4,
+   "explanation": "Adım 1: Dört durumu yaz. Adım 2: ∧ yalnız (1,1)'de 1. Adım 3: ∨ yalnız (0,0)'da 0. Adım 4: ⊻ (yalnız biri doğru) (1,1)'de 0 olurdu; bu fark 15 algoritmasındaki hatanın kaynağıdır.",
+   "category": "Benzer soru: Algoritma ve mantık bağlaçları",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "\"Sayı hem 3 hem 5 ile bölünebiliyorsa 15 ile bölünür\" cümlesinde hangi mantık bağlacı gereklidir?",
+   "options": [
+    "veya (∨)",
+    "yalnız biri doğru (⊻)",
+    "değil (¬)",
+    "ve (∧)"
+   ],
+   "correct": 3,
+   "explanation": "15 ile bölünmek için iki koşulun aynı anda sağlanması gerekir: ∧. ∨ yeterli olsaydı 9 (3 ile bölünür) 15 ile bölünür sayılırdı.",
+   "category": "Benzer soru: Algoritma ve mantık bağlaçları",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "p ∨ q önermesi, p ve q'nun ikisi de doğru olduğunda da doğrudur.",
+   "correct": true,
+   "explanation": "\"Veya\" bağlacı kapsayıcıdır: en az biri doğruysa doğrudur. İkisi de doğruysa sonuç yine doğrudur. \"Yalnız biri doğru\" bağlacı (⊻) ise bu durumda yanlış olur.",
+   "category": "Benzer soru: Algoritma ve mantık bağlaçları",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Okul kulüpleri tablosu (Kulüp: Üye sayısı, Etkinlik sayısı): Satranç 24, 8; Tiyatro 31, 5; Robotik 18, 12; Müzik 40, 9; Spor 55, 15; Resim 12, 4. a) (Üye ≥ 30) ∧ (Etkinlik < 10) ve b) (Üye < 20) ∨ (Etkinlik ≥ 12) koşullarını sözel yazıp sağlayan kulüpleri bulunuz. (6 puan)",
+   "correctAnswer": "a) Üye sayısı en az 30 ve etkinlik sayısı 10'dan az olan kulüpler: Tiyatro (31, 5) ve Müzik (40, 9). b) Üye sayısı 20'den az veya etkinlik sayısı en az 12 olan kulüpler: Robotik (18, 12), Spor (55, 15) ve Resim (12, 4).",
+   "keyPoints": [
+    "a) sözel ifade",
+    "a) Tiyatro, Müzik",
+    "b) sözel ifade",
+    "b) Robotik, Spor, Resim"
+   ],
+   "maxPoints": 6,
+   "explanation": "Adım 1: Her satırı iki koşula göre işaretle. a) ∧: Spor (55, 15) etkinlik 15 ≥ 10 ⇒ değil; Satranç üye 24 < 30 ⇒ değil. b) ∨: Satranç (24, 8) iki koşul da yanlış ⇒ değil; Tiyatro ve Müzik de değil. Adım 2: \"≥\" sınırı dahil eder.",
+   "category": "Benzer soru: Veri sorgulama ve araştırma sorusu",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aynı kulüp tablosu için (Üye > 40) ∨ (Etkinlik < 5) ve (Üye ≥ 50) ∧ (Etkinlik ≤ 10) koşullarını sağlayan kulüpleri bulunuz; sağlayan yoksa \"Yoktur\" yazınız. (4 puan)",
+   "correctAnswer": "(Üye > 40) ∨ (Etkinlik < 5): Spor (55 > 40) ve Resim (4 < 5). Müzik'in üyesi 40 olduğundan > 40 sağlanmaz. (Üye ≥ 50) ∧ (Etkinlik ≤ 10): Spor'un etkinliği 15 > 10 olduğundan sağlanmaz; Yoktur.",
+   "keyPoints": [
+    "İlk koşul: Spor, Resim",
+    "İkinci koşul: Yoktur"
+   ],
+   "maxPoints": 4,
+   "explanation": "Adım 1: İlk koşulda 40 sınırı dışarıda (>). Adım 2: İkinci koşulda yalnız Spor üye şartını sağlar ama etkinlik şartını sağlamaz. Adım 3: Boş küme için \"Yoktur\".",
+   "category": "Benzer soru: Veri sorgulama ve araştırma sorusu",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki durumlarda ortaya çıkan değişebilirlik türünü yazınız: (i) Bir okuldaki 40 öğrenciden rastgele seçilen 10 öğrencinin boylarının ölçülmesi. (ii) Aynı tarifi uygulayan beş kişinin yaptığı kek kalitesi. (iii) Aynı odada iki farklı termometre ile ölçülen sıcaklık. (iv) Dört farklı ilde yağış miktarının buğday verimine etkisi. (4 puan)",
+   "correctAnswer": "(i) Örneklemden kaynaklı. (ii) Müdahaleden kaynaklı. (iii) Ölçümden kaynaklı. (iv) Doğal ortamdan kaynaklı.",
+   "keyPoints": [
+    "Dört doğru eşleştirme"
+   ],
+   "maxPoints": 4,
+   "explanation": "Adım 1: (i) seçilen kişiler değişebilir ⇒ örneklem. (ii) Aynı işlem farklı elle ⇒ müdahale. (iii) Farklı cihaz ⇒ ölçüm. (iv) Bölgenin doğal koşulu ⇒ doğal ortam. Her satır 1 puan.",
+   "category": "Benzer soru: Değişebilirlik ve istatistik",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "\"Aynı soruyu 100 kişiden farklı örneklerle iki kez sorduğumuzda sonuçların farklı çıkması\" hangi değişebilirliğe örnektir?",
+   "options": [
+    "Örneklemden kaynaklı değişebilirlik",
+    "Ölçümden kaynaklı değişebilirlik",
+    "Müdahaleden kaynaklı değişebilirlik",
+    "Doğal ortamdan kaynaklı değişebilirlik"
+   ],
+   "correct": 0,
+   "explanation": "Her seferinde farklı kişilerin seçilmesi örneklem farkı yaratır. Ölçüm farkı cihaz ya da ölçen kişi farkıdır.",
+   "category": "Benzer soru: Değişebilirlik ve istatistik",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "\"9. sınıf öğrencilerinin günlük ders çalışma süreleri (dakika) nasıl bir dağılım gösterir?\" sorusu ile \"Matematik zor mu?\" sorusunu nicel araştırma sorusu ölçütleri açısından karşılaştırınız. (5 puan)",
+   "correctAnswer": "İlk soru: evren (9. sınıf öğrencileri) ve değişken (ders çalışma süresi, dakika) açık; veri toplanarak cevaplanabilir; değişebilirliği yansıtır; nicel veri gerektirir ⇒ ölçütleri sağlar. İkinci soru: \"zor\" öznel, değişken tanımsız, nicel veri gerektirmez, evren belirsiz ⇒ ölçütleri sağlamaz.",
+   "keyPoints": [
+    "İlk sorunun ölçütleri",
+    "Evren ve değişken açıklığı",
+    "İkinci sorunun öznelliği",
+    "Nicel veri gerekliliği"
+   ],
+   "maxPoints": 5,
+   "explanation": "Adım 1: Evren ve değişkeni ara. Adım 2: Sayıya dönüşen bir ölçü var mı? Adım 3: Cevap kişiden kişiye değişir mi? Adım 4: Öznel ifadeleri (zor, güzel) sayısallaştırmadan nicel soru olmaz. Dosyadaki sosyal medya sorusunun mantığıdır.",
+   "category": "Benzer soru: Değişebilirlik ve istatistik",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "3, 4, 6, 7, 9, 10, 12, 15 verisi için en küçük değer, alt çeyrek, ortanca, üst çeyrek ve en büyük değeri bulup kutu grafiğini nasıl çizeceğinizi yazınız. (6 puan)",
+   "correctAnswer": "8 veri (çift). Ortanca $\\frac{7+9}{2}=8$. Alt yarı (3, 4, 6, 7): Ç1 $=\\frac{4+6}{2}=5$. Üst yarı (9, 10, 12, 15): Ç3 $=\\frac{10+12}{2}=11$. Beş özet: 3, 5, 8, 11, 15. Kutu 5-11, ortanca çizgisi 8, kollar 3 ve 15.",
+   "keyPoints": [
+    "Ortanca 8",
+    "Ç1 = 5",
+    "Ç3 = 11",
+    "Min 3, max 15 ve çizim"
+   ],
+   "maxPoints": 6,
+   "explanation": "Adım 1: Veri sayısı çift ⇒ ortanca ortadaki iki değerin ortalaması. Adım 2: Veriyi iki eşit yarıya böl (4+4). Adım 3: Her yarının ortancasını al. Adım 4: Sayı doğrusunda ölçekli çiz.",
+   "category": "Benzer soru: Kutu grafiği ve histogram",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "2, 3, 5, 5, 6, 7, 8, 9, 12 verisi için (9 veri) beş sayı özetini bulunuz. (Ortanca, alt ve üst yarılara dahil edilmez.) (5 puan)",
+   "correctAnswer": "Ortanca 5. değer $=6$. Alt yarı (2, 3, 5, 5): Ç1 $=\\frac{3+5}{2}=4$. Üst yarı (7, 8, 9, 12): Ç3 $=\\frac{8+9}{2}=8{,}5$. Özet: 2, 4, 6, 8,5, 12.",
+   "keyPoints": [
+    "Ortanca 6",
+    "Ç1 = 4",
+    "Ç3 = 8,5",
+    "En küçük 2 ve en büyük 12"
+   ],
+   "maxPoints": 5,
+   "explanation": "Adım 1: 9 veri ⇒ ortanca 5. değer. Adım 2: Ortancanın altında 4, üstünde 4 veri. Adım 3: Her yarıda ortadaki iki değerin ortalaması. Yazılıdaki yöntemin aynısıdır.",
+   "category": "Benzer soru: Kutu grafiği ve histogram",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "10, 12, 13, 14, 15, 16, 90 verisinin aritmetik ortalamasını ve ortancasını bulup hangisinin veriyi daha iyi temsil ettiğini gerekçelendiriniz. (5 puan)",
+   "correctAnswer": "Toplam 170; ortalama $\\frac{170}{7}\\approx24{,}3$. Ortanca 4. değer $=14$. 90 aykırı değerdir; ortalamayı çok yükseltir (verinin neredeyse hepsi 10-16 arası). Ortanca 14 veriyi daha iyi temsil eder.",
+   "keyPoints": [
+    "Ortalama ≈ 24,3",
+    "Ortanca 14",
+    "Aykırı değer yorumu",
+    "Ortancanın seçilmesi"
+   ],
+   "maxPoints": 5,
+   "explanation": "Adım 1: 10+12+13+14+15+16+90 = 170. Adım 2: 170/7 ≈ 24,29. Adım 3: Sıralı veride 4. değer 14. Adım 4: 90'ı çıkarınca ortalama 13,3, yani 24,3'ten çok farklıdır; ortanca 13,5'e iner (değişim az).",
+   "category": "Benzer soru: Kutu grafiği ve histogram",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "1, 2, 2, 3, 4, 4, 5, 6, 6, 7, 8, 9 verisini [0,3), [3,6), [6,9), [9,12) gruplarına ayırarak frekans tablosunu yazınız ve histogramın sütun yüksekliklerini belirtiniz. (4 puan)",
+   "correctAnswer": "[0,3): 1, 2, 2 ⇒ 3; [3,6): 3, 4, 4, 5 ⇒ 4; [6,9): 6, 6, 7, 8 ⇒ 4; [9,12): 9 ⇒ 1. Toplam 12.",
+   "keyPoints": [
+    "Doğru gruplama",
+    "Frekans 3, 4, 4, 1",
+    "Toplam 12 kontrolü"
+   ],
+   "maxPoints": 4,
+   "explanation": "Adım 1: Grup aralıkları [alt, üst) biçiminde: üst uç dahil değil. Adım 2: Sayıları yerleştir. Adım 3: Toplamı kontrol et. Adım 4: Sütun yükseklikleri = frekanslar.",
+   "category": "Benzer soru: Kutu grafiği ve histogram",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "6, 8, 7, 9, 10, 8, 8 verisinin aritmetik ortalaması kaçtır?",
+   "options": [
+    "7",
+    "8",
+    "9",
+    "8,5"
+   ],
+   "correct": 1,
+   "explanation": "Toplam $6+8+7+9+10+8+8=56$; $56\\div7=8$.",
+   "category": "Benzer soru: Kutu grafiği ve histogram",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Bir veri grubuna çok büyük bir değer eklenirse aritmetik ortalama ortancaya göre daha fazla değişir.",
+   "correct": true,
+   "explanation": "Ortalama tüm değerlerin toplamına bağlıdır; uç değer toplamı büyük değiştirir. Ortanca ise yalnız sıralamadaki ortaya bakar ve çok az değişir.",
+   "category": "Benzer soru: Kutu grafiği ve histogram",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir madeni para 50 kez atılıyor ve 27 kez tura geliyor; 200 atışta 98, 1000 atışta 503 tura geliyor. Her durum için göreli sıklığı bulup tura gelme olasılığı hakkında ne söylersiniz? (5 puan)",
+   "correctAnswer": "$\\frac{27}{50}=0{,}54$; $\\frac{98}{200}=0{,}49$; $\\frac{503}{1000}=0{,}503$. Atış sayısı arttıkça göreli sıklık 0,5'e yaklaşır.",
+   "keyPoints": [
+    "0,54",
+    "0,49",
+    "0,503",
+    "0,5'e yaklaşma yorumu"
+   ],
+   "maxPoints": 5,
+   "explanation": "Adım 1: Göreli sıklık = tura sayısı ÷ atış sayısı. Adım 2: Değerleri hesapla. Adım 3: Atış sayısı arttıkça 0,5 etrafında toplanma: kuramsal olasılık 1/2.",
+   "category": "Benzer soru: Olasılık",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir zar 600 kez atılıyor ve 6 gelme sayısı 95 bulunuyor. 6 gelmesinin göreli sıklığını bulup kuramsal olasılıkla karşılaştırınız. (4 puan)",
+   "correctAnswer": "$\\frac{95}{600}=\\frac{19}{120}\\approx0{,}158$. Kuramsal olasılık $\\frac16\\approx0{,}167$. İkisi birbirine yakındır; atış sayısı arttıkça yaklaşması beklenir.",
+   "keyPoints": [
+    "Göreli sıklık ≈ 0,158",
+    "Kuramsal 1/6",
+    "Yorum"
+   ],
+   "maxPoints": 4,
+   "explanation": "Adım 1: 95/600 = 19/120. Adım 2: 19/120 ≈ 0,158. Adım 3: 1/6 ≈ 0,167. Fark küçük.",
+   "category": "Benzer soru: Olasılık",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "İki madeni para birlikte atılıyor. Örnek uzayı yazınız; \"en az bir tura gelmesi\" olayını ve olasılığını bulunuz. (4 puan)",
+   "correctAnswer": "Örnek uzay: {YY, YT, TY, TT} (4 çıktı). En az bir tura: {YT, TY, TT} ⇒ olasılık $\\frac34$.",
+   "keyPoints": [
+    "Örnek uzay",
+    "Olay kümesi",
+    "3/4"
+   ],
+   "maxPoints": 4,
+   "explanation": "Adım 1: İki aşamalı deney: 2·2 = 4 çıktı. Adım 2: \"En az bir\" = hepsi yazı dışında. Adım 3: 3/4. Tamamlayıcı yol: $1-\\frac14$.",
+   "category": "Benzer soru: Olasılık",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir zar atılıyor. A: çift sayı gelmesi, B: 3'ten büyük sayı gelmesi olaylarının $P(A\\cap B)$ ve $P(A\\cup B)$ olasılıklarını bulunuz. (5 puan)",
+   "correctAnswer": "$A=\\{2,4,6\\}$, $B=\\{4,5,6\\}$, $A\\cap B=\\{4,6\\}$. $P(A\\cap B)=\\frac26=\\frac13$. $P(A\\cup B)=\\frac36+\\frac36-\\frac26=\\frac46=\\frac23$.",
+   "keyPoints": [
+    "Kümeler",
+    "Kesişim 1/3",
+    "Birleşim 2/3"
+   ],
+   "maxPoints": 5,
+   "explanation": "Adım 1: Olayları yaz. Adım 2: Ortak elemanlar 4 ve 6. Adım 3: Birleşim formülü: 3/6 + 3/6 − 2/6 = 4/6. Kontrol: A ∪ B = {2,4,5,6} 4 eleman ⇒ 4/6 ✓.",
+   "category": "Benzer soru: Olasılık",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Çark 1, 2, 3, 4 sayılarından oluşur (4 eşit parça), torbada −3, −1, 2, 4 yazılı dört özdeş top vardır. Torbadan art arda iki top çekilirken (iadesiz) çarpımın pozitif olma olasılığını bulunuz. (5 puan)",
+   "correctAnswer": "Toplam sıralı çift $4\\cdot3=12$. Çarpım pozitif: ikisi negatif (−3, −1): 2 sıralı çift; ikisi pozitif (2, 4): 2 sıralı çift. Olasılık $\\frac{4}{12}=\\frac13$.",
+   "keyPoints": [
+    "Örnek uzay 12",
+    "Uygun çiftler 4",
+    "1/3"
+   ],
+   "maxPoints": 5,
+   "explanation": "Adım 1: İadesiz sıralı çekilişler 4·3 = 12. Adım 2: Aynı işaretliler: {−3,−1} ve {2,4}. Adım 3: Her çift iki sıra ⇒ 2+2 = 4. Adım 4: 4/12 = 1/3. Olasılık çarpımı ile: $\\frac24\\cdot\\frac13+\\frac24\\cdot\\frac13=\\frac13$ ✓.",
+   "category": "Benzer soru: Olasılık",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Yukarıdaki torba deneyinden bağımsız olarak çark çevriliyor. A: çarkta çift sayı gelmesi, B: torbadan art arda iki topun çarpımının pozitif olması olayları için $P(A\\cup B)$ değerini hesaplayınız. (4 puan)",
+   "correctAnswer": "$P(A)=\\frac24=\\frac12$, $P(B)=\\frac13$, $P(A\\cap B)=\\frac12\\cdot\\frac13=\\frac16$. $P(A\\cup B)=\\frac12+\\frac13-\\frac16=\\frac23$.",
+   "keyPoints": [
+    "P(A)",
+    "P(B)",
+    "Kesişim çarpım",
+    "Birleşim 2/3"
+   ],
+   "maxPoints": 4,
+   "explanation": "Adım 1: Çark çift: 2 ve 4 ⇒ 2/4. Adım 2: Bağımsız deneyler ⇒ çarpım. Adım 3: Ortak kısmı çıkar: 3/6 + 2/6 − 1/6 = 4/6 = 2/3.",
+   "category": "Benzer soru: Olasılık",
+   "difficulty": "hard"
+  },
+  {
+   "type": "true-false",
+   "question": "Deneme sayısı arttıkça göreli sıklık kuramsal olasılığa yaklaşma eğilimi gösterir.",
+   "correct": true,
+   "explanation": "Bu bulgu, deneysel olasılığın uzun dönemde kuramsal olasılığa yaklaşmasını anlatır; küçük örneklemlerde dalgalanma beklenir (0,25 gibi).",
+   "category": "Benzer soru: Olasılık",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Bir torbada 3 kırmızı, 2 mavi top vardır. Bir top çekiliyor. Kırmızı gelme olasılığı kaçtır?",
+   "options": [
+    "$\\frac25$",
+    "$\\frac12$",
+    "$\\frac35$",
+    "$\\frac23$"
+   ],
+   "correct": 2,
+   "explanation": "Uygun durum 3 (kırmızı), tüm durum 5 ⇒ $\\frac35$. $\\frac25$ mavi olasılığıdır.",
+   "category": "Benzer soru: Olasılık",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Kalem kaldırmadan, her ayrıttan bir kez geçerek çizim için hangi koşul yeterlidir?",
+   "options": [
+    "Tüm düğümler tek dereceli olmalı",
+    "Tek dereceli düğüm sayısı 4 olmalı",
+    "Düğüm sayısı çift olmalı",
+    "Tek dereceli düğüm sayısı 0 veya 2 olmalı"
+   ],
+   "correct": 3,
+   "explanation": "Euler kuralı: 0 tek düğüm ⇒ kapalı çizim; 2 tek düğüm ⇒ açık çizim. Dört ya da daha çok tek düğüm varsa çizilemez.",
+   "category": "Çizge kuramı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Çizgede bir düğümün derecesi neyi ifade eder?",
+   "options": [
+    "Düğüme bağlı ayrıt sayısını",
+    "Çizgedeki toplam düğüm sayısını",
+    "Çizgenin ayrıt sayısını",
+    "Düğümün adını"
+   ],
+   "correct": 0,
+   "explanation": "Derece, o düğümden çıkan ayrıtların sayısıdır.",
+   "category": "Çizge kuramı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Derecesi tek olan düğüme ____ düğüm denir.",
+   "answers": [
+    "tek"
+   ],
+   "explanation": "Dereceye göre düğümler tek ve çift olarak sınıflanır; çizilebilirlik tek düğüm sayısına bağlıdır.",
+   "category": "Çizge kuramı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Bir algoritmanın bir adımında \"kalan 0 ise ...\" ifadesi hangi bağlaçtır?",
+   "options": [
+    "ve",
+    "ise (koşul)",
+    "veya",
+    "değil"
+   ],
+   "correct": 1,
+   "explanation": "\"ise\", koşula bağlı sonucu belirtir. \"Ve\" ve \"veya\" iki önermeyi birleştirir.",
+   "category": "Algoritma ve mantık bağlaçları",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "15 ile bölünebilmek için 3 ve 5 ile bölünebilme koşulları hangi bağlaçla bağlanmalıdır?",
+   "options": [
+    "veya",
+    "ya da (yalnız biri)",
+    "ve",
+    "değil"
+   ],
+   "correct": 2,
+   "explanation": "İki koşul birlikte sağlanmalıdır, bu yüzden ∧. 3'e veya 5'e bölünen her sayı 15'e bölünmez.",
+   "category": "Algoritma ve mantık bağlaçları",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Kutu grafiğinde kutunun iki ucu hangi değerlerdir?",
+   "options": [
+    "En küçük ve en büyük değer",
+    "Ortanca ve ortalama",
+    "Ortalama ve en büyük değer",
+    "Alt çeyrek ve üst çeyrek"
+   ],
+   "correct": 3,
+   "explanation": "Kutu Ç1 ile Ç3 arasındadır, içindeki çizgi ortancadır; kollar en küçük ve en büyük değere uzanır.",
+   "category": "Kutu grafiği ve histogram",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aykırı değer içeren bir veri grubunda merkezi eğilim için hangi ölçü daha güvenilirdir?",
+   "options": [
+    "Ortanca",
+    "Aritmetik ortalama",
+    "En büyük değer",
+    "En küçük değer"
+   ],
+   "correct": 0,
+   "explanation": "Ortanca yalnız sıralamadaki ortaya bakar, uç değerlerden çok az etkilenir.",
+   "category": "Kutu grafiği ve histogram",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Bir olayın gerçekleşme sayısının deney sayısına oranına ____ denir.",
+   "answers": [
+    "göreli sıklık",
+    "deneysel olasılık"
+   ],
+   "explanation": "Göreli sıklık, deneysel olasılığın hesaplandığı orandır.",
+   "category": "Olasılık",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Çark 1-6 arasında eşit parçalıdır. Çarkın asal sayıda durma olasılığı kaçtır?",
+   "options": [
+    "$\\frac13$",
+    "$\\frac12$",
+    "$\\frac23$",
+    "$\\frac16$"
+   ],
+   "correct": 1,
+   "explanation": "Asallar 2, 3, 5 ⇒ 3 durum / 6 durum = 1/2. 1 asal değildir.",
+   "category": "Olasılık",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "İki olay için birleşim olasılığı formülü hangisidir?",
+   "options": [
+    "$P(A)+P(B)$",
+    "$P(A)\\cdot P(B)$",
+    "$P(A)+P(B)-P(A\\cap B)$",
+    "$P(A)-P(B)$"
+   ],
+   "correct": 2,
+   "explanation": "Ortak kısım iki kez sayıldığı için bir kez çıkarılır. Ayrık olaylarda kesişim 0 olduğundan toplam yeterlidir.",
+   "category": "Olasılık",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Şekil verisi eksik bir yazılı sorusunda en doğru davranış hangisidir?",
+   "options": [
+    "Şekli tahmin edip kesin sayı yazmak",
+    "Rastgele bir değer yazmak",
+    "Soruyu okumadan geçmek",
+    "Verilenleri ve ilgili teoremi yazıp yöntemi göstermek"
+   ],
+   "correct": 3,
+   "explanation": "Puan adım ve gerekçeye verilir. Yöntem göstermek kısmi puan sağlar; uydurma veri sağlamaz.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "easy"
+  }
+ ],
+ "sources": [
+  {
+   "id": "src1",
+   "name": "9. Sınıf Matematik - 2. Dönem 2. Yazılı (OGM Materyal)",
+   "kind": "file",
+   "text": "=== Page 1 ===\nYAZILIYA HAZIRLANIYORUM\n2. DÖNEM - 2. YAZILI\nMATEMATİK\n1. Şekilde ABCD, EDFG ve FCKL birer kare; G, F, C noktaları doğrusal ve FH AB       olarak verilmiştir. A B C D E F G H M L K\np ve r birer gerçek sayı olmak üzere  A(AHMD) = p • A(EDFG) ve A(HBCM) = r • A(CKLF) eşitliklerini\nsağlayan p + r toplamını bulunuz.\n=== Page 2 ===\n2. Aşağıdaki görselde A ile B, C ile D ve E ile F noktaları aynı doğrultudadır. F konumunda bulunan Emre, saat\nkulesine doğru baktığında kendi göz hizası, sokak lambası ve saat kulesinin tepe noktalarının aynı doğrultuda\nolduğunu fark ediyor. A B C E D F 24 m 300 cm 180 cm 1,6 m\nSokak lambasının boyu 300 cm, saat kulesinin boyu 24 m, Emre’nin göz hizasının yerden yüksekliği 180 cm ve\nEmre’nin bulunduğu noktanın direğe olan uzaklığı 1,6 m'dir.\nYukarıdaki görsele ve verilen bilgilere göre aşağıdaki soruları cevaplayınız.\na) Saat kulesinin sokak lambasına uzaklığı kaç metredir?\nb) Emre’nin göz hizası ile sokak lambasının tepesi arasındaki uzaklık kaç metredir?\nc) Sokak lambasının tepesi ile saat kulesinin tepesi arasındaki uzaklık kaç metredir?\n=== Page 3 ===\n3.\nBiyometrik Yüz Tanıma Sisteminde Çizge Kuramı\nYüz tanıma, bir kişinin yüzünü kullanarak kimliğini tanımlamanın veya\ndoğrulamanın bir yoludur. Kişinin yüz haritasını çizge kuramından\nyararlanarak çıkaran bu sistem, yüz tanıma algoritmasıyla şifrelendikten\nsonra yüze bir kimlik numarası verir ve yüz tanıma cihazının hafızasına bu\nkimlik kaydedilir. Her yüz, farklı karakteristik özelliklere sahip olduğu için\nkarşılaştırmalarda hata payı en aza indirilmiş olur. İnsan yüzü yaklaşık\n80 düğüm noktasına sahiptir. Yüz tanıma teknolojisiyle gözler arasındaki\nmesafe, burun genişliği, göz çukurlarının derinliği, elmacık kemiklerinin\nşekli, çene hattının uzunlukları vs. ölçülür. Bilgisayar yazılımları,\nbu 80 düğüm yerine genellikle 15-25 noktaya gereksinim duyar.\nYukarıda, bir bilgisayar programının fotoğraftaki yüzün haritasını çıkarmada kullandığı çizge gösterilmiştir.\nAşağıdaki soruları verilen çizgeye göre cevaplayınız.\na) Çizgenin düğüm sayısı kaçtır?\nb) Her bir düğümün sahip olduğu ayrıt sayılarını inceleyiniz. Düğümlere ait ayrıt sayılarının kaç düğümde tek, kaç\ndüğümde çift olduğunu yazınız.\nc) Çizge; bir başlangıç noktası belirlenerek, kalem hiç kaldırılmadan ve her ayrıttan yalnızca bir kez geçmek şartıyla\nkâğıt üzerine çizilebilir mi?\nd) Her bir düğümün sahip olduğu ayrıt sayısının tek ya da çift olması ile çizgenin kalem hiç kaldırılmadan çizilebilme\ndurumu arasındaki ilişkiyi açıklayınız.\n=== Page 4 ===\n4. Bir doğal sayı, aralarında asal iki sayıya bölünebiliyor ise bu sayıların çarpımına da bölünebilir.\nAşağıda, bir doğal sayının 15 ile bölünüp bölünmediğini bulduran algoritmanın işleyişi, algoritmik doğal dil ile\nverilmiştir.\nAlgoritmik Doğal Dil\n1. adım: Başla.\n2. adım: Girdilerin alınması\nKullanıcıdan bir doğal sayı al.\n3. adım: 3’e tam bölünebilme testi\nSayının rakamlarının toplamını bul. Bulunan değerin 3 ile bölümünden kalanı hesapla.\nKalan 0 ise sayı 3 ile tam bölünür, değilse 3 ile tam bölünmez.\n4. adım: 5’e tam bölünebilme testi\nSayının birler basamağındaki rakamın 5 ile bölümünden kalanı hesapla.\nKalan 0 ise sayı 5 ile tam bölünür, değil ise tam bölünmez.\n5. adım: Sonucun yazdırılması\n3. adımda ve 4. adımda kalan 0 ise “Sayı, 15 ile tam bölünür.” mesajını yaz.\n3. Adımda veya 4. adımda kalan 0 değilse “Sayı, 15 ile tam bölünmez.” mesajını yaz.\n6. adım: Bitir.\nVerilen algoritmik doğal dili inceleyiniz.\na)Algoritmik doğal dil ile temsil edilen algoritmanın hangi adımlarında mantık bağlaçlarının kullanıldığını yazınız\nve algoritmanın işleyişindeki rollerini açıklayınız.\n=== Page 5 ===\nAşağıda, üç basamaklı bir doğal sayının 15 ile bölünüp bölünmediğini bulduran algoritmanın akış şeması verilmiştir. Başla. Bitir.\nSayı, 15 ile tam bölünmez.\nSayı, 15 ile tam bölünür.\nÜç Basamaklı bir doğal\nsayı (ABC) gir.\ny ← A + B + C\nk ← y % 3\nt ← C % 5\n(k = 0) ⊻ (t = 0) Hayır Evet\nVerilen akış şemasını inceleyiniz.\nb) Algoritmanın düzgün çalışıp çalışmadığını test ediniz.\nc) Algoritmanın çalışmasında belirlediğiniz bir hata var ise hatayı yazınız ve bir örnek vererek cevabınızı\nispatlayınız.\n=== Page 6 ===\n5. Türkiye İstatistik Kurumu (TÜİK) verilerine göre İç Anadolu Bölgesi'ne ait 2022-2023 tiyatro sezonu ile ilgili bilgiler\nTablo 1'de verilmiştir.\nTablo 1: İllere Göre Tiyatro Salonu, Tiyatrolarda Oynanan Eser ve Seyirci Sayısı\nİl Tiyatro Salonu Sayısı Oynanan Eser Sayısı Seyirci Sayısı\nAksaray 2 27 14502\nAnkara 68 517 680878\nÇankırı 4 5 2113\nEskişehir 10 60 95985\nKaraman 5 31 10043\nKayseri 10 95 50757\nKırıkkale 1 35 8219\nKırşehir 1 18 10150\nKonya 11 62 180814\nNevşehir 3 7 4870\nNiğde 1 20 6764\nSivas 4 42 61538\nYozgat 1 1 545\nVerilenlere göre aşağıdaki koşul içeren mantık bağlaçlı ifadeleri sözel olarak ifade ediniz. Koşulu sağlayan\nilleri bularak yazınız.\na) (Tiyatro Salonu Sayısı ≤ 5) ∧ (Oynanan Eser Sayısı > 20)\nSözel İfadesi:\nKoşulu Sağlayan İller :\nb) (10000 ≤ Seyirci Sayısı ≤ 100000) ∨ (Oynanan Eser Sayısı ≤ 70)\nSözel İfadesi:\nKoşulu Sağlayan İller :\nc) (Tiyatro Salonu Sayısı) ≥ 4 ∧ (Seyirci Sayısı < 1000)\nSözel İfadesi:\nKoşulu Sağlayan İller :\nd) (Tiyatro Salonu Sayısı ≥ 10) ∨ (Seyirci Sayısı > 190000)\nSözel İfadesi:\nKoşulu Sağlayan İller :\n=== Page 7 ===\n6. Tabloda verilen durumlarda ortaya çıkabilecek değişebilirlik türünü belirleyerek tablodaki boşlukları\ndoldurunuz.\nDurum Değişebilirlik Türü\nBir şehirdeki eğitim seviyesinin tespiti için şehirden 1000 kişi seçilip bu kişilerin\neğitim seviyelerinin belirlenmesi\nPastacılık kursundaki on kişinin verilen bir tarifi kullanarak yaptığı pastaların\nkalitesinin belirlenmesi\nFarklı bölgelerde ölçülen hava sıcaklığının domates verimliliğine etkisinin\nbelirlenmesi\nSu kalitesini belirlemek için yapılan pH ölçümlerinin farklı kimyagerler tarafından,\nfarklı cihazlar kullanılarak yapılması\n7. “60 yaş üstü bireylerin sosyal medya kullanım süreleri dakika cinsinden nasıl bir eğilim gösterir?”\nsorusunun nicel veri toplamayı gerektiren istatistiksel araştırma sorusu ölçütlerinden hangilerini\nsağladığını tablodaki boşlukları uygun şekilde doldurarak belirleyiniz.\nNicel Veri Toplamayı Gerektiren İstatistiksel Araştırma Sorusu Ölçütleri Evet Hayır\nAmaç açıktır. Betimlemeye veya karşılaştırmaya yönelik bir araştırma sorusudur.\nAraştırmaya değerdir.\nİlgilenilen grup (evren) açıkça görülmektedir.\nDeğişken açıkça görülmektedir.\nVeri toplanarak cevaplanabilmektedir.\nDeğişebilirliği yansıtmaktadır.\nOdaklanılan grup, araştırma yapılmasına imkân vermektedir.\nNicel veri toplamayı gerektirmektedir.\n=== Page 8 ===\n8. Bir alışveriş merkezinde ‘’Sıfır Atık Projesi’’ kapsamında mayıs ayında toplanan günlük pil sayılarına ait veriler\naşağıda verilmiştir.\n4, 5, 6, 6, 7, 7, 7, 8, 8, 9, 9, 9, 10, 10, 10, 10, 11, 11, 12, 12, 12, 12, 12, 13, 13, 13, 14, 15, 15, 17, 50\nBuna göre toplanan pil sayılarına ait kutu grafiğini çiziniz.\n=== Page 9 ===\n9. Bir teknoloji şirketinde çalışan 25 kişilik bir ekip için insan kaynakları bölümü, çalışanların bilgisayar başında\ngeçirdiği günlük toplam süreleri ölçmeye karar vermiştir.\nAmaç, ekran süresi ile çalışan sağlığı arasındaki ilişkiyi değerlendirmek ve gerekirse çalışma düzenini iyileştirmektir.\nÇalışanlar bir hafta boyunca gözlemlenmiş ve her çalışanın ortalama günlük ekran süresi (saat cinsinden) aşağıdaki\nşekilde kaydedilmiştir:\n5 5,2 5,5 5,7 6 6,2 6,3 6,5 6,7 6,8\n7 7,1 7,3 7,5 7,6 7,8 8 8,3 8,5 8,7\n9 9,2 9,5 15 16\nİnsan Kaynakları Yöneticisi Seçil Hanım, çalışanların ekran sürelerini analiz ederek aşağıdaki soruların cevaplarını\niçeren bir rapor hazırlayacaktır.\na) Çalışma süreleri, 1 saatlik zaman\naralıklarında nasıl yoğunlaşmaktadır?\nHistogram grafiği ile gösteriniz.\nb) Çalışma sürelerine ait veri dağılımı,\nsaat cinsinden nasıl bir eğilim\ngöstermektedir?\nc) Çalışanların çalışma sürelerine ait\nveri dağılımının merkezine yığılan saatler,\nhangi aralıklarda yoğunlaşmaktadır?\nd) Şirketin yeni sağlık politikası gereği\nortalama ekran süresinin en fazla 8 saat\nolması gerekmektedir. Buna göre mevcut\nortalama bu sınırı geçiyor mu?\nRapordaki soruları verilere uygun şekilde cevaplayınız.\n=== Page 10 ===\n10. Görseldeki kaleye iki adet 90, iki adet 80 ve bir adet 70 puanlık kart asılmıştır. Cemil, kaleye çektiği 100 şutun\ntamamını bu kartlara isabet ettirmiştir. 80 70 80 90 90\nCemil’in puanlı kartlara kaç kez isabetli vuruş yaptığı aşağıdaki tabloda verilmiştir.\nİsabet Edilen Puan İsabetli Atış Sayısı 70 35 80 40 90 25\nBuna göre aşağıdaki soruları cevaplayınız.\na) Tabloda verilen puanların sıklık değerlerine ait sütun grafiğini çiziniz.\nb) Atış sayısı artırıldığında 90 puanlı kartlara isabet eden atış sayılarını gösteren tablo aşağıda verilmiştir.\nİsabetli Atış Sayısı 90 Puanlı Kartlara İsabet Eden Atış Sayısı 500 194\n1000 396\n2000 810\nTabloda verilen üç farklı duruma göre atışların 90 puanlı kartlara isabet etme olaylarının göreli sıklık (deneysel\nolasılık) değerlerini hesaplayınız.\nc) Atış tekrar sayısı yeteri kadar artırıldığında 90 puanlı karta isabet etme olayının deneysel olasılık değerinin hangi\ndeğere yaklaştığını belirleyiniz.\n=== Page 11 ===\n11. Aşağıda 6 eşit parçaya ayrılmış ve her parçasında sırasıyla 1'den 6'ya kadar rakamların yazılı olduğu bir çark ve\nüzerinde \"�8, �5, �3, 0, 2 ve 7\" yazan, renkleri dışında özdeş olan 6 topun bulunduğu bir torba verilmiştir. 1 3 2 4 5 6\nBuna göre aşağıdaki soruları cevaplayınız.\na) Çark bir kez çevrildiğinde ibrenin gösterdiği sayıya ve torbadan çekilen topa ait deneyin tüm çıktılarını tablo ile\ngösteriniz.\nb) Çark bir kez çevrildiğinde ibrenin gösterdiği sayının asal sayı olması veya torbadan çekilen topun üzerinde\nnegatif sayı yazması olayı A olsun. A olayını oluşturan olayları B ve C olayları olarak yazınız.\nc) Çark bir kez çevrildiğinde ibrenin gösterdiği sayının çift sayı olması veya torbadan art arda iki top çekildiğinde\ntopların üzerinde yazan sayıların çarpımının pozitif olması olayının olasılık değerini hesaplayınız.\n=== Page 12 ===\nSORU NO ÖĞRENME ÇIKTISI BECERİLER\n1 MAT. 9.5.4. Tales, Öklid ve Pisagor teoremlerini ispatlayabilme\nMAB1. Matematiksel Muhakeme (MAB1.1. Matema-\ntiksel Doğrulama veya İspat Yapma)\nMAB2. Matematiksel Problem Çözme\n2 MAT. 9.5.5. Eşlik ve benzerlikle ilgili çıkarım ve teoremleri içeren problemleri çözebilme\nMAB1. Matematiksel Muhakeme (MAB1.1. Matema-\ntiksel Doğrulama veya İspat Yapma)\nMAB2. Matematiksel Problem Çözme\n3 MAT. 9.3.1. Algoritma temelli yaklaşımlarla problem çözebilme MAB2. Matematiksel Problem Çözme\n4 MAT. 9.3.2. Algoritmik yapılar içerisindeki mantık bağlaçlarını ve niceleyicileri çözümleyebilme MAB2. Matematiksel Problem Çözme 5\nMAT. 9.3.3. Mantık bağlaçları ve niceleyicilerin\nalgoritmalarda kullanımına yönelik edindiği deneyimi\nfarklı matematiksel görev ve problemlere yansıtabil- me\nMAB2. Matematiksel Problem Çözme 6\nMAT. 9.6.1. Tek nicel değişkenli veri dağılımları\nile çalışabilme ve tek nicel değişken içeren veriye\ndayalı karar verebilme\nMAB4. Veri ile Çalışma ve Veriye Dayalı Karar Verme 7\nMAT. 9.6.1. Tek nicel değişkenli veri dağılımları\nile çalışabilme ve tek nicel değişken içeren veriye\ndayalı karar verebilme\nMAB4. Veri ile Çalışma ve Veriye Dayalı Karar Verme 8\nMAT. 9.6.2. Başkaları tarafından oluşturulan tek\nnicel değişkenli veri dağılımlarına ilişkin istatistiksel\nsonuç veya yorumları tartışabilme\nMAB4. Veri ile Çalışma ve Veriye Dayalı Karar Verme 9\nMAT. 9.6.2. Başkaları tarafından oluşturulan tek\nnicel değişkenli veri dağılımlarına ilişkin istatistiksel\nsonuç veya yorumları tartışabilme\nMAB4. Veri ile Çalışma ve Veriye Dayalı Karar Verme\n10 MAT. 9.7.1. Olayların olasılığını gözleme dayalı tahmin edebilme MAB5. Matematiksel Araç ve Teknoloji ile Çalışma\n11 MAT. 9.7.2. Olayların olasılığına ilişkin tümevarım-sal akıl yürütebilme MAB3. Matematiksel Temsil,\nPUANLAMA TABLOSU 1 2 3 4 5\n2.a. 2.b. 2.c 3.a. 3.b. 3.c. 3.d. 4.a. 4.b. 4.c. 5.a. 5.b. 5.c. 5.d.\n12 5 3 2 2 2 2 2 6 1 3 2 2 2 2 6 7 8 9 10 11 TOPLAM\n9.a. 9.b. 9.c. 9.d. 10.a. 10.b. 10.c. 11.a. 11.b. 11.c.\n4 4 8 2 3 8 1 3 3 5 3 3 5 100\n=== Page 13 ===\nÇÖZÜMLER 1. A B C D E F G H M L K a\n(1 puan) m m + n m + n n b\nA(AHMD) = m(m + n)\n(1 puan)\nA(EDFG) = a 2\n(1 puan)\nDFC dik üçgeninde Öklid Teoreminden a 2\n= m(m + n)\n(1 puan)\nA(AHMD) = p ∙ A(EDFG) ⇒ p = 1\n(2 puan)\nA(HBCM) = r ∙ A(CKLF) ⇒ r = 1\n(2 puan)\np + r = 2\n(1 puan)\nA(HBCM) = n(m + n)\n(1 puan)\nA(CKLF) = b 2\n(1 puan)\nDFC dik üçgeninde Öklid Teoreminden b 2\n= n(m + n)\n(1 puan)\n=== Page 14 ===\n2. A C E K D F 2400 cm 120 cm\n180 cm180 cm 2220 cm 180 cm 160 cm 160 cm y α α z x B L\na) Emre’nin göz hizasından saat kulesine doğru [BF] doğru parçasına paralel olacak şekilde bir [EL] doğru parçası\nçizildiğinde (1 puan)\n|EK| = 160 cm, |KD| = |LB| = 180 cm, |KC| = 120 cm ve |LA| = 2220 cm olur. (1 puan)\nEmre’nin göz hizası ile saat kulesinin tepe noktasını birleştiren [AE] çizildiğinde oluşan iki dik üçgende\n[CK] ⁄⁄ [AL] olduğundan (1 puan)\nm(AL∑E) = m(CK∑E) = 90° olur.\nm(LA∑E) = m(KC∑E) = α olsun.\nALE ve CKE üçgenlerinin E açısı da ortak olduğundan Açı-Açı benzerlik teoreminden ALE ve CKE üçgenleri\nbenzerdir. Eşit açılar karşısındaki kenarların uzunlukları oranlandığında  (1 puan) 160 160 120 2220 x\neşitliği yazılır. Eşitliğin sağ tarafı 60 ile sadeleştirilip içler ve dışlar çarpımı yapıldığında\n2 • (160 + x) = 37 • 160 ve buradan x = 2800 cm = 28 m olur.  (1 puan)\nb) CKE dik üçgeninde Pisagor bağıntısından 1202 + 1602 = y2    ve   y = 200 cm = 2 m bulunur.  (3 puan)\nc) ALE ve CKE üçgenlerinin benzerliğinden eşit açılar karşısındaki kenarlar oranlandığında 200 200 120 2220 z\neşitliği yazılır.  (1 puan)\nEşitliğin sağ tarafı 60 ile sadeleştirilip içler ve dışlar çarpımı yapıldığında\n2 • (200 +  z) = 37 • 200 ve buradan  z = 3500 cm = 35 m bulunur.  (1 puan)\n=== Page 15 ===\n3.\na) Çizgenin düğüm sayısı 23'tür.  (2 puan)\nb) Tek ayrıta sahip düğümler çizgede kırmızı renkle gösterilmiş olup çizgelerin sayısı 10'dur. Çift ayrıta sahip\ndüğümler çizgede mavi renkle gösterilmiş olup sayısı 13'tür. (2 puan)\nc) Çizge; bir başlangıç noktası belirlenerek, kalem hiç kaldırılmadan ve her ayrıttan yalnızca bir kez geçmek şartıyla\nkâğıt üzerine çizilemez. (2 puan)\nd) Çizgedeki her düğüm çift sayıda ayrıta sahip ise bu çizge seçilen başlangıç noktasına geri dönecek şekilde\nkesintisiz çizilebilir. Ya da yalnızca iki düğümün sahip olduğu ayrıt sayısı tek ve diğer tüm düğümlerin ayrıt sayısı\nçift ise, çizge tek sayıda ayrıta sahip düğümlerden birinden başlanıp diğer tek sayıda ayrıt içeren düğümde\nbitecek şekilde çizilebilir. Ancak çizgede ikiden fazla düğüm tek sayıda ayrıta sahip ise, bu çizge kalem\nkaldırmadan çizilemez. (2 puan)\n4. Bir doğal sayı, aralarında asal olan iki sayıya bölünebiliyor ise bu sayıların çarpımına da bölünebilir.\nAşağıda bir doğal sayının 15 ile bölünüp bölünmediğini bulan algoritma, algoritmik doğal dil ile temsil edilmiştir.\nAlgoritmik Doğal Dil\n1. adım: Başla.\n2. adım: Girdilerin alınması\nKullanıcıdan bir doğal sayı al.\n3. adım: 3’e tam bölünebilme testi\nSayının rakamlarının toplamını bul. Bulunan değerin 3 ile bölümünden kalanı hesapla.\nKalan 0 ise sayı 3 ile tam bölünür, değilse 3 ile tam bölünmez.\n4. adım: 5’e tam bölünebilme testi\nSayının birler basamağındaki rakamın 5 ile bölümünden kalanı hesapla.\nKalan 0 ise sayı 5 ile tam bölünür, değil ise tam bölünmez.\n5. adım: Sonucun yazdırılması\n3. adımda ve 4. adımda kalan 0 ise “Sayı, 15 ile tam bölünür.” mesajını yaz.\n3. Adımda veya 4. adımda kalan 0 değilse “Sayı, 15 ile tam bölünmez.” mesajını yaz.\n6. adım: Bitir.\na) 3. ve 4. adımda ″ise″ bağlacı kullanılmıştır. ″ise″ bağlacı, koşulların birbirine bağlı olduğu durumları ifade etmek\niçin kullanılır. Bu doğrultuda, ilgili adımlarda karar süreçleri buna göre şekillendirilmiştir.  (2 puan)\n5. adımda ″ve″ bağlacı kullanılmıştır. Bu bağlaç iki önermenin aynı anda gerçekleşmesi gereken durumlarda\ntercih edilmiştir. (2 puan)\n5. adımda ″veya″ bağlacı kullanılmıştır. Bu bağlaç iki önermeden en az birinin gerçekleşmemesi gereken\ndurumlarda kullanılmıştır. (2 puan)\n=== Page 16 ===\nBaşla. Bitir.\nSayı, 15 ile tam bölünmez.\nSayı, 15 ile tam bölünür.\nÜç Basamaklı bir doğal\nsayı (ABC) gir.\ny ← A + B + C\nk ← y % 3\nt ← C % 5\n(k = 0) ⊻ (t = 0) Hayır Evet\nb) Algoritma düzgün çalışmamaktadır.   (1 puan)\nc) Algoritmanın düzgün çalışması için karar aşamasında ∨ (ya da) bağlacı yerine ∧ (ve) bağlacı kullanılmalıdır.\n(1 puan)\nÖrneğin 150 sayısı 15’in katı olduğu halde akış şemasına göre şu adımlar takip edilir:\n• Sayının rakamları toplanarak y = 1+ 5 + 0 = 6 bulunur.\n• 6'nın 3 ile bölümünden kalan (k = 0) olduğundan bu koşul sağlanır. Önermenin doğruluk değeri 1’e denktir.\n• Birler basamağındaki rakam 0 olduğu için C=0 alınır. 0’ın 5 ile bölümünden kalan (t=0) olur. Önermenin doğruluk\ndeğeri 1’e denktir.\n• Karar aşamasında 1∨1 ≡ 0  olduğundan “HAYIR” seçeneği belirlenir ve “150, 15 ile tam bölünmez” mesajı\nyazılır.\nAncak bu bir hata oluşturur, çünkü 150 sayısı 15 ile tam bölünür.  (2 puan)\n=== Page 17 ===\n5. Türkiye İstatistik Kurumu (TÜİK) verilerine göre İç Anadolu Bölgesi'ne ait 2022-2023 tiyatro sezonu ile ilgili bilgiler\nTablo 1'de verilmiştir.\nTablo 1: İllere Göre Tiyatro Salonu, Tiyatrolarda Oynanan Eser ve Seyirci Sayısı\nİl Tiyatro Salonu Sayısı Oynanan Eser Sayısı Seyirci Sayısı\nAksaray 2 27 14502\nAnkara 68 517 680878\nÇankırı 4 5 2113\nEskişehir 10 60 95985\nKaraman 5 31 10043\nKayseri 10 95 50757\nKırıkkale 1 35 8219\nKırşehir 1 18 10150\nKonya 11 62 180814\nNevşehir 3 7 4870\nNiğde 1 20 6764\nSivas 4 42 61538\nYozgat 1 1 545\na) (Tiyatro Salonu Sayısı ≤ 5) ∧ (Oynanan Eser Sayısı > 20)\nSözel İfadesi: Tiyatro salonu sayısı beş veya beşten küçük olan ve oynanan eser sayısı\nyirmiden büyük olan iller. (1 puan)\nKoşulu Sağlayan İller: Aksaray, Karaman, Kırıkkale ve Sivas. (1 puan)\nb) (10000 ≤ Seyirci Sayısı ≤ 100000) ∨ (Oynanan Eser Sayısı ≤ 70)\nSözel İfadesi: Seyirci sayısı en az on bin, en çok yüz bin olan veya oynanan eser sayısı\nen fazla yetmiş olan iller.  (1 puan)\nKoşulu Sağlayan İller: Aksaray, Çankırı, Eskişehir, Karaman, Kayseri, Kırıkkale, Kırşehir, Konya, Nevşehir,\nNiğde, Sivas ve Yozgat. (1 puan)\nc) (Tiyatro Salonu Sayısı ≥ 4) ∧ (Seyirci Sayısı < 1000)\nSözel İfadesi: Tiyatro salonu sayısı dört veya dörtten büyük olan ve seyirci sayısı binden küçük olan iller.(1 puan)\nKoşulu Sağlayan İller: Yoktur. (1 puan)\nd) (Tiyatro Salonu Sayısı ≥ 10) ∨ (Seyirci sayısı > 190000)\nSözel İfadesi: Tiyatro salonu sayısı on veya ondan büyük olan veya seyirci sayısı\nyüz doksan binden büyük olan iller. (1 puan)\nKoşulu Sağlayan İller: Ankara, Eskişehir, Kayseri ve Konya.  (1 puan)\n=== Page 18 ===\n6.\nDurum Değişebilirlik Türü\nBir şehirdeki eğitim seviyesinin tespiti öğrenmek için şehirden\n1000 kişi seçilip bu kişilerin eğitim seviyelerinin belirlenmesi Örneklemden kaynaklı  (1 puan)\nPastacılık kursundaki on kişinin verilen bir tarifi kullanarak yaptığı\npastaların kalitesinin belirlenmesi Müdahaleden kaynaklı  (1 puan)\nFarklı bölgelerde ölçülen hava sıcaklığının domates verimliliğine\netkisinin belirlenmesi Doğal ortamdan kaynaklı  (1 puan)\nSu kalitesini belirlemek için yapılan pH ölçümlerinin farklı\nkimyagerler tarafından, farklı cihazlar kullanılarak yapılması Ölçümden kaynaklı  (1 puan) 7.\nNicel Veri Toplamayı Gerektiren İstatistiksel Araştırma Sorusu\nÖlçütleri Evet Hayır\nAmaç açıktır. Betimlemeye veya karşılaştırmaya yönelik bir araştırma\nsorusudur. ✓ (0,5 puan)\nAraştırmaya değerdir. ✓ (0,5 puan)\nİlgilenilen grup (evren) açıkça görülmektedir. ✓ (0,5 puan)\nDeğişken açıkça görülmektedir. ✓ (0,5 puan)\nVeri toplanarak cevaplanabilmektedir. ✓ (0,5 puan)\nDeğişebilirliği yansıtmaktadır. ✓ (0,5 puan)\nOdaklanılan grup, araştırma yapılmasına imkân vermektedir. ✓ (0,5 puan)\nNicel veri toplamayı gerektirmektedir. ✓ (0,5 puan)\n=== Page 19 ===\n8.\n4, 5, 6, 6, 7, 7, 7, 8, 8, 9, 9, 9, 10, 10, 10, 10, 11, 11, 12, 12, 12, 12, 12, 13, 13, 13, 14, 15, 15, 17, 50       (1 puan)\nVeri grubunun en küçük değeri = 4  (1 puan)\nVeri grubunun en büyük değeri = 50  (1 puan)\nVeri grubunun ortanca değeri = 10  (1 puan)\nVeri grubunun alt çeyrek değeri = 8  (1 puan)\nVeri grubunun üst çeyrek değeri  = 13  (1 puan)\nVeri grubunun kutu grafiği aşağıdaki gibidir.\n4 8 10 13 50\n(2 puan)\n=== Page 20 ===\n9. a) 5, 5,2, 5,5, 5,7, 6, 6,2, 6,3, 6,5, 6,7, 6,8, 7, 7,1, 7,3, 7,5, 7,6, 7,8, 8, 8,3, 8,5, 8,7, 9, 9,2, 9,5, 15, 16 veri grubunun\n1 saatlik zaman aralıklarına göre gruplandırılmış hâli aşağıda verilmiştir.\nGrup Aralığı Kişi Sayısı\n5 ≤ t < 6 4\n6 ≤ t < 7 6\n7 ≤ t < 8 6\n8 ≤ t < 9 4\n9 ≤ t < 10 4\n15 ≤ t < 16 1\n16 ≤ t < 17 1\n(1 puan)\nKişi Sayısı\nEkran Süresi 4 1 0 [5,6) [6,7) [7,8) [8,9) [9,10) [15,16) [16,17) 6\n(1 puan)\nb) Çalışma sürelerine ait veri dağılımının saat cinsinden nasıl bir eğilim gösterdiğini anlamak için, merkezi eğilim\nölçülerinden aritmetik ortalama ve ortanca değerlerine bakılmalıdır.\nVerilerin toplamı = 5 + 5,2 + 5,5 + 5,7 + 6 + 6,2 + 6,3 + 6,5 + 6,7 + 6,8 + 7 + 7,1 + 7,3 + 7,5 + 7,6 + 7,8 + 8 +\n8,3 + 8,5 + 8,7 + 9 + 9,2 + 9,5 + 15 + 16 = 196,4\nEkran süresinin aritmetik ortalaması = 196 4 25\n7 856, ,=  (1 puan)\nVeri dağılımı incelendiğinde 15 ve 16 aykırı değerlerdir. Aykırı değerler dikkate alınmadığında aritmetik ortalama 165 4 23\n71 9, ,=  olur. Veri dağılımının ortanca değeri 7,3 iken aykırı değerler dikkate alınmadığında bu değer 7,1\nolur. Ortanca değer aritmetik ortalamaya göre aykırı değerlerden daha az etkilenmiştir. Elde edilen sonuçlar\ndoğrultusunda ortanca değeri ile cevaplamak daha doğru olacaktır. Dolasıyla çalışma sürelerinin ortalaması\n7,3 saattir. (2 puan)\nc) Çalışanların çalışma sürelerine ait veri dağılımının merkezine yığılan saatlerin hangi aralıklarda yoğunlaştığını\ngörebilmek için kutu grafiği incelenmelidir.\nVeri dağılımının en küçük elemanı = 5\n(1 puan)\nVeri dağılımının alt çeyrek değeri =\n(1 puan)\nVeri dağılımının ortanca değeri = 7,3\n(1 puan)\nVeri dağılımının üst çeyrek değeri  =\n(1 puan)\nVeri dağılımının en büyük değeri = 16\n(1 puan) 62 63 2 62 5 ,, , 85 87 2 86 ,, , 5\nÇ1 = 6,25 16\nÇ2 = 8,6 Ortanca 7,3\n(1 puan)\nKutu grafiğine göre üst çeyrek ve alt çeyrek arasında 13 çalışan bulunduğundan çalışanların %52'si bu aralıkta\nyoğunlaşmaktadır. Bu durumda merkeze yığılan çalışma saatleri  6,25 ile 8,6 arasındadır. (2 puan)\nd) Ekran süresinin ortalaması 7,856 olduğundan şirketin sağlık politikasına uygun olarak çalışanların ekran kullanım\nsüreleri sınırın altında kalmaktadır. (1 puan)\n=== Page 21 ===\n10. a) 80 70 80 90 90\nİsabet Edilen Puan İsabetli Atış Sayısı 70 35 80 40 90 25\nİsabet Sayısı\nİsabet Edilen Puan 40 30 20 10 0 50\n70 80 90 25 40 35\n(3 puan)\n=== Page 22 ===\nb)\nİsabetli Atış Sayısı 90 Puanlı Kartlara İsabet Eden Atış Sayısı\n500 194     0 388,  olur. (1 puan)\n1000 396     3961000 0 396,  olur. (1 puan)\n2000 810     8102000 0 405,  olur. (1 puan)\nc) 100 isabetli atışta 90 puanlı karta isabet eden atış sayısı 25 olduğundan deneysel olasılık değeri 25 100\n= 0,25 olur.  (1 puan)\n500 isabetli atışta 90 puanlı karta isabet eden atış sayısı 194 olduğundan deneysel olasılık değeri 194 500\n= 0,388 olur. (1 puan)\n1000 isabetli atışta 90 puanlı karta isabet eden atış sayısı 396 olduğundan deneysel olasılık değeri 396 1000\n= 0,396 olur. (1 puan)\n2000 isabetli atışta 90 puanlı karta isabet eden atış sayısı 810 olduğundan deneysel olasılık değeri 810 2000\n= 0,405 olur. (1 puan)\nAtış tekrar sayısı yeteri kadar arttırıldığında 90 puanlı karta isabet etme olayının deneysel olasılık değerleri\n0,4'e yaklaşır. (1 puan)\n=== Page 23 ===\n11.  a) 1 3 2 4 5 6 Torba Çark\n�8 �5 �3 0 2 7\n1 (1 , �8) (1 , �5) (1 , �3) (1 , 0) (1 , 2) (1 , 7)\n2 (2 , �8) (2 , �5) (2 , �3) (2 , 0) (2 , 2) (2 , 7)\n3 (3 , �8) (3 , �5) (3 , �3) (3 , 0) (3 , 2) (3 , 7)\n4 (4 , �8) (4 , �5) (4 , �3) (4 , 0) (4 , 2) (4 , 7)\n5 (5 , �8) (5 , �5) (5 , �3) (5 , 0) (5 , 2) (5 , 7)\n6 (6 , �8) (6 , �5) (6 , �3) (6 , 0) (6 , 2) (6 , 7)\n(3 puan)\nb) Çark bir kez çevrildiğinde ibrenin gösterdiği sayının asal sayı olma olayı B olsun.\nBu durumda B = {2, 3, 5} olur. (1 puan)\nTorbadan çekilen topun üzerinde negatif sayı yazma olayı C  olsun. Bu durumda C = {�8, �5, �3} olur. (1 puan)\nÇark bir kez çevrildiğinde ibrenin gösterdiği sayının asal sayı olma olayı veya torbadan çekilen topun üzerinde\nnegatif sayı yazma olayı A = B ∪ C = {�8, �5, �3, 2, 3, 5} şeklinde ifade edilir. (1 puan)\nc) Çark bir kez çevrildiğinde ibrenin gösterdiği sayının çift sayı olma olayının olasılığı PA() = =3 6 1 2 olarak\nbulunur.(1 puan)\nTorbadan art arda iki top çekildiğinde sayıların çarpımının pozitif olma olayının olasılığı\nPB PB() () 6 1 5 3 6 2 5 4\n15 olarak bulunur. (1 puan)\nA ve B olayının olasılığı PA BP AP BP AB PA Bo lur() () () () () . 2 4 15 2 15\n(1 puan)\nA veya B olayının olasılığı PA BP AP BP AB PA BP AB         () () 12 415 215 1930  olarak bulunur.(2 Puan)"
+  }
+ ]
+}

@@ -169,10 +169,12 @@ const puppeteer = require('puppeteer');
         document.querySelector('.meb-panel [data-meb-act="open"]').click();
         for (let i = 0; i < 50 && !document.querySelector('.meb-panel .meb-row'); i++) await new Promise(r => setTimeout(r, 100));
         const rows = document.querySelectorAll('.meb-panel .meb-row').length;
+        // A fresh visit leads with 2026-2027, and every row shows its school year.
+        const lead = document.querySelector('.meb-panel [data-meb-year][aria-pressed="true"]').dataset.mebYear === '2026-2027' && [...document.querySelectorAll('.meb-panel .meb-year')].every(e => e.textContent === '2026-2027');
         const links = [...document.querySelectorAll('.meb-panel .meb-open')].every(a => a.target === '_blank' && /noopener/.test(a.rel) && /^https:\/\//.test(a.href));
         document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
-        return { failed, rows: rows > 0, links, closed: document.querySelector('.meb-panel').parentElement.style.display === 'none' };
-      }), { failed: true, rows: true, links: true, closed: true });
+        return { failed, rows: rows > 0, lead, links, closed: document.querySelector('.meb-panel').parentElement.style.display === 'none' };
+      }), { failed: true, rows: true, lead: true, links: true, closed: true });
     });
     await check('offline navigation with a query string uses cached app shell', async () => {
       await page.evaluate(async () => { await navigator.serviceWorker.ready; });

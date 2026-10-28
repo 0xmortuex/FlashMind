@@ -1,0 +1,2027 @@
+{
+ "title": "10. Sınıf Felsefe – 1. Dönem 1. Yazılı (OGM Yazılıya Hazırlanıyorum)",
+ "meta": {
+  "fileId": "bc7c0513",
+  "grade": [
+   10
+  ],
+  "subject": "Felsefe",
+  "schoolYear": "",
+  "examType": "ogm-yazili",
+  "kind": "booklet",
+  "sourceUrl": "https://ogm-large-cdn.eba.gov.tr/materyal/Etkilesimlikitap/59f8fcea-07a4-4092-b2f1-88a186a0384c/pdf.pdf",
+  "counts": {
+   "sections": 13,
+   "cards": 102,
+   "questions": 71,
+   "sourceQuestions": 5,
+   "skippedNeedingFigure": 0
+  }
+ },
+ "notes": {
+  "summary": "Bu dosya, 10. sınıf Felsefe 1. dönem 1. yazılı için hazırlanmış örnek bir senaryo tabanlı sınavdır. Beş açık uçlu soru vardır: (1) metindeki ifadelerden felsefe kavramlarını bulma, (2) felsefi düşüncenin özelliklerini metinle gerekçelendirme, (3) felsefenin üç toplumsal işlevini metindeki sorunlarla ilişkilendirme, (4) düşünme–dil ilişkisini eko-kaygı örneğiyle açıklama, (5) tümevarım, argüman, safsata, analoji örneklerini bulma.\n\nBu dosyadan sınavda ne beklemeli / nasıl çalışmalı:\n1. Önce “Temel kavramlar” (düşünme, bilinç, hakikat, bilgi, erdem) tanımlarını ezber değil örnekle çalış.\n2. Felsefi düşüncenin dört özelliğini ve her birine örnek cümle bul.\n3. Üç toplumsal işlevi (akılcılık, saygı, etik yargı) metindeki sorunla eşleştirmeyi çalış.\n4. Çift yönlü nedenselliği “önce–sonra” şablonuyla yaz.\n5. Tümevarım, tümdengelim, analoji, safsata ve argüman ipuçlarını kantin metninde tek tek işaretle.\n6. Her cevapta kavram → alıntı → gerekçe sırasını kullan; kavramsız gerekçe puan getirmez.\n7. Sonra “Benzer soru” bölümündeki açık uçlu sorulara kendi cümlelerinle cevap yazıp rubriğe göre kendini puanla.",
+  "sections": [
+   {
+    "title": "Felsefe nedir? Anlam arayışı, merak ve şüphe",
+    "content": "Felsefe, insanın kendini, varlığı, bilgiyi ve değerleri akılla sorgulama çabasıdır. Önce basit düşün: bir çocuk \"Gökyüzü neden mavi?\" diye sorar; felsefe bu merakın \"Gerçek nedir? Bilmek nedir? İyi nedir?\" gibi derin sorulara dönmüş hâlidir. Felsefenin tek ve herkesçe kabul edilen bir tanımı yoktur; bu durumun kendisi de felsefi bir sorudur (felsefenin ortak tanımının imkânı).",
+    "bulletPoints": [
+     "Felsefe, \"philo-sophia\" yani bilgelik sevgisi sözcüğünden gelir.",
+     "Felsefe merakla başlar: bilinenle yetinmeyip \"neden?\" diye sorar.",
+     "Felsefi şüphe, bilineni yıkmak için değil sağlamlaştırmak için yapılır.",
+     "Dijital çağda bilgiye ulaşmak kolaydır; fakat bilgiyi anlamlandırmak felsefi çaba ister.",
+     "Felsefenin ortak bir tanımı konusunda filozoflar bile hemfikir değildir.",
+     "Sınavda: \"Felsefenin anlamı\" sorusunda merak, şüphe ve sorgulama kelimelerini mutlaka kullan."
+    ],
+    "keyTerms": [
+     {
+      "term": "Felsefe",
+      "definition": "Varlık, bilgi ve değer üzerine akla dayalı sorgulama etkinliği."
+     },
+     {
+      "term": "Merak",
+      "definition": "Bilinmeyeni öğrenme isteği; felsefenin başlangıç noktası."
+     },
+     {
+      "term": "Şüphe",
+      "definition": "Kabul edilmiş bilgiyi doğruluğu bakımından sorgulama tutumu."
+     }
+    ]
+   },
+   {
+    "title": "Felsefi düşüncenin özellikleri",
+    "content": "Felsefi düşünce gündelik düşünceden \"nasıl düşündüğüyle\" ayrılır. Bu dosyadaki sınavda dört özellik istenir: sorgulama, şüphe duyma, eleştirel olma ve refleksif olma. Bunların yanında felsefi düşünce akla dayanır, tutarlı olmaya çalışır ve konuya bütüncül bakar.",
+    "bulletPoints": [
+     "Sorgulama: \"Bu doğru mu, neden doğru?\" diye sormak.",
+     "Şüphe duyma: Duyduğun bilgiyi hemen kabul etmemek.",
+     "Eleştirel olma: Başkasının (veya kendi) görüşünü gerekçeleriyle değerlendirmek.",
+     "Refleksif olma: Düşüncenin kendi düşünme biçimine, bilgisine ve sınırlarına dönmesi.",
+     "Rasyonel (akla dayalı) ve tutarlı olma de felsefi düşüncenin ayırt edici yönleridir.",
+     "Her özelliği metindeki bir cümleyle eşleştirmek puan getirir."
+    ],
+    "keyTerms": [
+     {
+      "term": "Sorgulama",
+      "definition": "Gerekçe ve doğruluk sormak."
+     },
+     {
+      "term": "Eleştirel düşünce",
+      "definition": "Görüşleri gerekçeleriyle değerlendirme."
+     },
+     {
+      "term": "Refleksif düşünce",
+      "definition": "Kişinin kendi düşünce ve bilgisi üzerine düşünmesi."
+     }
+    ]
+   },
+   {
+    "title": "Sokrates ve \"bilmediğini bilmek\"",
+    "content": "Sokrates'in Savunması'nda Sokrates, bilgili sanılan kişiyle konuşunca şunu fark eder: o hiçbir şey bilmediği hâlde bildiğini sanıyor; Sokrates ise bilmediğini biliyor. Bu, felsefi tutumun özetidir: bilgisizliğin farkında olmak öğrenmenin ilk adımıdır.",
+    "bulletPoints": [
+     "\"Bildiğimi sanmıyorum\" sözü refleksif düşünceyi gösterir (kendi bilgisini sorgulama).",
+     "\"O hiçbir şey bilmediği hâlde bildiğini sanıyor\" sözü karşıdakinin bilgisini eleştirmektir.",
+     "\"Doğrusu belki ikimizin de iyi, güzel bir şey bildiğimiz yok\" sözü şüphe duymayı gösterir.",
+     "Diyet örneğindeki Can internetteki iddiaya hemen inanmaz; sorgular ve şüphe duyar.",
+     "Cevapta mutlaka hem özelliği hem de metinden gerekçeyi (alıntıyı) yaz."
+    ],
+    "keyTerms": [
+     {
+      "term": "Sokratik tavır",
+      "definition": "Bilgisizliğinin farkında olarak sorgulamak."
+     },
+     {
+      "term": "Gerekçe",
+      "definition": "Bir özelliği neden belirlediğini metinle açıklayan ifade."
+     }
+    ]
+   },
+   {
+    "title": "Temel felsefe kavramları: düşünme, bilinç, hakikat, bilgi, erdem",
+    "content": "Sınavda bir metindeki cümleler \"hangi felsefe kavramı?\" diye sorulur. Kavramı bulmak 2 puan, doğru açıklamak 3 puandır. Önce cümlenin ne anlattığına bak, sonra kavramın tanımını kısaca yaz.",
+    "bulletPoints": [
+     "Düşünme: Çıkarsama, akıl yürütme, hatırlama, anlama gibi bilinçli zihinsel faaliyetler.",
+     "Bilinç: Farkındalığın, duygunun, algının ve bilginin merkezi sayılan yetidir.",
+     "Hakikat: Bir bilgi alanının konu aldığı varlık alanıyla ilgili temel doğrular bütünü.",
+     "Bilgi: İnsanın kavramlarla düşünerek ulaştığı yargılar.",
+     "Erdem: Ahlaki bakımdan sürekli iyi olma eğilimi; iyi eylemlere yatkınlık.",
+     "Örnek: \"kendi iç dünyasının farkına varır\" cümlesi bilinci gösterir."
+    ],
+    "keyTerms": [
+     {
+      "term": "Düşünme",
+      "definition": "Bilinçli zihinsel faaliyet."
+     },
+     {
+      "term": "Bilinç",
+      "definition": "Farkındalık yetisi."
+     },
+     {
+      "term": "Hakikat",
+      "definition": "Temel doğrular bütünü."
+     },
+     {
+      "term": "Erdem",
+      "definition": "Sürekli iyi olma eğilimi."
+     }
+    ]
+   },
+   {
+    "title": "Felsefenin bireysel ve toplumsal işlevleri",
+    "content": "Felsefe sadece soyut bir uğraş değildir; bireye eleştirel düşünme, kendini tanıma, gerekçelendirme becerisi kazandırır; topluma ise akılcı tartışma ve hoşgörü ortamı sağlar. Sınavda üç toplumsal işlev özellikle sorulmuştur.",
+    "bulletPoints": [
+     "Rasyonel (akılcı) toplum olma: Tartışmalar duygusal tepki yerine gerekçeye dayanır.",
+     "Farklı görüşlere saygı gösterme: Kendi görüşünü tek doğru görmemek.",
+     "Etik ilkeler çerçevesinde yargıda bulunma: Hüküm vermeden önce adalet, dürüstlük, tarafsızlık gibi ilkeleri gözetmek.",
+     "Bireysel işlev: kendini ve dünyayı anlamlandırma, bağımsız karar verme.",
+     "Cevap kalıbı: işlev + metindeki sorun + işlevin o sorunu nasıl çözdüğü."
+    ],
+    "keyTerms": [
+     {
+      "term": "Rasyonel toplum",
+      "definition": "Sorunları akıl ve argümanla çözen toplum."
+     },
+     {
+      "term": "Hoşgörü",
+      "definition": "Farklılıklara saygı gösterme."
+     }
+    ]
+   },
+   {
+    "title": "Toplumsal sorunlar ve felsefenin rolü (sınav örneği)",
+    "content": "Sınavdaki metinde farklı kabullere sahip bireyler ön yargı, iletişim eksikliği ve suçlayıcı dil yüzünden kutuplaşır. Her işlev, metindeki farklı bir sorunla eşleşir: akılcılık ↔ karşılıklı argüman yokluğu ve suçlayıcı dil; saygı ↔ dışlanma/tehdit hissi ve \"mutlak doğru bende\" varsayımı; etik yargı ↔ sorgulamadan peşin hüküm.",
+    "bulletPoints": [
+     "Her işlev için puanlar: ilişkilendirme 2, gerekçe 5 (toplam 7).",
+     "Gerekçe yoksa ilişkilendirme tek başına sadece 2 puan getirir.",
+     "Metinden kısa alıntı yapmak ilişkilendirmeyi güçlendirir.",
+     "Gerekçede işlevin sorunu nasıl ortadan kaldırdığını açıkça yaz."
+    ],
+    "keyTerms": [
+     {
+      "term": "Kutuplaşma",
+      "definition": "Toplumun uzlaşmaz kamplara ayrılması."
+     },
+     {
+      "term": "Ötekileştirme",
+      "definition": "Farklı olanı dışlama."
+     }
+    ]
+   },
+   {
+    "title": "Düşünme ve dil ilişkisi",
+    "content": "Dil, düşüncenin ifade aracıdır; ama sadece araç değildir. Düşünce dili üretir (yeni durum yeni sözcük doğurur), dil de düşünceyi şekillendirir ve netleştirir. Bu iki yönlü ilişkiye çift yönlü nedensellik denir.",
+    "bulletPoints": [
+     "Düşünce → dil: Adı olmayan yeni bir durum, yeni bir kavramın türetilmesine yol açar.",
+     "Dil → düşünce: Kavram varsa insan onu ayırt eder, tartışır, çözüm arar.",
+     "Kavramsız düşünce belirsiz ve dağınık kalır.",
+     "Sınavda nedensel ilişkiyi iki yönlü kurmak 4 puan, örneğe uygulamak 10 puan."
+    ],
+    "keyTerms": [
+     {
+      "term": "Çift yönlü nedensellik",
+      "definition": "Düşüncenin dili, dilin de düşünceyi etkilemesi."
+     },
+     {
+      "term": "Kavram",
+      "definition": "Ortak özellikleri taşıyan nesne/durumların zihindeki genel karşılığı."
+     }
+    ]
+   },
+   {
+    "title": "Eko-kaygı örneği: kavramdan önce ve sonra",
+    "content": "Eko-kaygı örneğinde insanlar iklim krizi karşısında adlandıramadıkları bir kaygı yaşıyordu. APA 2017'de \"eko-kaygı\" kavramını tanımlayınca durum netleşti. Önce: belirsiz duygu, dilin yetersizliği. Sonra: adlandırma, sistemli inceleme, mantıksal çıkarım, çözüm arama.",
+    "bulletPoints": [
+     "Önce-sonra karşılaştırması yap: belirsizlik → netlik.",
+     "Düşünce dili zorladı → yeni kavram doğdu.",
+     "Kavram doğunca düşünce yapılandı → çözüm yolları aranabildi.",
+     "Sadece \"dil önemlidir\" demek yetmez; eko-kaygıya özel yaz."
+    ],
+    "keyTerms": [
+     {
+      "term": "Eko-kaygı",
+      "definition": "İklim krizi ve doğal afetlere yönelik gelecek kaygısı."
+     }
+    ]
+   },
+   {
+    "title": "Mantığın temel kavramları: önerme, argüman, öncül, sonuç",
+    "content": "Argüman, bir sonucu kanıtlamak için öncüllerden bir sonuç çıkarmaktır. \"O hâlde\", \"bu yüzden\", \"çünkü\", \"dolayısıyla\" gibi sözcükler argüman ipucudur. Öncül kabul edilen dayanak, sonuç ise bu dayanaktan çıkarılan yargıdır.",
+    "bulletPoints": [
+     "Önerme: Doğru ya da yanlış olabilen cümle.",
+     "Öncül: Sonucu destekleyen önerme.",
+     "Sonuç: Öncüllerden çıkarılan önerme.",
+     "Argüman bulurken önce sonucu işaretle, sonra öncülleri ara.",
+     "Örnek: \"Azaltmak yararlı. Okulda yaygın. O hâlde önlem alınmalı.\" — iki öncül, bir sonuç."
+    ],
+    "keyTerms": [
+     {
+      "term": "Argüman",
+      "definition": "Öncüllerden sonuca giden akıl yürütme."
+     },
+     {
+      "term": "Önerme",
+      "definition": "Doğru/yanlış değeri olan cümle."
+     }
+    ]
+   },
+   {
+    "title": "Tümevarım ve tümdengelim",
+    "content": "Tümevarım tek tek gözlemlerden genel sonuca varır; sonuç kesin değil olasıdır. Tümdengelim genel bir önermeden özel bir sonuca varır. Kantin örneğinde \"gözlemlere dayanarak öğrenciler tek kullanımlık ürünleri sık kullanıyor\" cümlesi tümevarımdır.",
+    "bulletPoints": [
+     "Tümevarım: özelden genele.",
+     "Tümdengelim: genelden özele.",
+     "Tümevarım gözlem sayısı arttıkça güçlenir, ama kesinlik vermez.",
+     "Gerekçe cümlesi: \"Tek tek gözlemlerden genel bir sonuca ulaşılmıştır.\""
+    ],
+    "keyTerms": [
+     {
+      "term": "Tümevarım",
+      "definition": "Tekil örneklerden genel yargıya varma."
+     },
+     {
+      "term": "Tümdengelim",
+      "definition": "Genel ilkeden özel sonuca varma."
+     }
+    ]
+   },
+   {
+    "title": "Analoji (benzetme yoluyla akıl yürütme)",
+    "content": "Analojide iki şey bazı yönlerden benzer görülür ve birinde bilinen bir özelliğin ötekinde de olduğu sonucuna varılır. Meltem'in \"arkadaşımın okulu da bizimki gibi kalabalık, öyleyse orada da tek kullanımlık ürünler yaygındır\" cümlesi analojidir.",
+    "bulletPoints": [
+     "Analoji kalıbı: A ile B şu yönlerden benzer; A'da X var; öyleyse B'de de X vardır.",
+     "Sonuç kesin değil, olasıdır.",
+     "Benzerlik zayıfsa analoji zayıf kalır.",
+     "Tümevarımla karıştırma: analojide iki tekil durum arasında geçiş vardır."
+    ],
+    "keyTerms": [
+     {
+      "term": "Analoji",
+      "definition": "Benzerlikten yola çıkarak çıkarım."
+     }
+    ]
+   },
+   {
+    "title": "Safsata (mantık hatası)",
+    "content": "Safsata, doğru gibi görünen ama hatalı akıl yürütmedir. Mert'in \"Siz çevre kulübündesiniz, zaten doğru bulmazsınız, söylediklerinizi önemsemiyorum\" cümlesi, düşüncenin dayanakları yerine düşünceyi savunan kişinin özelliğini hedef alır; bu kişiye saldırı safsatasıdır.",
+    "bulletPoints": [
+     "Kişiye saldırı: Argüman yerine kişiyi hedef alır.",
+     "Halka başvurma: \"Herkes yapıyor, doğrudur\".",
+     "Aceleci genelleme: Az örnekle genel hüküm.",
+     "Yanlış ikilem: Sadece iki seçenek varmış gibi davranma.",
+     "Safsatayı gösterirken \"kanıt yerine ne kullanıldığını\" yaz."
+    ],
+    "keyTerms": [
+     {
+      "term": "Safsata",
+      "definition": "Geçerli görünen ama hatalı akıl yürütme."
+     },
+     {
+      "term": "Kişiye saldırı",
+      "definition": "Görüş yerine kişiyi eleştirme."
+     }
+    ]
+   },
+   {
+    "title": "Yazılıda tam puan stratejisi",
+    "content": "Bu yazılıların puanlaması kısmi puana dayanır: her doğru kavram, örnek ve gerekçe ayrı puandır. Önce tabloyu oku, her satır için \"ne isteniyor?\" diye sor. Gerekçesiz cevap eksik puan alır; kavramsız gerekçe ise puan almaz.",
+    "bulletPoints": [
+     "Kavram → örnek/alıntı → gerekçe sırasını izle.",
+     "Her kutuyu doldur; boş bırakmak 0 demektir.",
+     "Metinden birebir cümle alıntıla.",
+     "Gerekçeyi \"çünkü\" ile bağla.",
+     "Süreni puana göre böl: 25 puanlık soru uzun, 14 puanlık soru kısa olmalı."
+    ],
+    "keyTerms": [
+     {
+      "term": "Kısmi puan",
+      "definition": "Tam cevap olmasa da doğru kısımlar için verilen puan."
+     }
+    ]
+   }
+  ],
+  "importantDates": [],
+  "commonMistakes": [
+   "Kavramı yazmadan sadece açıklama yazmak: puan alınmaz.",
+   "Refleksif olma ile eleştirel olmayı karıştırmak: biri kendi bilgisi, diğeri başkasının iddiası içindir.",
+   "Gerekçe kısmına metinden alıntı koymamak.",
+   "Eko-kaygı sorusunda sadece “dil önemlidir” yazıp önce–sonra karşılaştırması yapmamak.",
+   "Çift yönlü nedenselliğin yalnızca bir yönünü yazmak.",
+   "Tümevarım ile analojiyi karıştırmak: tümevarım çok sayıda gözlemden genelleme, analoji iki durum arasındaki benzerliktir.",
+   "Kişiye saldırı safsatasında “kişi yanlış düşünüyor” demek yerine “dayanak yerine kişi hedef alınmıştır” demeyi unutmak.",
+   "Toplumsal işlevleri metindeki problemlerle ilişkilendirmeden genel konuşmak.",
+   "Bilgi ile hakikati aynı şey sanmak."
+  ],
+  "diagrams": [],
+  "mindmap": {
+   "label": "10. Sınıf Felsefe 1. Dönem 1. Yazılı",
+   "children": [
+    {
+     "label": "Felsefenin anlamı",
+     "children": [
+      {
+       "label": "Merak ve şüphe",
+       "children": []
+      },
+      {
+       "label": "Ortak tanım sorunu",
+       "children": []
+      },
+      {
+       "label": "Anlam arayışı",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Felsefi düşüncenin özellikleri",
+     "children": [
+      {
+       "label": "Sorgulama",
+       "children": []
+      },
+      {
+       "label": "Şüphe duyma",
+       "children": []
+      },
+      {
+       "label": "Eleştirel olma",
+       "children": []
+      },
+      {
+       "label": "Refleksif olma",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Temel kavramlar",
+     "children": [
+      {
+       "label": "Düşünme",
+       "children": []
+      },
+      {
+       "label": "Bilinç",
+       "children": []
+      },
+      {
+       "label": "Hakikat",
+       "children": []
+      },
+      {
+       "label": "Bilgi",
+       "children": []
+      },
+      {
+       "label": "Erdem",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Felsefenin işlevleri",
+     "children": [
+      {
+       "label": "Rasyonel toplum",
+       "children": []
+      },
+      {
+       "label": "Farklı görüşlere saygı",
+       "children": []
+      },
+      {
+       "label": "Etik yargı",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Düşünme ve dil",
+     "children": [
+      {
+       "label": "Düşünce → dil",
+       "children": []
+      },
+      {
+       "label": "Dil → düşünce",
+       "children": []
+      },
+      {
+       "label": "Eko-kaygı örneği",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Mantık ve argümantasyon",
+     "children": [
+      {
+       "label": "Argüman (öncül–sonuç)",
+       "children": []
+      },
+      {
+       "label": "Tümevarım",
+       "children": []
+      },
+      {
+       "label": "Tümdengelim",
+       "children": []
+      },
+      {
+       "label": "Analoji",
+       "children": []
+      },
+      {
+       "label": "Safsata",
+       "children": []
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "flashcards": [
+  {
+   "front": "Felsefe sözcüğü neyi ifade eder?",
+   "back": "Philo-sophia: bilgelik sevgisi.",
+   "category": "Felsefenin anlamı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Felsefenin ortak bir tanımı var mı?",
+   "back": "Hayır, filozoflar farklı tanımlar yapmıştır; bu durum felsefi bir sorudur.",
+   "category": "Felsefenin anlamı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Felsefenin başlangıcı nedir?",
+   "back": "Merak ve şüphe.",
+   "category": "Felsefenin anlamı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Felsefi şüphe ne işe yarar?",
+   "back": "Bilinenin doğruluğunu sınayarak sağlamlaştırır.",
+   "category": "Felsefenin anlamı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Dijital çağda neden felsefeye ihtiyaç vardır?",
+   "back": "Bilgiye ulaşmak kolaydır; bilgiyi sorgulamak ve anlamlandırmak ise felsefi çaba ister.",
+   "category": "Felsefenin anlamı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Sorgulama özelliği nedir?",
+   "back": "Bir iddianın doğru olup olmadığını ve nedenini sormak.",
+   "category": "Felsefi düşüncenin özellikleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Şüphe duyma özelliği nedir?",
+   "back": "Bilgiyi doğrudan kabul etmeyip doğruluğundan kuşku duymak.",
+   "category": "Felsefi düşüncenin özellikleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Eleştirel olma özelliği nedir?",
+   "back": "Görüşleri gerekçelerini değerlendirerek ele almak.",
+   "category": "Felsefi düşüncenin özellikleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Refleksif olma özelliği nedir?",
+   "back": "Kişinin kendi düşünceleri ve bilgisi üzerine düşünmesi.",
+   "category": "Felsefi düşüncenin özellikleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Refleksif düşünceye metinden örnek?",
+   "back": "Sokrates: \"Bilmiyorum ama bildiğimi de sanmıyorum.\" Kendi bilgisini sorgular.",
+   "category": "Felsefi düşüncenin özellikleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "\"İnternette okudum, herkes memnunmuş\" cümlesi felsefi bakışta nasıl karşılanır?",
+   "back": "Doğrudan kabul edilmez; kaynak ve kanıt sorgulanır.",
+   "category": "Felsefi düşüncenin özellikleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Felsefi düşünce gerekçesini nasıl yazarsın?",
+   "back": "Özellik + metinden alıntı + \"bu da ... özelliğini gösterir\".",
+   "category": "Yazılı stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Sokrates kendini neden daha bilgili sayar?",
+   "back": "Çünkü bilmediğini bilir; karşısındaki bilmediği hâlde bildiğini sanır.",
+   "category": "Sokrates",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Sokrates'in Savunması kimin eseridir?",
+   "back": "Platon.",
+   "category": "Sokrates",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Düşünme nedir (felsefede)?",
+   "back": "Çıkarsama, akıl yürütme, hatırlama, anlama gibi bilinçli zihinsel faaliyetler.",
+   "category": "Temel kavramlar",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Bilinç nedir?",
+   "back": "Farkındalığın, duygunun, algının ve bilginin merkezi sayılan yeti.",
+   "category": "Temel kavramlar",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Hakikat nedir?",
+   "back": "Bir bilgi alanının konu aldığı varlık alanıyla ilgili temel doğrular bütünü.",
+   "category": "Temel kavramlar",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Bilgi nedir?",
+   "back": "İnsanın kavramlar aracılığıyla düşünerek ulaştığı yargılar.",
+   "category": "Temel kavramlar",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Erdem nedir?",
+   "back": "Ahlaki bakımdan sürekli iyi olma eğilimi, iyi eylemlere yatkınlık.",
+   "category": "Temel kavramlar",
+   "difficulty": "easy"
+  },
+  {
+   "front": "\"Kendi iç dünyasının farkına varır\" hangi kavram?",
+   "back": "Bilinç.",
+   "category": "Temel kavramlar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "\"Mutlak ve değişmez asıl gerçekliğe dair doğrular\" hangi kavram?",
+   "back": "Hakikat.",
+   "category": "Temel kavramlar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "\"Doğru eyleme dönüştürmek, ahlaki olgunlukla yaşamak\" hangi kavram?",
+   "back": "Erdem.",
+   "category": "Temel kavramlar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kavram sorusunda puan nasıl dağılır (1. soru)?",
+   "back": "Kavram 2 puan, açıklama 3 puan; 5 kavram = 25 puan.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kavram yazılmadan sadece açıklama yazılırsa?",
+   "back": "Puan verilmez.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Felsefenin toplumsal işlevlerinden üçü?",
+   "back": "Rasyonel toplum olma, farklı görüşlere saygı, etik ilkelerle yargıda bulunma.",
+   "category": "Felsefenin işlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Rasyonel toplum ne demektir?",
+   "back": "Sorunları duygu ve slogan yerine gerekçe ve argümanla çözen toplum.",
+   "category": "Felsefenin işlevleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Farklı görüşlere saygı işlevi neyi önler?",
+   "back": "Ötekileştirmeyi ve \"tek doğru benim\" anlayışını.",
+   "category": "Felsefenin işlevleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Etik ilkelerle yargıda bulunma ne demektir?",
+   "back": "Hüküm vermeden önce adalet, dürüstlük, tarafsızlık gibi ilkeleri gözetmek.",
+   "category": "Felsefenin işlevleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Suçlayıcı dil hangi felsefi işlevin eksikliğidir?",
+   "back": "Rasyonel iletişim (argüman sunma) ve etik yargı.",
+   "category": "Felsefenin işlevleri",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Toplumsal sorun sorusunda cevap kalıbı?",
+   "back": "İşlev + metindeki sorun + işlevin sorunu nasıl çözdüğü.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Bu sorudaki işlev puanları?",
+   "back": "İlişkilendirme 2, gerekçe 5; her işlev 7, toplam 21.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kutuplaşma nedir?",
+   "back": "Toplumun birbirini anlamayan karşıt kamplara bölünmesi.",
+   "category": "Felsefenin işlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Düşünce ile dil arasındaki ilişki nasıldır?",
+   "back": "Çift yönlü: düşünce dili üretir, dil düşünceyi yapılandırır.",
+   "category": "Düşünme ve dil",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Düşüncenin dili türetmesine örnek?",
+   "back": "Adlandırılamayan iklim kaygısı için \"eko-kaygı\" kavramının üretilmesi.",
+   "category": "Düşünme ve dil",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Dilin düşünceyi yapılandırmasına örnek?",
+   "back": "Kavram tanımlanınca psikologlar süreci sistemli inceleyebildi, bireyler anlamlandırdı.",
+   "category": "Düşünme ve dil",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kavramdan önce zihinsel durum nasıldı?",
+   "back": "Belirsiz, sınırları çizilmemiş, adı konmamış huzursuzluk.",
+   "category": "Düşünme ve dil",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kavramdan sonra ne değişti?",
+   "back": "Durum adlandırıldı, netleşti; çıkarım ve çözüm arama kolaylaştı.",
+   "category": "Düşünme ve dil",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Eko-kaygıyı kim, ne zaman tanımladı?",
+   "back": "Amerikan Psikoloji Derneği (APA), 2017.",
+   "category": "Düşünme ve dil",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Çift yönlü nedensellik puanı (4. soru)?",
+   "back": "Çift yönlülük 4, eko-kaygıya uygulama 10; toplam 14.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kavram neden gereklidir?",
+   "back": "Düşünceyi düzenler, iletişimi ve ortak anlamayı sağlar.",
+   "category": "Düşünme ve dil",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Argüman nedir?",
+   "back": "Bir sonucu desteklemek için öncüllerden sonuç çıkaran akıl yürütme.",
+   "category": "Mantık ve argüman",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Öncül nedir?",
+   "back": "Sonucu destekleyen, dayanak olarak sunulan önerme.",
+   "category": "Mantık ve argüman",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Sonuç nedir?",
+   "back": "Öncüllerden çıkarılan önerme.",
+   "category": "Mantık ve argüman",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Önerme nedir?",
+   "back": "Doğru ya da yanlış olabilen yargı cümlesi.",
+   "category": "Mantık ve argüman",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Sonuç bildiren bağlaçlar?",
+   "back": "O hâlde, bu yüzden, dolayısıyla, öyleyse.",
+   "category": "Mantık ve argüman",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Tümevarım nedir?",
+   "back": "Tek tek gözlemlerden genel sonuca varmak.",
+   "category": "Mantık ve argüman",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Tümdengelim nedir?",
+   "back": "Genel bir önermeden özel sonuca varmak.",
+   "category": "Mantık ve argüman",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Tümevarımın sonucu kesin midir?",
+   "back": "Hayır, olasıdır; yeni gözlem sonucu çürütebilir.",
+   "category": "Mantık ve argüman",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Analoji nedir?",
+   "back": "Benzerlik temelinde bir durumdan diğerine çıkarım yapmak.",
+   "category": "Mantık ve argüman",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Analoji kalıbı?",
+   "back": "A ve B benzer; A'da X var; öyleyse B'de de X vardır.",
+   "category": "Mantık ve argüman",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Safsata nedir?",
+   "back": "Doğru gibi görünen hatalı akıl yürütme.",
+   "category": "Mantık ve argüman",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kişiye saldırı safsatası nedir?",
+   "back": "Görüşün dayanakları yerine görüşü savunanın özelliğini hedef almak.",
+   "category": "Mantık ve argüman",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Halka başvurma safsatası?",
+   "back": "\"Herkes böyle yapıyor, o hâlde doğrudur\" demek.",
+   "category": "Mantık ve argüman",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Aceleci genelleme nedir?",
+   "back": "Çok az örnekten geniş bir genel sonuç çıkarmak.",
+   "category": "Mantık ve argüman",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yanlış ikilem nedir?",
+   "back": "İki seçenek varmış gibi gösterip diğer olasılıkları gizlemek.",
+   "category": "Mantık ve argüman",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kantin metninde tümevarım cümlesi hangisi?",
+   "back": "\"Gözlemlerimize dayanarak öğrencilerin tek kullanımlık ürünleri sık kullandığını söyleyebiliriz.\"",
+   "category": "Mantık ve argüman",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kantin metninde analoji cümlesi hangisi?",
+   "back": "Meltem'in arkadaşının lisesine ilişkin kuruntu cümlesi.",
+   "category": "Mantık ve argüman",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kantin metninde safsata cümlesi hangisi?",
+   "back": "Mert'in \"Siz çevre kulübündesiniz...\" cümlesi.",
+   "category": "Mantık ve argüman",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kantin metninde argüman cümleleri hangisi?",
+   "back": "Ece'nin \"azaltılması yararlıdır... yaygın... o hâlde önlem alınmalı\" akıl yürütmesi.",
+   "category": "Mantık ve argüman",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tümevarım gerekçesi nasıl yazılır?",
+   "back": "Tek tek gözlemlerden genel bir sonuca ulaşılmıştır.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Safsata gerekçesi nasıl yazılır?",
+   "back": "Düşüncenin dayanakları yerine düşünceyi savunan kişi hedef alınmıştır.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "5. soruda puan nasıl dağılır?",
+   "back": "Örnek cümle 3, gerekçe 2; 4 kavram = 20 puan.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "2. soruda puan dağılımı?",
+   "back": "Özellik 3, gerekçe 2; 4 özellik = 20 puan.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Gerekçe tek başına yazılırsa?",
+   "back": "Puan verilmez; önce özellik/kavram belirlenmelidir.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Bilgiyi ve bilinci karıştırma: fark?",
+   "back": "Bilgi, düşünmeyle ulaşılan yargılardır; bilinç, farkındalık yetisidir.",
+   "category": "Temel kavramlar",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Felsefede şüphe ile inkâr aynı mı?",
+   "back": "Hayır; şüphe sorgulamak, inkâr reddetmektir.",
+   "category": "Felsefenin anlamı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Eleştirel olma ile yıkıcı olmak aynı mı?",
+   "back": "Hayır; eleştiri gerekçeli değerlendirmedir.",
+   "category": "Felsefi düşüncenin özellikleri",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Sokrates yöntemi nasıl özetlenir?",
+   "back": "Sorular sorarak karşısındakinin bildiğini sandığı şeyleri sınamak.",
+   "category": "Sokrates",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Felsefe ve gündelik düşünce farkı?",
+   "back": "Felsefe gerekçe ister, sorgular, kavramları çözümler.",
+   "category": "Felsefenin anlamı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Felsefi soru örneği?",
+   "back": "\"Bilgi nedir? İyi nedir? Varlık nedir?\"",
+   "category": "Felsefenin anlamı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Dijital algoritmaların sunduğu \"sanılar\" için doğru tutum?",
+   "back": "Hakikate ulaşma çabasıyla sorgulamak.",
+   "category": "Felsefenin anlamı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Etik ilke örnekleri?",
+   "back": "Adalet, dürüstlük, tarafsızlık.",
+   "category": "Felsefenin işlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Ötekileştirme nedir?",
+   "back": "Farklı olanı dışlayıp karşı konumuna yerleştirme.",
+   "category": "Felsefenin işlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Peşin hüküm nedir?",
+   "back": "Sorgulamadan, önceden verilmiş yargı.",
+   "category": "Felsefenin işlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Hoşgörü ortamına felsefe nasıl katkı verir?",
+   "back": "Farklı bakış açılarını anlamayı öğretir.",
+   "category": "Felsefenin işlevleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tümdengelime kısa örnek?",
+   "back": "Bütün insanlar ölümlüdür; Sokrates insandır; öyleyse Sokrates ölümlüdür.",
+   "category": "Mantık ve argüman",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tümevarıma kısa örnek?",
+   "back": "Gördüğüm tüm kuğular beyaz; öyleyse tüm kuğular beyazdır (olası).",
+   "category": "Mantık ve argüman",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Argüman olmayan cümle türü?",
+   "back": "Yalnızca bilgi/görüş bildiren, sonuç çıkarmayan cümle.",
+   "category": "Mantık ve argüman",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kavram yazma kutusuna cümle yazılır mı?",
+   "back": "Hayır; kavramın adı kısa, açıklama ayrı yazılır.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Düşünce dili zorlayınca ne olur?",
+   "back": "Yeni sözcük/kavram türetilir.",
+   "category": "Düşünme ve dil",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Hakikat ile bilgi farkı?",
+   "back": "Hakikat temel doğrular bütünü; bilgi bu yöndeki kavramsal yargılar.",
+   "category": "Temel kavramlar",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Felsefenin amacı \"veri toplamak\" mıdır?",
+   "back": "Hayır; verilerin ötesinde anlamı ve doğru eylemi arar.",
+   "category": "Felsefenin anlamı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Hangi özellik \"kaynağı sorgulamak\"tır?",
+   "back": "Sorgulama/şüphe duyma.",
+   "category": "Felsefi düşüncenin özellikleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Eleştirel olma için metin ifadesi?",
+   "back": "\"O hiçbir şey bilmediği hâlde bildiğini sanıyor.\"",
+   "category": "Felsefi düşüncenin özellikleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Şüphe için metin ifadesi?",
+   "back": "\"Belki ikimizin de iyi, güzel bir şey bildiğimiz yok.\"",
+   "category": "Felsefi düşüncenin özellikleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Sorgulama için metin ifadesi?",
+   "back": "Can'ın duyduğu diyet iddiasının doğruluğunu araştırması.",
+   "category": "Felsefi düşüncenin özellikleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kısmi puan mantığı?",
+   "back": "Eksik kavram/gerekçe kadar puan düşer; kavramsız gerekçe 0.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Soru 3 hangi öğrenme çıktısına bağlı?",
+   "back": "Felsefenin bireysel ve toplumsal işlevlerini tartışma.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Soru 4 hangi konuyu ölçer?",
+   "back": "Düşünme ve dil ilişkisinde nedensellik.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Soru 5 hangi konuyu ölçer?",
+   "back": "Mantık ve argümantasyon kavramları.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Akıl yürütme türleri?",
+   "back": "Tümevarım, tümdengelim, analoji.",
+   "category": "Mantık ve argüman",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Sonuç önermesi nasıl bulunur?",
+   "back": "Hangi cümlenin savunulduğuna bak; öncüller onu destekler.",
+   "category": "Mantık ve argüman",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tek bir tanım olmaması felsefeye zarar mı?",
+   "back": "Hayır; çeşitlilik felsefenin sorgulayıcı doğasını yansıtır.",
+   "category": "Felsefenin anlamı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "\"Zihnin kavramlar arasında özgürce bağ kurması\" hangi kavram?",
+   "back": "Düşünme.",
+   "category": "Temel kavramlar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "\"Zihinsel çabalarla elde edilen veriler\" hangi kavram?",
+   "back": "Bilgi.",
+   "category": "Temel kavramlar",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Gerekçe cümlesinde hangi bağlaç işe yarar?",
+   "back": "“Çünkü” ve “bu durum ... özelliğini ifade eder”.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Tümevarım ve tümdengelim farkı?",
+   "back": "Tümevarım özelden genele, tümdengelim genelden özele gider.",
+   "category": "Mantık ve argüman",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Dogmatik tavır nedir?",
+   "back": "Kanıt aramadan kesin kabul etme tutumu; şüphenin zıddı.",
+   "category": "Felsefi düşüncenin özellikleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Argümanda önce hangisi bulunur?",
+   "back": "Sonuç; sonra onu destekleyen öncüller.",
+   "category": "Mantık ve argüman",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kavram nasıl doğar (dil açısından)?",
+   "back": "Yeni bir durum adlandırılamayınca düşünce dili zorlar ve yeni terim türetilir.",
+   "category": "Düşünme ve dil",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yazılı sınavda boş bırakılan alan kaç puan alır?",
+   "back": "Sıfır puan.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Felsefe sadece bilgi toplamak mıdır?",
+   "back": "Hayır; bilgiyi sorgular, anlamlandırır ve doğru eyleme dönüştürmeyi hedefler.",
+   "category": "Felsefenin anlamı",
+   "difficulty": "medium"
+  }
+ ],
+ "quiz": [
+  {
+   "type": "open-ended",
+   "question": "1. Anlam Yolculuğu: Mete, katıldığı söyleşide felsefe profesörüne sorar: “Dijital çağda her türlü bilgiye ulaşmak bu kadar kolayken bitmeyen bir anlama çabasını sürdürmek gereksiz bir yorgunluk değil mi?” Profesör yanıtlar: “Ekranlardan önümüze akan veriler zihnimizi doldurabilir fakat (1) zihnin kavramlar arasında özgürce bağ kurup derin sorular sorması, insanın varoluşu anlama serüvenindeki en temel eylemidir. Bu zihinsel etkinliği yapan kişi; ekrandaki sürekli bildirimlerin ve yapay yönlendirmelerin peşine takılıp savrulmak yerine, (2) hem kendi iç dünyasının ve sınırlarının farkına varır hem de çevresinde olup bitenleri derin bir uyanıklıkla fark eder. İnsanı bu uzun yolculukta ayakta tutan temel güç; dijital algoritmaların sunduğu geçici sanılar değil (3) görünenin ardındaki kalıcı, mutlak ve değişmez olan asıl gerçekliğe dair temel doğrular bütününe ulaşma tutkusudur. (4) Zihinsel çabalarla elde edilen veriler tek başına nihai amaç olamaz. Asıl mesele; (5) ulaşılan bu derin kavrayışı doğru eylemlere dönüştürmek, iyi ile kötüyü ayırt ederek ahlaki bir olgunlukla ve dürüstçe yaşayabilmektir.” Metinde numaralandırılan ifadelerin felsefeyle ilişkili hangi kavramları içerdiğini belirleyiniz. Belirlediğiniz kavramı açıklamasıyla birlikte yazınız. (Kavram 5x2, açıklama 5x3 puan)",
+   "correctAnswer": "1) Düşünme: Çıkarsama, akıl yürütme, hatırlama, anlama gibi bilinçli şekilde gerçekleştirilen zihinsel faaliyetlerdir. 2) Bilinç: İnsanda farkındalığın, duygunun, algının ve bilginin merkezi kabul edilen yetidir. 3) Hakikat: Bir bilgi alanının ya da disiplinin konu aldığı varlık alanıyla ilgili temel doğrular bütünüdür. 4) Bilgi: İnsanların kavramlar aracılığıyla düşünerek ulaştığı yargılardır. 5) Erdem: Ahlaki bakımdan sürekli olarak iyi olma eğilimi, iyi eylemlerde bulunmaya yatkın olma durumudur.",
+   "keyPoints": [
+    "(1) Düşünme + açıklaması",
+    "(2) Bilinç + açıklaması",
+    "(3) Hakikat + açıklaması",
+    "(4) Bilgi + açıklaması",
+    "(5) Erdem + açıklaması",
+    "Her kavram 2 puan, her doğru açıklama 3 puan"
+   ],
+   "maxPoints": 25,
+   "explanation": "Yöntem: her numaralı ifadeyi ayrı ayrı oku ve “bu cümle zihnin hangi yönünü anlatıyor?” diye sor. (1) Kavramlar arası bağ kurup soru sormak düşünmedir. (2) “İç dünyasının farkına varmak” farkındalık yani bilinçtir. (3) “Kalıcı, mutlak, değişmez temel doğrular bütünü” hakikatin tanımıdır. (4) “Zihinsel çabayla elde edilen veri” bilgidir. (5) Bilginin doğru eyleme dönüşmesi, iyi ve dürüst yaşam erdemdir. Puanlama: her kavram 2, her açıklama 3 puandır. Kavramı yazmadan açıklama yazarsan o satırdan puan alamazsın; yanlış kavram/açıklama başına 2 veya 3 puan düşer. Tam puan için 5 kavram + 5 kısa tanım yaz.",
+   "category": "Soru 1: Temel kavramlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "2. Biliyor musun? Bir bankta oturmuş sohbet eden Can ve Miraç arasında şöyle bir konuşma geçer. Miraç: İnternette okudum, uzmanların da önerdiği bu popüler diyet sayesinde insanlar hızla kilo veriyormuş. Uygulayan herkes de çok memnunmuş. Sen de biliyor muydun Can? Can: Ben bu diyet iddialarını araştırdıkça bilmediğim ne kadar çok detay olduğunu fark ettim. O yüzden hemen bir yargıya varamıyorum. Miraç, Can'ın söylediklerinin Platon'un Sokrates'in Savunması adlı eserinde Sokrates'in: “O zaman kendi kendime dedim ki: doğrusu belki ikimizin de iyi, güzel bir şey bildiğimiz yok; ama gene ben ondan bilginim, çünkü o hiçbir şey bilmediği hâlde bildiğini sanıyor; ben ise bilmiyorum ama bildiğimi de sanmıyorum. Demek ben ondan biraz bilgiliyim, çünkü bilmediklerimi bilirim sanmıyorum.” sözlerine çok benzediğini düşünür. Metinde felsefi düşüncenin hangi özelliklerine yer verilmiştir? Bu özellikleri belirleme gerekçenizi metinle ilişkilendirerek yazınız. (4 özellik x 3 puan, 4 gerekçe x 2 puan)",
+   "correctAnswer": "1. Sorgulama: Can duyduklarının doğru olup olmadığını sorgular; Sokrates hem kendi hem karşısındakinin bilgisini sorgular. 2. Şüphe duyma: Can internetteki bilgiyi doğrudan kabul etmez; Sokrates “ikimizin de iyi, güzel bir şey bildiğimiz yok” der. 3. Eleştirel olma: “O hiçbir şey bilmediği hâlde bildiğini sanıyor” sözü başkasının düşüncesini eleştirel biçimde değerlendirmektir. 4. Refleksif olma: “Ben ise bilmiyorum ama bildiğimi de sanmıyorum” sözü ve Can’ın “bilmediğim ne çok detay olduğunu fark ettim” demesi, kişinin kendi bilgisi üzerine düşünmesidir.",
+   "keyPoints": [
+    "Sorgulama + metinden gerekçe",
+    "Şüphe duyma + metinden gerekçe",
+    "Eleştirel olma + metinden gerekçe",
+    "Refleksif olma + metinden gerekçe",
+    "Özellik 3, gerekçe 2 puan"
+   ],
+   "maxPoints": 20,
+   "explanation": "Adım 1: Can ve Sokrates’in tavrını bul: ikisi de “bildiğimi sanıyorum” demiyor. Adım 2: Her tavrı bir özelliğe bağla; dört özellik sorgulama, şüphe, eleştirel olma ve refleksiflik. Adım 3: Her özellik için metinden bir cümle al ve “Bu durum ... özelliğini ifade eder” diye bağla. Refleksif özellik “kendi bilgisi üzerine düşünme”dir; eleştirel olma ise “başkasının bilgisini değerlendirme”dir; ikisini karıştırma. Puan: özellik 3, gerekçe 2. Özelliği yazmadan gerekçe yazarsan puan alamazsın; eksik özellik başına 3, eksik gerekçe başına 2 puan düşer.",
+   "category": "Soru 2: Felsefi düşüncenin özellikleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "3. Toplumsal Sorunlar: Farklı kabullere, inançlara ve yaşam tarzlarına sahip bireyler, geçmişte olduğu gibi bugün de bir arada yaşamaktadır. Ancak yanlış anlaşılmalar, ön yargılar ve iletişim eksikliği gibi nedenlerle bireyler arasında zaman zaman gerginlikler ortaya çıkabilir. Örneğin, bir grup diğerinin kültürel alışkanlıklarını sorgulamadan eleştirdiğinde eleştirilen taraf kendini dışlanmış ve tehdit altında hissedebilir. Karşılıklı argüman sunmak yerine suçlayıcı bir dilin benimsenmesi ve bireylerin mutlak doğruyu sadece kendilerinin bildiğini varsayması, toplumda giderek artan bir kutuplaşmaya ve hoşgörüsüzlük ortamına yol açabilir. Felsefenin aşağıda verilen üç işlevinden hareketle metindeki toplumsal sorunların aşılmasında felsefenin rolünü açıklayınız. Açıklamanızı yaparken bu üç işlevin metindeki problemlerle ilişkisini gerekçeleriyle yazınız: Rasyonel (akılcı) toplum olma (7 puan); Farklı görüşlere saygı gösterme (7 puan); Etik ilkeler çerçevesinde yargıda bulunma (7 puan).",
+   "correctAnswer": "Rasyonel toplum olma: Metindeki “karşılıklı argüman sunmak yerine suçlayıcı dil” ve “iletişim eksikliği” sorununu çözer; felsefe, duygusal tepki, slogan ve peşin hüküm yerine mantıksal gerekçelere, kanıtlara ve tutarlı argümanlara dayalı diyalog kurar, bireyler sorunları çatışarak değil uzlaşarak çözmeyi öğrenir. Farklı görüşlere saygı: “Bir grubun diğerinin kültürel alışkanlıklarını sorgulamadan eleştirmesi” ve “dışlanmış/tehdit altında hissetme” sorununu çözer; kişinin kendi görüşünü tek ve mutlak doğru görmesini engeller, ötekileştirmeyi önler, hoşgörü ortamı sağlar. Etik ilkeler çerçevesinde yargıda bulunma: Peşin, suçlayıcı eleştirilere karşı, bir eylem veya düşünce hakkında hüküm vermeden önce adalet, dürüstlük, tarafsızlık gibi evrensel ahlaki ilkeleri gözetme sorumluluğu kazandırır.",
+   "keyPoints": [
+    "Rasyonel toplum işlevi metindeki argüman yokluğu/suçlayıcı dille ilişkilendirildi",
+    "Rasyonel toplum gerekçesi (mantıksal gerekçe, kanıt, tutarlı argüman, uzlaşma)",
+    "Farklı görüşlere saygı işlevi sorgulamadan eleştiri ve dışlanmayla ilişkilendirildi",
+    "Saygı gerekçesi (mutlak doğru anlayışını önleme, ötekileştirmeyi azaltma, hoşgörü)",
+    "Etik yargı işlevi peşin ve suçlayıcı eleştiriyle ilişkilendirildi",
+    "Etik gerekçe (adalet, dürüstlük, tarafsızlık ilkelerini gözetme)",
+    "İlişkilendirme 2, gerekçe 5 puan"
+   ],
+   "maxPoints": 21,
+   "explanation": "Her işlevi 3 adımda yaz: (1) metinden sorunu al (alıntı); (2) işlevin ne yaptığını söyle; (3) bu yüzden sorunun nasıl azaldığını yaz. Aynı gerekçeyi üç işlevde tekrarlama: akılcılıkta “argüman, kanıt, uzlaşma”, saygıda “mutlak doğru zannı, dışlama, hoşgörü”, etikte “peşin hüküm, adalet-dürüstlük-tarafsızlık” vurgusu olmalı. Puan: her işlev için ilişkilendirme 2, gerekçe 5 (toplam 7×3=21). Gerekçe tek başına puan getirmez, çünkü önce metinle ilişkilendirmen gerekir.",
+   "category": "Soru 3: Felsefenin işlevleri",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "4. Eko-Kaygı: 2000’li yılların başında insanlar, iklim krizi ve doğal afetler karşısında henüz adlandıramadıkları derin bir gelecek kaygısı hissediyorlardı. Yaşadıkları bu duyguyu tam olarak tanımlayamadıkları için onu anlamlandırmakta ve ona çözüm bulmakta zorlanıyorlardı. Amerikan Psikoloji Derneği (APA), 2017’de bu durumu “eko-kaygı” kavramıyla tanımladı. Bu kavramın kullanılmaya başlanmasıyla psikologlar söz konusu duygusal süreci daha sistemli biçimde inceleyebildi. Bireyler de yaşadıkları karmaşık duyguları anlamlandırmanın ve bunlar üzerinde düşünmenin kolaylaştığını ifade ettiler. “Eko-kaygı” kavramı tanımlanmadan önce ve sonra bireylerin zihinsel süreçlerinde yaşanan değişimi, dil ve düşünce arasındaki ilişkiyi dikkate alarak açıklayınız (14 puan).",
+   "correctAnswer": "“Eko-kaygı” kavramı tanımlanmadan önce bireylerin zihninde iklim krizine karşı belirsiz, sınırları çizilmemiş ve adı konmamış bir huzursuzluk vardı. Dildeki bilinen kavramlar bunu açıklamaya yetmeyince zihinde beliren yeni durum dili zorladı ve “eko-kaygı” kavramının türetilmesine neden oldu. Kavram tanımlandıktan sonra bireyler karmaşık durumu adlandırabildi; kavramın dilde yer bulması durumu zihinde netleştirmelerini, mantıksal çıkarımlar yapmalarını, üzerine açıkça düşünmelerini ve çözüm yolları aramalarını kolaylaştırdı. Böylece düşüncenin dili yeni bir kavram üretmeye yönlendirebildiği, üretilen kavramın da düşüncenin netleşmesini ve yapılandırılmasını sağladığı görülür.",
+   "keyPoints": [
+    "Çift yönlü nedensellik: düşünce dili türetir, dil düşünceyi yapılandırır (4 puan)",
+    "Kavram öncesi: belirsiz, adlandırılamayan duygu; dilin yetersizliği",
+    "Kavram sonrası: adlandırma, netleşme, mantıksal çıkarım, çözüm arama",
+    "Açıklamanın eko-kaygı örneğine uygulanması (10 puan)"
+   ],
+   "maxPoints": 14,
+   "explanation": "Önce iki yönü ayır: Düşünce → dil (yeni durum yeni kavram doğurdu) ve dil → düşünce (kavram düşünceyi netleştirdi). Sonra “önce” ve “sonra” başlıklarıyla eko-kaygıya uygula. Önce: adı yok, belirsiz huzursuzluk, çözüm bulunamıyor. Sonra: ad var, psikologlar sistemli inceliyor, bireyler anlamlandırıp çözüm arıyor. Puan: çift yönlü nedenselliği belirtmek 4, eko-kaygıya uygulamak 10. Sadece “dil ve düşünce ilişkilidir” demek 0’a yakındır; örneğe bağlamak şarttır.",
+   "category": "Soru 4: Düşünme ve dil",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "5. Geri Dönüşüm: Çevre kulübü öğrencileri, okul kantinindeki öğrenci davranışlarını bir hafta boyunca gözlemlemiştir. Öğrencilerin sıcak içeceklerde kâğıt bardak, soğuk içeceklerde plastik bardak; yemeklerde ise çoğunlukla plastik çatal ve kaşık kullandığını tespit etmişlerdir. Bunun üzerine Ece, “Gözlemlerimize dayanarak öğrencilerin tek kullanımlık ürünleri sık kullandığını söyleyebiliriz.” demiştir. Okul yönetimine sunulacak öneri tartışılırken Ece, “Tek kullanımlık ürünlerin azaltılması çevre için yararlıdır. Okulumuzda bu ürünler yaygın olarak kullanılmaktadır. O hâlde bunların kullanımını azaltacak önlemler alınmalıdır.” diyerek fikrini belirtmiştir. Meltem ise “Arkadaşımın gittiği lise de bizimki gibi öğrenci sayısı fazla ve kantini yoğun kullanılan bir okul. Bizim okulumuzda tek kullanımlık ürünler sık kullanıldığına göre orada da bu ürünler yaygın olarak kullanılıyordur. Orada da gerekli önlemler alınmalıdır.” demiştir. Bunun üzerine Mert, “Siz çevre kulübünde olduğunuz için yaptıklarımızı zaten doğru bulmazsınız. Bu yüzden söylediklerinizin önemsenmesi gerektiğini düşünmüyorum.” diyerek itiraz etmiştir. Tabloda verilen kavramlara (Tümevarım, Argüman, Safsata, Analoji) metin içinden birer örnek cümle bulunuz ve bu cümlelerin örnek olma gerekçelerini yazınız. (Örnek cümle 4x3, gerekçe 4x2 puan)",
+   "correctAnswer": "Tümevarım: “Gözlemlerimize dayanarak öğrencilerin tek kullanımlık ürünleri sık kullandığını söyleyebiliriz.” Gerekçe: Tek tek gözlemlerden genel bir sonuca ulaşılmıştır. Argüman: “Tek kullanımlık ürünlerin azaltılması çevre için yararlıdır. Okulumuzda bu ürünler yaygın olarak kullanılmaktadır. O hâlde bunların kullanımını azaltacak önlemler alınmalıdır.” Gerekçe: Bir sonuca ulaşmak için öncüller ileri sürülmüş ve bu öncüllerden bir sonuç çıkarılmıştır. Safsata: “Siz çevre kulübünde olduğunuz için yaptıklarımızı zaten doğru bulmazsınız. Bu yüzden söylediklerinizin önemsenmesi gerektiğini düşünmüyorum.” Gerekçe: İleri sürülen düşüncenin dayanakları yerine düşünceyi savunan kişilerin özelliği hedef alınmıştır. Analoji: Meltem’in “Arkadaşımın gittiği lise de bizimki gibi... orada da bu ürünler yaygın olarak kullanılıyordur. Orada da gerekli önlemler alınmalıdır.” cümleleri. Gerekçe: Bazı yönlerden birbirine benzeyen şeylerin başka özellikler bakımından da benzer olacağı kabul edilmiştir.",
+   "keyPoints": [
+    "Tümevarım örneği (gözlemlerden genelleme) + gerekçe",
+    "Argüman örneği (öncüller + “o hâlde” sonucu) + gerekçe",
+    "Safsata örneği (Mert’in kişiye saldırısı) + gerekçe",
+    "Analoji örneği (Meltem’in benzetmesi) + gerekçe",
+    "Örnek cümle 3, gerekçe 2 puan"
+   ],
+   "maxPoints": 20,
+   "explanation": "Her kavram için ipucu ara: Tümevarım = “gözlemlerimize dayanarak” (tek tek durumlardan genel). Argüman = “o hâlde” sonuç bağlacı ve öncüller. Analoji = “bizimki gibi... orada da” benzerlik kurup başka bir duruma geçiş. Safsata = konuşmacının kanıtı değil, karşıdakinin kimliği (kulüp üyesi olması) hedef alınır. Gerekçeyi her seferinde kavramın tanımından kur. Puan: örnek cümle 3, gerekçe 2. Örneği bulmadan gerekçe yazarsan puan almazsın.",
+   "category": "Soru 5: Mantık ve argümantasyon",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir lise öğrencisi, sosyal medyada “Bu bitki çayı her hastalığı iyileştirir” paylaşımını görür. Paylaşımı hemen onaylamak yerine kaynağını araştırır, deneysel kanıt olup olmadığını sorar ve daha önce bu konuda yanıldığı olup olmadığını düşünür. Bu öğrencinin davranışında felsefi düşüncenin hangi özelliklerinin bulunduğunu metinle ilişkilendirerek yazınız.",
+   "correctAnswer": "Sorgulama: kaynağı ve kanıtı sorar. Şüphe duyma: paylaşımı doğrudan kabul etmez. Refleksif olma: daha önce yanıldığını düşünerek kendi bilgisi üzerine düşünür.",
+   "keyPoints": [
+    "Sorgulama (kaynak ve kanıt arama)",
+    "Şüphe duyma (doğrudan kabul etmeme)",
+    "Refleksif olma (kendi bilgisini düşünme)"
+   ],
+   "maxPoints": 9,
+   "explanation": "“Kaynağını araştırır, kanıt sorar” sorgulamadır; “hemen onaylamaz” şüphedir; “daha önce yanıldığını düşünür” kendi düşünme sürecine dönmek olduğundan refleksifliktir. Eleştirel olma, başkasının iddiasını gerekçeleriyle değerlendirmek olduğundan paylaşımın kanıtsızlığını değerlendirmesiyle de savunulabilir.",
+   "category": "Benzer soru: Felsefi düşüncenin özellikleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Ayşe: “Bu yıl matematik sınavı çok kolay olacak, herkes böyle diyor.” Berk: “Kim demiş, kaynağı ne? Ben geçen yıl da böyle düşünüp yanılmıştım, o yüzden hazırlanmadan bir şey söyleyemem.” Berk’in tavrında hangi iki felsefi özellik vardır? Gerekçelerini yazınız.",
+   "correctAnswer": "Sorgulama: “Kim demiş, kaynağı ne?” diyerek iddianın dayanağını sorar. Refleksif olma: geçen yıl yanıldığını hatırlayarak kendi düşüncesini ve bilgisini gözden geçirir.",
+   "keyPoints": [
+    "Sorgulama + “kaynağı ne?”",
+    "Refleksif olma + “geçen yıl yanılmıştım”",
+    "Her özellik için metinden gerekçe"
+   ],
+   "maxPoints": 6,
+   "explanation": "İki ayrı cümle iki ayrı özelliğe denk gelir. İlk cümle dışarıdaki iddiaya yönelir (sorgulama), ikinci cümle kişinin kendi geçmiş düşüncesine yönelir (refleksiflik). “Herkes diyor” savı da halka başvurma safsatasının belirtisidir.",
+   "category": "Benzer soru: Felsefi düşüncenin özellikleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Yalnızca bir şey için eminim: Hiçbir şeyden tam emin değilim.” diyen bir öğrencinin düşünme tarzıyla Sokrates’in “Bilmediğimi biliyorum” sözü arasındaki ortak noktayı açıklayınız.",
+   "correctAnswer": "İkisi de bilginin sınırlarının farkındadır; kesin ve tam bilgiye sahip olduğunu sanmak yerine kendi bilgisizliğini kabul eder. Bu, kendi bilgisini sorgulamak (refleksif olma) ve bildiğini sanmayıp şüphe duymaktır.",
+   "keyPoints": [
+    "Bilgi sınırlarının farkında olma",
+    "Şüphe duyma",
+    "Refleksif olma"
+   ],
+   "maxPoints": 6,
+   "explanation": "Sokrates’in bilgisizliğin farkında olması öğrenmenin başlangıcı sayılır. Öğrenci de kesinlik iddia etmez. Cevapta “kendi bilgisi üzerine düşünme” ifadesini kullanmak refleksifliği kanıtlar; “iddiaları sorgulama” ifadesi şüphe boyutunu tamamlar.",
+   "category": "Benzer soru: Sokrates",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki cümleleri okuyunuz ve hangi felsefe kavramıyla ilişkili olduğunu açıklamasıyla yazınız. (1) “Hasan, bir olayın nedenini düşünerek sonuca ulaştı.” (2) “Zehra, kendi duygularının ve düşüncelerinin farkındadır.” (3) “Murat, adaletli davranmayı alışkanlık hâline getirmiştir.”",
+   "correctAnswer": "1) Düşünme: çıkarsama, akıl yürütme gibi bilinçli zihinsel faaliyettir. 2) Bilinç: farkındalık, duygu ve algının merkezi olan yetidir. 3) Erdem: ahlaki olarak sürekli iyi olma eğilimidir.",
+   "keyPoints": [
+    "Düşünme + tanım",
+    "Bilinç + tanım",
+    "Erdem + tanım"
+   ],
+   "maxPoints": 9,
+   "explanation": "Cümledeki eylemi kavramlaştır: “nedenini düşünerek sonuca ulaşmak” = akıl yürütme. “Farkında olmak” = bilinç. “Alışkanlık hâline getirmek” = erdemin sürekli iyi olma eğilimi. Kavramı yazıp kısa tanım ekle.",
+   "category": "Benzer soru: Temel kavramlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Öğrenci Ece, ders kitabındaki bilgiyi ezberlemekle yetinmeyip ‘Bu bilgi neye dayanıyor, doğru mu?’ diyerek kaynak taramıştır. Sonunda edindiği bilgiyi çevresine doğru ve dürüst biçimde anlatmaktadır.” Bu cümlede bilgi ve erdem kavramlarının nerede geçtiğini gösteriniz.",
+   "correctAnswer": "Bilgi: Ece’nin kaynak tarayarak düşünüp ulaştığı yargılar. Erdem: bu bilgiyi çevresine dürüstçe aktarması; iyi eylem eğilimi.",
+   "keyPoints": [
+    "Bilgi = düşünerek ulaşılan yargılar",
+    "Erdem = dürüst ve iyi eylem eğilimi"
+   ],
+   "maxPoints": 6,
+   "explanation": "İlk kısım bilginin oluşum sürecini (düşünme ile yargıya ulaşma) gösterir. İkinci kısımda “doğru ve dürüst anlatma” ahlaki eğilimi, yani erdemi gösterir. Birinci sorudaki profesörün metniyle aynı mantıktır.",
+   "category": "Benzer soru: Temel kavramlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir sınıf tartışmasında Ali, “Farklı düşünenler yanılıyor” der ve herkesin susmasını ister. Felsefenin hangi iki toplumsal işlevi bu tutumun yarattığı sorunu azaltabilir? Gerekçelendiriniz.",
+   "correctAnswer": "Farklı görüşlere saygı: Ali’nin kendi görüşünü tek doğru görmesini engeller, başkalarının bakış açısını dinlemeyi öğretir. Rasyonel toplum olma: tartışmayı susturma yerine gerekçeli argümanla yürütmeyi sağlar.",
+   "keyPoints": [
+    "Farklı görüşlere saygı + gerekçe",
+    "Rasyonel olma + gerekçe"
+   ],
+   "maxPoints": 8,
+   "explanation": "Ali’nin sorunu iki katmanlıdır: başkalarını dinlememesi (saygı) ve argüman sunmaması (akılcılık). Her işlevi sorunla eşleştirip nasıl çözdüğünü yaz.",
+   "category": "Benzer soru: Felsefenin işlevleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir sosyal medya yorumunda bir grup, başka bir şehirden gelen öğrencileri hiçbir kanıt göstermeden suçlamaktadır. Etik ilkeler çerçevesinde yargıda bulunma işlevi bu durumda nasıl bir rol oynar?",
+   "correctAnswer": "Suçlamadan önce adalet, dürüstlük ve tarafsızlık ilkelerinin gözetilmesini sağlar; peşin hükümle, kanıtsız mahkûm etmeyi engeller; bireyi hüküm vermeden önce kanıt aramaya ve karşı tarafı dinlemeye yöneltir.",
+   "keyPoints": [
+    "Etik ilkeleri gözetme",
+    "Peşin hükmü ve kanıtsız suçlamayı önleme"
+   ],
+   "maxPoints": 6,
+   "explanation": "Sorun “kanıtsız suçlama” olduğundan, cevapta peşin hüküm ve adalet-tarafsızlık ilkeleri kullanılmalıdır. Saygı işlevi ile karıştırma: saygı farklılığı anlamaya, etik yargı ise hükmün ilkeli verilmesine odaklanır.",
+   "category": "Benzer soru: Felsefenin işlevleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir ülkede iki grup yönetim biçimi tartışmasında birbirine sürekli bağırmakta, karşı tarafın argümanını dinlememektedir. Felsefenin rasyonel toplum işlevi bu sorunu nasıl çözmeye katkı sağlar?",
+   "correctAnswer": "Rasyonel toplum işlevi, tartışmada bağırma ve duygusal tepki yerine gerekçeli argümanlara, kanıtlara ve tutarlı akıl yürütmeye dayalı diyalog kurar. Taraflar öncüllerini ortaya koyar, birbirinin gerekçesini değerlendirir ve uzlaşır.",
+   "keyPoints": [
+    "Duygusal tepki yerine gerekçe",
+    "Argüman ve kanıt kullanma",
+    "Uzlaşma"
+   ],
+   "maxPoints": 7,
+   "explanation": "Rasyonel toplum, tartışmanın “nasıl” yapıldığını düzenler. “Bağırma” sorununu “argümanla karşılık verme” ile karşılaştır, sonunda uzlaşmaya varan bir diyalog tarif et.",
+   "category": "Benzer soru: Felsefenin işlevleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir sınıfta öğrenciler farklı inançlara ve yaşam tarzlarına sahip olmasına rağmen birlikte proje yapmak durumundadır. Felsefenin “farklı görüşlere saygı gösterme” işlevi bu işbirliğini nasıl kolaylaştırır?",
+   "correctAnswer": "Her bireyin kendi görüşünü tek ve mutlak doğru görmesini engeller, farklı bakış açılarını anlamayı sağlar; ötekileştirmeyi azaltır ve hoşgörülü, barış içinde birlikte çalışmayı mümkün kılar.",
+   "keyPoints": [
+    "Mutlak doğru anlayışını engelleme",
+    "Bakış açılarını anlama",
+    "Hoşgörü ve barış içinde birlikte olma"
+   ],
+   "maxPoints": 7,
+   "explanation": "Cevapta “saygı” kelimesini tanımla (farklı olanı anlayıp kabul etme) ve projedeki işbirliğine bağla. Sadece “hoşgörülü olurlar” demek yüzeyseldir.",
+   "category": "Benzer soru: Felsefenin işlevleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Heyecan” kavramı bir dilde yokken o dilin konuşanları bu durumu “içte kelebekler uçuşması” diye anlatıyor olsun. Daha sonra tek bir sözcük üretiliyor. Dil-düşünce ilişkisi açısından bu sözcüğün üretilmesinin önce ve sonrasında zihinsel süreçte ne değişir?",
+   "correctAnswer": "Önce: duygu zihinde belirsiz ve uzun betimlemelerle anlatılır, düşünce dili zorlar. Sözcük üretilince: durum adlandırılır, netleşir, üzerine daha kolay düşünülür ve konuşulur. Düşünce dili üretir; dil de düşünceyi netleştirir.",
+   "keyPoints": [
+    "Önce belirsizlik",
+    "Yeni kavramın üretilmesi (düşünce → dil)",
+    "Sonra netleşme (dil → düşünce)"
+   ],
+   "maxPoints": 8,
+   "explanation": "Eko-kaygı sorusuyla aynı yapı: durum vardır ama adı yoktur. Önce–sonra karşılaştırması yap ve çift yönlü nedenselliği belirt.",
+   "category": "Benzer soru: Düşünme ve dil",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Burnout (tükenmişlik)” sözcüğü yaygınlaşmadan önce insanlar yoğun yorgunluk ve isteksizlik yaşıyor ama bunu bir sorun olarak tanımlayamıyordu. Kavram yerleşince araştırmalar arttı. Bu durum dil ve düşünce ilişkisini nasıl gösterir?",
+   "correctAnswer": "Yaşanan durum (düşünce/deneyim) yeni bir kavramın ortaya çıkmasını sağladı; kavram dilde yerleşince durum anlaşılabilir hâle geldi, incelenebildi ve çözüm aranabildi. Bu, dilin düşünceyi yapılandırması demektir.",
+   "keyPoints": [
+    "Düşünce kavramı üretir",
+    "Kavram düşünceyi yapılandırır",
+    "Araştırma ve çözüm arama"
+   ],
+   "maxPoints": 7,
+   "explanation": "Kavram → inceleme → çözüm zinciri, dilin düşünceyi netleştirdiğini gösterir. “Önce belirsizlik, sonra adlandırma” vurgusunu unutma.",
+   "category": "Benzer soru: Düşünme ve dil",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Düşünme ve dil arasındaki “çift yönlü nedensellik”i bir örnekle açıklayınız.",
+   "correctAnswer": "Düşünce dili üretir: yeni bir deneyim için yeni sözcük türetilir. Dil de düşünceyi şekillendirir: kavramlar sayesinde düşünce netleşir ve karmaşık akıl yürütmeler yapılır. Örnek: eko-kaygı kavramı önce yaşanan kaygıdan doğdu, sonra insanların bu kaygıyı anlamasını sağladı.",
+   "keyPoints": [
+    "Düşünce → dil",
+    "Dil → düşünce",
+    "Somut örnek"
+   ],
+   "maxPoints": 6,
+   "explanation": "Her iki yönü ayrı cümlelerle yazmak ve bir örnek eklemek tam puan için yeterlidir. Tek yönlü anlatım kısmi puan getirir.",
+   "category": "Benzer soru: Düşünme ve dil",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir çocuk “yeşil” renk için yalnızca “çimen rengi” diyebiliyorken, okulda renk adlarını öğrenince tonları ayırt etmeye başlıyor. Bu örnek dil-düşünce ilişkisinin hangi yönünü gösterir?",
+   "correctAnswer": "Dilin düşünceyi yapılandırdığı yönünü gösterir: yeni kavramlar (renk adları) çocuğun algısını ve düşüncesini ayrıntılandırır.",
+   "keyPoints": [
+    "Dil → düşünce yönü",
+    "Kavramın düşünceyi ayrıntılandırması"
+   ],
+   "maxPoints": 5,
+   "explanation": "Burada yeni sözcükler öğrenildikten sonra düşünce değişiyor; yani yön dilden düşünceye doğrudur. Düşüncenin dili ürettiği yön ise “yeni durum için yeni sözcük” örneklerinde görülür.",
+   "category": "Benzer soru: Düşünme ve dil",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki argümanın öncüllerini ve sonucunu ayırınız: “Düzenli spor yapan insanların kalp sağlığı iyidir. Ali düzenli spor yapıyor. Bu yüzden Ali’nin kalp sağlığı iyidir.”",
+   "correctAnswer": "1. Öncül: Düzenli spor yapan insanların kalp sağlığı iyidir. 2. Öncül: Ali düzenli spor yapıyor. Sonuç: Ali’nin kalp sağlığı iyidir.",
+   "keyPoints": [
+    "İki öncülün doğru ayrılması",
+    "Sonucun “bu yüzden” ile bulunması"
+   ],
+   "maxPoints": 6,
+   "explanation": "“Bu yüzden” sonuç göstergesidir; ondan önceki iki cümle öncüldür. Genel bir önermeden özele gidildiği için bu argüman tümdengelimdir.",
+   "category": "Benzer soru: Mantık ve argüman",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Bu mahalledeki ilk beş marketin fiyatları pahalı çıktı, o hâlde bu mahalledeki bütün marketler pahalıdır.” cümlesinin akıl yürütme türünü belirleyiniz ve gerekçesini yazınız. Bu yargının zayıf yanı nedir?",
+   "correctAnswer": "Tümevarımdır: tek tek gözlemlerden genel sonuca varılmıştır. Zayıf yanı örnek sayısının az olması (aceleci genelleme riski) ve sonucun kesin değil olası olmasıdır.",
+   "keyPoints": [
+    "Tümevarım",
+    "Tek tek gözlemden genele",
+    "Örnek azlığı / olasılık"
+   ],
+   "maxPoints": 7,
+   "explanation": "“İlk beş” gözlem, “bütün” genel yargıdır. Tümevarım sonuç olarak kesinlik vermediği için yeni bir ucuz market çürütür.",
+   "category": "Benzer soru: Mantık ve argüman",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Elif: “Teyzemin telefonu bu markadan ve çok dayanıklı. Benim telefonum da aynı markadan, aynı serideymiş. O hâlde benimki de çok dayanıklıdır.” Elif’in kullandığı akıl yürütme türünü ve gerekçesini yazınız.",
+   "correctAnswer": "Analoji: iki telefon marka ve seri bakımından benzer olduğu için teyzenin telefonundaki dayanıklılığın Elif’inkinde de olacağı varsayılmıştır.",
+   "keyPoints": [
+    "Analoji",
+    "Benzerlik yönlerinin belirtilmesi",
+    "Sonucun benzerlikten çıkarılması"
+   ],
+   "maxPoints": 6,
+   "explanation": "A ve B’nin ortak özellikleri (marka, seri) → A’da X (dayanıklılık) var → B’de de X vardır. Bu kalıp analojidir; sonuç kesin değil, olasıdır.",
+   "category": "Benzer soru: Mantık ve argüman",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir tartışmada Selin, “Bu kanunun adil olduğunu söylüyorsun ama sen zaten hukuk fakültesinde okumuyorsun, bu yüzden fikrin geçersiz.” der. Selin hangi safsatayı yapmaktadır? Gerekçelendirin.",
+   "correctAnswer": "Kişiye saldırı safsatası: kanunun adil olup olmadığına dair gerekçeler yerine konuşan kişinin hukuk öğrencisi olmaması hedef alınmıştır.",
+   "keyPoints": [
+    "Kişiye saldırı",
+    "Dayanak yerine kişinin özelliğinin hedef alınması"
+   ],
+   "maxPoints": 5,
+   "explanation": "Argümanın geçerliliği konuşanın kimliğine değil gerekçesine bağlıdır. Selin gerekçeye değil kişinin statüsüne yöneldiği için kişiye saldırı yapar.",
+   "category": "Benzer soru: Mantık ve argüman",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Herkes bu telefonu alıyor, o hâlde en iyisi budur.” cümlesindeki mantık hatasını adlandırınız ve açıklayınız.",
+   "correctAnswer": "Halka başvurma safsatasıdır: bir şeyin çok kişi tarafından yapılması doğruluğunun kanıtı sayılmıştır; oysa çoğunluğun tercihi telefonun kalitesini kanıtlamaz.",
+   "keyPoints": [
+    "Halka başvurma",
+    "Çoğunluk = doğru varsayımı"
+   ],
+   "maxPoints": 5,
+   "explanation": "Kanıt (özellikler, testler) olması gerekirken çoğunluk sayısı kanıt gibi sunulmuştur. Bu, safsata kalıbıdır.",
+   "category": "Benzer soru: Mantık ve argüman",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki iki cümleden hangisi argümandır? Neden? (a) “Bugün hava çok sıcak.” (b) “Hava çok sıcak. Sıcakta su içmek gerekir. O hâlde bugün bol su içmeliyim.”",
+   "correctAnswer": "(b) argümandır; çünkü öncüller (hava sıcak, sıcakta su içmek gerekir) ve bunlardan çıkarılan bir sonuç (bol su içmeliyim) vardır. (a) yalnızca bir bilgi bildiren önermedir.",
+   "keyPoints": [
+    "Öncüller var",
+    "Sonuç var",
+    "Tek önerme argüman değildir"
+   ],
+   "maxPoints": 5,
+   "explanation": "“O hâlde” sonuç bağlacı argüman ipucudur. Argüman en az bir öncül ve bir sonuç içerir.",
+   "category": "Benzer soru: Mantık ve argüman",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Bütün kuşlar tüylüdür. Serçe bir kuştur. O hâlde serçe tüylüdür.” argümanının akıl yürütme türünü ve nedenini yazınız.",
+   "correctAnswer": "Tümdengelim: genel bir önermeden (bütün kuşlar tüylüdür) özel bir sonuca (serçe tüylüdür) varılmıştır.",
+   "keyPoints": [
+    "Tümdengelim",
+    "Genelden özele"
+   ],
+   "maxPoints": 4,
+   "explanation": "Genel öncül + özel öncül → özel sonuç. Öncüller doğruysa sonuç zorunlu çıkar; bu tümdengelimin tümevarımdan farkıdır.",
+   "category": "Benzer soru: Mantık ve argüman",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Çevre kulübü örneğine benzer bir okul metninde şu cümleler geçiyor: (1) “Bir ay boyunca sınıfta ödev yapanların notlarının yükseldiğini gözlemledik, demek ki ödev notu artırır.” (2) “Komşu okul da bizimki kadar kalabalık ve ödevli; orada da başarı yüksektir.” Cümlelerin akıl yürütme türlerini belirleyiniz.",
+   "correctAnswer": "(1) Tümevarım: gözlemlenen tek tek durumlardan genel sonuca varılmıştır. (2) Analoji: iki okul arasındaki benzerlikten başarı yönünden de benzer olacakları sonucuna varılmıştır.",
+   "keyPoints": [
+    "Tümevarım + gerekçe",
+    "Analoji + gerekçe"
+   ],
+   "maxPoints": 6,
+   "explanation": "“Gözlemledik, demek ki” tümevarım ipucudur. “Bizimki kadar... orada da” analoji ipucudur.",
+   "category": "Benzer soru: Mantık ve argüman",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir kişi, “Bu öğretmen daha önce yanlış bir soru sordu; bu yüzden sınav yorumlarının hepsi yanlıştır” diyor. Bu çıkarımın hatasını açıklayınız.",
+   "correctAnswer": "Aceleci genelleme/ kişiye saldırıya yakın bir hatadır: tek bir hatadan tüm yorumların yanlış olduğu sonucuna varılmıştır; az örnekten genel hüküm çıkarılmıştır.",
+   "keyPoints": [
+    "Tek örnekten genelleme",
+    "Sonucun gerekçesiz genişletilmesi"
+   ],
+   "maxPoints": 5,
+   "explanation": "Az örnekten geniş hüküm = aceleci genelleme. Yorumların tek tek değerlendirilmesi gerekir.",
+   "category": "Benzer soru: Mantık ve argüman",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Felsefe yapan kişi neden sorar?” sorusuna iki gerekçe veriniz.",
+   "correctAnswer": "Çünkü felsefe merakla başlar: bilinenle yetinmeyip nedenini arar. Aynı zamanda bilginin doğruluğundan şüphe ederek sağlam temellere ulaşmaya çalışır.",
+   "keyPoints": [
+    "Merak",
+    "Şüphe/sağlamlaştırma"
+   ],
+   "maxPoints": 4,
+   "explanation": "Felsefenin başlangıcı olan merak ve şüphe burada ana iki gerekçedir. Cevabı bir örnekle desteklemek de iyi olur.",
+   "category": "Benzer soru: Felsefenin anlamı ve özellikleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Dijital çağda her bilgiye hızla ulaşılabilmesi, felsefi anlam arayışını gereksiz kılar mı? Bir görüş ileri sürüp gerekçelendiriniz.",
+   "correctAnswer": "Hayır, kılmaz. Çünkü bilgiye ulaşmak ile bilgiyi anlamak ve sorgulamak farklıdır; veriler zihni doldurur ama doğruyu yanlıştan ayırmak, anlam kurmak ve doğru eyleme dönüştürmek felsefi düşünmeyi gerektirir.",
+   "keyPoints": [
+    "Görüş",
+    "Bilgi-anlam ayrımı",
+    "Sorgulama gerekliliği"
+   ],
+   "maxPoints": 6,
+   "explanation": "Profesörün metnine uygun savunma: veri ≠ anlam. Gerekçe olmadan “gereksizdir/gereklidir” demek puan getirmez.",
+   "category": "Benzer soru: Felsefenin anlamı ve özellikleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki özellik-gerekçe eşleşmesini tamamlayınız: Özellik: Eleştirel olma. Bir öğrenci arkadaşının “Bütün politikacılar yalancıdır” sözüne ne cevap verebilir?",
+   "correctAnswer": "Gerekçe sorabilir: “Hangi politikacılar? Hangi kanıta dayanıyorsun? Bu genelleme tüm politikacılar için geçerli mi?” Böylece iddiayı gerekçeleriyle değerlendirir.",
+   "keyPoints": [
+    "Gerekçe isteme",
+    "İddiayı değerlendirme"
+   ],
+   "maxPoints": 5,
+   "explanation": "Eleştirel olma, reddetmek değil iddianın dayanağını ve tutarlılığını değerlendirmektir. Aynı zamanda aceleci genellemeyi de fark etmek anlamına gelir.",
+   "category": "Benzer soru: Felsefi düşüncenin özellikleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir felsefe profesörü “Veriler zihnimizi doldurabilir ama anlam çabası ayakta tutar” der. Bu cümleden bilgi ile hakikat arasındaki fark nasıl çıkarılır?",
+   "correctAnswer": "Bilgi, düşünerek ulaşılan yargılardır; hakikat ise bir bilgi alanının konusuyla ilgili temel doğrular bütünüdür. Veri toplamak bilgiye giden yoldur; hakikate ulaşma tutkusu ise anlam çabasını sürdürür.",
+   "keyPoints": [
+    "Bilgi tanımı",
+    "Hakikat tanımı",
+    "Aradaki fark"
+   ],
+   "maxPoints": 6,
+   "explanation": "Birinci soruda “bilgi” ve “hakikat” ayrı kavramlar olarak sorulmuştu. Farkı cümle içinde birlikte kullanarak yaz.",
+   "category": "Benzer soru: Temel kavramlar",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Üç gündür hiçbir şey yememe rağmen çaldığım ekmeği geri verdim, çünkü vicdanım rahat etmezdi.” Bu cümle erdem ve bilinç kavramlarıyla nasıl ilişkilidir?",
+   "correctAnswer": "Bilinç: kişi kendi eyleminin farkındadır ve ahlaki durumunu değerlendirir. Erdem: kişi zor koşulda bile iyi olana yönelme eğilimini sürdürür.",
+   "keyPoints": [
+    "Bilinç",
+    "Erdem"
+   ],
+   "maxPoints": 6,
+   "explanation": "Farkındalık bilinçtir; zorlukta iyiyi seçme eğilimi erdemdir. Bu kavramlar yazılıda tek tek tanımlarıyla birlikte istenir.",
+   "category": "Benzer soru: Temel kavramlar",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir grup öğrenci, okullarında kullanılan kâğıt miktarının fazla olduğunu bir ay boyunca ölçmüş ve okul yönetimine “kâğıt kullanımı azaltılmalı” demiştir. Bu öneride tümevarım ve argümanın nerede olduğunu gösteriniz.",
+   "correctAnswer": "Tümevarım: bir ay boyunca yapılan ölçümlerden okulda kâğıt kullanımının fazla olduğu genel sonucuna varılması. Argüman: “fazla kullanım çevreye zararlıdır, okulda fazla kullanılıyor, o hâlde azaltılmalı” gibi öncüllerden sonuca gidilmesi.",
+   "keyPoints": [
+    "Tümevarım (gözlemden genelleme)",
+    "Argüman (öncüller ve sonuç)"
+   ],
+   "maxPoints": 6,
+   "explanation": "Ölçüm = gözlem → genel yargı. Öneri = öncüller → sonuç. İki kavram aynı metinde birlikte görülebilir; kantin metnindeki gibi.",
+   "category": "Benzer soru: Mantık ve argüman",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Ona ilkokul mezunu olduğu için güvenmiyorum, o yüzden söylediği doğru olamaz.” cümlesi hangi mantık hatasını içerir? Doğru bir argüman nasıl kurulurdu?",
+   "correctAnswer": "Kişiye saldırı safsatası. Doğru argüman, söylenen iddianın gerekçelerini ve kanıtlarını inceleyerek sonuca varmak olurdu.",
+   "keyPoints": [
+    "Kişiye saldırı",
+    "Gerekçeye odaklanma"
+   ],
+   "maxPoints": 5,
+   "explanation": "Argümanın doğruluğu kişinin eğitim durumuna değil gerekçelerine bağlıdır. Öğrenme düzeyi iddianın doğruluğunu belirlemez.",
+   "category": "Benzer soru: Mantık ve argüman",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Ece’nin argümanındaki sonuç ile Meltem’in analojisindeki sonuç arasındaki farkı yazınız.",
+   "correctAnswer": "Ece’nin sonucu kendi okulundaki durumdan ve öncüllerden çıkarılır (önlem alınmalı). Meltem’in sonucu ise başka bir okulun benzerliğine dayanır (orada da yaygındır ve önlem alınmalı); yani çıkarım başka bir duruma aktarılır.",
+   "keyPoints": [
+    "Argümanda öncüllerden sonuç",
+    "Analojide benzerlikten aktarma"
+   ],
+   "maxPoints": 6,
+   "explanation": "Argüman: öncül → sonuç. Analoji: benzerlik → başka duruma aktarma. Her ikisinde de “önlem alınmalı” sonucu vardır ama dayanakları farklıdır.",
+   "category": "Benzer soru: Mantık ve argüman",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir yazılı sınavda “kavram – örnek – gerekçe” tablosunu doldururken kavramı yazmadan gerekçe yazan öğrenci neden puan alamaz?",
+   "correctAnswer": "Çünkü gerekçe, belirlenen kavramın neden seçildiğini açıklar; kavram belirlenmeden gerekçenin neyi desteklediği belli olmaz. Bu nedenle puanlama gerekçeyi kavrama bağımlı kabul eder.",
+   "keyPoints": [
+    "Gerekçe kavrama bağlıdır",
+    "Önce kavram sonra gerekçe"
+   ],
+   "maxPoints": 4,
+   "explanation": "Rubrikteki “kavramı bulmadan gerekçe yazmak mümkün değildir” ifadesinin açıklamasıdır.",
+   "category": "Benzer soru: Yazılı stratejisi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "“Zihnin kavramlar arasında özgürce bağ kurup derin sorular sorması” ifadesi hangi felsefe kavramıyla ilişkilidir?",
+   "options": [
+    "Düşünme",
+    "Bilinç",
+    "Hakikat",
+    "Erdem"
+   ],
+   "correct": 0,
+   "explanation": "Kavramlar arası bağ kurmak ve soru sormak bilinçli bir zihinsel faaliyettir; bu da düşünmedir. Bilinç farkındalık yetisidir.",
+   "category": "Temel kavramlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "“Kendi iç dünyasının ve sınırlarının farkına varmak” hangi kavramla ilişkilidir?",
+   "options": [
+    "Düşünme",
+    "Bilinç",
+    "Bilgi",
+    "Hakikat"
+   ],
+   "correct": 1,
+   "explanation": "Farkındalık, bilincin tanımında yer alır: algı, duygu ve bilginin merkezi olan yetidir.",
+   "category": "Temel kavramlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi “refleksif olma” özelliğine örnektir?",
+   "options": [
+    "Başkasının iddiasındaki hatayı göstermesi",
+    "Haberlerdeki bilgiyi doğrudan kabul etmesi",
+    "Kişinin “Ben ne kadar biliyorum?” diye kendi bilgisini sorgulaması",
+    "Çoğunluğun görüşünü benimsemesi"
+   ],
+   "correct": 2,
+   "explanation": "Refleksiflik düşüncenin kendi bilgisine ve düşünme sürecine dönmesidir. Başkasının iddiasını değerlendirmek eleştirel olmadır.",
+   "category": "Felsefenin anlamı ve özellikleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "“Gözlemlerimize dayanarak öğrencilerin tek kullanımlık ürünleri sık kullandığını söyleyebiliriz.” cümlesi hangi akıl yürütme türüne örnektir?",
+   "options": [
+    "Tümdengelim",
+    "Analoji",
+    "Kişiye saldırı",
+    "Tümevarım"
+   ],
+   "correct": 3,
+   "explanation": "Tek tek gözlemlerden genel bir sonuca varılmıştır; bu tümevarımdır.",
+   "category": "Mantık ve argüman",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "“Siz çevre kulübünde olduğunuz için zaten doğru bulmazsınız” sözü hangi hatayı içerir?",
+   "options": [
+    "Kişiye saldırı safsatası",
+    "Aceleci genelleme",
+    "Analoji",
+    "Tümdengelim"
+   ],
+   "correct": 0,
+   "explanation": "Düşüncenin dayanakları yerine düşünceyi savunanın özelliği (kulüp üyeliği) hedef alınmıştır.",
+   "category": "Mantık ve argüman",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Eko-kaygı örneği düşünme ve dil ilişkisi hakkında ne gösterir?",
+   "options": [
+    "Dilin düşünceden bağımsız geliştiğini",
+    "Düşüncenin yeni kavram ürettiğini ve kavramın da düşünceyi netleştirdiğini",
+    "Düşüncenin dil olmadan da net olduğunu",
+    "Dilin yalnızca iletişim aracı olduğunu"
+   ],
+   "correct": 1,
+   "explanation": "Adlandırılamayan kaygı kavramı doğurdu; kavram da psikologların ve bireylerin süreci anlamasını kolaylaştırdı. Bu çift yönlü nedenselliktir.",
+   "category": "Düşünme ve dil",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi felsefenin “etik ilkeler çerçevesinde yargıda bulunma” işlevini en iyi açıklar?",
+   "options": [
+    "Herkesin aynı şeyi düşünmesini sağlamak",
+    "Sorunlara duygusal tepki vermek",
+    "Hüküm vermeden önce adalet ve dürüstlük gibi ilkeleri gözetmek",
+    "Toplumun inançlarını değiştirmek"
+   ],
+   "correct": 2,
+   "explanation": "Etik yargı, keyfî ölçütler ve peşin hüküm yerine evrensel ahlaki ilkelere dayanır.",
+   "category": "Felsefenin işlevleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Rasyonel toplum olma işlevi aşağıdaki sorunlardan hangisiyle ilişkilidir?",
+   "options": [
+    "Kültürel farklılıkların çokluğu",
+    "Bireylerin kendini önemli hissetmesi",
+    "Çevrenin korunması",
+    "Karşılıklı argüman sunmak yerine suçlayıcı dil kullanılması"
+   ],
+   "correct": 3,
+   "explanation": "Rasyonel toplum gerekçeli diyalog ister; suçlayıcı dil argüman yokluğunu gösterir.",
+   "category": "Felsefenin işlevleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "“Çünkü, o hâlde, dolayısıyla” gibi sözcükler ne işe yarar?",
+   "options": [
+    "Öncül ve sonuç ilişkisini göstermeye",
+    "Safsatayı gizlemeye",
+    "Gözlemi tanımlamaya",
+    "Düşünceyi duyguya çevirmeye"
+   ],
+   "correct": 0,
+   "explanation": "Bunlar argümanın yapısını gösteren bağlaçlardır.",
+   "category": "Mantık ve argüman",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Sokrates’in “bilmediklerimi bilirim sanmıyorum” sözü hangi felsefi özelliği en çok yansıtır?",
+   "options": [
+    "Halka başvurma",
+    "Refleksif olma",
+    "Dogmatik olma",
+    "Bilgiyi ezberleme"
+   ],
+   "correct": 1,
+   "explanation": "Kendi bilgisinin sınırlarını düşünmek refleksif düşüncedir.",
+   "category": "Felsefenin anlamı ve özellikleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi “hakikat” tanımına en uygundur?",
+   "options": [
+    "Zihinsel faaliyetlerin tümü",
+    "Bireyin kendi duyguları",
+    "Bir bilgi alanının konu aldığı varlık alanıyla ilgili temel doğrular bütünü",
+    "Alışkanlık hâline gelmiş iyi davranışlar"
+   ],
+   "correct": 2,
+   "explanation": "Hakikat, ilgili alandaki temel doğrular bütünüdür. Diğerleri düşünme, duygu ve erdemdir.",
+   "category": "Temel kavramlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Meltem’in “Arkadaşımın okulu da bizimki gibi... orada da yaygın” sözü hangisidir?",
+   "options": [
+    "Tümevarım",
+    "Tümdengelim",
+    "Safsata",
+    "Analoji"
+   ],
+   "correct": 3,
+   "explanation": "Benzer iki durum arasındaki benzerlikten başka özelliklerin de ortak olacağı varsayılmıştır.",
+   "category": "Mantık ve argüman",
+   "difficulty": "medium"
+  },
+  {
+   "type": "true-false",
+   "question": "Felsefede şüphe duymak, hiçbir bilginin doğru olamayacağını kesin olarak savunmak demektir.",
+   "correct": false,
+   "explanation": "Felsefi şüphe, bilginin doğruluğunu sınama ve sorgulama tutumudur; hiçbir şeyin doğru olamayacağını kesin biçimde iddia etmek ayrı bir tavırdır.",
+   "category": "Felsefenin anlamı ve özellikleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Tümevarım sonucu her zaman kesindir.",
+   "correct": false,
+   "explanation": "Tümevarım, sınırlı gözlemlere dayandığı için olası sonuç verir; yeni gözlemle çürütülebilir.",
+   "category": "Mantık ve argüman",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Kavram yazılmadan sadece kavram açıklaması yazılırsa kısmi puan verilir.",
+   "correct": false,
+   "explanation": "Rubriğe göre kavram yazılmadan açıklamaya puan verilmez.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Düşünce dili üretir, dil de düşünceyi yapılandırır.",
+   "correct": true,
+   "explanation": "Çift yönlü nedensellik bu iki yönü birlikte ifade eder.",
+   "category": "Düşünme ve dil",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Safsata her zaman yanlış sonuç demektir.",
+   "correct": false,
+   "explanation": "Safsata hatalı akıl yürütmedir; sonuç tesadüfen doğru olsa bile yöntem hatalıdır.",
+   "category": "Mantık ve argüman",
+   "difficulty": "medium"
+  },
+  {
+   "type": "true-false",
+   "question": "Analojide iki durum arasındaki benzerlik zayıfsa çıkarım da zayıf olur.",
+   "correct": true,
+   "explanation": "Analoji benzerliğe dayanır; benzerlik zayıfsa sonuç güvenilir olmaz.",
+   "category": "Mantık ve argüman",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Felsefenin toplumsal işlevlerinden biri farklı görüşlere ____ göstermedir.",
+   "answers": [
+    "saygı"
+   ],
+   "explanation": "Farklı görüşlere saygı gösterme, ötekileştirmeyi önleyen işlevdir.",
+   "category": "Felsefenin işlevleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Bir argümanda sonucu destekleyen önermelere ____ denir.",
+   "answers": [
+    "öncül"
+   ],
+   "explanation": "Öncül, sonucu destekleyen dayanak önermedir; sonuç ise öncüllerden çıkarılır.",
+   "category": "Mantık ve argüman",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Tek tek gözlemlerden genel sonuca varmaya ____ denir.",
+   "answers": [
+    "tümevarım"
+   ],
+   "explanation": "Özelden genele giden akıl yürütme tümevarımdır.",
+   "category": "Mantık ve argüman",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Bilmediğini bilmek ve kendi bilgisi üzerine düşünmek felsefi düşüncenin ____ yönünü gösterir.",
+   "answers": [
+    "refleksif"
+   ],
+   "explanation": "Kendi bilgisi üzerine düşünme refleksifliktir.",
+   "category": "Felsefenin anlamı ve özellikleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "matching",
+   "question": "Kavramları tanımlarıyla eşleştiriniz.",
+   "pairs": [
+    {
+     "left": "Düşünme",
+     "right": "Bilinçli zihinsel faaliyetler"
+    },
+    {
+     "left": "Bilinç",
+     "right": "Farkındalık yetisi"
+    },
+    {
+     "left": "Hakikat",
+     "right": "Temel doğrular bütünü"
+    },
+    {
+     "left": "Erdem",
+     "right": "Sürekli iyi olma eğilimi"
+    }
+   ],
+   "explanation": "Rubrik tanımlarına göre: düşünme zihinsel faaliyettir; bilinç farkındalık; hakikat temel doğrular; erdem iyi olma eğilimidir.",
+   "category": "Temel kavramlar",
+   "difficulty": "medium"
+  },
+  {
+   "type": "matching",
+   "question": "Akıl yürütme türlerini örneklerle eşleştiriniz.",
+   "pairs": [
+    {
+     "left": "Tümevarım",
+     "right": "Gözlemlerimize dayanarak öğrenciler sık kullanıyor"
+    },
+    {
+     "left": "Analoji",
+     "right": "Onların okulu da bizimki gibi, orada da yaygındır"
+    },
+    {
+     "left": "Argüman",
+     "right": "Yararlıdır; yaygındır; o hâlde önlem alınmalı"
+    },
+    {
+     "left": "Safsata",
+     "right": "Siz kulüptesiniz, zaten kabul etmezsiniz"
+    }
+   ],
+   "explanation": "Her örnek kantin metnindeki cümlelerden türetilmiştir.",
+   "category": "Mantık ve argüman",
+   "difficulty": "medium"
+  },
+  {
+   "type": "matching",
+   "question": "Felsefe işlevini ilgili sorunla eşleştiriniz.",
+   "pairs": [
+    {
+     "left": "Rasyonel toplum olma",
+     "right": "Suçlayıcı dil ve argüman yokluğu"
+    },
+    {
+     "left": "Farklı görüşlere saygı",
+     "right": "Dışlanmışlık ve tek doğru varsayımı"
+    },
+    {
+     "left": "Etik yargı",
+     "right": "Peşin ve ilkesiz mahkûm etme"
+    }
+   ],
+   "explanation": "Rubrikteki örnek cevaplar bu eşleşmeleri yapar.",
+   "category": "Felsefenin işlevleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdaki tabloda hangi satırda “özellik–gerekçe” doğru eşleşmiştir?",
+   "options": [
+    "Şüphe duyma – internetteki iddiayı doğrudan kabul etmeme",
+    "Eleştirel olma – kendi bilgisini düşünme",
+    "Refleksif olma – başkasının hatasını gösterme",
+    "Sorgulama – kanıt olmadan inanma"
+   ],
+   "correct": 0,
+   "explanation": "Doğru eşleşme şüpheyle ilgilidir. Kendi bilgisini düşünmek refleksiflik, başkasının hatasını göstermek eleştiridir.",
+   "category": "Felsefenin anlamı ve özellikleri",
+   "difficulty": "hard"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Bir yazılı cevapta aşağıdakilerden hangisi tam puan için en önemlidir?",
+   "options": [
+    "Sadece uzun yazmak",
+    "Kavramı, örneği ve gerekçeyi birbirine bağlamak",
+    "Sadece tanım ezberlemek",
+    "Metinden alıntı yapmamak"
+   ],
+   "correct": 1,
+   "explanation": "Puanlama kavram–örnek–gerekçe bağına dayanır.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdaki cümlelerden hangisi bir argüman değildir?",
+   "options": [
+    "Yağmur yağarsa yollar kayganlaşır; yağmur yağıyor; o hâlde yollar kaygandır.",
+    "Spor sağlığa iyi gelir; çünkü kasları güçlendirir.",
+    "Dün yağmur yağdı.",
+    "Bütün insanlar ölümlüdür; Ali insandır; dolayısıyla Ali ölümlüdür."
+   ],
+   "correct": 2,
+   "explanation": "Tek başına bilgi bildiren cümle öncül–sonuç ilişkisi içermez.",
+   "category": "Mantık ve argüman",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "“Tek kullanımlık ürünler yaygın; azaltılması yararlı; o hâlde önlem alınmalı” akıl yürütmesinde sonuç hangisidir?",
+   "options": [
+    "Ürünler yaygındır",
+    "Azaltılması yararlıdır",
+    "Kantin kalabalıktır",
+    "Önlem alınmalıdır"
+   ],
+   "correct": 3,
+   "explanation": "“O hâlde” sonuç bağlacından sonra gelen önerme sonuçtur.",
+   "category": "Mantık ve argüman",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki sözlerden hangisi “şüphe duyma” özelliğine uygundur? Gerekçesini yazınız: (a) “Ben her şeyi biliyorum.” (b) “Bu haberi doğrulamadan paylaşmayacağım.”",
+   "correctAnswer": "(b) şüphe duymaya uygundur; haberi doğrudan kabul etmeyip doğruluğundan kuşku duyar ve doğrulamak ister. (a) bilgi sınırının farkında olmama, yani dogmatik tavırdır.",
+   "keyPoints": [
+    "(b) seçimi",
+    "Doğrudan kabul etmeme gerekçesi"
+   ],
+   "maxPoints": 4,
+   "explanation": "Şüphe, bilgiyi doğrulamadan kabul etmemektir. (a) kesinlik iddiası olduğundan şüphenin tersidir.",
+   "category": "Benzer soru: Felsefi düşüncenin özellikleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir öğrenci “Eşitlik ve adalet aynı şeydir” cümlesini duyduğunda kavramları sorgulayıp farklarını araştırıyor. Bu, felsefi düşüncenin hangi özelliğidir ve neden?",
+   "correctAnswer": "Sorgulama (ve eleştirel düşünme): kavramların anlamını ve aralarındaki ilişkiyi neden-sonuç ve gerekçe sorarak inceler, cümleyi doğrudan kabul etmez.",
+   "keyPoints": [
+    "Sorgulama/eleştirel düşünme",
+    "Kavramları gerekçeyle inceleme"
+   ],
+   "maxPoints": 5,
+   "explanation": "Kavram çözümlemesi felsefenin temel etkinliğidir. Cevapta “doğrudan kabul etmeme” ve “gerekçe arama” ifadelerini ver.",
+   "category": "Benzer soru: Felsefi düşüncenin özellikleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir ülkede iki kardeş, miras paylaşımında birbirini suçlayıcı sözlerle itham etmektedir. Felsefenin hangi iki işlevi bu tartışmanın yapıcı biçimde sürmesine katkı sağlar? Gerekçelendirin.",
+   "correctAnswer": "Rasyonel olma: suçlama yerine belgeler ve gerekçelerle konuşmayı sağlar. Etik ilkeler çerçevesinde yargıda bulunma: adalet ve tarafsızlık ilkelerini gözeterek peşin hükümle suçlamayı engeller.",
+   "keyPoints": [
+    "Rasyonel iletişim",
+    "Etik ilkelerle yargı"
+   ],
+   "maxPoints": 7,
+   "explanation": "Suçlayıcı dil iki işlevle ilişkilidir: argüman eksikliği (akılcılık) ve ilkesiz hüküm (etik yargı). Metindeki sorunla eşleştir.",
+   "category": "Benzer soru: Felsefenin işlevleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Zihin haritası” sözcüğü yaygınlaşmadan önce insanlar fikirlerini düzenleme yöntemini uzun cümlelerle anlatıyordu. Kavram yaygınlaşınca öğrenme teknikleri hakkında konuşmak kolaylaştı. Bu örnekte dilin düşünceye etkisini yazınız.",
+   "correctAnswer": "Kavram, bir düşünme tekniğini tek terimle adlandırarak onu netleştirdi; adlandırılan teknik üzerinde konuşmak, öğretmek ve geliştirmek kolaylaştı. Bu, dilin düşünceyi yapılandırması demektir.",
+   "keyPoints": [
+    "Adlandırma",
+    "Netleşme",
+    "Üzerine düşünüp geliştirme"
+   ],
+   "maxPoints": 6,
+   "explanation": "Kavram → netlik → çıkarım zinciri. Eko-kaygı örneğiyle aynı mantık.",
+   "category": "Benzer soru: Düşünme ve dil",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Güneşli günlerde dondurma satışı artıyor. Bugün hava güneşli. Demek ki bugün dondurma satışı artacak.” Bu çıkarımın öncüllerini, sonucunu ve türünü yazınız.",
+   "correctAnswer": "Öncüller: güneşli günlerde satış artıyor; bugün güneşli. Sonuç: bugün satış artacak. Tür: genel bir önermeden özel duruma gittiği için tümdengelim.",
+   "keyPoints": [
+    "İki öncül",
+    "Sonuç",
+    "Tümdengelim"
+   ],
+   "maxPoints": 6,
+   "explanation": "“Demek ki” sonuç işaretidir. Genel kural + özel durum → özel sonuç.",
+   "category": "Benzer soru: Mantık ve argüman",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Bu şehirde gördüğüm üç taksi şoförü de kaba davrandı, bu yüzden taksi şoförleri kabadır.” cümlesindeki mantık sorununu ve akıl yürütme türünü yazınız.",
+   "correctAnswer": "Tümevarım türünde bir akıl yürütmedir; fakat üç gözlemle tüm taksi şoförleri hakkında hüküm verildiğinden aceleci genelleme safsatası içerir.",
+   "keyPoints": [
+    "Tümevarım",
+    "Aceleci genelleme"
+   ],
+   "maxPoints": 5,
+   "explanation": "Az örnek + geniş sonuç = aceleci genelleme.",
+   "category": "Benzer soru: Mantık ve argüman",
+   "difficulty": "medium"
+  }
+ ],
+ "sources": [
+  {
+   "id": "src1",
+   "name": "10. Sınıf Felsefe - 1. Dönem 1. Yazılı (OGM Yazılıya Hazırlanıyorum)",
+   "kind": "file",
+   "text": "=== Page 1 ===\nYAZILIYA HAZIRLANIYORUM\n1. DÖNEM - 1. YAZILI\nFELSEFE\n1. Anlam Yolculuğu\nMete, katıldığı söyleşide felsefe profesörüne sorar: “Dijital çağda her türlü bilgiye ulaşmak bu kadar kolayken\nbitmeyen bir anlama çabasını sürdürmek gereksiz bir yorgunluk değil mi?”\nProfesör tebessüm ederek yanıtlar:\n“Ekranlardan önümüze akan veriler zihnimizi doldurabilir fakat (1) zihnin kavramlar arasında özgürce bağ kurup\nderin sorular sorması, insanın varoluşu anlama serüvenindeki en temel eylemidir. Bu zihinsel etkinliği yapan\nkişi; ekrandaki sürekli bildirimlerin ve yapay yönlendirmelerin peşine takılıp savrulmak yerine, (2) hem kendi iç\ndünyasının ve sınırlarının farkına varır hem de çevresinde olup bitenleri derin bir uyanıklıkla fark eder. İnsanı bu\nuzun yolculukta ayakta tutan temel güç; dijital algoritmaların sunduğu geçici sanılar değil (3) görünenin ardındaki\nkalıcı, mutlak ve değişmez olan asıl gerçekliğe dair temel doğrular bütününe ulaşma tutkusudur. (4) Zihinsel\nçabalarla elde edilen veriler tek başına nihai amaç olamaz. Asıl mesele; (5) ulaşılan bu derin kavrayışı doğru\neylemlere dönüştürmek, iyi ile kötüyü ayırt ederek ahlaki bir olgunlukla ve dürüstçe yaşayabilmektir.”\nMetinde numaralandırılan ifadelerin felsefeyle ilişkili hangi kavramları içerdiğini belirleyiniz. Belirlediğiniz\nkavramı açıklamasıyla birlikte yazınız.\nKavram (5x2) Kavram açıklaması (5x3)\n1) __________________ : ……\n2) __________________ : ……\n3) __________________ : ……\n4) __________________ : ……\n5) __________________ : ……\n=== Page 2 ===\nYAZILIYA HAZIRLANIYORUM (1. DÖNEM-1. YAZILI)\n2. Biliyor musun?\nBir bankta oturmuş sohbet eden Can ve Miraç arasında şöyle bir konuşma geçer.\nMiraç: İnternette okudum, uzmanların da önerdiği bu popüler diyet sayesinde insanlar hızla kilo veriyormuş.\nUygulayan herkes de çok memnunmuş. Sen de biliyor muydun Can?\nCan: Ben bu diyet iddialarını araştırdıkça bilmediğim ne kadar çok detay olduğunu fark ettim. O yüzden hemen bir\nyargıya varamıyorum.\nMiraç, Can'ın söylediklerinin Platon'un Sokrates'in Savunması adlı eserinde Sokrates’in: “O zaman kendi kendime\ndedim ki: doğrusu belki ikimizin de iyi, güzel bir şey bildiğimiz yok; ama gene ben ondan bilginim, çünkü o hiçbir\nşey bilmediği hâlde bildiğini sanıyor; ben ise bilmiyorum ama bildiğimi de sanmıyorum. Demek ben ondan biraz\nbilgiliyim, çünkü bilmediklerimi bilirim sanmıyorum.” sözlerine çok benzediğini düşünür.\nMetinde felsefi düşüncenin hangi özelliklerine yer verilmiştir? Bu özellikleri belirleme gerekçenizi metinle\nilişkilendirerek yazınız.\nFELSEFI DÜŞÜNCENIN ÖZELLIKLERI\n(4x3 Puan)\nÖZELLIĞIN BELIRLENME GEREKÇESI\n(4x2 Puan)\n=== Page 3 ===\nYAZILIYA HAZIRLANIYORUM (1. DÖNEM-1. YAZILI)\n3. Toplumsal Sorunlar\nFarklı kabullere, inançlara ve yaşam tarzlarına sahip bireyler, geçmişte olduğu gibi bugün de bir arada\nyaşamaktadır. Ancak yanlış anlaşılmalar, ön yargılar ve iletişim eksikliği gibi nedenlerle bireyler arasında zaman\nzaman gerginlikler ortaya çıkabilir. Örneğin, bir grup diğerinin kültürel alışkanlıklarını sorgulamadan eleştirdiğinde\neleştirilen taraf kendini dışlanmış ve tehdit altında hissedebilir. Karşılıklı argüman sunmak yerine suçlayıcı bir dilin\nbenimsenmesi ve bireylerin mutlak doğruyu sadece kendilerinin bildiğini varsayması, toplumda giderek artan bir\nkutuplaşmaya ve hoşgörüsüzlük ortamına yol açabilir.\nFelsefenin aşağıda verilen üç işlevinden hareketle metindeki toplumsal sorunların aşılmasında felsefenin\nrolünü açıklayınız. Açıklamanızı yaparken bu üç işlevin metindeki problemlerle ilişkisini gerekçeleriyle\nyazınız.\nRasyonel (akılcı) toplum olma (7 Puan):\n……\n……\n……\n……\nFarklı görüşlere saygı gösterme (7 Puan):\n……\n……\n……\n……\nEtik ilkeler çerçevesinde yargıda bulunma (7 Puan):\n……\n……\n……\n……\n4. Eko-Kaygı\n2000’li yılların başında insanlar, iklim krizi ve doğal afetler karşısında henüz adlandıramadıkları derin bir gelecek\nkaygısı hissediyorlardı. Yaşadıkları bu duyguyu tam olarak tanımlayamadıkları için onu anlamlandırmakta ve ona\nçözüm bulmakta zorlanıyorlardı.\nAmerikan Psikoloji Derneği (APA), 2017’de bu durumu “eko-kaygı” kavramıyla tanımladı. Bu kavramın kullanılmaya\nbaşlanmasıyla psikologlar söz konusu duygusal süreci daha sistemli biçimde inceleyebildi. Bireyler de yaşadıkları\nkarmaşık duyguları anlamlandırmanın ve bunlar üzerinde düşünmenin kolaylaştığını ifade ettiler.\n“Eko-kaygı” kavramı tanımlanmadan önce ve sonra bireylerin zihinsel süreçlerinde yaşanan değişimi, dil ve\ndüşünce arasındaki ilişkiyi dikkate alarak açıklayınız (14 Puan).\n……\n……\n……\n……\n……\n=== Page 4 ===\nYAZILIYA HAZIRLANIYORUM (1. DÖNEM-1. YAZILI)\n5. Geri Dönüşüm\nÇevre kulübü öğrencileri, yapacakları bir çalışma için okul kantinindeki öğrenci davranışlarını bir hafta boyunca\ngözlemlemiştir. Öğrencilerin sıcak içeceklerde kâğıt bardak, soğuk içeceklerde plastik bardak; yemeklerde ise\nçoğunlukla plastik çatal ve kaşık kullandığını tespit etmişlerdir. Bunun üzerine Ece, “Gözlemlerimize dayanarak\nöğrencilerin tek kullanımlık ürünleri sık kullandığını söyleyebiliriz.” demiştir.\nOkul yönetimine sunulacak öneri tartışılırken Ece, “Tek kullanımlık ürünlerin azaltılması çevre için yararlıdır.\nOkulumuzda bu ürünler yaygın olarak kullanılmaktadır. O hâlde bunların kullanımını azaltacak önlemler alınmalıdır.”\ndiyerek fikrini belirtmiştir. Meltem ise “Arkadaşımın gittiği lise de bizimki gibi öğrenci sayısı fazla ve kantini yoğun\nkullanılan bir okul. Bizim okulumuzda tek kullanımlık ürünler sık kullanıldığına göre orada da bu ürünler yaygın\nolarak kullanılıyordur. Orada da gerekli önlemler alınmalıdır.” demiştir.\nBunun üzerine Mert, “Siz çevre kulübünde olduğunuz için yaptıklarımızı zaten doğru bulmazsınız. Bu yüzden\nsöylediklerinizin önemsenmesi gerektiğini düşünmüyorum.” diyerek itiraz etmiştir.\nAşağıdaki tabloda verilen kavramlara metin içinden birer örnek cümle bulunuz. Bu cümlelerin, örnek olma\ngerekçelerini tabloda uygun yerlere yazınız.\nKAVRAMLAR ÖRNEK CÜMLE (4x3 Puan) GEREKÇE (4x2 Puan)\nTümevarım\nArgüman\nSafsata\nAnaloji\n=== Page 5 ===\nYAZILIYA HAZIRLANIYORUM (1. DÖNEM-1. YAZILI)\nSORU\nNO ÖĞRENME ÇIKTISI BECERILER\n1\nFEL.10.1.1. Felsefenin anlamını, gelişim sürecini ve\nişlevini sorgulayabilme\na) Felsefenin anlamını merak eder ve felsefenin\nortak tanımının imkânına yönelik şüphe duyar.\nAlan Becerileri\nSBAB13. Felsefi Sorgulama\nSBAB13.1. Felsefi merak etmek ve şüphe duyma\nSBAB13.1.SB1. Merak etmek\nKavramsal Beceriler\n2\nFEL.10.1.1. Felsefenin anlamını, gelişim sürecini ve\nişlevini sorgulayabilme\nb) Felsefi düşüncenin genel özellikleri, ortaya çıkışı\nve tarihsel gelişimi üzerine derinlemesine düşünür.\nAlan Becerileri\nSBAB13. Felsefi Sorgulama\nSBAB13.2.Felsefi Derinlemesine Düşünme\nSBAB13.2.SB2. Düşünceleri farklı açılardan analiz etmek\nKavramsal Beceriler\n3\nFEL.10.1.1. Felsefenin anlamını, gelişim sürecini ve\nişlevini sorgulayabilme\nd) Felsefenin bireysel ve toplumsal işlevlerini tartışır.\nAlan Becerileri\nSBAB13. Felsefi Sorgulama\nKB2.18. Tartışma\nKB2.18.SB1. Mantıksal temellendirme yapmak\nKavramsal Beceriler\nKB2.18. Tartışma\nKB2.18.SB1. Mantıksal temellendirme yapmak\n4\nFEL.10.2.1. Düşünme ve dil ilişkisini\nyapılandırabilme\na) Düşünme ve dil ilişkisini inceleyerek nedensel\nilişkiler ortaya koyar.\nAlan Becerileri\nKavramsal Beceriler\nKB2.13. Yapılandırma\nKB2.13.SB1. Mevcut olay/konu/durumu inceleyerek\nhiyerarşik, nedensel ya da mantıksal ilişkiler ortaya\nkoymak\n5\nFEL.10.2.2. Mantığın temel kavramlarını ve\nargümantasyon sürecini yorumlayabilme\na) Mantık ve argümantasyonla ilgili kavramları\ninceler.\nAlan Becerileri\nSBAB14. Felsefi Muhakeme\nKB2.14. Yorumlama\nKB2.14.SB1. Mevcut olay/konu/durumu incelemek\nKavramsal Beceriler\nKB2.14. Yorumlama\nKB2.14.SB1. Mevcut olay/konu/durumu incelemek\nPUANLAMA TABLOSU\n1 2 3 4 5 TOPLAM\n25 20 21 14 20 100\n=== Page 6 ===\nYAZILIYA HAZIRLANIYORUM (1. DÖNEM-1. YAZILI)\nÇÖZÜMLER\n1. Doğru Cevap:\nTAM CEVAP (25 PUAN)\nÖğrenciye yazdığı, numaralandırılan cümlelerdeki felsefeyle ilişkili her doğru kavram için ikişer puan; doğru\naçıkladığı her kavram için üçer puan olmak üzere toplamda 25 tam puan verilir.\nÖrnek Cevap:\nKavram (5x2) : Kavram açıklaması (5x3)\n1) Düşünme : Çıkarsama, akıl yürütme, hatırlama, anlama gibi bilinçli şekilde gerçekleştirilen zihinsel faaliyetlerdir.\n2) Bilinç : İnsanda farkındalığın, duygunun, algının ve bilginin merkezi olarak kabul edilen yetidir.\n3) Hakikat : Bir bilgi alanının ya da disiplinin konu aldığı varlık alanıyla ilgili temel doğrular bütünüdür.\n4) Bilgi : İnsanların, kavramlar aracılığıyla düşünerek ulaştığı yargılardır.\n5) Erdem : Ahlaki bakımdan sürekli olarak iyi olma eğilimi, iyi eylemlerde bulunmaya yatkın olma durumudur.\nKISMI CEVAP: (2-22 PUAN)\nÖğrenciye yazmadığı ya da yanlış yazdığı her kavram için 2 puan, bu kavramlarla ilgili doğru bir açıklama\nyazmadığı ya da yanlış yazdığı her cevap için 3 puan eksik verilir.\nKavramı yazmadan kavram açıklaması yazmak mümkün olmadığından yalnızca kavram açıklaması yazılması\ndurumunda puan verilmez.\nYANLIŞ CEVAP (0 PUAN)\nKavramların ve kavramların açıklamalarının yazılmaması, ilişkisiz cevap verilmesi ve boş bırakılması durumunda 0\npuan verilir.\n=== Page 7 ===\nYAZILIYA HAZIRLANIYORUM (1. DÖNEM-1. YAZILI)\n2. Doğru Cevap:\nTAM CEVAP (20 PUAN)\nCevapta verilen özellikler ve bu özelliklerin belirlenme gerekçeleri doğru yazılmışsa 20 tam puan verilir.\nMetinde yer verilen felsefi düşüncenin özellikleri ve bu özelliklerin belirlenme gerekçesi aşağıdaki gibidir:\nFELSEFI DÜŞÜNCENIN ÖZELLIKLER\n(4x3 Puan)\nÖZELLIĞIN BELIRLENME GEREKÇESI\n(4x2 Puan)\n1. Sorgulama\nCan duyduklarının doğru olup olmadığını\nsorgulamaktadır. Alıntıda da Sokrates’in hem kendi\nbilgisini hem de karşısındakinin bilgisini sorguladığı\ngörülmektedir. Bu durum, felsefi düşüncenin sorgulama\nözelliğini ifade eder.\n2. Şüphe Duyma\nCan’ın internette yer alan bilgileri doğrudan kabul\netmemesi ve Sokrates’in “doğrusu belki ikimizin de iyi,\ngüzel bir şey bildiğimiz yok” ifadesi bilinenlere şüphe\nile yaklaşıldığını gösterir. Bu durum, felsefi düşüncenin\nşüphe duyma özelliğini ifade eder.\n3. Eleştirel Olma\nSokrates’in başkalarının düşüncelerini eleştirel biçimde\ndeğerlendirdiğini gösteren “o hiçbir şey bilmediği hâlde\nbildiğini sanıyor” ifadesi, felsefi düşüncenin eleştirel\nyönünü ortaya koyar.\n4. Refleksif Olma\nSokrates’in “ben ise bilmiyorum ama bildiğimi de\nsanmıyorum” sözü, kendi bilgisi üzerine düşündüğünü\ngösterir. Can da “ne kadar çok bilmediğim detay olduğunu\nfark ettim.” diyerek benzer bir tavır sergiler. Bu felsefi\ndüşüncenin refleksif olma özelliğini gösterir. Refleksif\ndüşünce, bireyin kendi düşünceleri ve bilgisi üzerine\ndüşünmesini ifade eder.\nKISMI CEVAP (3-18 PUAN)\nFelsefi düşünce özelliklerinden her birini yazmaması durumunda 3 puan; her bir gerekçeyi yazmaması durumunda\n2 puan eksik verilir. Öğrencinin özelliği bulmadan metinle ilişkilendirmesi mümkün olmadığından yalnızca özelliklerin\nbelirlenme gerekçesinin yazımına tek başına puan verilmez.\nYANLIŞ CEVAP (0 PUAN)\nÖzelliklerin ve belirlenme gerekçelerinin yazılmaması, ilişkili olmayan bir özellik yazılması veya cevabın boş olması\ndurumunda 0 puan verilir.\n3. Doğru Cevap:\nTAM CEVAP (21 PUAN)\nÖğrenciye felsefenin verilen işlevlerini metindeki ilgili bölümlerle doğru ilişkilendirdiği her cevap için ikişer puan;\ngerekçelendirdiği her yanıt için beşer puan olmak üzere toplamda 21 puan verilir.\nÖrnek Cevap:\nRasyonel (akılcı) toplum olma:\nFelsefenin bu işlevi metindeki “karşılıklı argüman sunmak yerine suçlayıcı bir dilin benimsenmesi” ve buna bağlı\nolarak gelişen “iletişim eksikliği” sorununun çözümüne katkıda bulunur. Felsefenin akılcı düşünmeyi temel alan\nişlevi; toplumsal tartışmalarda duygusal tepkiler, sloganlar ve peşin hükümler yerine mantıksal gerekçelere,\nkanıtlara ve tutarlı argümanlara dayalı bir diyalog ortamı inşa eder. Böylece bireyler, sorunları çatışarak değil mantık\nçerçevesinde uzlaşarak çözme alışkanlığı kazanır.\n=== Page 8 ===\nYAZILIYA HAZIRLANIYORUM (1. DÖNEM-1. YAZILI)\nFarklı görüşlere saygı gösterme:\nFelsefenin bu işlevi metindeki “bir grubun diğerinin kültürel alışkanlıklarını sorgulamadan doğrudan eleştirmesi” ve\nbuna bağlı olarak gelişen “dışlanmışlık/tehdit altında hissetme” sorununun çözümüne katkıda bulunur. Felsefenin\nfarklı bakış açılarını anlama işlevi; bireylerin kendi düşünce veya yaşam tarzını “tek ve mutlak doğru” olarak\ngörmesini engeller. Böylece ötekileştirmenin önüne geçmeye çalışarak farklı görüş ve inançların bir arada, barış\niçinde bulunabileceği bir hoşgörü ortamı sağlar.\nEtik ilkeler çerçevesinde yargıda bulunma:\nFelsefenin bu işlevi metindeki “bir grubun diğerini peşinen, doğrudan eleştirmesi” ve “suçlayıcı bir dil benimsemesi”\nsorununun çözümüne katkıda bulunur. Etik ilkeler çerçevesinde yargıda bulunmak; bireylerin başkalarını kendi\nkeyfî ölçütleriyle, öfkeyle veya peşin hükümlerle mahkûm etmesini engeller. Felsefenin bu işlevi; bireylere bir eylem\nveya düşünce hakkında hüküm vermeden önce adalet, dürüstlük, tarafsızlık gibi evrensel ahlaki ilkeleri gözetme\nsorumluluğu kazandırır.\nKISMI CEVAP (2-16 PUAN)\nÖğrenciye felsefenin verilen işlevlerini metindeki ilgili bölümlerle doğru ilişkilendirmediği her cevap için 2 puan,\ndoğru gerekçelendirme yapmadığı her yanıt için 5 puan eksik verilir. Öğrencinin felsefenin verilen işlevlerini\nmetindeki ilgili bölümlerle ilişkilendirmeden doğru bir gerekçelendirme yapması mümkün değildir. Bu nedenle\nyalnızca gerekçenin yazılması durumunda öğrenciye puan verilmez.\nYANLIŞ CEVAP (0 PUAN)\nİşlevlerin metinle doğru ilişkilendirilememesi, ilişkilendirmenin gerekçelendirilememesi, ilişkisiz cevap verilmesi ve\nboş bırakılması durumunda 0 puan verilir.\n4. Doğru Cevap:\nTAM CEVAP (14 Puan)\nÖğrencinin açıklamasında çift yönlü nedenselliği yani düşüncenin dili türetme nedeni olması ve dilin düşünmeyi\nyapılandırma nedeni olmasına değinmesi durumunda öğrenciye 4 puan verilir.\nÖğrencinin dil ve düşünme arasındaki ilişkiyi “Eko-kaygı” kavramı çerçevesinde hem kavram öncesi hem de kavram\nsonrası zihinsel süreçlerle ilişkilendirip açıklaması durumunda öğrenciye 10 puan verilir.\nÖrnek Cevap:\n“Eko-kaygı” kavramı tanımlanmadan önce, bireylerin zihninde iklim krizine karşı belirsiz, sınırları çizilmemiş ve adı\nkonmamış duygusal/zihinsel bir huzursuzluk vardı. Dildeki bilinen kavramlar bu durumu açıklamaya yetmeyince\nzihinde beliren bu yeni durum dili zorlamış ve dilde “Eko-kaygı” kavramının türetilmesine neden olmuştur.\nKavram tanımlandıktan sonra ise bireyler zihinlerindeki bu karmaşık durumu adlandırabilmiştir. Kavramın dilde yer\nbulması bireylerin durumu zihinlerinde netleştirmelerini, mantıksal çıkarımlar yapabilmelerini, bu durum üzerine\naçıkça düşünebilmelerini ve çözüm yolları arayabilmelerini kolaylaştırmıştır. Bu nedenle düşüncenin dili yeni\nbir kavram üretmeye yönlendirebileceği, üretilen kavramların da düşüncenin netleşmesini ve yapılandırılmasını\nsağlayabileceği söylenebilir.\nKISMI CEVAP (4-10 PUAN)\nÖğrencinin açıklamasında düşünme ve dil arasındaki çift yönlü nedenselliğe değinmemesi durumunda 4 puan,\n“Eko-kaygı” kavramı çerçevesinde düşünme ve dil arasındaki ilişkiyi açıklamaması ya da yanlış açıklaması\ndurumunda 10 puan eksik verilir.\nYANLIŞ CEVAP (0 PUAN)\nDüşünme ve dil arasındaki çift yönlü nedensellik ile “Eko-kaygı” kavramı çerçevesinde düşünme ve dil arasındaki\nilişkiye dair ilgisiz cevap verilmesi ve boş bırakılması durumunda 0 puan verilir.\n=== Page 9 ===\nYAZILIYA HAZIRLANIYORUM (1. DÖNEM-1. YAZILI)\n5. Doğru Cevap:\nTAM CEVAP (20 PUAN)\nÖğrenciden verilen kavramlara ait doğru örnek cümleleri ve bu cümleleri seçme gerekçelerini yazması beklenir.\nÖğrencinin yazdığı her bir örnek cümle 3 puan ve her bir gerekçe 2 puandır. Örnek cümlelerin tamamının\ngerekçeleriyle yazılması durumunda 20 tam puan verilir.\nÖrnek Cevap:\nKAVRAMLAR ÖRNEK CÜMLE (4x3 Puan) GEREKÇE (4x2 Puan)\nTümevarım\nGözlemlerimize dayanarak öğren-\ncilerin tek kullanımlık ürünleri sık\nkullandığını söyleyebiliriz.\nTek tek gözlemlerden hareketle\ngenel bir sonuca ulaşılmıştır.\nArgüman\nTek kullanımlık ürünlerin azaltılması\nçevre için yararlıdır. Okulumuzda\nbu ürünler yaygın olarak\nkullanılmaktadır. O hâlde bunların\nkullanımını azaltacak önlemler\nalınmalıdır.\nBir sonuca ulaşmak için öncüller\nileri sürülmüş ve bu öncüllerden bir\nsonuç çıkarılmıştır.\nSafsata\nSiz çevre kulübünde olduğunuz\niçin yaptıklarımızı zaten doğru\nbulmazsınız. Bu yüzden\nsöylediklerinizin önemsenmesi\ngerektiğini düşünmüyorum.\nİleri sürülen düşüncenin daya-\nnakları yerine düşünceyi savunan\nkişilerin özelliği hedef alınmıştır.\nAnaloji\nArkadaşımın gittiği lise de bizimki\ngibi öğrenci sayısı fazla ve kantini\nyoğun kullanılan bir okul. Bizim\nokulumuzda tek kullanımlık ürünler\nsık kullanıldığına göre orada da bu\nürünler yaygın olarak kullanılıyordur.\nOrada da gerekli önlemler\nalınmalıdır.\nBazı yönlerden birbirine benzeyen\nşeylerin başka özellikler\nbakımından da benzer olacağı\nkabul edilmiştir.\nKISMI CEVAP (3-18 PUAN)\nÖğrencinin metinde bulamadığı her doğru örnek cümle için 3 puan, açıklamadığı ya da yanlış açıkladığı her\ngerekçe için 2 puan eksik verilir. Öğrencinin örneği bulmadan gerekçesini yazması uygun olmadığından tek başına\ngerekçeye puan verilmez.\nYANLIŞ CEVAP (0 PUAN)\nÖrnek oluşturan cümlelerin yazılmaması, ilişkisiz cevap verilmesi ve boş bırakılması durumunda 0 puan verilir."
+  }
+ ]
+}

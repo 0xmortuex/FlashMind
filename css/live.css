@@ -118,6 +118,7 @@
 }
 .lec-chip.cue { border: 1px dashed var(--border-strong); color: var(--text-muted); }
 .lec-chip small { opacity: 0.7; font-family: var(--font-mono); white-space: nowrap; }
+.lec-chip.cue small { opacity: 1; }
 .lec-transcript { min-height: 160px; max-height: 38vh; gap: 6px; }
 .lec-seg { display: flex; gap: 10px; font-family: var(--font-content); font-size: 0.88rem; line-height: 1.5; }
 .lec-seg.interim { color: var(--text-muted); font-style: italic; }

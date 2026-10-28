@@ -19,6 +19,7 @@ const Notes = (() => {
     if (!container) init();
     const T = i18n.t;
     const { title, notes } = data;
+    const scen = !!(data.meta && data.meta.kind === 'scenario');   // MEB scenario notebooks keep their line breaks
 
     let html = `<div class="notes-container">`;
 
@@ -37,7 +38,8 @@ const Notes = (() => {
     // Header
     html += `<div class="notes-header">
       <h1 class="notes-title">${esc(title)}</h1>
-      <div class="notes-summary">${esc(notes.summary)}</div>
+      ${data.meta && data.meta.sourceUrl ? `<a class="meb-srclink" href="${escSvg(data.meta.sourceUrl)}" target="_blank" rel="noopener noreferrer">${T('mebSrcLink')} <span aria-hidden="true">&#8599;</span></a>` : ''}
+      <div class="notes-summary${scen ? ' scen-text' : ''}">${esc(notes.summary)}</div>
     </div>`;
 
     // Sections (scroll-revealed with a slight cascade — see FX.observe below)
@@ -46,7 +48,7 @@ const Notes = (() => {
       html += `<div class="notes-section reveal" style="--i:${idx % 3}">
         <h2 class="notes-section-title">${esc(section.title)}${hasSources ? `<button class="section-src-btn" data-section-src="${idx}" title="${T('srcShowPassage')}">&#128206; ${T('srcSource')}</button>` : ''}</h2>
         <div class="section-src" data-section-src-box="${idx}" hidden></div>
-        <p class="notes-section-content">${esc(section.content)}</p>`;
+        <p class="notes-section-content${scen ? ' scen-text' : ''}">${esc(section.content)}</p>`;
 
       if (section.keyTerms && section.keyTerms.length > 0) {
         html += `<div class="key-terms">

@@ -1,0 +1,582 @@
+{
+ "spec": {
+  "fileId": "fx000001",
+  "subject": "Biyoloji",
+  "schoolYear": "2026-2027",
+  "sourceUrl": "https://cdn.eba.gov.tr/yardimcikaynaklar/2026/09/KSDT/fx.xlsx",
+  "sheets": [
+   {
+    "sheet": "9. SINIF",
+    "grade": 9,
+    "course": "9 SINIF BİYOLOJİ DERSİ",
+    "variant": "",
+    "kazanimlar": [
+     {
+      "id": "FX.1",
+      "code": "FX.1",
+      "unit": "ÜNİTE 1",
+      "topic": "Hücre Yapısı",
+      "outcome": "FX.1. Hücrenin yapısını açıklayabilme"
+     },
+     {
+      "id": "FX.2",
+      "code": "FX.2",
+      "unit": "ÜNİTE 1",
+      "topic": "Doku Çeşitleri",
+      "outcome": "FX.2. Dokuları karşılaştırabilme"
+     },
+     {
+      "id": "FX.3",
+      "code": "FX.3",
+      "unit": "ÜNİTE 2",
+      "topic": "Organ Sistemleri",
+      "outcome": "FX.3. Organ sistemlerini sıralayabilme"
+     },
+     {
+      "id": "FX.4",
+      "code": "FX.4",
+      "unit": "ÜNİTE 2",
+      "topic": "",
+      "outcome": "FX.4. Enerji dönüşümünü yorumlayabilme"
+     }
+    ],
+    "exams": [
+     {
+      "exam": "1. Dönem 1. Ortak Yazılı Sınav",
+      "scenarios": [
+       {
+        "n": 1,
+        "total": 4,
+        "items": [
+         {
+          "id": "FX.1",
+          "count": 1
+         },
+         {
+          "id": "FX.2",
+          "count": 3
+         }
+        ]
+       },
+       {
+        "n": 2,
+        "total": 6,
+        "items": [
+         {
+          "id": "FX.1",
+          "count": 3
+         },
+         {
+          "id": "FX.2",
+          "count": 1
+         },
+         {
+          "id": "FX.4",
+          "count": 2
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "exam": "1. Dönem 2. Ortak Yazılı Sınav",
+      "notes": "Ülke Geneli Ortak Yazılı Sınav şeklinde yapılacaktır.",
+      "scenarios": []
+     }
+    ]
+   }
+  ]
+ },
+ "bank": {
+  "meta": {
+   "bank": "b-fx000001-9",
+   "fileId": "fx000001",
+   "sheet": "9. SINIF",
+   "subject": "Biyoloji",
+   "grade": 9,
+   "kind": "bank",
+   "schoolYear": "2026-2027"
+  },
+  "summary": "Biyoloji 9 banka özeti. Biyoloji 9 banka özeti. Biyoloji 9 banka özeti. Biyoloji 9 banka özeti. Biyoloji 9 banka özeti. Biyoloji 9 banka özeti. Biyoloji 9 banka özeti. Biyoloji 9 banka özeti. Biyoloji 9 banka özeti. Biyoloji 9 banka özeti. Biyoloji 9 banka özeti. Biyoloji 9 banka özeti. Biyoloji 9 banka özeti. Biyoloji 9 banka özeti. Biyoloji 9 banka özeti. Biyoloji 9 banka özeti. Biyoloji 9 banka özeti. Biyoloji 9 banka özeti. Biyoloji 9 banka özeti. Biyoloji 9 banka özeti. Biyoloji 9 banka özeti. Biyoloji 9 banka özeti. Biyoloji 9 banka özeti. Biyoloji 9 banka özeti. Biyoloji 9 banka özeti. ",
+  "mindmap": {
+   "label": "Biyoloji 9",
+   "children": [
+    {
+     "label": "Ünite 1",
+     "children": [
+      {
+       "label": "Hücre"
+      }
+     ]
+    }
+   ]
+  },
+  "commonMistakes": [
+   "Hata 1",
+   "Hata 2"
+  ],
+  "studyTips": [
+   "İpucu 1",
+   "İpucu 2"
+  ],
+  "kazanimlar": [
+   {
+    "id": "FX.1",
+    "note": {
+     "title": "Hücre notu",
+     "content": "FX.1 içeriği: Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. ",
+     "bulletPoints": [
+      "Madde 1",
+      "Madde 2",
+      "Madde 3",
+      "Madde 4",
+      "Madde 5"
+     ],
+     "keyTerms": [
+      {
+       "term": "Terim",
+       "definition": "Tanım"
+      }
+     ],
+     "example": "FX.1 örneği",
+     "examTip": "FX.1 sınav ipucu"
+    },
+    "cards": [
+     {
+      "front": "FX.1 ön 1",
+      "back": "FX.1 arka 1",
+      "difficulty": "easy"
+     },
+     {
+      "front": "FX.1 ön 2",
+      "back": "FX.1 arka 2",
+      "difficulty": "medium"
+     },
+     {
+      "front": "FX.1 ön 3",
+      "back": "FX.1 arka 3",
+      "difficulty": "hard"
+     },
+     {
+      "front": "FX.1 ön 4",
+      "back": "FX.1 arka 4",
+      "difficulty": "easy"
+     }
+    ],
+    "questions": [
+     {
+      "type": "multiple-choice",
+      "question": "FX.1 soru 1: doğru seçenek hangisidir?",
+      "options": [
+       "A1",
+       "B1",
+       "C1",
+       "D1"
+      ],
+      "correct": 1,
+      "explanation": "FX.1 soru 1 için açıklama: doğru seçenek yöntemle bulunur ve diğerleri elenir.",
+      "difficulty": "easy"
+     },
+     {
+      "type": "multiple-choice",
+      "question": "FX.1 soru 2: doğru seçenek hangisidir?",
+      "options": [
+       "A2",
+       "B2",
+       "C2",
+       "D2"
+      ],
+      "correct": 2,
+      "explanation": "FX.1 soru 2 için açıklama: doğru seçenek yöntemle bulunur ve diğerleri elenir.",
+      "difficulty": "medium"
+     },
+     {
+      "type": "multiple-choice",
+      "question": "FX.1 soru 3: doğru seçenek hangisidir?",
+      "options": [
+       "A3",
+       "B3",
+       "C3",
+       "D3"
+      ],
+      "correct": 3,
+      "explanation": "FX.1 soru 3 için açıklama: doğru seçenek yöntemle bulunur ve diğerleri elenir.",
+      "difficulty": "hard"
+     },
+     {
+      "type": "multiple-choice",
+      "question": "FX.1 soru 4: doğru seçenek hangisidir?",
+      "options": [
+       "A4",
+       "B4",
+       "C4",
+       "D4"
+      ],
+      "correct": 0,
+      "explanation": "FX.1 soru 4 için açıklama: doğru seçenek yöntemle bulunur ve diğerleri elenir.",
+      "difficulty": "easy"
+     },
+     {
+      "type": "multiple-choice",
+      "question": "FX.1 soru 5: doğru seçenek hangisidir?",
+      "options": [
+       "A5",
+       "B5",
+       "C5",
+       "D5"
+      ],
+      "correct": 1,
+      "explanation": "FX.1 soru 5 için açıklama: doğru seçenek yöntemle bulunur ve diğerleri elenir.",
+      "difficulty": "medium"
+     },
+     {
+      "type": "multiple-choice",
+      "question": "FX.1 soru 6: doğru seçenek hangisidir?",
+      "options": [
+       "A6",
+       "B6",
+       "C6",
+       "D6"
+      ],
+      "correct": 2,
+      "explanation": "FX.1 soru 6 için açıklama: doğru seçenek yöntemle bulunur ve diğerleri elenir.",
+      "difficulty": "hard"
+     },
+     {
+      "type": "multiple-choice",
+      "question": "FX.1 soru 7: doğru seçenek hangisidir?",
+      "options": [
+       "A7",
+       "B7",
+       "C7",
+       "D7"
+      ],
+      "correct": 3,
+      "explanation": "FX.1 soru 7 için açıklama: doğru seçenek yöntemle bulunur ve diğerleri elenir.",
+      "difficulty": "easy"
+     },
+     {
+      "type": "multiple-choice",
+      "question": "FX.1 soru 8: doğru seçenek hangisidir?",
+      "options": [
+       "A8",
+       "B8",
+       "C8",
+       "D8"
+      ],
+      "correct": 0,
+      "explanation": "FX.1 soru 8 için açıklama: doğru seçenek yöntemle bulunur ve diğerleri elenir.",
+      "difficulty": "medium"
+     }
+    ]
+   },
+   {
+    "id": "FX.2",
+    "note": {
+     "title": "Doku notu",
+     "content": "FX.2 içeriği: Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. ",
+     "bulletPoints": [
+      "Madde 1",
+      "Madde 2",
+      "Madde 3",
+      "Madde 4",
+      "Madde 5"
+     ],
+     "keyTerms": [
+      {
+       "term": "Terim",
+       "definition": "Tanım"
+      }
+     ],
+     "example": "FX.2 örneği",
+     "examTip": "FX.2 sınav ipucu"
+    },
+    "cards": [
+     {
+      "front": "FX.2 ön 1",
+      "back": "FX.2 arka 1",
+      "difficulty": "easy"
+     },
+     {
+      "front": "FX.2 ön 2",
+      "back": "FX.2 arka 2",
+      "difficulty": "medium"
+     },
+     {
+      "front": "FX.2 ön 3",
+      "back": "FX.2 arka 3",
+      "difficulty": "hard"
+     },
+     {
+      "front": "FX.2 ön 4",
+      "back": "FX.2 arka 4",
+      "difficulty": "easy"
+     }
+    ],
+    "questions": [
+     {
+      "type": "multiple-choice",
+      "question": "FX.2 soru 1: doğru seçenek hangisidir?",
+      "options": [
+       "A1",
+       "B1",
+       "C1",
+       "D1"
+      ],
+      "correct": 1,
+      "explanation": "FX.2 soru 1 için açıklama: doğru seçenek yöntemle bulunur ve diğerleri elenir.",
+      "difficulty": "easy"
+     },
+     {
+      "type": "multiple-choice",
+      "question": "FX.2 soru 2: doğru seçenek hangisidir?",
+      "options": [
+       "A2",
+       "B2",
+       "C2",
+       "D2"
+      ],
+      "correct": 2,
+      "explanation": "FX.2 soru 2 için açıklama: doğru seçenek yöntemle bulunur ve diğerleri elenir.",
+      "difficulty": "medium"
+     },
+     {
+      "type": "multiple-choice",
+      "question": "FX.2 soru 3: doğru seçenek hangisidir?",
+      "options": [
+       "A3",
+       "B3",
+       "C3",
+       "D3"
+      ],
+      "correct": 3,
+      "explanation": "FX.2 soru 3 için açıklama: doğru seçenek yöntemle bulunur ve diğerleri elenir.",
+      "difficulty": "hard"
+     },
+     {
+      "type": "multiple-choice",
+      "question": "FX.2 soru 4: doğru seçenek hangisidir?",
+      "options": [
+       "A4",
+       "B4",
+       "C4",
+       "D4"
+      ],
+      "correct": 0,
+      "explanation": "FX.2 soru 4 için açıklama: doğru seçenek yöntemle bulunur ve diğerleri elenir.",
+      "difficulty": "easy"
+     },
+     {
+      "type": "multiple-choice",
+      "question": "FX.2 soru 5: doğru seçenek hangisidir?",
+      "options": [
+       "A5",
+       "B5",
+       "C5",
+       "D5"
+      ],
+      "correct": 1,
+      "explanation": "FX.2 soru 5 için açıklama: doğru seçenek yöntemle bulunur ve diğerleri elenir.",
+      "difficulty": "medium"
+     },
+     {
+      "type": "multiple-choice",
+      "question": "FX.2 soru 6: doğru seçenek hangisidir?",
+      "options": [
+       "A6",
+       "B6",
+       "C6",
+       "D6"
+      ],
+      "correct": 2,
+      "explanation": "FX.2 soru 6 için açıklama: doğru seçenek yöntemle bulunur ve diğerleri elenir.",
+      "difficulty": "hard"
+     }
+    ]
+   },
+   {
+    "id": "FX.3",
+    "note": {
+     "title": "Organ notu",
+     "content": "FX.3 içeriği: Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. ",
+     "bulletPoints": [
+      "Madde 1",
+      "Madde 2",
+      "Madde 3",
+      "Madde 4",
+      "Madde 5"
+     ],
+     "keyTerms": [
+      {
+       "term": "Terim",
+       "definition": "Tanım"
+      }
+     ],
+     "example": "FX.3 örneği",
+     "examTip": "FX.3 sınav ipucu"
+    },
+    "cards": [
+     {
+      "front": "FX.3 ön 1",
+      "back": "FX.3 arka 1",
+      "difficulty": "easy"
+     },
+     {
+      "front": "FX.3 ön 2",
+      "back": "FX.3 arka 2",
+      "difficulty": "medium"
+     },
+     {
+      "front": "FX.3 ön 3",
+      "back": "FX.3 arka 3",
+      "difficulty": "hard"
+     },
+     {
+      "front": "FX.3 ön 4",
+      "back": "FX.3 arka 4",
+      "difficulty": "easy"
+     }
+    ],
+    "questions": [
+     {
+      "type": "multiple-choice",
+      "question": "FX.3 soru 1: doğru seçenek hangisidir?",
+      "options": [
+       "A1",
+       "B1",
+       "C1",
+       "D1"
+      ],
+      "correct": 1,
+      "explanation": "FX.3 soru 1 için açıklama: doğru seçenek yöntemle bulunur ve diğerleri elenir.",
+      "difficulty": "easy"
+     },
+     {
+      "type": "multiple-choice",
+      "question": "FX.3 soru 2: doğru seçenek hangisidir?",
+      "options": [
+       "A2",
+       "B2",
+       "C2",
+       "D2"
+      ],
+      "correct": 2,
+      "explanation": "FX.3 soru 2 için açıklama: doğru seçenek yöntemle bulunur ve diğerleri elenir.",
+      "difficulty": "medium"
+     },
+     {
+      "type": "multiple-choice",
+      "question": "FX.3 soru 3: doğru seçenek hangisidir?",
+      "options": [
+       "A3",
+       "B3",
+       "C3",
+       "D3"
+      ],
+      "correct": 3,
+      "explanation": "FX.3 soru 3 için açıklama: doğru seçenek yöntemle bulunur ve diğerleri elenir.",
+      "difficulty": "hard"
+     }
+    ]
+   },
+   {
+    "id": "FX.4",
+    "note": {
+     "title": "Enerji notu",
+     "content": "FX.4 içeriği: Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. Açıklayıcı metin. ",
+     "bulletPoints": [
+      "Madde 1",
+      "Madde 2",
+      "Madde 3",
+      "Madde 4",
+      "Madde 5"
+     ],
+     "keyTerms": [
+      {
+       "term": "Terim",
+       "definition": "Tanım"
+      }
+     ],
+     "example": "FX.4 örneği",
+     "examTip": "FX.4 sınav ipucu"
+    },
+    "cards": [
+     {
+      "front": "FX.4 ön 1",
+      "back": "FX.4 arka 1",
+      "difficulty": "easy"
+     },
+     {
+      "front": "FX.4 ön 2",
+      "back": "FX.4 arka 2",
+      "difficulty": "medium"
+     },
+     {
+      "front": "FX.4 ön 3",
+      "back": "FX.4 arka 3",
+      "difficulty": "hard"
+     },
+     {
+      "front": "FX.4 ön 4",
+      "back": "FX.4 arka 4",
+      "difficulty": "easy"
+     }
+    ],
+    "questions": [
+     {
+      "type": "multiple-choice",
+      "question": "FX.4 soru 1: doğru seçenek hangisidir?",
+      "options": [
+       "A1",
+       "B1",
+       "C1",
+       "D1"
+      ],
+      "correct": 1,
+      "explanation": "FX.4 soru 1 için açıklama: doğru seçenek yöntemle bulunur ve diğerleri elenir.",
+      "difficulty": "easy"
+     },
+     {
+      "type": "multiple-choice",
+      "question": "FX.4 soru 2: doğru seçenek hangisidir?",
+      "options": [
+       "A2",
+       "B2",
+       "C2",
+       "D2"
+      ],
+      "correct": 2,
+      "explanation": "FX.4 soru 2 için açıklama: doğru seçenek yöntemle bulunur ve diğerleri elenir.",
+      "difficulty": "medium"
+     },
+     {
+      "type": "multiple-choice",
+      "question": "FX.4 soru 3: doğru seçenek hangisidir?",
+      "options": [
+       "A3",
+       "B3",
+       "C3",
+       "D3"
+      ],
+      "correct": 3,
+      "explanation": "FX.4 soru 3 için açıklama: doğru seçenek yöntemle bulunur ve diğerleri elenir.",
+      "difficulty": "hard"
+     },
+     {
+      "type": "multiple-choice",
+      "question": "FX.4 soru 4: doğru seçenek hangisidir?",
+      "options": [
+       "A4",
+       "B4",
+       "C4",
+       "D4"
+      ],
+      "correct": 0,
+      "explanation": "FX.4 soru 4 için açıklama: doğru seçenek yöntemle bulunur ve diğerleri elenir.",
+      "difficulty": "easy"
+     }
+    ]
+   }
+  ]
+ }
+}

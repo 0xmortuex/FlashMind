@@ -442,7 +442,7 @@
 .stat-card-title,
 .quiz-breakdown-title,
 .deck-library-title {
-  background: var(--grad-brand);
+  background: var(--grad-brand-text);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;

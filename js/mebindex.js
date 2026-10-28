@@ -6,19 +6,29 @@
 // the open deck's paperProfile through PastPaper.saveProfile, so Adaptive.pick's
 // topicBoost weights practice by it. Both files are fetched on first open and a
 // failure is shown, never papered over. Built by scripts/build-meb-index.mjs.
+// Entries with set:1 also open as a ready-made study set (js/mebsets.js).
 // The filter helpers at the top are pure (covered by regression tests).
 const MebIndex = (() => {
   const INDEX_URL = 'data/meb/index.json';
   const TOPICS_URL = 'data/meb/topics.json';
   const GRADES = [5, 6, 7, 8, 9, 10, 11, 12];
-  const TYPES = ['lgs', 'bursluluk', 'ortak', 'konu', 'yks', 'acik', 'sinif', 'kilavuz', 'dort-beceri'];
+  const TYPES = ['lgs', 'bursluluk', 'ortak', 'konu', 'yks', 'acik', 'sinif', 'kilavuz', 'dort-beceri', 'ogm-yazili', 'ogm-kazanim'];
   const PAGE = 50;
   const OFFICIAL = /^https:\/\/([a-z0-9-]+\.)*(meb\.gov\.tr|eba\.gov\.tr)(\/|$)/i;
 
   // ---------- pure helpers ----------
   const norm = s => PastPaper.normName(s);
 
-  // f = { grade: 5..12 | 0, type: '' | code, subject: '' | name, q: text }.
+  // School years are shown exactly as the index states them; these two are the
+  // groups the library leads with. A file with no stated year sorts last and is
+  // only listed under "All years".
+  const YEAR_NOW = '2026-2027', YEAR_PREV = '2025-2026';
+  const defaultYear = items => (items.some(it => it.y === YEAR_NOW) ? YEAR_NOW : '');
+  // Newest school year first; the order inside a year is kept.
+  const sortByYear = items => items.slice().sort((a, b) => (b.y || '').localeCompare(a.y || ''));
+
+  // f = { grade: 5..12 | 0, type: '' | code, subject: '' | name, q: text,
+  //       year: '' | YEAR_NOW | YEAR_PREV | 'earlier', sets: bool }.
   // A grade filter keeps only files whose name states that grade; the search
   // text must match every word in the title, subject, year or exam type.
   function filterItems(items, f) {
@@ -28,6 +38,8 @@ const MebIndex = (() => {
       if (o.grade && !it.g.includes(o.grade)) return false;
       if (o.type && it.x !== o.type) return false;
       if (o.subject && it.s !== o.subject) return false;
+      if (o.year === 'earlier' ? !(it.y && it.y < YEAR_PREV) : o.year && it.y !== o.year) return false;
+      if (o.sets && !it.set) return false;
       if (!words.length) return true;
       const hay = norm([it.t, it.s, it.y, it.x].join(' '));
       return words.every(w => hay.includes(w));
@@ -61,6 +73,11 @@ const MebIndex = (() => {
       if (typeof it.u !== 'string' || !OFFICIAL.test(it.u)) bad('not an official MEB link: ' + it.u);
       if (it.p && !OFFICIAL.test(it.p)) bad('not an official MEB link: ' + it.p);
       if (it.mb != null && !(it.mb >= 0)) bad('bad size');
+      if (it.set != null && it.set !== 1) bad('bad study set flag');
+      ['sz', 'nc', 'nq', 'ns'].forEach(k => { if (it[k] != null && !(Number.isInteger(it[k]) && it[k] >= 0)) bad('bad ' + k); });
+      if (it.set && !(it.nc > 0 || it.nq > 0)) bad('study set without cards or questions');
+      if (it.alias != null && (typeof it.alias !== 'string' || !it.set || !items.some(o => o && o.id === it.alias))) bad('bad alias');
+      if (it.ver != null && typeof it.ver !== 'string') bad('bad ver');
     });
     const map = new Map();
     topics.forEach((t, i) => {
@@ -69,6 +86,12 @@ const MebIndex = (() => {
       map.set(t.id, t);
     });
     return { items, topics: map };
+  }
+
+  // '96 cards · 72 questions · 14 sections' from the counts the generator wrote.
+  function statsLine(it) {
+    const part = (n, k) => (n > 0 ? i18n.t(n === 1 ? k + 'One' : k, { n }) : '');
+    return [part(it.nc, 'mebStatCards'), part(it.nq, 'mebStatQuestions'), part(it.ns, 'mebStatSections')].filter(Boolean).join(' · ');
   }
 
   // A topics.json table as the {name, count} list PastPaper expects.
@@ -87,7 +110,7 @@ const MebIndex = (() => {
     if (data) return Promise.resolve(data);
     if (!loading) {
       loading = Promise.all([getJson(INDEX_URL), getJson(TOPICS_URL)])
-        .then(([items, topics]) => { data = validate(items, topics); return data; })
+        .then(([items, topics]) => { const v = validate(items, topics); v.items = sortByYear(v.items); data = v; return data; })
         .finally(() => { loading = null; });
     }
     return loading;
@@ -100,10 +123,16 @@ const MebIndex = (() => {
     const table = data && data.topics.get(id);
     const item = data && data.items.find(it => it.id === id);
     if (!table || !item) throw new Error('Unknown topic table ' + id);
+    return storeProfile(profileTopics(table), item.t);
+  }
+
+  // topics = [{name, count}], title = what the user sees in the overwrite question and as the profile's source.
+  // Also used by the Senaryolar tab (js/mebscen.js).
+  function storeProfile(topics, title) {
     if (typeof Decks === 'undefined' || !Decks.getActive()) { App.showToast(i18n.t('mebNoDeck'), 'error'); return null; }
     const old = PastPaper.getProfile();
-    if (old && old.topics.length && !confirm(i18n.t('mebOverwrite', { n: old.topics.length, t: item.t }))) return null;
-    const saved = PastPaper.saveProfile(Object.assign({}, old || {}, { topics: profileTopics(table), topicsFrom: 'distribution', source: item.t }));
+    if (old && old.topics.length && !confirm(i18n.t('mebOverwrite', { n: old.topics.length, t: title }))) return null;
+    const saved = PastPaper.saveProfile(Object.assign({}, old || {}, { topics, topicsFrom: 'distribution', source: title }));
     if (!saved) throw new Error('Topic profile was not saved');
     App.showToast(i18n.t('mebApplied', { n: saved.topics.length }), 'success');
     PastPaper.refresh();
@@ -115,23 +144,33 @@ const MebIndex = (() => {
   function esc(s) { if (s == null) return ''; const d = document.createElement('div'); d.textContent = String(s); return d.innerHTML.replace(/"/g, '&quot;'); }
 
   const modal = typeof document !== 'undefined' ? PastPaper.makeModal('meb-panel') : null;
-  const state = { f: { grade: 0, type: '', subject: '', q: '' }, shown: PAGE };
+  // busy: id of the study set being fetched; err: { id, msg } of the last failure.
+  const state = { f: { grade: 0, type: '', subject: '', q: '', year: '', sets: false }, shown: PAGE, yearSet: false, busy: null, err: null, tab: 'files' };
 
   const gradeLabel = g => T('mebGradeN', { n: g.length > 1 ? g[0] + '–' + g[g.length - 1] : g[0] });
 
   function rowHtml(it) {
     const table = data.topics.get(it.id);
-    const chips = [T('mebType_' + it.x), it.g.length ? gradeLabel(it.g) : '', it.s, it.y, it.mb != null ? T('mebSizeMb', { n: it.mb }) : '']
-      .filter(Boolean).map(c => `<span class="meb-chip">${esc(c)}</span>`).join('');
+    const chips = `<span class="meb-chip meb-year${it.y ? '' : ' none'}">${esc(it.y || T('mebYearNone'))}</span>` +
+      [T('mebType_' + it.x), it.ver ? T('mebVersionN', { v: it.ver }) : '', it.g.length ? gradeLabel(it.g) : '', it.s, it.mb != null ? T('mebSizeMb', { n: it.mb }) : '']
+        .filter(Boolean).map(c => `<span class="meb-chip">${esc(c)}</span>`).join('');
+    const busy = state.busy === it.id, failed = state.err && state.err.id === it.id;
+    const setHtml = it.set ? `<div class="meb-set">
+        ${failed ? `<p class="meb-error" role="alert">${esc(T('mebSetFail', { e: state.err.msg }))}</p>` : ''}
+        <button class="btn-primary meb-set-btn" data-meb-act="set" data-id="${esc(it.id)}" title="${esc(T('mebSetSize', { n: it.sz || 0 }))}"${state.busy ? ' disabled' : ''}${busy ? ' aria-busy="true"' : ''}>
+          ${busy ? `<span class="spinner" aria-hidden="true"></span> ${T('mebSetOpening')}` : `&#127891; ${T(failed ? 'mebRetry' : 'mebSetOpen')}`}</button>
+        ${statsLine(it) ? `<span class="meb-stats">${esc(statsLine(it))}</span>` : ''}
+      </div>` : `<p class="meb-soon">${T('mebSetSoon')}</p>`;
     const preview = table ? `<details class="meb-topics"><summary>${T('mebTopicsPreview', { n: table.n })}</summary>
         <ul>${table.rows.slice(0, 8).map(r => `<li><span>${esc(r[0])}</span><b>${r[1]}</b></li>`).join('')}</ul>
         <p class="meb-note">${T('mebTopicsNote')}</p></details>` : '';
-    return `<li class="meb-row">
+    return `<li class="meb-row" data-row="${esc(it.id)}">
       <div class="meb-row-title">${esc(it.t)}</div>
       <div class="meb-chips">${chips}</div>
+      ${setHtml}
       ${preview}
       <div class="meb-actions">
-        <a class="btn-primary meb-open" href="${esc(it.u)}" target="_blank" rel="noopener noreferrer">${T('mebOpenFile')} <span aria-hidden="true">&#8599;</span></a>
+        <a class="${it.set ? 'btn-ghost' : 'btn-primary'} meb-open" href="${esc(it.u)}" target="_blank" rel="noopener noreferrer">${T('mebOpenFile')} <span aria-hidden="true">&#8599;</span></a>
         ${it.p ? `<a class="meb-src" href="${esc(it.p)}" target="_blank" rel="noopener noreferrer">${T('mebSourcePage')}</a>` : ''}
         ${table ? `<button class="btn-ghost" data-meb-act="profile" data-id="${esc(it.id)}">&#9878;&#65039; ${T('mebUseProfile')}</button>` : ''}
       </div>
@@ -153,6 +192,8 @@ const MebIndex = (() => {
     el.querySelector('#meb-grade').innerHTML = optionsHtml([[0, T('mebAllGrades')], ...GRADES.map(g => [g, T('mebGradeN', { n: g })])], f.grade);
     el.querySelector('#meb-type').innerHTML = optionsHtml([['', T('mebAllTypes')], ...TYPES.filter(x => counts[x] || f.type === x).map(x => [x, `${T('mebType_' + x)} (${counts[x] || 0})`])], f.type);
     el.querySelector('#meb-subject').innerHTML = optionsHtml([['', T('mebAllSubjects')], ...subjects.map(s => [s, s])], f.subject);
+    el.querySelectorAll('[data-meb-year]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mebYear === f.year)));
+    el.querySelector('[data-meb-sets]').setAttribute('aria-pressed', String(f.sets));
     const hits = filterItems(data.items, f);
     const shown = hits.slice(0, state.shown);
     el.querySelector('#meb-count').textContent = T('mebCount', { n: hits.length });
@@ -168,8 +209,21 @@ const MebIndex = (() => {
       <div class="ex-scroll">${body}</div>`);
   }
 
+  // Files = the indexed official files; Senaryolar = one notebook per ortak yazılı scenario (js/mebscen.js).
+  function tabsHtml() {
+    if (typeof MebScen === 'undefined') return '';
+    return `<div class="meb-tabs" role="tablist">${[['files', T('mebTabFiles')], ['scen', T('scenTab')]]
+      .map(([v, label]) => `<button type="button" class="meb-tab" role="tab" data-meb-tab="${v}" aria-selected="${state.tab === v}">${esc(label)}</button>`).join('')}</div>`;
+  }
+
   function renderReady() {
+    if (state.tab === 'scen' && typeof MebScen !== 'undefined') {
+      shell(`${tabsHtml()}<div id="meb-scen"></div>`);
+      MebScen.render(modal.el.querySelector('#meb-scen'));
+      return;
+    }
     shell(`
+      ${tabsHtml()}
       <p class="chk-intro">${T('mebIntro')}</p>
       <p class="meb-tip">&#128161; ${T('mebTip')}</p>
       <div class="meb-filters">
@@ -178,6 +232,11 @@ const MebIndex = (() => {
         <select id="meb-type" aria-label="${esc(T('mebAllTypes'))}"></select>
         <select id="meb-subject" aria-label="${esc(T('mebAllSubjects'))}"></select>
       </div>
+      <div class="meb-yearbar" role="group" aria-label="${esc(T('mebYearLabel'))}">
+        ${[['', T('mebYearAll')], [YEAR_NOW, YEAR_NOW], [YEAR_PREV, YEAR_PREV], ['earlier', T('mebYearEarlier')]]
+          .map(([v, label]) => `<button type="button" class="meb-fchip" data-meb-year="${esc(v)}" aria-pressed="false">${esc(label)}</button>`).join('')}
+        <button type="button" class="meb-fchip meb-fchip-sets" data-meb-sets aria-pressed="false">&#127891; ${T('mebSetsOnly')}</button>
+      </div>
       <div class="meb-count" id="meb-count" aria-live="polite"></div>
       <p class="meb-note">${T('mebNoGradeNote')}</p>
       <div id="meb-list"></div>
@@ -185,14 +244,51 @@ const MebIndex = (() => {
     renderResults();
   }
 
+  // The newest school year leads, until the user picks another.
+  function defaultFilters() {
+    if (state.yearSet) return;
+    state.f.year = defaultYear(data.items);
+    state.yearSet = true;
+  }
+
+  async function openSet(id) {
+    const it = data && data.items.find(x => x.id === id);
+    if (!it || !it.set) throw new Error('No study set for ' + id);
+    if (state.busy) return;
+    state.busy = id;
+    state.err = null;
+    refreshRow(id);
+    try {
+      await MebSets.open(it);
+    } catch (err) {
+      state.err = { id, msg: err && err.message ? err.message : String(err) };
+    } finally {
+      state.busy = null;
+    }
+    // On success the library is already closed; on failure show the error in place.
+    if (modal.isOpen()) { refreshRow(id); modal.el.querySelector(`[data-row="${CSS.escape(id)}"] .meb-set-btn`)?.focus(); }
+  }
+
+  function refreshRow(id) {
+    const it = data.items.find(x => x.id === id);
+    const row = modal.el && modal.el.querySelector(`[data-row="${CSS.escape(id)}"]`);
+    if (!it || !row) return;
+    const keep = row.contains(document.activeElement) && document.activeElement.dataset.mebAct;
+    row.outerHTML = rowHtml(it);
+    if (keep) modal.el.querySelector(`[data-row="${CSS.escape(id)}"] [data-meb-act="${keep}"]`)?.focus();
+  }
+
   function renderState(html) { shell(`<div class="meb-state" id="meb-state">${html}</div>`); }
 
-  async function open() {
+  // opts.tab = 'scen' opens on the Senaryolar tab.
+  async function open(opts) {
     if (!modal) return;
-    if (data) { renderReady(); return; }
+    if (opts && opts.tab) state.tab = opts.tab === 'scen' ? 'scen' : 'files';
+    if (data) { defaultFilters(); renderReady(); return; }
     renderState(`<div class="spinner" aria-hidden="true"></div> ${T('mebLoading')}`);
     try {
       await load();
+      defaultFilters();
       if (modal.isOpen()) renderReady();
     } catch (err) {
       if (modal.isOpen()) renderState(`<p class="meb-error" role="alert">${esc(T('mebLoadFail', { e: err && err.message ? err.message : String(err) }))}</p>
@@ -206,10 +302,21 @@ const MebIndex = (() => {
       if (e.key === 'Escape' && modal.isOpen()) { e.stopImmediatePropagation(); modal.close(); }
     }, true);
     document.addEventListener('click', e => {
+      const tab = e.target.closest('[data-meb-tab]');
+      if (tab && modal.el && modal.el.contains(tab)) { state.tab = tab.dataset.mebTab; renderReady(); modal.el.querySelector('[data-meb-tab][aria-selected="true"]')?.focus(); return; }
+      const chip = e.target.closest('[data-meb-year], [data-meb-sets]');
+      if (chip && modal.el && modal.el.contains(chip)) {
+        if (chip.hasAttribute('data-meb-sets')) state.f.sets = !state.f.sets;
+        else state.f.year = chip.dataset.mebYear;
+        state.shown = PAGE;
+        renderResults();
+        return;
+      }
       const b = e.target.closest('[data-meb-act]');
       if (!b || b.disabled) return;
       const act = b.dataset.mebAct;
       if (act === 'open') open();
+      else if (act === 'set') openSet(b.dataset.id);
       else if (act === 'more') { state.shown += PAGE; renderResults(); }
       else if (act === 'profile') applyProfile(b.dataset.id);
     });
@@ -230,5 +337,8 @@ const MebIndex = (() => {
 
   if (typeof document !== 'undefined') document.addEventListener('DOMContentLoaded', init);
 
-  return { filterItems, subjectsFor, typeCounts, validate, profileTopics, GRADES, TYPES, load, open, applyProfile };
+  return {
+    filterItems, subjectsFor, typeCounts, validate, profileTopics, sortByYear, defaultYear, statsLine, YEAR_NOW, YEAR_PREV, GRADES, TYPES,
+    load, open, close: () => modal && modal.close(), applyProfile, storeProfile
+  };
 })();

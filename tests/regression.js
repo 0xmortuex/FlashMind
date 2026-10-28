@@ -13,7 +13,7 @@ function modules(initial = {}, extras = {}) {
     localStorage: { getItem: k => storage.get(k) ?? null, setItem: (k, v) => storage.set(k, v), removeItem: k => storage.delete(k) },
     App: { showToast() {} }, ...extras
   });
-  for (const file of ['simspec', 'parser', 'decks', 'stats', 'api', 'sources', 'planner', 'adaptive', 'insights', 'pastpaper', 'mebindex', 'paperreview', 'memory', 'predictor', 'concepts', 'coach', 'live-core', 'class-core']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/', file + '.js'), 'utf8'), ctx);
+  for (const file of ['simspec', 'parser', 'decks', 'stats', 'api', 'sources', 'planner', 'adaptive', 'insights', 'pastpaper', 'mebindex', 'mebsets', 'scenarioset', 'mebscen', 'paperreview', 'memory', 'predictor', 'concepts', 'coach', 'live-core', 'class-core']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/', file + '.js'), 'utf8'), ctx);
   return { ctx, storage, run: code => vm.runInContext(code, ctx) };
 }
 
@@ -987,7 +987,7 @@ test('MEB generator: slim entries with original URLs, deduped, failed/personnel/
   const { build } = await mebGen();
   const { index, topics, stats } = build(mebFixture);
   assert.deepEqual(stats.excluded, { status: 1, personnel: 1, noUrl: 2, dup: 2 });
-  assert.equal(index.length, 11);
+  assert.equal(index.length, 12);
   const keys = ['id', 't', 'g', 's', 'x', 'y', 'u', 'p', 'mb', 'src'];
   for (const r of index) {
     assert.deepEqual(Object.keys(r), keys);
@@ -1004,6 +1004,34 @@ test('MEB generator: slim entries with original URLs, deduped, failed/personnel/
   assert.equal(byUrl('/2025sozel.pdf').mb, 3.4);
   assert.equal(byUrl('/2025sozel.pdf').p, 'https://odsgm.meb.gov.tr/www/x/icerik/1446');
   assert.deepEqual(topics.map(t => t.id), [byUrl('/konusoru/cog9.pdf').id]);
+});
+test('MEB generator: OGM yazılı records become ogm-yazili entries, id from the pdf file name, no year', async () => {
+  const { build } = await mebGen();
+  const { index, stats } = build(mebFixture);
+  const e = index.find(r => r.x === 'ogm-yazili');
+  assert.deepEqual(e, { id: '675fa374', t: '10. Sınıf Biyoloji - 1. Dönem 1. Yazılı', g: [10], s: 'Biyoloji', x: 'ogm-yazili', y: '',
+    u: 'https://ogm-large-cdn.eba.gov.tr/materyal/Etkilesimlikitap/88dbfe33-1cd4-4062-b37c-350fccd41ba3/pdf.pdf', p: 'https://ogmmateryal.eba.gov.tr/yaziliya-hazirlaniyorum', mb: 1.2, src: 'ogm' });
+  assert.equal(index.filter(r => r.x === 'ogm-kazanim').length, 0);
+  assert.deepEqual(stats.noPublicUrl, ['ogm-kazanim: 9. Sınıf Matematik - Kazanım Kavrama']);       // reported, not listed
+  const kz = { grade: 9, course: 'Matematik', title: 'Kazanım', url: 'https://ogm-large-cdn.eba.gov.tr/k.pdf', localFile: 'C:\\k\\9_Matematik_k1.pdf', sizeBytes: 100000 };
+  const k = build({ ogmKazanim: [kz] }).index[0];
+  assert.deepEqual([k.x, k.g, k.s, k.y, k.mb, k.p], ['ogm-kazanim', [9], 'Matematik', '', 0.1, '']);
+  assert.throws(() => build({ ogmYazili: [{ ...kz, url: 'https://evil.example/k.pdf' }] }), /not an official MEB\/EBA/);
+  assert.throws(() => build({ ogmYazili: [{ ...kz, course: 'Mystery' }] }), /unknown course/);
+  assert.throws(() => build({ ogmYazili: [{ ...kz, localFile: '' }] }), /missing localFile/);
+  // The real kazanım manifest: file address in `fileUrl`, grade '10. Sinif', course without Turkish letters.
+  const real = { grade: '10. Sinif', course: 'Turk Dili ve Edebiyati', title: '10. Sinif Turk Dili ve Edebiyati Kazanim Kavrama Etkilesimli Kitap', fileUrl: 'https://ogm-large-cdn.eba.gov.tr/materyal/k2.pdf', localFile: 'C:\\k\\10_turkdili_kazanim_kavrama_kitap.pdf', sizeBytes: 10485760 };
+  const rk = build({ ogmKazanim: [real, { ...real, grade: '11. Sinif', course: 'Cografya', fileUrl: 'https://ogm-large-cdn.eba.gov.tr/materyal/k3.pdf', localFile: 'C:\\k\\11_cografya_kazanim_kavrama_kitap.pdf' }] }).index;
+  assert.deepEqual(rk.map(r => [r.x, r.g, r.s, r.t]), [
+    ['ogm-kazanim', [10], 'Türkçe / Edebiyat', '10. Sınıf Türkçe / Edebiyat - Kazanım Kavrama Etkileşimli Kitap (2017-2023 müfredatı)'],
+    ['ogm-kazanim', [11], 'Coğrafya', '11. Sınıf Coğrafya - Kazanım Kavrama Etkileşimli Kitap']]);
+  assert.throws(() => build({ ogmKazanim: [{ ...real, grade: 'onuncu' }] }), /bad grade/);
+  const { ctx, run } = modules();
+  ctx.d = { index: [e], types: null };
+  assert.equal(run('MebIndex.validate(d.index, []).items.length'), 1);                              // passes the library's https + MEB/EBA check
+  assert.ok(run('MebIndex.TYPES.includes("ogm-yazili") && MebIndex.TYPES.includes("ogm-kazanim")'));
+  assert.deepEqual(JSON.parse(run('JSON.stringify(MebIndex.typeCounts(d.index, {}))')), { 'ogm-yazili': 1 });
+  assert.deepEqual(JSON.parse(run('JSON.stringify(MebIndex.filterItems(d.index, { type: "ogm-yazili", grade: 10 }).map(i => i.id))')), ['675fa374']);
 });
 test('MEB generator infers grade and subject from explicit names only', async () => {
   const { build } = await mebGen();
@@ -1050,4 +1078,597 @@ test('committed data/meb files match the generator contract and stay small', () 
   assert.equal(run('MebIndex.validate(d.index, d.topics).items.length'), index.length);   // every link is an https MEB/EBA URL
   assert.ok(index.every(r => !/mebi\.eba\.gov\.tr/.test(r.u)));                        // MEBİ is only linked, never listed
   assert.ok(index.some(r => r.x === 'lgs' && r.g.includes(8)));
+});
+
+// ---------- MEB study sets ----------
+const setIndex = [
+  { ...mebItems[0], y: '2025-2026' },
+  { ...mebItems[1], y: '2026-2027', set: 1, sz: 120, nc: 96, nq: 72, ns: 14 },
+  { ...mebItems[2], y: '2024-2025', set: 1, sz: 40, nc: 1, nq: 0, ns: 1 },
+  { ...mebItems[3], y: '' },
+  { ...mebItems[4], y: '2026-2027' }
+];
+const fixtureSet = id => JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures/meb-set-' + id + '.json'), 'utf8'));
+
+test('MEB library groups by school year: newest first, unstated last, default to 2026-2027 only when it exists', () => {
+  const { ctx, run } = modules();
+  ctx.items = setIndex;
+  const ids = code => JSON.parse(run('JSON.stringify(' + code + '.map(i => i.id))'));
+  assert.deepEqual(ids('MebIndex.sortByYear(items)'), ['a2', 'a5', 'a1', 'a3', 'a4']);   // stable inside a year, no year last
+  assert.deepEqual(setIndex.map(i => i.id), ['a1', 'a2', 'a3', 'a4', 'a5']);               // input not mutated
+  assert.equal(run('MebIndex.defaultYear(items)'), '2026-2027');
+  assert.equal(run('MebIndex.defaultYear(items.filter(i => i.y !== "2026-2027"))'), '');
+  assert.deepEqual(mebIds(run, { year: '2026-2027' }), ['a2', 'a5']);
+  assert.deepEqual(mebIds(run, { year: '2025-2026' }), ['a1']);
+  assert.deepEqual(mebIds(run, { year: 'earlier' }), ['a3']);                             // a stated year before 2025-2026; unstated is not "earlier"
+  assert.deepEqual(mebIds(run, {}), ['a1', 'a2', 'a3', 'a4', 'a5']);
+  assert.deepEqual(mebIds(run, { sets: true }), ['a2', 'a3']);
+  assert.deepEqual(mebIds(run, { sets: true, year: 'earlier' }), ['a3']);
+  assert.deepEqual(JSON.parse(run('JSON.stringify(MebIndex.typeCounts(items, { year: "2026-2027" }))')), { lgs: 1, acik: 1 });
+});
+test('MEB library stats line: counts, singular forms, nothing for zero', () => {
+  const { ctx, run } = modules({}, { i18n: { t: (k, p) => (p ? k + ':' + p.n : k), getLang: () => 'en' } });
+  ctx.items = setIndex;
+  assert.equal(run('MebIndex.statsLine(items[1])'), 'mebStatCards:96 · mebStatQuestions:72 · mebStatSections:14');
+  assert.equal(run('MebIndex.statsLine(items[2])'), 'mebStatCardsOne:1 · mebStatSectionsOne:1');
+  assert.equal(run('MebIndex.statsLine(items[0])'), '');
+});
+test('MEB library data validation covers the study set fields', () => {
+  const { ctx, run } = modules();
+  const bad = (items, re) => { ctx.bad = { items }; assert.throws(() => run('MebIndex.validate(bad.items, [])'), re); };
+  ctx.good = { items: setIndex };
+  assert.equal(run('MebIndex.validate(good.items, []).items.length'), 5);
+  bad([{ ...setIndex[1], set: 2 }], /study set flag/);
+  bad([{ ...setIndex[1], nc: -1 }], /bad nc/);
+  bad([{ ...setIndex[1], sz: 1.5 }], /bad sz/);
+  bad([{ ...setIndex[1], nc: 0, nq: 0 }], /without cards or questions/);
+});
+
+test('MebSets.prepare keeps provenance, trusts the index for id and link, and rejects unusable files', () => {
+  const { ctx, run } = modules();
+  ctx.entry = setIndex[0]; ctx.raw = fixtureSet('a1');
+  const d = JSON.parse(run('JSON.stringify(MebSets.prepare(raw, entry))'));
+  assert.equal(d.meta.fileId, 'a1');
+  assert.equal(d.meta.sourceUrl, 'https://cdn.eba.gov.tr/a.pdf');                          // the index link, not the file's
+  assert.equal(d.meta.schoolYear, '2026-2027');
+  assert.deepEqual(d.meta.grade, [8]);
+  assert.deepEqual([d.notes.sections.length, d.flashcards.length, d.quiz.length, d.sources.length], [2, 3, 2, 1]);
+  assert.match(d.sources[0].text, /SENTINEL-OXYGEN-7421/);
+  const bad = (mut, re) => { ctx.raw = mut(fixtureSet('a1')); assert.throws(() => run('MebSets.prepare(raw, entry)'), re); };
+  bad(r => { r.meta.fileId = 'zzz'; return r; }, /another file/);
+  bad(r => { r.sources = []; return r; }, /no source text/);
+  bad(r => ({ title: 't', meta: r.meta, sources: r.sources }), /no notes, cards or questions/);
+  bad(() => [], /not an object/);
+  // A hostile link in the file never survives: Parser only keeps official https hosts.
+  ctx.raw = fixtureSet('a1');
+  assert.equal(run('Parser.normalizeStudyData(Object.assign({}, raw, { meta: { fileId: "a1", sourceUrl: "https://evil.example/x" } })).meta.sourceUrl'), undefined);
+});
+test('deck meta survives save and lookup; the source text lives in data.sources', () => {
+  const { ctx, run } = modules();
+  ctx.entry = setIndex[0]; ctx.raw = fixtureSet('a1');
+  run('Decks.save(MebSets.prepare(raw, entry), "")');
+  assert.equal(run('Decks.getActive().data.meta.fileId'), 'a1');
+  assert.equal(run('MebSets.findDeck("a1").data.meta.sourceUrl'), 'https://cdn.eba.gov.tr/a.pdf');
+  assert.equal(run('MebSets.findDeck("nope")'), null);
+  assert.equal(run('Decks.getActive().originalText'), '');
+  assert.match(run('Sources.contextText(Decks.getActive().data)'), /SENTINEL-OXYGEN-7421/);   // what App.getOriginalText hands to Ask AI
+});
+
+function openHarness(over = {}) {
+  const log = { fetched: [], opened: [], closed: 0, asked: [] };
+  const sets = { a1: fixtureSet('a1'), a2: fixtureSet('a2') };
+  const { ctx, run } = modules({}, {
+    fetch: async url => {
+      log.fetched.push(url);
+      if (over.status) return { ok: false, status: over.status };
+      return { ok: true, json: async () => { if (over.gate) await over.gate; return sets[url.split('/').pop().replace('.json', '')]; } };
+    },
+    confirm: m => { log.asked.push(m); return over.answer !== false; },
+    App: {
+      showToast() {},
+      mergeIntoDeck: (id, data) => vm.runInContext('Decks', ctx).save(data, '', null).id,
+      openDeck: id => log.opened.push(id)
+    }
+  });
+  run('PastPaper.close = () => {}');                      // no DOM here: the modal shells are null
+  ctx.__closed = () => { log.closed++; };
+  run('MebIndex.close = __closed');
+  return { ctx, run, log };
+}
+test('MebSets.open fetches only that set, saves it as a new deck and opens it', async () => {
+  const { ctx, run, log } = openHarness();
+  ctx.e1 = setIndex[0];
+  const id = await run('MebSets.open(e1)');
+  assert.deepEqual(log.fetched, ['data/meb/sets/a1.json']);
+  assert.deepEqual(log.opened, [id]);
+  assert.equal(log.closed, 1);
+  assert.equal(run('Decks.list().length'), 1);
+  assert.equal(run('Decks.get("' + id + '").data.meta.fileId'), 'a1');
+});
+test('MebSets.open asks before duplicating: OK reopens the existing deck without a download, Cancel makes a fresh copy', async () => {
+  const h = openHarness();
+  h.ctx.e1 = setIndex[0];
+  const first = await h.run('MebSets.open(e1)');
+  h.log.fetched.length = 0;
+  assert.equal(await h.run('MebSets.open(e1)'), first);                                     // OK -> the existing deck
+  assert.equal(h.log.asked.length, 1);
+  assert.equal(h.log.fetched.length, 0);
+  assert.equal(h.run('Decks.list().length'), 1);
+  const h2 = openHarness({ answer: false });
+  h2.ctx.e1 = setIndex[0];
+  const a = await h2.run('MebSets.open(e1)');
+  const b = await h2.run('MebSets.open(e1)');                                                // Cancel -> a fresh copy
+  assert.notEqual(a, b);
+  assert.equal(h2.run('Decks.list().length'), 2);
+  assert.equal(h2.log.fetched.length, 2);
+});
+test('MebSets.open fails loudly on HTTP errors and bad input, saves nothing, and can be retried', async () => {
+  const bad = openHarness({ status: 404 });
+  bad.ctx.e1 = setIndex[0];
+  await assert.rejects(bad.run('MebSets.open(e1)'), /HTTP 404/);
+  assert.equal(bad.run('Decks.list().length'), 0);
+  assert.equal(bad.log.opened.length, 0);
+  await assert.rejects(bad.run('MebSets.open(e1)'), /HTTP 404/);                             // a failed attempt does not wedge the loader
+  await assert.rejects(bad.run('MebSets.open(null)'), /No library entry/);
+  const mismatch = openHarness();
+  mismatch.ctx.e2 = { ...setIndex[0], id: 'a2' };                                           // a2.json is a valid file for a2...
+  assert.ok(await mismatch.run('MebSets.open(e2)'));
+  mismatch.ctx.e3 = { ...setIndex[0], id: 'a3', u: 'https://cdn.eba.gov.tr/c.pdf' };         // ...but a3.json does not exist in the harness
+  await assert.rejects(mismatch.run('MebSets.open(e3)'), /./);
+  assert.equal(mismatch.run('Decks.list().length'), 1);
+});
+test('MebSets.open loads one set at a time', async () => {
+  let release;
+  const gate = new Promise(r => { release = r; });
+  const { ctx, run, log } = openHarness({ gate });
+  ctx.e1 = setIndex[0]; ctx.e2 = { ...setIndex[1] };
+  const first = run('MebSets.open(e1)');
+  await assert.rejects(run('MebSets.open(e2)'), /mebSetBusy/);
+  const same = run('MebSets.open(e1)');                                                      // the same file joins the running load
+  release();
+  const [x, y] = await Promise.all([first, same]);
+  assert.equal(x, y);
+  assert.equal(log.fetched.length, 1);
+});
+
+// ---------- generator --sets ----------
+test('MEB generator attachSets adds set/sz/nc/nq/ns only where a set exists', async () => {
+  const { build, attachSets } = await mebGen();
+  const { index } = build(mebFixture);
+  const plain = JSON.stringify(index);
+  const id = index[0].id;
+  const set = { ...fixtureSet('a1'), meta: { ...fixtureSet('a1').meta, fileId: id } };
+  attachSets(index, new Map([[id, { bytes: 2200, data: set }]]));
+  assert.deepEqual(Object.keys(index[0]), ['id', 't', 'g', 's', 'x', 'y', 'u', 'p', 'mb', 'src', 'set', 'sz', 'nc', 'nq', 'ns']);
+  assert.deepEqual([index[0].set, index[0].sz, index[0].nc, index[0].nq, index[0].ns], [1, 3, 3, 2, 2]);   // 2200 bytes -> 3 KB
+  assert.equal(index.filter(r => r.set).length, 1);
+  assert.equal(JSON.stringify(index.slice(1)), JSON.stringify(JSON.parse(plain).slice(1)));
+  assert.throws(() => attachSets(index, new Map([['ffffffff', { bytes: 1, data: set }]])), /no entry in the index/);
+  assert.throws(() => attachSets(index, new Map([[id, { bytes: 1, data: { ...set, meta: { fileId: 'other' } } }]])), /meta\.fileId/);
+  assert.throws(() => attachSets(index, new Map([[id, { bytes: 1, data: { title: 'x' } }]])), /missing notes, flashcards or quiz/);
+});
+test('MEB generator attachSets attaches set info to an OGM yazılı entry', async () => {
+  const { build, attachSets } = await mebGen();
+  const { index } = build(mebFixture);
+  const e = index.find(r => r.x === 'ogm-yazili');
+  attachSets(index, new Map([[e.id, { bytes: 2200, data: { ...fixtureSet('a1'), meta: { fileId: e.id } } }]]));
+  assert.deepEqual([e.set, e.sz, e.nc, e.nq, e.ns], [1, 3, 3, 2, 2]);
+});
+test('MEB generator CLI: --sets <dir> writes the study set fields into index.json', async () => {
+  const { execFileSync } = require('node:child_process');
+  const os = require('node:os');
+  const { build } = await mebGen();
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'meb-gen-'));
+  try {
+    for (const [f, v] of [['ods/manifest.json', mebFixture.ods1 || []], ['ods/manifest2.json', mebFixture.ods2 || []], ['ogm/manifest.json', mebFixture.ogm || []],
+      ['ogm/yazili/manifest.json', mebFixture.ogmYazili || []], ['ogm/kazanim/manifest.json', mebFixture.ogmKazanim || []]]) {
+      fs.mkdirSync(path.dirname(path.join(tmp, f)), { recursive: true });
+      fs.writeFileSync(path.join(tmp, f), JSON.stringify(v));
+    }
+    const id = build(mebFixture).index[0].id;
+    fs.mkdirSync(path.join(tmp, 'sets'));
+    fs.writeFileSync(path.join(tmp, 'sets', id + '.json'), JSON.stringify({ ...fixtureSet('a1'), meta: { fileId: id } }));
+    const script = path.join(__dirname, '../scripts/build-meb-index.mjs');
+    const sh = (...args) => execFileSync(process.execPath, [script, ...args], { stdio: 'pipe' });
+    sh(tmp, path.join(tmp, 'out'), '--sets', path.join(tmp, 'sets'));
+    const withSets = JSON.parse(fs.readFileSync(path.join(tmp, 'out/index.json'), 'utf8'));
+    assert.equal(withSets.filter(r => r.set).length, 1);
+    assert.deepEqual([withSets[0].nc, withSets[0].nq, withSets[0].ns], [3, 2, 2]);
+    sh(tmp, path.join(tmp, 'out2'));                                                         // default: no sets, no new fields
+    assert.ok(JSON.parse(fs.readFileSync(path.join(tmp, 'out2/index.json'), 'utf8')).every(r => !('set' in r)));
+    fs.writeFileSync(path.join(tmp, 'sets', 'deadbeef.json'), '{}');
+    assert.throws(() => sh(tmp, path.join(tmp, 'out3'), '--sets', path.join(tmp, 'sets')), /no entry in the index/);
+    assert.throws(() => sh(tmp, '--sets'), /--sets needs a directory/);
+  } finally { fs.rmSync(tmp, { recursive: true, force: true }); }
+});
+
+// ---------- service worker ----------
+test('sw.js precaches the new scripts but never a study set, and keeps only the last 12 cached sets', async () => {
+  const swSource = fs.readFileSync(path.join(__dirname, '../sw.js'), 'utf8');
+  const ctx = vm.createContext({ self: { addEventListener() {}, location: { origin: 'https://x.test' } }, URL, console });
+  vm.runInContext(swSource, ctx);
+  const shell = vm.runInContext('SHELL', ctx);
+  assert.ok(shell.includes('./js/mebsets.js') && shell.includes('./js/mebindex.js') && shell.includes('./css/meb.css'));
+  assert.ok(!shell.some(u => /data\/meb\/sets/.test(u)));
+  for (const u of shell.filter(u => u.startsWith('./js/') || u.startsWith('./css/'))) assert.ok(fs.existsSync(path.join(__dirname, '..', u)), u + ' is in SHELL but missing');
+  assert.ok(/^flashmind-v(\d+)$/.test(vm.runInContext('CACHE', ctx)));
+  const deleted = [];
+  const keys = [{ url: 'https://x.test/index.html' }, { url: 'https://x.test/data/meb/index.json' }];
+  for (let i = 0; i < 15; i++) keys.push({ url: `https://x.test/data/meb/sets/s${i}.json` });
+  ctx.cache = { keys: async () => keys, delete: async r => { deleted.push(r.url); } };
+  await vm.runInContext('trimSets(cache)', ctx);
+  assert.deepEqual(deleted, [0, 1, 2].map(i => `https://x.test/data/meb/sets/s${i}.json`));   // the three oldest of fifteen; shell and index untouched
+});
+
+// ---------- alias set files ----------
+test('MebSets.open follows one alias level, keeps the entry as the deck owner and shows the version letter', async () => {
+  const sets = { a2: { alias: 'a1', version: 'B' }, a1: fixtureSet('a1'), a3: { alias: 'a2' }, a4: { alias: 'a4' } };
+  const fetched = [];
+  const { ctx, run } = modules({}, {
+    fetch: async url => { fetched.push(url); const id = url.split('/').pop().replace('.json', ''); return sets[id] ? { ok: true, json: async () => sets[id] } : { ok: false, status: 404 }; },
+    confirm: () => true,
+    App: { showToast() {}, mergeIntoDeck: (id, data) => vm.runInContext('Decks', ctx).save(data, '', null).id, openDeck() {} }
+  });
+  run('PastPaper.close = () => {}; MebIndex.close = () => {}');
+  ctx.e2 = { ...setIndex[0], id: 'a2', u: 'https://cdn.eba.gov.tr/b.pdf' };
+  const id = await run('MebSets.open(e2)');
+  assert.deepEqual(fetched, ['data/meb/sets/a2.json', 'data/meb/sets/a1.json']);
+  const deck = JSON.parse(run('JSON.stringify(Decks.get("' + id + '").data)'));
+  assert.equal(deck.meta.fileId, 'a2');                                                     // tied to the opened entry
+  assert.equal(deck.meta.sourceUrl, 'https://cdn.eba.gov.tr/b.pdf');
+  assert.match(deck.title, /\(B\)$/);
+  assert.match(deck.sources[0].text, /SENTINEL-OXYGEN-7421/);
+  ctx.e3 = { ...setIndex[0], id: 'a3' };                                                    // alias -> alias is refused
+  await assert.rejects(run('MebSets.open(e3)'), /points to another alias/);
+  ctx.e4 = { ...setIndex[0], id: 'a4' };
+  await assert.rejects(run('MebSets.open(e4)'), /bad alias target/);
+});
+test('MEB generator marks alias entries with the primary id, version and its counts', async () => {
+  const { build, attachSets } = await mebGen();
+  const { index } = build(mebFixture);
+  const [p, q] = [index[0].id, index[1].id];
+  const set = { ...fixtureSet('a1'), meta: { fileId: p } };
+  attachSets(index, new Map([[p, { bytes: 2200, data: set }], [q, { bytes: 40, data: { alias: p, version: 'B' }, alias: p, version: 'B' }]]));
+  assert.deepEqual([index[1].set, index[1].alias, index[1].ver, index[1].nc, index[1].nq, index[1].ns, index[1].sz], [1, p, 'B', 3, 2, 2, 3]);
+  assert.throws(() => attachSets(build(mebFixture).index, new Map([[q, { bytes: 40, data: {}, alias: p, version: 'B' }]])), /not a full set/);
+  const ctxm = modules();
+  ctxm.ctx.items = index;
+  assert.equal(ctxm.run('MebIndex.validate(items, []).items.length'), index.length);
+});
+
+// ---------- MEB scenario notebooks ----------
+const scenFx = JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures/scen-fixture.json'), 'utf8'));
+const scenRun = (opts, mutate, ei = 0, si = 0) => {
+  const { ctx, run } = modules();
+  const bank = JSON.parse(JSON.stringify(scenFx.bank));
+  if (mutate) mutate(bank);
+  ctx.bank = bank; ctx.spec = scenFx.spec; ctx.opts = opts;
+  return () => run(`JSON.stringify(ScenarioSet.compose(bank, ScenarioSet.withFile(spec, 0), ${ei}, ${si}, opts))`);
+};
+const scenCompose = (opts, mutate, ei, si) => JSON.parse(scenRun(opts, mutate, ei, si)());
+
+test('scenario compose: exactly the table count per kazanım in the exam block, the rest of each pool as extras', () => {
+  const set = scenCompose();                                              // Senaryo 1: FX.1 x1, FX.2 x3
+  const exam = set.quiz.filter(q => q.scenarioExam), extra = set.quiz.filter(q => !q.scenarioExam);
+  assert.equal(exam.length, 4);
+  assert.deepEqual(exam.map(q => q.category), ['Senaryo sınavı: Hücre Yapısı', 'Senaryo sınavı: Doku Çeşitleri', 'Senaryo sınavı: Doku Çeşitleri', 'Senaryo sınavı: Doku Çeşitleri']);
+  assert.equal(extra.filter(q => q.category === 'Ek alıştırma: Hücre Yapısı').length, 8 - 1);
+  assert.equal(extra.filter(q => q.category === 'Ek alıştırma: Doku Çeşitleri').length, 6 - 3);
+  assert.equal(extra.length, 10);                                         // FX.3 / FX.4 are not asked in this scenario: no extras for them
+  assert.ok(set.quiz.slice(0, 4).every(q => q.scenarioExam) && set.quiz.slice(4).every(q => !q.scenarioExam));   // exam block first
+  const texts = set.quiz.map(q => q.question);
+  assert.equal(new Set(texts).size, texts.length);                        // no question twice
+  assert.deepEqual(set.meta.counts, { exam: 4, extra: 10, trimmed: 0, kazanim: 2 });
+});
+test('scenario compose: the pick is deterministic and mixes difficulties', () => {
+  const a = scenCompose(), b = scenCompose();
+  assert.deepEqual(a, b);
+  const s2 = scenCompose(undefined, null, 0, 1);                          // Senaryo 2: FX.1 x3
+  const fx1 = s2.quiz.filter(q => q.scenarioExam && /Hücre/.test(q.category)).map(q => q.difficulty).sort();
+  assert.deepEqual(fx1, ['easy', 'hard', 'medium']);                      // 3 asked out of a pool of easy/medium/hard: one of each
+  assert.notDeepEqual(s2.quiz.filter(q => q.scenarioExam).map(q => q.question), a.quiz.filter(q => q.scenarioExam).map(q => q.question));
+});
+test('scenario compose: a pool smaller than the count, an unknown item and a bad total throw clear errors', () => {
+  const err = (mutate, ei, si, opts) => scenRun(opts, mutate, ei, si);
+  assert.throws(err(b => { b.kazanimlar[0].questions = b.kazanimlar[0].questions.slice(0, 2); }, 0, 1), /FX\.1: Senaryo 2 bu kazanımdan 3 soru istiyor, bankada 2 soru var/);
+  assert.throws(err(b => { b.kazanimlar.splice(1, 1); }, 0, 0), /has no kazanım FX\.2/);
+  assert.throws(err(b => { b.kazanimlar[1].note.content = ' '; }, 0, 0), /FX\.2 has no note/);
+  assert.throws(err(b => { b.kazanimlar[1].questions[0].correct = 9; }, 0, 0), /not a valid question/);
+  assert.throws(err(b => { b.meta.sheet = '10. SINIF'; }, 0, 0), /is for sheet "10\. SINIF"/);
+  assert.throws(err(null, 1, 0), /ülke geneli ortak yazılı, senaryo yok/);
+  assert.throws(err(null, 0, 7), /no scenario 7/);
+  assert.throws(err(null, 5, 0), /no exam 5/);
+  // A kazanım this scenario does not ask may be missing from the bank without blocking it.
+  assert.equal(JSON.parse(err(b => { b.kazanimlar.splice(2, 2); }, 0, 0)()).meta.counts.exam, 4);
+  const { ctx, run } = modules();
+  ctx.spec = JSON.parse(JSON.stringify(scenFx.spec)); ctx.spec.sheets[0].exams[0].scenarios[0].total = 9;
+  assert.throws(() => run('ScenarioSet.validateSpec(spec)'), /add up to 4, the table says 9/);
+  ctx.spec = JSON.parse(JSON.stringify(scenFx.spec)); ctx.spec.sheets[0].exams[0].scenarios[0].items[0].id = 'NOPE';
+  assert.throws(() => run('ScenarioSet.validateSpec(spec)'), /kazanım NOPE is not in the sheet/);
+  ctx.bank = scenFx.bank; ctx.sheet = { ...scenFx.spec.sheets[0], fileId: 'fx000001' };
+  assert.equal(run('ScenarioSet.validateBank(bank, sheet) === bank'), true);   // whole-sheet check: every pool covers its biggest count
+  ctx.bank = JSON.parse(JSON.stringify(scenFx.bank)); ctx.bank.kazanimlar[3].questions.length = 1;
+  assert.throws(() => run('ScenarioSet.validateBank(bank, sheet)'), /kazanım FX\.4 has 1 questions, a scenario asks 2/);
+});
+test('scenario compose: kazanım with count 0 are left out of notes and cards and listed in the last section', () => {
+  const set = scenCompose();
+  assert.equal(set.notes.sections.filter(s => /^FX\.[34] ·/.test(s.title)).length, 0);
+  const skipped = set.notes.sections.find(s => s.title === 'Bu senaryoda sorulmayan konular');
+  assert.deepEqual(skipped.bulletPoints, ['FX.3 · Organ Sistemleri', 'FX.4 · Enerji dönüşümünü yorumlayabilme']);   // a missing topic falls back to the outcome text
+  assert.deepEqual([...new Set(set.flashcards.map(c => c.category))], ['Doku Çeşitleri', 'Hücre Yapısı']);
+  assert.equal(set.flashcards.length, 8);
+});
+test('scenario compose: sections and cards are ordered by question count, the exam keeps table order', () => {
+  const set = scenCompose(undefined, null, 0, 1);                         // FX.1 x3, FX.2 x1, FX.4 x2
+  assert.deepEqual(set.notes.sections.slice(0, 3).map(s => s.title.split(' · ')[0]), ['FX.1', 'FX.4', 'FX.2']);
+  assert.match(set.notes.sections[0].content, /^Bu senaryoda 3 soru\./);
+  assert.match(set.notes.sections[0].content, /Örnek: FX\.1 örneği/);
+  assert.match(set.notes.sections[0].content, /Sınavda nasıl sorulur: FX\.1 sınav ipucu/);
+  assert.deepEqual([...new Set(set.flashcards.map(c => c.category))], ['Hücre Yapısı', 'Enerji dönüşümünü yorumlayabilme', 'Doku Çeşitleri']);
+  const order = [];
+  set.quiz.filter(q => q.scenarioExam).forEach(q => { if (order[order.length - 1] !== q.category) order.push(q.category); });
+  assert.deepEqual(order, ['Senaryo sınavı: Hücre Yapısı', 'Senaryo sınavı: Doku Çeşitleri', 'Senaryo sınavı: Enerji dönüşümünü yorumlayabilme']);
+  assert.equal(set.quiz.filter(q => q.scenarioExam).length, 6);
+});
+test('scenario compose: the summary carries the computed numbers, the table source and the metadata', () => {
+  const set = scenCompose(undefined, null, 0, 1);                         // total 6: FX.1 3 (50 %), FX.4 2 (33,3 %), FX.2 1 (16,7 %)
+  const s = set.notes.summary;
+  assert.match(s, /Biyoloji 9\. sınıf · 1\. Dönem 1\. Ortak Yazılı Sınav · Senaryo 2/);
+  assert.match(s, /toplam 6 soru ve 3 kazanım var; diğer 1 kazanım bu senaryoda sorulmuyor/);
+  assert.match(s, /- ÜNİTE 1: 4 soru \(%66,7\)\n- ÜNİTE 2: 2 soru \(%33,3\)/);
+  assert.match(s, /1\. FX\.1 · Hücre Yapısı: 3 soru \(%50\)\n2\. FX\.4 · .*: 2 soru \(%33,3\)\n3\. FX\.2 · Doku Çeşitleri: 1 soru \(%16,7\)/);
+  const mins = [...s.matchAll(/^- FX\.\d: (\d+) dk$/gm)].map(m => +m[1]);
+  assert.deepEqual(mins, [60, 40, 20]);
+  assert.equal(mins.reduce((a, b) => a + b, 0), 120);
+  assert.match(s, /tam 6 soru içerir/);
+  assert.match(s, /Ders özeti:\nBiyoloji 9 banka özeti\./);
+  assert.equal(set.title, 'Biyoloji 9 · 1. Dönem 1. Ortak Yazılı · Senaryo 2');
+  assert.deepEqual(set.meta, { kind: 'scenario', fileId: 'fx000001', bank: 'b-fx000001-9', sheet: '9. SINIF', subject: 'Biyoloji', grade: 9, exam: '1. Dönem 1. Ortak Yazılı Sınav', scenario: 2, schoolYear: '2026-2027', sourceUrl: scenFx.spec.sourceUrl, counts: set.meta.counts });
+  const src = set.sources[0].text;
+  assert.match(src, /ÜNİTE 1 \| FX\.1 \| Hücre Yapısı \| FX\.1\. Hücrenin yapısını açıklayabilme \| 3/);
+  assert.match(src, /ÜNİTE 2 \| FX\.4 \| - \| FX\.4\. Enerji dönüşümünü yorumlayabilme \| 2/);
+  assert.match(src, /toplam 6 soru, 3 kazanım/);
+  assert.match(src, /sorulmayan kazanımlar: FX\.3/);
+  assert.deepEqual(set.notes.commonMistakes, ['Hata 1', 'Hata 2']);
+  assert.ok(set.notes.sections.some(x => x.title === 'Çalışma ipuçları'));
+  assert.equal(set.notes.mindmap.label, 'Biyoloji 9');
+});
+test('scenario compose: a notebook over the size limit loses extras only, spread over every kazanım', () => {
+  const full = scenCompose({ maxBytes: Infinity }, null, 0, 1);
+  const size = o => Buffer.byteLength(JSON.stringify(o));
+  const small = scenCompose({ maxBytes: size(full) - 1500 }, null, 0, 1);
+  assert.ok(size(small) <= size(full) - 1500);
+  assert.equal(small.quiz.filter(q => q.scenarioExam).length, 6);          // the exam is never trimmed
+  assert.ok(small.meta.counts.trimmed > 0 && small.meta.counts.extra + small.meta.counts.trimmed === full.meta.counts.extra);
+  assert.equal(small.meta.counts.extra, small.quiz.length - 6);
+  assert.equal(new Set(small.quiz.filter(q => !q.scenarioExam).map(q => q.category)).size, 3);   // every asked kazanım still has extras
+  assert.equal(full.meta.counts.trimmed, 0);
+  assert.throws(scenRun({ maxBytes: 500 }, null, 0, 1), /the exam block alone is .* KB over the 0 KB limit/);
+});
+test('scenario compose output passes Parser.normalizeStudyData with its meta, exam flag and table source', () => {
+  const { ctx, run } = modules();
+  ctx.bank = scenFx.bank; ctx.spec = scenFx.spec;
+  const d = JSON.parse(run('JSON.stringify(Parser.normalizeStudyData(ScenarioSet.compose(bank, ScenarioSet.withFile(spec, 0), 0, 0)))'));
+  assert.equal(d.meta.kind, 'scenario'); assert.equal(d.meta.scenario, 1); assert.equal(d.meta.exam, '1. Dönem 1. Ortak Yazılı Sınav'); assert.equal(d.meta.sheet, '9. SINIF');
+  assert.deepEqual(d.meta.grade, [9]);
+  assert.equal(d.quiz.filter(q => q.scenarioExam).length, 4);
+  assert.equal(d.sources.length, 1);
+  assert.equal(d.notes.sections.length, 2 + 2);                           // FX.2, FX.1, the unasked topics, the study tips
+});
+
+// ---------- scenario library (index, loader, profile) ----------
+const scenEntries = (() => {
+  const base = { fileId: 'fx000001', si: 0, sheet: '9. SINIF', subject: 'Biyoloji', grade: 9, variant: '', bank: 'b-fx000001-9', hasBank: true };
+  return [
+    { ...base, ei: 0, exam: '1. Dönem 1. Ortak Yazılı Sınav', n: 1, total: 4, kazanimCount: 2, d: [1, 3], national: 0 },
+    { ...base, ei: 0, exam: '1. Dönem 1. Ortak Yazılı Sınav', n: 2, total: 6, kazanimCount: 3, d: [3, 1, 2], national: 0 },
+    { ...base, ei: 1, exam: '1. Dönem 2. Ortak Yazılı Sınav', n: 0, total: 0, kazanimCount: 0, d: [], national: 1 },
+    { fileId: 'fx000002', si: 1, sheet: '10. SINIF', subject: 'Fizik', grade: 10, variant: '4 saat', bank: null, hasBank: false, ei: 0, exam: '1. Dönem 1. Ortak Yazılı Sınav', n: 1, total: 2, kazanimCount: 1, d: [2], national: 0 }
+  ];
+})();
+test('MebScen.validateIndex rejects entries the UI could not open safely', () => {
+  const { ctx, run } = modules();
+  ctx.good = scenEntries;
+  assert.equal(run('MebScen.validateIndex(good).length'), 4);
+  const bad = (mut, re) => { ctx.bad = scenEntries.map(e => ({ ...e })); mut(ctx.bad); assert.throws(() => run('MebScen.validateIndex(bad)'), re); };
+  bad(l => { l[0].fileId = '../x'; }, /bad fileId/);
+  bad(l => { l[0].d = [1, 2]; }, /does not add up/);
+  bad(l => { l[0].hasBank = false; }, /hasBank/);
+  bad(l => { l[3].bank = '../b'; l[3].hasBank = true; }, /bad bank id/);
+  bad(l => { l[2].total = 3; }, /national exam has no scenario/);
+  bad(l => { l[1].n = l[0].n; }, /duplicate/);
+  bad(l => { l[0].grade = '9'; }, /bad numbers/);
+  assert.throws(() => run('MebScen.validateIndex({})'), /not a list/);
+});
+test('MebScen groups the index into courses and filters by grade and subject', () => {
+  const { ctx, run } = modules();
+  ctx.items = scenEntries;
+  run('var sheets = MebScen.sheetsOf(items)');
+  assert.deepEqual(JSON.parse(run('JSON.stringify(sheets.map(s => [s.key, s.subject, s.grade, s.exams.map(x => [x.ei, x.national, x.scenarios.length])]))')),
+    [['fx000001.0', 'Biyoloji', 9, [[0, false, 2], [1, true, 0]]], ['fx000002.1', 'Fizik', 10, [[0, false, 1]]]]);
+  assert.deepEqual(JSON.parse(run('JSON.stringify(MebScen.filterSheets(sheets, { grade: 10, subject: "" }).map(s => s.key))')), ['fx000002.1']);
+  assert.deepEqual(JSON.parse(run('JSON.stringify(MebScen.filterSheets(sheets, { grade: 0, subject: "Biyoloji" }).map(s => s.key))')), ['fx000001.0']);
+  assert.deepEqual(JSON.parse(run('JSON.stringify(MebScen.subjectsOf(sheets, 9))')), ['Biyoloji']);
+  assert.deepEqual(JSON.parse(run('JSON.stringify(MebScen.gradesOf(sheets))')), [9, 10]);
+  // The default grade is the open deck's, when it states one.
+  assert.equal(run('MebScen.activeGrade()'), 0);
+  run(`Decks.save({ title: 'x', meta: { fileId: 'f', grade: [10] } }, '')`);
+  assert.equal(run('MebScen.activeGrade()'), 10);
+  run(`Decks.save({ title: 'y', meta: { fileId: 'f', grade: [3] } }, '')`);
+  assert.equal(run('MebScen.activeGrade()'), 0);                           // a grade MEB has no ortak yazılı for is ignored
+});
+const scenLoader = (extra = {}) => {
+  const fetched = [];
+  let fail = false, answer = true, asked = 0;
+  const toasts = [];
+  const files = { 'data/meb/scen/spec/fx000001.json': scenFx.spec, 'data/meb/scen/bank/b-fx000001-9.json': scenFx.bank };
+  const env = modules({}, {
+    fetch: async url => { fetched.push(url); return fail || !files[url] ? { ok: false, status: 503 } : { ok: true, json: async () => JSON.parse(JSON.stringify(files[url])) }; },
+    confirm: () => { asked++; return answer; },
+    App: { showToast: (m, k) => toasts.push(k + ':' + m), mergeIntoDeck: (id, data) => vm.runInContext('Decks', env.ctx).save(data, '', null).id, openDeck() {} },
+    ...extra
+  });
+  env.run('PastPaper.close = () => {}; MebIndex.close = () => {}');
+  return { ...env, fetched, toasts, setFail: v => { fail = v; }, setAnswer: v => { answer = v; }, asked: () => asked };
+};
+test('MebScen.open composes the scenario into a new deck, fetching spec and bank once', async () => {
+  const L = scenLoader();
+  L.ctx.e = scenEntries[1];
+  const id = await L.run('MebScen.open(e)');
+  assert.deepEqual(L.fetched, ['data/meb/scen/spec/fx000001.json', 'data/meb/scen/bank/b-fx000001-9.json']);
+  const deck = JSON.parse(L.run(`JSON.stringify(Decks.get("${id}").data)`));
+  assert.equal(deck.title, 'Biyoloji 9 · 1. Dönem 1. Ortak Yazılı · Senaryo 2');
+  assert.equal(deck.quiz.filter(q => q.scenarioExam).length, 6);
+  assert.equal(deck.meta.scenario, 2);
+  // The same scenario again: the confirm opens the existing deck, nothing is fetched or created.
+  const again = await L.run('MebScen.open(e)');
+  assert.equal(again, id); assert.equal(L.run('Decks.list().length'), 1); assert.equal(L.fetched.length, 2); assert.equal(L.asked(), 1);
+  // Declined: a second copy, from the cached spec and bank. Another scenario is its own deck without asking.
+  L.setAnswer(false);
+  const copy = await L.run('MebScen.open(e)');
+  assert.notEqual(copy, id); assert.equal(L.run('Decks.list().length'), 2); assert.equal(L.fetched.length, 2);
+  L.ctx.e1 = scenEntries[0];
+  await L.run('MebScen.open(e1)');
+  assert.equal(L.run('Decks.list().length'), 3); assert.equal(L.asked(), 2);
+  // The library's own findDeck for the same file id ignores scenario notebooks.
+  assert.equal(L.run('MebSets.findDeck("fx000001")'), null);
+});
+test('MebScen.open fails loudly: no bank, a national exam, a failed download (retry works), a busy loader', async () => {
+  const L = scenLoader();
+  L.ctx.nobank = scenEntries[3]; L.ctx.nat = scenEntries[2]; L.ctx.e = scenEntries[0]; L.ctx.e2 = scenEntries[1];
+  await assert.rejects(L.run('MebScen.open(nobank)'), /scenSoon/);
+  await assert.rejects(L.run('MebScen.open(nat)'), /No scenario given/);
+  L.setFail(true);
+  await assert.rejects(L.run('MebScen.open(e)'), /HTTP 503/);
+  assert.equal(L.run('Decks.list().length'), 0);
+  L.setFail(false);
+  await L.run('MebScen.open(e)');
+  assert.equal(L.run('Decks.list().length'), 1);
+  const first = L.run('MebScen.open(e2)');
+  await assert.rejects(L.run('MebScen.open(e)'), /scenBusy/);
+  L.setAnswer(false);
+  await first;
+});
+test('MebScen.open on full storage keeps the deck in memory and shows the existing save-failed toast', async () => {
+  const L = scenLoader();
+  L.run(`localStorage.setItem = () => { throw new Error('quota'); }`);
+  L.ctx.e = scenEntries[0];
+  const id = await L.run('MebScen.open(e)');
+  assert.ok(L.toasts.some(t => /^error:Could not save: browser storage is full/.test(t)));
+  assert.equal(L.run(`Decks.get("${id}").data.quiz.length`) > 0, true);
+});
+test('MebScen.applyProfile saves the scenario table as the deck topic profile', async () => {
+  const L = scenLoader();
+  L.ctx.e = scenEntries[1];
+  assert.equal(await L.run('MebScen.applyProfile(e)'), null);              // no open deck: explicit toast, nothing saved
+  assert.match(L.toasts.pop(), /^error:mebNoDeck/);
+  L.run(`Decks.save({ title: 'Biyoloji' }, '')`);
+  const saved = JSON.parse(JSON.stringify(await L.run('MebScen.applyProfile(e)')));
+  assert.equal(saved.topicsFrom, 'distribution');
+  assert.deepEqual(saved.topics.map(t => [t.name, t.count]), [['Hücre Yapısı', 3], ['Enerji dönüşümünü yorumlayabilme', 2], ['Doku Çeşitleri', 1]]);
+  assert.equal(saved.source, 'Biyoloji 9 · 1. Dönem 1. Ortak Yazılı Sınav · scenRowTitle');
+  // The scenario exam's own categories match those topic names, so adaptive practice weights them.
+  assert.equal(L.run(`PastPaper.topicBoost(PastPaper.getProfile())({ category: 'Senaryo sınavı: Hücre Yapısı' })`), 1.5);
+  assert.equal(L.asked(), 0);
+});
+
+// ---------- scenario data generator ----------
+const scenGen = () => import(require('node:url').pathToFileURL(path.join(__dirname, '../scripts/build-meb-scenarios.mjs')).href);
+test('scenario generator: index, slim spec and slim bank from the fixture', async () => {
+  const { build } = await scenGen();
+  const r = build({ files: [{ fileId: 'fx000001', data: scenFx.spec }], banks: [{ name: 'b.json', data: scenFx.bank }] });
+  assert.deepEqual(r.skipped, []);
+  assert.deepEqual(r.index.map(e => [e.si, e.ei, e.n, e.total, e.kazanimCount, e.d, e.bank, e.hasBank, e.national, e.sheet]), [
+    [0, 0, 1, 4, 2, [1, 3], 'b-fx000001-9', true, 0, '9. SINIF'],
+    [0, 0, 2, 6, 3, [3, 1, 2], 'b-fx000001-9', true, 0, '9. SINIF'],
+    [0, 1, 0, 0, 0, [], 'b-fx000001-9', true, 1, '9. SINIF']]);
+  const spec = r.specs.get('fx000001');
+  assert.deepEqual(Object.keys(spec.sheets[0].exams[0].scenarios[0].items[0]), ['id', 'count']);
+  assert.match(spec.sheets[0].exams[1].notes, /Ülke Geneli/);
+  assert.deepEqual(Object.keys(r.banks.get('b-fx000001-9').kazanimlar[0]), ['id', 'note', 'cards', 'questions']);
+  assert.ok(!('outcome' in r.banks.get('b-fx000001-9').kazanimlar[0]));
+});
+test('scenario generator: a bank that cannot serve every scenario is skipped and reported, never half used', async () => {
+  const { build } = await scenGen();
+  const files = [{ fileId: 'fx000001', data: scenFx.spec }];
+  const short = JSON.parse(JSON.stringify(scenFx.bank)); short.kazanimlar[0].questions.length = 2;
+  let r = build({ files, banks: [{ name: 'short.json', data: short }] });
+  assert.equal(r.banks.size, 0);
+  assert.match(r.skipped[0].reason, /FX\.1 has 2 questions, a scenario asks 3/);
+  assert.ok(r.index.every(e => e.bank === null && e.hasBank === false));
+  const other = JSON.parse(JSON.stringify(scenFx.bank)); other.meta.sheet = '12. SINIF';
+  assert.match(build({ files, banks: [{ name: 'o.json', data: other }] }).skipped[0].reason, /no sheet "12\. SINIF"/);
+  assert.match(build({ files, banks: [{ name: 'n.json', data: { meta: { fileId: 'fx000001' } } }] }).skipped[0].reason, /meta\.bank/);
+  assert.throws(() => build({ files, banks: [{ name: 'a.json', data: scenFx.bank }, { name: 'b.json', data: scenFx.bank }] }), /two banks for fx000001\|9\. SINIF/);
+  assert.throws(() => build({ files: [{ fileId: 'zz', data: scenFx.spec }], banks: [] }), /file says fileId fx000001/);
+});
+test('scenario generator CLI is idempotent and drops files it did not write', async () => {
+  const { execFileSync } = require('node:child_process');
+  const os = require('node:os');
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'scen-gen-'));
+  try {
+    fs.mkdirSync(path.join(tmp, 'scenarios')); fs.mkdirSync(path.join(tmp, 'banks'));
+    fs.writeFileSync(path.join(tmp, 'scenarios/fx000001.json'), JSON.stringify(scenFx.spec));
+    fs.writeFileSync(path.join(tmp, 'scenarios/index.json'), '[]');            // the flat index / summary are not workbooks
+    fs.writeFileSync(path.join(tmp, 'banks/b-fx000001-9.json'), JSON.stringify(scenFx.bank));
+    const script = path.join(__dirname, '../scripts/build-meb-scenarios.mjs'), out = path.join(tmp, 'out');
+    const sh = () => execFileSync(process.execPath, [script, tmp, out], { stdio: 'pipe' }).toString();
+    const snap = () => Object.fromEntries(['index.json', 'spec/fx000001.json', 'bank/b-fx000001-9.json'].map(f => [f, fs.readFileSync(path.join(out, 'scen', f), 'utf8')]));
+    assert.match(sh(), /index\.json  3 entries \(2 with a bank, 1 national\)/);
+    const first = snap();
+    sh();
+    assert.deepEqual(snap(), first);
+    fs.writeFileSync(path.join(out, 'scen/bank/stale.json'), '{}');
+    fs.writeFileSync(path.join(tmp, 'banks/broken.json'), JSON.stringify({ meta: { bank: 'b-x', kind: 'bank', fileId: 'fx000001', sheet: 'none' } }));
+    assert.match(sh(), /SKIPPED broken\.json: no sheet "none"/);
+    assert.ok(!fs.existsSync(path.join(out, 'scen/bank/stale.json')));
+    assert.deepEqual(snap(), first);
+  } finally { fs.rmSync(tmp, { recursive: true, force: true }); }
+});
+
+// ---------- service worker: scenario banks ----------
+test('sw.js precaches the scenario scripts, never scenario data, and keeps the last 12 cached banks', async () => {
+  const swSource = fs.readFileSync(path.join(__dirname, '../sw.js'), 'utf8');
+  const handlers = {}, puts = [], deleted = [];
+  const keys = [{ url: 'https://x.test/data/meb/sets/s1.json' }, { url: 'https://x.test/data/meb/scen/index.json' }];
+  for (let i = 0; i < 15; i++) keys.push({ url: `https://x.test/data/meb/scen/bank/b${i}.json` });
+  const cache = { match: async () => undefined, put: async (r) => { puts.push(r.url); keys.push({ url: r.url }); }, keys: async () => keys, delete: async r => { deleted.push(r.url); } };
+  const ctx = vm.createContext({
+    self: { addEventListener: (t, f) => { handlers[t] = f; }, location: { origin: 'https://x.test' } }, URL, console,
+    caches: { open: async () => cache }, fetch: async () => ({ status: 200, type: 'basic', clone() { return this; } })
+  });
+  vm.runInContext(swSource, ctx);
+  const shell = vm.runInContext('SHELL', ctx);
+  for (const f of ['./js/scenarioset.js', './js/mebscen.js', './js/i18n-scen.js']) assert.ok(shell.includes(f), f);
+  assert.ok(!shell.some(u => /data\/meb\/scen/.test(u)));
+  const wait = [];
+  let reply;
+  handlers.fetch({ request: { method: 'GET', url: 'https://x.test/data/meb/scen/bank/new.json', mode: 'cors' }, respondWith: p => { reply = p; }, waitUntil: p => wait.push(p) });
+  await reply; await Promise.all(wait);
+  assert.deepEqual(puts, ['https://x.test/data/meb/scen/bank/new.json']);
+  assert.deepEqual(deleted, [0, 1, 2, 3].map(i => `https://x.test/data/meb/scen/bank/b${i}.json`));   // 16 banks cached, the 4 oldest go; sets and the index stay
+});
+
+test('every committed scenario with a bank composes: exact exam counts, valid index, notebook under the size limit', () => {
+  const dir = path.join(__dirname, '../data/meb/scen');
+  const items = JSON.parse(fs.readFileSync(path.join(dir, 'index.json'), 'utf8'));
+  const { ctx, run } = modules();
+  ctx.items = items;
+  assert.equal(run('MebScen.validateIndex(items).length'), items.length);
+  const read = f => JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'));
+  const specs = new Map(), banks = new Map();
+  let composed = 0;
+  for (const e of items) {
+    assert.equal(e.hasBank, !!e.bank && fs.existsSync(path.join(dir, 'bank', e.bank + '.json')));
+    if (!e.hasBank || e.national) continue;
+    if (!specs.has(e.fileId)) specs.set(e.fileId, read(`spec/${e.fileId}.json`));
+    if (!banks.has(e.bank)) banks.set(e.bank, read(`bank/${e.bank}.json`));
+    ctx.spec = specs.get(e.fileId); ctx.bank = banks.get(e.bank);
+    const k = ctx.spec.sheets[e.si].exams[e.ei].scenarios.findIndex(s => s.n === e.n);
+    const set = JSON.parse(run(`JSON.stringify(Parser.normalizeStudyData(ScenarioSet.compose(bank, ScenarioSet.withFile(spec, ${e.si}), ${e.ei}, ${k})))`));
+    assert.equal(set.quiz.filter(q => q.scenarioExam).length, e.total, `${e.bank} ${e.exam} S${e.n}`);
+    assert.ok(Buffer.byteLength(JSON.stringify(set)) <= 350 * 1024, `${e.bank} S${e.n} over 350 KB`);
+    composed++;
+  }
+  assert.ok(composed > 0);
 });

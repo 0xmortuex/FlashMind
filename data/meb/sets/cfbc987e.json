@@ -1,0 +1,1996 @@
+{
+ "title": "10. Sınıf Felsefe – 2. Dönem 2. Yazılı (OGM Yazılıya Hazırlanıyorum)",
+ "meta": {
+  "fileId": "cfbc987e",
+  "grade": [
+   10
+  ],
+  "subject": "Felsefe",
+  "schoolYear": "",
+  "examType": "ogm-yazili",
+  "kind": "booklet",
+  "sourceUrl": "https://ogm-large-cdn.eba.gov.tr/materyal/Etkilesimlikitap/6e317c49-e290-4605-b079-b439b967bf94/pdf.pdf",
+  "counts": {
+   "sections": 13,
+   "cards": 102,
+   "questions": 70,
+   "sourceQuestions": 8,
+   "skippedNeedingFigure": 1
+  }
+ },
+ "notes": {
+  "summary": "Bu dosya, 10. sınıf Felsefe 2. dönem 2. yazılı için hazırlanmış örnek sınavdır; sekiz sorudan oluşur: (1) ahlak–etik ayrımı, (2) Aristoteles’in estetik haz anlayışı, (3) siyaset felsefesi kavramları (iktidar, eşitlik, özgürlük, adalet, hak), (4) monarşi–aristokrasi–demokrasi ve meşruiyet, (5) ütopya–distopya, (6) teoloji–din felsefesi işaretleme tablosu, (7) din felsefesi kavram haritası (teizm, deizm, ateizm ve argümanlar), (8) klasik–çağdaş bilim anlayışı. Altıncı soru, tablodaki √ işaretlerinin sütun konumları çıkarılan metinde bulunmadığı için kuiz öğesine çevrilmemiştir; konusu notlarda ve benzer sorularda çalışılır.\n\nBu dosyadan sınavda ne beklemeli / nasıl çalışmalı:\n1. Ahlak = uygulama, etik = sorgulama ayrımını fiil ipuçlarıyla çalış.\n2. Aristoteles’te “taklit + tanıma/öğrenme hazzı” iki parçasını birlikte yaz.\n3. Beş siyaset kavramını (eşitlik, özgürlük, hak, adalet, iktidar) anahtar sözcüklerle ayır.\n4. Üç yönetim biçimi için “yetki–kaynak–meşruiyet” tablosunu ezberle.\n5. Ütopya ve distopya için üç benzerlik, iki farkı say.\n6. Teizm–deizm–ateizm ve ontolojik–kozmolojik–kötülük argümanlarını kişilerle eşleştir.\n7. Klasik ve çağdaş bilim anlayışını “bilginin doğası” ve “toplumsal rol” başlıklarında karşılaştır.\n8. Benzer soruları yazılı cevap verip rubrik kriterleriyle puanla.",
+  "sections": [
+   {
+    "title": "Ahlak ile etik (ahlak felsefesi) farkı",
+    "content": "Ahlak, toplumun yazısız kurallar bütünüdür: insanlardan beklenen pratik davranışlar, değer yargıları, “Ne yapmalıyım?” sorusuna verilen cevaplar. Etik (ahlak felsefesi) ise ahlakı kendine konu edinen felsefe disiplinidir; kural uygulamaz, yeni kural koymaz, ahlakı sorgular: eylemi ahlaki kılan ölçüt nedir, iyi ve kötü ne demektir, insan eylemlerinden sorumlu mudur?",
+    "bulletPoints": [
+     "Ahlak = uygulama, davranış, toplumsal kural.",
+     "Etik = kuramsal sorgulama, kavram çözümleme, ölçüt arama.",
+     "Verilen sözü tutmak, dürüst olmak, geleneksel kuralı sürdürmek → ahlak.",
+     "Hakkaniyet ilkesini analiz etmek, erdem–vicdan ilişkisini anlamak, özgür irade tartışmak → etik.",
+     "Cevapta alan + gerekçe (1+1 puan) yaz."
+    ],
+    "keyTerms": [
+     {
+      "term": "Ahlak",
+      "definition": "Toplumun yazısız davranış kuralları."
+     },
+     {
+      "term": "Etik",
+      "definition": "Ahlakı konu edinen felsefe disiplini."
+     }
+    ]
+   },
+   {
+    "title": "Ahlak mı etik mi? Ayırt etme yöntemi",
+    "content": "Cümledeki fiile bak. “Yapmak, uygulamak, sürdürmek, tutmak” davranışa işaret eder: ahlak. “Analiz etmek, anlamaya çalışmak, tartışmak, sorgulamak” düşünsel inceleme: etik. Gerekçe cümlesinde iki parça kullan: ne yapılıyor + hangi alana giriyor.",
+    "bulletPoints": [
+     "I. Hakkaniyeti analiz etmek: kavram yapısını çözümler → etik.",
+     "II. Söz tutmak, dürüst olmak: pratik davranış → ahlak.",
+     "III. Geleneksel kuralları uygulamak: yazısız kurallar → ahlak.",
+     "IV. Erdem–vicdan ilişkisini anlamaya çalışmak → etik.",
+     "V. Eylemlerin özgür iradeyle yapılıp yapılmadığını tartışmak: kuramsal → etik."
+    ],
+    "keyTerms": [
+     {
+      "term": "Hakkaniyet",
+      "definition": "Herkese hakkını, durumuna uygun biçimde vermek."
+     }
+    ]
+   },
+   {
+    "title": "Aristoteles’e göre estetik haz: taklit ve öğrenme",
+    "content": "Aristoteles’e göre taklit etmek insanın doğasında vardır; çocukluktan itibaren taklitle öğrenir ve taklitlerden hoşlanır. Görmekten rahatsız olduğumuz şeylerin birebir çizilmiş resimlerine bakmaktan zevk alırız, çünkü resme bakarken “Bu o!” diyerek tanır ve çıkarım yaparız. Haz, öğrenmenin ve anlamanın sonucudur.",
+    "bulletPoints": [
+     "Estetik hazzın temeli: taklit (mimesis) (3 puan).",
+     "Gerekçe: nesne ile gerçeklik arasında bilişsel bağ kurma: tanıma, öğrenme, çıkarım (7 puan).",
+     "Haz duyusal hoşlanmadan çok anlama ve kavrama sonucudur.",
+     "Cevapta “Bu o!” örneğini kullan."
+    ],
+    "keyTerms": [
+     {
+      "term": "Mimesis",
+      "definition": "Taklit; gerçeğin sanatta yeniden sunumu."
+     }
+    ]
+   },
+   {
+    "title": "Siyaset felsefesi: iktidar, eşitlik, özgürlük, adalet, hak",
+    "content": "Siyaset felsefesi, toplumun nasıl yönetilmesi gerektiğini ve yönetimin dayanağını sorgular. Beş kavram sınavda belediye meclisi örneğinde sorulmuştur. Her üyenin ifadesindeki anahtar sözcükler kavramı gösterir.",
+    "bulletPoints": [
+     "Eşitlik: ayrım gözetmeme, kimsenin dezavantajlı olmaması.",
+     "Özgürlük: baskısız seçim yapma ve karar verebilme.",
+     "Hak: hukukla güvence altına alınmış, meşru yetkiler.",
+     "Adalet: herkesin hak ettiğini alması; yarar ve zararın ihtiyaca göre dağıtımı.",
+     "İktidar: kural koyma ve yürütme yetkisi; yönetme gücü.",
+     "Kavram 1, gerekçe 2 puan."
+    ],
+    "keyTerms": [
+     {
+      "term": "İktidar",
+      "definition": "Yönetme gücü ve yetkisi."
+     },
+     {
+      "term": "Hak",
+      "definition": "Hukukun güvence altına aldığı meşru yetki."
+     },
+     {
+      "term": "Adalet",
+      "definition": "Herkesin hak ettiğini alması."
+     }
+    ]
+   },
+   {
+    "title": "Belediye meclisi örneğinde kavram ipuçları",
+    "content": "1. Üye: “hiçbir ayrım gözetilmeksizin, kimse dezavantajlı olmasın” → eşitlik. 2. Üye: “ulaşım tercihine müdahale etmek, seçim yapma ve karar verebilme” → özgürlük. 3. Üye: “yasalarla korunan kazanımlar, meşru zeminde sahip olunan yetkiler” → hak. 4. Üye: “yarar ve zararın herkesin durumuna göre, payına düşeni alacak biçimde dağıtılması” → adalet. 5. Üye: “kural koyma ve yürütme yetkisi, sorumluluk” → iktidar.",
+    "bulletPoints": [
+     "Her üye için tek kavram seç.",
+     "Gerekçede kendi ifadelerinden alıntı yap.",
+     "Adalet ile eşitliği karıştırma: eşitlik ayrım gözetmeme, adalet hak edene uygun dağıtım.",
+     "Hak ile özgürlüğü karıştırma: hak yasayla korunan yetki."
+    ],
+    "keyTerms": [
+     {
+      "term": "Dezavantajlı",
+      "definition": "Başkalarına göre daha az olanaklı durumda olan."
+     }
+    ]
+   },
+   {
+    "title": "Yönetim biçimleri: monarşi, aristokrasi, demokrasi",
+    "content": "Monarşi: yönetme yetkisi tek kişidedir ve çoğunlukla soya/aileye dayanır. Aristokrasi: yetki bilgi, erdem ve liyakat sahibi seçkin bir azınlıktadır. Demokrasi: yetki halktadır; yöneticiler halk tarafından seçilir ve görevden alınabilir. Soruda üç grup üç biçimi temsil eder.",
+    "bulletPoints": [
+     "I. Grup: monarşi (tek kişi, köklü aile/soy).",
+     "II. Grup: aristokrasi (seçkin topluluk, bilgi ve erdem).",
+     "III. Grup: demokrasi (halk iradesi, hak ve özgürlüklerin korunması).",
+     "Her grup için: yönetim biçimi (1), yönetme yetkisi (1), iktidarın kaynağı (1), meşruiyetin dayanağı (2)."
+    ],
+    "keyTerms": [
+     {
+      "term": "Monarşi",
+      "definition": "Tek kişinin yönetimi."
+     },
+     {
+      "term": "Aristokrasi",
+      "definition": "Seçkinlerin yönetimi."
+     },
+     {
+      "term": "Demokrasi",
+      "definition": "Halkın yönetimi."
+     }
+    ]
+   },
+   {
+    "title": "Meşruiyet ve iktidarın kaynağı",
+    "content": "İktidarın kaynağı, yönetme gücünün nereden geldiğidir (soy, bilgi-erdem, halk iradesi). Meşruiyetin dayanağı ise bu gücün neden haklı ve kabul edilebilir sayıldığının gerekçesidir. Monarşide devletin devamlılığı ve istikrar, aristokraside yönetenlerin nitelikli olması, demokraside yetkinin halk tarafından verilmiş olması meşruiyet gerekçesidir.",
+    "bulletPoints": [
+     "Monarşi: yetki tek kişi; kaynak soylu aile/üstün nitelik; meşruiyet istikrar ve devamlılık.",
+     "Aristokrasi: yetki seçkin grup; kaynak bilgi, erdem, liyakat; meşruiyet nitelikli kişilerce en iyi yönetim.",
+     "Demokrasi: yetki halkın seçtiği temsilciler; kaynak halk iradesi; meşruiyet halk tarafından verilmiş yetki.",
+     "Meşruiyet 2 puandır; “neden haklı?” sorusuna cevap ver."
+    ],
+    "keyTerms": [
+     {
+      "term": "Meşruiyet",
+      "definition": "İktidarın haklı ve kabul edilebilir sayılma dayanağı."
+     },
+     {
+      "term": "Liyakat",
+      "definition": "Bir görevi yapmaya uygun yetkinlik."
+     }
+    ]
+   },
+   {
+    "title": "Hayali toplum tasarıları: ütopya ve distopya",
+    "content": "Düşünürler mevcut düzeni eleştirmek ya da gelecekteki tehlikelere karşı uyarmak için kurgusal devlet tasarıları ortaya koyar. İstenilen ütopya, gerçekleşmesi arzulanan ideal ve huzurlu toplumu anlatır (Farabi, Erdemli Şehir). İstenilmeyen ütopya (distopya), siyasi eğilimlerin kötüye gitmesiyle ortaya çıkabilecek korku dolu, baskıcı ve karanlık gelecek senaryolarıdır (Orwell, 1984).",
+    "bulletPoints": [
+     "Erdemli Şehir: yardımlaşma, erdemli yönetici, adalet ve iyilik → ütopya.",
+     "1984: gözetleme, düşünce özgürlüğünün yok edilmesi, korku → distopya.",
+     "Farklı: ütopya iyimser ideal; distopya karanlık uyarı.",
+     "Benzer: kurgusal tasarı, mevcut düzene eleştiri, gelecek öngörüsü.",
+     "Puan: tür 2+2, farklılık 4+4, benzerlik 1+1+1."
+    ],
+    "keyTerms": [
+     {
+      "term": "Ütopya",
+      "definition": "İstenilen, ideal toplum tasarısı."
+     },
+     {
+      "term": "Distopya",
+      "definition": "İstenilmeyen, karanlık gelecek tasarısı."
+     }
+    ]
+   },
+   {
+    "title": "Din felsefesi ile teolojinin farkı",
+    "content": "Teoloji belirli bir dinin içinden, o dinin inançlarını temellendirir, yorumlar ve savunur. Din felsefesi ise dine dışarıdan ve eleştirel bakar: dinin ne olduğunu, farklı inanç sistemlerini genel bakışla inceler, dogmatik yaklaşımdan kaçınır, mantıksal argümanlar kullanır. Ortak yön: dini ve dinle ilgili konuları ele almak.",
+    "bulletPoints": [
+     "Teoloji: belirli bir dinin öğretilerini yorumlar, savunur.",
+     "Din felsefesi: genel bakış, eleştirel, objektif, rasyonel analiz.",
+     "Her ikisi dinle ilgili konuları ele alır ve dinin insan yaşamındaki yeri ile ilgilenir.",
+     "Din felsefesi Tanrı’nın varlığı, kötülük problemi gibi sorunları tartışır."
+    ],
+    "keyTerms": [
+     {
+      "term": "Teoloji",
+      "definition": "Belirli bir dinin inançlarını sistemli inceleyen disiplin."
+     },
+     {
+      "term": "Dogmatizm",
+      "definition": "Kanıt aramadan kesin kabul etme."
+     }
+    ]
+   },
+   {
+    "title": "Tanrı’nın varlığı: teizm, deizm, ateizm",
+    "content": "Teizm: Tanrı vardır, evreni yaratmıştır ve evrenle ilişkisi sürer (elçilerle yol gösterir, insan eylemlerinden sorumludur). Deizm: Tanrı vardır, evreni yasalarıyla yaratmış ama evrene müdahale etmez, onu kendi hâline bırakmıştır. Ateizm: Tanrı yoktur. Metinde İdil teist, Uras deist, Defne ateisttir.",
+    "bulletPoints": [
+     "İdil: sonsuz güç, elçiler, sorumluluk → teizm.",
+     "Uras: ilk neden olarak Tanrı, müdahale etmeme → deizm.",
+     "Defne: acılar nedeniyle yaratıcı yoktur → ateizm.",
+     "Teizm ve deizm Tanrı’yı kabul eder; farkları müdahale ve ilişkidir."
+    ],
+    "keyTerms": [
+     {
+      "term": "Teizm",
+      "definition": "Tanrı’nın varlığını ve evrenle sürekli ilişkisini kabul eder."
+     },
+     {
+      "term": "Deizm",
+      "definition": "Tanrı’yı yaratıcı kabul eder, müdahalesini reddeder."
+     },
+     {
+      "term": "Ateizm",
+      "definition": "Tanrı’nın varlığını reddeder."
+     }
+    ]
+   },
+   {
+    "title": "Tanrı’nın varlığına ilişkin argümanlar",
+    "content": "Ontolojik argüman: Tanrı fikri mükemmel bir varlık kavramından hareket eder; zihnimizdeki mükemmel varlık düşüncesi Tanrı’nın varlığını gerektirir (İdil). Kozmolojik argüman: her şeyin bir nedeni vardır, nedenler zinciri bir ilk nedene dayanır; ilk neden Tanrı’dır (Uras). Kötülük argümanı: dünyadaki acı ve adaletsizlik, her şeye gücü yeten, iyi bir yaratıcının varlığıyla bağdaşmaz (Defne).",
+    "bulletPoints": [
+     "Kavram haritası cevabı: Uras—deizm—kozmolojik; Defne—ateizm—kötülük; İdil—teizm—ontolojik.",
+     "Her görüş 2, her argüman 3 puan.",
+     "Görüş ve argümanı kişiyle eşleştir.",
+     "Teleolojik argüman (evrendeki düzen) ek bilgi olarak bilinmelidir."
+    ],
+    "keyTerms": [
+     {
+      "term": "Ontolojik argüman",
+      "definition": "Mükemmel varlık kavramından Tanrı’nın varlığını çıkaran akıl yürütme."
+     },
+     {
+      "term": "Kozmolojik argüman",
+      "definition": "İlk nedenden Tanrı’ya giden akıl yürütme."
+     },
+     {
+      "term": "Kötülük problemi",
+      "definition": "Acıların iyi ve güçlü Tanrı fikriyle çelişkisi."
+     }
+    ]
+   },
+   {
+    "title": "Bilim felsefesi: klasik ve çağdaş bilim anlayışı",
+    "content": "Klasik bilim anlayışında bilimsel bilgi kesin, değişmez ve evrenseldir; deney ve gözlemle doğrulanır, bilim toplumdan ve değer yargılarından bağımsız nesnel bir etkinliktir. Çağdaş bilim anlayışında bilimsel bilgi değişebilir ve gelişmeye açıktır; yeni bulgular eski bilgiyi geçersiz kılabilir; bilim toplumsal ve kültürel bağlamdan bağımsız değildir.",
+    "bulletPoints": [
+     "Kimyager Ahmet: klasik anlayış.",
+     "Sosyolog Elif: çağdaş anlayış.",
+     "Bilginin doğası: kesin-değişmez ↔ değişebilir-gelişen.",
+     "Bilimin toplumsal rolü: değerlerden bağımsız ↔ toplumsal bağlamdan etkilenen.",
+     "Puan: anlayış 1, bilginin doğası 2, toplumsal rol 2; iki kişi için toplam 10."
+    ],
+    "keyTerms": [
+     {
+      "term": "Klasik bilim anlayışı",
+      "definition": "Bilgiyi kesin, değişmez, nesnel sayan anlayış."
+     },
+     {
+      "term": "Çağdaş bilim anlayışı",
+      "definition": "Bilgiyi değişebilir ve bağlama açık sayan anlayış."
+     }
+    ]
+   },
+   {
+    "title": "Yazılı stratejisi: tablolar, haritalar, kısmi puan",
+    "content": "Bu sınav sekiz soruluk. Tabloda X, √ işareti, kavram haritası ve açıklama gibi biçimler karışıktır. Önce bilinen satırları doldur, kavram haritasında her kutuyu kişiyle eşleştir. Yönetim biçimi tablosunda her hücre ayrı puan olduğu için hiçbirini boş bırakma.",
+    "bulletPoints": [
+     "Kavram haritasında önce kişileri görüşlerle eşleştir.",
+     "X işaretini unutma (1 puan).",
+     "Meşruiyet gerekçesi 2 puan; ayrıntılı yaz.",
+     "Bilim sorusunda hem anlayışı hem iki gerekçeyi yaz.",
+     "İşaretleme tablosunda tüm satırlar ayrı puandır."
+    ],
+    "keyTerms": [
+     {
+      "term": "Kriter",
+      "definition": "Puan verilen tek tek öğe."
+     }
+    ]
+   }
+  ],
+  "importantDates": [],
+  "commonMistakes": [
+   "Ahlakı ve etiği karıştırmak: uygulama ahlak, sorgulama etik.",
+   "Aristoteles sorusunda sadece “taklit” yazıp bilişsel haz gerekçesini yazmamak.",
+   "Adalet ile eşitliği aynı sanmak.",
+   "Hak ile özgürlüğü karıştırmak.",
+   "Yönetim biçimi tablosunda X işaretini veya meşruiyet sütununu boş bırakmak.",
+   "İktidarın kaynağı ile meşruiyetin dayanağını aynı şey sanmak.",
+   "Ütopya ile distopyayı karıştırmak ya da ortak yönleri yazmamak.",
+   "Teizm ile deizmi karıştırmak: fark evrene müdahale ve ilişkidir.",
+   "Argümanları yanlış kişiyle eşleştirmek (ontolojik–kozmolojik).",
+   "Bilim sorusunda anlayışı yazıp bilginin doğası ve toplumsal rol gerekçelerini yazmamak."
+  ],
+  "diagrams": [],
+  "mindmap": {
+   "label": "10. Sınıf Felsefe 2. Dönem 2. Yazılı",
+   "children": [
+    {
+     "label": "Ahlak ve etik",
+     "children": [
+      {
+       "label": "Ahlak: uygulama",
+       "children": []
+      },
+      {
+       "label": "Etik: sorgulama",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Estetik haz",
+     "children": [
+      {
+       "label": "Aristoteles: taklit",
+       "children": []
+      },
+      {
+       "label": "Tanıma ve öğrenme",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Siyaset felsefesi",
+     "children": [
+      {
+       "label": "İktidar",
+       "children": []
+      },
+      {
+       "label": "Eşitlik",
+       "children": []
+      },
+      {
+       "label": "Özgürlük",
+       "children": []
+      },
+      {
+       "label": "Adalet",
+       "children": []
+      },
+      {
+       "label": "Hak",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Yönetim biçimleri",
+     "children": [
+      {
+       "label": "Monarşi",
+       "children": []
+      },
+      {
+       "label": "Aristokrasi",
+       "children": []
+      },
+      {
+       "label": "Demokrasi",
+       "children": []
+      },
+      {
+       "label": "Meşruiyet",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Ütopya ve distopya",
+     "children": [
+      {
+       "label": "Erdemli Şehir",
+       "children": []
+      },
+      {
+       "label": "1984",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Din felsefesi",
+     "children": [
+      {
+       "label": "Teoloji ile fark",
+       "children": []
+      },
+      {
+       "label": "Teizm, deizm, ateizm",
+       "children": []
+      },
+      {
+       "label": "Ontolojik, kozmolojik, kötülük argümanı",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Bilim felsefesi",
+     "children": [
+      {
+       "label": "Klasik anlayış",
+       "children": []
+      },
+      {
+       "label": "Çağdaş anlayış",
+       "children": []
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "flashcards": [
+  {
+   "front": "Ahlak nedir?",
+   "back": "Toplumun yazısız kurallar bütünü: pratik davranışlar, değer yargıları.",
+   "category": "Ahlak ve etik",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Etik nedir?",
+   "back": "Ahlakı konu edinen felsefe disiplini.",
+   "category": "Ahlak ve etik",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Etik kural koyar mı?",
+   "back": "Hayır; mevcut kuralları uygulamaz, yeni kural da belirlemez.",
+   "category": "Ahlak ve etik",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Etik hangi soruları sorar?",
+   "back": "İyi/kötü nedir, eylemi ahlaki kılan ölçüt ne, insan sorumlu mu?",
+   "category": "Ahlak ve etik",
+   "difficulty": "easy"
+  },
+  {
+   "front": "“Verilen sözü tutmak” ahlak mı etik mi?",
+   "back": "Ahlak: pratik davranış.",
+   "category": "Ahlak ve etik",
+   "difficulty": "easy"
+  },
+  {
+   "front": "“Hakkaniyet ilkesini analiz etmek” ahlak mı etik mi?",
+   "back": "Etik: kavramı çözümler.",
+   "category": "Ahlak ve etik",
+   "difficulty": "medium"
+  },
+  {
+   "front": "“Geleneksel kuralları sürdürmek” ahlak mı etik mi?",
+   "back": "Ahlak: yazısız kurallar bütününün uygulanması.",
+   "category": "Ahlak ve etik",
+   "difficulty": "easy"
+  },
+  {
+   "front": "“Erdem–vicdan ilişkisini anlamaya çalışmak” ahlak mı etik mi?",
+   "back": "Etik.",
+   "category": "Ahlak ve etik",
+   "difficulty": "medium"
+  },
+  {
+   "front": "“Özgür iradeyle yapılıp yapılmadığını tartışmak” ahlak mı etik mi?",
+   "back": "Etik: özgürlük problemini kuramsal ele alır.",
+   "category": "Ahlak ve etik",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Ahlak–etik sorusunda puan?",
+   "back": "Alan 1, gerekçe 1 puan; 5 örnek = 10.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "“Ne yapmalıyım?” sorusunun alanı?",
+   "back": "Ahlak (pratik cevaplar).",
+   "category": "Ahlak ve etik",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Aristoteles estetik hazzın temeli?",
+   "back": "Taklit (mimesis).",
+   "category": "Estetik haz (Aristoteles)",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Aristoteles’e göre insanı hayvandan ayıran özellik?",
+   "back": "Taklide yatkınlık ve ilk öğrenmeyi taklitle yapması.",
+   "category": "Estetik haz (Aristoteles)",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Çirkin şeylerin resmine neden bakmaktan zevk alırız?",
+   "back": "Resme bakarken neyin ne olduğunu tanıyıp çıkarım yaparız, bu öğrenme hazdır.",
+   "category": "Estetik haz (Aristoteles)",
+   "difficulty": "medium"
+  },
+  {
+   "front": "“Bu o!” cümlesi neyi gösterir?",
+   "back": "Tanıma ve çıkarım yapma sürecini; estetik hazzın bilişsel temelini.",
+   "category": "Estetik haz (Aristoteles)",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Poetika kimin eseridir?",
+   "back": "Aristoteles.",
+   "category": "Estetik haz (Aristoteles)",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Estetik haz Aristoteles’e göre duyusal mıdır?",
+   "back": "Hayır; anlama, kavrama ve öğrenmenin sonucudur.",
+   "category": "Estetik haz (Aristoteles)",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Aristoteles sorusunda puan?",
+   "back": "Taklit 3, bilişsel bağ gerekçesi 7 puan.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "İktidar nedir?",
+   "back": "Kural koyma ve yürütme yetkisi; yönetme gücü.",
+   "category": "Siyaset felsefesi kavramları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Eşitlik nedir?",
+   "back": "Bireyler arasında hak ve olanaklar bakımından ayrım gözetilmemesi.",
+   "category": "Siyaset felsefesi kavramları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Özgürlük nedir (siyasette)?",
+   "back": "Baskı altında kalmadan seçim yapıp karar verebilme.",
+   "category": "Siyaset felsefesi kavramları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Adalet nedir?",
+   "back": "Herkesin hak ettiğini alması; yarar-zarar dağılımının durumlara uygun olması.",
+   "category": "Siyaset felsefesi kavramları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Hak nedir?",
+   "back": "Hukuk düzeninin güvence altına aldığı meşru yetkiler.",
+   "category": "Siyaset felsefesi kavramları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "“Hiçbir ayrım gözetmeksizin” hangi kavram?",
+   "back": "Eşitlik.",
+   "category": "Siyaset felsefesi kavramları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "“Seçim yapma ve karar verebilme imkânı” hangi kavram?",
+   "back": "Özgürlük.",
+   "category": "Siyaset felsefesi kavramları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "“Yasalarla korunan kazanımlar” hangi kavram?",
+   "back": "Hak.",
+   "category": "Siyaset felsefesi kavramları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "“Herkesin payına düşeni alması” hangi kavram?",
+   "back": "Adalet.",
+   "category": "Siyaset felsefesi kavramları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "“Kural koyma ve yürütme yetkisi” hangi kavram?",
+   "back": "İktidar.",
+   "category": "Siyaset felsefesi kavramları",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Adalet ile eşitlik farkı?",
+   "back": "Eşitlik ayrım gözetmemektir; adalet herkesin hak ettiğini durumuna göre almasıdır.",
+   "category": "Siyaset felsefesi kavramları",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Hak ile özgürlük farkı?",
+   "back": "Hak yasayla güvence altındaki yetkidir; özgürlük baskısız seçim yapabilmektir.",
+   "category": "Siyaset felsefesi kavramları",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Siyaset felsefesi kavram sorusu puanı?",
+   "back": "Kavram 1, gerekçe 2; 5 üye = 15.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Monarşi nedir?",
+   "back": "Yönetme yetkisinin tek kişide toplandığı yönetim.",
+   "category": "Yönetim biçimleri ve meşruiyet",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Aristokrasi nedir?",
+   "back": "Yönetimin bilgi ve erdem sahibi seçkin bir topluluğa bırakıldığı yönetim.",
+   "category": "Yönetim biçimleri ve meşruiyet",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Demokrasi nedir?",
+   "back": "Yönetme yetkisinin halktan geldiği, yöneticilerin halkça seçildiği yönetim.",
+   "category": "Yönetim biçimleri ve meşruiyet",
+   "difficulty": "easy"
+  },
+  {
+   "front": "I. Grup hangi biçimi savunur?",
+   "back": "Monarşi.",
+   "category": "Yönetim biçimleri ve meşruiyet",
+   "difficulty": "easy"
+  },
+  {
+   "front": "II. Grup hangi biçimi savunur?",
+   "back": "Aristokrasi.",
+   "category": "Yönetim biçimleri ve meşruiyet",
+   "difficulty": "easy"
+  },
+  {
+   "front": "III. Grup hangi biçimi savunur?",
+   "back": "Demokrasi.",
+   "category": "Yönetim biçimleri ve meşruiyet",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Monarşide yönetme yetkisi kimde?",
+   "back": "Tek bir kişide.",
+   "category": "Yönetim biçimleri ve meşruiyet",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Monarşide iktidarın kaynağı?",
+   "back": "Liderin soylu, köklü aileye mensup olması veya üstün nitelikleri.",
+   "category": "Yönetim biçimleri ve meşruiyet",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Monarşide meşruiyetin dayanağı?",
+   "back": "Devletin devamlılığı ve istikrarının tam yetkili bir güçle mümkün olması.",
+   "category": "Yönetim biçimleri ve meşruiyet",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Aristokraside yetki kimde?",
+   "back": "Seçkin bir grupta.",
+   "category": "Yönetim biçimleri ve meşruiyet",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Aristokraside iktidarın kaynağı?",
+   "back": "Yönetici grubun bilgi, erdem ve liyakati.",
+   "category": "Yönetim biçimleri ve meşruiyet",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Aristokraside meşruiyetin dayanağı?",
+   "back": "Toplumun ancak nitelikli kişilerin kararlarıyla en iyi yönetilebilecek olması.",
+   "category": "Yönetim biçimleri ve meşruiyet",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Demokraside yetki kimde?",
+   "back": "Halk tarafından seçilen temsilcilerde.",
+   "category": "Yönetim biçimleri ve meşruiyet",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Demokraside iktidarın kaynağı?",
+   "back": "Halk iradesi.",
+   "category": "Yönetim biçimleri ve meşruiyet",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Demokraside meşruiyetin dayanağı?",
+   "back": "Yönetme gücü ve yetkisinin halk tarafından verilmiş olması.",
+   "category": "Yönetim biçimleri ve meşruiyet",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Meşruiyet nedir?",
+   "back": "İktidarın haklı ve kabul edilebilir sayılmasının dayanağı.",
+   "category": "Yönetim biçimleri ve meşruiyet",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Liyakat nedir?",
+   "back": "Bir görevi yapmaya uygun bilgi ve yetkinlik.",
+   "category": "Yönetim biçimleri ve meşruiyet",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Yönetim biçimi tablosunda puan dağılımı?",
+   "back": "Biçim 1, yetki 1, kaynak 1, meşruiyet 2; 3 grup = 15.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Devletin varlık nedeni III. Gruba göre?",
+   "back": "Bireylerin hak ve özgürlüklerini korumak.",
+   "category": "Yönetim biçimleri ve meşruiyet",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tek elde toplanan yetkinin riski?",
+   "back": "Zorbalık/keyfilik ve liyakatin geri planda kalması.",
+   "category": "Yönetim biçimleri ve meşruiyet",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Ütopya nedir?",
+   "back": "İstenilen, ideal ve huzurlu toplum tasarısı.",
+   "category": "Ütopya ve distopya",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Distopya nedir?",
+   "back": "İstenilmeyen, karanlık, baskıcı gelecek toplum tasarısı.",
+   "category": "Ütopya ve distopya",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Erdemli Şehir kimin eseridir?",
+   "back": "Farabi.",
+   "category": "Ütopya ve distopya",
+   "difficulty": "easy"
+  },
+  {
+   "front": "1984 kimin eseridir?",
+   "back": "George Orwell.",
+   "category": "Ütopya ve distopya",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Erdemli Şehir hangi türe örnek?",
+   "back": "İstenilen ütopya.",
+   "category": "Ütopya ve distopya",
+   "difficulty": "easy"
+  },
+  {
+   "front": "1984 hangi türe örnek?",
+   "back": "İstenilmeyen ütopya (distopya).",
+   "category": "Ütopya ve distopya",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Ütopya ile distopyanın farkı?",
+   "back": "Ütopya iyimser ideal toplum, distopya karanlık uyarı niteliğinde tasarım.",
+   "category": "Ütopya ve distopya",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Ütopya ile distopyanın ortak yönleri?",
+   "back": "Kurgusaldırlar; mevcut düzeni eleştirirler; gelecek öngörüsü taşırlar.",
+   "category": "Ütopya ve distopya",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Büyük Birader neyi simgeler?",
+   "back": "Sürekli gözetleme ve baskı düzenini.",
+   "category": "Ütopya ve distopya",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Ütopya sorusunda puanlama?",
+   "back": "Tür 2+2, farklı özellik 4+4, benzer özellik 1+1+1 = 15.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Thomas More ile hangi sözcük anılır?",
+   "back": "Utopia (ütopya): olmayan yer.",
+   "category": "Ütopya ve distopya",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Platon’un Devlet’i hangi türe yakındır?",
+   "back": "Ütopya (ideal devlet tasarısı).",
+   "category": "Ütopya ve distopya",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Teoloji nedir?",
+   "back": "Belirli bir dinin inançlarını yorumlayıp savunan disiplin.",
+   "category": "Din felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Din felsefesi nedir?",
+   "back": "Dini genel bakışla, eleştirel ve rasyonel biçimde inceleyen felsefe dalı.",
+   "category": "Din felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Teoloji ile din felsefesi farkı?",
+   "back": "Teoloji belirli bir dinin içinden savunur; din felsefesi dışarıdan eleştirel inceler.",
+   "category": "Din felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Din felsefesi dogmatik midir?",
+   "back": "Hayır, dogmatik yaklaşımlardan kaçınır.",
+   "category": "Din felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Teizm nedir?",
+   "back": "Tanrı’nın varlığını ve evrenle sürekli ilişkisini kabul eden görüş.",
+   "category": "Din felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Deizm nedir?",
+   "back": "Tanrı’yı yaratıcı kabul edip evrene müdahalesini reddeden görüş.",
+   "category": "Din felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Ateizm nedir?",
+   "back": "Tanrı’nın varlığını reddeden görüş.",
+   "category": "Din felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Agnostisizm nedir?",
+   "back": "Tanrı’nın varlığının bilinemeyeceğini savunan görüş.",
+   "category": "Din felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "İdil hangi görüşte?",
+   "back": "Teizm.",
+   "category": "Din felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Uras hangi görüşte?",
+   "back": "Deizm.",
+   "category": "Din felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Defne hangi görüşte?",
+   "back": "Ateizm.",
+   "category": "Din felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "İdil’in argümanı?",
+   "back": "Ontolojik argüman (zihindeki mükemmel varlık fikri).",
+   "category": "Din felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Uras’ın argümanı?",
+   "back": "Kozmolojik argüman (ilk neden).",
+   "category": "Din felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Defne’nin argümanı?",
+   "back": "Kötülük argümanı (acı ve adaletsizlik).",
+   "category": "Din felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Ontolojik argüman nedir?",
+   "back": "Mükemmel varlık fikrinden Tanrı’nın varlığını çıkarır.",
+   "category": "Din felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kozmolojik argüman nedir?",
+   "back": "Nedenler zincirinden ilk neden olan Tanrı’ya ulaşır.",
+   "category": "Din felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kötülük argümanı nedir?",
+   "back": "Dünyadaki acılar, güçlü ve iyi bir Tanrı’nın varlığıyla bağdaşmaz.",
+   "category": "Din felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Teleolojik argüman nedir?",
+   "back": "Evrendeki düzen ve amaçlılıktan bir yaratıcının varlığını çıkarır.",
+   "category": "Din felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Teizm–deizm farkı?",
+   "back": "Teizmde Tanrı evrene müdahale eder/ilişki sürer; deizmde bırakır.",
+   "category": "Din felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kavram haritası puan dağılımı?",
+   "back": "Görüş 2, argüman 3 puan; 3 kişi = 15.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Din felsefesi hangi sorular üzerinde durur?",
+   "back": "Tanrı’nın varlığı, kötülük, ölümden sonrası, inanç–akıl ilişkisi.",
+   "category": "Din felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Klasik bilim anlayışında bilgi?",
+   "back": "Kesin, değişmez ve evrensel.",
+   "category": "Bilim felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Çağdaş bilim anlayışında bilgi?",
+   "back": "Değişebilir, gelişmeye açık, yeniden değerlendirilebilir.",
+   "category": "Bilim felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Klasik anlayışta bilimin toplumsal rolü?",
+   "back": "Toplumdan ve değer yargılarından bağımsız nesnel etkinlik.",
+   "category": "Bilim felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Çağdaş anlayışta bilimin toplumsal rolü?",
+   "back": "Toplumsal ve kültürel bağlamdan etkilenir, ondan bağımsız değildir.",
+   "category": "Bilim felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kimyager Ahmet hangi anlayışı temsil eder?",
+   "back": "Klasik bilim anlayışı.",
+   "category": "Bilim felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Sosyolog Elif hangi anlayışı temsil eder?",
+   "back": "Çağdaş bilim anlayışı.",
+   "category": "Bilim felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Karl Popper’ın bilim ölçütü?",
+   "back": "Yanlışlanabilirlik: bilimsel kuram yanlışlanabilir olmalıdır.",
+   "category": "Bilim felsefesi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Thomas Kuhn’un temel kavramı?",
+   "back": "Paradigma ve bilimsel devrim.",
+   "category": "Bilim felsefesi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Bilim felsefesi sorusunda puan?",
+   "back": "Anlayış 1, doğa 2, rol 2; iki kişi = 10.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Bilim insanının tarafsızlığı çağdaş anlayışta nasıldır?",
+   "back": "Mutlak değil; toplumsal değerlerden etkilenebilir.",
+   "category": "Bilim felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tarihte geçersiz sayılan bilimsel bilgi örneği?",
+   "back": "Yer merkezli evren modeli, yeni gözlemlerle terk edilmiştir.",
+   "category": "Bilim felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tablolarda hücre boş bırakılırsa?",
+   "back": "O hücrenin puanı verilmez.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kavram haritasında ilk adım?",
+   "back": "Metindeki kişilerin görüşlerini belirleyip kutulara yerleştirmek.",
+   "category": "Yazılı stratejisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Siyasette “iktidarın kaynağı” sorusu neyi sorar?",
+   "back": "Yönetme gücünün nereden geldiğini (soy, bilgi, halk iradesi).",
+   "category": "Yönetim biçimleri ve meşruiyet",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Hakkaniyet ne demektir?",
+   "back": "Herkese durumuna uygun şekilde hakkını vermek.",
+   "category": "Ahlak ve etik",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Teleolojik argüman neye dayanır?",
+   "back": "Evrendeki düzen ve amaçlılığa.",
+   "category": "Din felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Yönetici tek kişi olursa hangi risk vardır (II. Grup)?",
+   "back": "Zorbalık ve liyakat ile erdemin geri planda kalması.",
+   "category": "Yönetim biçimleri ve meşruiyet",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Farabi’nin Erdemli Şehir’inde yönetici kimdir?",
+   "back": "Peygamber veya filozof gibi erdemli bir kişi.",
+   "category": "Ütopya ve distopya",
+   "difficulty": "easy"
+  }
+ ],
+ "quiz": [
+  {
+   "type": "open-ended",
+   "question": "1. Ahlak, insanların toplum içindeki eylemlerini ve birbirleriyle olan ilişkilerini düzenlemek amacıyla oluşturulmuş yazısız kurallar bütünüdür. İyi ve kötüye ilişkin bireylerden beklenen pratik davranışları, toplumun değer yargılarını ve “Ne yapmalıyım?” sorusuna verilen cevapları içerir. Etik yani ahlak felsefesi ise ahlakı kendine konu edinen felsefe disiplinidir. Etik, mevcut ahlaki kuralları uygulamaz ya da yeni kurallar belirlemez. Bir eylemi ahlaki kılan ölçütün neler olabileceğini, iyi ve kötünün ne anlama geldiğini, insanın eylemlerinin sonuçlarından sorumlu olup olmadığını ve bunlara benzer konuları ele alır. Metinden yola çıkarak aşağıda verilen davranış örneklerinin ahlakın mı yoksa etiğin mi alanına girdiğini belirleyip seçiminizi gerekçesiyle yazınız. I. Adalet kavramının temelindeki hakkaniyet ilkesini analiz etmek. II. Verilen sözü tutmak ve dürüst davranmak. III. Bir topluma ait geleneksel kuralları uygulamayı sürdürmek. IV. Erdemli davranışlarla vicdan arasındaki ilişkiyi anlamaya çalışmak. V. Ahlaki eylemlerin özgür bir iradeyle yapılıp yapılmadığını tartışmak. (Her alan 1, her gerekçe 1 puan)",
+   "correctAnswer": "I. Etik: kavramın yapısını ve özünü felsefi olarak çözümlediği için etik alanına girer. II. Ahlak: toplumda bireylerden beklenen pratik ve olgusal bir davranışla ilgili olduğu için ahlak alanına girer. III. Ahlak: toplumsal yaşamı düzenleyen yazısız kurallar bütününe dâhil olduğu ve bunu davranışa dönüştürmeyi içerdiği için ahlaktır. IV. Etik: ahlaki kavramları sorgulayıp değerlendirmeye çalıştığı için etiktir. V. Etik: eylemlerin temelindeki özgürlük problemini kuramsal düzeyde ele aldığı için etiktir.",
+   "keyPoints": [
+    "I etik + gerekçe",
+    "II ahlak + gerekçe",
+    "III ahlak + gerekçe",
+    "IV etik + gerekçe",
+    "V etik + gerekçe",
+    "Alan 1, gerekçe 1 puan"
+   ],
+   "maxPoints": 10,
+   "explanation": "Fiile bak: “analiz etmek, anlamaya çalışmak, tartışmak” düşünsel inceleme olduğundan etik; “tutmak, sürdürmek” davranış olduğundan ahlaktır. Gerekçe cümlesine hem ne yapıldığını hem hangi alana girdiğini yaz. Puan: her doğru alan 1, her doğru gerekçe 1. Alanı belirlemeden yalnız gerekçe yazarsan puan almazsın; alan yanlışsa o örneğin gerekçesi de boşa gider.",
+   "category": "Soru 1: Ahlak ve etik",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "2. Taklit etme insanlarda çocukluktan itibaren doğal olarak ortaya çıkar, insanları diğer hayvanlardan ayıran şey taklit etmeye yatkın olmaları ve ilk öğrendiklerini taklit yoluyla öğrenmeleridir, ayrıca bütün insanlar taklitlerden hoşlanır. Bunun bir göstergesi de eserlerden gelir: Görmekten rahatsız olduğumuz şeylerin birebir çizilmiş resimlerine, bakmaktan zevk alırız. Öğrenmek, sadece filozofların değil diğer insanların da en çok haz aldığı şeydir. Resimlere bakmak hoşlarına gider. Çünkü baktıkları sırada bir şeyin ne olduğunu anlayıp çıkarsama yaparlar: “Bu o!” gibi. (Aristoteles, Poetika, kısaltılmıştır) Aristoteles’in Poetika eserinden alınan metne göre estetik hazzın dayandığı temel nedir? Gerekçesiyle yazınız.",
+   "correctAnswer": "Aristoteles estetik hazzı insanın doğasında bulunan taklit etme ve taklit yoluyla öğrenme eğilimine dayandırmaktadır. Bir resme bakıldığında zihin, taklit ile gerçek nesne arasında bir bağ kurar; nesneyi tanır ve “Bu o!” diyerek çıkarımda bulunur. Bu tanıma bilişsel bir süreçtir. Dolayısıyla estetik haz, duyusal bir hoşlanmadan çok anlama, kavrama ve öğrenmenin sonucudur.",
+   "keyPoints": [
+    "Estetik hazzın temeli taklit (mimesis) (3 puan)",
+    "Gerekçe: taklit–gerçeklik bağı; öğrenme, tanıma ve çıkarım zihinsel haz verir (7 puan)"
+   ],
+   "maxPoints": 10,
+   "explanation": "Önce temeli söyle: taklit. Sonra gerekçeyi metinden kur: resme bakan kişi “bu o!” diyerek nesneyi tanır, çıkarım yapar, yani öğrenir; öğrenmek en büyük hazdır. Cümleyi “bu nedenle haz, duyusal bir hoşlanmadan çok anlamanın sonucudur” diye bağla. Puan: temel 3, gerekçe 7. Sadece “taklittir” yazarsan 7 puan kaybedersin.",
+   "category": "Soru 2: Aristoteles ve estetik haz",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "3. Bir belediyenin meclis toplantısında, şehir merkezindeki bir caddenin araç trafiğine kapatılması kararı oylamaya sunulmuştur. 1. Üye: Eğer cadde trafiğe kapatılırsa hiçbir ayrım gözetilmeksizin tüm vatandaşların bu caddedeki mekânlara erişebilmesi için gerekli imkânlar sağlanmalıdır. Hiç kimse bu düzenleme nedeniyle dezavantajlı duruma düşmemelidir. 2. Üye: Vatandaşlarımızın istedikleri yere istedikleri ulaşım aracıyla gitme tercihine müdahale etmemiz, bireylerin hareket alanını kısıtlamaktır. İnsanların ulaşım tercihleriyle ilgili seçim yapma ve karar verebilme imkânı korunmalıdır. 3. Üye: Caddede bulunan esnaf ve vatandaşların mülkiyet ve ulaşımla ilgili olarak yasalarla korunan kazanımları olduğu unutulmamalıdır. Bireylerin meşru zeminde sahip olduğu yetkiler ihlal edilmemelidir. 4. Üye: Bu karar alınırken doğuracağı sonuçlar hesaplanmalıdır. Toplumsal yarar ve zarar, caddeden faydalanan her kesimin ihtiyacı ve durumu gözetilerek herkesin payına düşeni alacağı şekilde dağıtılmalıdır. 5. Üye: Ortak bir kararda uzlaşmalıyız. Bu meclis çatısı altında kural koyma ve yürütme yetkisini kullandığımızı ve bu yetkiden doğan sorumluluğu üstlendiğimizi unutmamalıyız. Metindeki her bir üyenin görüşünün “iktidar, eşitlik, özgürlük, adalet ve hak” kavramlarından hangisine dayandığını gerekçesiyle birlikte yazınız. (Kavram 1, gerekçe 2 puan)",
+   "correctAnswer": "1. Üye: Eşitlik — “hiçbir ayrım gözetilmemesi” ve “hiç kimsenin dezavantajlı duruma düşmemesi” ifadeleri haklar ve olanaklar bakımından ayrım gözetilmemesi ilkesini vurgular. 2. Üye: Özgürlük — “müdahale etmeme”, “seçim yapma ve karar verebilme” ifadeleri bireylerin baskı altında kalmadan iradeleriyle seçim yapabilmesini işaret eder. 3. Üye: Hak — “yasalarla korunan kazanımlar” ve “meşru zeminde sahip olunan yetkiler” hukuk düzeninin güvence altına aldığı yetkileri gösterir. 4. Üye: Adalet — “ihtiyaçlarıyla durumlarını gözetme” ve “payına düşeni alma” herkesin hak ettiğini alması anlamına gelen adalete dayanır. 5. Üye: İktidar — “kural koyma ve yürütme yetkisi” vurgusu yönetme gücünü ifade eden iktidarı işaret eder.",
+   "keyPoints": [
+    "1. üye eşitlik + gerekçe",
+    "2. üye özgürlük + gerekçe",
+    "3. üye hak + gerekçe",
+    "4. üye adalet + gerekçe",
+    "5. üye iktidar + gerekçe",
+    "Kavram 1, gerekçe 2 puan"
+   ],
+   "maxPoints": 15,
+   "explanation": "Her üyenin cümlelerinde anahtar kelimeyi bul: ayrım yok → eşitlik; müdahale yok/seçim → özgürlük; yasayla korunan/meşru yetki → hak; payına düşen/ihtiyaç → adalet; kural koyma/yürütme → iktidar. Gerekçe için o üyenin ifadesini alıntıla. Puan: kavram 1, gerekçe 2. Adalet–eşitlik ve hak–özgürlük çiftlerini karıştırma. Kavramı yazmadan gerekçe puan getirmez.",
+   "category": "Soru 3: Siyaset felsefesi kavramları",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "4. Uzun süren ekonomik kriz ve toplumsal huzursuzluk yaşanan bir ülkede, mevcut yönetim biçimi sorgulanmaya başlanır. I. Grup: Devletin güçlü ve kararlı biri tarafından yönetilmesi gerektiğini savunur. Onlara göre toplumsal düzenin korunması ve devletin devamlılığı için yönetme yetkisi tek elde toplanmalıdır. Bu yetkiyi kullanan kişinin köklü bir aileye veya soya ait olması, yönetimde istikrar sağlayacaktır. II. Grup: Yönetimin bilgi ve erdem sahibi seçkin bir topluluğa bırakılmasının daha doğru olacağını ileri sürer. Onlara göre ülkeyi eğitimli, deneyimli ve uzman kişiler yönetmelidir. Çünkü tüm yetkinin bir lidere verilmesi zorbalığa; liyakat ve erdemin geri planda kalmasına neden olabilir. III. Grup: Bu görüşlere karşı çıkar. İktidarın tek bir kişi veya ayrıcalıklı bir zümreye bırakılmasının keyfiliğe neden olabileceğini savunur. Onlara göre yönetme yetkisi halkın rızasına dayanmalıdır. Devletin varlık nedeni, bireylerin hak ve özgürlüklerini korumaktır. Bu nedenle yöneticiler halk tarafından belirlenmeli ve gerektiğinde görevden uzaklaştırılabilmelidir. Grupların savunduğu yönetim biçimlerini (Monarşi, Aristokrasi, Demokrasi) tabloda X ile işaretleyiniz. Bu grupların anlayışına göre yönetme yetkisinin kimde olduğunu, iktidarın kaynağını ve meşruiyetinin dayanağını tabloda ilgili yerlere yazınız.",
+   "correctAnswer": "I. Grup: Monarşi (X, 1 puan); yönetme yetkisi tek bir kişi (1); iktidarın kaynağı liderin soylu ve köklü bir aileye mensup olması veya üstün nitelikleri (1); meşruiyetin dayanağı devletin devamlılığı ve istikrarının tam yetkili bir güçle mümkün olması (2). II. Grup: Aristokrasi (X); yetki seçkin bir grup; iktidarın kaynağı yönetici grubun bilgi, erdem ve liyakati; meşruiyet toplumun ancak nitelikli kişilerin kararlarıyla en iyi yönetilebilecek olması. III. Grup: Demokrasi (X); yetki halk tarafından seçilen temsilciler; iktidarın kaynağı halk iradesi; meşruiyet yönetme gücü ve yetkisinin halk tarafından verilmiş olması.",
+   "keyPoints": [
+    "Üç grup için doğru yönetim biçimi (1+1+1)",
+    "Yönetme yetkisinin kimde olduğu (1+1+1)",
+    "İktidarın kaynağı (1+1+1)",
+    "Meşruiyetin dayanağı (2+2+2)"
+   ],
+   "maxPoints": 15,
+   "explanation": "Her grup için dört sütunu sırayla doldur. I. grup “tek elde, soy” → monarşi. II. grup “bilgi ve erdem sahibi seçkinler” → aristokrasi. III. grup “halkın rızası, görevden uzaklaştırma” → demokrasi. Kaynak “nereden geliyor?” (soy / bilgi-erdem / halk iradesi); meşruiyet “neden haklı?” (istikrar / nitelik / halkın verdiği yetki). Puan: biçim 1, yetki 1, kaynak 1, meşruiyet 2 (grup başı 5, toplam 15). Meşruiyet sütunu en yüksek puanlıdır, boş bırakma.",
+   "category": "Soru 4: Yönetim biçimleri ve meşruiyet",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "5. Tarih boyunca düşünürler, mevcut toplumsal düzeni eleştirmek ya da gelecekte yaşanabilecek tehlikelere karşı insanlığı uyarmak amacıyla çeşitli devlet tasarımları ortaya koymuşlardır. Örneğin Farabi, Erdemli Şehir adlı eserinde insanların yardımlaşarak gerçek mutluluğa ulaştığı, yöneticinin peygamber veya filozof gibi erdemli bir kişi olduğu, adaletin ve iyiliğin hâkim olduğu mükemmel bir toplum yapısı tasvir etmiştir. Buna karşılık George Orwell, 1984 adlı eserinde bireylerin “Büyük Birader” tarafından sürekli gözetlendiği, düşünce özgürlüğünün tamamen yok edildiği, korku ve baskının hâkim olduğu karanlık bir gelecek kurgulamıştır. Metinde verilen eser örneklerinin hangi “hayali toplum tasarımı” türüne ait olduğunu belirleyiniz. Ardından bu iki tür arasındaki benzerlikleri ve farklılıkları metinden hareketle yazınız. (Erdemli Şehir türü, 1984 türü, farklı özellikler, benzer özellikler)",
+   "correctAnswer": "Erdemli Şehir: istenilen ütopya örneğidir. 1984: istenilmeyen ütopya (distopya) örneğidir. Farklı özellikler: İstenilen ütopyalar gerçekleşmesi arzulanan, ideal ve huzurlu toplumsal düzenleri iyimser bir bakış açısıyla betimler; Farabi’nin eserinde insanlar eşitlik ve barış içinde yaşar. İstenilmeyen ütopyalar (distopyalar) mevcut siyasi koşulların kötüye gitmesi durumunda ortaya çıkabilecek korku dolu, baskıcı ve karanlık gelecek senaryolarıdır; bir uyarı niteliği taşırlar. Benzer özellikler: Her ikisi de toplum tasarısıdır; kurgusaldır, yani gerçekte var olmayan zihinsel tasarımlara dayalı devlet modelleridir; mevcut düzene yönelik eleştiri veya gelecek öngörüsü taşıma noktasında birleşirler.",
+   "keyPoints": [
+    "Erdemli Şehir = istenilen ütopya (2)",
+    "1984 = istenilmeyen ütopya/distopya (2)",
+    "Ütopya: ideal, huzurlu, iyimser (4)",
+    "Distopya: korku dolu, baskıcı, uyarı niteliğinde (4)",
+    "Benzer: kurgusal toplum tasarısı (1)",
+    "Benzer: mevcut düzene eleştiri (1)",
+    "Benzer: gelecek öngörüsü (1)"
+   ],
+   "maxPoints": 15,
+   "explanation": "Önce türleri adlandır: huzurlu ve ideal → ütopya; gözetlenme ve baskı → distopya. Sonra farkı iki cümlede yaz (iyimser ideal ↔ karanlık uyarı). En sonda üç benzerliği ayrı ayrı say: kurgusal, eleştiri, öngörü. Puan: tür 2+2, fark 4+4, benzerlik 1+1+1. Üç benzerliği tek cümleye sıkıştırırsan hepsini açıkça yazmaya dikkat et.",
+   "category": "Soru 5: Ütopya ve distopya",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "7. Din, Tanrı ve inanç konuları üzerine tartışan üç arkadaş arasında aşağıdaki konuşma geçer. İdil: Ben bizi ve her şeyi yaratan, sonsuz güç sahibi bir Tanrı’nın var olduğuna inanıyorum. O olup biten her şeyi biliyor, bize yol göstermek için elçilerle mesajlar gönderiyor. Bu nedenle de tüm eylemlerimizden sorumluyuz. Tanrı’nın varlığını ve O’na karşı sorumluluğumu kalpten hissediyorum. Eğer Tanrı olmasaydı benim zihnimde böyle mükemmel bir varlık fikri de oluşamazdı. Defne: Bu konuda senden çok farklı düşünüyorum. Bu dünyada nereye baksan acımasızlık ve adaletsizlik görürsün. Masum ve iyi insanlar, savunmasız küçük çocuklar, birçok canlı acı içinde. Tarif ettiğin özelliklere sahip bir yaratıcının, tüm bu acıların yaşanmasına engel olması gerekmez mi? Bu türden acılar varlığını artırarak sürdürdüğüne göre öyle bir yaratıcının varlığından söz edilemez. Uras: Ben de İdil gibi bir yaratıcının var olduğuna inanıyorum ve Defne’nin söz ettiği gibi bu dünyada acımasızlığın da olduğunu kabul ediyorum. Ancak bazı konularda sizden farklı düşünüyorum. Mesela Tanrı’nın evrene müdahale ettiğini sanmıyorum. Tabii ki her şeyin bir nedeni olduğu gibi, sürecin en başında evrenin var olması için de bir ilk nedene ihtiyaç vardı. Bu neden Tanrı’ydı ancak onun evrenle ilişkisi buraya kadardı. Tanrı evreni yasalarıyla birlikte yarattı ve bu yasalara göre işlemek üzere kendi hâline bıraktı. Metinden hareketle din felsefesi kavram haritasındaki boşlukları (Tanrı’nın varlığına ilişkin Uras’ın görüşü ve argümanı, Defne’nin görüşü ve argümanı, İdil’in görüşü ve argümanı) uygun kavramlarla doldurunuz. Kavram havuzu: DEİZM, TEİZM, ATEİZM, KOZMOLOJİK, KÖTÜLÜK, ONTOLOJİK. (Her görüş 2, her argüman 3 puan)",
+   "correctAnswer": "Uras: görüşü Deizm (Tanrı evreni yaratmış, müdahale etmez); argümanı Kozmolojik (ilk neden). Defne: görüşü Ateizm (Tanrı yoktur); argümanı Kötülük (acılar iyi ve güçlü bir yaratıcıyla bağdaşmaz). İdil: görüşü Teizm (Tanrı vardır, elçilerle yol gösterir); argümanı Ontolojik (zihindeki mükemmel varlık fikri).",
+   "keyPoints": [
+    "Uras: deizm (2) ve kozmolojik (3)",
+    "Defne: ateizm (2) ve kötülük (3)",
+    "İdil: teizm (2) ve ontolojik (3)"
+   ],
+   "maxPoints": 15,
+   "explanation": "Üç adım: (1) Her kişinin Tanrı’ya ilişkin ana iddiasını bul: İdil Tanrı vardır ve elçilerle yol gösterir (teizm); Defne yaratıcı yoktur (ateizm); Uras Tanrı vardır ama müdahale etmez (deizm). (2) Her kişinin kanıtını bul: İdil “zihnimde mükemmel varlık fikri” (ontolojik); Defne “acılar” (kötülük); Uras “ilk neden” (kozmolojik). (3) Havuzdan altı kavramı kullan. Puan: görüş 2, argüman 3 (kişi başı 5). Deizm ile teizmi karıştırma: farkları evrene müdahaledir.",
+   "category": "Soru 7: Din felsefesi görüşleri ve argümanları",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "8. Bilim değişmez doğruların alanı mı, yoksa sürekli kendini yenileyen bir bilgi arayışı mıdır? Bir kariyer günü etkinliğine katılan konuşmacılar, bilimin doğasına ilişkin bu temel sorunu gündeme getirmiştir. Kimyager Ahmet, “Bilim, doğayı anlamanın en güvenilir yoludur. Bilimsel bilgi, deney ve gözlemle test edilerek doğrulanır ve nesnel gerçekliği ortaya koyar. Bilimsel olarak doğrulanmış teoriler, evrensel ve genel geçer kabul edilir.” diyerek görüş bildirir. Sosyolog Elif ise “Bilimsel bilgi tarihsel süreç içinde değişebilir. Yeni araştırmalar, önceden doğru kabul edilen bilgilerin yeniden değerlendirilmesine ve geçerliliğini kaybetmesine yol açabilir. Ayrıca bilimsel çalışmalar toplumsal değerlerden bütünüyle bağımsız değildir.” diyerek görüş bildirir. Kimyager Ahmet ve sosyolog Elif’in görüşlerinin klasik ve çağdaş bilim anlayışlarından hangisini temsil ettiğini, bilginin doğası ve bilimin toplumsal rolü açısından gerekçelendirerek açıklayınız.",
+   "correctAnswer": "Kimyager Ahmet — Temsil ettiği bilim anlayışı: Klasik bilim anlayışı. Bilginin doğası: bilimsel bilgi kesin, değişmez ve evrensel kabul edilir; deney ve gözlemle doğrulanan bilgiler gerçekliği doğrudan yansıtır. Toplumsal rolü: bilim toplumdan ve değer yargılarından bağımsız, nesnel bir etkinliktir. Sosyolog Elif — Çağdaş bilim anlayışı. Bilginin doğası: bilimsel bilgi değişebilir ve gelişmeye açıktır; yeni bulgular önceki bilgilerin yeniden değerlendirilmesine ya da geçersiz sayılmasına yol açabilir. Toplumsal rolü: bilim toplumsal bağlamdan bağımsız değildir; bilimsel çalışmalar kültürel koşullardan ve toplumsal ihtiyaçlardan etkilenebilir.",
+   "keyPoints": [
+    "Ahmet: klasik anlayış (1)",
+    "Ahmet: bilgi kesin, değişmez, deneyle kanıtlanabilir (2)",
+    "Ahmet: bilim toplumsal değerlerden bağımsız (2)",
+    "Elif: çağdaş anlayış (1)",
+    "Elif: bilgi değişebilir, gelişmeye açık (2)",
+    "Elif: bilim toplumsal ve kültürel etkilere açık (2)"
+   ],
+   "maxPoints": 10,
+   "explanation": "Her konuşmacının cümlelerini iki sütuna ayır: “bilgi nasıl?” ve “bilim toplumdan bağımsız mı?”. Ahmet: “evrensel ve genel geçer” ve “doğrulanmış teoriler” (kesin, değişmez); toplumsal değerlerden söz etmiyor, nesnel gerçeklik diyor (bağımsız). Elif: “değişebilir, yeniden değerlendirilebilir” ve “toplumsal değerlerden bütünüyle bağımsız değil”. Puan: anlayış 1, bilgi 2, toplumsal rol 2. Anlayışı yazıp gerekçeleri yazmazsan 8 puan kaybedersin.",
+   "category": "Soru 8: Bilim felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki davranışların ahlakın mı yoksa etiğin mi alanına girdiğini gerekçeyle yazınız. (a) Okulda kuyruğa girip sırasını beklemek. (b) “Sırayı beklemek neden iyidir, hangi ölçüte göre adildir?” sorusunu tartışmak.",
+   "correctAnswer": "(a) Ahlak: toplumdan beklenen pratik bir davranış, uygulamadır. (b) Etik: ahlaki davranışın ölçütünü ve adaleti kuramsal olarak sorgulamaktır.",
+   "keyPoints": [
+    "(a) ahlak + gerekçe",
+    "(b) etik + gerekçe"
+   ],
+   "maxPoints": 4,
+   "explanation": "Sırayı beklemek uygulanan bir davranış olduğundan ahlaktır; neden iyi ve adil olduğunu sorgulamak ise ölçüt arayan etiktir.",
+   "category": "Benzer soru: Ahlak ve etik",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Dürüstlük neden bir erdemdir ve hangi durumlarda kendi çıkarımızla çelişse bile yapmalıyız?” sorusu hangi alandadır? Gerekçeyi yazınız.",
+   "correctAnswer": "Etik alanındadır: dürüstlüğün ahlaki ölçütünü, erdemin anlamını ve eylemin temelini kuramsal olarak sorgular; belirli bir davranışı uygulamaz.",
+   "keyPoints": [
+    "Etik",
+    "Kuramsal sorgulama gerekçesi"
+   ],
+   "maxPoints": 3,
+   "explanation": "Neden/ölçüt soruları etik alanını gösterir.",
+   "category": "Benzer soru: Ahlak ve etik",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Etik ile ahlak arasındaki farkı üç özellik üzerinden karşılaştırınız: konusu, yöntemi, işlevi.",
+   "correctAnswer": "Konu: ahlak toplumun davranış kurallarıdır; etik ahlakı konu edinir. Yöntem: ahlak uygulama ve alışkanlıkla yaşanır; etik kavram çözümleme ve akıl yürütme kullanır. İşlev: ahlak davranışı düzenler; etik ahlakın ölçütünü ve temelini sorgular.",
+   "keyPoints": [
+    "Konu farkı",
+    "Yöntem farkı",
+    "İşlev farkı"
+   ],
+   "maxPoints": 9,
+   "explanation": "Üç sütunlu karşılaştırma kalıbı: ahlak pratik, etik kuramsaldır.",
+   "category": "Benzer soru: Ahlak ve etik",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Bir hırsızlık olayında suçlunun cezalandırılıp cezalandırılmayacağına bakmak yerine, ‘cezanın adil olması neye bağlıdır?’ diye inceleyen bir filozof”un faaliyeti etik midir? Gerekçelendirin.",
+   "correctAnswer": "Evet, etiktir; çünkü cezayı uygulamaz, adaletin ölçütünü ve temelini sorgular.",
+   "keyPoints": [
+    "Etik",
+    "Uygulamama/ölçüt sorgulama"
+   ],
+   "maxPoints": 3,
+   "explanation": "Etik mevcut kuralları uygulamaz, ölçüt arar.",
+   "category": "Benzer soru: Ahlak ve etik",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir toplulukta “yaşlılara yer vermek” yazısız kuraldır. Bu kural ahlakın mı etiğin mi konusudur? “Yaşlılara yer vermek neden iyi sayılır?” sorusu hangi alandadır?",
+   "correctAnswer": "Kuralın kendisi ahlakın konusudur (yazısız toplumsal kural). “Neden iyi sayılır?” sorusu etiğin konusudur (iyi ve kötünün temelini sorgular).",
+   "keyPoints": [
+    "Kural: ahlak",
+    "Neden sorusu: etik"
+   ],
+   "maxPoints": 4,
+   "explanation": "Aynı konu iki alanda farklı biçimde ele alınabilir.",
+   "category": "Benzer soru: Ahlak ve etik",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aristoteles’e göre bir çocuk neden korku filmindeki yaratığın maketine bakmaktan zevk alır? Cevabınızı estetik haz ve taklit kavramlarıyla yazınız.",
+   "correctAnswer": "Maket gerçek yaratığın taklididir; çocuk baktığında taklit ile gerçek arasında bağ kurar, neyin ne olduğunu tanır ve çıkarım yapar (“Bu o!”). Bu tanıma ve öğrenme süreci zihinsel haz verir.",
+   "keyPoints": [
+    "Taklit",
+    "Tanıma ve çıkarım",
+    "Öğrenme hazzı"
+   ],
+   "maxPoints": 10,
+   "explanation": "Aristoteles örneğindeki iki kriter: temel taklit, gerekçe bilişsel bağ.",
+   "category": "Benzer soru: Estetik haz (Aristoteles)",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir müze gezisinde öğrenci, gerçekçi bir portre ile modeli arasındaki benzerliği fark edip büyük keyif alıyor. Bu keyif Aristoteles’e göre neye dayanır?",
+   "correctAnswer": "Portre bir taklittir; öğrenci taklit ile model arasındaki benzerliği tanıyarak çıkarım yapar. Haz, bu tanıma ve anlama sürecinden doğar, yani bilişsel temellidir.",
+   "keyPoints": [
+    "Taklit",
+    "Tanıma/öğrenme",
+    "Bilişsel haz"
+   ],
+   "maxPoints": 8,
+   "explanation": "“Benzerliği fark etmek” = “Bu o!” süreci.",
+   "category": "Benzer soru: Estetik haz (Aristoteles)",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aristoteles’in estetik haz anlayışıyla “güzel olan herkese anında haz verir” görüşünü karşılaştırınız.",
+   "correctAnswer": "Aristoteles hazzı duyusal bir anlık hoşlanma değil, tanıma, anlama ve öğrenme gibi bilişsel süreçlerin sonucu sayar. “Herkese anında haz verir” görüşü ise hazzı doğrudan duyusal ve anlık kabul eder; bu nedenle Aristoteles’in bilişsel vurgusuyla ayrışır.",
+   "keyPoints": [
+    "Aristoteles: bilişsel haz",
+    "Karşı görüş: duyusal anlık haz"
+   ],
+   "maxPoints": 6,
+   "explanation": "Aristoteles hazzı anlık duyusal hoşlanma değil, tanıma ve öğrenmenin sonucu sayar; bu yüzden anında haz görüşünden ayrılır.",
+   "category": "Benzer soru: Estetik haz (Aristoteles)",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir köy meclisi, kuraklık nedeniyle suyun nasıl paylaştırılacağını tartışıyor. A: “Her haneye aynı miktar su verelim.” B: “Küçük aileye az, kalabalık aileye çok su verelim, ihtiyaca göre.” C: “Su kullanma hakkı yasayla her haneye güvence altındadır.” Üyelerin dayandığı kavramları gerekçeleriyle yazınız.",
+   "correctAnswer": "A: Eşitlik (herkese ayrım gözetmeden aynı miktar). B: Adalet (ihtiyaç ve duruma uygun dağıtım, herkes hak ettiğini alır). C: Hak (yasayla güvence altındaki yetki).",
+   "keyPoints": [
+    "A eşitlik",
+    "B adalet",
+    "C hak"
+   ],
+   "maxPoints": 9,
+   "explanation": "Eşitlik–adalet farkını örneklemek için tasarlanmış sorudur.",
+   "category": "Benzer soru: Siyaset felsefesi kavramları",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Hiç kimse düşüncelerini söylemekten alıkonulamaz, herkes istediği mesleği seçebilmelidir.” ifadesi hangi siyaset felsefesi kavramına dayanır? Gerekçesini yazınız.",
+   "correctAnswer": "Özgürlük: bireylerin baskı olmadan düşüncelerini ifade etmesi ve seçim yapabilmesi anlamına gelir.",
+   "keyPoints": [
+    "Özgürlük",
+    "Baskısız seçim/ifade"
+   ],
+   "maxPoints": 3,
+   "explanation": "Seçim yapabilme ve müdahale yokluğu özgürlüğü gösterir.",
+   "category": "Benzer soru: Siyaset felsefesi kavramları",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Yönetici, çıkardığı kuralları uygulatma yetkisine sahiptir ve aldığı kararlardan sorumludur.” cümlesi hangi kavramı örneklemektedir? Neden?",
+   "correctAnswer": "İktidar: kural koyma ve yürütme yetkisi yönetme gücünü ifade eder; sorumluluk da bu yetkinin getirdiği yük olarak vurgulanmıştır.",
+   "keyPoints": [
+    "İktidar",
+    "Kural koyma ve yürütme"
+   ],
+   "maxPoints": 3,
+   "explanation": "Kural koyma, uygulatma yetkisi ve ondan doğan sorumluluk iktidarı gösterir; beşinci üyenin ifadesiyle aynı yapıdadır.",
+   "category": "Benzer soru: Siyaset felsefesi kavramları",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Çalışan herkes aynı koşullarda ve aynı ücret ölçütüne göre değerlendirilmeli, kimse cinsiyeti nedeniyle geri plana atılmamalıdır.” sözü hangi kavrama dayanır? Gerekçeyi yazınız.",
+   "correctAnswer": "Eşitlik: ayrım gözetmeme ilkesine ve kimsenin dezavantajlı duruma düşmemesine vurgu yapar.",
+   "keyPoints": [
+    "Eşitlik",
+    "Ayrım gözetmeme"
+   ],
+   "maxPoints": 3,
+   "explanation": "“Ayrım gözetmeksizin” ifadesi eşitliğin anahtarıdır.",
+   "category": "Benzer soru: Siyaset felsefesi kavramları",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Mahkemenin, aynı suçu işleyen iki kişiden zor durumda olanın cezasını azaltıp diğerini aynı cezaya mahkûm etmesi adalet açısından savunulabilir mi? İki yönlü yazınız.",
+   "correctAnswer": "Savunma: adalet herkesin hak ettiğini almasıdır; durum farkı gözetilirse hakkaniyet sağlanır. Karşı görüş: aynı suç için eşit ceza eşitlik ilkesine uygundur; farklı ceza eşitliğe aykırı sayılabilir.",
+   "keyPoints": [
+    "Adaleti hakkaniyetle savunma",
+    "Eşitlik itirazı"
+   ],
+   "maxPoints": 6,
+   "explanation": "Durum farkını gözetmek adalet (hakkaniyet) lehine, aynı suça aynı ceza ise eşitlik lehine savunulabilir; iki yönü de yazmak gerekir.",
+   "category": "Benzer soru: Siyaset felsefesi kavramları",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aşağıdaki gruplardan hangisinin savunduğu yönetim biçimi nedir? Yönetme yetkisini, iktidarın kaynağını ve meşruiyetin dayanağını yazınız: “Yönetimi, konularında uzman, deneyimli ve erdemli bir kurula bırakalım; çünkü halk bilgisizdir, lider ise zorba olabilir.”",
+   "correctAnswer": "Aristokrasi. Yetki: seçkin bir kurul. İktidarın kaynağı: kurulun bilgi, erdem ve liyakati. Meşruiyet: toplumun en iyi nitelikli kişilerce yönetileceği anlayışı.",
+   "keyPoints": [
+    "Aristokrasi",
+    "Yetki: seçkin kurul",
+    "Kaynak: bilgi/erdem/liyakat",
+    "Meşruiyet: nitelik"
+   ],
+   "maxPoints": 5,
+   "explanation": "Uzman, deneyimli, erdemli kurul vurgusu ikinci grubun aristokrasi savunusuyla aynı yapıdadır: kaynak nitelik ve liyakattir.",
+   "category": "Benzer soru: Yönetim biçimleri ve meşruiyet",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Devlet tek bir kral tarafından yönetilmeli; kralın oğlu da tahta geçmelidir; böylece ülke karışıklıktan kurtulur.” Bu görüşü yönetim biçimi, yetki, kaynak ve meşruiyet bakımından çözümleyiniz.",
+   "correctAnswer": "Monarşi. Yetki: tek bir kişi (kral). Kaynak: soy ve aile. Meşruiyet: devletin devamlılığı ve istikrarı.",
+   "keyPoints": [
+    "Monarşi",
+    "Tek kişi",
+    "Soy/aile",
+    "Devamlılık/istikrar"
+   ],
+   "maxPoints": 5,
+   "explanation": "Tek kral, soya dayalı geçiş ve istikrar vurgusu birinci grubun monarşi savunusuna benzer.",
+   "category": "Benzer soru: Yönetim biçimleri ve meşruiyet",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Yöneticiler halk oylamasıyla seçilsin, görevlerini kötüye kullanırsa halk onları değiştirebilsin.” Bu görüşü savunanların yönetim biçimini ve meşruiyet dayanağını yazınız.",
+   "correctAnswer": "Demokrasi. Meşruiyet dayanağı: yönetme gücünün ve yetkisinin halk tarafından verilmiş olması (halk iradesi).",
+   "keyPoints": [
+    "Demokrasi",
+    "Halk tarafından verilen yetki"
+   ],
+   "maxPoints": 4,
+   "explanation": "Halkın seçmesi ve görevden alabilmesi üçüncü grubun demokrasi savunusudur; meşruiyet halkın verdiği yetkidir.",
+   "category": "Benzer soru: Yönetim biçimleri ve meşruiyet",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Monarşi, aristokrasi ve demokrasi için “iktidarın kaynağı” ve “meşruiyetin dayanağı” ayrımını birer cümleyle yazınız.",
+   "correctAnswer": "Monarşi: kaynak soy/aile; meşruiyet istikrar ve devamlılık. Aristokrasi: kaynak bilgi-erdem-liyakat; meşruiyet nitelikli yönetim. Demokrasi: kaynak halk iradesi; meşruiyet halkın verdiği yetki.",
+   "keyPoints": [
+    "Monarşi",
+    "Aristokrasi",
+    "Demokrasi"
+   ],
+   "maxPoints": 9,
+   "explanation": "Kaynak = nereden geliyor; meşruiyet = neden haklı.",
+   "category": "Benzer soru: Yönetim biçimleri ve meşruiyet",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Keyfî yönetime yol açmaması” gerekçesi hangi yönetim biçiminin diğerlerini eleştirmesinde kullanılır? Metindeki ilgili grubu belirtiniz.",
+   "correctAnswer": "Demokrasiyi savunanların (III. grup), iktidarın tek kişi veya ayrıcalıklı zümreye bırakılmasının keyfiliğe yol açabileceği eleştirisinde kullanılır.",
+   "keyPoints": [
+    "Demokrasi (III. grup)",
+    "Keyfiliğe yol açma eleştirisi"
+   ],
+   "maxPoints": 4,
+   "explanation": "Metinde III. grup “keyfiliğe neden olabilir” der.",
+   "category": "Benzer soru: Yönetim biçimleri ve meşruiyet",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir yazar, herkesin her şeyini devletin gözetlediği, düşüncenin suç sayıldığı bir toplumu romanında anlatıyor. Bu roman hangi tasarım türüne aittir ve hangi işlevi görür?",
+   "correctAnswer": "Distopya (istenilmeyen ütopya). Siyasi eğilimlerin kötüye gitmesinin tehlikesine karşı uyarı işlevi görür.",
+   "keyPoints": [
+    "Distopya",
+    "Uyarı işlevi"
+   ],
+   "maxPoints": 4,
+   "explanation": "Sürekli gözetleme ve düşüncenin suç sayılması 1984 romanındaki baskıcı gelecek tasarısıyla aynı yapıdadır: distopya.",
+   "category": "Benzer soru: Ütopya ve distopya",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir düşünür, herkesin eşit, huzurlu ve bilgili olduğu, yöneticilerin erdemli olduğu bir şehir anlatıyor. Bu eseri tür, iyimserlik ve eleştiri bakımından değerlendiriniz.",
+   "correctAnswer": "Ütopyadır. İyimser bir bakışla ideal toplumu betimler. Mevcut düzenin eksikliklerini dolaylı eleştiren bir işlevi vardır.",
+   "keyPoints": [
+    "Ütopya",
+    "İyimser ideal",
+    "Mevcut düzen eleştirisi"
+   ],
+   "maxPoints": 6,
+   "explanation": "Eşitlik, huzur ve erdemli yönetici Farabi’nin Erdemli Şehir örneğindeki ideal toplumla paraleldir: istenilen ütopya.",
+   "category": "Benzer soru: Ütopya ve distopya",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Ütopya ve distopyanın üç ortak özelliğini yazınız.",
+   "correctAnswer": "Kurgusal toplum tasarılarıdır; mevcut düzene yönelik eleştiri niteliği taşırlar; gelecek öngörüsü içerirler.",
+   "keyPoints": [
+    "Kurgusal",
+    "Eleştiri",
+    "Gelecek öngörüsü"
+   ],
+   "maxPoints": 3,
+   "explanation": "Kurgusallık, mevcut düzene eleştiri ve gelecek öngörüsü sınav rubriğinde ayrı ayrı 1 puandır.",
+   "category": "Benzer soru: Ütopya ve distopya",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Distopyalar yalnızca karamsarlık üretir.” görüşüne karşı çıkan bir cevap yazınız.",
+   "correctAnswer": "Distopyalar karamsarlıktan çok uyarı işlevi görür: siyasi eğilimler kötüye giderse ortaya çıkabilecek baskıyı göstererek toplumu önlem almaya çağırır ve mevcut düzene eleştirel bakmayı sağlar.",
+   "keyPoints": [
+    "Uyarı işlevi",
+    "Eleştirel bakış"
+   ],
+   "maxPoints": 5,
+   "explanation": "Distopya, siyasi eğilimler kötüye giderse neler olabileceğini gösteren uyarı niteliğinde bir senaryodur; bu yüzden salt karamsarlık değildir.",
+   "category": "Benzer soru: Ütopya ve distopya",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir sosyal medya platformunun kullanıcıları sürekli izleyip içerik özgürlüğünü kısıtladığı bir gelecek kurgusu hangi tür tasarıya örnektir? Ütopya ile arasındaki temel fark nedir?",
+   "correctAnswer": "Distopya. Ütopya ideal ve huzurlu toplumu iyimser anlatır; distopya baskıcı ve karanlık geleceği uyarı olarak sunar.",
+   "keyPoints": [
+    "Distopya",
+    "Ütopya ile fark"
+   ],
+   "maxPoints": 5,
+   "explanation": "Gözetleme ve özgürlük kısıtı distopya göstergesidir.",
+   "category": "Benzer soru: Ütopya ve distopya",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Teoloji ve din felsefesinin “inançlara yaklaşım” bakımından farkını yazınız.",
+   "correctAnswer": "Teoloji belirli bir dinin inançlarını temellendirmeyi, yorumlamayı ve savunmayı amaçlar. Din felsefesi ise dine dışarıdan, eleştirel, objektif ve rasyonel bir çözümlemeyle bakar; dogmatik yaklaşımdan kaçınır.",
+   "keyPoints": [
+    "Teoloji: savunma",
+    "Din felsefesi: eleştirel çözümleme"
+   ],
+   "maxPoints": 5,
+   "explanation": "İçeriden savunu ↔ dışarıdan eleştirel inceleme.",
+   "category": "Benzer soru: Din felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir kişi “Tanrı vardır ama evrene karışmaz; evren yasalarıyla çalışır.” diyor. Bu görüşün adı nedir ve teizmden farkı nedir?",
+   "correctAnswer": "Deizm. Teizm Tanrı’nın evrenle ilişkisinin sürdüğünü (vahiy, yol gösterme, müdahale) kabul eder; deizm Tanrı’yı yalnızca ilk neden ve yaratıcı olarak görür.",
+   "keyPoints": [
+    "Deizm",
+    "Teizm farkı"
+   ],
+   "maxPoints": 5,
+   "explanation": "Uras evrene müdahaleyi reddettiği için deisttir; İdil elçiler ve sorumluluk vurgusuyla teisttir.",
+   "category": "Benzer soru: Din felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Her olayın bir nedeni vardır; nedenler sonsuza kadar geriye gidemez; öyleyse ilk bir neden olmalı.” Bu akıl yürütme hangi argümandır? Hangi görüş sahipleri kullanabilir?",
+   "correctAnswer": "Kozmolojik argümandır; teizm ve deizm gibi Tanrı’nın varlığını kabul eden görüşler kullanabilir (Uras deist olarak kullanır).",
+   "keyPoints": [
+    "Kozmolojik argüman",
+    "Tanrı’yı kabul edenler"
+   ],
+   "maxPoints": 5,
+   "explanation": "Nedenler zincirinin bir ilk nedene dayanması gerektiği akıl yürütmesi kozmolojik argümandır.",
+   "category": "Benzer soru: Din felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Tanrı kavramı mükemmel varlık demektir; mükemmel varlık yoksa mükemmel olamazdı; o hâlde vardır.” Bu argüman hangisidir? İdil hangi cümleyle bunu kullanır?",
+   "correctAnswer": "Ontolojik argümandır. İdil “Eğer Tanrı olmasaydı benim zihnimde böyle mükemmel bir varlık fikri de oluşamazdı.” cümlesiyle kullanır.",
+   "keyPoints": [
+    "Ontolojik argüman",
+    "İdil’in cümlesi"
+   ],
+   "maxPoints": 5,
+   "explanation": "Mükemmel varlık kavramından onun var olduğuna geçmek ontolojik argümanın ayırt edici adımıdır; İdil bunu zihnindeki fikirle yapar.",
+   "category": "Benzer soru: Din felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Defne’nin kötülük argümanını üç adımda (öncül–öncül–sonuç) yazınız.",
+   "correctAnswer": "1. Öncül: Dünyada masumların da yaşadığı büyük acılar vardır. 2. Öncül: Her şeye gücü yeten ve iyi bir yaratıcı bu acılara engel olurdu. Sonuç: Öyleyse böyle bir yaratıcının varlığından söz edilemez.",
+   "keyPoints": [
+    "Acılar öncülü",
+    "Yaratıcı özellikleri öncülü",
+    "Sonuç"
+   ],
+   "maxPoints": 9,
+   "explanation": "Argüman kalıbı ile din felsefesi birleşir.",
+   "category": "Benzer soru: Din felsefesi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Teizm, deizm ve ateizmi “Tanrı’nın varlığı” ve “evrenle ilişkisi” sorularına verdikleri cevaplarla karşılaştırınız.",
+   "correctAnswer": "Teizm: Tanrı vardır, evrenle ilişkisi sürer. Deizm: Tanrı vardır, evreni yaratıp kendi hâline bırakmıştır. Ateizm: Tanrı yoktur, bu nedenle ilişki sorusu geçersizdir.",
+   "keyPoints": [
+    "Teizm",
+    "Deizm",
+    "Ateizm"
+   ],
+   "maxPoints": 9,
+   "explanation": "Varlık ve evrenle ilişki sorularına teizm evet-ilişki sürer, deizm evet-müdahale yok, ateizm hayır cevabını verir.",
+   "category": "Benzer soru: Din felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Evrendeki düzen ve uyumun bir tasarımcıyı gösterdiğini söyleyen biri hangi argümanı kullanır? Bu argümanı ilk neden ve kötülük argümanlarından ayırınız.",
+   "correctAnswer": "Teleolojik (düzen/amaç) argümanı kullanır. İlk neden argümanı nedenler zincirine, kötülük argümanı acıların varlığına, teleolojik argüman ise evrendeki düzene ve amaçlılığa dayanır.",
+   "keyPoints": [
+    "Teleolojik",
+    "Diğerlerinden ayrım"
+   ],
+   "maxPoints": 6,
+   "explanation": "İlk neden argümanı nedenler zincirine, kötülük argümanı acılara, teleolojik argüman evrendeki düzene dayanır.",
+   "category": "Benzer soru: Din felsefesi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir bilim insanı “Atomun yapısına ilişkin bilgilerimiz kesindir ve hiçbir zaman değişmez” diyor. Bu sözü klasik ve çağdaş bilim anlayışı bakımından değerlendiriniz.",
+   "correctAnswer": "Söz klasik bilim anlayışını yansıtır (kesin, değişmez bilgi). Çağdaş anlayış ise bilimsel bilginin yeni bulgularla değişebileceğini, geliştirilebileceğini ve geçerliliğini yitirebileceğini savunur.",
+   "keyPoints": [
+    "Klasik anlayış",
+    "Çağdaş anlayış karşıtlığı"
+   ],
+   "maxPoints": 6,
+   "explanation": "Ahmet kesin ve değişmez bilgiyi, Elif değişebilir bilgiyi savunur; atom bilgisinin değişmezliği iddiası Ahmet’in klasik çizgisidir.",
+   "category": "Benzer soru: Bilim felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "“Hangi hastalığın araştırılacağına devletin öncelikleri ve toplumun ihtiyaçları karar verir.” cümlesi bilimin toplumsal rolü açısından hangi anlayışı yansıtır? Gerekçesini yazınız.",
+   "correctAnswer": "Çağdaş bilim anlayışı: bilimsel çalışmalar toplumsal ihtiyaçlardan ve değerlerden bağımsız değildir.",
+   "keyPoints": [
+    "Çağdaş anlayış",
+    "Toplumsal ihtiyaçlara bağlılık"
+   ],
+   "maxPoints": 4,
+   "explanation": "Elif’in “toplumsal değerlerden bağımsız değil” cümlesine benzer.",
+   "category": "Benzer soru: Bilim felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Kimyager Ahmet ile sosyolog Elif’in “bilimsel bilginin doğası” hakkındaki görüş farkını iki cümlede yazınız.",
+   "correctAnswer": "Ahmet bilimsel bilgiyi deneyle doğrulanmış, kesin, değişmez ve evrensel sayar. Elif bilgiyi tarihsel süreçte değişebilir, yeni araştırmalarla yeniden değerlendirilebilir sayar.",
+   "keyPoints": [
+    "Ahmet: kesin/değişmez",
+    "Elif: değişebilir"
+   ],
+   "maxPoints": 4,
+   "explanation": "Klasik anlayış bilgiyi deneyle kanıtlanmış kesin sayar; çağdaş anlayış yeni bulgularla değişebilir sayar.",
+   "category": "Benzer soru: Bilim felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir yerde “Dünya düzdür” bilgisi uzun süre doğru kabul edilirken yeni gözlemlerle terk edilmiştir. Bu örnek hangi bilim anlayışını destekler? Neden?",
+   "correctAnswer": "Çağdaş bilim anlayışını destekler: bilgi tarihsel süreçte yeni bulgularla yeniden değerlendirilir ve geçerliliğini kaybedebilir.",
+   "keyPoints": [
+    "Çağdaş anlayış",
+    "Bilginin değişebilirliği"
+   ],
+   "maxPoints": 4,
+   "explanation": "Elif’in “önceden doğru kabul edilen bilgiler geçerliliğini kaybedebilir” cümlesine örnek.",
+   "category": "Benzer soru: Bilim felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bilimin “değerlerden bağımsız olması” gerektiğini savunan bir görüşü çağdaş anlayış açısından eleştiriniz.",
+   "correctAnswer": "Çağdaş anlayışa göre bilim insanı toplumsal ve kültürel bağlamda yaşar; araştırma konusu seçimi, finansman ve yorum toplumsal ihtiyaç ve değerlerden etkilenir. Bu nedenle tam bağımsızlık mümkün değildir.",
+   "keyPoints": [
+    "Toplumsal bağlam",
+    "Konu seçimi/yorum etkisi"
+   ],
+   "maxPoints": 5,
+   "explanation": "Klasik anlayışın nesnellik iddiasına karşı çağdaş itiraz.",
+   "category": "Benzer soru: Bilim felsefesi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Teoloji ve din felsefesinde aşağıdaki özellikleri kime ait olduğuna göre sınıflandırınız ve gerekçelendirin: “Belirli bir dinin öğretilerini savunmak”, “Dinin ne olduğunu farklı inanç sistemleriyle karşılaştırarak incelemek”, “Dinle ilgili konuları ele almak”.",
+   "correctAnswer": "Belirli bir dinin öğretilerini savunmak: teolojiye ait. Dinin ne olduğunu farklı inanç sistemleriyle genel bakışla incelemek: din felsefesine ait. Dinle ilgili konuları ele almak: her ikisinin ortak özelliği.",
+   "keyPoints": [
+    "Teoloji",
+    "Din felsefesi",
+    "Ortak"
+   ],
+   "maxPoints": 6,
+   "explanation": "Belirli bir dinin öğretisini savunmak teolojiye, farklı inanç sistemlerini genel bakışla incelemek din felsefesine, dinle ilgili konuları ele almak ikisine ortaktır.",
+   "category": "Benzer soru: Din felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "“Verilen sözü tutmak” davranışı hangi alana girer?",
+   "options": [
+    "Ahlak",
+    "Etik",
+    "Siyaset felsefesi",
+    "Bilim felsefesi"
+   ],
+   "correct": 0,
+   "explanation": "Söz tutmak toplumdan beklenen pratik bir davranıştır; etik ise bu davranışın ölçütünü sorgular.",
+   "category": "Ahlak ve etik",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aristoteles’e göre estetik hazzın temeli aşağıdakilerden hangisidir?",
+   "options": [
+    "Yaratım",
+    "Taklit",
+    "Oyun",
+    "Kutsallık"
+   ],
+   "correct": 1,
+   "explanation": "Aristoteles hazzı insanın taklit etme ve taklitle öğrenme eğilimine dayandırır.",
+   "category": "Estetik haz (Aristoteles)",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "“Hukuk düzeninin güvence altına aldığı meşru yetkiler” hangi kavramdır?",
+   "options": [
+    "Eşitlik",
+    "Adalet",
+    "Hak",
+    "İktidar"
+   ],
+   "correct": 2,
+   "explanation": "Yasalarla korunan kazanımlar hak kavramıdır.",
+   "category": "Siyaset felsefesi kavramları",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Yönetme yetkisinin tek bir kişide toplandığı ve soya dayandığı yönetim biçimi hangisidir?",
+   "options": [
+    "Aristokrasi",
+    "Demokrasi",
+    "Ateizm",
+    "Monarşi"
+   ],
+   "correct": 3,
+   "explanation": "Tek kişi ve soy-aile vurgusu monarşiyi gösterir.",
+   "category": "Yönetim biçimleri ve meşruiyet",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Demokraside meşruiyetin dayanağı nedir?",
+   "options": [
+    "Yönetme yetkisinin halk tarafından verilmesi",
+    "Yöneticinin soylu olması",
+    "Yöneticilerin uzman olması",
+    "Devletin güçlü olması"
+   ],
+   "correct": 0,
+   "explanation": "Demokraside iktidarın kaynağı halk iradesidir.",
+   "category": "Yönetim biçimleri ve meşruiyet",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "1984 romanı hangi tür hayali toplum tasarımına örnektir?",
+   "options": [
+    "Ütopya",
+    "Distopya",
+    "Teokrasi",
+    "Aristokrasi"
+   ],
+   "correct": 1,
+   "explanation": "Gözetleme, korku ve baskı distopya özelliğidir.",
+   "category": "Ütopya ve distopya",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Uras’ın benimsediği görüş ve kullandığı argüman hangisidir?",
+   "options": [
+    "Teizm – ontolojik argüman",
+    "Ateizm – kötülük argümanı",
+    "Deizm – kozmolojik argüman",
+    "Deizm – ontolojik argüman"
+   ],
+   "correct": 2,
+   "explanation": "Uras Tanrı’yı ilk neden kabul eder ve müdahalesini reddeder: deizm ve kozmolojik argüman.",
+   "category": "Din felsefesi",
+   "difficulty": "hard"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi çağdaş bilim anlayışının bir özelliğidir?",
+   "options": [
+    "Bilginin kesin ve değişmez olması",
+    "Bilimin toplumdan tümüyle bağımsız olması",
+    "Her kuramın evrensel sayılması",
+    "Bilimsel bilginin değişebilir ve gelişmeye açık olması"
+   ],
+   "correct": 3,
+   "explanation": "Elif’in görüşü çağdaş anlayışı yansıtır.",
+   "category": "Bilim felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "“Hakkaniyet ilkesini analiz etmek” aşağıdakilerden hangisinin alanına girer?",
+   "options": [
+    "Etik",
+    "Ahlak",
+    "Teoloji",
+    "Monarşi"
+   ],
+   "correct": 0,
+   "explanation": "Hakkaniyet kavramını felsefi olarak çözümlemek ahlakı uygulamak değil sorgulamaktır; bu yüzden etiğin alanına girer.",
+   "category": "Ahlak ve etik",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Din felsefesini teolojiden ayıran özellik hangisidir?",
+   "options": [
+    "Belirli bir dinin inançlarını savunması",
+    "Dogmatik yaklaşımdan kaçınıp eleştirel ve rasyonel bir analiz benimsemesi",
+    "Yalnızca bir inancı yorumlaması",
+    "Kutsal kitapları öğretmesi"
+   ],
+   "correct": 1,
+   "explanation": "Teoloji inancı içeriden savunur, din felsefesi genel ve eleştirel bakar.",
+   "category": "Din felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Defne’nin Tanrı’nın varlığına ilişkin görüşü ve argümanı hangisidir?",
+   "options": [
+    "Teizm – ontolojik argüman",
+    "Deizm – kozmolojik argüman",
+    "Ateizm – kötülük argümanı",
+    "Ateizm – kozmolojik argüman"
+   ],
+   "correct": 2,
+   "explanation": "Acıların varlığı nedeniyle yaratıcıyı reddeder.",
+   "category": "Din felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Meşruiyet kavramı en iyi nasıl tanımlanır?",
+   "options": [
+    "Yönetici sayısı",
+    "Yasaların uygulanma hızı",
+    "Halkın ekonomik durumu",
+    "İktidarın neden haklı ve kabul edilebilir sayıldığının dayanağı"
+   ],
+   "correct": 3,
+   "explanation": "Meşruiyet, yönetme yetkisinin haklılık gerekçesidir.",
+   "category": "Yönetim biçimleri ve meşruiyet",
+   "difficulty": "medium"
+  },
+  {
+   "type": "true-false",
+   "question": "Etik, mevcut ahlaki kuralları uygular ve yeni kurallar belirler.",
+   "correct": false,
+   "explanation": "Etik kural koymaz ve uygulamaz; ahlakı sorgular.",
+   "category": "Ahlak ve etik",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Aristoteles’e göre estetik haz duyusal bir hoşlanmadan çok öğrenme ve anlamanın sonucudur.",
+   "correct": true,
+   "explanation": "“Bu o!” diyerek tanıma ve çıkarım yapmak bilişsel bir hazdır.",
+   "category": "Estetik haz (Aristoteles)",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Adalet, herkesin hak ettiğini almasıdır.",
+   "correct": true,
+   "explanation": "Dördüncü üyenin ifadesi adalet kavramını gösterir.",
+   "category": "Siyaset felsefesi kavramları",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Aristokraside iktidarın kaynağı halk iradesidir.",
+   "correct": false,
+   "explanation": "Aristokraside kaynak yönetenlerin bilgi, erdem ve liyakatidir; halk iradesi demokraside geçerlidir.",
+   "category": "Yönetim biçimleri ve meşruiyet",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Distopya, gerçekleşmesi arzulanan ideal toplumu anlatır.",
+   "correct": false,
+   "explanation": "İdeal toplumu anlatan ütopyadır; distopya karanlık uyarı senaryosudur.",
+   "category": "Ütopya ve distopya",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Deizm, Tanrı’nın evrene sürekli müdahale ettiğini savunur.",
+   "correct": false,
+   "explanation": "Deizm Tanrı’nın evreni yaratıp kendi hâline bıraktığını savunur.",
+   "category": "Din felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Klasik bilim anlayışında bilimsel bilgi kesin ve değişmezdir.",
+   "correct": true,
+   "explanation": "Ahmet’in görüşü klasik anlayışı temsil eder.",
+   "category": "Bilim felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Tek kişinin yönetimine ____ denir.",
+   "answers": [
+    "monarşi"
+   ],
+   "explanation": "Monarşi yetkinin tek elde toplandığı yönetimdir.",
+   "category": "Yönetim biçimleri ve meşruiyet",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Tanrı’nın varlığını reddeden görüşe ____ denir.",
+   "answers": [
+    "ateizm"
+   ],
+   "explanation": "Acıların varlığını gerekçe gösterip yaratıcının varlığını reddeden Defne ateisttir.",
+   "category": "Din felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Mükemmel varlık fikrinden Tanrı’nın varlığını çıkaran argüman ____ argümandır.",
+   "answers": [
+    "ontolojik"
+   ],
+   "explanation": "İdil’in zihnindeki mükemmel varlık fikri bu argümanı gösterir.",
+   "category": "Din felsefesi",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Mevcut siyasi koşulların kötüye gitmesiyle ortaya çıkabilecek karanlık toplum tasarısına ____ denir.",
+   "answers": [
+    "distopya"
+   ],
+   "explanation": "Distopya istenilmeyen ütopya olarak da anılır; korku ve baskı üzerine kurulu karanlık bir toplum tasarısıdır.",
+   "category": "Ütopya ve distopya",
+   "difficulty": "easy"
+  },
+  {
+   "type": "matching",
+   "question": "Yönetim biçimlerini savunucularıyla eşleştiriniz.",
+   "pairs": [
+    {
+     "left": "I. Grup",
+     "right": "Monarşi"
+    },
+    {
+     "left": "II. Grup",
+     "right": "Aristokrasi"
+    },
+    {
+     "left": "III. Grup",
+     "right": "Demokrasi"
+    }
+   ],
+   "explanation": "I. grup tek kişi/soy, II. grup seçkin/erdem, III. grup halk iradesini savunur.",
+   "category": "Yönetim biçimleri ve meşruiyet",
+   "difficulty": "medium"
+  },
+  {
+   "type": "matching",
+   "question": "Kişileri görüşleriyle eşleştiriniz.",
+   "pairs": [
+    {
+     "left": "İdil",
+     "right": "Teizm"
+    },
+    {
+     "left": "Defne",
+     "right": "Ateizm"
+    },
+    {
+     "left": "Uras",
+     "right": "Deizm"
+    }
+   ],
+   "explanation": "İdil Tanrı’nın ilişkisini sürdürdüğünü, Defne yaratıcıyı reddettiğini, Uras müdahaleyi reddettiğini söyler.",
+   "category": "Din felsefesi",
+   "difficulty": "medium"
+  },
+  {
+   "type": "matching",
+   "question": "Kavramları meclis üyelerinin cümleleriyle eşleştiriniz.",
+   "pairs": [
+    {
+     "left": "Eşitlik",
+     "right": "Hiçbir ayrım gözetmeksizin"
+    },
+    {
+     "left": "Özgürlük",
+     "right": "Seçim yapma ve karar verebilme"
+    },
+    {
+     "left": "Hak",
+     "right": "Yasalarla korunan kazanımlar"
+    },
+    {
+     "left": "Adalet",
+     "right": "Payına düşeni alma"
+    },
+    {
+     "left": "İktidar",
+     "right": "Kural koyma ve yürütme yetkisi"
+    }
+   ],
+   "explanation": "Ayrım yokluğu eşitliği, seçim yapabilmek özgürlüğü, yasayla korunan kazanım hakkı, payına düşeni almak adaleti, kural koyma yetkisi iktidarı gösterir.",
+   "category": "Siyaset felsefesi kavramları",
+   "difficulty": "medium"
+  },
+  {
+   "type": "matching",
+   "question": "Bilim anlayışlarını özellikleriyle eşleştiriniz.",
+   "pairs": [
+    {
+     "left": "Klasik",
+     "right": "Kesin ve değişmez bilgi"
+    },
+    {
+     "left": "Çağdaş",
+     "right": "Değişebilen ve gelişmeye açık bilgi"
+    }
+   ],
+   "explanation": "Ahmet’in kesin ve değişmez bilgi anlayışı klasik, Elif’in değişebilir ve bağlama açık bilgi anlayışı çağdaş bilim anlayışıdır.",
+   "category": "Bilim felsefesi",
+   "difficulty": "medium"
+  }
+ ],
+ "sources": [
+  {
+   "id": "src1",
+   "name": "10. Sınıf Felsefe - 2. Dönem 2. Yazılı (OGM Yazılıya Hazırlanıyorum)",
+   "kind": "file",
+   "text": "=== Page 1 ===\nYAZILIYA HAZIRLANIYORUM\n2. DÖNEM - 2. YAZILI\nFELSEFE\n1. Ahlak, insanların toplum içindeki eylemlerini ve birbirleriyle olan ilişkilerini düzenlemek amacıyla oluşturulmuş\nyazısız kurallar bütünüdür. İyi ve kötüye ilişkin bireylerden beklenen pratik davranışları, toplumun değer yargılarını\nve \"Ne yapmalıyım?\" sorusuna verilen cevapları içerir. Etik yani ahlak felsefesi ise ahlakı kendine konu edinen\nfelsefe disiplinidir. Etik, mevcut ahlaki kuralları uygulamaz ya da yeni kurallar belirlemez. Bir eylemi ahlaki kılan\nölçütün neler olabileceğini, iyi ve kötünün ne anlama geldiğini, insanın eylemlerinin sonuçlarından sorumlu olup\nolmadığını ve bunlara benzer konuları ele alır.\nMetinden yola çıkarak aşağıda verilen davranış örneklerinin ahlakın mı yoksa etiğin mi alanına girdiğini\nbelirleyip seçiminizi gerekçesiyle yazınız.\nI. Adalet kavramının temelindeki hakkaniyet ilkesini analiz etmek:\n……\n……\nII. Verilen sözü tutmak ve dürüst davranmak:\n……\n……\nIII. Bir topluma ait geleneksel kuralları uygulamayı sürdürmek:\n……\n……\nIV. Erdemli davranışlarla vicdan arasındaki ilişkiyi anlamaya çalışmak:\n……\n……\nV. Ahlaki eylemlerin özgür bir iradeyle yapılıp yapılmadığını tartışmak:\n……\n……\n2. Taklit etme insanlarda çocukluktan itibaren doğal olarak ortaya çıkar, insanları diğer hayvanlardan ayıran şey taklit\netmeye yatkın olmaları ve ilk öğrendiklerini taklit yoluyla öğrenmeleridir, ayrıca bütün insanlar taklitlerden hoşlanır.\nBunun bir göstergesi de eserlerden gelir: Görmekten rahatsız olduğumuz şeylerin birebir çizilmiş resimlerine,\nbakmaktan zevk alırız. Öğrenmek, sadece filozofların değil diğer insanların da en çok haz aldığı şeydir. Resimlere\nbakmak hoşlarına gider. Çünkü baktıkları sırada bir şeyin ne olduğunu anlayıp çıkarsama yaparlar: “Bu o!” gibi.\nAristoteles, Poetika\n(Kısaltılmıştır.)\nAristoteles’in Poetika eserinden alınan metne göre estetik hazzın dayandığı temel nedir? Gerekçesiyle\nyazınız.\n=== Page 2 ===\nYAZILIYA HAZIRLANIYORUM (2. DÖNEM-2. YAZILI)\n3. Bir belediyenin meclis toplantısında, şehir merkezindeki bir caddenin araç trafiğine kapatılması kararı oylamaya\nsunulmuştur. Meclis üyeleri bu konuyla ilgili görüşlerini şu şekilde dile getirir.\n1. Üye: Eğer cadde trafiğe kapatılırsa hiçbir ayrım gözetilmeksizin tüm vatandaşların bu caddedeki mekânlara\nerişebilmesi için gerekli imkânlar sağlanmalıdır. Hiç kimse bu düzenleme nedeniyle dezavantajlı duruma\ndüşmemelidir.\n2. Üye: Vatandaşlarımızın istedikleri yere istedikleri ulaşım aracıyla gitme tercihine müdahale etmemiz, bireylerin\nhareket alanını kısıtlamaktır. İnsanların ulaşım tercihleriyle ilgili seçim yapma ve karar verebilme imkânı\nkorunmalıdır.\n3. Üye: Caddede bulunan esnaf ve vatandaşların mülkiyet ve ulaşımla ilgili olarak yasalarla korunan kazanımları\nolduğu unutulmamalıdır. Bireylerin meşru zeminde sahip olduğu yetkiler ihlal edilmemelidir.\n4. Üye: Bu karar alınırken doğuracağı sonuçlar hesaplanmalıdır. Toplumsal yarar ve zarar, caddeden faydalanan\nher kesimin ihtiyacı ve durumu gözetilerek herkesin payına düşeni alacağı şekilde dağıtılmalıdır.\n5. Üye: Ortak bir kararda uzlaşmalıyız. Bu meclis çatısı altında kural koyma ve yürütme yetkisini kullandığımızı ve\nbu yetkiden doğan sorumluluğu üstlendiğimizi unutmamalıyız.\nMetindeki her bir üyenin görüşünün “iktidar, eşitlik, özgürlük, adalet ve hak” kavramlarından hangisine\ndayandığını gerekçesiyle birlikte yazınız.\n4. Uzun süren ekonomik kriz ve toplumsal huzursuzluk yaşanan bir ülkede, mevcut yönetim biçimi sorgulanmaya\nbaşlanır. Ülkede bu sorunun çözümü için üç farklı bakış açısı öne çıkar:\nI. Grup: Devletin güçlü ve kararlı biri tarafından yönetilmesi gerektiğini savunur. Onlara göre toplumsal düzenin\nkorunması ve devletin devamlılığı için yönetme yetkisi tek elde toplanmalıdır. Bu yetkiyi kullanan kişinin köklü bir\naileye veya soya ait olması, yönetimde istikrar sağlayacaktır.\nII. Grup: Yönetimin bilgi ve erdem sahibi seçkin bir topluluğa bırakılmasının daha doğru olacağını ileri sürer. Onlara\ngöre ülkeyi; eğitimli, deneyimli ve uzman kişiler yönetmelidir. Çünkü tüm yetkinin bir lidere verilmesi zorbalığa;\nliyakat ve erdemin geri planda kalmasına neden olabilir.\nIII. Grup: Bu görüşlere karşı çıkar. İktidarın tek bir kişi veya ayrıcalıklı bir zümreye bırakılmasının keyfiliğe neden\nolabileceğini savunur. Onlara göre yönetme yetkisi halkın rızasına dayanmalıdır. Devletin varlık nedeni, bireylerin\nhak ve özgürlüklerini korumaktır. Bu nedenle yöneticiler halk tarafından belirlenmeli ve gerektiğinde görevden\nuzaklaştırılabilmelidir.\nMetinde görüşleri verilen grupların savunduğu yönetim biçimlerini aşağıdaki tabloda X ile işaretleyiniz.\nBu grupların anlayışına göre yönetme yetkisinin kimde olduğunu, iktidarın kaynağını ve meşruiyetinin\ndayanağını tabloda ilgili yerlere yazınız.\nMonarşi Aristokrasi Demokrasi Yönetme Yetkisi Iktidarın Kaynağı Meşruiyetinin Dayanağı\nI. Grup\nII. Grup\nIII. Grup\n=== Page 3 ===\nYAZILIYA HAZIRLANIYORUM (2. DÖNEM-2. YAZILI)\n5. Tarih boyunca düşünürler, mevcut toplumsal düzeni eleştirmek ya da gelecekte yaşanabilecek tehlikelere karşı\ninsanlığı uyarmak amacıyla çeşitli devlet tasarımları ortaya koymuşlardır. Örneğin Farabi, Erdemli Şehir adlı\neserinde insanların yardımlaşarak gerçek mutluluğa ulaştığı, yöneticinin peygamber veya filozof gibi erdemli bir kişi\nolduğu, adaletin ve iyiliğin hâkim olduğu mükemmel bir toplum yapısı tasvir etmiştir. Buna karşılık George Orwell,\n1984 adlı eserinde bireylerin \"Büyük Birader\" tarafından sürekli gözetlendiği, düşünce özgürlüğünün tamamen yok\nedildiği, korku ve baskının hâkim olduğu karanlık bir gelecek kurgulamıştır.\nMetinde verilen eser örneklerinin hangi “hayali toplum tasarımı” türüne ait olduğunu belirleyiniz. Ardından bu\niki tür arasındaki benzerlikleri ve farklılıkları metinden hareketle yazınız.\nErdemli Şehir\nTürü: ……\n1984\nTürü: ……\nIki türün farklı özellikleri:……\n……\n……\n……\nIki türün benzer özellikleri: ……\n……\n……\n……\n6. Tabloda verilen özelliklerin din felsefesine mi, teolojiye mi yoksa her ikisine birden mi ait olduğunu\nbelirleyerek tabloda ilgili yerlere “√” işareti koyunuz.\nÖzellikler Teoloji Din Felsefesi\nTeoloji ve Din\nFelsefesi Için\nOrtak\nİnançları temellendirmeyi ve savunmayı amaçlar.\nDogmatik yaklaşımlardan kaçınır.\nDini ve dinle ilgili konuları ele alır.\nDinin insan yaşamındaki yeriyle ilgilenir.\nBelirli bir dinin öğretilerini yorumlamaya ve\ndesteklemeye çalışır.\nMantıksal açıklamalar ve argümanlar kullanır.\nEleştirel, objektif ve rasyonel bir analiz yöntemini\nbenimser.\nBelirli bir dinin öğretilerini ve uygulamalarını inceler.\nDinin ne olduğunu ve farklı inanç sistemlerini genel\nbir bakış açısıyla inceler.\nİnsanın varoluşu, ahlaki sorumlulukları ve evrenin\ndoğası gibi konularla ilgilenir.\n=== Page 4 ===\nYAZILIYA HAZIRLANIYORUM (2. DÖNEM-2. YAZILI)\n7. Din, Tanrı ve inanç konuları üzerine tartışan üç arkadaş arasında aşağıdaki konuşma geçer:\nIdil: Ben bizi ve her şeyi yaratan, sonsuz güç sahibi bir Tanrı’nın var olduğuna inanıyorum. O olup biten her şeyi\nbiliyor, bize yol göstermek için elçilerle mesajlar gönderiyor. Bu nedenle de tüm eylemlerimizden sorumluyuz.\nTanrı’nın varlığını ve O’na karşı sorumluluğumu kalpten hissediyorum. Eğer Tanrı olmasaydı benim zihnimde böyle\nmükemmel bir varlık fikri de oluşamazdı.\nDefne: Bu konuda senden çok farklı düşünüyorum. Bu dünyada nereye baksan acımasızlık ve adaletsizlik\ngörürsün. Masum ve iyi insanlar, savunmasız küçük çocuklar, birçok canlı acı içinde. Tarif ettiğin özelliklere\nsahip bir yaratıcının, tüm bu acıların yaşanmasına engel olması gerekmez mi? Bu türden acılar varlığını artırarak\nsürdürdüğüne göre öyle bir yaratıcının varlığından söz edilemez.\nUras: Ben de İdil gibi bir yaratıcının var olduğuna inanıyorum ve Defne’nin söz ettiği gibi bu dünyada acımasızlığın\nda olduğunu kabul ediyorum. Ancak bazı konularda sizden farklı düşünüyorum. Mesela Tanrı’nın evrene müdahale\nettiğini sanmıyorum. Tabii ki her şeyin bir nedeni olduğu gibi, sürecin en başında evrenin var olması için de bir ilk\nnedene ihtiyaç vardı. Bu neden Tanrı’ydı ancak onun evrenle ilişkisi buraya kadardı. Tanrı evreni yasalarıyla birlikte\nyarattı ve bu yasalara göre işlemek üzere kendi hâline bıraktı.\nMetinden hareketle aşağıda yer alan kavram haritasındaki boşluklara uygun kavramları yazınız.\nDİN FELSEFESİDin felsefesinde\nTanrı’nın varlığına\nilişkin Uras’ın\nbenimsediği görüştür.\nBu görüşü benimseyen arkadaşlarından\nTanrı’nın varlığı konusunda ayrışan\nDefne’nin benimsediği görüştür.\nBu görüşü benimseyen Defne’nin\nTanrı’nın varlığına yönelik\nkanıtlamalarında kullandığı argümandır.\nDin felsefesinde\nTanrı’nın varlığına\nilişkin İdil’in\nbenimsediği görüştür.\nBu görüşü benimseyen\nİdil’in Tanrı’nın varlığına\nyönelik kanıtlamalarında\nkullandığı argümandır.\nBu görüşü benimseyen\nUras’ın Tanrı’nın varlığına\nyönelik kanıtlamalarında\nkullandığı argümandır.\n8. Bilim değişmez doğruların alanı mı, yoksa sürekli kendini yenileyen bir bilgi arayışı mıdır? Bir kariyer günü\netkinliğine katılan konuşmacılar, bilimin doğasına ilişkin bu temel sorunu gündeme getirmiştir.\nKimyager Ahmet, “Bilim, doğayı anlamanın en güvenilir yoludur. Bilimsel bilgi, deney ve gözlemle test edilerek\ndoğrulanır ve nesnel gerçekliği ortaya koyar. Bilimsel olarak doğrulanmış teoriler, evrensel ve genel geçer kabul\nedilir.” diyerek görüş bildirir.\nSosyolog Elif ise “Bilimsel bilgi tarihsel süreç içinde değişebilir. Yeni araştırmalar, önceden doğru kabul edilen\nbilgilerin yeniden değerlendirilmesine ve geçerliliğini kaybetmesine yol açabilir. Ayrıca bilimsel çalışmalar toplumsal\ndeğerlerden bütünüyle bağımsız değildir.” diyerek görüş bildirir.\nKimyager Ahmet ve sosyolog Elif’in görüşlerinin klasik ve çağdaş bilim anlayışlarından hangisini temsil\nettiğini, bilginin doğası ve bilimin toplumsal rolü açısından gerekçelendirerek açıklayınız.\nKimyager Ahmet’in;\nTemsil ettiği bilim anlayışı: ……\nBilginin doğası açısından: ……\nBilimin toplumsal rolü açısından: ……\nSosyolog Elif’in;\nTemsil ettiği bilim anlayışı: ……\nBilginin doğası açısından: ……\nBilimin toplumsal rolü açısından: ……\n=== Page 5 ===\nYAZILIYA HAZIRLANIYORUM (2. DÖNEM-2. YAZILI)\nSORU\nNO ÖĞRENME ÇIKTISI BECERILER\n1\nFEL.10.5.1. Ahlak felsefesinin konusunu,\nkavramlarını ve problemlerini muhakeme edebilme\na) Ahlak felsefesinin konusunu ve temel\nkavramlarını açıklar.\nAlan Becerileri\nSBAB14. Felsefi Muhakeme\n(SBAB14.1. Felsefi Problemleri Anlama)\nKavramsal Beceriler (Beceriler Arası Ilişkiler)\nKB2.7. Karşılaştırma\nKB2.10. Çıkarım Yapma\n2\nFEL.10.6.1. Estetik ve sanat felsefesinin konusunu,\nkavramlarını ve problemlerini muhakeme edebilme\nc) Estetik ve sanat felsefesinin temel problemlerine\nyönelik düşünce ve argümanları değerlendirir.\nAlan Becerileri\nSBAB14. Felsefi Muhakeme (SBAB14.1. Felsefi\nProblemleri Anlama, SBAB14.2. Felsefi Düşünce ve\nArgümanları Değerlendirme)\nKavramsal Beceriler (Beceriler Arası Ilişkiler)\nKB2.10. Çıkarım Yapma\nKB3.3. Eleştirel Düşünme\n3\nFEL.10.7.1. Siyaset felsefesinin konusunu,\nkavramlarını ve problemlerini muhakeme edebilme\na) Siyaset felsefesinin konusunu ve temel\nkavramlarını açıklar.\nAlan Becerileri\nSBAB14. Felsefi Muhakeme (SBAB14.1. Felsefi\nProblemleri Anlama)\nKavramsal Beceriler (Beceriler Arası Ilişkiler)\nKB2.10. Çıkarım Yapma\n4\nFEL.10.7.1. Siyaset felsefesinin konusunu,\nkavramlarını ve problemlerini muhakeme edebilme\nb) Siyaset felsefesinin temel problemlerini açıklar.\nAlan Becerileri\nSBAB14. Felsefi Muhakeme (SBAB14.1. Felsefi\nProblemleri Anlama)\nKavramsal Beceriler (Beceriler Arası Ilişkiler)\nKB2.10. Çıkarım Yapma\nKB3.3. Eleştirel Düşünme\n5\nFEL.10.7.1. Siyaset felsefesinin konusunu,\nkavramlarını ve problemlerini muhakeme edebilme\nc) Siyaset felsefesinin temel problemlerine yönelik\ndüşünce ve argümanları değerlendirir.\nAlan Becerileri\nSBAB14. Felsefi Muhakeme (SBAB14.1. Felsefi\nProblemleri Anlama, SBAB14.2. Felsefi Düşünce ve\nArgümanları Değerlendirme)\nKavramsal Beceriler (Beceriler Arası Ilişkiler)\nKB2.10. Çıkarım Yapma\n6\nFEL.10.8.1. Din felsefesinin konusunu, kavramlarını\nve problemlerini muhakeme edebilme\na) Din felsefesinin konusunu ve temel kavramlarını\naçıklar.\nAlan Becerileri\nSBAB14. Felsefi Muhakeme (SBAB14.1. Felsefi\nProblemleri Anlama)\nKavramsal Beceriler (Beceriler Arası Ilişkiler)\nKB2.7. Karşılaştırma\n7\nFEL.10.8.1. Din felsefesinin konusunu, kavramlarını\nve problemlerini muhakeme edebilme\nb) Din felsefesinin temel problemlerini açıklar.\nAlan Becerileri\nSBAB14. Felsefi Muhakeme (SBAB14.1. Felsefi\nProblemleri Anlama, SBAB14.2. Felsefi Düşünce ve\nArgümanları Değerlendirme)\nKavramsal Beceriler (Beceriler Arası Ilişkiler)\nKB2.7. Karşılaştırma\n8\nFEL.10.9.1. Bilim felsefesinin konusunu,\nkavramlarını ve problemlerini muhakeme edebilme\nb) Bilim felsefesinin temel problemlerini açıklar.\nAlan Becerileri\nSBAB14. Felsefi Muhakeme (SBAB14.1. Felsefi\nProblemleri Anlama)\nKavramsal Beceriler (Beceriler Arası Ilişkiler)\nKB2.7. Karşılaştırma\nKB2.18. Tartışma\nKB3.3. Eleştirel Düşünme\n=== Page 6 ===\nYAZILIYA HAZIRLANIYORUM (2. DÖNEM-2. YAZILI)\nPUANLAMA TABLOSU\n1 2 3 4 5 6 7 8 TOPLAM\n10 10 15 15 15 10 15 10 100\nÇÖZÜMLER\n1. Doğru Cevap:\nTAM CEVAP (10 PUAN)\nVerilen davranış örneklerinin hangi alana ait olduğunun (etik-ahlak) doğru yazıldığı her örnek için 1’er puan, yazılan\nher doğru gerekçe için 1’er puan verilir.\nVerilen davranış örneklerinin tamamının ait olduğu alanın ve gerekçesinin doğru yazılması durumunda 10 tam puan\nverilir.\nÖrnek cevap:\nI. Adalet kavramının temelindeki hakkaniyet ilkesini analiz etmek:\nKavramın yapısını ve özünü felsefi olarak çözümlediği için etik alanına girer.\nII. Verilen sözü tutmak ve dürüst davranmak:\nToplumda bireylerden beklenen pratik ve olgusal bir davranış ile ilgili olduğu için ahlak alanına girer.\nIII. Bir topluma ait geleneksel kuralları uygulamayı sürdürmek:\nToplumsal yaşamı düzenleyen yazısız kurallar bütününe dâhil olduğu ve bunu davranışa dönüştürmeyi içerdiği için\nahlak alanına aittir.\nIV. Erdemli davranışlarla vicdan arasındaki ilişkiyi anlamaya çalışmak:\nAhlaki kavramları sorgulayıp değerlendirmeye çalıştığı için etik alanına girer.\nV. Ahlaki eylemlerin özgür bir iradeyle yapılıp yapılmadığını tartışmak:\nEylemlerin temelindeki özgürlük problemini kuramsal düzeyde ele aldığı için etik alanına aittir.\nKISMI CEVAP (1-9 PUAN)\nÖğrencinin hangi alana ait olduğunu (etik-ahlak) doğru yazamadığı ya da cevaplamadığı verilen davranış örneği için\n1 puan; doğru yazılmayan veya cevaplanmayan her gerekçe için 1 puan eksik verilir. Öğrencinin davranış örneğinin\nhangi alana ait olduğunu belirlemeden gerekçesini yazması mümkün değildir. Bu nedenle yalnızca gerekçenin\nyazılması durumunda öğrenciye puan verilmez.\nYANLIŞ CEVAP (0 PUAN)\nDavranış örneklerinin hangi alana ait olduklarının ve gerekçelerinin yazılmaması, ilişkisiz cevap verilmesi ve boş\nbırakılması durumunda 0 puan verilir.\n2. Doğru Cevap:\nTAM CEVAP (10 PUAN)\nÖğrencinin açıklamasında değindiği kriterler için verilecek puanlar aşağıdaki gibi olacaktır:\n• Estetik hazzın temelinin insanın doğasında bulunan taklit (mimesis) olduğunu belirtme (3 puan)\n• Gerekçe olarak taklit edilen nesne ile gerçeklik arasında bilişsel bağın (öğrenme, tanıma ve çıkarım süreçleri)\nbireye zihinsel bir haz verdiğini belirtme (7 puan)\nÖğrenciden tüm kriterleri içeren bir açıklama yapması beklenir. Bu açıklamayı yapması durumunda öğrenciye 10\ntam puan verilir.\n=== Page 7 ===\nYAZILIYA HAZIRLANIYORUM (2. DÖNEM-2. YAZILI)\nÖrnek Cevap:\nAristoteles estetik hazzı insanın doğasında bulunan taklit etme ve taklit yoluyla öğrenme eğilimine\ndayandırmaktadır. Bir resme bakıldığında zihin, taklit ile gerçek nesne arasında bir bağ kurar; nesneyi tanır ve “Bu\no!” diyerek çıkarımda bulunur. Bu tanıma bilişsel bir süreçtir. Dolayısıyla estetik haz, duyusal bir hoşlanmadan çok\nanlama, kavrama ve öğrenmenin sonucudur.\nKISMI CEVAP (3-7 PUAN)\nÖğrencinin estetik hazzın temelinin taklit (mimesis) olduğunu belirtmemesi durumunda 3 puan, gerekçe olarak taklit\nedilen nesne ile gerçeklik arasında bilişsel bağın (öğrenme, tanıma ve çıkarım süreçleri) bireye zihinsel bir haz\nverdiğini belirtmemesi durumunda 7 puan eksik verilir.\nYANLIŞ CEVAP (0 PUAN)\nVerilen kriterlere değinilmemesi, ilişkisiz cevap verilmesi ya da sorunun boş bırakılması durumunda 0 puan verilir.\n3. Doğru Cevap:\nTAM CEVAP (15 PUAN)\nÖğrenciye belediye meclisi üyelerinin görüşleriyle ilişkili kavramların ve bu kavramların yazılmasına dayanak\noluşturan gerekçelerin tamamını doğru yazması durumunda 15 tam puan verilir.\nKonuşmacıların görüşleriyle ilişkili kavramlar ve bu kavramların yazılma gerekçeleri aşağıdaki gibidir:\n1. Üye: Eşitlik (1 puan)\nGerekçe: Bu üyenin görüşünde yer alan “hiçbir ayrım gözetilmemesi” ve “hiç kimsenin dezavantajlı duruma\ndüşmemesi” ifadeleri toplumsal yaşamda bireyler arasında haklar ve olanaklar bakımından ayrım gözetilmemesi\nilkesini yani eşitliği vurgulamaktadır. (2 puan)\n2. Üye: Özgürlük (1 puan)\nGerekçe: Bu üyenin görüşünde yer alan “müdahale etmeme”, “seçim yapma” ve “karar verebilme” ifadeleri\nbireylerin baskı altında kalmadan, iradeleriyle seçim yapabilmesi ve kararlar alabilmesi anlamına gelen özgürlük\nkavramını işaret etmektedir. (2 puan)\n3. Üye: Hak (1 puan)\nGerekçe: Bu üyenin görüşünde geçen “yasalarla korunan kazanımlar” ve “meşru zemin” ifadeleri bireyin hukuk\ndüzeni tarafından güvence altına alınmış yetkileri olan hak kavramını işaret etmektedir. (2 puan)\n4. Üye: Adalet (1 puan)\nGerekçe: Bu üyenin sözlerinde geçen “yarar ve zarar konusunda bireylerin ihtiyaçlarıyla durumlarını gözetme” ve\n“payına düşeni alma” ifadeleri herkesin hak ettiğini alması anlamına gelen adalet kavramına dayanmaktadır. (2 puan)\n5. Üye: İktidar (1 puan)\nGerekçe: Üyenin konuşmasında geçen “kural koyma ve yürütme yetkisi” vurgusu, yönetme gücünü ifade eden\niktidar kavramını işaret etmektedir. (2 puan)\nKISMI CEVAP (1-13 PUAN)\nÖğrenciye üyelerin görüşleriyle ilişkili kavramların her birini yazmaması durumunda 1 puan, kavramlara dayanak\noluşturan gerekçelerin her birini yazmaması durumunda ise 2 puan eksik verilir. Öğrencinin kavramı bulmadan\ngerekçesini yazması mümkün değildir. Bu nedenle yalnızca gerekçenin yazılması durumunda öğrenciye puan\nverilmez.\nYANLIŞ CEVAP (0 PUAN)\nKonuşmacıların görüşleriyle ilişkili kavramların ve bu kavramlara dayanak oluşturan gerekçelerin yazılmaması,\nilişkisiz cevap verilmesi ve boş bırakılması durumunda 0 puan verilir.\n=== Page 8 ===\nYAZILIYA HAZIRLANIYORUM (2. DÖNEM-2. YAZILI)\n4. Doğru Cevap:\nTAM CEVAP (15 Puan)\nÖğrencinin açıklamasında değindiği kriterler için verilecek puanlar tabloda belirtildiği gibi olacaktır:\nMonarşi Aristokrasi Demokrasi Yönetme Yetkisi Iktidarın Kaynağı Meşruiyetinin Dayanağı\nI. Grup X (1 puan)\nTek bir kişi\n(1 puan)\nLiderin soylu\nve köklü bir\naileye mensup\nolması veya\nüstün nitelikleri\n(1 puan)\nDevletin devamlılığı\nve istikrarının tam\nyetkili bir güçle\nmümkün olması\n(2 puan)\nII. Grup X (1 puan)\nSeçkin bir grup\n(1 puan)\nYönetici\ngrubun bilgi,\nerdem ve\nliyakati\n(1 puan)\nToplumun ancak\nnitelikli kişilerin\nkararlarıyla\nen iyi şekilde\nyönetilebilecek\nolması\n(2 puan)\nIII. Grup X (1 puan) Halk tarafından\nseçilen\ntemsilciler\n(1 puan)\nHalk iradesi\n(1 puan)\nYönetme gücü\nve yetkisinin halk\ntarafından verilmiş\nolması (2 puan)\nMetinde grupların savunduğu yönetim biçimlerinin doğru belirlenmesi durumunda her biri için 1 puan; yönetme\nyetkisinin kimde olduğunun doğru belirlenmesi durumunda her biri için 1 puan; iktidarın kaynağının doğru\nbelirlenmesi durumunda her biri için 1 puan; meşruiyetin dayanağının doğru belirlenmesi durumunda her biri için\n2 puan verilir. Toplamda 15 puan verilir.\nKISMI CEVAP (1-14 PUAN)\nSavunulan üç yönetim biçiminin, bu yönetim biçimlerinde yönetme yetkisinin ve iktidarın kaynağının doğru\nbelirlenememesi durumunda her biri için 1 puan; meşruiyetin dayanağının yazılmaması durumunda her biri için 2\npuan eksik verilir.\nYANLIŞ CEVAP (0 PUAN)\nSavunulan yönetim biçimlerinin doğru bir şekilde belirlenememesi, yönetme yetkisinin, iktidarın kaynağının ve\nmeşruiyetin dayanağının doğru şekilde açıklanamaması ve cevabın boş bırakılması durumunda 0 puan verilir.\n5. Doğru Cevap:\nTAM CEVAP (15 PUAN)\nÖğrencinin açıklamasında değindiği kriterler için verilecek puanlar aşağıdaki gibi olacaktır.\nErdemli Şehir\nTürü: İstenilen ütopya örneği olduğunu belirtme (2 puan)\n1984\nTürü: İstenilmeyen ütopya (distopya) örneği olduğunu belirtme (2 puan)\n=== Page 9 ===\nYAZILIYA HAZIRLANIYORUM (2. DÖNEM-2. YAZILI)\nIki türün farklı özellikleri:\nİstenilen ütopyaların; gerçekleşmesi arzulanan, ideal, huzurlu ve mükemmel toplumsal düzenleri (iyimser bir bakış\naçısıyla) betimlediğini açıklama (4 puan)\nİstenilmeyen ütopyaların (distopyaların); mevcut siyasi eğilimlerin kötüye gitmesi durumunda ortaya çıkabilecek korku\ndolu, baskıcı ve karanlık gelecek senaryoları olduğunu (bir uyarı niteliği taşıdığını) açıklama (4 puan)\nIki türün benzer özellikleri:\n-Kurgusal, yani gerçekte var olmayan zihinsel tasarımlara dayanan toplum tasarısı/devlet modeli olduğunu belirtme\n(1 puan)\n-Mevcut düzene yönelik bir eleştiri niteliği taşıdığını belirtme (1 puan)\n-Gelecek öngörüsü niteliği taşıdığını belirtme (1 puan)\nÖğrencilerden tüm kriterleri içeren bir açıklama yapması beklenir. Tüm kriterleri içeren açıklamayı yapması durumunda\n15 tam puan verilir.\nÖrnek Cevap:\nErdemli Şehir\nTürü: İstenilen ütopya örneğidir.\n1984\nTürü: İstenilmeyen ütopya (distopya) örneğidir.\nIki türün farklı özellikleri: Farabi’nin eserine bakıldığında insanların eşitlik ve barış içinde yaşadığı bir toplum\ndüzenini kaleme aldığı görülmektedir. Buradan hareketle de söylenebilir ki istenilen ütopyalar, gerçekleşmesi\narzulanan, ideal ve huzurlu toplumsal düzenleri betimler. İyimser bir bakış açısına sahiptir.\nGeorge Orwell’ın eserinde ise insanların daima gözetlendiği, düşünce özgürlüğünün yok edildiği, korku ve baskının\nhüküm sürdüğü bir devlet tasarladığı görülmektedir. Bu eserden de anlaşılacağı üzere istenilmeyen ütopyalar\n(distopyalar), mevcut siyasi koşulların kötüye gitmesi durumunda ortaya çıkabilecek korku dolu, baskıcı ve karanlık\ngelecek senaryolarıdır; bir uyarı niteliği taşırlar.\nIki türün benzer özellikleri: Her iki eserin de bir toplum tasarısı olduğu metinde belirtilmiştir. Bu eserler kurgusaldır\nyani gerçekte var olmayan, zihinsel tasarımlara dayalı devlet modelleridir. Mevcut düzene yönelik bir eleştiri veya\ngelecek öngörüsü taşıma noktasında birleşirler.\nKISMI CEVAP (1-14 PUAN)\nÖğrencinin Farabi’nin eserinin \"istenilen ütopya\" olduğunu yazmaması durumunda 2 puan; George Orwell’ın\neserinin \"istenilmeyen ütopya (distopya)\" olduğunu yazmaması durumunda 2 puan eksik verilir.\nİki türdeki eserlerin farklı özellikleri olarak istenilen ütopyaların ideal, mükemmel ve iyimser tasarımlar olduğunu\naçıklamaması durumunda 4 puan; istenilmeyen ütopyaların (distopyaların) karanlık gelecek senaryoları ve uyarı\nniteliği taşıdığını açıklamaması durumunda 4 puan eksik verilir.\nİki türdeki eserlerin ortak özelliği olarak kurgusal, yani gerçekte var olmayan zihinsel tasarımlara dayanan toplum\ntasarısı/devlet modeli olduğunu belirtmemesi durumunda 1 puan; mevcut düzene yönelik bir eleştiri niteliği taşıdığını\nbelirtmemesi durumunda 1 puan; gelecek öngörüsü niteliği taşıdığını belirtmemesi durumunda 1 puan eksik verilir.\nYANLIŞ CEVAP (0 PUAN)\nVerilen kriterlere değinilmemesi, ilişkisiz cevap verilmesi ve cevabın boş bırakılması durumunda 0 puan verilir.\n=== Page 10 ===\nYAZILIYA HAZIRLANIYORUM (2. DÖNEM-2. YAZILI)\n6. Doğru Cevap:\nTAM CEVAP (10 PUAN)\nÖğrenciye ait olduğu alanı doğru belirlediği her özellik için 1 puan verilir. Tüm özelliklerin ait olduğu alanları doğru\nbelirlemesi durumunda 10 tam puan verilir.\nVerilen özelliklerin ait olduğu alanlar aşağıdaki gibidir:\nÖzellikler Teoloji Din Felsefesi\nTeoloji ve Din\nFelsefesi için\nOrtak\nİnançları temellendirmeyi ve savunmayı amaçlar. √\nDogmatik yaklaşımlardan kaçınır. √\nDini ve dinle ilgili konuları ele alır. √\nDinin insan yaşamındaki yeriyle ilgilenir. √\nBelirli bir dinin öğretilerini yorumlamaya ve\ndesteklemeye çalışır. √\nMantıksal açıklamalar ve argümanlar kullanır. √\nEleştirel, objektif ve rasyonel bir analiz yöntemini\nbenimser. √\nBelirli bir dinin öğretilerini ve uygulamalarını inceler. √\nDinin ne olduğunu ve farklı inanç sistemlerini genel\nbir bakış açısıyla inceler. √\nİnsanın varoluşu, ahlaki sorumlulukları ve evrenin\ndoğası gibi konularla ilgilenir. √\nKISMI CEVAP (1-9 PUAN)\nÖğrenciye ait olduğu alanı doğru belirleyemediği her özellik için 1 puan eksik verilir.\nYANLIŞ CEVAP (0 PUAN)\nÖğrenciye özelliklerin ait olduğu alanların hiçbirini doğru belirleyememesi ve boş bırakması durumda 0 puan verilir.\n=== Page 11 ===\nYAZILIYA HAZIRLANIYORUM (2. DÖNEM-2. YAZILI)\n7. Doğru Cevap:\nTAM CEVAP (15 PUAN)\nÖğrenciye kavram haritası üzerinde doğru alana ve doğru olarak yazdığı Tanrı’nın varlığına ilişkin her görüş için 2’şer\npuan; Tanrı’nın varlığına yönelik kanıtlamalarda kullanılan her argüman için 3’er puan verilir.\nÖğrenciye görüş ve argümanların tamamını doğru yazması durumunda 15 tam puan verilir.\nKavram haritası üzerine yazılması gereken görüş ve argümanlar aşağıdaki gibidir:\nDİN FELSEFESİDin felsefesinde\nTanrı’nın varlığına\nilişkin Uras’ın\nbenimsediği görüştür.\nBu görüşü benimseyen arkadaşlarından\nTanrı’nın varlığı konusunda ayrışan\nDefne’nin benimsediği görüştür.\nBu görüşü benimseyen Defne’nin\nTanrı’nın varlığına yönelik\nkanıtlamalarında kullandığı argümandır.\nDin felsefesinde\nTanrı’nın varlığına\nilişkin İdil’in\nbenimsediği görüştür.\nBu görüşü benimseyen\nİdil’in Tanrı’nın varlığına\nyönelik kanıtlamalarında\nkullandığı argümandır.\nBu görüşü benimseyen\nUras’ın Tanrı’nın varlığına\nyönelik kanıtlamalarında\nkullandığı argümandır.\nDEİZM TEİZM\nKOZMOLOJİK\nKÖTÜLÜK\nONTOLOJİK\nATEİZM\nKISMI CEVAP (2-13 PUAN)\nÖğrenciye kavram haritası üzerinde doğru alana ve doğru olarak yazmadığı Tanrı’nın varlığına ilişkin her görüş için\n2’şer puan; Tanrı’nın varlığına yönelik kanıtlamalarda kullanılan her argüman için 3’er puan eksik verilir.\nYANLIŞ CEVAP (0 PUAN)\nÖğrenciye görüş ve argümanların hiçbirini doğru yazamaması, ilişkisiz cevap vermesi ve boş bırakması durumunda\n0 puan verilir.\n8. Doğru Cevap:\nTAM CEVAP (10 PUAN)\nÖğrencinin açıklamasında değindiği kriterler için verilecek puanlar aşağıdaki gibi olacaktır:\nKimyager Ahmet’in klasik bilim anlayışını temsil ettiğini belirtmesi durumunda 1 puan; bilginin doğası açısından\nbilimsel verilerin kesin, değişmez, deneysel yöntemle kanıtlanabilir olduğunu belirtmesi durumunda 2 puan; bilimin\ntoplumsal rolü açısından bilim insanlarının toplumsal değer ve normlardan bağımsız çalışmalar yürüttüğünü\nbelirtmesi durumunda 2 puan verilir.\nSosyolog Elif’in çağdaş bilim anlayışını temsil ettiğini belirtmesi durumunda 1 puan; bilginin doğası açısından\nbilimsel bilginin değişebilir, gelişmeye açık ve yeni bulguların daha önce doğru kabul edilen bilgilerin yeniden\ndeğerlendirilmesine ya da geçersiz sayılmasına yol açabileceğini belirtmesi durumunda 2 puan; bilimin toplumsal\nrolü açısından bilimsel çalışmaların, kültürel koşullardan ve toplumsal ihtiyaçlardan etkilenebileceğini belirtmesi\ndurumunda 2 puan verilir.\nÖğrencilerden tüm kriterleri içeren bir açıklama yapması beklenir. Bu açıklamayı yapması durumunda 10 tam puan verilir.\n=== Page 12 ===\nYAZILIYA HAZIRLANIYORUM (2. DÖNEM-2. YAZILI)\nÖrnek Cevap:\nKimyager Ahmet’in;\nTemsil ettiği bilim anlayışı: Klasik bilim anlayışı\nBilginin doğası açısından: Klasik bilim anlayışında bilimsel bilgi kesin, değişmez ve evrensel kabul edilir. Deney\nve gözlem yoluyla doğrulanan bilgiler gerçekliği doğrudan yansıtır ve sorgulanmaksızın geçerli sayılır.\nBilimin toplumsal rolü açısından: Klasik bilim anlayışında bilim; toplumdan ve değer yargılarından bağımsız,\nnesnel bir etkinlik olarak görülür. Bu nedenle bilimsel bilgi sosyal değerlerden etkilenmez.\nSosyolog Elif’in;\nTemsil ettiği bilim anlayışı: Çağdaş bilim anlayışı\nBilginin doğası açısından: Çağdaş bilim anlayışında bilimsel bilgi değişebilir ve gelişmeye açıktır. Yeni\naraştırmalar ve bulgular, daha önce doğru kabul edilen bilgilerin yeniden değerlendirilmesine ya da geçersiz\nsayılmasına yol açabilir.\nBilimin toplumsal rolü açısından: Çağdaş bilim anlayışında bilim toplumsal bağlamdan bağımsız değildir. Bilimsel\nçalışmalar, kültürel koşullardan ve toplumsal ihtiyaçlardan etkilenebilir.\nKISMI CEVAP (1-8 PUAN)\nÖğrencinin klasik ve çağdaş bilim anlayışlarını temsil eden kişileri belirleyememesi durumunda her biri için 1 puan\neksik verilir.\nBilginin doğası açısından klasik bilim anlayışında bilginin kesin ve değişmez olduğunu belirtmemesi durumunda 2\npuan; çağdaş bilim anlayışında bilginin değişebilir ve gelişebilir olduğunu belirtmemesi durumunda 2 puan eksik\nverilir.\nBilimin toplumsal rolü açısından klasik bilim anlayışında bilimin; toplumdan ve değer yargılarından bağımsız, nesnel\nbir etkinlik olduğunu belirtmemesi durumunda 2 puan; çağdaş bilim anlayışında ise bilimin toplumsal bağlamdan\nbağımsız olmadığını belirtmemesi durumunda 2 puan eksik verilir.\nYANLIŞ CEVAP (0 PUAN)\nGörüşleri temsil eden kişilerin doğru belirlenememesi, bilimin doğası ve toplumsal rolü açısından gerekçelerin doğru\nşekilde açıklanamaması ve boş bırakılması durumunda 0 puan verilir."
+  }
+ ]
+}

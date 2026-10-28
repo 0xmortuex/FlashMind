@@ -31,7 +31,7 @@
 
 .lab { display: flex; flex-direction: column; gap: 14px; }
 .lab-head { display: flex; flex-direction: column; gap: 4px; }
-.lab-kind { font-size: 0.78rem; font-weight: 600; color: var(--secondary); text-transform: uppercase; letter-spacing: 0.05em; }
+.lab-kind { font-size: 0.78rem; font-weight: 600; color: var(--secondary-text); text-transform: uppercase; letter-spacing: 0.05em; }
 .lab-title { font-family: var(--font-display); font-size: 1.35rem; line-height: 1.2; }
 .lab-intro { color: var(--text-muted); font-size: 0.92rem; line-height: 1.5; }
 .lab-goal {
@@ -40,7 +40,7 @@
   border: 1px solid color-mix(in srgb, var(--highlight) 40%, var(--border));
 }
 .lab-goal-icon { font-size: 1.4rem; line-height: 1; }
-.lab-goal strong { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); }
+.lab-goal strong { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text); }
 .lab-goal p { margin-top: 2px; font-size: 0.95rem; }
 
 .lab-main { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(240px, 1fr); gap: 16px; align-items: start; }

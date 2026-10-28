@@ -113,6 +113,7 @@ In a second terminal:
 node --test tests/regression.js
 node tests/smoke.js
 node tests/browser-regression.js
+node tests/contrast.js
 ```
 
 The regression suites use mocked AI/sync responses; they do not upload study material. See [AUDIT.md](AUDIT.md) for the audit findings, fixes, and remaining architectural work.

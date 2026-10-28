@@ -2,6 +2,8 @@
 // CI-friendly: uses full puppeteer (bundled Chromium), BASE_URL env override,
 // and exits non-zero when any step fails or console/page errors are collected.
 const puppeteer = require('puppeteer');
+const fs = require('node:fs');
+const path = require('node:path');
 
 (async () => {
   const baseUrl = process.env.BASE_URL || 'http://localhost:4173/';
@@ -680,6 +682,7 @@ const puppeteer = require('puppeteer');
     await page.waitForSelector('.pp-panel .pp-actions [data-meb-act="open"]', { timeout: 2000 });
     await page.click('.pp-panel .pp-actions [data-meb-act="open"]');
     await page.waitForSelector('.meb-panel .meb-row', { timeout: 5000 }); // lazy-loaded index
+    await page.$eval('.meb-panel [data-meb-year=""]', b => b.click()); // the library opens on 2026-2027; this check spans all years
     if (!/Files open on MEB.s own servers/.test(await page.$eval('.meb-panel .chk-intro', el => el.textContent))) throw new Error('hosting note missing');
     if (!/Past paper/.test(await page.$eval('.meb-panel .meb-tip', el => el.textContent))) throw new Error('past-paper tip missing');
     await page.select('#meb-grade', '8');
@@ -713,6 +716,218 @@ const puppeteer = require('puppeteer');
     if (!await page.$eval('.pp-panel', el => el.parentElement.style.display !== 'none')) throw new Error('past-paper modal closed with the library');
     await page.keyboard.press('Escape');
     await page.waitForSelector('.pp-weight-note', { timeout: 2000 });
+  });
+
+  await step('exams: the OGM written-exam prep type lists its rows with an unstated year', async () => {
+    // If the committed index has no such entry yet, one is added to the loaded copy.
+    await page.evaluate(async () => {
+      const d = await MebIndex.load();
+      if (!d.items.some(x => x.x === 'ogm-yazili')) d.items.push({ id: 'ogmfx001', t: '10. Sınıf Biyoloji - 1. Dönem 1. Yazılı', g: [10], s: 'Biyoloji', x: 'ogm-yazili', y: '', u: 'https://ogm-large-cdn.eba.gov.tr/materyal/x/pdf.pdf', p: 'https://ogmmateryal.eba.gov.tr/yaziliya-hazirlaniyorum', mb: 1.2, src: 'ogm' });
+      MebIndex.open();
+    });
+    await page.waitForSelector('.meb-panel .meb-row', { timeout: 5000 });
+    await page.$eval('.meb-panel [data-meb-year=""]', b => b.click());
+    await page.select('#meb-grade', '0'); await page.select('#meb-subject', '');
+    await page.select('#meb-type', 'ogm-yazili');
+    const rows = await page.$$eval('.meb-panel .meb-row', rs => rs.map(r => r.textContent));
+    if (rows.length < 1 || !rows.every(t => /OGM written-exam prep/.test(t) && /Year not stated/.test(t))) throw new Error('ogm-yazili rows: ' + rows.length);
+    await page.select('#meb-type', '');
+    await page.evaluate(() => MebIndex.close());
+  });
+
+  await step('exams: a MEB library file opens as a ready-made study set (2026-2027 first, deck, notes, cards, quiz, Ask AI context)', async () => {
+    const fixture = JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures/meb-set-a1.json'), 'utf8'));
+    // Serve the fixture for one 2026-2027 library entry; everything else is the real index.
+    const entry = await page.evaluate(async fx => {
+      const d = await MebIndex.load();
+      const it = d.items.find(x => x.y === '2026-2027' && !x.set);
+      Object.assign(it, { set: 1, sz: 3, nc: 3, nq: 2, ns: 2 });
+      window.__setFetch = window.fetch;
+      window.__setMode = 'ok';
+      window.__setReq = [];
+      window.fetch = (u, ...a) => {
+        if (!/data\/meb\/sets\//.test(u)) return window.__setFetch.call(window, u, ...a);
+        window.__setReq.push(u);
+        if (window.__setMode === 'fail') return Promise.resolve(new Response('', { status: 503 }));
+        return Promise.resolve(new Response(JSON.stringify({ ...fx, meta: { ...fx.meta, fileId: it.id } }), { status: 200 }));
+      };
+      return { id: it.id, u: it.u };
+    }, fixture);
+    await page.evaluate(() => { window.__decks = Decks.list().length; window.__prevDeck = Decks.getActive().id; MebIndex.open(); });
+    await page.waitForSelector('.meb-panel .meb-row', { timeout: 5000 });
+    // The 2026-2027 group (the library's default on a fresh visit; an earlier step chose All years), every row badged with its school year.
+    // Toasts from earlier steps stack over the panel's right side, so the chips are clicked in the page, not by pointer.
+    await page.$eval('.meb-panel [data-meb-year="2026-2027"]', b => b.click());
+    await page.select('#meb-grade', '0'); await page.select('#meb-type', ''); await page.select('#meb-subject', '');
+    const lead = await page.evaluate(() => ({
+      pressed: document.querySelector('.meb-panel [aria-pressed="true"][data-meb-year]').dataset.mebYear,
+      years: [...document.querySelectorAll('.meb-panel .meb-row .meb-year')].map(e => e.textContent)
+    }));
+    if (lead.pressed !== '2026-2027' || !lead.years.length || !lead.years.every(y => y === '2026-2027')) throw new Error('default year: ' + JSON.stringify(lead).slice(0, 200));
+    // Rows with a set: primary button + stats; without: MEB link + quiet note.
+    const row = '.meb-panel [data-row="' + entry.id + '"]';
+    const stats = await page.$eval(row + ' .meb-stats', e => e.textContent);
+    if (stats !== '3 cards · 2 questions · 2 sections') throw new Error('stats line: ' + stats);
+    const plain = await page.$$eval('.meb-panel .meb-row', rs => rs.filter(r => !r.querySelector('.meb-set')).every(r => /Study set coming/.test(r.textContent) && r.querySelector('a.meb-open')));
+    if (!plain) throw new Error('rows without a set need the MEB link and the coming note');
+    await page.$eval('.meb-panel [data-meb-sets]', b => b.click());
+    // The committed index now ships real sets, so the chip leaves every row that has a set, this step's entry among them.
+    await page.waitForFunction(id => {
+      const rows = [...document.querySelectorAll('.meb-panel .meb-row')];
+      return rows.length >= 1 && rows.every(r => r.querySelector('.meb-set')) && rows.some(r => r.dataset.row === id);
+    }, { timeout: 2000 }, entry.id).catch(() => { throw new Error('Study sets chip did not narrow the list to rows with a set'); });
+    // A failed download is shown in the row with Retry, and nothing is saved.
+    await page.evaluate(() => { window.__setMode = 'fail'; });
+    await page.click(row + ' [data-meb-act="set"]');
+    await page.waitForSelector(row + ' .meb-error', { timeout: 3000 });
+    const fail = await page.evaluate(r => ({ err: document.querySelector(r + ' .meb-error').textContent, btn: document.querySelector(r + ' .meb-set-btn').textContent.trim(), decks: Decks.list().length, before: window.__decks }), row);
+    if (!/503/.test(fail.err) || !/Try again/.test(fail.btn) || fail.decks !== fail.before) throw new Error('error state: ' + JSON.stringify(fail));
+    await page.evaluate(() => { window.__setMode = 'ok'; });
+    await page.click(row + ' [data-meb-act="set"]');
+    await page.waitForFunction(t => (App.getStudyData() || {}).title === t, { timeout: 5000 }, fixture.title);
+    const got = await page.evaluate(() => ({
+      decks: Decks.list().length, before: window.__decks, meta: Decks.getActive().data.meta,
+      libOpen: [...document.querySelectorAll('.shortcuts-backdrop')].some(e => e.style.display !== 'none'),
+      sections: document.querySelectorAll('#tab-notes .notes-section').length,
+      cards: App.getStudyData().flashcards.length, questions: App.getStudyData().quiz.length,
+      link: (document.querySelector('#tab-notes .meb-srclink') || {}).href, linkText: (document.querySelector('#tab-notes .meb-srclink') || {}).textContent
+    }));
+    if (got.decks !== got.before + 1 || got.meta.fileId !== entry.id || got.meta.sourceUrl !== entry.u) throw new Error('deck: ' + JSON.stringify(got).slice(0, 300));
+    if (got.libOpen) throw new Error('library modals still open');
+    if (got.sections !== 2 || got.cards !== 3 || got.questions !== 2) throw new Error('counts: ' + JSON.stringify(got));
+    if (got.link !== entry.u || !/Source: MEB \(official file\)/.test(got.linkText)) throw new Error('source link: ' + got.link);
+    await page.click('[data-tab="flashcards"]');
+    await page.waitForFunction(() => document.querySelectorAll('#tab-flashcards .flashcard').length === 3, { timeout: 3000 });
+    // Ask AI receives the set's own source text.
+    const ctxText = await page.evaluate(async () => {
+      const api = API.chat;
+      let seen = '';
+      API.chat = async (msg, context) => { seen = context; return '{"answer":"ok"}'; };
+      await Chat.sendMessage('what is in this file?');
+      API.chat = api;
+      return seen;
+    });
+    if (!/SENTINEL-OXYGEN-7421/.test(ctxText)) throw new Error('Ask AI context lacks the source text: ' + String(ctxText).slice(0, 120));
+    // Same file again: the confirm (accepted by this harness) opens the existing deck, no download, no new deck.
+    const again = await page.evaluate(async e => {
+      const n = Decks.list().length, r = window.__setReq.length;
+      const id = await MebSets.open({ id: e.id, u: e.u });
+      return { same: id === Decks.getActive().id, decks: Decks.list().length === n, noFetch: window.__setReq.length === r };
+    }, entry);
+    if (!again.same || !again.decks || !again.noFetch) throw new Error('reopen: ' + JSON.stringify(again));
+    // Leave the deck and tab the later steps expect.
+    await page.evaluate(() => { window.fetch = window.__setFetch; Decks.remove(Decks.getActive().id); App.openDeck(window.__prevDeck); App.switchTab('quiz'); });
+  });
+
+  await step('exams: Senaryolar tab opens a scenario as its own notebook (exam block = table count, distribution summary, Ask AI table rows, profile)', async () => {
+    const fx = JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures/scen-fixture.json'), 'utf8'));
+    const base = { fileId: 'fx000001', si: 0, sheet: '9. SINIF', subject: 'Biyoloji', grade: 9, variant: '', bank: 'b-fx000001-9', hasBank: true };
+    const index = [
+      { ...base, ei: 0, exam: '1. Dönem 1. Ortak Yazılı Sınav', n: 1, total: 4, kazanimCount: 2, d: [1, 3], national: 0 },
+      { ...base, ei: 0, exam: '1. Dönem 1. Ortak Yazılı Sınav', n: 2, total: 6, kazanimCount: 3, d: [3, 1, 2], national: 0 },
+      { ...base, ei: 1, exam: '1. Dönem 2. Ortak Yazılı Sınav', n: 0, total: 0, kazanimCount: 0, d: [], national: 1 },
+      { fileId: 'fx000002', si: 0, sheet: '10. SINIF', subject: 'Fizik', grade: 10, variant: '', bank: null, hasBank: false, ei: 0, exam: '1. Dönem 1. Ortak Yazılı Sınav', n: 1, total: 2, kazanimCount: 1, d: [2], national: 0 }
+    ];
+    await page.evaluate((fx, index) => {
+      window.__scenFetch = window.fetch;
+      window.__scenMode = 'ok';
+      window.fetch = (u, ...a) => {
+        const m = String(u).match(/data\/meb\/scen\/(.*)$/);
+        if (!m) return window.__scenFetch.call(window, u, ...a);
+        if (window.__scenMode === 'fail' && !/index/.test(m[1])) return Promise.resolve(new Response('', { status: 503 }));
+        return Promise.resolve(new Response(JSON.stringify(m[1] === 'index.json' ? index : m[1].startsWith('spec/') ? fx.spec : fx.bank), { status: 200 }));
+      };
+      window.__prevDeck = Decks.getActive().id; window.__decks = Decks.list().length;
+      window.__prevMeta = Decks.getActive().data.meta;
+      Decks.getActive().data.meta = { fileId: 'smoke', grade: [10] };   // the open deck states a grade: the list starts on it
+      MebIndex.open({ tab: 'scen' });
+    }, fx, index);
+    await page.waitForSelector('.meb-panel .scen-row', { timeout: 5000 });
+    const start = await page.evaluate(() => ({ grade: document.querySelector('.meb-panel [data-scen-grade][aria-pressed="true"]').textContent, rows: document.querySelectorAll('.meb-panel .scen-row').length }));
+    if (start.grade !== 'Grade 10' || start.rows !== 1) throw new Error('list did not default to the open deck grade: ' + JSON.stringify(start));
+    await page.evaluate(() => { Decks.getActive().data.meta = window.__prevMeta; });
+    await page.$eval('.meb-panel [data-scen-grade="0"]', b => b.click());
+    await page.select('#scen-sheet', 'fx000001.0');
+    const ui = await page.evaluate(() => ({
+      tab: document.querySelector('.meb-panel [data-meb-tab][aria-selected="true"]').textContent,
+      rows: [...document.querySelectorAll('.meb-panel .scen-row')].map(r => r.querySelector('.scen-row-title').textContent + '|' + r.querySelector('.scen-stats').textContent + '|' + r.querySelectorAll('.scen-bar i').length),
+      options: [...document.querySelectorAll('#scen-sheet option')].map(o => o.textContent),
+      grade: document.querySelector('.meb-panel [data-scen-grade][aria-pressed="true"]').textContent
+    }));
+    if (ui.tab !== 'Scenarios' || ui.grade !== 'All grades') throw new Error('tab/grade: ' + JSON.stringify(ui));
+    if (JSON.stringify(ui.rows) !== JSON.stringify(['Scenario 1|4 questions · 2 outcomes|2', 'Scenario 2|6 questions · 3 outcomes|3'])) throw new Error('rows: ' + JSON.stringify(ui.rows));
+    if (ui.options.length !== 2 || !/Fizik · Grade 10 · Study bank coming/.test(ui.options[1])) throw new Error('sheets: ' + JSON.stringify(ui.options));
+    // A national exam is listed but cannot be opened.
+    await page.$eval('.meb-panel [data-scen-exam="1"]', b => b.click());
+    const nat = await page.evaluate(() => ({ t: document.querySelector('.meb-panel .scen-national').textContent, open: document.querySelectorAll('.meb-panel [data-scen-act="open"]').length }));
+    if (!/Nationwide common exam - no scenario/.test(nat.t) || nat.open) throw new Error('national: ' + JSON.stringify(nat));
+    await page.$eval('.meb-panel [data-scen-exam="0"]', b => b.click());
+    // A course whose bank is not built shows the note instead of the open button.
+    await page.select('#scen-sheet', 'fx000002.0');
+    const soon = await page.evaluate(() => ({ t: document.querySelector('.meb-panel .scen-row .meb-soon').textContent, open: document.querySelectorAll('.meb-panel [data-scen-act="open"]').length }));
+    if (soon.t !== 'Study bank coming' || soon.open) throw new Error('soon: ' + JSON.stringify(soon));
+    await page.$eval('.meb-panel [data-scen-grade="10"]', b => b.click());
+    if (await page.$$eval('.meb-panel .scen-row', r => r.length) !== 1) throw new Error('grade chip did not narrow to Fizik');
+    await page.$eval('.meb-panel [data-scen-grade="0"]', b => b.click());
+    await page.select('#scen-sheet', 'fx000001.0');
+    await page.setViewport({ width: 390, height: 844 });
+    const overflow = await page.$eval('.meb-panel', el => el.scrollWidth - el.clientWidth);
+    await page.setViewport({ width: 1280, height: 900 });
+    if (overflow > 1) throw new Error('horizontal overflow at 390px: ' + overflow);
+    // A failed download is shown in the row with Retry and saves nothing.
+    const row = '.meb-panel [data-row="fx000001.0.0.2"]';
+    await page.evaluate(() => { window.__scenMode = 'fail'; });
+    await page.$eval(row + ' [data-scen-act="open"]', b => b.click());
+    await page.waitForSelector(row + ' .meb-error', { timeout: 3000 });
+    const fail = await page.evaluate(r => ({ err: document.querySelector(r + ' .meb-error').textContent, btn: document.querySelector(r + ' .scen-open-btn').textContent.trim(), decks: Decks.list().length, before: window.__decks }), row);
+    if (!/503/.test(fail.err) || !/Try again/.test(fail.btn) || fail.decks !== fail.before) throw new Error('error state: ' + JSON.stringify(fail));
+    await page.evaluate(() => { window.__scenMode = 'ok'; });
+    await page.$eval(row + ' [data-scen-act="open"]', b => b.click());
+    const title = 'Biyoloji 9 · 1. Dönem 1. Ortak Yazılı · Senaryo 2';
+    await page.waitForFunction(t => (App.getStudyData() || {}).title === t, { timeout: 5000 }, title);
+    const got = await page.evaluate(() => {
+      const d = App.getStudyData();
+      return {
+        decks: Decks.list().length, before: window.__decks, meta: Decks.getActive().data.meta,
+        libOpen: [...document.querySelectorAll('.shortcuts-backdrop')].some(e => e.style.display !== 'none'),
+        exam: d.quiz.filter(q => q.scenarioExam).length, extra: d.quiz.filter(q => !q.scenarioExam).length,
+        summary: document.querySelector('#tab-notes .notes-summary').textContent,
+        sections: document.querySelectorAll('#tab-notes .notes-section').length,
+        lines: getComputedStyle(document.querySelector('#tab-notes .notes-summary')).whiteSpace
+      };
+    });
+    if (got.decks !== got.before + 1 || got.meta.kind !== 'scenario' || got.meta.scenario !== 2 || got.meta.fileId !== 'fx000001') throw new Error('deck: ' + JSON.stringify(got).slice(0, 300));
+    if (got.libOpen) throw new Error('library modals still open');
+    if (got.exam !== 6 || got.extra !== 12) throw new Error('exam/extra counts: ' + got.exam + '/' + got.extra);
+    if (!/toplam 6 soru ve 3 kazanım/.test(got.summary) || !/FX\.1 · Hücre Yapısı: 3 soru \(%50\)/.test(got.summary) || !/ÜNİTE 1: 4 soru \(%66,7\)/.test(got.summary) || got.sections !== 5) throw new Error('summary/sections: ' + got.sections + ' ' + got.summary.slice(0, 200));
+    if (got.lines !== 'pre-line') throw new Error('summary line breaks collapsed: ' + got.lines);
+    // Ask AI receives the table rows of this scenario.
+    const ctxText = await page.evaluate(async () => {
+      const api = API.chat;
+      let seen = '';
+      API.chat = async (msg, context) => { seen = context; return '{"answer":"ok"}'; };
+      await Chat.sendMessage('how many questions per topic?');
+      API.chat = api;
+      return seen;
+    });
+    if (!/ÜNİTE 1 \| FX\.1 \| Hücre Yapısı \| FX\.1\. Hücrenin yapısını açıklayabilme \| 3/.test(ctxText) || !/Senaryo 2 · toplam 6 soru/.test(ctxText)) throw new Error('Ask AI context lacks the table rows: ' + String(ctxText).slice(0, 160));
+    // Exam mode: the scenario exam button starts exactly the exam block, in table order.
+    await page.click('[data-tab="quiz"]');
+    await page.waitForSelector('#start-scen-exam-btn', { timeout: 3000 });
+    if (!/Start scenario exam \(6 questions\)/.test(await page.$eval('#start-scen-exam-btn', b => b.textContent))) throw new Error('scenario exam button label');
+    await page.click('#start-scen-exam-btn');
+    await page.waitForSelector('.quiz-question-number', { timeout: 3000 });
+    const run = await page.$eval('.quiz-question-number', el => el.textContent);
+    if (!/Question 1 of 6/.test(run)) throw new Error('scenario exam length: ' + run);
+    // The topic profile of the scenario goes to the open deck (the scenario notebook).
+    await page.evaluate(() => { Quiz.setQuestions(App.getStudyData().quiz); MebIndex.open({ tab: 'scen' }); });
+    await page.waitForSelector('.meb-panel .scen-row', { timeout: 5000 });
+    await page.$eval('.meb-panel [data-row="fx000001.0.0.1"] [data-scen-act="profile"]', b => b.click());
+    await page.waitForFunction(() => (Decks.getActive().paperProfile || {}).source === 'Biyoloji 9 · 1. Dönem 1. Ortak Yazılı Sınav · Scenario 1', { timeout: 3000 });
+    const prof = await page.evaluate(() => Decks.getActive().paperProfile);
+    if (prof.topicsFrom !== 'distribution' || JSON.stringify(prof.topics.map(t => [t.name, t.count])) !== JSON.stringify([['Doku Çeşitleri', 3], ['Hücre Yapısı', 1]])) throw new Error('profile: ' + JSON.stringify(prof).slice(0, 300));
+    await page.evaluate(() => { MebIndex.open({ tab: 'files' }); MebIndex.close(); });
+    await page.evaluate(() => { window.fetch = window.__scenFetch; Decks.remove(Decks.getActive().id); App.openDeck(window.__prevDeck); App.switchTab('quiz'); });
   });
 
   await step('exams: a photographed handwritten answer is OCRed, corrected and graded', async () => {

@@ -174,6 +174,8 @@ const App = (() => {
     // Demo button
     const demoBtn = document.getElementById('demo-btn');
     if (demoBtn) demoBtn.textContent = T('tryExample');
+    const mebBtn = document.getElementById('meb-home-btn');
+    if (mebBtn) mebBtn.textContent = T('mebOpen');
 
     // Generation difficulty dial
     const levelLabel = document.getElementById('gen-level-label');
@@ -844,6 +846,7 @@ const App = (() => {
     } else if (Array.isArray(b.sources) && b.sources.length) merged.sources = b.sources;
     if (b.media || e.media) merged.media = Object.assign({}, b.media, e.media);
     if (b.notes.mindmap) merged.notes.mindmap = b.notes.mindmap;
+    if (b.meta) merged.meta = b.meta;
     if (b.audio) merged.audio = b.audio;
     if (b.labs) merged.labs = b.labs;
     if (b.lessons) merged.lessons = b.lessons;

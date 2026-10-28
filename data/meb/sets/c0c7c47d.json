@@ -1,0 +1,2088 @@
+{
+ "title": "9. Sınıf Fizik - 2. Dönem 1. Yazılı (OGM Örnek Yazılı + Puanlama)",
+ "meta": {
+  "fileId": "c0c7c47d",
+  "grade": [
+   9
+  ],
+  "subject": "Fizik",
+  "schoolYear": "",
+  "examType": "ogm-yazili",
+  "kind": "booklet",
+  "sourceUrl": "https://ogm-large-cdn.eba.gov.tr/materyal/Etkilesimlikitap/874e3aef-e4c9-49e0-a3db-eb865cffb2bf/pdf.pdf",
+  "counts": {
+   "sections": 16,
+   "cards": 103,
+   "flashcards": 103,
+   "questions": 75,
+   "quiz": 75,
+   "sourceQuestions": 14,
+   "skippedNeedingFigure": 1
+  }
+ },
+ "notes": {
+  "summary": "Bu dosya 9. sınıf Fizik 2. dönem 1. yazılının örnek sorularını ve puanlama anahtarını içerir. Konular: hareket türleri (öteleme, dönme, titreşim), katı basıncı, durgun sıvılarda basınç ve baraj uygulaması, açık hava basıncı ile Torricelli deneyi, kaldırma kuvveti ve sıvı basınç kuvvetleriyle ilişkisi.\n\nBu dosyadan sınavda ne beklemeli / nasıl çalışmalı:\n1) Önce 5. soru (kaldırma kuvveti, 28 puan) ve 2. soru (kürdanlı balon, 21 puan) çalış.\n2) P = F/A ve P = h·d·g formüllerini yazıp birimleriyle uygula; oranları ve orantıları yorumla.\n3) Torricelli deneyini \"açık hava basıncı = cıva sütunu basıncı, cıva yoğun olduğundan 76 cm\" cümlesiyle ezberle.\n4) Dağcı-dalgıç sorusunda her iki basıncı da yaz.\n5) Yüzme/batma sorusunu hem kuvvet çizimiyle hem yoğunlukla çöz; ikisi de tam puandır.\n6) Barajın 3.1 sorusu şekle bağlı olduğundan sete alınmadı; yöntemi (derinlik arttıkça basınç artar) benzer sorularla çalış.\n7) Hız treni gibi metin sorularında her mekanizmaya ayrı hareket türü yaz.",
+  "sections": [
+   {
+    "title": "Hareket türleri: öteleme, dönme, titreşim",
+    "content": "Hareketler üç ana türe ayrılır. Öteleme: cismin her noktasının aynı yönde ve aynı miktarda yer değiştirmesi (düz yolda giden araç). Dönme: cismin bir eksen veya nokta etrafında dönmesi (tekerlek, fan, çembersel yörünge). Titreşim: bir denge noktası etrafında gidip gelme (yay, gitar teli, süspansiyon). Bir mekanizma birden fazla hareket türünü bir arada yapabilir: yuvarlanan tekerlek hem döner hem öteler.",
+    "bulletPoints": [
+     "Öteleme: doğrusal yolda ilerleme, asansörün çıkması, hızlanan tren.",
+     "Dönme: tekerleğin kendi ekseni etrafında dönmesi, çembersel yörüngede hareket.",
+     "Titreşim: yay şeklindeki süspansiyonun sıkışıp açılması, ses çıkaran telin hareketi.",
+     "Soru \"hangi hareket türlerini yapar?\" diye sorarsa tüm türleri ayrı ayrı yaz.",
+     "Rubrik tipi: doğru yazılan her hareket türü 2 puan."
+    ],
+    "keyTerms": [
+     {
+      "term": "Öteleme",
+      "definition": "Cismin her noktasının aynı yönde ve eşit miktarda yer değiştirmesi."
+     },
+     {
+      "term": "Dönme",
+      "definition": "Bir eksen çevresinde dairesel yörüngede hareket."
+     },
+     {
+      "term": "Titreşim",
+      "definition": "Denge noktası çevresinde periyodik gidip gelme."
+     }
+    ]
+   },
+   {
+    "title": "Hız treni metni nasıl çözülür?",
+    "content": "Metni cümle cümle parçala: hangi mekanizma (tren, tekerlek, süspansiyon) hangi cümlede? Durgun trenin hızlanarak istasyondan ayrılması ötelemedir. Tekerlekler tepeye çıkarken dönerken de ilerler: dönme ve öteleme. Tren virajlı çembersel yolda hareket ederken dönme hareketi yapar. Yay şeklindeki süspansiyonlar engellerde titreşir ve trenle birlikte ilerler: titreşim ve öteleme.",
+    "bulletPoints": [
+     "(1) tren: öteleme.",
+     "(2) tekerlekler: dönme ve öteleme.",
+     "(3) tren çembersel virajda: dönme.",
+     "(4) süspansiyonlar: titreşim ve öteleme.",
+     "Rubrik dosyada toplamı 14 puan olarak verilir, doğru yazılan her hareket türü 2 puandır; mekanizmalarda hem dönme hem öteleme yazmayı unutma."
+    ],
+    "keyTerms": [
+     {
+      "term": "Çembersel yörünge",
+      "definition": "Daire yayı biçimli yol."
+     },
+     {
+      "term": "Süspansiyon",
+      "definition": "Yay ve amortisörden oluşan, darbeleri sönümleyen düzenek."
+     }
+    ]
+   },
+   {
+    "title": "Katı basıncı: P = F/A",
+    "content": "Basınç, birim yüzeye dik etki eden kuvvettir: P = F / A. Birimi pascal (Pa = N/m²). Kuvvet büyüdükçe basınç büyür (doğru orantı); yüzey alanı büyüdükçe basınç küçülür (ters orantı). Sivri uçlu cisim (kürdan, çivi, bıçak) küçük alanla büyük basınç oluşturur. Kar ayakkabısı ve paletli araçlar alanı büyüterek basıncı küçültür.",
+    "bulletPoints": [
+     "P = F/A; F = P·A; A = F/P.",
+     "Kuvvet 2 katına çıkarsa (alan sabit) basınç 2 katı olur.",
+     "Alan 2 katına çıkarsa (kuvvet sabit) basınç yarıya iner.",
+     "Aynı balon (aynı basınçta patlar) için F/A sabittir.",
+     "Birim: 1 Pa = 1 N/m²."
+    ],
+    "keyTerms": [
+     {
+      "term": "Basınç",
+      "definition": "Birim yüzeye dik etki eden kuvvet."
+     },
+     {
+      "term": "Pascal",
+      "definition": "Basınç birimi, N/m²."
+     }
+    ]
+   },
+   {
+    "title": "Kürdanlı balon deneyi",
+    "content": "Deneyde 1, 2, 3, 4, 5 kürdan batırılan özdeş balonlar sırayla F, 2F, 3F, 4F, 5F kuvvetle patlıyor. Kürdan sayısı arttıkça temas alanı artar; alan arttıkça aynı basıncı oluşturmak için daha büyük kuvvet gerekir. Balonlar aynı basınç değerinde patladığından F/A sabittir.",
+    "bulletPoints": [
+     "Neden: alan arttıkça basınç azalır, balonu patlatacak basınca ulaşmak için kuvvet de artmalıdır.",
+     "Basınca bağlı nicelikler: kuvvet ve yüzey alanı.",
+     "İlişki: basınç kuvvetle doğru, yüzey alanıyla ters orantılı.",
+     "10 kürdan için F/A = x/(10A) → x = 10F.",
+     "15F kuvvetle balonun patlamaması için S kürdan: F/A = 15F/(SA) → S = 15; 15 kürdanla balon patlar, patlamaması için en az 16 kürdan.",
+     "Rubrik: 2.1: 6, 2.2: 4, 2.3: 5, 2.4: 3, 2.5: 3 puan."
+    ],
+    "keyTerms": [
+     {
+      "term": "Orantı",
+      "definition": "İki niceliğin birlikte artması (doğru) veya biri artarken diğerinin azalması (ters)."
+     }
+    ]
+   },
+   {
+    "title": "Basınç hesap örnekleri ve birim işlemleri",
+    "content": "Basınç problemlerinde önce birimi SI'ya çevir: cm² → m², g → kg. Sonra P = F/A yaz. Ağırlık da kuvvettir: G = m·g. Örnek: 60 N ağırlık 0,02 m² alana basıyorsa P = 60/0,02 = 3000 Pa. Aynı cismi küçük yüzeyi üzerine koyarsan basınç artar.",
+    "bulletPoints": [
+     "1 cm² = 10⁻⁴ m².",
+     "Tuğla farklı yüzü üzerine konursa kuvvet aynı, alan farklıdır.",
+     "En büyük basınç en küçük alanda, en küçük basınç en büyük alanda.",
+     "Sonucu Pa ile yaz.",
+     "Cevapta orantıyı da yorumla: alan yarıya inince basınç 2 katı."
+    ],
+    "keyTerms": [
+     {
+      "term": "Ağırlık",
+      "definition": "G = m·g, yer çekiminin cisim üzerindeki kuvveti."
+     }
+    ]
+   },
+   {
+    "title": "Durgun sıvılarda basınç: P = h·d·g",
+    "content": "Durgun sıvıda basınç sıvının derinliğine (h), yoğunluğuna (d) ve yer çekimi ivmesine (g) bağlıdır: P = h·d·g. Kabın şekline, kabın genişliğine veya sıvı miktarına bağlı değildir. Aynı sıvıda aynı derinlikteki bütün noktalarda basınç eşittir. Derinlik arttıkça basınç artar.",
+    "bulletPoints": [
+     "Derinlik 2 katına çıkarsa basınç 2 katı olur.",
+     "Yoğunluk büyük sıvıda aynı derinlikte basınç büyüktür.",
+     "Sıvı basıncı her yöne eşit etki eder (yan yüzeylere de).",
+     "Yüzeydeki açık hava basıncı ayrıca eklenebilir (toplam basınç).",
+     "Birim: h (m), d (kg/m³), g (m/s²) → Pa."
+    ],
+    "keyTerms": [
+     {
+      "term": "Sıvı basıncı",
+      "definition": "Sıvının derinliğe bağlı olarak uyguladığı basınç."
+     },
+     {
+      "term": "Derinlik",
+      "definition": "Sıvı yüzeyinden ölçülen düşey uzaklık."
+     }
+    ]
+   },
+   {
+    "title": "Baraj, dolusavak ve sıvı basıncı uygulamaları",
+    "content": "Barajda su derinliği arttıkça basınç artar, bu yüzden baraj gövdesi aşağıya doğru kalınlaşır. Su seviyesi normal seviyenin üstüne çıkarsa derinlik artar, basınç artar ve gövde zarar görebilir. Dolusavak, fazla suyu boşaltıp seviyeyi sınırlar; bu sayede basınç barajın taşıyabileceği değeri aşmaz.",
+    "bulletPoints": [
+     "Baraj gövdesi tabana doğru kalınlaşır çünkü alt kısımlarda basınç büyüktür.",
+     "Dolusavak: fazla suyun boşaltıldığı kanal.",
+     "P = h·d·g: h sınırlı kalırsa P sınırlı kalır.",
+     "Yoğunluğu daha büyük sıvı olsaydı aynı derinlikte basınç artardı.",
+     "Denizaltılar ve dalgıç elbiseleri de derinlik basıncına dayanıklı yapılır."
+    ],
+    "keyTerms": [
+     {
+      "term": "Dolusavak",
+      "definition": "Barajda fazla suyu boşaltan kanal."
+     },
+     {
+      "term": "Baraj gövdesi",
+      "definition": "Suyu tutan yapı."
+     }
+    ]
+   },
+   {
+    "title": "Sıvı basıncını karşılaştırma ve yorumlama",
+    "content": "İki noktadaki sıvı basıncını karşılaştırırken sadece üç değişkene bak: derinlik, sıvı yoğunluğu, g. Aynı sıvıda basınç derinlikle orantılıdır. Aynı derinlikte yoğunluk büyükse basınç büyüktür. Kabın şekli, sıvı miktarı veya noktanın yatay konumu önemsizdir.",
+    "bulletPoints": [
+     "Aynı sıvıda daha derindeki noktada basınç daha büyüktür.",
+     "Aynı derinlik, d2 = 2·d1 → P2 = 2·P1.",
+     "K noktasında sıvı daha yoğun olsaydı basınç artardı.",
+     "Gerekçeyi \"P = h·d·g olduğundan\" diye başlat.",
+     "Rubrik: gerekçeli, tek cümlelik net cevap yeterlidir."
+    ],
+    "keyTerms": [
+     {
+      "term": "Yoğunluk",
+      "definition": "Birim hacmin kütlesi (kg/m³)."
+     }
+    ]
+   },
+   {
+    "title": "Açık hava basıncı",
+    "content": "Atmosferi oluşturan hava, ağırlığı nedeniyle yeryüzüne ve içindeki cisimlere basınç uygular: açık hava basıncı. Deniz seviyesinde yaklaşık 1 atm, yani yaklaşık 76 cm yüksekliğindeki cıva sütununun basıncı (yaklaşık 10⁵ Pa). Yükseldikçe üstteki hava sütunu kısalır, hava seyrelir ve açık hava basıncı azalır.",
+    "bulletPoints": [
+     "Yükseklik arttıkça açık hava basıncı azalır.",
+     "Deniz seviyesinde değer: 76 cmHg.",
+     "Hava yoğunluğu yükseldikçe azalır.",
+     "Birim: Pa, atm veya cmHg.",
+     "Vantuz, pipet, enjektör gibi aletler açık hava basıncından yararlanır."
+    ],
+    "keyTerms": [
+     {
+      "term": "Açık hava basıncı",
+      "definition": "Atmosferdeki havanın ağırlığından doğan basınç."
+     },
+     {
+      "term": "atm",
+      "definition": "Deniz seviyesindeki yaklaşık açık hava basıncı birimi."
+     }
+    ]
+   },
+   {
+    "title": "Torricelli deneyi ve cıvanın seçilme nedeni",
+    "content": "Torricelli, bir ucu kapalı cam tüpü cıvayla doldurup açık ucu cıva dolu çanağa ters çevirdi. Cıvanın tamamı akmadı; tüpte yaklaşık 76 cm yükseklikte durdu. Çanak yüzeyine etki eden açık hava basıncı, tüpteki cıva sütununun sıvı basıncıyla dengelenir. Cıva çok yoğun (yaklaşık 13 600 kg/m³) olduğu için sütun kısa (76 cm) olur; su gibi daha hafif bir sıvıyla tüp yaklaşık 10 m olmak zorunda kalırdı.",
+    "bulletPoints": [
+     "Denge: açık hava basıncı = cıva sütununun sıvı basıncı.",
+     "P0 = h·d·g ≈ 0,76 · 13 600 · 10 ≈ 10⁵ Pa.",
+     "Tüp eğilse veya geniş olsa da düşey yükseklik sabit kalır.",
+     "Tüpteki boşluk (vakum) cıvanın üstünde oluşur.",
+     "Yüksek yerde açık hava basıncı azaldığından cıva sütunu kısalır."
+    ],
+    "keyTerms": [
+     {
+      "term": "Barometre",
+      "definition": "Açık hava basıncını ölçen alet."
+     },
+     {
+      "term": "Vakum",
+      "definition": "Hava bulunmayan boşluk."
+     }
+    ]
+   },
+   {
+    "title": "Pipet ve açık hava basıncı",
+    "content": "Pipetin esnek ucunu sıkıp bıraktığında pipetin içi basıncı düşer. Dışarıdaki açık hava basıncı bardaktaki sıvıya baskı yapar ve sıvıyı daha düşük basınçlı pipetin içine iter. Torricelli deneyinde de sıvı hareketi (veya dengesi) basınç farkının sonucudur: dış basınç büyük, içerisi düşük.",
+    "bulletPoints": [
+     "Her ikisinde de açık hava basıncı rol oynar.",
+     "Pipette plastik sıkılarak içerdeki basınç düşürülür.",
+     "Basınç farkı sıvıyı yüksek basınçtan düşük basınca iter.",
+     "Aynı ilkeyle çalışanlar: enjektör, vantuz, pipet ile içecek içme.",
+     "Karşılaştırma sorusunda ortak ilke: basınç farkı."
+    ],
+    "keyTerms": [
+     {
+      "term": "Basınç farkı",
+      "definition": "İki bölge arasındaki basınç değerlerinin farkı; akışı başlatır."
+     }
+    ]
+   },
+   {
+    "title": "Yükseklik, derinlik ve vücut: dağcı ve dalgıç",
+    "content": "Dağcı yükseldikçe açık hava basıncı azalır; kulaktaki iç basınç dış basınçtan büyük kalır, kulak tıkanır; seyrelmiş havada nefes almak zorlaşır. Dalgıç derinlere indikçe sıvı basıncı artar; dış kulak zarına dışarıdan baskı artar, orta kulaktaki basınç dengelenmezse acı hissedilir. Burunu kapatıp nefes vermek orta kulak basıncını dışarıyla eşitler.",
+    "bulletPoints": [
+     "Dağda: dışarıda basınç azalır.",
+     "Denizde: dışarıda basınç artar.",
+     "Vücut içindeki basınç dış basınçla dengelenene kadar rahatsızlık olur.",
+     "Dağcılar kademeli tırmanır (uyum).",
+     "Cevapta hem açık hava hem sıvı basıncını yaz (rubrik: ikisi için 6 puan, biri için 3)."
+    ],
+    "keyTerms": [
+     {
+      "term": "Uyum",
+      "definition": "Vücudun değişen basınca alışması."
+     }
+    ]
+   },
+   {
+    "title": "Kaldırma kuvveti: F = V·d·g",
+    "content": "Sıvıya batırılan cisme sıvı tarafından yukarı doğru uygulanan kuvvete kaldırma kuvveti denir. Büyüklüğü, cismin batan hacmi (V), sıvının yoğunluğu (d) ve g'ye bağlıdır: F = V·d·g. Cismin kendi yoğunluğuna veya şekline bağlı değildir. Tamamen batan cisimde V cismin hacmidir.",
+    "bulletPoints": [
+     "Çanta: V = 0,002 m³ → F = 0,002 · 1000 · 10 = 20 N.",
+     "Matara: V = 0,001 m³ → F = 10 N.",
+     "Yiyecek kutusu: V = 0,001 m³ → F = 10 N.",
+     "Aynı sıvıda hacim büyükse kaldırma kuvveti büyüktür.",
+     "Birim: newton (N)."
+    ],
+    "keyTerms": [
+     {
+      "term": "Kaldırma kuvveti",
+      "definition": "Sıvının içindeki cisme uyguladığı yukarı yönlü kuvvet."
+     },
+     {
+      "term": "Batan hacim",
+      "definition": "Sıvı içinde kalan cisim hacmi."
+     }
+    ]
+   },
+   {
+    "title": "Yüzme, askıda kalma ve batma",
+    "content": "Tamamen sıvı içindeki cisme iki kuvvet etki eder: aşağı ağırlık (G) ve yukarı kaldırma kuvveti (F). F > G ise cisim yükselir (yüzer), F = G ise askıda kalır, F < G ise batar. Aynı karşılaştırmayı yoğunlukla da yaparsın: d(cisim) < d(sıvı) yüzer, eşitse askıda kalır, büyükse batar.",
+    "bulletPoints": [
+     "Çanta: G = 10 N, F = 20 N → net 10 N yukarı → yüzer.",
+     "Matara: G = 10 N, F = 10 N → net 0 → askıda.",
+     "Yiyecek: G = 20 N, F = 10 N → net 10 N aşağı → batar.",
+     "İki yol: kuvvet çizimi veya yoğunluk karşılaştırması; ikisi de tam puan getirir.",
+     "Su yüzeyine hızlı çıkmak için batan (yoğunluğu büyük) kutu çıkarılır."
+    ],
+    "keyTerms": [
+     {
+      "term": "Askıda kalma",
+      "definition": "Ağırlığın kaldırma kuvvetine eşit olması."
+     }
+    ]
+   },
+   {
+    "title": "Kaldırma kuvvetinin kaynağı: basınç kuvvetlerinin bileşkesi",
+    "content": "Sıvı içindeki küpün yan yüzeylerine etki eden basınç kuvvetleri birbirini götürür. Alt ve üst yüzeylerdeki kuvvetler farklıdır: alt yüzey daha derindedir, kuvvet daha büyüktür. Bu fark yukarı yönlü bileşkeyi, yani kaldırma kuvvetini oluşturur. Sıvı kuvveti: F = h·d·g·A.",
+    "bulletPoints": [
+     "Üst yüzey 1 m derinde: F1 = 1 · 1000 · 10 · 0,01 = 100 N (aşağı).",
+     "Alt yüzey 1,1 m derinde: F2 = 1,1 · 1000 · 10 · 0,01 = 110 N (yukarı).",
+     "Bileşke: F2 − F1 = 10 N yukarı.",
+     "Aynı kutu için V·d·g = 0,001 · 1000 · 10 = 10 N → iki sonuç eşit.",
+     "Sonuç: sıvı basınç kuvvetlerinin bileşkesi kaldırma kuvvetidir."
+    ],
+    "keyTerms": [
+     {
+      "term": "Bileşke kuvvet",
+      "definition": "Birden çok kuvvetin toplamı olan tek kuvvet."
+     }
+    ]
+   },
+   {
+    "title": "Sınav stratejisi ve puan dağılımı",
+    "content": "Bu yazılıda 1. soru 14, 2. soru 21, 3. soru 19 (3.1 dahil), 4. soru 18, 5. soru 28 puan değerindedir (rubrik tablosuna göre alt maddelerin toplamı). Yorum soruları kısa ama gerekçeli yazılır: \"çünkü P = F/A\". Hesapta formülü, yerine koymayı ve birimi göster.",
+    "bulletPoints": [
+     "Kısmi puan: iki parçalı sorularda her parça ayrı puan getirir.",
+     "Şekil veya tablo verilmişse sayıları sorudan al.",
+     "\"Yorumla\" dediğinde sonucu bir fizik ilkesine bağla.",
+     "Boş bırakma: yazdığın doğru parça puan kazandırır.",
+     "Çalışma sırası: 5. soru (28), 2. soru (21), 3. soru (19), 4. soru (18)."
+    ],
+    "keyTerms": [
+     {
+      "term": "Gerekçe",
+      "definition": "Sonucun neden öyle olduğunu açıklayan cümle."
+     }
+    ]
+   }
+  ],
+  "importantDates": [],
+  "commonMistakes": [
+   "Hız treni metninde tekerleği yalnızca \"dönme\" saymak; dönme ve öteleme birlikte yazılmalı.",
+   "Basıncın kuvvete ters, alana doğru orantılı olduğunu sanmak (tam tersi).",
+   "15F kuvvet için 15 kürdan yazmak; 15 kürdanla balon patlar, patlamaması için en az 16 gerekir.",
+   "Sıvı basıncını kabın şekline veya sıvı miktarına bağlı sanmak.",
+   "P = h·d·g formülünde yoğunluğu ve h birimini (m) unutmak.",
+   "Dolusavağın amacını \"suyun akması\" diye geçiştirmek; baraj dayanımı ve basınç ilişkisi yazılmalı.",
+   "Torricelli deneyinde cıva yerine su kullanıldığında tüp boyunun yaklaşık 10 m olacağını belirtmemek.",
+   "Dağcı ve dalgıç sorusunda yalnızca birini (açık hava veya sıvı basıncı) yazmak, kısmi puana düşmek.",
+   "Kaldırma kuvvetini cismin yoğunluğuna bağlı sanmak; sıvı yoğunluğuna ve batan hacme bağlıdır.",
+   "Yüzme-batma yorumunda kuvvet çizimini yönsüz yapmak; ağırlık aşağı, kaldırma yukarı.",
+   "F₂ − F₁ farkını yazmadan doğrudan V·d·g ile geçmek; basınç kuvvetlerinin bileşkesi istenir.",
+   "Birimleri çevirmeden (cm², g) hesap yapmak."
+  ],
+  "diagrams": [],
+  "mindmap": {
+   "label": "9. Sınıf Fizik 2. Dönem 1. Yazılı",
+   "children": [
+    {
+     "label": "Hareket türleri",
+     "children": [
+      {
+       "label": "Öteleme",
+       "children": []
+      },
+      {
+       "label": "Dönme",
+       "children": []
+      },
+      {
+       "label": "Titreşim",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Katı basıncı",
+     "children": [
+      {
+       "label": "P = F/A",
+       "children": []
+      },
+      {
+       "label": "Kuvvetle doğru orantı",
+       "children": []
+      },
+      {
+       "label": "Alanla ters orantı",
+       "children": []
+      },
+      {
+       "label": "Kürdanlı balon",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Sıvı basıncı",
+     "children": [
+      {
+       "label": "P = h·d·g",
+       "children": []
+      },
+      {
+       "label": "Derinlik",
+       "children": []
+      },
+      {
+       "label": "Yoğunluk",
+       "children": []
+      },
+      {
+       "label": "Baraj ve dolusavak",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Açık hava basıncı",
+     "children": [
+      {
+       "label": "Torricelli",
+       "detail": "76 cmHg",
+       "children": []
+      },
+      {
+       "label": "Pipet",
+       "children": []
+      },
+      {
+       "label": "Dağcı ve dalgıç",
+       "children": []
+      }
+     ]
+    },
+    {
+     "label": "Kaldırma kuvveti",
+     "children": [
+      {
+       "label": "F = V·d·g",
+       "children": []
+      },
+      {
+       "label": "Yüzme-batma",
+       "children": []
+      },
+      {
+       "label": "Basınç kuvvetleri farkı",
+       "children": []
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "flashcards": [
+  {
+   "front": "Hareket türleri nelerdir?",
+   "back": "Öteleme, dönme, titreşim.",
+   "category": "Hareket Türleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Öteleme nedir?",
+   "back": "Cismin her noktasının aynı yönde ve eşit miktarda yer değiştirmesi.",
+   "category": "Hareket Türleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Dönme nedir?",
+   "back": "Cismin bir eksen/nokta çevresinde dairesel yörüngede hareketi.",
+   "category": "Hareket Türleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Titreşim nedir?",
+   "back": "Denge noktası etrafında gidip gelme hareketi.",
+   "category": "Hareket Türleri",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Tekerlek hangi hareket türlerini yapar?",
+   "back": "Dönme ve öteleme.",
+   "category": "Hareket Türleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Yay şeklindeki süspansiyon hangi hareketi yapar?",
+   "back": "Titreşim (ve araçla birlikte öteleme).",
+   "category": "Hareket Türleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "İstasyondan hızlanarak ayrılan tren hangi hareketi yapar?",
+   "back": "Öteleme.",
+   "category": "Hareket Türleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Virajda çembersel yörüngede giden tren hangi hareketi yapar?",
+   "back": "Dönme.",
+   "category": "Hareket Türleri",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Bir mekanizma birden fazla hareket yapabilir mi?",
+   "back": "Evet; örnek: tekerlek dönme + öteleme.",
+   "category": "Hareket Türleri",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Gitar telinin ses çıkarırken hareketi?",
+   "back": "Titreşim.",
+   "category": "Hareket Türleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Düz yolda ilerleyen asansörün hareketi?",
+   "back": "Öteleme.",
+   "category": "Hareket Türleri",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Fanın kanatları hangi hareketi yapar?",
+   "back": "Dönme.",
+   "category": "Hareket Türleri",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Basınç tanımı?",
+   "back": "Birim yüzeye dik etki eden kuvvet.",
+   "category": "Katı Basıncı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Basınç formülü?",
+   "back": "P = F / A.",
+   "category": "Katı Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Basıncın SI birimi?",
+   "back": "pascal (Pa = N/m²).",
+   "category": "Katı Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Basınç kuvvetle nasıl orantılıdır?",
+   "back": "Doğru orantılı.",
+   "category": "Katı Basıncı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Basınç yüzey alanıyla nasıl orantılıdır?",
+   "back": "Ters orantılı.",
+   "category": "Katı Basıncı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Basınca bağlı nicelikler?",
+   "back": "Dik kuvvet ve temas yüzey alanı.",
+   "category": "Katı Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kürdan sayısı artınca basınç neden azalır?",
+   "back": "Temas alanı artar, P = F/A azalır.",
+   "category": "Katı Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kürdan sayısı artınca balonu patlatan kuvvet neden artar?",
+   "back": "Aynı patlama basıncına ulaşmak için alan büyüdüğünden kuvvet de büyümelidir.",
+   "category": "Katı Basıncı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Balon 1 kürdanla F kuvvetinde patlıyorsa 10 kürdanla?",
+   "back": "10F.",
+   "category": "Katı Basıncı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "15F kuvvetle patlamaması için kaç kürdan?",
+   "back": "En az 16 (15 kürdanla patlar).",
+   "category": "Katı Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Aynı kuvvet, alan yarıya inerse basınç?",
+   "back": "2 katına çıkar.",
+   "category": "Katı Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "60 N kuvvet 0,02 m² alana etki ederse basınç?",
+   "back": "3000 Pa.",
+   "category": "Katı Basıncı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Çivinin ucu neden sivri yapılır?",
+   "back": "Alan küçülür, basınç büyür.",
+   "category": "Katı Basıncı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kar ayakkabısı neden kullanılır?",
+   "back": "Alanı büyütüp basıncı azaltır; batmayı önler.",
+   "category": "Katı Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Tuğlanın hangi yüzü üstteyken zemine en büyük basınç uygular?",
+   "back": "En küçük alanlı yüzü zemine temas ederken.",
+   "category": "Katı Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "1 cm² kaç m²?",
+   "back": "10⁻⁴ m².",
+   "category": "Katı Basıncı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Sıvı basıncı formülü?",
+   "back": "P = h·d·g.",
+   "category": "Sıvı Basıncı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Sıvı basıncı nelere bağlıdır?",
+   "back": "Derinlik, sıvı yoğunluğu, yer çekimi ivmesi.",
+   "category": "Sıvı Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Sıvı basıncı kabın şekline bağlı mıdır?",
+   "back": "Hayır.",
+   "category": "Sıvı Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Derinlik arttıkça sıvı basıncı?",
+   "back": "Artar.",
+   "category": "Sıvı Basıncı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Aynı derinlikte, yoğun sıvıda basınç?",
+   "back": "Daha büyüktür.",
+   "category": "Sıvı Basıncı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Aynı sıvıda aynı derinlikteki noktalarda basınç?",
+   "back": "Eşittir.",
+   "category": "Sıvı Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "10 m derinlikte suyun basıncı? (d=1000, g=10)",
+   "back": "10⁵ Pa.",
+   "category": "Sıvı Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Baraj gövdesi neden aşağıda kalındır?",
+   "back": "Derinlik arttıkça basınç arttığı için alt kısımlar daha dayanıklı olmalı.",
+   "category": "Sıvı Basıncı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Dolusavak nedir?",
+   "back": "Barajda fazla suyu boşaltan kanal.",
+   "category": "Sıvı Basıncı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Dolusavak neden önemlidir?",
+   "back": "Su seviyesini sınırlayıp basıncın baraj dayanımını aşmasını önler.",
+   "category": "Sıvı Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Barajda sıvı yerine daha yoğun sıvı olsaydı K noktasında basınç?",
+   "back": "Artardı.",
+   "category": "Sıvı Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Sıvı basıncı hangi yönlere etki eder?",
+   "back": "Her yöne.",
+   "category": "Sıvı Basıncı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Aynı derinlikte d₂ = 2d₁ ise basınçlar?",
+   "back": "P₂ = 2P₁.",
+   "category": "Sıvı Basıncı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Derinlik 3 katına çıkarsa sıvı basıncı?",
+   "back": "3 katına çıkar.",
+   "category": "Sıvı Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Açık hava basıncı nedir?",
+   "back": "Atmosferdeki havanın ağırlığının yarattığı basınç.",
+   "category": "Açık Hava Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yükseldikçe açık hava basıncı?",
+   "back": "Azalır.",
+   "category": "Açık Hava Basıncı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Hava yoğunluğu yükseldikçe nasıl değişir?",
+   "back": "Azalır.",
+   "category": "Açık Hava Basıncı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Deniz seviyesinde açık hava basıncı kaç cmHg?",
+   "back": "Yaklaşık 76 cmHg.",
+   "category": "Açık Hava Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Torricelli deneyinde ne gözlendi?",
+   "back": "Cıvanın tamamı akmadı, tüpte ~76 cm yükseklikte dengede kaldı.",
+   "category": "Açık Hava Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Torricelli deneyinde denge neden sağlanır?",
+   "back": "Cıva sütununun sıvı basıncı açık hava basıncına eşittir.",
+   "category": "Açık Hava Basıncı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Torricelli deneyinde neden cıva kullanıldı?",
+   "back": "Yoğunluğu yüksek olduğu için kısa bir tüpte (76 cm) dengelenir.",
+   "category": "Açık Hava Basıncı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Su kullanılsaydı tüp ne kadar olmalıydı?",
+   "back": "Yaklaşık 10 m.",
+   "category": "Açık Hava Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Torricelli tüpü eğilirse düşey yükseklik?",
+   "back": "Değişmez, 76 cm kalır.",
+   "category": "Açık Hava Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Barometre ne ölçer?",
+   "back": "Açık hava basıncını.",
+   "category": "Açık Hava Basıncı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Pipetle sıvı neden yükselir?",
+   "back": "Pipet içi basınç düşer, açık hava basıncı sıvıyı pipete iter.",
+   "category": "Açık Hava Basıncı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Pipet ile Torricelli ortak ilkesi?",
+   "back": "Açık hava basıncı ve basınç farkı.",
+   "category": "Açık Hava Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Vantuz neden yapışır?",
+   "back": "İçerideki hava azalır, dış açık hava basıncı onu yüzeye bastırır.",
+   "category": "Açık Hava Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Dağcının kulağı neden tıkanır?",
+   "back": "Yükseklikte açık hava basıncı azalır, iç basınç dışarıdan büyük kalır.",
+   "category": "Açık Hava Basıncı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Dalgıçta kulak ağrısı neden olur?",
+   "back": "Derinlikte sıvı basıncı artar, orta kulak basıncı dengelenmez.",
+   "category": "Açık Hava Basıncı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Dalgıç basıncı nasıl dengeler?",
+   "back": "Ağız ve burnu kapalı nefes vererek orta kulak basıncını eşitler.",
+   "category": "Açık Hava Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "1 atm yaklaşık kaç Pa?",
+   "back": "Yaklaşık 10⁵ Pa.",
+   "category": "Açık Hava Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kaldırma kuvveti nedir?",
+   "back": "Sıvının içindeki cisme uyguladığı yukarı yönlü kuvvet.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Kaldırma kuvveti formülü?",
+   "back": "F = V·d·g (V: batan hacim, d: sıvı yoğunluğu).",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kaldırma kuvveti cismin yoğunluğuna bağlı mıdır?",
+   "back": "Hayır; batan hacme, sıvı yoğunluğuna ve g'ye bağlıdır.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "medium"
+  },
+  {
+   "front": "0,002 m³ hacimli cisim suda (d=1000) kaç N kaldırma görür?",
+   "back": "20 N.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "medium"
+  },
+  {
+   "front": "F > G ise cisim?",
+   "back": "Yukarı hareket eder/yüzer.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "hard"
+  },
+  {
+   "front": "F = G ise cisim?",
+   "back": "Askıda kalır (dengede).",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "easy"
+  },
+  {
+   "front": "F < G ise cisim?",
+   "back": "Batar.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "medium"
+  },
+  {
+   "front": "d(cisim) < d(sıvı) ise cisim?",
+   "back": "Yüzer.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "medium"
+  },
+  {
+   "front": "d(cisim) = d(sıvı) ise cisim?",
+   "back": "Askıda kalır.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "hard"
+  },
+  {
+   "front": "d(cisim) > d(sıvı) ise cisim?",
+   "back": "Batar.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Yiyecek kutusu (d=2000) suda ne yapar?",
+   "back": "Batar; net kuvvet aşağı doğrudur.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Su matarası (d=1000) suda ne yapar?",
+   "back": "Askıda kalır.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "medium"
+  },
+  {
+   "front": "İlk yardım çantası (d=500) suda ne yapar?",
+   "back": "Yüzer.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Sporcunun yüzeye hızlı çıkması için hangi kutu çıkarılmalı?",
+   "back": "Batan kutu, yani yiyecek kutusu.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kübün yan yüzeylerine etki eden basınç kuvvetlerinin bileşkesi?",
+   "back": "Sıfır (birbirini dengeler).",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Sıvı basınç kuvveti formülü?",
+   "back": "F = h·d·g·A.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "medium"
+  },
+  {
+   "front": "F₂ − F₁ neyi verir?",
+   "back": "Kaldırma kuvvetini (alt ve üst yüzeydeki basınç kuvvetleri farkı).",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Üst yüzey 1 m, alt yüzey 1,1 m derinlikteki küpte (A=0,01 m²) F₁ ve F₂?",
+   "back": "F₁ = 100 N, F₂ = 110 N; bileşke 10 N.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Küpün kaldırma kuvveti V·d·g ile nasıl uyuşur?",
+   "back": "V = 0,001 m³ → 10 N, aynı sonuç.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Gemi neden batmaz?",
+   "back": "Ortalama yoğunluğu suyunkinden küçüktür; yer değiştirdiği suyun kaldırma kuvveti ağırlığına eşit olur.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kaldırma kuvveti hangi yöndedir?",
+   "back": "Düşey yukarı.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Suyun içindeki bir cisme etki eden kuvvetler?",
+   "back": "Ağırlık (aşağı) ve kaldırma kuvveti (yukarı).",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Net kuvvet hesabı nasıl yapılır?",
+   "back": "Zıt yönlü kuvvetler çıkarılır; sonuç büyüğün yönündedir.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Dinamometrede suya batırılan cisim neden hafifler?",
+   "back": "Kaldırma kuvveti ağırlığı kısmen dengelediği için gösterge azalır.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Cismin ağırlığı 20 N, sudaki görünen ağırlığı 15 N ise F?",
+   "back": "5 N.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Tuzlu su kaldırma kuvvetini nasıl etkiler?",
+   "back": "Yoğunluk arttığı için kaldırma kuvveti artar.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kaldırma kuvveti derinliğe bağlı mıdır (tamamen batmışsa)?",
+   "back": "Hayır; yalnızca batan hacme, yoğunluğa ve g'ye bağlıdır.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yazılıda yorumlama sorusunda ne yazılır?",
+   "back": "Sonuç + fizik ilkesi + (varsa) formül.",
+   "category": "Sınav Stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Kısmi puan kuralı 2.1 sorusunda?",
+   "back": "Yalnızca alan veya kuvvetten biri doğruysa 3 puan; ikisi doğruysa 6.",
+   "category": "Sınav Stratejisi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "3.4 sorusunda tam puan için ne gerekir?",
+   "back": "Hem P = h·d·g hem dolusavağın önemini açıklama (biri 3 puan).",
+   "category": "Sınav Stratejisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "4.1 sorusunda tam puan için ne gerekir?",
+   "back": "Hem açık hava basıncı hem sıvı basıncı açıklaması (biri 3 puan).",
+   "category": "Sınav Stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "5.3 sorusunda kısmi puan nasıl alınır?",
+   "back": "Yalnızca basınç kuvvetlerini hesaplarsan veya yalnızca ilişkiyi doğru yorumlarsan 6 puan.",
+   "category": "Sınav Stratejisi",
+   "difficulty": "medium"
+  },
+  {
+   "front": "5.1 sorusunun puan dağılımı?",
+   "back": "Her kaldırma kuvveti 3 puan, toplam 9.",
+   "category": "Sınav Stratejisi",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Birimleri neden yazmalıyım?",
+   "back": "Sonuç niceliğin anlamını kazanır; eksik birim puan kaybettirir.",
+   "category": "Sınav Stratejisi",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Sıvı basıncı ile katı basıncı arasındaki fark?",
+   "back": "Katı basıncı P = F/A (kuvvet ve alan); sıvı basıncı P = h·d·g (derinlik, yoğunluk, g) ve her yöne etki eder.",
+   "category": "Sıvı Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Su altında her yöne eşit basınç var mıdır?",
+   "back": "Aynı derinlikte her yöne eşit basınç vardır.",
+   "category": "Sıvı Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Dalgıç 20 m derinlikte (d=1000, g=10) basınç?",
+   "back": "200 000 Pa (2·10⁵ Pa), yalnızca sıvı basıncı.",
+   "category": "Sıvı Basıncı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Toplam basınç dalgıçta nasıl hesaplanır?",
+   "back": "Sıvı basıncı + yüzeydeki açık hava basıncı.",
+   "category": "Sıvı Basıncı",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Torricelli tüpünün içindeki cıva üstündeki boşluğun adı?",
+   "back": "Vakum (cıva buharı hariç hava yok).",
+   "category": "Açık Hava Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Enjektörle ilaç nasıl çekilir?",
+   "back": "Pistonu çekince içeri basınç düşer, açık hava basıncı ilacı şırıngaya iter.",
+   "category": "Açık Hava Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Yükseklikte neden zor nefes alınır?",
+   "back": "Hava seyrelir, açık hava basıncı ve oksijen miktarı azalır.",
+   "category": "Açık Hava Basıncı",
+   "difficulty": "hard"
+  },
+  {
+   "front": "Düşey kübün yan yüzlerindeki kuvvetler neden dengelenir?",
+   "back": "Aynı derinlikte eşit ve zıt yönlüdürler.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "easy"
+  },
+  {
+   "front": "Kaldırma kuvveti ile ağırlık karşılaştırması neyi belirler?",
+   "back": "Cismin yüzme, askıda kalma veya batma durumunu.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "medium"
+  },
+  {
+   "front": "Mühendislikte basıncı azaltmak için neler yapılır?",
+   "back": "Alan büyütülür: palet, geniş taban, kar ayakkabısı.",
+   "category": "Katı Basıncı",
+   "difficulty": "medium"
+  }
+ ],
+ "quiz": [
+  {
+   "type": "open-ended",
+   "question": "Soru 1 (14 puan). Bir eğlence parkında hız treni farklı hareket türlerini bir arada kullanarak ziyaretçilere heyecanlı bir deneyim sunar. (1) Durgun hâldeki hız treni yatay doğrultudaki istasyondan ayrılırken hızlanır. (2) Sonrasında tren, tekerlekler aracılığı ile tepeye doğru yükselirken yer çekimi etkisiyle yavaşlar. Tepeden aşağı inerken ise tekrar hızlanır. (3) Tren çembersel virajlarda hareket ederken trenin yönü değişir ve bu durum yolcuların farklı açılardan manzarayı görmesini sağlar. (4) Yolculuk boyunca tren, raylar üzerindeki küçük engellerden geçerken trende bulunan yay şeklindeki süspansiyonlar sayesinde yolcular sert etkiye maruz kalmazlar fakat bu ufak hareketler yolcular tarafından hissedilir. Metne göre numaralandırılmış cümlelerde parantez içinde verilen mekanizmanın hangi hareket türlerini yaptığını yazınız (Mekanizmalar birden fazla hareket türünü bir arada yapabilir.): 1 (tren), 2 (tekerlekler), 3 (tren), 4 (süspansiyonlar).",
+   "correctAnswer": "1 (tren): öteleme. 2 (tekerlekler): dönme ve öteleme. 3 (tren): dönme (çembersel yörüngede hareket ettiği için). 4 (süspansiyonlar): titreşim ve öteleme.",
+   "keyPoints": [
+    "1: öteleme",
+    "2: dönme ve öteleme",
+    "3: dönme",
+    "4: titreşim ve öteleme"
+   ],
+   "maxPoints": 14,
+   "explanation": "Yöntem: her cümlede mekanizmanın ne yaptığını tek kelimeyle özetle. Durgun trenin düz hızlanması ötelemedir. Tekerlek hem eksen etrafında döner hem tren yükselirken ilerler: dönme + öteleme. Virajdaki çembersel hareket dönmedir. Yay şeklindeki süspansiyon sıkışıp gevşer: titreşim; trenle birlikte ilerlediği için öteleme de yapar. Rubrikte doğru yazılan her hareket türü 2 puandır; tüm türler doğruysa tam puan (14). Not: rubrikteki listelenen 6 hareket türü 12 puan eder, dosyada toplam 14 olarak verilmiştir; bu fark dosyada açıklanmamıştır, bu yüzden her mekanizmanın tüm türlerini eksiksiz yazmak en güvenlisidir.",
+   "category": "Hareket Türleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 2.1 (6 puan). Fizik öğretmeni basınç ile ilgili deney yapmıştır. İlk olarak Şekil I'de gösterildiği gibi bir adet kürdanı yatay zemine batırmış ve balona düşey doğrultuda kuvvet uygulamaya başlamıştır. F kuvveti uyguladığı anda balonun patladığını gözlemlemiştir. Özdeş balonlar kullanarak zeminlere sırasıyla iki, üç, dört ve beş adet kürdan batırarak 2F, 3F, 4F ve 5F kuvveti uygulamış ve balonları patlatabilecek minimum kuvvetlerin bu değerler olduğunu gözlemlemiştir. Kürdan sayısı arttıkça balonun patlayabilmesi için uygulanması gereken kuvvetin büyüklüğünün artmasının nedenini yazınız.",
+   "correctAnswer": "Tek kürdanın yüzeye temas eden alanı çok küçük olduğundan basınç büyüktür ve balon küçük bir kuvvette patlar. Kürdan sayısı arttığında yüzeye temas eden alan artar, böylece basınç azalır ve balon daha büyük bir kuvvet değerinde patlar.",
+   "keyPoints": [
+    "Kürdan sayısı arttıkça temas alanı artar",
+    "Alan arttıkça basınç azalır",
+    "Balonu patlatmak için daha büyük kuvvet gerekir"
+   ],
+   "maxPoints": 6,
+   "explanation": "Adım 1: kürdan sayısı = temas alanı. Adım 2: P = F/A, alan büyüyünce aynı kuvvet daha küçük basınç yapar. Adım 3: balon belli bir basınçta patlar, bu basıncı elde etmek için kuvvet de artmalıdır. Rubrik: kürdan sayısı-yüzey alanı ve kuvvetle patlama ilişkisini birlikte kurarsan 6 puan; yalnızca alan veya yalnızca kuvvet kavramını doğru ilişkilendirirsen 3 puan.",
+   "category": "Katı Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 2.2 (4 puan). (Kürdanlı balon deneyi: 1, 2, 3, 4, 5 kürdan; balonu patlatan minimum kuvvetler F, 2F, 3F, 4F, 5F.) Deneyden çıkarılacak sonuçlara göre basıncın bağlı olduğu nicelikler nelerdir? Yazınız.",
+   "correctAnswer": "Basınç, kuvvete ve yüzey alanına bağlıdır.",
+   "keyPoints": [
+    "Kuvvet",
+    "Yüzey alanı"
+   ],
+   "maxPoints": 4,
+   "explanation": "Deneyde iki şey değişiyor: uygulanan kuvvet ve temas alanı (kürdan sayısı). Bu ikisi basıncı belirler. Rubrik: ikisini de yazarsan 4 puan, yalnızca birini yazarsan 2 puan.",
+   "category": "Katı Basıncı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 2.3 (5 puan). (Aynı deney.) Şekildeki deney düzeneklerine göre basınca etki eden nicelikler arasındaki ilişkiyi açıklayınız.",
+   "correctAnswer": "Basınç, uygulanan kuvvetle doğru orantılı, temas eden yüzey alanıyla ters orantılıdır.",
+   "keyPoints": [
+    "Kuvvetle doğru orantılı",
+    "Yüzey alanıyla ters orantılı"
+   ],
+   "maxPoints": 5,
+   "explanation": "Orantı iki yönlüdür: kuvvet artınca basınç artar (doğru), alan artınca basınç azalır (ters). P = F/A formülünü de yazabilirsin. Rubrik: ikisi doğruysa 5 puan, yalnızca biri doğruysa 3 puan.",
+   "category": "Katı Basıncı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 2.4 (3 puan). Fizik öğretmeni basınç ile ilgili deney yapmıştır. İlk olarak Şekil I'de gösterildiği gibi bir adet kürdanı yatay zemine batırmış ve balona düşey doğrultuda kuvvet uygulamaya başlamıştır. F kuvveti uyguladığı anda balonun patladığını gözlemlemiştir. Özdeş balonlar kullanarak zeminlere sırasıyla iki, üç, dört ve beş adet kürdan batırarak 2F, 3F, 4F ve 5F kuvveti uygulamış ve balonları patlatabilecek minimum kuvvetlerin bu değerler olduğunu gözlemlemiştir. Balonlar aynı basınç değerinde patladığına göre öğretmen, basıncı veren matematiksel modeli kullanarak on adet kürdan ile balonun patlaması için en az kaç F kuvvet uygulamalıdır?",
+   "correctAnswer": "10F. Tek kürdan alanı A ise 10 kürdan alanı 10A; F/A = x/(10A) olduğundan x = 10F.",
+   "keyPoints": [
+    "P = F/A",
+    "Alan 10A",
+    "x = 10F"
+   ],
+   "maxPoints": 3,
+   "explanation": "Adım 1: tek kürdan için patlama basıncı P = F/A. Adım 2: 10 kürdan için alan 10A, kuvvet x. Adım 3: aynı basınç: F/A = x/(10A) → x = 10F. Kısa yol: kürdan sayısı kaç katına çıkarsa kuvvet de o kadar katına çıkar (deneyde 2→2F, 3→3F). Rubrik tek puanlıdır: 10F yazarsan 3 puan.",
+   "category": "Katı Basıncı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 2.5 (3 puan). Fizik öğretmeni basınç ile ilgili deney yapmıştır. İlk olarak Şekil I'de gösterildiği gibi bir adet kürdanı yatay zemine batırmış ve balona düşey doğrultuda kuvvet uygulamaya başlamıştır. F kuvveti uyguladığı anda balonun patladığını gözlemlemiştir. Özdeş balonlar kullanarak zeminlere sırasıyla iki, üç, dört ve beş adet kürdan batırarak 2F, 3F, 4F ve 5F kuvveti uygulamış ve balonları patlatabilecek minimum kuvvetlerin bu değerler olduğunu gözlemlemiştir. Balonlar aynı basınç değerinde patladığına göre öğretmen, basıncı veren matematiksel modeli kullanarak 15F kuvvet uyguladığında balonun patlamaması için zemine en az kaç kürdan batırmalıdır? Hesaplayınız.",
+   "correctAnswer": "F/A = 15F/(S·A) → S = 15; 15 kürdanla balon patlar. Aynı basınca ulaşmamak için öğretmen en az 16 kürdan batırmalıdır.",
+   "keyPoints": [
+    "Patlama basıncı: F/A",
+    "15 kürdanda P aynı → patlar",
+    "En az 16 kürdan"
+   ],
+   "maxPoints": 3,
+   "explanation": "Adım 1: 15F kuvvet, S kürdan: 15F/(S·A) = F/A → S = 15. Adım 2: S = 15 olduğunda basınç tam patlama değeridir, balon patlar. Adım 3: patlamaması için basınç bu değerden küçük olmalı: S > 15, tam sayı olarak en az 16. Bu sorudaki tuzak 15 yazmaktır. Rubrik: 16 yazarsan 3 puan.",
+   "category": "Katı Basıncı",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 3.2 (4 puan). Baraj, eski zamanlardan beri insanlığın su ihtiyacını karşılamak ve tarımsal alanların sulanması amacıyla inşa edilen yapılardır. Barajların normal depolama hacimlerindeki su miktarına normal su seviyesi denir. Su, normal su seviyesinin üstüne çıkmaya başladığında (maksimum seviyeye ulaştığında) suyun baraj gövdesinin üzerinden aşmaması için suyun bir kanal yardımıyla boşaltılması gerekir. Suyu boşaltan bu kanallara dolusavak denir. Baraj gövdesinin aşağıya doğru kalınlaşmasının sebebini açıklayınız.",
+   "correctAnswer": "Sıvı derinliği arttıkça sıvı basıncı arttığından baraj gövdesinin alt kısımlarının daha dayanıklı olması gerekir. Bu nedenle alt kısım daha kalın inşa edilir.",
+   "keyPoints": [
+    "Derinlik arttıkça sıvı basıncı artar",
+    "Alt kısım daha dayanıklı olmalı, bu yüzden kalın"
+   ],
+   "maxPoints": 4,
+   "explanation": "Barajın alt kısmı suyun daha derin olduğu bölgedir; P = h·d·g olduğundan orada basınç en büyüktür. Daha büyük basıncı taşımak için gövde kalınlaştırılır. Rubrik: \"sıvı basıncı artacağından\" gerekçesini yazarsan 4 puan.",
+   "category": "Sıvı Basıncı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 3.3 (4 puan). Baraj, eski zamanlardan beri insanlığın su ihtiyacını karşılamak ve tarımsal alanların sulanması amacıyla inşa edilen yapılardır. Barajların normal depolama hacimlerindeki su miktarına normal su seviyesi denir. Su, normal su seviyesinin üstüne çıkmaya başladığında (maksimum seviyeye ulaştığında) suyun baraj gövdesinin üzerinden aşmaması için suyun bir kanal yardımıyla boşaltılması gerekir. Suyu boşaltan bu kanallara dolusavak denir. Barajda su yerine yoğunluğu suyun yoğunluğundan daha büyük olan bir sıvı toplansaydı, barajın dibindeki K noktasındaki sıvı basıncı ilk duruma göre nasıl değişirdi? Açıklayınız.",
+   "correctAnswer": "Bir sıvının yoğunluğu arttıkça basıncı da artar; K noktasındaki sıvı basıncı artardı.",
+   "keyPoints": [
+    "Yoğunluk arttı",
+    "Sıvı basıncı artar"
+   ],
+   "maxPoints": 4,
+   "explanation": "P = h·d·g formülünde derinlik (h) ve g sabit kalırsa basınç yoğunlukla doğru orantılıdır. Daha yoğun sıvı = daha büyük basınç. Rubrik: \"yoğunluk arttıkça sıvı basıncı artar\" cümlesi 4 puan.",
+   "category": "Sıvı Basıncı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 3.4 (6 puan). Baraj, eski zamanlardan beri insanlığın su ihtiyacını karşılamak ve tarımsal alanların sulanması amacıyla inşa edilen yapılardır. Barajların normal depolama hacimlerindeki su miktarına normal su seviyesi denir. Su, normal su seviyesinin üstüne çıkmaya başladığında (maksimum seviyeye ulaştığında) suyun baraj gövdesinin üzerinden aşmaması için suyun bir kanal yardımıyla boşaltılması gerekir. Suyu boşaltan bu kanallara dolusavak denir. Suyun yoğunluğu d, yer çekimi ivmesi g olduğuna göre K noktasındaki sıvı basıncını veren matematiksel modeli yazınız (K noktası, su yüzeyinden h kadar derinliktedir) ve dolusavak kanalının baraj için önemini bu modeli kullanarak açıklayınız.",
+   "correctAnswer": "P = h·d·g. Derinlik arttıkça sıvı basıncı artar. Bir barajın taşıyabileceği maksimum su seviyesi vardır; barajın zarar görmemesi ya da yıkılmaması için fazla suyun boşaltılması gerekir. Dolusavaklar barajı korumak için inşa edilir.",
+   "keyPoints": [
+    "P = h·d·g",
+    "Derinlik arttıkça basınç artar",
+    "Dolusavak fazla suyu boşaltır, seviye ve basıncı sınırlar"
+   ],
+   "maxPoints": 6,
+   "explanation": "İki parça var, ikisi de puan getirir. Parça 1: P = h·d·g. Parça 2: su seviyesi yükselirse h artar, formülden basınç da artar; basınç barajın dayanımını aşarsa hasar olur. Dolusavak h'yi sınırlar, böylece basınç güvenli kalır. Rubrik: model + dolusavak açıklaması birlikte doğruysa 6 puan; yalnızca model veya yalnızca açıklama doğruysa 3 puan.",
+   "category": "Sıvı Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 4.1 (6 puan). Atmosferin özelliklerinden biri yükseklikle değişen hava yoğunluğudur. Rakım düştükçe havanın yoğunluğu artar, yükseldikçe azalır. Dağcılık sporuyla uğraşanlar, yüksek dağların zirvesine yaklaştıkça kulaklarında tıkanma hisseder, daha zor nefes alıp verir ve burun kanaması gibi sağlık sorunları yaşayabilir. Benzer şekilde suda derinlere indikçe dalgıçların üzerine etki eden suyun basıncı dış kulak zarına baskı yapar. Orta kulaktaki basınç, artan dış basınçla dengelenmediği durumda acı hissedilir. Dalgıçlar bunu engellemek için ağız kapalıyken burun deliklerini de kapatıp nefes verirler. Dağcıların dağın zirvesine yaklaştıkça ve dalgıçların denizde derinlere doğru indikçe çeşitli sağlık sorunları yaşamalarını basınç ile ilişkilendirerek açıklayınız.",
+   "correctAnswer": "Dağın zirvesine yaklaştıkça ya da deniz seviyesinden yükseklere çıkıldıkça açık hava basıncı azalır. Suda derinlere inildikçe sıvı basıncı artar. Bu basınç değişimleri insan vücudundaki basınçla dengelenene kadar uyumsuzluklar oluşur.",
+   "keyPoints": [
+    "Yükseldikçe açık hava basıncı azalır",
+    "Derinlere inildikçe sıvı basıncı artar",
+    "Vücut basıncı dengelenene kadar sorunlar"
+   ],
+   "maxPoints": 6,
+   "explanation": "Soru iki durumu da kapsıyor, cevabında ikisi de olmalı. Dağ: yükseklik arttıkça hava seyrelir, açık hava basıncı düşer. Deniz: derinlik arttıkça P = h·d·g büyür. Vücut basıncı çevre basıncına uyum sağlayana kadar kulak tıkanması, ağrı, nefes zorluğu görülür. Rubrik: ikisini de doğru açıklarsan 6 puan; yalnızca birini açıklarsan 3 puan.",
+   "category": "Açık Hava Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 4.2 (6 puan). Deniz seviyesindeki açık hava basıncını ölçmek için Torricelli, içinde cıva bulunan çanağa bir ucu kapalı, içerisi cıva dolu cam tüpü ters çevirip daldırdığında cıvanın tamamının çanağa akmayıp 76 cm yükseklikte dengede kaldığını gözlemlemiştir; tüpteki cıvanın üstünde boşluk vardır. Şekildeki deneye bakarak sıvı basıncı ile açık hava basıncı arasındaki ilişkiyi yorumlayıp bu yorumunuza dayanarak deneyde cıva kullanılmasının sebebini yazınız.",
+   "correctAnswer": "Cıvanın yoğunluğu yüksektir; bu nedenle cıva, açık hava basıncını dengede tutmak için uygun bir maddedir. Cıvanın yoğunluğu yüksek olduğu için tüp içerisinde 76 cm'de sıvı basıncı ile açık hava basıncı dengelenmiştir. Yoğunluğu daha düşük başka bir sıvı kullanılsaydı çok daha uzun bir cam tüpe ihtiyaç duyulurdu.",
+   "keyPoints": [
+    "Cıva sütununun sıvı basıncı = açık hava basıncı",
+    "Cıva yoğun olduğu için sütun 76 cm",
+    "Daha az yoğun sıvıyla çok uzun tüp gerekirdi"
+   ],
+   "maxPoints": 6,
+   "explanation": "Önce ilişkiyi kur: tüpteki cıva sütunu dengede, yani sütunun basıncı çanak yüzeyine etki eden açık hava basıncına eşit. Sonra P = h·d·g ile yorumla: aynı basınç için yoğunluk büyükse yükseklik küçük olur. Cıva yoğun olduğundan (≈13 600 kg/m³) 76 cm yeter; su ile ≈10 m gerekirdi. Rubrik tek parça halinde 6 puandır; hem ilişki hem cıva seçiminin nedeni yazılmalı.",
+   "category": "Açık Hava Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 4.3 (6 puan). Pipet, sıvıları bardak, şişe veya beher içinden kolayca çekmek için kullanılan ince, cam bir borudur (ucunda esnek plastik bulunur). Pipetin bir ucundaki esnek plastik sıkılarak sıvının içine batırılmakta ve sıvı içerisinde esnek plastik serbest bırakılırken sıvı pipetin içinde yükselmektedir. Pipetin çalışma ilkesini Torricelli deneyinden elde edilen ilkelerle karşılaştırarak açıklayınız.",
+   "correctAnswer": "Pipet içinde sıvının yükselmesinde Torricelli deneyindeki gibi açık hava basıncı önemli bir rol oynar. Torricelli deneyinde cıva sütunu açık hava basıncı ile dengelenirken pipetin esnek plastiğinin sıkılmasıyla basınç düşürülür. Böylece beher içindeki sıvı pipet içinde yükselir. İki durumda da sıvı hareketi basınç farklarından kaynaklanır.",
+   "keyPoints": [
+    "Açık hava basıncının rolü",
+    "Plastik sıkılıp bırakılınca pipet içi basıncı düşer",
+    "Sıvı basınç farkıyla yükselir",
+    "Torricelli ile ortak ilke: basınç farkı"
+   ],
+   "maxPoints": 6,
+   "explanation": "Karşılaştırma sorusu: iki olayın ortak ilkesini yaz. Ortak ilke: dış (açık hava) basıncı iç basınçtan büyükse sıvı düşük basınçlı bölgeye doğru hareket eder. Pipette iç basıncı sen düşürürsün; Torricelli'de tüpün içinde boşluk (vakum) vardır. Rubrik: karşılaştırmayı doğru yaparsan 6 puan.",
+   "category": "Açık Hava Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 5.1 (9 puan). Dağ sporları yapan sporcunun çantasının dış kısmında ilk yardım çantası, su matarası ve yiyecek kutusu asılı olarak bulunmaktadır. Su geçirmeyen ve sert malzemeden yapılan bu üç malzemenin ağırlıkları, yoğunlukları ve hacimleri şöyledir: İlk yardım çantası 10 N, 500 kg/m³, 0,002 m³. Su matarası 10 N, 1000 kg/m³, 0,001 m³. Yiyecek kutusu 20 N, 2000 kg/m³, 0,001 m³. Sporcu yer çekimi ivmesinin 10 m/s² olduğu ortamda, yoğunluğu 1000 kg/m³ olan göle yüksek bir yerden düşüyor. Tamamı su içinde olan sporcu, üzerindeki ağırlıkların etkisiyle batmaktadır. Sporcu su içinde hareketsiz kaldığı anda malzeme kutularının tamamı su içindeyken her birine etki eden sıvı kaldırma kuvvetlerinin büyüklüklerini bulunuz.",
+   "correctAnswer": "İlk yardım çantası: F = V·d·g = 0,002 · 1000 · 10 = 20 N. Su matarası: F = 0,001 · 1000 · 10 = 10 N. Yiyecek kutusu: F = 0,001 · 1000 · 10 = 10 N.",
+   "keyPoints": [
+    "Çanta 20 N",
+    "Matara 10 N",
+    "Yiyecek kutusu 10 N",
+    "F = V·d·g"
+   ],
+   "maxPoints": 9,
+   "explanation": "Formül: F = V (batan hacim) x d (sıvı yoğunluğu) x g. Sıvı su olduğu için d = 1000 kg/m³ (cisimlerin yoğunluğunu kullanma tuzağına düşme). Üç hesabı ayrı ayrı yap. Rubrik: her doğru kaldırma kuvveti 3 puan, üçü de doğruysa 9.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 5.2 (7 puan). (Aynı senaryo: çanta 10 N, 0,002 m³; matara 10 N, 0,001 m³; yiyecek 20 N, 0,001 m³; su yoğunluğu 1000 kg/m³, g = 10 m/s².) Sporcu, su yüzeyine daha kısa sürede çıkabilmek için hangi malzeme kutularını bağlı olduğu yerden çıkarmalıdır?",
+   "correctAnswer": "Yiyecek kutusu çıkarılmalıdır. I. yol: çantada G = 10 N, F = 20 N (net yukarı); matarada G = F = 10 N (net sıfır); yiyecek kutusunda G = 20 N, F = 10 N (net aşağı, sporcunun çıkışını zorlaştırır). II. yol: çanta suyun yoğunluğundan küçük (yüzer), matara eşit (askıda), yiyecek kutusu büyük (batar).",
+   "keyPoints": [
+    "Çantada net kuvvet yukarı",
+    "Mataranın net kuvveti sıfır",
+    "Yiyecek kutusunda net kuvvet aşağı",
+    "Yiyecek kutusu çıkarılmalı"
+   ],
+   "maxPoints": 7,
+   "explanation": "İki yol da kabul edilir. Kuvvet yolu: her malzeme için G ve F'yi çiz, net kuvvete bak. Yoğunluk yolu: cisim yoğunluğunu suyun yoğunluğuyla (1000) karşılaştır. Aşağı doğru net kuvvet sporcuyu batırır; o yüzden yiyecek kutusu çıkarılır. Rubrik: kuvvetleri veya yoğunlukları doğru karşılaştırıp yiyecek kutusunu yazarsan 7 puan.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Soru 5.3 (12 puan). Küp şeklindeki yiyecek kutusunun üst yüzeyi 1 m derinlikteyken su içerisindeki konumu verilmiştir: üst yüzey (1) su yüzeyinin 1 m altında, alt yüzey (2) 1,1 m derinliktedir; bir yüzeyin alanı A = 0,01 m²; suyun yoğunluğu 1000 kg/m³, g = 10 m/s²; kutunun hacmi 0,001 m³. Kutunun alt ve üst yüzeylerine etki eden ve sıvılarda basınca neden olan F1 ve F2 kuvvetlerinin bileşkesini bularak bu kuvvetlerle kaldırma kuvveti arasındaki ilişkiyi yorumlayınız.",
+   "correctAnswer": "F = h·d·g·A. F1 = 1 · 1000 · 10 · 0,01 = 100 N (üst, aşağı). F2 = 1,1 · 1000 · 10 · 0,01 = 110 N (alt, yukarı). Yan yüzeylere etki eden kuvvetlerin bileşkesi sıfırdır. F1 ve F2'nin bileşkesi F2 − F1 = 10 N (yukarı). Kutunun kaldırma kuvveti V·d·g = 0,001 · 1000 · 10 = 10 N. Sıvı içindeki cisme etki eden sıvı basınç kuvvetlerinin bileşkesi kaldırma kuvvetini oluşturur.",
+   "keyPoints": [
+    "F1 = 100 N",
+    "F2 = 110 N",
+    "Bileşke 10 N yukarı",
+    "Kaldırma kuvveti 10 N",
+    "Basınç kuvvetlerinin bileşkesi kaldırma kuvvetidir"
+   ],
+   "maxPoints": 12,
+   "explanation": "Adım 1: sıvı basınç kuvveti F = P·A = h·d·g·A. Adım 2: üst ve alt yüzey için ayrı hesapla: 100 N ve 110 N. Adım 3: yönleri düşün: üst yüzeyde kuvvet aşağı, alt yüzeyde yukarı; bileşke 110 − 100 = 10 N yukarı. Adım 4: V·d·g ile karşılaştır: 10 N, aynı. Sonuç: kaldırma kuvveti, alt ve üst yüzeydeki basınç kuvvetlerinin farkıdır. Rubrik: bileşke ve ilişki birlikte doğruysa 12; yalnızca basınç kuvvetlerini hesaplarsan veya yalnızca ilişkiyi doğru yorumlarsan 6.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir bisikletli düz yolda pedal çevirerek ilerlerken bisikletin tekerlekleri, pedalı ve gövdesi hangi hareket türlerini yapar? Her biri için yazınız.",
+   "correctAnswer": "Gövde: öteleme. Tekerlekler: dönme ve öteleme. Pedal: dönme (ve bisikletle birlikte öteleme).",
+   "keyPoints": [
+    "Gövde öteleme",
+    "Tekerlek dönme + öteleme",
+    "Pedal dönme"
+   ],
+   "maxPoints": 6,
+   "explanation": "Tekerlek hem kendi ekseni etrafında döner hem yol boyunca ilerler. Pedal ve krank sistemi eksen etrafında döner; bisiklet ilerlediğinden ötelemeye de katılır.",
+   "category": "Benzer soru: Hareket Türleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir fizik laboratuvarında asansör, tavan vantilatörü ve gitar teli incelenmektedir. Bu üç cismin yaptığı temel hareket türlerini yazınız.",
+   "correctAnswer": "Asansör: öteleme. Vantilatör: dönme. Gitar teli: titreşim.",
+   "keyPoints": [
+    "Asansör: öteleme",
+    "Vantilatör: dönme",
+    "Gitar teli: titreşim"
+   ],
+   "maxPoints": 6,
+   "explanation": "Düz bir çizgide ilerleme ötelemedir; eksen çevresinde dönme dönme; denge noktası çevresinde gidip gelme titreşim.",
+   "category": "Benzer soru: Hareket Türleri",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir çamaşır makinesi çalışırken tamburu dönüyor ve makinenin gövdesi hafifçe sarsılıyor. Hangi mekanizma hangi hareket türünü yapıyor? Açıklayınız.",
+   "correctAnswer": "Tambur dönme hareketi yapar. Gövde ise denge noktası çevresinde küçük gidip gelmeler yaptığı için titreşim hareketi yapar.",
+   "keyPoints": [
+    "Tambur: dönme",
+    "Gövde: titreşim"
+   ],
+   "maxPoints": 4,
+   "explanation": "Sarsıntı küçük genlikli gidip gelme olduğundan titreşimdir. Tambur eksen çevresinde döner.",
+   "category": "Benzer soru: Hareket Türleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir matkap ucu duvara delik açarken hem kendi ekseni etrafında dönüyor hem de duvara doğru ilerliyor. Matkap ucunun yaptığı hareket türlerini yazınız ve nedenini açıklayınız.",
+   "correctAnswer": "Dönme ve öteleme. Eksen etrafında döndüğü için dönme, duvara doğru ilerlediği için öteleme yapar.",
+   "keyPoints": [
+    "Dönme",
+    "Öteleme",
+    "Gerekçe"
+   ],
+   "maxPoints": 4,
+   "explanation": "Aynı cismin iki hareketi bir arada olabilir; ikisini ayrı ayrı yazmak gerekir.",
+   "category": "Benzer soru: Hareket Türleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir arabanın tekerleği çukurdan geçerken yaylı süspansiyon sıkışıp açılıyor ve araba hafifçe sallanıyor. Süspansiyonun yaptığı hareket türünü ve bu hareketin sürücüye hissedilmeme nedenini açıklayınız.",
+   "correctAnswer": "Süspansiyon titreşim yapar. Yay darbenin enerjisini sönümleyerek sarsıntıyı azaltır, bu yüzden yolcu sert bir etki hissetmez.",
+   "keyPoints": [
+    "Titreşim",
+    "Yay darbeyi sönümler"
+   ],
+   "maxPoints": 4,
+   "explanation": "Yaylar kısa süreli gidip gelme yapar; enerji yayda depolanıp sönümlendiği için sert çarpma hissedilmez.",
+   "category": "Benzer soru: Hareket Türleri",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Ayşe'nin ağırlığı 600 N'dur. Aynı ağırlıkla önce topuklu ayakkabıyla (toplam temas alanı 0,001 m²), sonra düz tabanlı ayakkabıyla (toplam temas alanı 0,03 m²) zemine basıyor. Her iki durumdaki basıncı hesaplayarak karşılaştırınız.",
+   "correctAnswer": "Topuklu: P = 600/0,001 = 600 000 Pa. Düz taban: P = 600/0,03 = 20 000 Pa. Topuklu ayakkabıda basınç 30 kat büyüktür çünkü alan küçüktür.",
+   "keyPoints": [
+    "600 000 Pa",
+    "20 000 Pa",
+    "Alan küçükse basınç büyük"
+   ],
+   "maxPoints": 6,
+   "explanation": "Kuvvet aynı (ağırlık) olduğundan basınç alanla ters orantılıdır: alan 30 kat küçük, basınç 30 kat büyük.",
+   "category": "Benzer soru: Katı Basıncı",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "20 cm x 10 cm x 5 cm boyutlarındaki dikdörtgen prizma tuğlanın ağırlığı 40 N'dur. Tuğla zemine üç farklı yüzüyle konulduğunda zemine yaptığı basınçları hesaplayınız ve hangi durumda basıncın en büyük olduğunu yazınız.",
+   "correctAnswer": "Yüzey alanları: 0,2·0,1 = 0,02 m²; 0,2·0,05 = 0,01 m²; 0,1·0,05 = 0,005 m². Basınçlar: 2000 Pa, 4000 Pa, 8000 Pa. En büyük basınç en küçük alanlı yüzey (10 cm x 5 cm) zemindeyken olur.",
+   "keyPoints": [
+    "Üç alan",
+    "2000, 4000, 8000 Pa",
+    "En küçük alanda en büyük basınç"
+   ],
+   "maxPoints": 8,
+   "explanation": "cm'leri metreye çevir (20 cm = 0,2 m). P = F/A. Kuvvet sabit olduğundan alan 2 kat küçülünce basınç 2 kat artar.",
+   "category": "Benzer soru: Katı Basıncı",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Çivi duvara çakılırken sivri ucu duvara girer, geniş başı çekiçle vurulan yerdir. Aynı kuvvet iki ucuna da etki ettiği hâlde neden sivri uç duvara girer? Basınç ile açıklayınız.",
+   "correctAnswer": "Çivinin iki ucuna da aynı kuvvet etki eder. P = F/A olduğundan alanı çok küçük olan sivri uçta basınç çok büyük olur ve duvarı deler; geniş başta alan büyük, basınç küçüktür.",
+   "keyPoints": [
+    "Aynı kuvvet",
+    "P = F/A",
+    "Küçük alan, büyük basınç"
+   ],
+   "maxPoints": 4,
+   "explanation": "Alanı küçültmek, aynı kuvvetle basıncı büyütmenin yoludur. Aynı ilke bıçak ve iğne için de geçerlidir.",
+   "category": "Benzer soru: Katı Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Karda yürürken ayağı batan bir kişi kar ayakkabısı (geniş tabanlı) giydiğinde batmıyor. Bu durumu basınç kavramıyla açıklayınız.",
+   "correctAnswer": "Kar ayakkabısı temas alanını büyütür. Ağırlık değişmediğinden P = F/A ile basınç azalır, kar yüzeyi bu küçük basınca dayanır ve ayak batmaz.",
+   "keyPoints": [
+    "Alan büyür",
+    "Basınç azalır",
+    "Ağırlık aynı"
+   ],
+   "maxPoints": 4,
+   "explanation": "Çözüm ilkesi: kuvvet sabit, alan artırılır. Paletli iş makineleri ve tank paletleri de bu nedenle geniştir.",
+   "category": "Benzer soru: Katı Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "4 kürdanlı bir düzenekte balon 4F kuvvetle patlıyor. Aynı balonlarla 25F kuvvet uygulandığında balonun patlamaması için en az kaç kürdan batırılmalıdır? Hesaplayınız.",
+   "correctAnswer": "Patlama basıncı F/A. 25F kuvvetle S kürdan: 25F/(S·A) = F/A → S = 25 kürdanda balon patlar. Patlamaması için en az 26 kürdan gerekir.",
+   "keyPoints": [
+    "S = 25 sınırı",
+    "25 kürdanda patlar",
+    "En az 26"
+   ],
+   "maxPoints": 4,
+   "explanation": "Burada her kürdan alanı A, patlama basıncı F/A (4F/4A). 25 kürdanda basınç tam patlama değerinde; patlamaması için biraz daha büyük alan, yani 26.",
+   "category": "Benzer soru: Katı Basıncı",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir çubuğa uygulanan kuvvet 2 katına çıkarılırken temas alanı yarıya indiriliyor. İlk basınç P ise yeni basınç kaç P olur? Nedenini yazınız.",
+   "correctAnswer": "Yeni basınç 4P olur. P = F/A olduğundan kuvvet 2 kat artınca basınç 2 kat, alan yarıya inince basınç bir 2 kat daha artar: 2 x 2 = 4.",
+   "keyPoints": [
+    "4P",
+    "Kuvvet etkisi x2",
+    "Alan etkisi x2"
+   ],
+   "maxPoints": 4,
+   "explanation": "Çarpanları ayrı ayrı yaz: (2F)/(A/2) = 4F/A.",
+   "category": "Benzer soru: Katı Basıncı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir yüzücü 5 m derinliğe dalıyor. Suyun yoğunluğu 1000 kg/m³ ve g = 10 m/s² olduğuna göre bu derinlikteki sıvı basıncını hesaplayınız. 10 m derinlikte basınç nasıl değişir?",
+   "correctAnswer": "P = h·d·g = 5 · 1000 · 10 = 50 000 Pa. 10 m'de P = 100 000 Pa olur; derinlik 2 katına çıktığı için basınç da 2 katına çıkar.",
+   "keyPoints": [
+    "50 000 Pa",
+    "100 000 Pa",
+    "Derinlikle orantılı"
+   ],
+   "maxPoints": 4,
+   "explanation": "Sıvı basıncı derinlikle doğru orantılı olduğundan 2 kat derinlik 2 kat basınç verir.",
+   "category": "Benzer soru: Sıvı Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Biri geniş, biri dar iki kap aynı sıvıyla 30 cm yüksekliğe kadar dolduruluyor. Kapların tabanındaki sıvı basınçlarını karşılaştırınız. Kabın şekli basıncı etkiler mi?",
+   "correctAnswer": "Basınçlar eşittir. Sıvı basıncı P = h·d·g ile bulunur ve yalnızca derinliğe, sıvının yoğunluğuna ve g'ye bağlıdır; kabın şekli veya sıvı miktarı basıncı etkilemez.",
+   "keyPoints": [
+    "Eşit",
+    "P = h·d·g",
+    "Kap şekline bağlı değil"
+   ],
+   "maxPoints": 4,
+   "explanation": "Burada d ve h aynı, bu yüzden P aynı. Sıvı miktarının farklı olması taban kuvvetini değiştirir ama basıncı değiştirmez.",
+   "category": "Benzer soru: Sıvı Basıncı",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aynı kaptaki yağın yoğunluğu 800 kg/m³, suyun yoğunluğu 1000 kg/m³'dür. İki ayrı kapta yağ ve su 0,5 m yüksekliğe kadar dolduruluyor. Kap tabanlarındaki basınçları bulup oranlayınız (g = 10 m/s²).",
+   "correctAnswer": "P(yağ) = 0,5 · 800 · 10 = 4000 Pa; P(su) = 0,5 · 1000 · 10 = 5000 Pa. P(yağ)/P(su) = 4/5.",
+   "keyPoints": [
+    "4000 Pa",
+    "5000 Pa",
+    "Oran 4/5"
+   ],
+   "maxPoints": 6,
+   "explanation": "h ve g aynı olduğundan oran yoğunluk oranına eşittir: 800/1000 = 4/5.",
+   "category": "Benzer soru: Sıvı Basıncı",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir baraj gölünde 2 m derinlikteki basınç ile 8 m derinlikteki basıncı karşılaştırınız. Bu karşılaştırma barajın alt kısmının neden daha kalın olduğuna nasıl ışık tutar? (d = 1000 kg/m³, g = 10 m/s²)",
+   "correctAnswer": "2 m'de P = 20 000 Pa, 8 m'de P = 80 000 Pa; derinlik 4 kat artınca basınç 4 kat artar. Alt kısımda basınç çok büyük olduğundan o bölüm daha dayanıklı (kalın) yapılır.",
+   "keyPoints": [
+    "20 000 Pa",
+    "80 000 Pa",
+    "4 kat",
+    "Alt kısım kalın"
+   ],
+   "maxPoints": 6,
+   "explanation": "P = h·d·g'de h 4 kat olunca P 4 kat olur. Mühendislikte yapı en çok zorlanan yerde güçlendirilir.",
+   "category": "Benzer soru: Sıvı Basıncı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir su deposu şehrin yüksek bir tepesine kurulursa evlerdeki musluklarda suyun akışı neden daha güçlü olur? Sıvı basıncı ile açıklayınız.",
+   "correctAnswer": "Depodaki su yüzeyi ile musluk arasındaki yükseklik farkı (derinlik) büyüdüğünde P = h·d·g ile musluktaki su basıncı artar; basınç büyük olunca su daha hızlı ve güçlü akar.",
+   "keyPoints": [
+    "Yükseklik farkı büyük",
+    "Basınç artar",
+    "Su güçlü akar"
+   ],
+   "maxPoints": 4,
+   "explanation": "Burada h su yüzeyi ile musluk arasındaki düşey uzaklıktır. Daha büyük h, daha büyük basınç demektir.",
+   "category": "Benzer soru: Sıvı Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Aynı derinlikte A noktası yoğunluğu d olan sıvıda, B noktası yoğunluğu 2d olan sıvıdadır. A ve B noktalarındaki sıvı basınçları oranı nedir? Açıklayınız.",
+   "correctAnswer": "P_A/P_B = 1/2. Derinlik ve g aynı olduğundan basınç yoğunlukla doğru orantılıdır; B'deki yoğunluk 2 kat olduğundan basınç da 2 kat büyüktür.",
+   "keyPoints": [
+    "Oran 1/2",
+    "Yoğunlukla doğru orantı"
+   ],
+   "maxPoints": 4,
+   "explanation": "P = h·d·g; h ve g aynı olduğundan iki noktanın basınç oranı yoğunluk oranına eşittir.",
+   "category": "Benzer soru: Sıvı Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Dalgıç ve denizaltılar derine indikçe neden daha dayanıklı malzeme gerekir? Sıvı basıncı formülüyle açıklayınız.",
+   "correctAnswer": "P = h·d·g olduğundan derinlik arttıkça dış basınç artar. Daha büyük basınca dayanabilmek için gövdenin sağlam olması gerekir.",
+   "keyPoints": [
+    "P = h·d·g",
+    "Derinlik arttıkça basınç artar",
+    "Gövde dayanıklı olmalı"
+   ],
+   "maxPoints": 4,
+   "explanation": "Bu soruda barajın alt kısmının kalın yapılmasıyla aynı mantık kullanılır.",
+   "category": "Benzer soru: Sıvı Basıncı",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Torricelli deneyinde cıvanın yoğunluğu 13 600 kg/m³, sütun yüksekliği 0,76 m, g = 10 m/s²'dir. Açık hava basıncını hesaplayınız ve hangi büyüklük mertebesinde olduğunu yazınız.",
+   "correctAnswer": "P = h·d·g = 0,76 · 13 600 · 10 = 103 360 Pa ≈ 10⁵ Pa.",
+   "keyPoints": [
+    "P = h·d·g",
+    "103 360 Pa",
+    "Yaklaşık 10⁵ Pa"
+   ],
+   "maxPoints": 4,
+   "explanation": "0,76 x 13 600 = 10 336; x10 = 103 360 Pa. Bu, deniz seviyesinde yaklaşık 1 atm demektir.",
+   "category": "Benzer soru: Açık Hava Basıncı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Torricelli deneyi cıva yerine suyla yapılsaydı (d = 1000 kg/m³, açık hava basıncı ≈ 10⁵ Pa, g = 10 m/s²) tüpteki su sütunu kaç metre olurdu? Cıva ile neden pratik hâle geldiğini yorumlayınız.",
+   "correctAnswer": "h = P/(d·g) = 10⁵/(1000 · 10) = 10 m. Su ile yaklaşık 10 m'lik tüp gerekir; cıva çok yoğun olduğundan sütun sadece 76 cm olur ve deney pratik olur.",
+   "keyPoints": [
+    "10 m",
+    "Cıva çok yoğun",
+    "76 cm yeterli"
+   ],
+   "maxPoints": 6,
+   "explanation": "h = P/(d·g) bağıntısında yoğunluk büyükse h küçüktür.",
+   "category": "Benzer soru: Açık Hava Basıncı",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Torricelli tüpü düşeyden eğilirse (veya daha geniş bir tüp kullanılırsa) tüpteki cıva sütununun düşey yüksekliği değişir mi? Açıklayınız.",
+   "correctAnswer": "Düşey yükseklik değişmez, 76 cm kalır. Cıva sütununun basıncı P = h·d·g ile yalnızca düşey yüksekliğe bağlıdır; tüp eğilirse cıvanın uzunluğu artar ama düşey yüksekliği aynı kalır. Tüp genişliği de basıncı etkilemez.",
+   "keyPoints": [
+    "Düşey yükseklik sabit",
+    "Basınç yalnızca h, d, g'ye bağlı"
+   ],
+   "maxPoints": 4,
+   "explanation": "Açık hava basıncı sabit olduğu sürece denge yüksekliği aynıdır.",
+   "category": "Benzer soru: Açık Hava Basıncı",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir öğrenci pipetle meyve suyu içiyor. Ağızla içerideki hava çekildiğinde meyve suyu neden pipetten yukarı çıkar? Açık hava basıncı ile açıklayınız.",
+   "correctAnswer": "Ağızla havayı çekince pipetin içindeki basınç düşer. Bardaktaki meyve suyu yüzeyine etki eden açık hava basıncı daha büyük olduğundan suyu düşük basınçlı pipete iter.",
+   "keyPoints": [
+    "Pipet içi basınç düşer",
+    "Açık hava basıncı suyu iter",
+    "Basınç farkı"
+   ],
+   "maxPoints": 4,
+   "explanation": "Sıvıyı \"emmiyoruz\", dış basınç yukarı itiyor. Aynı ilke Torricelli deneyindeki gibidir.",
+   "category": "Benzer soru: Açık Hava Basıncı",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Cam yüzeye yapışan bir vantuzu çekmek neden zordur? Açık hava basıncı ile açıklayınız.",
+   "correctAnswer": "Vantuzu bastırınca içindeki hava dışarı çıkar, iç basınç azalır. Dışarıdaki açık hava basıncı vantuzu yüzeye bastırır; çekmek için bu basıncın oluşturduğu kuvveti yenmek gerekir.",
+   "keyPoints": [
+    "İç hava azalır",
+    "Dış açık hava basıncı bastırır"
+   ],
+   "maxPoints": 4,
+   "explanation": "Fark büyüdükçe yapışma güçlenir. Vantuz altına hava girerse fark ortadan kalkar.",
+   "category": "Benzer soru: Açık Hava Basıncı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Yüksek bir dağın tepesinde Torricelli deneyi yapılırsa cıva sütunu 76 cm'den büyük mü küçük mü olur? Nedenini yazınız.",
+   "correctAnswer": "Küçük olur. Yükseklikte açık hava basıncı azaldığı için dengeyi sağlayacak cıva sütunu da kısalır.",
+   "keyPoints": [
+    "Küçük olur",
+    "Açık hava basıncı azalır"
+   ],
+   "maxPoints": 4,
+   "explanation": "Cıva sütunu açık hava basıncını ölçer; basınç düşünce yükseklik azalır.",
+   "category": "Benzer soru: Açık Hava Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Uçak yolculuğunda iniş sırasında kulaklarınızın tıkandığını hissedersiniz. Bu olayı dış basınç ve kulak içi basıncı ile açıklayınız.",
+   "correctAnswer": "İniş sırasında yükseklik azalır, dış basınç hızla artar. Orta kulaktaki basınç dış basıncı yakalayana kadar kulak zarına dışarıdan baskı olur ve tıkanıklık hissedilir.",
+   "keyPoints": [
+    "Dış basınç artar",
+    "Kulak içi basıncı geride kalır",
+    "Zar üzerinde baskı"
+   ],
+   "maxPoints": 4,
+   "explanation": "Basıncın dengelenmesi süreç gerektirir; yutkunmak veya burun kapatıp nefes vermek iç basıncı eşitler.",
+   "category": "Benzer soru: Açık Hava Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir cismin hacmi 0,003 m³'tür ve tamamen suya batırılıyor (d = 1000 kg/m³, g = 10 m/s²). Cisme etki eden kaldırma kuvvetini hesaplayınız ve bunun cismin yoğunluğuna bağlı olup olmadığını yazınız.",
+   "correctAnswer": "F = V·d·g = 0,003 · 1000 · 10 = 30 N. Kaldırma kuvveti cismin kendi yoğunluğuna bağlı değildir; batan hacme, sıvı yoğunluğuna ve g'ye bağlıdır.",
+   "keyPoints": [
+    "30 N",
+    "F = V·d·g",
+    "Cisim yoğunluğundan bağımsız"
+   ],
+   "maxPoints": 6,
+   "explanation": "Sıvı yoğunluğunu kullan. Aynı hacimdeki demir ve tahta tamamen batırıldığında aynı kaldırma kuvvetini görür.",
+   "category": "Benzer soru: Kaldırma Kuvveti",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir cisim yoğunluğu 1200 kg/m³ olan tuzlu suda tamamen batırılıyor ve hacmi 0,002 m³'tür. Kaldırma kuvvetini bulunuz ve saf suya göre farkını yorumlayınız (g = 10 m/s²).",
+   "correctAnswer": "Tuzlu suda F = 0,002 · 1200 · 10 = 24 N, saf suda 0,002 · 1000 · 10 = 20 N olurdu. Yoğunluk arttığı için kaldırma kuvveti artmıştır.",
+   "keyPoints": [
+    "24 N",
+    "20 N (saf su)",
+    "Yoğunluk arttı, kuvvet arttı"
+   ],
+   "maxPoints": 6,
+   "explanation": "Aynı hacim, daha yoğun sıvı = daha büyük kaldırma kuvveti. Bu yüzden Ölü Deniz gibi tuzlu sularda yüzmek kolaydır.",
+   "category": "Benzer soru: Kaldırma Kuvveti",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Ağırlığı 15 N olan, hacmi 0,001 m³ olan bir cisim tamamen suya (d = 1000 kg/m³, g = 10 m/s²) bırakılıyor. Cismin batıp batmayacağını kuvvetleri karşılaştırarak ve yoğunluğu hesaplayarak gösteriniz.",
+   "correctAnswer": "F = 0,001 · 1000 · 10 = 10 N < G = 15 N olduğundan net kuvvet aşağı doğrudur ve cisim batar. Kütle 1,5 kg; yoğunluk 1,5/0,001 = 1500 kg/m³ > 1000 olduğundan yine batar.",
+   "keyPoints": [
+    "F = 10 N",
+    "F < G",
+    "Yoğunluk 1500 > 1000",
+    "Batar"
+   ],
+   "maxPoints": 6,
+   "explanation": "İki yolla da aynı sonuç çıkar: kuvvet karşılaştırması ve yoğunluk karşılaştırması. Rubrikte ikisi de kabul edilir.",
+   "category": "Benzer soru: Kaldırma Kuvveti",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Yoğunluğu 800 kg/m³ olan bir tahta blok suda yüzüyor. Yüzen cisimde kaldırma kuvveti ile ağırlık arasında nasıl bir ilişki vardır? Nedenini yazınız.",
+   "correctAnswer": "Yüzen cisim dengededir, bu yüzden kaldırma kuvveti ağırlığa eşittir (F = G). Net kuvvet sıfır olduğu için cisim yükselmez ve batmaz.",
+   "keyPoints": [
+    "F = G",
+    "Net kuvvet sıfır",
+    "Denge"
+   ],
+   "maxPoints": 4,
+   "explanation": "Yoğunluğu sudan az olan cisim önce yukarı çıkar; yüzeyde batan hacim ayarlanır ve F, G'ye eşitlenir.",
+   "category": "Benzer soru: Kaldırma Kuvveti",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Kenar uzunluğu 0,2 m olan küp, üst yüzeyi su yüzeyinin 0,5 m altında olacak biçimde batırılıyor (d = 1000 kg/m³, g = 10 m/s², bir yüzey alanı 0,04 m²). Alt ve üst yüzeye etki eden basınç kuvvetlerini, bileşkelerini ve kaldırma kuvvetini bulunuz.",
+   "correctAnswer": "Üst yüzey: F1 = 0,5 · 1000 · 10 · 0,04 = 200 N. Alt yüzey 0,7 m derinlikte: F2 = 0,7 · 1000 · 10 · 0,04 = 280 N. Bileşke F2 − F1 = 80 N yukarı. Küp hacmi 0,008 m³, kaldırma kuvveti V·d·g = 0,008 · 1000 · 10 = 80 N. İkisi eşittir.",
+   "keyPoints": [
+    "F1 = 200 N",
+    "F2 = 280 N",
+    "Bileşke 80 N",
+    "Kaldırma kuvveti 80 N"
+   ],
+   "maxPoints": 8,
+   "explanation": "Alt yüzey üst yüzeyden küp kenarı (0,2 m) kadar daha derindedir: 0,5 + 0,2 = 0,7 m. Fark kuvvet = (h2 − h1)·d·g·A = 0,2 · 1000 · 10 · 0,04 = 80 N.",
+   "category": "Benzer soru: Kaldırma Kuvveti",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Su içindeki bir küpün yan yüzeylerine etki eden sıvı basınç kuvvetlerinin bileşkesi neden sıfırdır? Açıklayınız.",
+   "correctAnswer": "Aynı derinlikteki karşılıklı yan yüzeylere etki eden basınç kuvvetleri eşit büyüklükte ve zıt yönlüdür. Bu nedenle birbirini dengeler ve bileşkeleri sıfırdır.",
+   "keyPoints": [
+    "Aynı derinlik",
+    "Eşit ve zıt kuvvetler",
+    "Birbirini dengeler"
+   ],
+   "maxPoints": 4,
+   "explanation": "Yalnızca alt ve üst yüzey derinlikleri farklı olduğundan kaldırma kuvveti düşeydir.",
+   "category": "Benzer soru: Kaldırma Kuvveti",
+   "difficulty": "easy"
+  },
+  {
+   "type": "open-ended",
+   "question": "Büyük bir çelik gemi çelikten yapıldığı hâlde suda batmaz, küçük bir çelik çivi ise batar. Kaldırma kuvveti ve yoğunluk ile açıklayınız.",
+   "correctAnswer": "Geminin içi boş olduğundan ortalama yoğunluğu suyun yoğunluğundan küçüktür ve gemi çok sayıda su yerini değiştirir; kaldırma kuvveti ağırlığına eşit olur, yüzer. Çivi küçük olduğundan batan hacmi küçük, kaldırma kuvveti ağırlığından küçüktür, bu yüzden batar.",
+   "keyPoints": [
+    "Gemi ortalama yoğunluğu küçük",
+    "Büyük batan hacim",
+    "Çivide F < G"
+   ],
+   "maxPoints": 6,
+   "explanation": "Şekil ve hava boşlukları ortalama yoğunluğu belirler. Önemli olan toplam kütlenin kapladığı hacme oranıdır.",
+   "category": "Benzer soru: Kaldırma Kuvveti",
+   "difficulty": "medium"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir dinamometreye asılı cismin havadaki ağırlığı 20 N olarak, suya tamamen batırıldığında 15 N olarak okunuyor. Cisme etki eden kaldırma kuvvetini ve cismin hacmini bulunuz (d(su) = 1000 kg/m³, g = 10 m/s²).",
+   "correctAnswer": "Kaldırma kuvveti 20 − 15 = 5 N. F = V·d·g → V = 5/(1000 · 10) = 0,0005 m³.",
+   "keyPoints": [
+    "F = 5 N",
+    "V = F/(d·g)",
+    "0,0005 m³"
+   ],
+   "maxPoints": 6,
+   "explanation": "Dinamometre net kuvveti gösterir: ağırlık − kaldırma kuvveti. Hacmi formülden çek.",
+   "category": "Benzer soru: Kaldırma Kuvveti",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Kaldırma kuvvetinin bağlı olduğu üç niceliği yazınız ve cismin derinliğe (tamamen batmışsa) bağlı olup olmadığını belirtiniz.",
+   "correctAnswer": "Batan hacim, sıvının yoğunluğu ve yer çekimi ivmesi (g) kaldırma kuvvetini belirler. Cisim tamamen batmışsa derinlik değişse bile kaldırma kuvveti değişmez.",
+   "keyPoints": [
+    "Batan hacim",
+    "Sıvı yoğunluğu",
+    "g",
+    "Derinliğe bağlı değil"
+   ],
+   "maxPoints": 4,
+   "explanation": "F = V·d·g formülünde derinlik yoktur: tamamen batmış cisim daha derine indirilse de batan hacim aynı kaldığı için kaldırma kuvveti değişmez.",
+   "category": "Benzer soru: Kaldırma Kuvveti",
+   "difficulty": "hard"
+  },
+  {
+   "type": "open-ended",
+   "question": "Bir çocuk parkta salıncakta ileri geri sallanıyor ve aynı anda salıncağın zincirleri zincir halkalarında hafifçe dönüyor. Salıncağın ana hareketinin türünü yazınız ve bu hareketin neden bu türe girdiğini açıklayınız.",
+   "correctAnswer": "Salıncağın ana hareketi titreşimdir; çünkü salıncak denge (en alçak) noktası çevresinde periyodik olarak gidip gelir.",
+   "keyPoints": [
+    "Titreşim",
+    "Denge noktası çevresinde gidip gelme"
+   ],
+   "maxPoints": 4,
+   "explanation": "Denge noktası çevresinde tekrarlı gidip gelme hareketine titreşim denir. Halkalardaki küçük dönmeler ana hareketi değiştirmez.",
+   "category": "Benzer soru: Hareket Türleri",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aşağıdakilerden hangisi basıncın bağlı olduğu iki niceliktir?",
+   "options": [
+    "Dik kuvvet ve yüzey alanı",
+    "Kütle ve yoğunluk",
+    "Hız ve zaman",
+    "Sıcaklık ve hacim"
+   ],
+   "correct": 0,
+   "explanation": "P = F/A olduğundan basınç kuvvete ve yüzey alanına bağlıdır.",
+   "category": "Katı Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Yüzey alanı yarıya inerken kuvvet değişmezse basınç ne olur?",
+   "options": [
+    "Yarıya iner",
+    "Değişmez",
+    "2 katına çıkar",
+    "4 katına çıkar"
+   ],
+   "correct": 2,
+   "explanation": "P = F/A; alan yarıya inince basınç iki katı olur.",
+   "category": "Katı Basıncı",
+   "difficulty": "hard"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Sıvı basıncı aşağıdakilerden hangisine bağlı değildir?",
+   "options": [
+    "Sıvının derinliğine",
+    "Kabın şekline",
+    "Sıvının yoğunluğuna",
+    "Yer çekimi ivmesine"
+   ],
+   "correct": 1,
+   "explanation": "P = h·d·g formülünde kabın şekli yoktur.",
+   "category": "Sıvı Basıncı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Aynı sıvıda derinlik 3 katına çıkarsa basınç kaç katına çıkar?",
+   "options": [
+    "9",
+    "1/3",
+    "6",
+    "3"
+   ],
+   "correct": 3,
+   "explanation": "P = h·d·g bağıntısında basınç derinlikle doğru orantılıdır; derinlik 3 katına çıkarsa basınç da 3 katına çıkar.",
+   "category": "Sıvı Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Torricelli deneyinde cıva kullanılmasının nedeni nedir?",
+   "options": [
+    "Suyla karışmaması",
+    "Şeffaf olması",
+    "Yoğunluğunun büyük olması ve kısa bir tüpün yeterli olması",
+    "Daha hafif olması"
+   ],
+   "correct": 2,
+   "explanation": "Yoğun sıvı daha kısa sütunla aynı basıncı dengeler (76 cm).",
+   "category": "Açık Hava Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Yükseklik arttıkça açık hava basıncı için hangisi doğrudur?",
+   "options": [
+    "Azalır",
+    "Artar",
+    "Değişmez",
+    "Önce artar sonra azalır"
+   ],
+   "correct": 0,
+   "explanation": "Üstte kalan hava sütunu kısalır, hava seyrelir.",
+   "category": "Açık Hava Basıncı",
+   "difficulty": "hard"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Bir cisim sıvıda yüzüyorsa hangisi doğrudur?",
+   "options": [
+    "Kaldırma kuvveti ağırlıktan küçüktür",
+    "Cismin yoğunluğu sıvıdan büyüktür",
+    "Net kuvvet aşağıdır",
+    "Kaldırma kuvveti ağırlığa eşittir"
+   ],
+   "correct": 3,
+   "explanation": "Yüzen cisim hareketsiz kaldığı için dengededir; net kuvvet sıfır olduğundan yukarı kaldırma kuvveti aşağı ağırlığa eşittir (F = G).",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "0,004 m³ hacimli cisim yoğunluğu 1000 kg/m³ olan suda tamamen batırıldığında kaldırma kuvveti kaç N olur? (g = 10)",
+   "options": [
+    "4",
+    "40",
+    "400",
+    "0,4"
+   ],
+   "correct": 1,
+   "explanation": "Tamamen batan cisimde batan hacim cismin hacmidir: F = V·d·g = 0,004 · 1000 · 10 = 40 N. 4 ve 400 ondalık hatalarıdır.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Dolusavağın görevi nedir?",
+   "options": [
+    "Barajdaki fazla suyu boşaltmak",
+    "Barajı su ile doldurmak",
+    "Suyun yoğunluğunu artırmak",
+    "Su basıncını artırmak"
+   ],
+   "correct": 0,
+   "explanation": "Fazla su boşaltılarak seviye ve basınç güvenli değerde tutulur.",
+   "category": "Sıvı Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Tekerleğin hem dönüp hem ilerlemesi hangi hareket türlerini gösterir?",
+   "options": [
+    "Yalnızca öteleme",
+    "Yalnızca titreşim",
+    "Dönme ve öteleme",
+    "Titreşim ve dönme"
+   ],
+   "correct": 2,
+   "explanation": "Tekerlek eksen etrafında döner ve yol boyunca ilerler.",
+   "category": "Hareket Türleri",
+   "difficulty": "hard"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Sivri uçlu bir cisim neden daha kolay batar?",
+   "options": [
+    "Kuvvet büyüdüğü için",
+    "Aynı kuvvet küçük alana etkidiği için basınç büyüktür",
+    "Yoğunluğu küçük olduğu için",
+    "Kütlesi arttığı için"
+   ],
+   "correct": 1,
+   "explanation": "P = F/A bağıntısında kuvvet aynıyken alan küçülünce basınç artar; çivi, iğne ve bıçak bu yüzden sivridir.",
+   "category": "Katı Basıncı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "multiple-choice",
+   "question": "Sıvı içindeki cisme etki eden kaldırma kuvvetinin yönü nedir?",
+   "options": [
+    "Düşey aşağı",
+    "Yatay",
+    "Hareket yönünün tersi",
+    "Düşey yukarı"
+   ],
+   "correct": 3,
+   "explanation": "Alt yüzeydeki basınç kuvveti üst yüzeyden büyük olduğundan bileşke yukarıdır.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "medium"
+  },
+  {
+   "type": "true-false",
+   "question": "Basınç, uygulanan kuvvetle doğru orantılıdır.",
+   "correct": true,
+   "explanation": "P = F/A bağıntısında F arttıkça P artar.",
+   "category": "Katı Basıncı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Yüzey alanı arttıkça basınç artar.",
+   "correct": false,
+   "explanation": "Alan ile basınç ters orantılıdır; alan arttıkça basınç azalır.",
+   "category": "Katı Basıncı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Sıvı basıncı derinlikle artar.",
+   "correct": true,
+   "explanation": "P = h·d·g olduğundan derinlik arttıkça basınç artar.",
+   "category": "Sıvı Basıncı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Sıvı basıncı kabın genişliğine bağlıdır.",
+   "correct": false,
+   "explanation": "Basınç yalnızca h, d ve g'ye bağlıdır; kabın genişliği önemli değildir.",
+   "category": "Sıvı Basıncı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Torricelli deneyinde cıva sütununun yüksekliği yaklaşık 76 cm'dir.",
+   "correct": true,
+   "explanation": "Deniz seviyesinde açık hava basıncı 76 cmHg ile dengelenir.",
+   "category": "Açık Hava Basıncı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Dağın tepesinde açık hava basıncı deniz seviyesinden büyüktür.",
+   "correct": false,
+   "explanation": "Yükseldikçe hava seyrelir ve açık hava basıncı azalır.",
+   "category": "Açık Hava Basıncı",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Kaldırma kuvveti cismin yoğunluğuna bağlıdır.",
+   "correct": false,
+   "explanation": "F = V·d·g'de d sıvının yoğunluğudur; cismin yoğunluğu doğrudan yer almaz.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "easy"
+  },
+  {
+   "type": "true-false",
+   "question": "Su içinde askıda kalan cismin yoğunluğu suyun yoğunluğuna eşittir.",
+   "correct": true,
+   "explanation": "F = G olduğunda cisim askıda kalır, bu da yoğunlukların eşit olması demektir.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "easy"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Basınç birimi ____ dır (N/m²).",
+   "answers": [
+    "pascal",
+    "Pa"
+   ],
+   "explanation": "SI sisteminde basınç birimi pascaldır (Pa); 1 Pa = 1 N/m², yani birim alana düşen kuvvettir.",
+   "category": "Katı Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Barajda suyu boşaltan kanala ____ denir.",
+   "answers": [
+    "dolusavak",
+    "dolu savak"
+   ],
+   "explanation": "Dolusavak, su seviyesi maksimum değeri aşmadan fazla suyu boşaltan kanaldır; böylece derinlik ve basınç sınırlı kalır.",
+   "category": "Sıvı Basıncı",
+   "difficulty": "medium"
+  },
+  {
+   "type": "fill-blank",
+   "question": "Kaldırma kuvvetini veren formül F = V·____·g ifadesidir (sıvının yoğunluğu).",
+   "answers": [
+    "d",
+    "yoğunluk"
+   ],
+   "explanation": "F = V·d·g bağıntısındaki d sıvının yoğunluğudur.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "medium"
+  },
+  {
+   "type": "matching",
+   "question": "Cisimleri sıvıdaki durumuyla eşleştiriniz (suyun yoğunluğu 1000 kg/m³).",
+   "pairs": [
+    {
+     "left": "Yoğunluğu 500 kg/m³ olan cisim",
+     "right": "Yüzer"
+    },
+    {
+     "left": "Yoğunluğu 1000 kg/m³ olan cisim",
+     "right": "Askıda kalır"
+    },
+    {
+     "left": "Yoğunluğu 2000 kg/m³ olan cisim",
+     "right": "Batar"
+    }
+   ],
+   "explanation": "Yoğunluk karşılaştırması: küçükse yüzer, eşitse askıda, büyükse batar.",
+   "category": "Kaldırma Kuvveti",
+   "difficulty": "medium"
+  },
+  {
+   "type": "matching",
+   "question": "Hareket türü - örnek eşleştirmesi yapınız.",
+   "pairs": [
+    {
+     "left": "Öteleme",
+     "right": "Düz yolda hızlanan tren"
+    },
+    {
+     "left": "Dönme",
+     "right": "Tavan vantilatörünün kanadı"
+    },
+    {
+     "left": "Titreşim",
+     "right": "Çalan gitar teli"
+    }
+   ],
+   "explanation": "Üç temel hareket türünün tipik örnekleri.",
+   "category": "Hareket Türleri",
+   "difficulty": "medium"
+  }
+ ],
+ "sources": [
+  {
+   "id": "src1",
+   "name": "Fizik 9. Sınıf - Yazılıya Hazırlanıyorum (2. DÖNEM - 1. YAZILI) - OGM Materyal",
+   "kind": "file",
+   "text": "=== Page 1 ===\r\nFİZİK\r\nYAZILIYA HAZIRLANIYORUM\r\n2. DÖNEM - 1. YAZILI\r\n1. \r\n Bir eğlence parkında, hız treni farklı hareket türlerini bir arada kullanarak \r\nziyaretçilere heyecanlı bir deneyim sunar. (1) Durgun hâldeki hız treni \r\nyatay doğrultudaki istasyondan ayrılırken hızlanır. (2) Sonrasında tren, \r\ntekerlekler aracılığı ile tepeye doğru yükselirken yer çekimi etkisiyle \r\nyavaşlar. Tepeden aşağı inerken ise tekrar hızlanır. (3) Tren çembersel \r\nvirajlarda hareket ederken trenin yönü değişir ve bu durum yolcuların \r\nfarklı açılardan manzarayı görmesini sağlar.\r\n (4) Yolculuk boyunca tren, raylar üzerindeki küçük engellerden geçerken \r\ntrende bulunan yay şeklindeki süspansiyonlar sayesinde yolcular sert \r\netkiye maruz kalmazlar fakat bu ufak hareketler yolcular tarafından \r\nhissedilir. Bu olay yolculuğun daha gerçekçi ve heyecanlı bir deneyim olmasına katkıda bulunur. \r\n Metne göre numaralandırılmış cümlelerde parantez içinde verilen mekanizmanın hangi hareket türlerini \r\nyaptığını yazınız (Mekanizmalar birden fazla hareket türünü bir arada yapabilir.).\r\n1 (tren)\r\n2 (tekerlekler)\r\n3 (tren)\r\n4 (süspansiyonlar)\r\n2. Fizik öğretmeni, basınç ile ilgili bazı deneyler yapmıştır. İlk olarak Şekil I’de gösterildiği gibi bir adet kürdanı yatay \r\nzemine batırmış ve balona şekildeki gibi düşey doğrultuda kuvvet uygulamaya başlamıştır. F¶ kuvveti uyguladığı \r\nanda balonun patladığını gözlemlemiştir. Özdeş balonlar kullanarak zeminlere Şekil II, Şekil III, Şekil IV ve Şekil V'teki \r\ngibi sırasıya iki, üç, dört ve beş adet kürdan batırarak 2F¶, 3F¶, 4F¶ ve 5F¶ kuvveti uygulamış ve balonları patlatabilecek \r\nminimum kuvvetlerin bu değerler olduğunu gözlemlemiştir. \r\n \r\nF\r\nŞekil I\r\n2F\r\nŞekil II\r\n3F\r\nŞekil III\r\n4F\r\nŞekil IV\r\n5F\r\nŞekil V\r\nF¶ 2F¶ 3F¶ 4F¶ 5F¶ \r\n2.1. Kürdan sayısı arttıkça balonun patlayabilmesi için uygulanması gereken kuvvetin büyüklüğünün \r\nartmasının nedenini yazınız.\r\n2.2. Deneyden çıkarılacak sonuçlara göre basıncın bağlı olduğu nicekliler nelerdir? Yazınız.\r\n2.3. Şekildeki deney düzeneklerine göre basınca etki eden nicelikler arasındaki ilişkiyi açıklayınız.\r\n=== Page 2 ===\r\n2.4. Balonlar aynı basınç değerinde patladığına göre öğretmen, basıncı veren matematiksel modeli \r\nkullanarak on adet kürdan ile balonun patlaması için en az kaç F kuvvet uygulamalıdır? \r\n2.5. Balonlar aynı basınç değerinde patladığına göre öğretmen, basıncı veren matematiksel modeli \r\nkullanarak 15F kuvvet uyguladığında balonun patlamaması için zemine en az kaç kürdan batırmalıdır? \r\nHesaplayınız.\r\n3. Baraj, eski zamanlardan beri insanlığın su ihtiyacını karşılamak ve tarımsal alanların sulanması amacıyla inşa \r\nedilen yapılardır. Görselde bir baraj ve şekilde bu barajın düşey kesitinin görünümü verilmiştir. Barajların normal \r\ndepolama hacimlerindeki su miktarına normal su seviyesi denir. Su, normal su seviyesinin üstüne çıkmaya \r\nbaşladığında (maksimum seviyeye ulaştığında) suyun baraj gövdesinin üzerinden aşmaması için suyun bir kanal \r\nyardımıyla boşaltılması gerekir. Suyu boşaltan bu kanallara dolusavak denir.\r\n \r\n Dolu savak\r\nkanalı\r\nBaraj gövdesi\r\nMaksimum\r\nsu seviyesi\r\nA\r\nB\r\nC\r\nh\r\nK\r\nDolusavak \r\nkanalı\r\n Buna göre aşağıdaki soruları cevaplayınız.\r\n3.1. Durgun sıvılarda basınca etki eden faktörleri açıklayarak A, B ve C noktalarındaki sıvı basınçları \r\narasındaki büyüklük ilişkisini yazınız.\r\n3.2. Baraj gövdesinin aşağıya doğru kalınlaşmasının sebebini açıklayınız.\r\n3.3. Barajda su yerine yoğunluğu suyun yoğunluğundan daha büyük olan bir sıvı toplansaydı K \r\nnoktasındaki sıvı basıncı şekildeki ilk duruma göre nasıl değişirdi? Açıklayınız.\r\n3.4. Suyun yoğunluğu d, yer çekimi ivmesi g¶ olduğuna göre K noktasındaki sıvı basıncını veren \r\nmatematiksel modeli yazınız ve dolusavak kanalının baraj için önemini bu modeli kullanarak \r\naçıklayınız.\r\n=== Page 3 ===\r\n4. Atmosferin özelliklerden biri yükseklikle değişen hava yoğunluğudur. Rakım düştükçe havanın yoğunluğu artar, \r\nyükseldikçe havanın yoğunluğu azalır. Bu durumun insan vücudu üzerinde birtakım etkileri olur. Örneğin dağcılık \r\nsporuyla uğraşanlar, yüksek dağların zirvesine yaklaştıkça kulaklarında tıkanma hisseder. Daha zor nefes alıp \r\nvermeye başlar ve burun kanaması gibi sağlık sorunları yaşayabilir. Dağcılar, bu gibi durumlarla karşılaşmamak için \r\nvücutlarının bulundukları atmosfer basıncına uyum sağlamasına fırsat verecek bir tırmanma programını takip etmelidir. \r\nBenzer şekilde suda derinlere indikçe dalgıçların üzerine etki eden suyun basıncı dış kulak zarına baskı yapar. Orta \r\nkulaktaki basınç, artan dış basınçla dengelenmediği durumda kulak zarına doğru bir baskı oluşur ve bu da acı hissine \r\nneden olur. Dalgıçlar, bu acıyı engellemek ve basınç dengesini sağlamak için bazı yöntemler kullanır. En yaygın \r\nyöntem, ağız kapalıyken burun deliklerini de kapatıp nefes vermektir. Bu yöntem, orta kulaktaki basıncın dış basınçla \r\neşitlenmesine yardımcı olur.\r\n Bu bağlamda aşağıda verilen soruları cevaplayınız.\r\n4.1. Dağcıların dağın zirvesine yaklaştıkça ve dalgıçların denizde derinlere doğru indikçe çeşitli sağlık \r\nsorunları yaşamalarını basınç ile ilişkilendirerek açıklayınız.\r\n4.2. \r\n Cıva \r\nsütunu\r\nBoşluk\r\n76 cm\r\nCıva\r\nP0 P0\r\nÇanak\r\nDeniz seviyesindeki açık hava basıncını ölçmek için Torricelli içinde cıva \r\nbulunan çanağa bir ucu açık ve içerisinde cıva bulunan cam tüpü ters çevirip \r\ndaldırdığında cıvanın tamamının çanağa akmayıp şekildeki gibi 76 cm \r\nderinliğinde dengede kaldığını gözlemlemiştir.\r\nŞekildeki deneye bakarak sıvı basıncı ile açık hava basıncı arasındaki \r\nilişkiyi yorumlayıp bu yorumunuza dayanarak deneyde cıva \r\nkullanılmasının sebebini yazınız.\r\n4.3. \r\nPipet\r\nEsnek \r\nplastik\r\nŞekildeki pipet; sıvıları bardak, şişe veya beher içinden kolayca çekmek için \r\nkullanılan ince, cam bir borudur. Pipetin bir ucundaki esnek plastik sıkılarak sıvının \r\niçine batırılmakta ve sıvı içerisinde esnek plastik serbest bırakılırken sıvı pipetin \r\niçinde yükselmektedir.\r\nŞekildeki pipetin çalışma ilkesini Torricelli deneyinden elde edilen ilkelerle \r\nkarşılaştırarak açıklayınız.\r\n=== Page 4 ===\r\n5. Dağ sporları yapan sporcunun çantasının dış kısmında ilk yardım çantası, su matarası ve yiyecek kutusu asılı \r\nolarak bulunmaktadır.\r\n Su geçirmeyen ve sert malzemeden yapılan ilk yardım çantası, su matarası ve yiyecek kutusunun ağırlıkları, \r\nyoğunlukları ve hacimleri Tablo I’de verilmiştir.\r\n Malzemeler Ağırlık Yoğunluk Hacim\r\nİlk yardım çantası 10 N 500 kg/m3 0,002 m3\r\nSu matarası 10 N 1000 kg/m3 0,001 m3\r\nYiyecek kutusu 20 N 2000 kg/m3 0,001 m3\r\nTablo I Şekil I\r\n Sporcu yer çekimi ivmesinin büyüklüğünün 10 m/s2 olduğu ortamda, yoğunluğu 1000 kg/m3 olan göle yüksek bir \r\nyerden düşüyor. Tamamı su içinde olan sporcu, üzerindeki ağırlıkların etkisiyle Şekil I’deki gibi batmaktadır.\r\n Buna göre aşağıdaki soruları cevaplayınız.\r\n5.1. Sporcu su içinde hareketsiz kaldığı anda malzeme kutularının tamamı su içindeyken her birine etki \r\neden sıvı kaldırma kuvvetlerinin büyüklüklerini bulunuz. \r\n5.2. Sporcu, su yüzeyine daha kısa sürede çıkabilmek için hangi malzeme kutularını bağlı olduğu yerden \r\nçıkarmalıdır?\r\n5.3. Küp şeklindeki yiyecek kutusunun üst yüzeyi 1 m derinlikteyken su içerisindeki konumu şekilde verilmiştir. \r\nYiyecek kutusunun bir yüzeyinin alanı 0,01 m2dir. \r\n \r\nYiyecek\r\nsu\r\n1 m 1\r\n2\r\n1,1 m\r\nA = 0,01 m2\r\nYiyecek \r\nkutusu\r\nYiyecek \r\nkutusu\r\n Kutunun alt ve üst yüzeylerine etki eden ve sıvılarda basınca neden olan F¶1 ve F¶2 kuvvetlerinin \r\nbileşkesini bularak bu kuvvetlerle kaldırma kuvveti arasındaki ilişkiyi yorumlayınız.\r\n=== Page 5 ===\r\nSORU NO ÖĞRENME ÇIKTISI BECERİLER\r\n1 FİZ.9.2.7. Hareket türlerini sınıflandırabilme\r\nFBAB2. Sınıflandırma\r\nFBAB8. Bilimsel Çıkarım Yapma\r\nKB2.7. Karşılaştırma\r\n2 FİZ.9.3.1. Basınca yönelik çıkarımlarda bulunabilme\r\nFBAB7. Deney Yapma\r\nFBAB8. Bilimsel Çıkarım Yapma\r\nFBAB10. Tümevarımsal Akıl Yürütme\r\nKB2.8. Sorgulama\r\nKB2.10. Çıkarım Yapma\r\n3 FİZ.9.3.2. Durgun sıvılarda basınca yönelik çıkarımlarda buluna-bilme\r\nFBAB8. Bilimsel Çıkarım Yapma\r\nFBAB10. Tümevarımsal Akıl Yürütme\r\nKB2.8. Sorgulama\r\nKB2.10. Çıkarım Yapma\r\n4 FİZ.9.3.4. Açık hava basıncına ilişkin çıkarım yapabilme\r\nFBAB7. Deney Yapma\r\nFBAB8. Bilimsel Çıkarım Yapma\r\nFBAB10. Tümevarımsal Akıl Yürütme\r\nKB2.8. Sorgulama\r\nKB2.10. Çıkarım Yapma\r\n5 FİZ.9.3.6. Kaldırma kuvveti ile sıvılardaki basınca neden olan kuvvet arasındaki ilişkiye yönelik çıkarım yapabilme\r\nFBAB8. Bilimsel Çıkarım Yapma\r\nFBAB10. Tümevarımsal Akıl Yürütme\r\nKB2.8. Sorgulama\r\nKB2.10. Çıkarım Yapma\r\nPUANLAMA TABLOSU\r\n1\r\n2 3 4 5\r\nTOPLAM\r\n2.1. 2.2. 2.3. 2.4. 2.5. 3.1. 3.2. 3.3. 3.4. 4.1. 4.2. 4.3. 5.1. 5.2. 5.3.\r\n14 6 4 5 3 3 5 4 4 6 6 6 6 9 7 12 100\r\nÇÖZÜMLER\r\n1. \r\n1 (tren) Hız treni, istasyondan ayrılıp hızlanırken öteleme hareketi yapar.\r\n2 (tekerlekler) Hız treni, tekerlekler aracılığı ile tepeye doğru yükselirken tekerlekler dönme ve öteleme hare-\r\nketi yapar.\r\n3 (tren) Tren virajlarda hareket ederken çembersel yörüngede hareket ettiği için dönme hareketi yapar.\r\n4 (süspansiyonlar) Tren, raylar üzerindeki küçük engellerden geçerken trende bulunan yay şeklindeki süspansi-\r\nyonlar titreşim ve öteleme hareketi yapar.\r\n TAM PUAN (14 PUAN) \r\nÖğrenci tüm hareket türlerini doğru yazarsa tam puan alır.\r\n KISMİ PUAN (2 PUAN)\r\n Öğrenci doğru yazacağı her hareket türü için 2 puan alır.\r\n=== Page 6 ===\r\n SIFIR PUAN \r\nÖğrenci hiçbir ifadeye cevap vermez veya yanlış cevap verirse puan alamaz.\r\n2. 2.1. Tek kürdanın yüzeye temas eden alanı çok küçük olduğundan basınç büyüktür ve balon küçük bir kuvvette \r\npatlar. Kürdan sayısı arttığında yüzeye temas eden alan artar, böylece basınç azalır ve balon daha büyük bir kuvvet \r\ndeğerinde patlar.\r\n TAM PUAN (6 PUAN) \r\nÖğrenci kürdan sayısı ile yüzey alanını, balonun patlaması ile uygulanan kuvveti doğru bir şekilde ilişkilendirebilirse \r\ntam puan alır.\r\n KISMİ PUAN (3 PUAN) \r\nÖğrenci yüzey alanı veya kuvvet kavramlarından sadece birini doğru ilişkilendirirse kısmi puan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz.\r\n2.2. Deneye göre basınç, kuvvet ve yüzey alanına bağlıdır.\r\n TAM PUAN (4 PUAN) \r\nÖğrenci yüzey alanı ve kuvvet niceliklerinin ikisini de yazdığında tam puan alır.\r\n KISMİ PUAN (2 PUAN) \r\nÖğrenci yüzey alanı veya kuvvet kavramlarından sadece birini yazarsa kısmi puan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz.\r\n2.3. Basınç uygulanan kuvvet ile doğru orantılı, temas eden yüzey alanı ile ters orantılıdır.\r\n TAM PUAN (5 PUAN) \r\nÖğrenci yüzey alanı ve kuvvet niceliklerinin basınca nasıl etki ettiğini doğru ilişkilendirdiğinde tam puan alır.\r\n KISMİ PUAN (3 PUAN) \r\nÖğrenci yüzey alanı veya kuvvet niceliklerinden sadece birinin basınca nasıl etki ettiğini doğru ilişkilendirdiğinde \r\nkısmi puan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz.\r\n2.4. P = F/A formülü kullanıldığında kürdan ucunun yüzey alanına A denirse yüzey alanı 10A olduğunda \r\n F/A = x/10A, x = 10F olması gerekmektedir. \r\n TAM PUAN (3 PUAN) \r\nÖğrenci 10F cevabını yazdığında tam puan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz.\r\n2.5. P = F/A formülü kullanıldığında, F/A = 15F/S, S = 15A olur. Yani 15 adet kürdan kullanıldığında balon \r\npatlayacaktır. Aynı basınca ulaşmamak için öğretmen en az 16 adet kürdan kullanmalıdır.\r\n TAM PUAN (3 PUAN)\r\n=== Page 7 ===\r\nÖğrenci 16 adet kürdan cevabını yazdığında tam puan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz. \r\n3. 3.1. Derinlik arttıkça sıvı basıncı artacağından A, B ve C noktalarındaki sıvı basınçları arasındaki büyüklük ilişkisi \r\nPC > PB > PA şeklindedir.\r\n TAM PUAN (5 PUAN) \r\nÖğrenci basınçlar arasındaki ilişkiyi doğru yazdığında tam puan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz.\r\n3.2. Sıvı derinliği arttıkça sıvı basıncı arttığından baraj gövdesinin alt kısımlarının daha dayanıklı olması \r\ngerekmektedir. Bu nedenle alt kısım daha kalın inşa edilir.\r\n TAM PUAN (4 PUAN) \r\nÖğrenci \"sıvı basıncı artacağından\" cevabını yazdığında tam puan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz.\r\n3.3. Bir sıvının yoğunluğu arttıkça basıncı da artar.\r\n TAM PUAN (4 PUAN) \r\nÖğrenci \"Yoğunluk arttıkça sıvı basıncı artar.\" cevabını yazdığında tam puan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz.\r\n3.4. P = h . d . g \r\n Derinlik arttıkça sıvı basıncı artar. Bir barajın taşıyabileceği maksimum su seviyesi vardır. Barajın zarar \r\ngörmemesi ya da yıkılmaması için fazla suyun boşaltılması gerekir. Dolusavaklar barajı korumak için inşa \r\nedilir.\r\n TAM PUAN (6 PUAN) \r\nÖğrenci matematiksel modelini yazdığında ve dolusavak kavramını doğru açıkladığında tam puan alır.\r\n KISMİ PUAN (3 PUAN) \r\nÖğrenci sadece matematiksel modelini yazdığında veya sadece dolusavak kavramını doğru açıkladığında kısmi \r\npuan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz.\r\n4. 4.1. Dağın zirvesine yaklaştıkça ya da deniz seviyesinden yükseklere çıkıldıkça açık hava basıncı azalır. Suda \r\nise derinlere inildikçe sıvı basıncı artar. Bu basınç değişimleri insan vücudundaki basınçla dengelenene kadar \r\nuyumsuzluklar oluşur.\r\n TAM PUAN (6 PUAN) \r\nÖğrenci açık hava ve sıvı basıncına neden olan durumu doğru açıkladığında tam puan alır.\r\n=== Page 8 ===\r\n KISMİ PUAN (3 PUAN) \r\nÖğrenci sadece açık hava veya sadece sıvı basıncına neden olan durumu doğru açıkladığında kısmi puan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz.\r\n4.2. Cıvanın yoğunluğu yüksektir; bu nedenle cıva, açık hava basıncını dengede tutmak için uygun bir madde \r\nolarak seçilmiştir. Cıvanın yoğunluğu yüksek olduğu için tüp içerisinde 76 cm'de sıvı basıncı ile açık hava \r\nbasıncı dengelenmiştir. Yoğunluğu daha düşük olan başka bir sıvı kullanılsaydı çok daha uzun bir cam tüpe \r\nihtiyaç duyulurdu.\r\n TAM PUAN (6 PUAN) \r\nÖğrenci sıvı ve açık hava basıncı arasındaki ilişkiyi yorumlayıp deneyde neden cıva kullanıldığını doğru \r\naçıkladığında tam puan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz.\r\n4.3. Pipet içinde sıvının yükselmesinde Torricelli deneyindeki gibi açık hava basıncı önemli bir rol oynar. Torricelli \r\ndeneyinde cıva sütunu açık hava basıncı ile dengelenirken pipetin bir ucunda bağlı olan esnek plastiğin \r\nsıkılması ile basınç düşürülür. Böylece beher içindeki sıvı, pipet içinde yükselir. İki durumda da sıvı hareketi, \r\nbasınç farklarından kaynaklanır. \r\n TAM PUAN (6 PUAN) \r\nÖğrenci pipetin çalışma ilkesini Torricelli deneyi ile karşılaştırarak doğru açıkladığında tam puan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz.\r\n5. 5.1. İlk yardım çantası için;  Fi = Vb · dS · g ⇒    Fi = 0,002 · 1000 · 10 ⇒    Fi = 20 N\r\n Su matarası için;  Fm = Vb · dS · g ⇒    Fm = 0,001 · 1000 · 10 ⇒    Fm = 10 N\r\n Yiyecek kutusu için;  Fy = Vb · dS · g ⇒    Fy = 0,001 · 1000 · 10 ⇒    Fy = 10 N\r\n TAM PUAN (9 PUAN) \r\nÖğrenci ilk yardım çantası, su matarası ve yiyecek kutusu için kaldırma kuvvetlerinin büyüklüklerini doğru \r\nhesapladığında tam puan alır.\r\n KISMİ PUAN (3 PUAN)\r\n Öğrenci ilk yardım çantası, su matarası ve yiyecek kutusu için doğru hesapladığı kaldırma kuvvetlerinin \r\nbüyüklüklerinin her birinden 3 kısmi puan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz.\r\n=== Page 9 ===\r\n5.2. I. yol: Malzeme kutuları serbest bırakıldığında üzerlerine etki eden yer çekimi ve sıvı kaldırma kuvvetlerini \r\nçizelim.\r\n F = 20 N\r\nG = 10 N\r\nMatara\r\nF = 10 N\r\nG = 10 N\r\nYiyecek\r\nF = 10 N\r\nG = 20 N\r\nFi = 20 N\r\nGi = 10 N Gm = 10 N Gy = 20 N\r\nFy = 10 NFm = 10 N\r\nİlk yardım \r\nçantası\r\n Görüldüğü gibi ilk yardım çantasına etki eden net kuvvet yukarıya doğrudur ve bu kuvvet, sporcunun daha \r\nçabuk yüzeye çıkmasını sağlar. Mataraya etki eden net kuvvet sıfır olduğu için etkisi olmaz. Yiyecek kutusuna \r\netki eden net kuvvet ise aşağıya doğrudur ve bu kuvvet sporcunun daha kısa sürede yüzeye çıkmasını \r\nengellediği için kutu bağlı olduğu yerden çıkarılmalıdır. \r\n II. yol: İlk yardım çantasının yoğunluğu suyun yoğunluğundan küçük olduğu için gölde yüzer. Su matarasının \r\nyoğunluğu suyun yoğunluğuna eşit olduğu için suda askıda kalır. Yiyecek kutusunun yoğunluğu suyun \r\nyoğunluğundan büyük olduğu için suda batar. Bu yüzden sporcu yiyecek kutusunu üzerinden çıkarırsa daha \r\nkolay su yüzeyine çıkar.\r\n TAM PUAN (7 PUAN) \r\nÖğrenci ilk yardım çantası, su matarası ve yiyecek kutusu için kaldırma kuvvetlerini ve ağırlıkları doğru göstererek \r\nyiyecek kutusu cevabını verdiğinde tam puan alır. \r\n Öğrenci ilk yardım çantası, su matarası ve yiyecek kutusu için yoğunluk karşılaştırmalarını doğru yaparak yiyecek \r\nkutusu cevabını verdiğinde tam puan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz.\r\n5.3. \r\nYiyecek\r\n1\r\n2\r\nYiyecek \r\nkutusu\r\nSıvılarda basınca neden olan kuvvetin büyüklüğü,\r\n F = h · dS · g · A     matematiksel modeli ile bulunur.\r\n F1 = 1 · 1000 · 10 · 0,01       ⇒    F1 = 100 N \r\n F2 = 1,1 · 1000 · 10 · 0,01    ⇒    F2 = 110 N\r\n Şekilde görüldüğü gibi kutunun yan yüzeyine etki eden kuvvetlerin bileşkesi sıfır olur. F¶1 ve F¶2 kuvvetlerinin \r\nbileşkesi; \r\n F2 – F1 = 110 – 100    ⇒    F2 – F1 = 10 N\r\n Yiyecek kutusu için, F = Vb · dS · g    ⇒    F = 0,001 · 1000 · 10    ⇒    F = 10 N\r\n Sonuç olarak sıvı içinde bulunan maddelere etki eden sıvı basınç kuvvetlerin bileşkesi, kaldırma kuvvetini \r\noluşturur.\r\n TAM PUAN (12 PUAN) \r\nÖğrenci ilk yardım çantası, su matarası ve yiyecek kutusu için sıvı basınç kuvvetlerinin bileşkesini bularak sonucu \r\nkaldırma kuvveti ile doğru ilişkilendirdiğinde tam puan alır.\r\n KISMİ PUAN (6 PUAN) \r\nÖğrenci ilk yardım çantası, su matarası ve yiyecek kutusu için sadece sıvı basınç kuvvetlerini hesapladığında veya \r\nsadece bileşke kuvvet ile kaldırma kuvveti arasındaki ilişkiyi doğru yorumladığında kısmi puan alır.\r\n SIFIR PUAN \r\nÖğrenci cevap vermez veya yanlış cevap verirse puan alamaz."
+  }
+ ]
+}
