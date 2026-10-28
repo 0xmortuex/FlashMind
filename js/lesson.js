@@ -191,30 +191,16 @@ const VideoLesson = (() => {
     return typeof Mindmap !== 'undefined' ? Mindmap.fromNotes(data) : null;
   }
 
-  // What the lesson is written from: the notes (the teaching) first. Library sets
-  // carry the exam paper itself as their source, so the source text only follows
-  // as a short, labelled reference and never as the main material.
-  function noteText(s) {
-    const bullets = (s.bulletPoints || []).map(b => '- ' + b).join('\n');
-    const terms = (s.keyTerms || []).map(k => `${k.term}: ${k.definition}`).join('\n');
-    return [`## ${s.title || ''}`, s.content, bullets, terms, s.example ? 'Example: ' + s.example : ''].filter(Boolean).join('\n');
-  }
-
-  function materialFor(data, sec) {
-    const sections = (data.notes && data.notes.sections) || [];
-    const taught = [sec ? '' : (data.notes && data.notes.summary) || '', ...(sec ? [sec] : sections).map(noteText)].filter(Boolean).join('\n\n');
-    const hasSources = Array.isArray(data.sources) && data.sources.length > 0;
-    const src = hasSources ? App.getOriginalText() : '';
-    if (!taught) return String(App.getOriginalText() || '').slice(0, 40000);
-    return (taught.slice(0, 32000) + (src ? `\n\nReference text (it may be an exam paper or a question table: never teach its format, only use it for facts about the subject):\n${src.slice(0, 6000)}` : '')).slice(0, 40000);
-  }
+  // What the lesson is written from: the notes (the teaching) first, the source text
+  // only as a short reference (see material.js).
+  const materialFor = (data, sec) => Material.forStudy(data, sec);
 
   function prompt(data, topic, focus, style) {
     const diagrams = ((data.notes && data.notes.diagrams) || []).map((g, i) => `${i}: ${g.title}`).slice(0, 10);
     const tree = mapTree(data);
     const branches = tree ? (tree.children || []).map(c => c.label).slice(0, 12) : [];
     return `Write the storyboard of a short narrated video lesson (6-10 slides) that teaches ${topic ? `"${topic}"` : 'the main ideas of this study material'} to a student revising for an exam. ` +
-      'TEACH THE SUBJECT ITSELF: its concepts, definitions, rules, worked examples and the typical mistakes. The material may mention an exam, a question table or scoring: never spend slides on how many questions come from which topic, on the exam format, timing or scoring; at most use it as a hint of which ideas matter most. ' +
+      Material.SUBJECT_RULE +
       'Slide 1 is a title slide with a hook; then build the idea step by step with a concrete example; the last slide recaps the 3 key takeaways. ' +
       'Each slide: "title" (max 8 words), "bullets": 1-3 short points (max 12 words each; may be empty on the title slide), optional "formula": one key formula in LaTeX without $ delimiters, ' +
       'optional "diagram" to show an existing picture: ' + (diagrams.length ? `{"kind":"notes","index":N} for one of these notes diagrams [${diagrams.join('; ')}], or ` : '') +

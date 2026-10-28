@@ -46,7 +46,7 @@ const AudioOverview = (() => {
         'Host A explains and leads; host B is curious, asks the questions a student would ask, reacts, and adds examples. ' +
         'Cover the most important ideas, one memorable analogy or example, a common mistake to avoid, and end with a quick recap of the 3 key takeaways. ' +
         'About 650 words in 18-30 short turns that alternate naturally.';
-    return base + ' Spoken style only: no markdown, no lists, no stage directions, no emojis; say formulas and symbols in words. ' +
+    return base + ' ' + Material.SUBJECT_RULE + 'Spoken style only: no markdown, no lists, no stage directions, no emojis; say formulas and symbols in words. ' +
       'Write it in the language of the material. ' +
       (focus ? `Focus especially on: ${focus}. ` : '') +
       'Return ONLY JSON, no other text: {"type":"audio","title":"episode title","lines":[{"speaker":"A","text":"..."},{"speaker":"B","text":"..."}]}';
@@ -189,7 +189,7 @@ const AudioOverview = (() => {
     busy = true;
     refresh();
     try {
-      const raw = await API.chat(prompt(format, focus), App.getOriginalText() || JSON.stringify({ title: data.title, notes: data.notes }));
+      const raw = await API.chat(prompt(format, focus), Material.forStudy(data) || JSON.stringify({ title: data.title, notes: data.notes }));
       const obj = Parser.safeParseJSON(raw);
       const lines = obj && Array.isArray(obj.lines) ? obj.lines : [];
       if (App.getStudyData() !== data) return;

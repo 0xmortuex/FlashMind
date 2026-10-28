@@ -2036,7 +2036,7 @@ function ttsEnv(voices, { lang = 'en', saved = {}, extra = {} } = {}) {
   });
   ctx.window = ctx;
   ctx.App = { showToast: (m) => ctx.toasts.push(m) };
-  for (const file of ['simspec', 'tts', 'lesson']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/', file + '.js'), 'utf8'), ctx);
+  for (const file of ['simspec', 'tts', 'material', 'lesson']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/', file + '.js'), 'utf8'), ctx);
   return { ctx, storage, spoken, run: code => vm.runInContext(code, ctx) };
 }
 const V = (name, lang, uri) => ({ name, lang, voiceURI: uri || name });
@@ -2286,7 +2286,7 @@ test('lesson material is the teaching notes, not the exam paper a library set ca
   // The prompt tells the AI to teach the subject, not the exam format.
   const p = run('VideoLesson._test.prompt(data, "", "", "")');
   assert.match(p, /TEACH THE SUBJECT ITSELF/);
-  assert.match(p, /never spend slides on how many questions come from which topic/);
+  assert.match(p, /never spend time on how many questions come from which topic/);
 });
 
 test('"Did you get this?" checks: valid questions are kept, malformed ones dropped, results are validated', () => {
