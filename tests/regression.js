@@ -987,7 +987,7 @@ test('MEB generator: slim entries with original URLs, deduped, failed/personnel/
   const { build } = await mebGen();
   const { index, topics, stats } = build(mebFixture);
   assert.deepEqual(stats.excluded, { status: 1, personnel: 1, noUrl: 2, dup: 2 });
-  assert.equal(index.length, 11);
+  assert.equal(index.length, 12);
   const keys = ['id', 't', 'g', 's', 'x', 'y', 'u', 'p', 'mb', 'src'];
   for (const r of index) {
     assert.deepEqual(Object.keys(r), keys);
@@ -1004,6 +1004,27 @@ test('MEB generator: slim entries with original URLs, deduped, failed/personnel/
   assert.equal(byUrl('/2025sozel.pdf').mb, 3.4);
   assert.equal(byUrl('/2025sozel.pdf').p, 'https://odsgm.meb.gov.tr/www/x/icerik/1446');
   assert.deepEqual(topics.map(t => t.id), [byUrl('/konusoru/cog9.pdf').id]);
+});
+test('MEB generator: OGM yazılı records become ogm-yazili entries, id from the pdf file name, no year', async () => {
+  const { build } = await mebGen();
+  const { index, stats } = build(mebFixture);
+  const e = index.find(r => r.x === 'ogm-yazili');
+  assert.deepEqual(e, { id: '675fa374', t: '10. Sınıf Biyoloji - 1. Dönem 1. Yazılı', g: [10], s: 'Biyoloji', x: 'ogm-yazili', y: '',
+    u: 'https://ogm-large-cdn.eba.gov.tr/materyal/Etkilesimlikitap/88dbfe33-1cd4-4062-b37c-350fccd41ba3/pdf.pdf', p: 'https://ogmmateryal.eba.gov.tr/yaziliya-hazirlaniyorum', mb: 1.2, src: 'ogm' });
+  assert.equal(index.filter(r => r.x === 'ogm-kazanim').length, 0);
+  assert.deepEqual(stats.noPublicUrl, ['ogm-kazanim: 9. Sınıf Matematik - Kazanım Kavrama']);       // reported, not listed
+  const kz = { grade: 9, course: 'Matematik', title: 'Kazanım', url: 'https://ogm-large-cdn.eba.gov.tr/k.pdf', localFile: 'C:\\k\\9_Matematik_k1.pdf', sizeBytes: 100000 };
+  const k = build({ ogmKazanim: [kz] }).index[0];
+  assert.deepEqual([k.x, k.g, k.s, k.y, k.mb, k.p], ['ogm-kazanim', [9], 'Matematik', '', 0.1, '']);
+  assert.throws(() => build({ ogmYazili: [{ ...kz, url: 'https://evil.example/k.pdf' }] }), /not an official MEB\/EBA/);
+  assert.throws(() => build({ ogmYazili: [{ ...kz, course: 'Mystery' }] }), /unknown course/);
+  assert.throws(() => build({ ogmYazili: [{ ...kz, localFile: '' }] }), /missing localFile/);
+  const { ctx, run } = modules();
+  ctx.d = { index: [e], types: null };
+  assert.equal(run('MebIndex.validate(d.index, []).items.length'), 1);                              // passes the library's https + MEB/EBA check
+  assert.ok(run('MebIndex.TYPES.includes("ogm-yazili") && MebIndex.TYPES.includes("ogm-kazanim")'));
+  assert.deepEqual(JSON.parse(run('JSON.stringify(MebIndex.typeCounts(d.index, {}))')), { 'ogm-yazili': 1 });
+  assert.deepEqual(JSON.parse(run('JSON.stringify(MebIndex.filterItems(d.index, { type: "ogm-yazili", grade: 10 }).map(i => i.id))')), ['675fa374']);
 });
 test('MEB generator infers grade and subject from explicit names only', async () => {
   const { build } = await mebGen();
@@ -1219,13 +1240,21 @@ test('MEB generator attachSets adds set/sz/nc/nq/ns only where a set exists', as
   assert.throws(() => attachSets(index, new Map([[id, { bytes: 1, data: { ...set, meta: { fileId: 'other' } } }]])), /meta\.fileId/);
   assert.throws(() => attachSets(index, new Map([[id, { bytes: 1, data: { title: 'x' } }]])), /missing notes, flashcards or quiz/);
 });
+test('MEB generator attachSets attaches set info to an OGM yazılı entry', async () => {
+  const { build, attachSets } = await mebGen();
+  const { index } = build(mebFixture);
+  const e = index.find(r => r.x === 'ogm-yazili');
+  attachSets(index, new Map([[e.id, { bytes: 2200, data: { ...fixtureSet('a1'), meta: { fileId: e.id } } }]]));
+  assert.deepEqual([e.set, e.sz, e.nc, e.nq, e.ns], [1, 3, 3, 2, 2]);
+});
 test('MEB generator CLI: --sets <dir> writes the study set fields into index.json', async () => {
   const { execFileSync } = require('node:child_process');
   const os = require('node:os');
   const { build } = await mebGen();
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'meb-gen-'));
   try {
-    for (const [f, v] of [['ods/manifest.json', mebFixture.ods1 || []], ['ods/manifest2.json', mebFixture.ods2 || []], ['ogm/manifest.json', mebFixture.ogm || []]]) {
+    for (const [f, v] of [['ods/manifest.json', mebFixture.ods1 || []], ['ods/manifest2.json', mebFixture.ods2 || []], ['ogm/manifest.json', mebFixture.ogm || []],
+      ['ogm/yazili/manifest.json', mebFixture.ogmYazili || []], ['ogm/kazanim/manifest.json', mebFixture.ogmKazanim || []]]) {
       fs.mkdirSync(path.dirname(path.join(tmp, f)), { recursive: true });
       fs.writeFileSync(path.join(tmp, f), JSON.stringify(v));
     }

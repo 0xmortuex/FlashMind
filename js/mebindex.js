@@ -12,7 +12,7 @@ const MebIndex = (() => {
   const INDEX_URL = 'data/meb/index.json';
   const TOPICS_URL = 'data/meb/topics.json';
   const GRADES = [5, 6, 7, 8, 9, 10, 11, 12];
-  const TYPES = ['lgs', 'bursluluk', 'ortak', 'konu', 'yks', 'acik', 'sinif', 'kilavuz', 'dort-beceri'];
+  const TYPES = ['lgs', 'bursluluk', 'ortak', 'konu', 'yks', 'acik', 'sinif', 'kilavuz', 'dort-beceri', 'ogm-yazili', 'ogm-kazanim'];
   const PAGE = 50;
   const OFFICIAL = /^https:\/\/([a-z0-9-]+\.)*(meb\.gov\.tr|eba\.gov\.tr)(\/|$)/i;
 

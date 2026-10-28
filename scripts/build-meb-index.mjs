@@ -5,7 +5,9 @@
 //   node scripts/build-meb-index.mjs <meb-data-dir> [out-dir] [--sets <sets-dir>]
 //
 // <meb-data-dir> must contain ods/manifest.json, ods/manifest2.json and
-// ogm/manifest.json. out-dir defaults to data/meb in this repo.
+// ogm/manifest.json; ogm/yazili/manifest.json (OGM "Yazılıya Hazırlanıyorum"
+// sample written exams) and ogm/kazanim/manifest.json (Kazanım Kavrama
+// activities) are read when present. out-dir defaults to data/meb in this repo.
 // --sets <sets-dir>: <sets-dir>/<id>.json are the ready-made study sets (see
 // js/mebsets.js). An entry that has one gets set:1, sz (file size, KB) and
 // nc / nq / ns (cards, questions, note sections) counted from the set itself;
@@ -14,6 +16,11 @@
 // shares another entry's set: it gets set:1, alias:<primaryId>, ver and the
 // primary's counts; the primary must be a full set in the same directory.
 // Without --sets the entries carry none of these fields.
+// OGM yazılı / kazanım records ({grade, course, title, url, localFile, sizeBytes})
+// become x 'ogm-yazili' / 'ogm-kazanim' with the stated grade and subject and no
+// year (the site states none). Their id is the first 8 hex of the sha1 of the
+// pdf file name (basename of localFile), not of the URL; a record without a
+// public url is skipped and listed in stats.noPublicUrl.
 // MEBİ (mebi.eba.gov.tr) is deliberately NOT read: its two public calendars sit
 // under a path robots.txt disallows, and the rest needs a student login, so the
 // app only links to the site.
@@ -78,6 +85,7 @@ export const TYPES = {
   'Sinav Takvimi': 'kilavuz',
   'Dort Beceride Turkce Dil Sinavi': 'dort-beceri'
 };
+const OGM_PREP = { 'ogm-yazili': 'https://ogmmateryal.eba.gov.tr/yaziliya-hazirlaniyorum', 'ogm-kazanim': '' };
 const TYPE_LABEL = { lgs: 'LGS', bursluluk: 'Bursluluk (İOKBS)', ortak: 'Ortak yazılı', acik: 'Açık öğretim' };
 
 const TDE = 'Türkçe / Edebiyat';
@@ -231,11 +239,21 @@ function aggregateTopics(tables) {
   return { n: kept.length, rows };
 }
 
-const ORDER = ['lgs', 'bursluluk', 'ortak', 'konu', 'yks', 'acik', 'sinif', 'kilavuz', 'dort-beceri'];
+const ORDER = ['lgs', 'bursluluk', 'ortak', 'konu', 'yks', 'acik', 'sinif', 'kilavuz', 'dort-beceri', 'ogm-yazili', 'ogm-kazanim'];
+
+// OGM yazılı / kazanım record -> entry fields (id comes from the pdf file name).
+function ogmPrep(rec, x) {
+  const what = x + ' ' + clean(rec.title);
+  if (!rec.localFile) throw new Error(what + ': missing localFile (the id comes from the pdf file name)');
+  if (!gradeOk(rec.grade, 1, 12)) throw new Error(what + ': bad grade ' + rec.grade);
+  if (!OGM_SUBJECTS[rec.course]) throw new Error(what + ': unknown course ' + rec.course);
+  const id = crypto.createHash('sha1').update(path.win32.basename(rec.localFile)).digest('hex').slice(0, 8);
+  return { id, g: [rec.grade], s: OGM_SUBJECTS[rec.course], t: shorten(rec.title, 160), p: rec.sourceUrl ? checkUrl(rec.sourceUrl, x + ' sourceUrl') : OGM_PREP[x] };
+}
 
 // Pure: manifests in, { index, topics, stats } out.
-export function build({ ods1 = [], ods2 = [], ogm = [] }) {
-  const stats = { excluded: { status: 0, personnel: 0, noUrl: 0, dup: 0 } };
+export function build({ ods1 = [], ods2 = [], ogm = [], ogmYazili = [], ogmKazanim = [] }) {
+  const stats = { excluded: { status: 0, personnel: 0, noUrl: 0, dup: 0 }, noPublicUrl: [] };
   const byUrl = new Map();
   const alias = new Map();
   const add = (rec, src, url, x) => {
@@ -268,14 +286,22 @@ export function build({ ods1 = [], ods2 = [], ogm = [] }) {
     add(r, 'ogm', checkUrl(r.fileUrl, 'ogm'), 'yks');
   });
 
+  [['ogm-yazili', ogmYazili], ['ogm-kazanim', ogmKazanim]].forEach(([x, recs]) => recs.forEach(r => {
+    if (!r.url) { stats.noPublicUrl.push(x + ': ' + clean(r.title)); return; }
+    add(r, 'ogm', checkUrl(r.url, x), x);
+  }));
+
   const index = [], topicsOut = [], ids = new Map();
   for (const { rec, src, url, x } of byUrl.values()) {
-    const id = sha(url);
+    const prep = x.startsWith('ogm-') ? ogmPrep(rec, x) : null;
+    const id = prep ? prep.id : sha(url);
     if (ids.has(id)) throw new Error(`id collision ${id}: ${url} / ${ids.get(id)}`);
     ids.set(id, url);
     const stem = stemOf(url);
     let g, s, t, y, p;
-    if (src === 'ogm') {
+    if (prep) {
+      ({ g, s, t, p } = prep); y = '';
+    } else if (src === 'ogm') {
       g = [11, 12]; s = ogmSubject(rec); t = ogmTitle(rec); y = ''; p = rec.sourceUrl ? checkUrl(rec.sourceUrl, 'ogm sourceUrl') : '';
     } else {
       ({ g, s } = infer(rec, x, stem));
@@ -362,6 +388,8 @@ function readJson(file) {
   return v;
 }
 
+const readOptional = file => (fs.existsSync(file) ? readJson(file) : []);
+
 function main(argv) {
   const args = argv.slice();
   const si = args.indexOf('--sets');
@@ -377,7 +405,9 @@ function main(argv) {
   const { index, topics, stats } = build({
     ods1: readJson(path.join(dir, 'ods', 'manifest.json')),
     ods2: readJson(path.join(dir, 'ods', 'manifest2.json')),
-    ogm: readJson(path.join(dir, 'ogm', 'manifest.json'))
+    ogm: readJson(path.join(dir, 'ogm', 'manifest.json')),
+    ogmYazili: readOptional(path.join(dir, 'ogm', 'yazili', 'manifest.json')),
+    ogmKazanim: readOptional(path.join(dir, 'ogm', 'kazanim', 'manifest.json'))
   });
   if (setsDir) attachSets(index, readSets(setsDir));
   fs.mkdirSync(out, { recursive: true });
@@ -389,6 +419,7 @@ function main(argv) {
   console.log(`index.json  ${index.length} entries, ${(Buffer.byteLength(a) / 1024).toFixed(0)} KB`, by);
   console.log(`topics.json ${topics.length} entries, ${(Buffer.byteLength(b) / 1024).toFixed(0)} KB`);
   if (setsDir) console.log('study sets', index.filter(r => r.set).length);
+  if (stats.noPublicUrl.length) console.log('skipped, no public file URL:', stats.noPublicUrl);
   console.log('excluded', stats.excluded, '| unknown grade', index.filter(r => !r.g.length).length, '| unknown subject', index.filter(r => !r.s).length);
 }
 
