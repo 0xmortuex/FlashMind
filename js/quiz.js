@@ -762,9 +762,40 @@ const Quiz = (() => {
       html += `<div class="oe-missed"><span class="oe-missed-label">${T('missedLabel')}</span>
         ${gradeResult.missedPoints.map(p => `<span class="oe-missed-point">${esc(p)}</span>`).join('')}</div>`;
     }
-    html += `<div class="oe-correct-answer"><span class="oe-correct-label">${T('modelAnswer')}</span><p>${esc(q.correctAnswer)}</p></div></div>`;
+    html += `<div class="oe-correct-answer"><span class="oe-correct-label">${T('modelAnswer')}</span><p>${esc(q.correctAnswer)}</p></div>`;
+    // Lost marks: offer to show, sentence by sentence, where the answer went wrong.
+    const canShow = studentAnswer && gradeResult.score < gradeResult.maxScore;
+    if (canShow) html += `<button class="btn-ghost oe-where-btn" data-oe-act="where">&#128269; ${T('oeWhere')}</button><div class="oe-working-box" data-oe-working></div>`;
+    html += '</div>';
     feedbackEl.innerHTML = html;
+    const whereBtn = feedbackEl.querySelector('[data-oe-act="where"]');
+    if (whereBtn) whereBtn.addEventListener('click', () => { whereBtn.disabled = true; showWorking(q, studentAnswer, feedbackEl.querySelector('[data-oe-working]')); });
     showNextButton(q);
+  }
+
+  // The student's answer split into sentences and checked one by one: what is right, what is wrong and why.
+  // The AI only returns a verdict per numbered sentence, so the text shown is always the student's own.
+  async function showWorking(q, studentAnswer, box) {
+    const T = i18n.t;
+    const sentences = (studentAnswer.match(/[^.!?…\n]+[.!?…]*/g) || []).map(s => s.trim()).filter(Boolean).slice(0, 12);
+    box.innerHTML = `<div class="oe-grading-loader"><span>${T('oeWhereBusy')}</span></div>`;
+    try {
+      const ask = 'A student answered an open-ended exam question. For EACH numbered sentence of the student\'s answer decide whether it is correct and relevant ("ok": true) or wrong, misleading or off the point ("ok": false). ' +
+        'When it is not ok, give a one-sentence "note" saying what is wrong, in the language of the answer. Also give a one-sentence "summary" of the biggest gap. ' +
+        'Return ONLY JSON, no other text: {"type":"working","lines":[{"ref":1,"ok":true,"note":""}],"summary":""}';
+      const raw = await API.chat(ask, `Question: ${q.question}\nModel answer: ${q.correctAnswer}\nKey points: ${(q.keyPoints || []).join('; ')}\n\nStudent answer, sentence by sentence:\n${sentences.map((s, i) => `[${i + 1}] ${s}`).join('\n')}`);
+      const obj = Parser.safeParseJSON(raw);
+      const lines = obj && Array.isArray(obj.lines) ? obj.lines : [];
+      if (!lines.length) throw new Error(T('oeWhereEmpty'));
+      const verdict = new Map(lines.filter(l => l && Number.isInteger(l.ref)).map(l => [l.ref, l]));
+      box.innerHTML = `<ol class="oe-working">${sentences.map((s, i) => {
+        const v = verdict.get(i + 1) || {};
+        const bad = v.ok === false;
+        return `<li class="${bad ? 'bad' : 'ok'}"><span class="oe-w-mark" aria-label="${T(bad ? 'oeWhereBad' : 'oeWhereOk')}">${bad ? '&#10007;' : '&#10003;'}</span> ${esc(s)}${bad && v.note ? `<small class="oe-w-note">${esc(String(v.note))}</small>` : ''}</li>`;
+      }).join('')}</ol>${obj.summary ? `<p class="oe-w-summary">${esc(String(obj.summary))}</p>` : ''}`;
+    } catch (err) {
+      box.innerHTML = `<p class="oe-w-error" role="alert">${esc(T('oeWhereFailed'))} ${esc(err.message)}</p>`;
+    }
   }
 
   function fallbackGrade(studentAnswer, q) {

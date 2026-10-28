@@ -465,12 +465,13 @@ const path = require('node:path');
     await page.click('[data-tab="chat"]');
     const classes = await page.evaluate(async () => {
       const api = API.chat;
-      API.chat = async () => JSON.stringify({ answer: 'x', citations: ['Oxygen comes from splitting water, not from carbon dioxide.', 'Totally invented sentence about moon plants.'] });
+      API.chat = async q => { window.__chatQ = q; return JSON.stringify({ answer: 'x', citations: ['Oxygen comes from splitting water, not from carbon dioxide.', 'Totally invented sentence about moon plants.'] }); };
       await Chat.sendMessage('where does oxygen come from?');
       API.chat = api;
       return [...document.querySelectorAll('.citation')].map(c => c.className);
     });
     if (classes.length !== 2 || /unverified/.test(classes[0]) || !/unverified/.test(classes[1])) throw new Error(JSON.stringify(classes));
+    if (!await page.evaluate(() => /like a teacher explaining to a student/.test(window.__chatQ) && /Grounding/.test(window.__chatQ))) throw new Error('chat style note missing');
   });
 
   await step('studio: exam date drives the plan bar and stats plan', async () => {
@@ -483,6 +484,88 @@ const path = require('node:path');
     await page.waitForSelector('.plan-bar .plan-countdown', { timeout: 2000 });
     await page.click('[data-tab="stats"]');
     await page.waitForSelector('.plan-card .plan-row.today', { timeout: 2000 });
+  });
+
+  await step('share: the system share sheet button shows only where the browser can share, and sends the link', async () => {
+    await page.evaluate(() => {
+      window.__shareApi = API.share;
+      API.share = async () => ({ code: 'abc12345' });
+      Object.defineProperty(navigator, 'share', { value: undefined, configurable: true, writable: true });
+    });
+    const open = async () => {
+      await page.$eval('#share-btn', b => b.click());
+      await page.waitForFunction(() => document.getElementById('share-result').style.display === 'block', { timeout: 3000 });
+    };
+    const close = () => page.$eval('#share-modal-close', b => b.click());
+    try {
+      await open();
+      if (!await page.$eval('#share-native', b => b.hidden)) throw new Error('Send… shown without a share sheet');
+      await close();
+      await page.evaluate(() => { navigator.share = async d => { window.__shared = d; }; });
+      await open();
+      if (await page.$eval('#share-native', b => b.hidden)) throw new Error('Send… hidden although the browser can share');
+      await page.$eval('#share-native', b => b.click());
+      await page.waitForFunction(() => window.__shared, { timeout: 2000 });
+      const d = await page.evaluate(() => window.__shared);
+      if (!/\?s=abc12345$/.test(d.url) || !d.title || !d.text) throw new Error('shared ' + JSON.stringify(d));
+      await close();
+    } finally {
+      await page.evaluate(() => { API.share = window.__shareApi; delete navigator.share; });
+      await page.waitForFunction(() => !document.querySelector('.toast'), { timeout: 6000 });
+    }
+  });
+
+  await step('stats: the daily goal card shows today\'s progress, the goal can be changed or turned off, and reaching it says so', async () => {
+    await page.evaluate(() => { localStorage.removeItem('flashmind_daily_goal'); App.switchTab('stats'); });
+    await page.waitForSelector('.goal-card .goal-bar', { timeout: 2000 });
+    if (await page.evaluate(() => Stats.goal()) !== 20) throw new Error('default goal');
+    await page.$eval('[data-goal-step="5"]', b => b.click());
+    await page.waitForFunction(() => Stats.goal() === 25 && /25 cards a day/.test(document.querySelector('.goal-target').textContent), { timeout: 2000 });
+    // Reaching it: one more review than today's count makes the goal.
+    await page.evaluate(() => { Stats.setGoal(Stats.todayReviews() + 1); Stats.recordReview('gotit'); });
+    await page.waitForFunction(() => [...document.querySelectorAll('.toast')].some(t => /Daily goal reached/.test(t.textContent)), { timeout: 2000 });
+    await page.evaluate(() => Stats.render());
+    await page.waitForFunction(() => /Goal reached today/.test(document.querySelector('.goal-line').textContent) && document.querySelector('.goal-bar').getAttribute('aria-valuenow') === document.querySelector('.goal-bar').getAttribute('aria-valuemax'), { timeout: 2000 });
+    // Off, then on again.
+    await page.evaluate(() => { Stats.setGoal(0); Stats.render(); });
+    await page.waitForSelector('[data-goal-set]', { timeout: 2000 });
+    await page.$eval('[data-goal-set]', b => b.click());
+    await page.waitForFunction(() => Stats.goal() === 20 && document.querySelector('.goal-bar'), { timeout: 2000 });
+    await page.evaluate(() => { localStorage.removeItem('flashmind_daily_goal'); });
+    await page.waitForFunction(() => !document.querySelector('.toast'), { timeout: 6000 });
+    await page.$eval('[data-tab="notes"]', b => b.click());
+  });
+
+  await step('stats: the progress report opens, shows the week, copies as text, prints in its own layout and closes', async () => {
+    await page.evaluate(() => {
+      App.switchTab('stats');
+      window.__rep = { write: navigator.clipboard && navigator.clipboard.writeText, print: window.print };
+      Object.defineProperty(navigator, 'clipboard', { value: { writeText: async t => { window.__copied = t; } }, configurable: true });
+      window.print = () => { window.__printing = document.body.classList.contains('printing-report'); };
+      Object.defineProperty(navigator, 'share', { value: async d => { window.__sent = d; }, configurable: true, writable: true });
+    });
+    try {
+      await page.waitForSelector('.rep-card [data-report-act="open"]', { timeout: 2000 });
+      await page.$eval('.rep-card [data-report-act="open"]', b => b.click());
+      await page.waitForSelector('.report-modal .rep-days', { timeout: 2000 });
+      const shown = await page.evaluate(() => ({ lead: document.querySelector('.rep-lead').textContent, bars: document.querySelectorAll('.rep-day').length, title: document.getElementById('report-title').textContent }));
+      if (shown.bars !== 7 || !/Studied on \d of the last 7 days, \d+ cards reviewed/.test(shown.lead) || !/weekly progress report/.test(shown.title)) throw new Error('report ' + JSON.stringify(shown));
+      await page.$eval('[data-report-act="copy"]', b => b.click());
+      await page.waitForFunction(() => window.__copied && /weekly progress report/.test(window.__copied) && /Cards per day:/.test(window.__copied), { timeout: 2000 });
+      await page.$eval('[data-report-act="send"]', b => b.click());
+      await page.waitForFunction(() => window.__sent && /Cards per day/.test(window.__sent.text), { timeout: 2000 });
+      await page.$eval('[data-report-act="print"]', b => b.click());
+      if (!await page.evaluate(() => window.__printing) || await page.evaluate(() => document.body.classList.contains('printing-report'))) throw new Error('print layout was not applied only while printing');
+      await page.keyboard.press('Escape');
+      await page.waitForFunction(() => !document.querySelector('.report-modal'), { timeout: 2000 });
+    } finally {
+      await page.evaluate(() => {
+        if (window.__rep.write) Object.defineProperty(navigator, 'clipboard', { value: { writeText: window.__rep.write }, configurable: true }); else delete navigator.clipboard;
+        window.print = window.__rep.print; delete navigator.share;
+        const m = document.querySelector('.report-backdrop'); if (m) m.remove();
+      });
+      await page.$eval('[data-tab="notes"]', b => b.click());
+    }
   });
 
   await step('studio: image occlusion cards render masked and revealed', async () => {
@@ -1095,7 +1178,32 @@ const path = require('node:path');
     await page.click('#oe-submit-btn');
     await page.waitForSelector('.oe-score', { timeout: 3000 });
     if (await page.evaluate(() => window.__ex.graded) !== 'Işık kırılır çünkü hız değişir') throw new Error('corrected text not graded');
+    if (await page.$('[data-oe-act="where"]')) throw new Error('"Where did I go wrong?" offered on a full-mark answer');
     await page.evaluate(() => { Quiz.setQuestions(App.getStudyData().quiz); });
+  });
+
+  await step('exams: "Where did I go wrong?" marks the student\'s own sentences right or wrong with a note', async () => {
+    await page.evaluate(() => {
+      window.__wk = { chat: API.chat, grade: API.grade };
+      API.grade = async () => JSON.stringify({ score: 1, maxScore: 3, feedback: 'Eksik', missedPoints: ['hız'] });
+      API.chat = async (q, ctx) => { window.__wkCtx = ctx; return JSON.stringify({ type: 'working', lines: [{ ref: 1, ok: true, note: '' }, { ref: 2, ok: false, note: 'Işık yavaşlar, durmaz.' }], summary: 'Hız değişimini anlatmadın.' }); };
+      Quiz.setQuestions([{ id: 9202, type: 'open-ended', question: 'Kırılma neden olur?', correctAnswer: 'Işığın hızı ortamda değişir', keyPoints: ['hız'], maxPoints: 3 }]);
+    });
+    try {
+      await page.$eval('[data-mode="practice"]', b => b.click());
+      await page.$eval('#start-quiz-btn', b => b.click());
+      await page.waitForSelector('#oe-answer', { timeout: 3000 });
+      await page.$eval('#oe-answer', el => { el.value = 'Işık kırılır. Çünkü ışık ortamda durur.'; });
+      await page.$eval('#oe-submit-btn', b => b.click());
+      await page.waitForSelector('[data-oe-act="where"]', { timeout: 3000 });
+      await page.$eval('[data-oe-act="where"]', b => b.click());
+      await page.waitForSelector('.oe-working li.bad', { timeout: 3000 });
+      const r = await page.evaluate(() => ({ items: [...document.querySelectorAll('.oe-working li')].map(li => li.className + ':' + li.textContent.replace(/\s+/g, ' ').trim()), summary: document.querySelector('.oe-w-summary').textContent, ctx: window.__wkCtx }));
+      if (r.items.length !== 2 || !/^ok:.*Işık kırılır\./.test(r.items[0]) || !/^bad:.*Çünkü ışık ortamda durur\..*Işık yavaşlar/.test(r.items[1])) throw new Error('marks ' + JSON.stringify(r.items));
+      if (!/\[1\] Işık kırılır\.\n\[2\] Çünkü ışık ortamda durur\./.test(r.ctx) || !/hız/.test(r.summary) && !/Hız/.test(r.summary)) throw new Error('what was sent ' + r.ctx);
+    } finally {
+      await page.evaluate(() => { API.chat = window.__wk.chat; API.grade = window.__wk.grade; Quiz.setQuestions(App.getStudyData().quiz); });
+    }
   });
 
   await step('exams: graded paper photos → mistake notebook, report, flashcards and practice', async () => {
@@ -1391,6 +1499,11 @@ const path = require('node:path');
       const r = await page.evaluate(() => ({ voices: window.__clips.map(c => c.voice), plays: window.__plays.filter(p => /^blob:/.test(p.src)).map(p => p.rate), utt: window.__utt.length, busy: document.querySelector('.vl-player').classList.contains('voice-loading') }));
       if (r.voices.some(v => v !== 'Kore') || r.plays.some(x => x !== 0.95) || r.utt !== 0 || r.busy) throw new Error('natural playback ' + JSON.stringify(r));
       if (!(await page.evaluate(() => window.__clips.every(c => /[ğışöüç]/i.test(c.text))))) throw new Error('clip text is not the Turkish narration');
+      // The clips that played were kept on the device (real Cache Storage); "Save voice for offline" keeps all of the lesson's clips.
+      const kept = () => page.evaluate(async () => (await (await caches.open('flashmind-tts-v1')).keys()).length);
+      if (await kept() < 2) throw new Error('played clips were not kept on the device: ' + await kept());
+      await page.$eval('[data-vl-act="save-voice"]', b => b.click());
+      await page.waitForFunction(() => [...document.querySelectorAll('.toast')].some(t => /voice clips saved/.test(t.textContent)), { timeout: 8000 });
       // Panel: the switch is on, choosing another voice persists, switching it off hides the picker.
       await page.$eval('[data-vl-act="voice"]', b => b.click());
       await page.waitForSelector('.vl-panel:not([hidden]) [data-vl-natural]:checked', { timeout: 2000 });
@@ -1460,6 +1573,19 @@ const path = require('node:path');
       if (await checks() !== '{"1":"wrong"}') throw new Error('result not saved: ' + await checks());
       await click('[data-vl-act="check-next"]');
       await page.waitForFunction(() => window.__spoken.some(t => /That is all/.test(t)) && !VideoLesson.isPlaying(), { timeout: 4000 });
+      // Weak spots: the wrong answer is offered as practice; it adds one card and one question and starts a quiz on them.
+      await page.waitForSelector('[data-vl-weak]:not([hidden]) [data-vl-act="weak-practice"]', { timeout: 2000 });
+      // The coach knows about it too: this deck's real summary carries the weak slide, and with the competing signals (due, new, exam questions) set aside it suggests practising it.
+      const coach = await page.evaluate(() => { const c = Coach.context(); const mine = c.decks.filter(d => d.id === Decks.getActive().id).map(d => ({ ...d, due: 0, unseen: 0, questions: 0, mistakes: 0 })); const r = Coach.decide({ ...c, decks: mine, recent: [] }); return { kind: r.kind, key: r.why.key, n: r.why.p.n }; });
+      if (coach.kind !== 'weak' || coach.key !== 'coachWhyWeak' || coach.n !== 1) throw new Error('coach ' + JSON.stringify(coach));
+      await click('[data-vl-act="weak-practice"]');
+      await page.waitForFunction(() => App.getStudyData().quiz.some(q => q.src === 'lesson-check' && q.question === 'What do plants need to make food?') && App.getStudyData().flashcards.some(c => c.front === 'What do plants need to make food?' && /Light/.test(c.back)), { timeout: 3000 });
+      await page.waitForSelector('#quiz-body', { timeout: 2000 });
+      if (await checks() !== '{"1":"practised"}') throw new Error('slide not marked as practised: ' + await checks());
+      await click('[data-tab="notes"]');
+      await click('[data-notes-view="video"]');
+      await page.waitForSelector('.vl-mark[data-vl-go="1"]', { timeout: 3000 });
+      if (await page.$('[data-vl-weak]:not([hidden])')) throw new Error('the slide is still offered after it was practised');
       // B: replay slide 2: a wrong answer is asked again; "Explain it again" rewrites the slide, plays it and asks again; skipping saves "skipped".
       await click('.vl-mark[data-vl-go="1"]');
       await click('[data-vl-act="toggle"]');

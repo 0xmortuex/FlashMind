@@ -463,7 +463,7 @@ const SimSpec = (() => {
     if (obj(raw.checks)) {
       const checks = {};
       Object.keys(raw.checks).forEach(k => {
-        if (/^\d{1,2}$/.test(k) && +k < slides.length && ['right', 'wrong', 'lost', 'skipped'].includes(raw.checks[k])) checks[k] = raw.checks[k];
+        if (/^\d{1,2}$/.test(k) && +k < slides.length && ['right', 'wrong', 'lost', 'skipped', 'practised'].includes(raw.checks[k])) checks[k] = raw.checks[k];
       });
       if (Object.keys(checks).length) out.checks = checks;
     }

@@ -448,10 +448,12 @@ const VideoLesson = (() => {
         <div class="vl-panel" data-vl-panel hidden></div>
       </div>
       <div class="vl-revbar" data-vl-revbar hidden></div>
+      <div class="vl-weak" data-vl-weak${weakSlides(l).length ? '' : ' hidden'}>${weakHtml(l)}</div>
       <div class="vl-notice" data-vl-notice role="alert" ${noVoice ? '' : 'hidden'}>${noticeHtml()}</div>
       <p class="vl-note" data-vl-silentnote ${ttsOk() && !silent ? 'hidden' : ''}>${T('vlNoTtsPlayer')}</p>
       <ol class="vl-outline">${l.slides.map((s, i) => `<li><button class="vl-outline-item" data-vl-go="${i}">${esc(s.title)}</button></li>`).join('')}</ol>
       <div class="vl-foot">
+        <button class="btn-ghost" data-vl-act="save-voice">&#11015;&#65039; ${T('vlSaveVoice')}</button>
         <button class="btn-ghost" data-vl-act="print">&#128438; ${T('vlPrint')}</button>
         <button class="btn-ghost" data-vl-act="copy">${T('vlCopyScript')}</button>
       </div>
@@ -565,6 +567,7 @@ const VideoLesson = (() => {
   function saveCheck(l, i, result) {
     l.checks = { ...(l.checks || {}), [i]: result };
     App.persistActiveDeck();
+    drawWeak();
   }
 
   function drawCheckpoint() {
@@ -643,6 +646,86 @@ const VideoLesson = (() => {
   function askAboutSlide() {
     hideCheckpoint();
     openPanel('help');
+  }
+
+  // ----- Weak spots: slides answered wrong or marked "lost" become practice -----
+
+  // Slide indexes the student found hard (they still carry their question).
+  function weakSlides(l) {
+    return Object.keys(l.checks || {}).filter(k => ['wrong', 'lost'].includes(l.checks[k]) && l.slides[+k] && l.slides[+k].check).map(Number).sort((a, b) => a - b);
+  }
+
+  function weakHtml(l) {
+    const w = l ? weakSlides(l) : [];
+    if (!w.length) return '';
+    const T = i18n.t;
+    return `<span class="vl-weak-text">&#127919; ${T('vlWeakTitle', { n: w.length })}</span>
+      <button class="btn-primary" data-vl-act="weak-practice">${T('vlWeakGo')}</button>`;
+  }
+
+  function drawWeak() {
+    const el = host && host.querySelector('[data-vl-weak]');
+    if (!el) return;
+    el.innerHTML = weakHtml(lesson());
+    el.hidden = !el.innerHTML;
+  }
+
+  // One flashcard and one multiple-choice question per weak slide, then a quiz on them.
+  // The slides are marked "practised" so they stop being offered (the coach would otherwise suggest them forever).
+  function addPractice(data, items) {
+    if (!items.length) return;
+    const T = i18n.t;
+    const have = new Set((data.flashcards || []).map(c => c.front));
+    const cards = [], qs = [];
+    items.forEach(({ l, i }) => {
+      const c = l.slides[i].check;
+      const cat = l.topic || l.title;
+      if (!have.has(c.q)) { have.add(c.q); cards.push({ front: c.q, back: [c.options[c.correct], c.why].filter(Boolean).join(' — '), difficulty: 'medium', category: cat }); }
+      qs.push({ type: 'multiple-choice', question: c.q, options: c.options.slice(), correct: c.correct, explanation: c.why || c.options[c.correct], difficulty: 'medium', category: cat, src: 'lesson-check' });
+      l.checks = { ...l.checks, [i]: 'practised' };
+    });
+    if (cards.length) Flashcards.addCards(cards);
+    Quiz.addQuestions(qs);
+    App.persistActiveDeck();
+    drawWeak();
+    App.showToast(T('vlWeakAdded', { c: cards.length, q: qs.length }), 'success');
+    App.switchTab('quiz');
+    Quiz.startQuiz(qs);
+  }
+
+  // From the lesson's own bar.
+  function practiseWeak() {
+    const l = lesson();
+    if (l) addPractice(App.getStudyData(), weakSlides(l).map(i => ({ l, i })));
+  }
+
+  // Every weak slide of every lesson in the open deck (the coach's "fix your weak spots").
+  function practiseAllWeak() {
+    const data = App.getStudyData();
+    if (data) addPractice(data, (data.lessons || []).flatMap(l => weakSlides(l).map(i => ({ l, i }))));
+  }
+
+  // Keep this lesson's natural-voice clips on the device so it plays without a connection.
+  let savingVoice = false;
+  async function saveVoice(btn) {
+    const l = lesson();
+    const T = i18n.t;
+    if (!l || savingVoice) return;
+    if (!TTS.naturalOn()) { App.showToast(T('vlSaveNeedsNatural'), 'error'); return; }
+    savingVoice = true;
+    const label = btn.innerHTML;
+    try {
+      const r = await TTS.saveForOffline(l.slides.map(s => s.narration), {
+        lang: lessonLang(l),
+        onProgress: (d, n) => { btn.textContent = T('vlSavingVoice', { d, n }); }
+      });
+      App.showToast(T('vlVoiceSaved', { n: r.clips, mb: (r.bytes / 1048576).toFixed(1) }), 'success');
+    } catch (err) {
+      App.showToast(T('vlSaveVoiceFailed') + ' ' + err.message, 'error');
+    } finally {
+      savingVoice = false;
+      btn.innerHTML = label;
+    }
   }
 
   // "Preparing voice…" next to the controls while a natural-voice clip downloads.
@@ -1036,6 +1119,8 @@ const VideoLesson = (() => {
       else if (act === 'check-next' || act === 'check-skip') continueAfterCheck();
       else if (act === 'check-again') explainAgain();
       else if (act === 'check-ask') askAboutSlide();
+      else if (act === 'weak-practice') practiseWeak();
+      else if (act === 'save-voice') saveVoice(btn);
       else if (act === 'persp-go') {
         const text = panelText('#vl-persp-text');
         if (text) makeVersion('', text); else host.querySelector('#vl-persp-text').focus();
@@ -1147,5 +1232,5 @@ const VideoLesson = (() => {
     if (b) { b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on)); }
   }
 
-  return { init, render, stop, fromNotes, isPlaying: () => playing, _index: () => index, _test: { versionsOf, trimLessons, reviseSlide, undoSlide, paragraphSlides, materialFor, prompt } };
+  return { practiseAllWeak, init, render, stop, fromNotes, isPlaying: () => playing, _index: () => index, _test: { versionsOf, trimLessons, reviseSlide, undoSlide, paragraphSlides, materialFor, prompt, weakSlides } };
 })();

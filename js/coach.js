@@ -35,7 +35,13 @@ const Coach = (() => {
     const examSoon = daysLeft !== null && daysLeft >= 0 && daysLeft <= 30;
     const rank = examSoon && typeof Predictor !== 'undefined' ? Predictor.rank(deck, now, P, SESSION_MIN) : null;
     const sections = data.notes && Array.isArray(data.notes.sections) ? data.notes.sections.length : 0;
+    // Video-lesson slides the student got wrong or asked to have explained again, not yet practised.
+    let weak = 0;
+    (Array.isArray(data.lessons) ? data.lessons : []).forEach(l => Object.keys(l.checks || {}).forEach(k => {
+      if (['wrong', 'lost'].includes(l.checks[k]) && l.slides && l.slides[+k] && l.slides[+k].check) weak++;
+    }));
     return {
+      weak,
       id: deck.id, title: data.title || '',
       daysLeft, cards: cards.length, unseen: cards.length - seen.length, due,
       todayNew: plan ? plan.todayNew : 0,
@@ -85,6 +91,10 @@ const Coach = (() => {
       // Filed wrong answers.
       if (d.mistakes >= 3) {
         push('mistakes', d.id, (1 + Math.min(d.mistakes, 20) / 6) * (soon(d) ? pr : 0.9), 'coachWhyMistakes', { n: d.mistakes, t: title });
+      }
+      // Slides of a video lesson the student found hard: they are one tap from practice.
+      if (d.weak > 0) {
+        push('weak', d.id, (1.2 + Math.min(d.weak, 6) / 4) * (soon(d) ? Math.min(pr, 2.5) : 1), 'coachWhyWeak', { n: d.weak, t: title });
       }
       // Exam practice gone stale.
       if (d.questions >= 4) {
@@ -182,6 +192,7 @@ const Coach = (() => {
         Flashcards.startQueue(tag(deck, cards.filter(c => ids.has(String(c.id)))));
         break;
       }
+      case 'weak': ensureOpen(choice.deckId); VideoLesson.practiseAllWeak(); break;
       case 'mistakes': ensureOpen(choice.deckId); App.switchTab('quiz'); Quiz.startQuiz(Decks.getMistakes()); break;
       case 'adaptive': ensureOpen(choice.deckId); App.switchTab('quiz'); Quiz.startAdaptive(); break;
       case 'voice': ensureOpen(choice.deckId); App.switchTab('chat'); Voice.open('quiz'); break;
@@ -292,5 +303,5 @@ const Coach = (() => {
     idle(() => { try { if (typeof Memory !== 'undefined') Memory.ensure(); } catch (e) { /* best effort */ } });
   }
 
-  return { init, summarize, decide, go, homeHtml, context, showNext };
+  return { init, summarize, decide, go, homeHtml, context, showNext, launch };
 })();

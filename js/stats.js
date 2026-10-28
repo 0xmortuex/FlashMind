@@ -74,6 +74,47 @@ const Stats = (() => {
     return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
   }
 
+  // ----- Daily goal -----
+
+  const GOAL_KEY = 'flashmind_daily_goal'; // cards to review per day; 0 = off
+  const DEFAULT_GOAL = 20;
+
+  function goal() {
+    try {
+      const v = parseInt(localStorage.getItem(GOAL_KEY), 10);
+      return Number.isFinite(v) && v >= 0 && v <= 500 ? v : DEFAULT_GOAL;
+    } catch (e) { return DEFAULT_GOAL; }
+  }
+
+  function setGoal(n) {
+    try { localStorage.setItem(GOAL_KEY, String(Math.max(0, Math.min(500, Math.round(n) || 0)))); } catch (e) { /* non-fatal */ }
+  }
+
+  function todayReviews() {
+    load();
+    const d = data.days[dayKey(Date.now())];
+    return d ? d.reviews : 0;
+  }
+
+  function goalCard() {
+    const T = i18n.t;
+    const g = goal(), n = todayReviews();
+    if (!g) {
+      return `<div class="stat-card goal-card"><h3 class="stat-card-title">&#127919; ${T('goalTitle')}</h3>
+        <p class="plan-pitch">${T('goalOff')}</p>
+        <button class="btn-ghost" data-goal-set="${DEFAULT_GOAL}">${T('goalTurnOn', { n: DEFAULT_GOAL })}</button></div>`;
+    }
+    const pct = Math.min(100, Math.round(n / g * 100));
+    return `<div class="stat-card goal-card"><h3 class="stat-card-title">&#127919; ${T('goalTitle')}</h3>
+      <div class="goal-line"><strong>${n} / ${g}</strong> <span>${n >= g ? '&#9989; ' + T('goalDone') : T('goalLeft', { n: g - n })}</span></div>
+      <div class="goal-bar" role="progressbar" aria-valuemin="0" aria-valuemax="${g}" aria-valuenow="${Math.min(n, g)}" aria-label="${T('goalTitle')}"><span style="width:${pct}%"></span></div>
+      <div class="goal-controls">
+        <button class="btn-icon" data-goal-step="-5" aria-label="${T('goalLess')}" title="${T('goalLess')}">&minus;</button>
+        <span class="goal-target">${T('goalPerDay', { n: g })}</span>
+        <button class="btn-icon" data-goal-step="5" aria-label="${T('goalMore')}" title="${T('goalMore')}">+</button>
+      </div></div>`;
+  }
+
   // ----- Recording -----
 
   function recordReview(rating) {
@@ -84,6 +125,7 @@ const Stats = (() => {
     day.reviews += 1;
     if (rating === 'gotit') day.gotit += 1;
     data.days[k] = day;
+    if (goal() > 0 && day.reviews === goal() && typeof App !== 'undefined') App.showToast(i18n.t('goalReached', { n: goal() }), 'success');
     // Every 7 studied days earns a streak freeze (held max 2).
     if (firstToday) {
       data.freezeMeter += 1;
@@ -351,6 +393,8 @@ const Stats = (() => {
           ${tile(`<span data-count="${exams.length}">0</span>`, T('statExams'))}
           ${focusWeek ? tile(`&#9201; <span data-count="${focusWeek}">0</span>`, T('statFocus')) : ''}
         </div>
+        ${goalCard()}
+        ${typeof Report !== 'undefined' ? Report.statsCard() : ''}
         ${plan}
         ${typeof Insights !== 'undefined' ? Insights.statsCards() : ''}
         ${typeof PaperReview !== 'undefined' ? PaperReview.statsCard() : ''}
@@ -382,6 +426,8 @@ const Stats = (() => {
 
     const weeklyBtn = document.getElementById('weekly-report-btn');
     if (weeklyBtn) weeklyBtn.addEventListener('click', weeklyReport);
+    container.querySelectorAll('[data-goal-step]').forEach(b => b.addEventListener('click', () => { setGoal(goal() + parseInt(b.dataset.goalStep, 10)); render(); }));
+    container.querySelectorAll('[data-goal-set]').forEach(b => b.addEventListener('click', () => { setGoal(parseInt(b.dataset.goalSet, 10)); render(); }));
 
     // Bring the numbers to life: tiles cascade in and count up.
     container.querySelectorAll('.stat-tile').forEach((el, i) => el.style.setProperty('--i', i));
@@ -438,5 +484,5 @@ const Stats = (() => {
     }
   }
 
-  return { recordReview, recordExam, recordFocus, focusMinutes, render, streak, freezes, mergeRemote, snapshot: () => JSON.parse(JSON.stringify(load())) };
+  return { goal, setGoal, todayReviews, recordReview, recordExam, recordFocus, focusMinutes, render, streak, freezes, mergeRemote, snapshot: () => JSON.parse(JSON.stringify(load())) };
 })();

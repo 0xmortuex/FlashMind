@@ -40,6 +40,7 @@ const App = (() => {
     if (typeof Lecture !== 'undefined') Lecture.init();
     if (typeof Checker !== 'undefined') Checker.init();
     if (typeof Insights !== 'undefined') Insights.init();
+    if (typeof Report !== 'undefined') Report.init();
     // Study brain: exam predictor, concept map, autopilot coach.
     [typeof Predictor !== 'undefined' && Predictor, typeof ConceptMap !== 'undefined' && ConceptMap, typeof Coach !== 'undefined' && Coach].forEach(m => { if (m) m.init(); });
     if (typeof MathRender !== 'undefined') MathRender.init();
@@ -1012,6 +1013,15 @@ const App = (() => {
       });
     });
 
+    // Phones: the system share sheet reaches any app (Telegram, Instagram, SMS, a classmate's contact...).
+    const nativeBtn = document.getElementById('share-native');
+    if (nativeBtn) nativeBtn.addEventListener('click', async () => {
+      const url = document.getElementById('share-link-input').value;
+      const title = studyData ? studyData.title : '';
+      try { await navigator.share({ title, text: i18n.t('shareWhatsapp', { title }), url }); }
+      catch (err) { if (err.name !== 'AbortError') showToast(i18n.t('shareFailed') + ' ' + err.message, 'error'); } // closing the sheet is not an error
+    });
+
     whatsappBtn.addEventListener('click', () => {
       const url = document.getElementById('share-link-input').value;
       const title = studyData ? studyData.title : '';
@@ -1067,6 +1077,8 @@ const App = (() => {
       document.getElementById('share-link-input').value = `${window.location.origin}${window.location.pathname}?s=${encodeURIComponent(code)}`;
       loading.style.display = 'none';
       result.style.display = 'block';
+      const nativeShare = document.getElementById('share-native');
+      if (nativeShare) { nativeShare.hidden = typeof navigator.share !== 'function'; nativeShare.textContent = '↗️ ' + i18n.t('shareSend'); }
       showToast(i18n.t('shareCreated'), 'success');
     } catch (err) {
       modal._close();

@@ -692,7 +692,10 @@ test('coach decision is deterministic and follows the situation', () => {
       again: dec([d({ id: 'a', due: 20 }), d({ id: 'b', unseen: 20 })], { recent: [{ k: 'review', d: null }] }),
       fresh: dec([d({ id: 'a', due: 20 }), d({ id: 'b', unseen: 20 })]),
       tie1: dec([d({ id: 'b', unseen: 20 }), d({ id: 'a', unseen: 20 })]),
-      tie2: dec([d({ id: 'a', unseen: 20 }), d({ id: 'b', unseen: 20 })])
+      tie2: dec([d({ id: 'a', unseen: 20 }), d({ id: 'b', unseen: 20 })]),
+      weak: dec([d({ id: 'a', weak: 3 })]),
+      weakVsReview: dec([d({ id: 'a', weak: 2 }), d({ id: 'b', due: 60 })]),
+      weakExam: dec([d({ id: 'a', weak: 4, daysLeft: 2 }), d({ id: 'b', unseen: 20 })])
     });
   `));
   assert.equal(out.none.kind, 'none');
@@ -707,6 +710,16 @@ test('coach decision is deterministic and follows the situation', () => {
   assert.equal(out.fresh.kind, 'review');
   assert.equal(out.again.kind, 'new');                           // just reviewed: don't repeat straight away
   assert.deepEqual(out.tie1, out.tie2);                          // input order doesn't matter
+  assert.deepEqual([out.weak.kind, out.weak.deckId, out.weak.why.key, out.weak.why.p.n], ['weak', 'a', 'coachWhyWeak', 3]);   // hard video slides beat resting
+  assert.equal(out.weakVsReview.kind, 'review');                 // a big pile of due cards still comes first
+  assert.deepEqual([out.weakExam.kind, out.weakExam.deckId], ['weak', 'a']);   // with an exam in 2 days they matter more than new cards
+});
+test('coach summary counts the lesson slides still to practise', () => {
+  const { run } = modules();
+  const n = run(`Coach.summarize({ id: 'd', data: { title: 'T', flashcards: [], lessons: [
+    { title: 'L', slides: [{}, { check: {} }, { check: {} }, { check: {} }, {}], checks: { 1: 'wrong', 2: 'lost', 3: 'practised', 4: 'wrong', 0: 'right' } },
+    { title: 'M', slides: [{ check: {} }], checks: { 0: 'skipped' } }] } }, Date.now(), null).weak`);
+  assert.equal(n, 2, 'wrong and lost slides that still have their question; practised, right, skipped and question-less ones do not count');
 });
 test('coach summary reads exam date, due load, practice age and calibration from a deck', () => {
   const { run } = modules();
@@ -2229,6 +2242,116 @@ test('speakable says formulas and symbols in the text language', () => {
   assert.ok(ctx.spoken[0].text.startsWith('Örneğin bu bir'));
 });
 
+// A fake Cache Storage shared between "page loads", plus real hashing.
+function fakeCaches() {
+  const stores = new Map();
+  const api = { puts: 0, failPut: false, stores };
+  api.open = async name => {
+    if (!stores.has(name)) stores.set(name, new Map());
+    const m = stores.get(name);
+    return {
+      match: async k => (m.has(k) ? { blob: async () => m.get(k) } : undefined),
+      put: async (k, res) => { if (api.failPut) throw new Error('QuotaExceededError'); api.puts++; m.set(k, await res.blob()); }
+    };
+  };
+  return api;
+}
+function savedClipsEnv(more) {
+  const calls = [];
+  const env = ttsEnv([V('Microsoft Zira', 'en-US')], {
+    extra: { API: { tts: async (text, voice) => { calls.push({ text, voice }); return new Blob(['abcd']); } }, navigator: { onLine: true }, URL: { createObjectURL: () => 'blob:x', revokeObjectURL() {} }, Audio: class { constructor() { this.paused = true; } play() { return Promise.resolve(); } pause() {} }, ...more }
+  });
+  return { ...env, calls, flush: () => new Promise(r => setTimeout(r, 20)) };
+}
+const withCaches = caches => savedClipsEnv({ caches, crypto: require('node:crypto').webcrypto, TextEncoder, Response, Blob });
+
+test('natural clips are kept on the device: reused after a reload, played offline, and saved on request', async () => {
+  const caches = fakeCaches();
+  const a = withCaches(caches);
+  a.run(`TTS.speak(${JSON.stringify(TR_TEXT)}, null, { natural: true })`);
+  await a.flush();
+  assert.equal(a.calls.length, 1);
+  assert.equal(caches.puts, 1, 'the clip was kept');
+  // A new page load (fresh memory, same Cache Storage) needs no network for it, even offline.
+  const b = withCaches(caches);
+  b.run(`navigator.onLine = false; TTS.speak(${JSON.stringify(TR_TEXT)}, null, { natural: true })`);
+  await b.flush();
+  assert.equal(b.calls.length, 0, 'served from the device');
+  assert.equal(b.ctx.toasts.length, 0, 'no failure message');
+  // Offline and not saved: a clear message, and the device voice reads instead.
+  const c = withCaches(fakeCaches());
+  c.run(`navigator.onLine = false; TTS.speak(${JSON.stringify(TR_TEXT)}, null, { natural: true })`);
+  await c.flush();
+  assert.equal(c.calls.length, 0);
+  assert.match(c.ctx.toasts[0], /ttsNaturalFailed/);
+  // Save for offline: every passage is fetched once, progress is reported, bytes are counted.
+  const d = withCaches(fakeCaches());
+  d.ctx.progress = [];
+  d.ctx.texts = [TR_TEXT, LONG_TR];
+  const res = await d.run('TTS.saveForOffline(texts, { lang: "tr", onProgress: (n, t) => progress.push(n + "/" + t) })');
+  assert.ok(res.clips >= 2 && res.bytes === res.clips * 4, JSON.stringify(res));
+  assert.equal(d.ctx.progress[d.ctx.progress.length - 1], `${res.clips}/${res.clips}`);
+  assert.equal(d.calls.length, res.clips);
+  // A full or blocked store is reported, not hidden.
+  const full = fakeCaches(); full.failPut = true;
+  const e = withCaches(full);
+  e.ctx.texts = [TR_TEXT];
+  await assert.rejects(e.run('TTS.saveForOffline(texts, { lang: "tr" })'), /ttsCacheFull/);
+  // No Cache Storage at all (an old browser): also reported.
+  const f = savedClipsEnv({});
+  f.ctx.texts = [TR_TEXT];
+  await assert.rejects(f.run('TTS.saveForOffline(texts, { lang: "tr" })'), /ttsNoCache/);
+});
+
+test('progress report: numbers, weak topics, lesson checks, exam countdown, 7-day window, text and HTML', () => {
+  const ctx = vm.createContext({ console, i18n: { getLang: () => 'en', t: (k, p) => k + (p ? ' ' + JSON.stringify(p) : '') } });
+  vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/report.js'), 'utf8') + '; this.Report = Report;', ctx);
+  const R = ctx.Report;
+  const DAY = 86400000;
+  const now = new Date(2026, 9, 28, 12).getTime(); // 28 Oct 2026, noon local time
+  const key = t => { const d = new Date(t); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+  const days = {};
+  [[0, 20, 15, 0], [1, 25, 20, 10], [2, 0, 0, 0], [3, 5, 5, 0], [9, 99, 99, 0]].forEach(([ago, reviews, gotit, focus]) => { days[key(now - ago * DAY)] = { reviews, gotit, ...(focus ? { focus } : {}) }; });
+  const stats = { days, exams: [{ t: now - 2 * DAY, title: 'Fizik deneme', pct: 70, grade: 'B' }, { t: now - 10 * DAY, title: 'Old', pct: 10, grade: 'F' }] };
+  const decks = [{
+    id: 'd1', title: 'Fizik', examDate: key(now + 12 * DAY),
+    data: {
+      title: 'Fizik', flashcards: [{}, {}, {}],
+      quiz: [{ id: 1, category: 'Optik' }, { id: 2, category: 'Optik' }, { id: 3, category: 'Optik' }, { id: 4, category: 'Dalgalar' }, { id: 5, category: 'Az' }, { id: 6 }],
+      lessons: [{ title: 'Işık', checks: { 1: 'right', 2: 'wrong', 3: 'lost', 4: 'skipped' } }, { title: 'Boş', checks: {} }]
+    },
+    qstats: { 1: { n: 2, ok: 0 }, 2: { n: 1, ok: 0 }, 3: { n: 1, ok: 1 }, 4: { n: 5, ok: 5 }, 5: { n: 2, ok: 0 }, 6: { n: 9, ok: 0 } },
+    rlog: [[1, Math.round((now - DAY) / 60000), 3, 0, 0, 0], [2, Math.round((now - 9 * DAY) / 60000), 3, 0, 0, 0], 'junk']
+  }];
+  const plain = v => JSON.parse(JSON.stringify(v)); // arrays made inside the VM are not deep-equal to ours
+  const r = plain(R.build(decks, stats, now, 20, { d1: 4 }));
+  assert.equal(r.reviews, 50, 'the 9-day-old day is outside the window');
+  assert.equal(r.studiedDays, 3, 'a day with only focus time counts as studied, an empty one does not');
+  assert.equal(r.remembered, 80);
+  assert.equal(r.focusMinutes, 10);
+  assert.equal(r.goalDays, 2, 'days with at least 20 reviews');
+  assert.equal(r.days.length, 7);
+  assert.deepEqual(r.exams.map(e => e.title), ['Fizik deneme'], 'only this week\'s exams');
+  assert.deepEqual(r.weak.map(w => [w.topic, w.pct, w.n]), [['Optik', 25, 4]], 'a topic needs 3 answers and under 65% right; uncategorised questions are ignored');
+  assert.deepEqual(r.lessons, [{ deck: 'Fizik', title: 'Işık', right: 1, wrong: 1, lost: 1, skipped: 1 }]);
+  assert.equal(r.decks[0].cards, 3);
+  assert.equal(r.decks[0].cardsWeek, 1, 'reviews older than a week and junk log entries are not counted');
+  assert.equal(r.decks[0].due, 4);
+  assert.equal(r.decks[0].daysToExam, 12);
+  // No activity at all: no division by zero, no weak topics.
+  const empty = R.build([], { days: {}, exams: [] }, now, 0, {});
+  assert.equal(empty.reviews, 0); assert.equal(empty.remembered, null); assert.equal(empty.goalDays, 0);
+  // A past exam date is not a countdown.
+  assert.equal(R.build([{ id: 'x', examDate: key(now - 5 * DAY), data: { title: 'Old' } }], stats, now, 0, {}).decks[0].daysToExam, null);
+  const text = R.toText(r);
+  for (const part of ['repTitle', 'repStudied {"d":3,"c":50}', 'repRemembered {"p":80}', 'repGoal {"d":2,"g":20}', 'Fizik deneme: 70/100 (B)', 'Optik (Fizik): repWeakLine {"p":25,"n":4}', 'Işık: repLessonLine {"r":1,"w":1,"l":1}', 'Fizik: repDaysLeft {"n":12}']) assert.ok(text.includes(part), part + ' in:\n' + text);
+  const html = R.toHtml(r);
+  assert.ok(html.includes('rep-days') && html.includes('Optik') && !/<script/i.test(html));
+  // Everything that came from the data is escaped.
+  decks[0].data.title = '<img src=x onerror=alert(1)>';
+  assert.ok(!R.toHtml(R.build(decks, stats, now, 20, {})).includes('<img'));
+});
+
 test('speech progress follows the real audio position (natural) and word boundaries (device), and is unknown otherwise', async () => {
   const nat = naturalEnv([V('Microsoft Zira', 'en-US')]);
   assert.equal(nat.run('TTS.progress()'), null, 'nothing is being spoken');
@@ -2305,6 +2428,7 @@ test('"Did you get this?" checks: valid questions are kept, malformed ones dropp
   const lesson = checks => JSON.parse(run(`JSON.stringify(SimSpec.sanitizeLesson({ title: 'L', slides: [{ title: 'a', narration: 'a' }, { title: 'b', narration: 'b' }], checks: ${JSON.stringify(checks)} }))`));
   assert.deepEqual(lesson({ 0: 'right', 1: 'lost', 2: 'right', 5: 'wrong', x: 'right', 0.5: 'right' }).checks, { 0: 'right', 1: 'lost' });
   assert.equal(lesson({ 0: 'maybe' }).checks, undefined);
+  assert.deepEqual(lesson({ 0: 'practised' }).checks, { 0: 'practised' });
   // A kept revision of a slide keeps its original question too.
   const o = JSON.parse(run(`JSON.stringify(SimSpec.sanitizeSlide({ title: 'New', narration: 'n', orig: { title: 'Old', narration: 'o', check: ${JSON.stringify(good)} } }))`));
   assert.deepEqual(o.orig.check, good);

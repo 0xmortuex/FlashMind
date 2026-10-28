@@ -474,6 +474,18 @@
   margin-bottom: 12px;
 }
 
+/* "Where did I go wrong?": the student's own sentences, each marked right or wrong */
+.oe-where-btn { margin-top: 12px; }
+.oe-working-box:not(:empty) { margin-top: 10px; }
+.oe-working { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-family: var(--font-content); font-size: 0.92rem; line-height: 1.55; }
+.oe-working li { padding: 8px 10px; border-radius: var(--radius-sm, 8px); border-left: 3px solid var(--ok-text); background: color-mix(in srgb, var(--ok-text) 9%, var(--card)); }
+.oe-working li.bad { border-left-color: var(--bad-text); background: color-mix(in srgb, var(--bad-text) 10%, var(--card)); }
+.oe-w-mark { font-weight: 800; margin-right: 4px; color: var(--ok-text); }
+.oe-working li.bad .oe-w-mark { color: var(--bad-text); }
+.oe-w-note { display: block; margin-top: 4px; color: var(--text-muted); }
+.oe-w-summary { margin: 8px 0 0; font-size: 0.9rem; }
+.oe-w-error { margin: 0; color: var(--bad-text); font-size: 0.9rem; }
+
 .oe-missed-label {
   display: block;
   font-size: 0.8rem;

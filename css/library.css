@@ -270,3 +270,38 @@
   color: var(--primary);
 }
 .share-publish-btn { width: 100%; margin-top: 10px; }
+
+/* Daily goal card */
+.goal-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+.goal-line strong { font-family: var(--font-display); font-size: 1.3rem; }
+.goal-line span { color: var(--text-muted); font-size: 0.88rem; }
+.goal-bar { height: 10px; border-radius: 999px; background: var(--surface); border: 1px solid var(--border); overflow: hidden; }
+.goal-bar span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--primary), var(--secondary, var(--primary))); transition: width 0.4s ease; }
+.goal-controls { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+.goal-controls .btn-icon { width: 30px; height: 30px; border: 1px solid var(--border); }
+.goal-target { font-size: 0.86rem; color: var(--text-muted); }
+
+/* Progress report (parent / teacher) */
+.report-backdrop { position: fixed; inset: 0; z-index: 5000; display: flex; align-items: center; justify-content: center; padding: 16px; background: var(--backdrop); backdrop-filter: blur(6px); }
+.report-modal { width: min(560px, 100%); max-height: calc(100vh - 32px); display: flex; flex-direction: column; background: var(--card); color: var(--text); border: 1px solid var(--border); border-radius: var(--radius-lg, 16px); box-shadow: var(--shadow-lg); }
+.report-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 18px; border-bottom: 1px solid var(--border); }
+.report-head h3 { margin: 0; font-family: var(--font-display); font-size: 1.05rem; }
+.report-body { overflow: auto; padding: 14px 18px; display: grid; gap: 12px; font-size: 0.92rem; line-height: 1.55; }
+.report-actions { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 18px; border-top: 1px solid var(--border); }
+.report-actions [hidden] { display: none; }
+.rep-range { margin: 0; color: var(--text-muted); font-size: 0.84rem; }
+.rep-lead { margin: 0; }
+.rep-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; align-items: end; height: 110px; padding: 8px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
+.rep-day { position: relative; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; gap: 2px; }
+.rep-bar { display: block; width: 100%; min-height: 3px; border-radius: 4px 4px 0 0; background: linear-gradient(180deg, var(--primary), var(--secondary, var(--primary))); }
+.rep-day small { color: var(--text-muted); font-size: 0.7rem; }
+.rep-day b { font-size: 0.74rem; }
+.rep-sec h4 { margin: 0 0 4px; font-family: var(--font-display); font-size: 0.92rem; }
+.rep-sec ul { margin: 0; padding-left: 18px; display: grid; gap: 3px; }
+@media print {
+  body.printing-report > *:not(.report-backdrop) { display: none !important; }
+  body.printing-report .report-backdrop { position: static; display: block; padding: 0; background: none; backdrop-filter: none; }
+  body.printing-report .report-modal { width: 100%; max-height: none; border: none; box-shadow: none; color: #000; background: #fff; }
+  body.printing-report .report-actions, body.printing-report [data-report-act="close"] { display: none !important; }
+  body.printing-report .report-body { overflow: visible; }
+}
