@@ -1066,7 +1066,7 @@ test('MEB generator infers grade and subject from explicit names only', async ()
   const { index } = build(mebFixture);
   const at = end => index.find(r => r.u.endsWith(end));
   const gs = end => [at(end).g, at(end).s, at(end).x];
-  assert.deepEqual(gs('/2025sozel.pdf'), [[8], 'Sözel', 'lgs']);
+  assert.deepEqual(gs('/2025sozel.pdf'), [[8], 'LGS Sözel', 'lgs']);
   assert.deepEqual(gs('/konusoru/cog9.pdf'), [[9], 'Coğrafya', 'konu']);                 // cog9
   assert.deepEqual(gs('/9_10sinifB.pdf'), [[9, 10], '', 'bursluluk']);                  // manifest said [1]
   assert.deepEqual(gs('/11_fiz_1.pdf'), [[11], 'Fizik', 'sinif']);
@@ -1156,6 +1156,53 @@ test('MEB library: a multi-grade entry is listed under every grade it covers', (
   assert.deepEqual(mebIds(run, { grade: 8 }), []);
   assert.deepEqual(mebIds(run, {}), ['m1', 'm2']);                      // ungraded entries stay under "All grades"
 });
+test('MEB generator: subject, year, titles and grades from the sources that state them (set meta, URL folder, file names)', async () => {
+  const { build } = await mebGen();
+  const rec = (examType, file, extra) => ({ title: 'T', pageTitle: 'P', examType, fileUrl: 'https://cdn.eba.gov.tr/yardimcikaynaklar/' + file, schoolYear: '2025-2026', sourcePage: 'https://odsgm.meb.gov.tr/www/x/icerik/0', ...extra });
+  const one = (r, sets) => build({ ods2: [r], sets }).index[0];
+  // school year of a sinif file = its CDN folder, not the manifest's current year; no folder = not stated
+  assert.equal(one(rec('Sinif Ici Olcme / Destek Materyal', '2022/01/11_sos_1.pdf')).y, '2021-2022');
+  assert.equal(one(rec('Sinif Ici Olcme / Destek Materyal', '2024/11/x.pdf')).y, '2024-2025');
+  assert.equal(one(rec('Sinif Ici Olcme / Destek Materyal', 'x.pdf')).y, '');
+  const sos = one(rec('Sinif Ici Olcme / Destek Materyal', '2022/01/11_sos_1.pdf'));
+  assert.deepEqual([sos.g, sos.s, sos.p], [[11], 'Sosyoloji', '']);                  // lise Tekrar Testi; /icerik/0 is a dead page
+  // grade from the file name: publisher konu files, ita8; sinif booklets only when the title states none
+  assert.deepEqual(one(rec('Ortak Yazili - Konu Soru Dagilim', 'cydem_ing5_2.pdf', { title: 'ÇYDEM-İngilizce' })).g, [5]);
+  assert.deepEqual(one(rec('Ortak Yazili - Konu Soru Dagilim', 'turk7meb.pdf', { title: 'Türkçe MEB Yayınları' })).g, [7]);
+  const ita = one(rec('Ortak Yazili - Konu Soru Dagilim', 'ita8.pdf', { title: 'T.C. İnkılap Tarihi ve Atatürkçülük' }));
+  assert.deepEqual([ita.g, ita.s], [[8], 'İnkılap Tarihi']);
+  assert.deepEqual(one(rec('Sinif Ici Olcme / Destek Materyal', 'matematik3.pdf', { title: 'Biçimlendirici Değerlendirme' })).g, [3]);
+  assert.deepEqual(one(rec('Sinif Ici Olcme / Destek Materyal', 'turkce5.pdf', { title: '1.Sınıf Etkinlik Fasikülleri' })).g, [1]);
+  // subject and title from the set; edition B swaps the booklet letter; LGS sections are 'LGS Sözel' / 'LGS Sayısal'
+  const lgs = rec('LGS', '2026/05/b_2026_x.pdf');
+  const id = one(lgs).id;
+  const set = { bytes: 10, data: { title: 'LGS 2026 Sözel Bölüm - A Kitapçığı', meta: { subject: 'Sözel' } } };
+  const e = one(lgs, new Map([[id, set]]));
+  assert.deepEqual([e.s, e.t], ['LGS Sözel', 'LGS 2026 Sözel Bölüm - A Kitapçığı']);
+  const two = build({ ods2: [lgs, rec('LGS', '2026/05/c_2026_x.pdf')], sets: new Map([[id, set], [one(rec('LGS', '2026/05/c_2026_x.pdf')).id, { bytes: 1, data: {}, alias: id, version: 'B' }]]) }).index;
+  assert.ok(two.some(r => r.t === 'LGS 2026 Sözel Bölüm - B Kitapçığı'));
+  assert.equal(one(rec('Ortak Yazili Sinav', 'x.pdf'), new Map([[one(rec('Ortak Yazili Sinav', 'x.pdf')).id, { bytes: 1, data: { meta: { subject: 'Çoklu ders (42 ders)' } } }]])).s, '');   // multi-subject stays blank
+  const mat = one(rec('Ortak Yazili Sinav', 'y.pdf'), new Map([[one(rec('Ortak Yazili Sinav', 'y.pdf')).id, { bytes: 1, data: { meta: { subject: 'Türk Dili ve Edebiyatı' } } }]]));
+  assert.equal(mat.s, 'Türkçe / Edebiyat');
+  // Turkish letters come back in titles built from ASCII file names and headings; a cut heading is not a title
+  const k = one(rec('Ortak Yazili - Kilavuz', 'Ulke_Geneli_Ortak_Yazili_Sinav_Takvimi.pdf', { title: 'MİLLÎ EĞİTİM BAKANLIĞI 2025-2026 1.…', pageTitle: 'MİLLÎ EĞİTİM BAKANLIĞI 2025-2026 1.…' }));
+  assert.equal(k.t, 'Ülke Geneli Ortak Yazılı Sınav Takvimi');
+  assert.match(one(rec('LGS', '2025/01/2025_YYlY_OrtaoYgYretime_GecYisY_Tercih_ve_YerlesYtirme_KYlavuzu.pdf')).t, /Ortaöğretime Geçiş Tercih ve Yerleştirme Kılavuzu$/);
+});
+test('committed MEB index: the library is usable out of the box (All years, every grade chip with files, no dead end)', () => {
+  const index = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/meb/index.json'), 'utf8'));
+  const { ctx, run } = modules();
+  ctx.items = index;
+  const n = f => JSON.parse(run(`JSON.stringify(MebIndex.filterItems(items, ${JSON.stringify(f)}).length)`));
+  assert.equal(run('MebIndex.defaultYear(items)'), '');
+  assert.equal(n({}), index.length);                                       // the default view lists everything
+  for (const grade of [1, 5, 6, 7, 8, 9, 10, 11, 12]) assert.ok(n({ grade }) > 0, 'grade ' + grade);
+  assert.ok(n({ q: 'edebiyat' }) > 90);                                    // was 2 while the 2026-2027 chip was the default
+  assert.equal(n({ year: 'none' }), index.filter(r => !r.y).length);
+  assert.ok(index.filter(r => !r.y).length > 300 && n({ year: 'none', type: 'ogm-yazili' }) === 74);
+  assert.ok(index.every(r => r.x !== 'sinif' || r.y !== '2025-2026' || /\/2025\/|\/2026\//.test(r.u)));   // no old booklet labelled with the current year
+  assert.equal(index.filter(r => r.set && /^(Sözel|Sayısal)$/.test(r.s)).length, 0);
+});
 test('MEB generator aggregates konu-soru tables and drops unusable rows', async () => {
   const { build } = await mebGen();
   const { topics } = build(mebFixture);
@@ -1195,14 +1242,14 @@ const setIndex = [
 ];
 const fixtureSet = id => JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures/meb-set-' + id + '.json'), 'utf8'));
 
-test('MEB library groups by school year: newest first, unstated last, default to 2026-2027 only when it exists', () => {
+test('MEB library groups by school year: newest first, unstated last, opens on All years, "Year not stated" has its own chip', () => {
   const { ctx, run } = modules();
   ctx.items = setIndex;
   const ids = code => JSON.parse(run('JSON.stringify(' + code + '.map(i => i.id))'));
   assert.deepEqual(ids('MebIndex.sortByYear(items)'), ['a2', 'a5', 'a1', 'a3', 'a4']);   // stable inside a year, no year last
   assert.deepEqual(setIndex.map(i => i.id), ['a1', 'a2', 'a3', 'a4', 'a5']);               // input not mutated
-  assert.equal(run('MebIndex.defaultYear(items)'), '2026-2027');
-  assert.equal(run('MebIndex.defaultYear(items.filter(i => i.y !== "2026-2027"))'), '');
+  assert.equal(run('MebIndex.defaultYear(items)'), '');                                    // never a year chip that would hide year-less files
+  assert.deepEqual(mebIds(run, { year: 'none' }), ['a4']);
   assert.deepEqual(mebIds(run, { year: '2026-2027' }), ['a2', 'a5']);
   assert.deepEqual(mebIds(run, { year: '2025-2026' }), ['a1']);
   assert.deepEqual(mebIds(run, { year: 'earlier' }), ['a3']);                             // a stated year before 2025-2026; unstated is not "earlier"

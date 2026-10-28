@@ -11,7 +11,7 @@
 const MebIndex = (() => {
   const INDEX_URL = 'data/meb/index.json';
   const TOPICS_URL = 'data/meb/topics.json';
-  const GRADES = [5, 6, 7, 8, 9, 10, 11, 12];
+  const GRADES = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   const TYPES = ['lgs', 'bursluluk', 'ortak', 'konu', 'yks', 'acik', 'sinif', 'kilavuz', 'dort-beceri', 'ogm-yazili', 'ogm-kazanim', 'ogm-kazanim-bazli'];
   const PAGE = 50;
   const OFFICIAL = /^https:\/\/([a-z0-9-]+\.)*(meb\.gov\.tr|eba\.gov\.tr)(\/|$)/i;
@@ -19,16 +19,20 @@ const MebIndex = (() => {
   // ---------- pure helpers ----------
   const norm = s => PastPaper.normName(s);
 
-  // School years are shown exactly as the index states them; these two are the
-  // groups the library leads with. A file with no stated year sorts last and is
-  // only listed under "All years".
+  // School years are shown exactly as the index states them. A file with no stated
+  // year sorts last, is listed under "All years" and has its own "Year not stated" chip.
+  // The library opens on All years: 379 files state no year and only 21 are from
+  // 2026-2027, none of them with a grade, so a year chip as the default hid the rest.
   const YEAR_NOW = '2026-2027', YEAR_PREV = '2025-2026';
-  const defaultYear = items => (items.some(it => it.y === YEAR_NOW) ? YEAR_NOW : '');
+  const defaultYear = () => '';
   // Newest school year first; the order inside a year is kept.
   const sortByYear = items => items.slice().sort((a, b) => (b.y || '').localeCompare(a.y || ''));
 
-  // f = { grade: 5..12 | 0, type: '' | code, subject: '' | name, q: text,
-  //       year: '' | YEAR_NOW | YEAR_PREV | 'earlier', sets: bool }.
+  // Words a student may type that the title does not always carry.
+  const SEARCH_WORDS = { 'ogm-yazili': 'Yazılıya Hazırlanıyorum', konu: 'konu soru dağılım tablosu', yks: 'kitapçığı', kilavuz: 'kılavuz takvim' };
+
+  // f = { grade: 1..12 | 0, type: '' | code, subject: '' | name, q: text,
+  //       year: '' | YEAR_NOW | YEAR_PREV | 'earlier' | 'none' (no year stated), sets: bool }.
   // A grade filter keeps only files whose name states that grade; the search
   // text must match every word in the title, subject, year or exam type.
   function filterItems(items, f) {
@@ -38,10 +42,10 @@ const MebIndex = (() => {
       if (o.grade && !it.g.includes(o.grade)) return false;
       if (o.type && it.x !== o.type) return false;
       if (o.subject && it.s !== o.subject) return false;
-      if (o.year === 'earlier' ? !(it.y && it.y < YEAR_PREV) : o.year && it.y !== o.year) return false;
+      if (o.year === 'none' ? it.y : o.year === 'earlier' ? !(it.y && it.y < YEAR_PREV) : o.year && it.y !== o.year) return false;
       if (o.sets && !it.set) return false;
       if (!words.length) return true;
-      const hay = norm([it.t, it.s, it.y, it.x].join(' '));
+      const hay = norm([it.t, it.s, it.y, it.x, i18n.t('mebType_' + it.x), SEARCH_WORDS[it.x] || ''].join(' '));
       return words.every(w => hay.includes(w));
     });
   }
@@ -170,7 +174,7 @@ const MebIndex = (() => {
         ${statsLine(it) ? `<span class="meb-stats">${esc(statsLine(it))}</span>` : ''}
       </div>` : `<p class="meb-soon">${T('mebSetSoon')}</p>`;
     const preview = table ? `<details class="meb-topics"><summary>${T('mebTopicsPreview', { n: table.n })}</summary>
-        <ul>${table.rows.slice(0, 8).map(r => `<li><span>${esc(r[0])}</span><b>${r[1]}</b></li>`).join('')}</ul>
+        <ul>${table.rows.slice(0, 8).map(r => `<li><span>${esc(r[0])}</span><b>${Number.isInteger(r[1]) ? r[1] : '≈' + r[1]}</b></li>`).join('')}</ul>
         <p class="meb-note">${T('mebTopicsNote')}</p></details>` : '';
     return `<li class="meb-row" data-row="${esc(it.id)}">
       <div class="meb-row-title">${esc(it.t)}</div>
@@ -180,7 +184,7 @@ const MebIndex = (() => {
       <div class="meb-actions">
         <a class="${it.set ? 'btn-ghost' : 'btn-primary'} meb-open" href="${esc(it.u)}" target="_blank" rel="noopener noreferrer">${T('mebOpenFile')} <span aria-hidden="true">&#8599;</span></a>
         ${it.p ? `<a class="meb-src" href="${esc(it.p)}" target="_blank" rel="noopener noreferrer">${T('mebSourcePage')}</a>` : ''}
-        ${table ? `<button class="btn-ghost" data-meb-act="profile" data-id="${esc(it.id)}">&#9878;&#65039; ${T('mebUseProfile')}</button>` : ''}
+        ${table && it.g.length > 1 ? `<span class="meb-note">${T('mebProfileMulti')}</span>` : table ? `<button class="btn-ghost" data-meb-act="profile" data-id="${esc(it.id)}">&#9878;&#65039; ${T('mebUseProfile')}</button>` : ''}
       </div>
     </li>`;
   }
@@ -241,7 +245,7 @@ const MebIndex = (() => {
         <select id="meb-subject" aria-label="${esc(T('mebAllSubjects'))}"></select>
       </div>
       <div class="meb-yearbar" role="group" aria-label="${esc(T('mebYearLabel'))}">
-        ${[['', T('mebYearAll')], [YEAR_NOW, YEAR_NOW], [YEAR_PREV, YEAR_PREV], ['earlier', T('mebYearEarlier')]]
+        ${[['', T('mebYearAll')], [YEAR_NOW, YEAR_NOW], [YEAR_PREV, YEAR_PREV], ['earlier', T('mebYearEarlier')], ['none', T('mebYearNone')]]
           .map(([v, label]) => `<button type="button" class="meb-fchip" data-meb-year="${esc(v)}" aria-pressed="false">${esc(label)}</button>`).join('')}
         <button type="button" class="meb-fchip meb-fchip-sets" data-meb-sets aria-pressed="false">&#127891; ${T('mebSetsOnly')}</button>
       </div>
@@ -255,7 +259,7 @@ const MebIndex = (() => {
   // The newest school year leads, until the user picks another.
   function defaultFilters() {
     if (state.yearSet) return;
-    state.f.year = defaultYear(data.items);
+    state.f.year = defaultYear();
     state.yearSet = true;
   }
 

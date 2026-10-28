@@ -56,7 +56,7 @@
 //                   words turkce/tde/mat/matematik
 //   any entry       title or page title starting "N.Sınıf" -> [N]
 //   LGS             [8] (it is the 8th-grade exam); sözel/sayısal from the
-//                   file name -> s 'Sözel' / 'Sayısal' (the two LGS sections,
+//                   file name -> s 'LGS Sözel' / 'LGS Sayısal' (the two LGS sections,
 //                   not curriculum subjects)
 //   YKS/YDT books   grade [11,12] (the site lists them as "YKS (11-12)"); subject
 //                   from the book's own subject field when it is a plain
@@ -161,22 +161,51 @@ function sheetGrades(tables) {
   return [...out].sort((x, y) => x - y);
 }
 
+// Edition B of a set: its booklet letter replaces the primary's ("A Kitapçığı" -> "B Kitapçığı"), else (B) is appended.
+const versioned = (title, v) => (/A Kitapçığı/.test(title) ? title.replace(/A Kitapçığı/, v + ' Kitapçığı') : title + ' (' + v + ')');
+
+// Subject of an entry from its study set's meta.subject: only a plain, known subject counts
+// ("Çoklu ders", "Karma (tüm dersler)" stay blank).
+function setSubject(meta) {
+  const f = fold(meta && meta.subject);
+  if (f === 'turkce' || f === 'turk dili ve edebiyati') return TDE;
+  if (f === 'sozel') return 'LGS Sözel';
+  if (f === 'sayisal') return 'LGS Sayısal';
+  if (/^din kulturu/.test(f)) return 'Din Kültürü';
+  return [...Object.values(KONU_SUBJECTS), ...Object.values(TEKRAR_SUBJECTS), 'Sosyoloji', 'Hayat Bilgisi'].find(v => fold(v) === f) || '';
+}
+
+// School year a file was published in, from its CDN folder (.../2022/01/x.pdf: Sep-Dec starts a year, Jan-Aug ends one); '' without a folder.
+function yearOfUrl(url) {
+  const m = new URL(url).pathname.match(/\/(\d{4})\/(\d{2})\//);
+  if (!m || +m[2] < 1 || +m[2] > 12) return '';
+  const y = +m[1];
+  return +m[2] >= 9 ? `${y}-${y + 1}` : `${y - 1}-${y}`;
+}
+
 // grade array + subject for one record, by the rules documented above.
 export function infer(rec, x, stem) {
   const pageTitle = clean(rec.pageTitle), title = clean(rec.title);
-  let g = [], s = '';
+  let g = [], s = '', stemGrade = 0;
   const low = stem.toLowerCase();
   if (x === 'konu') {
     const m = low.match(/^([a-z]+)(\d{1,2})(?:_\d+)?$/);
     if (m && KONU_SUBJECTS[m[1]] && gradeOk(+m[2], 5, 12)) { g = [+m[2]]; s = KONU_SUBJECTS[m[1]]; }
-    const named = [...new Set(TITLE_SUBJECTS.filter(([re]) => re.test(title)).map(([, v]) => v))];
+    // cydem_ing5_2, turk7meb: the publisher files state the grade right after the subject.
+    const pub = low.match(/^cydem_(ing|almanca)(\d)_\d$/) || low.match(/^(turk)(\d)(?:meb|hecce|ozgun)(?:_\d)?$/);
+    if (pub && gradeOk(+pub[2], 5, 8)) g = [+pub[2]];
+    const named = [...new Set(TITLE_SUBJECTS.filter(([re]) => re.test(fold(title))).map(([, v]) => v))];
     if (s && named.length && !named.includes(s)) { g = []; s = ''; }
     else if (!s && named.length === 1) s = named[0];
   } else if (x === 'sinif') {
     const m = low.match(/^(\d{1,2})_([a-z]+)_/);
     if (m && TEKRAR_SUBJECTS[m[2]] && gradeOk(+m[1], 9, 12)) { g = [+m[1]]; s = TEKRAR_SUBJECTS[m[2]]; }
-    else if (m && m[2] === 'sos' && gradeOk(+m[1], 9, 12)) g = [+m[1]];
-    else s = WORD_SUBJECTS[low.replace(/[^a-z]/g, '')] || '';
+    else if (m && m[2] === 'sos' && gradeOk(+m[1], 9, 12)) { g = [+m[1]]; s = 'Sosyoloji'; }   // the lise Tekrar Testi PDFs are Sosyoloji
+    else {
+      s = WORD_SUBJECTS[low.replace(/[^a-z]/g, '')] || '';
+      const w = low.match(/^[a-z]+(\d)$/);
+      if (s && w) stemGrade = +w[1];   // matematik1, hayatbilgisi3: used only when the title states no grade
+    }
   } else if (x === 'bursluluk') {
     const m = low.match(/^(\d{1,2})(?:_(\d{1,2}))?_?sinif/);
     if (m) {
@@ -191,12 +220,13 @@ export function infer(rec, x, stem) {
     else if (toks.some(t => t === 'mat' || t === 'matematik' || /^\d+mat$/.test(t))) s = 'Matematik';
   } else if (x === 'lgs') {
     g = [8];
-    if (/sozel/i.test(stem)) s = 'Sözel'; else if (/sayisal/i.test(stem)) s = 'Sayısal';
+    if (/sozel/i.test(stem)) s = 'LGS Sözel'; else if (/sayisal/i.test(stem)) s = 'LGS Sayısal';
   }
   if (!g.length) {
     const m = (title + ' ' + pageTitle).match(/(?:^|\s)(\d{1,2})\s*\.\s*s[ıi]n[ıi]f/i);
     if (m && gradeOk(+m[1], 1, 12)) g = [+m[1]];
   }
+  if (!g.length && gradeOk(stemGrade, 1, 8)) g = [stemGrade];
   return { g, s };
 }
 
@@ -208,6 +238,25 @@ function shorten(s, n) {
 }
 const termOf = pageTitle => { const m = clean(pageTitle).match(/(\d)\s*\.\s*d[öo]nem/i); return m ? m[1] + '. Dönem' : ''; };
 
+// The manifests and file names drop the Turkish letters; these words get them back (whole words only).
+const ACCENTS = {
+  yazili: 'yazılı', sinav: 'sınav', sinavi: 'sınavı', sinavlar: 'sınavlar', sinavlari: 'sınavları', sinif: 'sınıf', siniflar: 'sınıflar',
+  ogretim: 'öğretim', ogretmen: 'öğretmen', ogrenci: 'öğrenci', ogrenme: 'öğrenme', ogle: 'öğle', donem: 'dönem', ulke: 'ülke', egitim: 'eğitim',
+  turkce: 'türkçe', cografya: 'coğrafya', kilavuz: 'kılavuz', kilavuzu: 'kılavuzu', sikca: 'sıkça', gecis: 'geçiş', yerlestirme: 'yerleştirme',
+  ortaogretim: 'ortaöğretim', ilkogretim: 'ilköğretim', calisma: 'çalışma', sorulari: 'soruları', sayisal: 'sayısal', sozel: 'sözel',
+  basvuru: 'başvuru', yili: 'yılı', kurumlari: 'kurumları', inkilap: 'inkılap', degerlendirme: 'değerlendirme', olcme: 'ölçme', kitabi: 'kitabı',
+  fasikulleri: 'fasikülleri', surec: 'süreç', hazirlik: 'hazırlık', aralik: 'aralık', yerlesme: 'yerleşme', ogretmenegitimi: 'öğretmen eğitimi'
+};
+const STEM_TITLES = [[/OrtaoYgYretime/, '2025 Ortaöğretime Geçiş Tercih ve Yerleştirme Kılavuzu']];   // a broken PDF file name
+const LETTER = 'A-Za-zÇĞİÖŞÜçğıöşüÂâ';
+function accent(str) {
+  return str.replace(new RegExp('(?<![' + LETTER + '])[A-Za-z]+(?![' + LETTER + '])', 'g'), w => {
+    const to = ACCENTS[w.toLowerCase()];
+    if (!to) return w;
+    return w === w.toUpperCase() && w.length > 1 ? to.toLocaleUpperCase(TR) : w[0] === w[0].toUpperCase() ? to[0].toLocaleUpperCase(TR) + to.slice(1) : to;
+  });
+}
+
 function titleFor(rec, x, g, s, stem) {
   const pageTitle = clean(rec.pageTitle);
   let base = clean(rec.title).replace(/\s*-\s*$/, '');
@@ -218,14 +267,18 @@ function titleFor(rec, x, g, s, stem) {
   if (x === 'lgs' || !base || fold(base) === fold(pageTitle) || (TYPE_LABEL[x] && base.length > 60)) {
     base = TYPE_LABEL[x] ? TYPE_LABEL[x] + (rec.schoolYear ? ' ' + rec.schoolYear : '') : shorten(pageTitle, 70);
     tail = stem.replace(/_+/g, ' ').trim();
+    const fix = STEM_TITLES.find(([re]) => re.test(tail));
+    if (fix) tail = fix[1];
   }
+  // A page heading the site itself cut with '…' is no title: the file name says more.
+  if (base.includes('…')) { base = stem.replace(/_+/g, ' ').trim(); tail = ''; }
   const nb = fold(base);
   const front = [];
   if (g.length && x !== 'lgs' && !new RegExp('(^|\\D)' + g[0] + '\\s*\\.?\\s*sinif').test(nb)) front.push(g.length === 1 ? g[0] + '. sınıf' : g[0] + '–' + g[g.length - 1] + '. sınıf');
   if (s && !nb.includes(fold(s).split(/[ /]/)[0])) front.push(s);
   const term = x === 'konu' ? termOf(pageTitle) : '';
   const head = [...front, base, term].filter(Boolean).join(' · ');
-  return shorten(tail ? head + ' — ' + tail : head, 160);
+  return shorten(accent(tail ? head + ' — ' + tail : head), 160);
 }
 
 // One decimal; anything under 0.1 MB reads as 0.1.
@@ -422,14 +475,17 @@ export function build({ ods1 = [], ods2 = [], ogm = [], ogmYazili = [], ogmKazan
     } else {
       ({ g, s } = infer(rec, x, stem));
       if (!g.length && x === 'konu') g = sheetGrades(rec.topicDistribution);
-      if (!g.length && sets.has(id)) {
-        const own = sets.get(id), primary = own.alias ? sets.get(own.alias) : own;
-        if (!primary || !primary.data) throw new Error(`${id}: alias target ${own.alias} is not in the sets directory`);
-        g = setGrades(primary.data.meta, own.alias || id);
-      }
+      const own = sets.get(id), primary = own && (own.alias ? sets.get(own.alias) : own);
+      if (own && (!primary || !primary.data)) throw new Error(`${id}: alias target ${own.alias} is not in the sets directory`);
+      const meta = primary && primary.data.meta;
+      if (!g.length && own) g = setGrades(meta, own.alias || id);
+      if (!s && own) s = setSubject(meta);
       t = titleFor(rec, x, g, s, stem);
-      y = /^\d{4}-\d{4}$/.test(rec.schoolYear || '') ? rec.schoolYear : '';
-      p = rec.sourcePage ? checkUrl(rec.sourcePage, 'ods sourcePage') : '';
+      // A set knows what the file is (session, mazeret, kitapçık); the file name often does not.
+      if (own && TYPE_LABEL[x] && clean(primary.data.title)) t = shorten(own.alias && own.version ? versioned(clean(primary.data.title), own.version) : clean(primary.data.title), 160);
+      // sinif files carry the manifest's current school year, not the year they were published: take it from the URL folder.
+      y = x === 'sinif' ? yearOfUrl(url) : /^\d{4}-\d{4}$/.test(rec.schoolYear || '') ? rec.schoolYear : '';
+      p = rec.sourcePage && !/\/icerik\/0$/.test(rec.sourcePage) ? checkUrl(rec.sourcePage, 'ods sourcePage') : '';   // /icerik/0 is a dead page
     }
     index.push({ id, t, g, s, x, y, u: url, p, mb: sizeMb(rec.sizeBytes), src });
     extra.set(id, { stem, unit: clean(rec.unit) });
