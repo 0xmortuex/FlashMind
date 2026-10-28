@@ -68,6 +68,7 @@ const MebSets = (() => {
     const existing = findDeck(entry.id);
     if (existing && confirm(i18n.t('mebSetExists', { t: existing.data.title }))) { show(existing.id); return existing.id; }
     const promise = (async () => {
+      if (!(await StorageGuard.ensureRoom((entry.sz || 200) * 1024))) return null;   // not enough storage: the user decides first
       const { raw, via } = await fetchSet(entry);
       const data = prepare(raw, entry, via);
       const id = App.mergeIntoDeck(null, data);

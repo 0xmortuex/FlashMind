@@ -9,7 +9,6 @@ const puppeteer = require('puppeteer');
     page.on('pageerror', e => errors.push(e.message));
     const base = process.env.BASE_URL || 'http://localhost:4173/';
     await page.goto(base, { waitUntil: 'networkidle2' });
-    await page.click('#demo-btn');
     async function check(name, fn) { await fn(); console.log('PASS  ' + name); }
 
     await check('hostile AI follow-ups are text and send the exact original string', async () => {
@@ -182,6 +181,37 @@ const puppeteer = require('puppeteer');
       await page.goto(base + '?offline-regression=1', { waitUntil: 'domcontentloaded' });
       await page.waitForFunction(() => typeof App !== 'undefined' && !!document.querySelector('#study-view.active'));
       await page.setOfflineMode(false);
+    });
+
+    // At 390 px no screen may be wider than the viewport (the logo glow once made the home page 46 px too wide).
+    await check('no horizontal overflow at 390 px on home, notes, quiz, stats and both library tabs (dark and light)', async () => {
+      await page.goto(base, { waitUntil: 'networkidle2' });   // back to the home screen
+      await page.evaluate(() => { if (!document.querySelector('#input-view.active')) document.getElementById('back-to-input').click(); });
+      await page.setViewport({ width: 390, height: 844 });
+      const wide = async name => {
+        const m = await page.evaluate(() => ({ sw: document.documentElement.scrollWidth, iw: window.innerWidth }));
+        assert.ok(m.sw <= m.iw, `${name}: scrollWidth ${m.sw} > innerWidth ${m.iw}`);
+      };
+      const themes = t => page.evaluate(t => { if (t === 'light') document.documentElement.dataset.theme = 'light'; else delete document.documentElement.dataset.theme; }, t);
+      for (const theme of ['dark', 'light']) { await themes(theme); await wide('home (' + theme + ')'); }
+      await page.click('#demo-btn');
+      await page.waitForSelector('#study-view.active');
+      for (const theme of ['dark', 'light']) {
+        await themes(theme);
+        for (const tab of ['notes', 'quiz', 'stats']) {
+          await page.evaluate(t => App.switchTab(t), tab);
+          await new Promise(r => setTimeout(r, 300));
+          await wide(`${tab} (${theme})`);
+        }
+        for (const t of ['files', 'scen']) {
+          await page.evaluate(t => MebIndex.open({ tab: t }), t);
+          await page.waitForSelector(t === 'files' ? '.meb-panel .meb-row' : '.meb-panel .scen-course', { timeout: 5000 });
+          await wide(`library ${t} (${theme})`);
+          await page.evaluate(() => MebIndex.close());
+        }
+      }
+      await themes('dark');
+      await page.setViewport({ width: 1280, height: 900 });
     });
     assert.deepEqual(errors, []);
     console.log('ALL BROWSER REGRESSIONS PASSED');

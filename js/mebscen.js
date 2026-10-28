@@ -61,7 +61,8 @@ const MebScen = (() => {
   // The grade of the open deck when it states one (decks made from MEB files do), else 0.
   function activeGrade() {
     const deck = typeof Decks !== 'undefined' ? Decks.getActive() : null;
-    const g = deck && deck.data && deck.data.meta && Array.isArray(deck.data.meta.grade) ? deck.data.meta.grade[0] : 0;
+    const mg = deck && deck.data && deck.data.meta ? deck.data.meta.grade : 0;
+    const g = Array.isArray(mg) ? mg[0] : mg;   // sets store a list, older scenario decks a number
     return GRADES.includes(g) ? g : 0;
   }
 
@@ -157,6 +158,7 @@ const MebScen = (() => {
     const existing = findDeck(e);
     if (existing && confirm(i18n.t('scenExists', { t: existing.data.title }))) { show(existing.id); return existing.id; }
     const promise = (async () => {
+      if (!(await StorageGuard.ensureRoom(ScenarioSet.MAX_BYTES))) return null;
       const [{ sheet, k }, bank] = await Promise.all([located(e), getBank(e.bank)]);
       const id = App.mergeIntoDeck(null, prepare(ScenarioSet.compose(bank, sheet, e.ei, k), e));
       show(id);
@@ -178,6 +180,7 @@ const MebScen = (() => {
     const existing = findCourseDeck(s);
     if (existing && confirm(i18n.t('scenExists', { t: existing.data.title }))) { show(existing.id); return existing.id; }
     const promise = (async () => {
+      if (!(await StorageGuard.ensureRoom(ScenarioSet.MAX_BYTES))) return null;
       const [spec, bank] = await Promise.all([getSpec(s.fileId), getBank(s.bank)]);
       const id = App.mergeIntoDeck(null, prepareCourse(ScenarioSet.composeCourse(bank, ScenarioSet.withFile(spec, s.si))));
       show(id);
@@ -312,7 +315,7 @@ const MebScen = (() => {
     try {
       await work();
     } catch (err) {
-      state.err = { key, msg: err && err.message ? err.message : String(err) };
+      state.err = { key, msg: typeof navigator !== 'undefined' && navigator.onLine === false ? i18n.t('mebOffline') : err && err.message ? err.message : String(err) };
     } finally {
       state.busy = null;
     }

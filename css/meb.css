@@ -94,6 +94,14 @@
 .scen-national { margin: 6px 0 0; padding: 10px 12px; border: 1px dashed var(--border-strong); border-radius: var(--radius-sm); font-weight: 600; font-size: 0.88rem; }
 .scen-text { white-space: pre-line; }
 
+/* Tap targets of at least 40 px on a phone. */
+@media (max-width: 600px) {
+  .meb-fchip, .meb-actions .btn-ghost, .meb-open, .meb-set-btn, .meb-panel .btn-icon, .meb-tab { min-height: 40px; }
+  .meb-panel .btn-icon { min-width: 40px; }
+  .meb-src, .meb-topics summary { display: inline-flex; align-items: center; min-height: 40px; }
+}
+.storage-banner { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10000; padding: 10px 14px; background: #b3261e; color: #fff; font-weight: 600; font-size: 0.88rem; text-align: center; }
+
 /* On a phone the grade and subject chips scroll sideways instead of pushing the scenarios off screen. */
 @media (max-width: 480px) {
   .scen-chips { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; }

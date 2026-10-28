@@ -149,7 +149,7 @@ const MebIndex = (() => {
 
   const modal = typeof document !== 'undefined' ? PastPaper.makeModal('meb-panel') : null;
   // busy: id of the study set being fetched; err: { id, msg } of the last failure.
-  const state = { f: { grade: 0, type: '', subject: '', q: '', year: '', sets: false }, shown: PAGE, yearSet: false, busy: null, err: null, tab: 'files' };
+  const state = { f: { grade: 0, type: '', subject: '', q: '', year: '', sets: false }, shown: PAGE, yearSet: false, busy: null, err: null, tab: 'files', pushed: false };
 
   // 'Grade 10', 'Grades 9–12' (contiguous), 'Grades 9, 11', or 'Grade not stated' for an entry with no grade.
   function gradeLabel(g) {
@@ -200,7 +200,8 @@ const MebIndex = (() => {
     const f = state.f;
     const counts = typeCounts(data.items, f);
     const subjects = subjectsFor(data.items, f);
-    if (f.subject && !subjects.includes(f.subject)) f.subject = '';
+    const cleared = f.subject && !subjects.includes(f.subject) ? f.subject : '';
+    if (cleared) f.subject = '';
     el.querySelector('#meb-grade').innerHTML = optionsHtml([[0, T('mebAllGrades')], ...GRADES.map(g => [g, T('mebGradeN', { n: g })])], f.grade);
     el.querySelector('#meb-type').innerHTML = optionsHtml([['', T('mebAllTypes')], ...TYPES.filter(x => counts[x] || f.type === x).map(x => [x, `${T('mebType_' + x)} (${counts[x] || 0})`])], f.type);
     el.querySelector('#meb-subject').innerHTML = optionsHtml([['', T('mebAllSubjects')], ...subjects.map(s => [s, s])], f.subject);
@@ -208,7 +209,7 @@ const MebIndex = (() => {
     el.querySelector('[data-meb-sets]').setAttribute('aria-pressed', String(f.sets));
     const hits = filterItems(data.items, f);
     const shown = hits.slice(0, state.shown);
-    el.querySelector('#meb-count').textContent = T('mebCount', { n: hits.length });
+    el.querySelector('#meb-count').textContent = T('mebCount', { n: hits.length }) + (cleared ? ' · ' + T('mebSubjectCleared', { s: cleared }) : '');
     el.querySelector('#meb-list').innerHTML = hits.length
       ? `<ul class="meb-list">${shown.map(rowHtml).join('')}</ul>` +
         (hits.length > shown.length ? `<button class="btn-ghost meb-more" data-meb-act="more">${T('mebShowMore', { n: hits.length - shown.length })}</button>` : '')
@@ -273,7 +274,7 @@ const MebIndex = (() => {
     try {
       await MebSets.open(it);
     } catch (err) {
-      state.err = { id, msg: err && err.message ? err.message : String(err) };
+      state.err = { id, msg: errText(err) };
     } finally {
       state.busy = null;
     }
@@ -290,11 +291,15 @@ const MebIndex = (() => {
     if (keep) modal.el.querySelector(`[data-row="${CSS.escape(id)}"] [data-meb-act="${keep}"]`)?.focus();
   }
 
+  // Offline, an unopened set only fails with the browser's 'Failed to fetch': say what is going on.
+  const errText = err => (typeof navigator !== 'undefined' && navigator.onLine === false ? T('mebOffline') : err && err.message ? err.message : String(err));
+
   function renderState(html) { shell(`<div class="meb-state" id="meb-state">${html}</div>`); }
 
   // opts.tab = 'scen' opens on the Senaryolar tab.
   async function open(opts) {
     if (!modal) return;
+    if (!state.pushed) { history.pushState({ fmLibrary: 1 }, ''); state.pushed = true; }   // Back closes the library instead of leaving the site
     if (opts && opts.tab) state.tab = opts.tab === 'scen' ? 'scen' : 'files';
     if (data) { defaultFilters(); renderReady(); return; }
     renderState(`<div class="spinner" aria-hidden="true"></div> ${T('mebLoading')}`);
@@ -308,12 +313,21 @@ const MebIndex = (() => {
     }
   }
 
+  // Closes the library and drops the history entry it pushed.
+  function close() {
+    if (!modal) return;
+    modal.close();
+    if (state.pushed) history.back();
+  }
+
   function init() {
     // Capture phase: Escape closes only this screen, not the past-paper modal under it.
     document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && modal.isOpen()) { e.stopImmediatePropagation(); modal.close(); }
+      if (e.key === 'Escape' && modal.isOpen()) { e.stopImmediatePropagation(); close(); }
     }, true);
+    window.addEventListener('popstate', () => { state.pushed = false; if (modal.isOpen()) modal.close(); });
     document.addEventListener('click', e => {
+      if (state.pushed && modal.el && modal.el.contains(e.target) && (e.target === modal.el || e.target.closest('[data-ex-close]'))) history.back();
       const tab = e.target.closest('[data-meb-tab]');
       if (tab && modal.el && modal.el.contains(tab)) { state.tab = tab.dataset.mebTab; renderReady(); modal.el.querySelector('[data-meb-tab][aria-selected="true"]')?.focus(); return; }
       const chip = e.target.closest('[data-meb-year], [data-meb-sets]');
@@ -351,6 +365,6 @@ const MebIndex = (() => {
 
   return {
     filterItems, subjectsFor, typeCounts, validate, profileTopics, gradeLabel, sortByYear, defaultYear, statsLine, YEAR_NOW, YEAR_PREV, GRADES, TYPES,
-    load, open, close: () => modal && modal.close(), applyProfile, storeProfile
+    load, open, close, applyProfile, storeProfile
   };
 })();

@@ -13,7 +13,7 @@ function modules(initial = {}, extras = {}) {
     localStorage: { getItem: k => storage.get(k) ?? null, setItem: (k, v) => storage.set(k, v), removeItem: k => storage.delete(k) },
     App: { showToast() {} }, ...extras
   });
-  for (const file of ['simspec', 'parser', 'decks', 'stats', 'api', 'sources', 'planner', 'adaptive', 'insights', 'pastpaper', 'mebindex', 'mebsets', 'scenarioset', 'mebscen', 'paperreview', 'memory', 'predictor', 'concepts', 'coach', 'live-core', 'class-core']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/', file + '.js'), 'utf8'), ctx);
+  for (const file of ['simspec', 'parser', 'decks', 'stats', 'api', 'sources', 'planner', 'adaptive', 'insights', 'pastpaper', 'mebindex', 'storageguard', 'mebsets', 'scenarioset', 'mebscen', 'paperreview', 'memory', 'predictor', 'concepts', 'coach', 'live-core', 'class-core']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/', file + '.js'), 'utf8'), ctx);
   return { ctx, storage, run: code => vm.runInContext(code, ctx) };
 }
 
@@ -1801,8 +1801,34 @@ test('MebScen.openCourse composes the whole course into its own deck, keyed by f
   L.ctx.s2 = { ...L.run('sheets[0]'), key: 'fx000001.9', si: 0, sheet: '9. SINIF', bank: 'b-other' };
   await assert.rejects(L.run('MebScen.openCourse(s2)'), /HTTP 503/);
 });
+test('storage guard: a notebook that will not fit asks first; cancel opens nothing, "open without saving" warns and opens, deleting a deck makes room', async () => {
+  const banners = [];
+  const doc = { createElement: () => ({ setAttribute() {}, className: '' }), body: { appendChild: b => banners.push(b) } };
+  const L = scenLoader();
+  L.ctx.document = doc;                                                       // set after load: the modules attach listeners when a document exists
+  L.ctx.e = scenEntries[0];
+  let asked = 0, choice = 'cancel';
+  L.ctx.ask = async () => { asked++; return choice; };
+  L.run('StorageGuard.setAsk(ask)');
+  const realSet = L.run('localStorage.setItem');
+  L.ctx.realSet = realSet;
+  L.run(`var full = true; localStorage.setItem = (k, v) => { if (full && k === '__fm_guard_probe') throw new Error('quota'); return realSet(k, v); }`);
+  assert.equal(await L.run('MebScen.open(e)'), null);                         // cancelled: no deck, nothing fetched
+  assert.equal(asked, 1); assert.equal(L.run('Decks.list().length'), 0); assert.equal(L.fetched.length, 0);
+  choice = 'anyway';
+  const id = await L.run('MebScen.open(e)');
+  assert.ok(id); assert.equal(banners.length, 1); assert.match(banners[0].textContent, /guardBanner/);   // the unsaved warning stays up
+  choice = 'ok';
+  L.ctx.e2 = scenEntries[1];
+  assert.ok(await L.run('MebScen.open(e2)'));
+  L.run('full = false');
+  assert.equal(L.run('StorageGuard.fits(1000)'), true);
+  assert.deepEqual(JSON.parse(L.run('JSON.stringify(StorageGuard.decksBySize().map(d => typeof d.size))')), ['number', 'number']);
+});
 test('MebScen.open on full storage keeps the deck in memory and shows the existing save-failed toast', async () => {
   const L = scenLoader();
+  L.ctx.document = { createElement: () => ({ setAttribute() {} }), body: { appendChild() {} } };
+  L.run('StorageGuard.setAsk(async () => "anyway")');
   L.run(`localStorage.setItem = () => { throw new Error('quota'); }`);
   L.ctx.e = scenEntries[0];
   const id = await L.run('MebScen.open(e)');
