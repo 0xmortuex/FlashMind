@@ -453,6 +453,7 @@ const VideoLesson = (() => {
       <p class="vl-note" data-vl-silentnote ${ttsOk() && !silent ? 'hidden' : ''}>${T('vlNoTtsPlayer')}</p>
       <ol class="vl-outline">${l.slides.map((s, i) => `<li><button class="vl-outline-item" data-vl-go="${i}">${esc(s.title)}</button></li>`).join('')}</ol>
       <div class="vl-foot">
+        <button class="btn-ghost" data-vl-act="save-voice">&#11015;&#65039; ${T('vlSaveVoice')}</button>
         <button class="btn-ghost" data-vl-act="print">&#128438; ${T('vlPrint')}</button>
         <button class="btn-ghost" data-vl-act="copy">${T('vlCopyScript')}</button>
       </div>
@@ -690,6 +691,29 @@ const VideoLesson = (() => {
     App.showToast(T('vlWeakAdded', { c: cards.length, q: qs.length }), 'success');
     App.switchTab('quiz');
     Quiz.startQuiz(qs);
+  }
+
+  // Keep this lesson's natural-voice clips on the device so it plays without a connection.
+  let savingVoice = false;
+  async function saveVoice(btn) {
+    const l = lesson();
+    const T = i18n.t;
+    if (!l || savingVoice) return;
+    if (!TTS.naturalOn()) { App.showToast(T('vlSaveNeedsNatural'), 'error'); return; }
+    savingVoice = true;
+    const label = btn.innerHTML;
+    try {
+      const r = await TTS.saveForOffline(l.slides.map(s => s.narration), {
+        lang: lessonLang(l),
+        onProgress: (d, n) => { btn.textContent = T('vlSavingVoice', { d, n }); }
+      });
+      App.showToast(T('vlVoiceSaved', { n: r.clips, mb: (r.bytes / 1048576).toFixed(1) }), 'success');
+    } catch (err) {
+      App.showToast(T('vlSaveVoiceFailed') + ' ' + err.message, 'error');
+    } finally {
+      savingVoice = false;
+      btn.innerHTML = label;
+    }
   }
 
   // "Preparing voice…" next to the controls while a natural-voice clip downloads.
@@ -1084,6 +1108,7 @@ const VideoLesson = (() => {
       else if (act === 'check-again') explainAgain();
       else if (act === 'check-ask') askAboutSlide();
       else if (act === 'weak-practice') practiseWeak();
+      else if (act === 'save-voice') saveVoice(btn);
       else if (act === 'persp-go') {
         const text = panelText('#vl-persp-text');
         if (text) makeVersion('', text); else host.querySelector('#vl-persp-text').focus();

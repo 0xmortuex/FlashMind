@@ -295,14 +295,62 @@ const TTS = (() => {
   }
 
   // True when natural speech can be tried right now.
+  // (Offline is allowed: clips saved on the device still play; an unsaved one fails with a clear message.)
   function naturalAvailable() {
-    return naturalOn() && !naturalBlocked && typeof API !== 'undefined' && (typeof navigator === 'undefined' || navigator.onLine !== false);
+    return naturalOn() && !naturalBlocked && typeof API !== 'undefined';
+  }
+
+  // ----- Clips saved on the device (Cache Storage) -----
+
+  const CLIP_CACHE = 'flashmind-tts-v1';
+
+  // Where this clip lives in the cache, or null when the browser cannot store it.
+  async function clipStore(text, voice) {
+    if (typeof caches === 'undefined' || typeof crypto === 'undefined' || !crypto.subtle) return null;
+    const cache = await caches.open(CLIP_CACHE);
+    const hash = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(voice + '|' + text));
+    const hex = [...new Uint8Array(hash)].map(b => b.toString(16).padStart(2, '0')).join('');
+    return { cache, key: 'https://flashmind.invalid/tts/' + hex };
+  }
+
+  // A saved clip if there is one, else a fresh one from the worker (which is then saved).
+  async function loadClip(text, voice) {
+    let store = null;
+    try { store = await clipStore(text, voice); } catch (e) { store = null; } // storage blocked: the clip still plays, it just is not kept
+    if (store) {
+      const hit = await store.cache.match(store.key);
+      if (hit) return hit.blob();
+    }
+    if (typeof navigator !== 'undefined' && navigator.onLine === false) throw new Error(i18n.t('ttsOffline'));
+    const blob = await API.tts(text, voice);
+    if (store) {
+      try { await store.cache.put(store.key, new Response(blob, { headers: { 'Content-Type': 'audio/wav' } })); } catch (e) { /* storage full: playback does not need it; saveForOffline checks */ }
+    }
+    return blob;
+  }
+
+  // Fetch and keep every clip of these texts so they play offline. onProgress(done, total) after each clip.
+  // Throws when the browser has no clip storage or a clip could not be stored.
+  async function saveForOffline(texts, opts) {
+    const o = opts || {};
+    const voice = o.nvoice || naturalVoice();
+    const passages = [...new Set(texts.flatMap(t => plan(t, o.lang, NATURAL_CHUNK).map(q => q.text)))];
+    let saved = 0, bytes = 0;
+    for (const text of passages) {
+      const store = await clipStore(text, voice);
+      if (!store) throw new Error(i18n.t('ttsNoCache'));
+      const blob = await loadClip(text, voice);
+      if (!(await store.cache.match(store.key))) throw new Error(i18n.t('ttsCacheFull'));
+      saved++; bytes += blob.size || 0;
+      if (o.onProgress) o.onProgress(saved, passages.length);
+    }
+    return { clips: saved, bytes };
   }
 
   function fetchClip(text, voice) {
     const key = voice + '|' + text;
     if (!clips.has(key)) {
-      const p = API.tts(text, voice);
+      const p = loadClip(text, voice);
       p.catch(() => clips.delete(key)); // a failed clip is retried next time
       clips.set(key, p);
       if (clips.size > 24) clips.delete(clips.keys().next().value);
@@ -456,6 +504,6 @@ const TTS = (() => {
 
   return {
     supported, speak, stop, isSpeaking, voicesForLang, speakable, detectLang, pickVoice, savedVoiceFor, setVoice, getRate, setRate, missingVoice, langTag,
-    naturalOn, setNatural, naturalVoice, setNaturalVoice, naturalAvailable, prefetch, NVOICES, progress
+    naturalOn, setNatural, naturalVoice, setNaturalVoice, naturalAvailable, prefetch, NVOICES, progress, saveForOffline
   };
 })();

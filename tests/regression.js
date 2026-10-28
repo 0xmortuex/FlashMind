@@ -2229,6 +2229,67 @@ test('speakable says formulas and symbols in the text language', () => {
   assert.ok(ctx.spoken[0].text.startsWith('Örneğin bu bir'));
 });
 
+// A fake Cache Storage shared between "page loads", plus real hashing.
+function fakeCaches() {
+  const stores = new Map();
+  const api = { puts: 0, failPut: false, stores };
+  api.open = async name => {
+    if (!stores.has(name)) stores.set(name, new Map());
+    const m = stores.get(name);
+    return {
+      match: async k => (m.has(k) ? { blob: async () => m.get(k) } : undefined),
+      put: async (k, res) => { if (api.failPut) throw new Error('QuotaExceededError'); api.puts++; m.set(k, await res.blob()); }
+    };
+  };
+  return api;
+}
+function savedClipsEnv(more) {
+  const calls = [];
+  const env = ttsEnv([V('Microsoft Zira', 'en-US')], {
+    extra: { API: { tts: async (text, voice) => { calls.push({ text, voice }); return new Blob(['abcd']); } }, navigator: { onLine: true }, URL: { createObjectURL: () => 'blob:x', revokeObjectURL() {} }, Audio: class { constructor() { this.paused = true; } play() { return Promise.resolve(); } pause() {} }, ...more }
+  });
+  return { ...env, calls, flush: () => new Promise(r => setTimeout(r, 20)) };
+}
+const withCaches = caches => savedClipsEnv({ caches, crypto: require('node:crypto').webcrypto, TextEncoder, Response, Blob });
+
+test('natural clips are kept on the device: reused after a reload, played offline, and saved on request', async () => {
+  const caches = fakeCaches();
+  const a = withCaches(caches);
+  a.run(`TTS.speak(${JSON.stringify(TR_TEXT)}, null, { natural: true })`);
+  await a.flush();
+  assert.equal(a.calls.length, 1);
+  assert.equal(caches.puts, 1, 'the clip was kept');
+  // A new page load (fresh memory, same Cache Storage) needs no network for it, even offline.
+  const b = withCaches(caches);
+  b.run(`navigator.onLine = false; TTS.speak(${JSON.stringify(TR_TEXT)}, null, { natural: true })`);
+  await b.flush();
+  assert.equal(b.calls.length, 0, 'served from the device');
+  assert.equal(b.ctx.toasts.length, 0, 'no failure message');
+  // Offline and not saved: a clear message, and the device voice reads instead.
+  const c = withCaches(fakeCaches());
+  c.run(`navigator.onLine = false; TTS.speak(${JSON.stringify(TR_TEXT)}, null, { natural: true })`);
+  await c.flush();
+  assert.equal(c.calls.length, 0);
+  assert.match(c.ctx.toasts[0], /ttsNaturalFailed/);
+  // Save for offline: every passage is fetched once, progress is reported, bytes are counted.
+  const d = withCaches(fakeCaches());
+  d.ctx.progress = [];
+  d.ctx.texts = [TR_TEXT, LONG_TR];
+  const res = await d.run('TTS.saveForOffline(texts, { lang: "tr", onProgress: (n, t) => progress.push(n + "/" + t) })');
+  assert.ok(res.clips >= 2 && res.bytes === res.clips * 4, JSON.stringify(res));
+  assert.equal(d.ctx.progress[d.ctx.progress.length - 1], `${res.clips}/${res.clips}`);
+  assert.equal(d.calls.length, res.clips);
+  // A full or blocked store is reported, not hidden.
+  const full = fakeCaches(); full.failPut = true;
+  const e = withCaches(full);
+  e.ctx.texts = [TR_TEXT];
+  await assert.rejects(e.run('TTS.saveForOffline(texts, { lang: "tr" })'), /ttsCacheFull/);
+  // No Cache Storage at all (an old browser): also reported.
+  const f = savedClipsEnv({});
+  f.ctx.texts = [TR_TEXT];
+  await assert.rejects(f.run('TTS.saveForOffline(texts, { lang: "tr" })'), /ttsNoCache/);
+});
+
 test('speech progress follows the real audio position (natural) and word boundaries (device), and is unknown otherwise', async () => {
   const nat = naturalEnv([V('Microsoft Zira', 'en-US')]);
   assert.equal(nat.run('TTS.progress()'), null, 'nothing is being spoken');

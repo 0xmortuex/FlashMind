@@ -1438,6 +1438,11 @@ const path = require('node:path');
       const r = await page.evaluate(() => ({ voices: window.__clips.map(c => c.voice), plays: window.__plays.filter(p => /^blob:/.test(p.src)).map(p => p.rate), utt: window.__utt.length, busy: document.querySelector('.vl-player').classList.contains('voice-loading') }));
       if (r.voices.some(v => v !== 'Kore') || r.plays.some(x => x !== 0.95) || r.utt !== 0 || r.busy) throw new Error('natural playback ' + JSON.stringify(r));
       if (!(await page.evaluate(() => window.__clips.every(c => /[ğışöüç]/i.test(c.text))))) throw new Error('clip text is not the Turkish narration');
+      // The clips that played were kept on the device (real Cache Storage); "Save voice for offline" keeps all of the lesson's clips.
+      const kept = () => page.evaluate(async () => (await (await caches.open('flashmind-tts-v1')).keys()).length);
+      if (await kept() < 2) throw new Error('played clips were not kept on the device: ' + await kept());
+      await page.$eval('[data-vl-act="save-voice"]', b => b.click());
+      await page.waitForFunction(() => [...document.querySelectorAll('.toast')].some(t => /voice clips saved/.test(t.textContent)), { timeout: 8000 });
       // Panel: the switch is on, choosing another voice persists, switching it off hides the picker.
       await page.$eval('[data-vl-act="voice"]', b => b.click());
       await page.waitForSelector('.vl-panel:not([hidden]) [data-vl-natural]:checked', { timeout: 2000 });
