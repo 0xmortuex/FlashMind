@@ -2229,6 +2229,66 @@ test('speakable says formulas and symbols in the text language', () => {
   assert.ok(ctx.spoken[0].text.startsWith('Örneğin bu bir'));
 });
 
+test('speech progress follows the real audio position (natural) and word boundaries (device), and is unknown otherwise', async () => {
+  const nat = naturalEnv([V('Microsoft Zira', 'en-US')]);
+  assert.equal(nat.run('TTS.progress()'), null, 'nothing is being spoken');
+  nat.run(`TTS.speak(${JSON.stringify(LONG_TR)}, null, { natural: true })`);
+  await nat.flush();
+  const a = nat.audios[0];
+  const at = (t, d = 10) => { a.duration = d; a.currentTime = t; return nat.run('TTS.progress()'); };
+  const start = at(0), mid = at(5), end = at(10);
+  assert.equal(start, 0);
+  assert.ok(mid > start && end > mid && end <= 1, `grows with the clip: ${start} ${mid} ${end}`);
+  a.onended(); // the next clip starts where the first ended
+  await nat.flush();
+  assert.ok(at(0) >= end - 1e-9, 'the second clip continues from the end of the first');
+  assert.equal(at(10, 0), at(0, 0), 'unknown duration counts as not started, never NaN');
+  nat.run('TTS.stop()');
+  assert.equal(nat.run('TTS.progress()'), null);
+  // Device voice: unknown until the first boundary event, then the character position.
+  const dev = ttsEnv([V('Microsoft Emel Online (Natural)', 'tr-TR')]);
+  dev.ctx.u = null;
+  dev.run('speechSynthesis.speak = u => { u0 = u; }; var u0 = null;');
+  dev.run(`TTS.speak(${JSON.stringify(TR_TEXT)}, null)`);
+  assert.equal(dev.run('TTS.progress()'), null, 'no boundary yet: the caller estimates');
+  dev.run('u0.onboundary({ charIndex: 0 })');
+  assert.equal(dev.run('TTS.progress()'), 0);
+  dev.run('u0.onboundary({ charIndex: 30 })');
+  const p = dev.run('TTS.progress()');
+  assert.ok(p > 0 && p < 1, 'a position inside the text: ' + p);
+});
+
+test('lesson material is the teaching notes, not the exam paper a library set carries as its source', () => {
+  const { run, ctx } = ttsEnv([]);
+  const EXAM = 'SORU DAĞILIMI: 1. soru 10 puan, tarih 3 soru, coğrafya 2 soru. '.repeat(400);
+  ctx.App.getOriginalText = () => EXAM;
+  ctx.data = { title: 'T', notes: { summary: 'Özet cümlesi.', sections: [
+    { title: 'Fotosentez', content: 'Bitkiler ışıkla besin üretir.', bulletPoints: ['Işık gerekir'], keyTerms: [{ term: 'Klorofil', definition: 'Yeşil pigment.' }] },
+    { title: 'Solunum', content: 'Hücre enerji üretir.' }
+  ] }, sources: [{ id: 's1', name: 'Yazılı', text: EXAM }] };
+  const all = run('VideoLesson._test.materialFor(data, null)');
+  assert.ok(all.startsWith('Özet cümlesi.'), 'the notes come first');
+  assert.ok(all.includes('## Fotosentez') && all.includes('Bitkiler ışıkla besin üretir.') && all.includes('- Işık gerekir') && all.includes('Klorofil: Yeşil pigment.') && all.includes('## Solunum'));
+  const ref = all.slice(all.indexOf('Reference text'));
+  assert.ok(ref.includes('never teach its format'), 'the source is labelled');
+  assert.ok(ref.length < 6400, 'and kept short: ' + ref.length);
+  assert.ok(all.indexOf('Reference text') > all.indexOf('## Solunum'), 'it follows the notes');
+  // One topic: only its section, then the short reference.
+  const one = run('VideoLesson._test.materialFor(data, data.notes.sections[1])');
+  assert.ok(one.includes('## Solunum') && !one.includes('## Fotosentez'));
+  // A deck without sources adds no reference (the app would otherwise just repeat the notes).
+  ctx.data.sources = [];
+  assert.ok(!run('VideoLesson._test.materialFor(data, null)').includes('Reference text'));
+  // No notes at all: fall back to whatever material there is.
+  ctx.bare = { title: 'B', notes: { sections: [] } };
+  ctx.App.getOriginalText = () => 'Ham metin';
+  assert.equal(run('VideoLesson._test.materialFor(bare, null)'), 'Ham metin');
+  // The prompt tells the AI to teach the subject, not the exam format.
+  const p = run('VideoLesson._test.prompt(data, "", "", "")');
+  assert.match(p, /TEACH THE SUBJECT ITSELF/);
+  assert.match(p, /never spend slides on how many questions come from which topic/);
+});
+
 test('"Did you get this?" checks: valid questions are kept, malformed ones dropped, results are validated', () => {
   const { run } = ttsEnv([]);
   const slide = check => JSON.parse(run(`JSON.stringify(SimSpec.sanitizeSlide({ title: 'A', narration: 'a', check: ${JSON.stringify(check)} }))`));
