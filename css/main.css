@@ -208,6 +208,7 @@ button:focus:not(:focus-visible), input:focus:not(:focus-visible), textarea:focu
 
 .lang-btn:hover { color: var(--text); }
 .lang-btn.active { background: var(--primary); color: #fff; }
+@media (max-width: 600px) { .lang-btn { min-height: 40px; } }
 
 /* Theme Toggle */
 .theme-toggle {

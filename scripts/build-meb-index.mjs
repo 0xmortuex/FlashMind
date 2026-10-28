@@ -56,12 +56,18 @@
 //                   words turkce/tde/mat/matematik
 //   any entry       title or page title starting "N.Sınıf" -> [N]
 //   LGS             [8] (it is the 8th-grade exam); sözel/sayısal from the
-//                   file name -> s 'Sözel' / 'Sayısal' (the two LGS sections,
+//                   file name -> s 'LGS Sözel' / 'LGS Sayısal' (the two LGS sections,
 //                   not curriculum subjects)
 //   YKS/YDT books   grade [11,12] (the site lists them as "YKS (11-12)"); subject
 //                   from the book's own subject field when it is a plain
 //                   subject, 'İngilizce' for the YDT books
 //   everything else (Açık öğretim, Dört beceri, kılavuz, takvim) -> unknown
+// An entry that is still without a grade afterwards gets one from facts the
+// source itself states: a konu-soru PDF/workbook from the sheet names of its
+// tables ("9. SINIF", "5. sınıf" -> [9] / [5]; one grade per table), else from
+// the grade list of its own study set (meta.grade: ints, numeric strings or a
+// level label such as "Açık Lise 9-12"). Unreadable meta.grade throws; a set
+// without one leaves the grade unknown.
 //
 // ---- topics.json ------------------------------------------------------------
 // A konu-soru PDF holds one table per exam scenario (up to ~30). Shipping every
@@ -130,22 +136,76 @@ function stemOf(url) {
 }
 const gradeOk = (n, lo, hi) => Number.isInteger(n) && n >= lo && n <= hi;
 
+// Sorted grades from a set's meta.grade; [] when it states none.
+export function setGrades(meta, id) {
+  const raw = meta && meta.grade;
+  if (raw == null) return [];
+  if (!Array.isArray(raw)) throw new Error(`${id}.json: meta.grade is not a list`);
+  const out = new Set();
+  for (const v of raw) {
+    const t = clean(v), range = t.match(/(\d{1,2})\s*[-–]\s*(\d{1,2})/);
+    const [a, b] = /^\d{1,2}$/.test(t) ? [+t, +t] : range ? [+range[1], +range[2]] : [NaN, NaN];
+    if (!gradeOk(a, 1, 12) || !gradeOk(b, a, 12)) throw new Error(`${id}.json: cannot read meta.grade value "${t}"`);
+    for (let n = a; n <= b; n++) out.add(n);
+  }
+  return [...out].sort((x, y) => x - y);
+}
+
+// Grades named by the sheets of a konu-soru workbook's tables ("9. SINIF", "12. sınıf T.C. ...").
+function sheetGrades(tables) {
+  const out = new Set();
+  for (const t of tables || []) {
+    const m = fold(t && t.sheet).match(/^(\d{1,2})\s*\.?\s*sinif/);
+    if (m && gradeOk(+m[1], 1, 12)) out.add(+m[1]);
+  }
+  return [...out].sort((x, y) => x - y);
+}
+
+// Edition B of a set: its booklet letter replaces the primary's ("A Kitapçığı" -> "B Kitapçığı"), else (B) is appended.
+const versioned = (title, v) => (/A Kitapçığı/.test(title) ? title.replace(/A Kitapçığı/, v + ' Kitapçığı') : title + ' (' + v + ')');
+
+// Subject of an entry from its study set's meta.subject: only a plain, known subject counts
+// ("Çoklu ders", "Karma (tüm dersler)" stay blank).
+function setSubject(meta) {
+  const f = fold(meta && meta.subject);
+  if (f === 'turkce' || f === 'turk dili ve edebiyati') return TDE;
+  if (f === 'sozel') return 'LGS Sözel';
+  if (f === 'sayisal') return 'LGS Sayısal';
+  if (/^din kulturu/.test(f)) return 'Din Kültürü';
+  return [...Object.values(KONU_SUBJECTS), ...Object.values(TEKRAR_SUBJECTS), 'Sosyoloji', 'Hayat Bilgisi'].find(v => fold(v) === f) || '';
+}
+
+// School year a file was published in, from its CDN folder (.../2022/01/x.pdf: Sep-Dec starts a year, Jan-Aug ends one); '' without a folder.
+function yearOfUrl(url) {
+  const m = new URL(url).pathname.match(/\/(\d{4})\/(\d{2})\//);
+  if (!m || +m[2] < 1 || +m[2] > 12) return '';
+  const y = +m[1];
+  return +m[2] >= 9 ? `${y}-${y + 1}` : `${y - 1}-${y}`;
+}
+
 // grade array + subject for one record, by the rules documented above.
 export function infer(rec, x, stem) {
   const pageTitle = clean(rec.pageTitle), title = clean(rec.title);
-  let g = [], s = '';
+  let g = [], s = '', stemGrade = 0;
   const low = stem.toLowerCase();
   if (x === 'konu') {
     const m = low.match(/^([a-z]+)(\d{1,2})(?:_\d+)?$/);
     if (m && KONU_SUBJECTS[m[1]] && gradeOk(+m[2], 5, 12)) { g = [+m[2]]; s = KONU_SUBJECTS[m[1]]; }
-    const named = [...new Set(TITLE_SUBJECTS.filter(([re]) => re.test(title)).map(([, v]) => v))];
+    // cydem_ing5_2, turk7meb: the publisher files state the grade right after the subject.
+    const pub = low.match(/^cydem_(ing|almanca)(\d)_\d$/) || low.match(/^(turk)(\d)(?:meb|hecce|ozgun)(?:_\d)?$/);
+    if (pub && gradeOk(+pub[2], 5, 8)) g = [+pub[2]];
+    const named = [...new Set(TITLE_SUBJECTS.filter(([re]) => re.test(fold(title))).map(([, v]) => v))];
     if (s && named.length && !named.includes(s)) { g = []; s = ''; }
     else if (!s && named.length === 1) s = named[0];
   } else if (x === 'sinif') {
     const m = low.match(/^(\d{1,2})_([a-z]+)_/);
     if (m && TEKRAR_SUBJECTS[m[2]] && gradeOk(+m[1], 9, 12)) { g = [+m[1]]; s = TEKRAR_SUBJECTS[m[2]]; }
-    else if (m && m[2] === 'sos' && gradeOk(+m[1], 9, 12)) g = [+m[1]];
-    else s = WORD_SUBJECTS[low.replace(/[^a-z]/g, '')] || '';
+    else if (m && m[2] === 'sos' && gradeOk(+m[1], 9, 12)) { g = [+m[1]]; s = 'Sosyoloji'; }   // the lise Tekrar Testi PDFs are Sosyoloji
+    else {
+      s = WORD_SUBJECTS[low.replace(/[^a-z]/g, '')] || '';
+      const w = low.match(/^[a-z]+(\d)$/);
+      if (s && w) stemGrade = +w[1];   // matematik1, hayatbilgisi3: used only when the title states no grade
+    }
   } else if (x === 'bursluluk') {
     const m = low.match(/^(\d{1,2})(?:_(\d{1,2}))?_?sinif/);
     if (m) {
@@ -160,12 +220,13 @@ export function infer(rec, x, stem) {
     else if (toks.some(t => t === 'mat' || t === 'matematik' || /^\d+mat$/.test(t))) s = 'Matematik';
   } else if (x === 'lgs') {
     g = [8];
-    if (/sozel/i.test(stem)) s = 'Sözel'; else if (/sayisal/i.test(stem)) s = 'Sayısal';
+    if (/sozel/i.test(stem)) s = 'LGS Sözel'; else if (/sayisal/i.test(stem)) s = 'LGS Sayısal';
   }
   if (!g.length) {
     const m = (title + ' ' + pageTitle).match(/(?:^|\s)(\d{1,2})\s*\.\s*s[ıi]n[ıi]f/i);
     if (m && gradeOk(+m[1], 1, 12)) g = [+m[1]];
   }
+  if (!g.length && gradeOk(stemGrade, 1, 8)) g = [stemGrade];
   return { g, s };
 }
 
@@ -177,6 +238,25 @@ function shorten(s, n) {
 }
 const termOf = pageTitle => { const m = clean(pageTitle).match(/(\d)\s*\.\s*d[öo]nem/i); return m ? m[1] + '. Dönem' : ''; };
 
+// The manifests and file names drop the Turkish letters; these words get them back (whole words only).
+const ACCENTS = {
+  yazili: 'yazılı', sinav: 'sınav', sinavi: 'sınavı', sinavlar: 'sınavlar', sinavlari: 'sınavları', sinif: 'sınıf', siniflar: 'sınıflar',
+  ogretim: 'öğretim', ogretmen: 'öğretmen', ogrenci: 'öğrenci', ogrenme: 'öğrenme', ogle: 'öğle', donem: 'dönem', ulke: 'ülke', egitim: 'eğitim',
+  turkce: 'türkçe', cografya: 'coğrafya', kilavuz: 'kılavuz', kilavuzu: 'kılavuzu', sikca: 'sıkça', gecis: 'geçiş', yerlestirme: 'yerleştirme',
+  ortaogretim: 'ortaöğretim', ilkogretim: 'ilköğretim', calisma: 'çalışma', sorulari: 'soruları', sayisal: 'sayısal', sozel: 'sözel',
+  basvuru: 'başvuru', yili: 'yılı', kurumlari: 'kurumları', inkilap: 'inkılap', degerlendirme: 'değerlendirme', olcme: 'ölçme', kitabi: 'kitabı',
+  fasikulleri: 'fasikülleri', surec: 'süreç', hazirlik: 'hazırlık', aralik: 'aralık', yerlesme: 'yerleşme', ogretmenegitimi: 'öğretmen eğitimi'
+};
+const STEM_TITLES = [[/OrtaoYgYretime/, '2025 Ortaöğretime Geçiş Tercih ve Yerleştirme Kılavuzu']];   // a broken PDF file name
+const LETTER = 'A-Za-zÇĞİÖŞÜçğıöşüÂâ';
+function accent(str) {
+  return str.replace(new RegExp('(?<![' + LETTER + '])[A-Za-z]+(?![' + LETTER + '])', 'g'), w => {
+    const to = ACCENTS[w.toLowerCase()];
+    if (!to) return w;
+    return w === w.toUpperCase() && w.length > 1 ? to.toLocaleUpperCase(TR) : w[0] === w[0].toUpperCase() ? to[0].toLocaleUpperCase(TR) + to.slice(1) : to;
+  });
+}
+
 function titleFor(rec, x, g, s, stem) {
   const pageTitle = clean(rec.pageTitle);
   let base = clean(rec.title).replace(/\s*-\s*$/, '');
@@ -187,14 +267,18 @@ function titleFor(rec, x, g, s, stem) {
   if (x === 'lgs' || !base || fold(base) === fold(pageTitle) || (TYPE_LABEL[x] && base.length > 60)) {
     base = TYPE_LABEL[x] ? TYPE_LABEL[x] + (rec.schoolYear ? ' ' + rec.schoolYear : '') : shorten(pageTitle, 70);
     tail = stem.replace(/_+/g, ' ').trim();
+    const fix = STEM_TITLES.find(([re]) => re.test(tail));
+    if (fix) tail = fix[1];
   }
+  // A page heading the site itself cut with '…' is no title: the file name says more.
+  if (base.includes('…')) { base = stem.replace(/_+/g, ' ').trim(); tail = ''; }
   const nb = fold(base);
   const front = [];
   if (g.length && x !== 'lgs' && !new RegExp('(^|\\D)' + g[0] + '\\s*\\.?\\s*sinif').test(nb)) front.push(g.length === 1 ? g[0] + '. sınıf' : g[0] + '–' + g[g.length - 1] + '. sınıf');
   if (s && !nb.includes(fold(s).split(/[ /]/)[0])) front.push(s);
   const term = x === 'konu' ? termOf(pageTitle) : '';
   const head = [...front, base, term].filter(Boolean).join(' · ');
-  return shorten(tail ? head + ' — ' + tail : head, 160);
+  return shorten(accent(tail ? head + ' — ' + tail : head), 160);
 }
 
 // One decimal; anything under 0.1 MB reads as 0.1.
@@ -244,6 +328,66 @@ function aggregateTopics(tables) {
   return { n: kept.length, rows };
 }
 
+// ---- identical titles ---------------------------------------------------------
+// Two entries of one type + grade + subject never share a title. The first of an
+// identical group keeps the plain title; the rest are told apart by
+//   ogm-kazanim-bazli  the unit name (rec.unit) when the group's units differ, else (2), (3) in file order
+//   everything else    the words of the file name that the group does not share (Sabah, Öğle,
+//                      lise, ortaokul, A, B...), else (2), (3) in file order
+// An opaque file stem is never printed.
+const FRIENDLY = {
+  sabah: 'Sabah', ogle: 'Öğle', maz: 'Mazeret', mazeret: 'Mazeret', cevap: 'Cevap', cvp: 'Cevap', cev: 'Cevap',
+  lise: 'Lise', ortaokul: 'Ortaokul', ilkokul: 'İlkokul', oturum: 'Oturum', ogretmen: 'Öğretmen', ogrenci: 'Öğrenci'
+};
+const wordsOf = stem => stem.split(/[_\-\s.()]+/).filter(Boolean).flatMap(tok => {
+  // random-looking stems (letters, digit, letters, digit...) carry no words
+  if (/\d[a-z]+\d/i.test(tok) && /^[a-z0-9]{8,}$/i.test(tok)) return [];
+  return tok.match(/[A-Za-zÇĞİÖŞÜçğıöşü]+|\d+/g) || [];
+});
+const wordKey = w => fold(w);
+const wordText = w => FRIENDLY[wordKey(w)] || (/^\d/.test(w) ? w : w[0].toLocaleUpperCase(TR) + w.slice(1).toLocaleLowerCase(TR));
+
+function labelsFor(group, extra) {
+  const kz = group[0].x === 'ogm-kazanim-bazli';
+  if (kz) {
+    const units = group.map(r => extra.get(r.id).unit);
+    return units.every(Boolean) && new Set(units).size > 1 ? units : group.map(() => '');
+  }
+  const words = group.map(r => wordsOf(extra.get(r.id).stem));
+  const shared = words[0].filter(w => words.every(ws => ws.some(v => wordKey(v) === wordKey(w)))).map(wordKey);
+  return words.map(ws => {
+    const own = [...new Map(ws.filter(w => !shared.includes(wordKey(w))).map(w => [wordKey(w), w])).values()];
+    return own.filter(w => /^[^\d]+$/.test(w)).map(wordText).join(' ');   // bare numbers (5, 01) say nothing: ordinals instead
+  });
+}
+
+// index = entries in file order; extra = Map id -> { stem, unit }.
+export function disambiguate(index, extra) {
+  const groups = new Map();
+  index.forEach(r => {
+    const k = [r.x, r.g.join(','), r.s, r.t].join('|');
+    if (!groups.has(k)) groups.set(k, []);
+    groups.get(k).push(r);
+  });
+  for (const group of groups.values()) {
+    if (group.length < 2) continue;
+    const base = group[0].t, labels = labelsFor(group, extra), used = new Set();
+    group.forEach((r, i) => {
+      const head = labels[i] ? shorten(base, 160 - labels[i].length - 4) +' — ' + labels[i] : base;
+      let t = head;
+      for (let n = 2; used.has(t); n++) t = shorten(head, 160 - 6) + ' (' + n + ')';
+      used.add(t);
+      r.t = t;
+    });
+  }
+  const seen = new Set();
+  index.forEach(r => {
+    const k = [r.x, r.g.join(','), r.s, r.t].join('|');
+    if (seen.has(k)) throw new Error('title is still not unique: ' + r.t);
+    seen.add(k);
+  });
+}
+
 const ORDER = ['lgs', 'bursluluk', 'ortak', 'konu', 'yks', 'acik', 'sinif', 'kilavuz', 'dort-beceri', 'ogm-yazili', 'ogm-kazanim', 'ogm-kazanim-bazli'];
 
 // OGM yazılı / kazanım record -> entry fields (id comes from the pdf file name).
@@ -267,7 +411,8 @@ function ogmPrep(rec, x) {
 }
 
 // Pure: manifests in, { index, topics, stats } out.
-export function build({ ods1 = [], ods2 = [], ogm = [], ogmYazili = [], ogmKazanim = [], ogmKazanimBazli = [] }) {
+// sets (optional) = the readSets map: an entry without a grade takes its set's grade list.
+export function build({ ods1 = [], ods2 = [], ogm = [], ogmYazili = [], ogmKazanim = [], ogmKazanimBazli = [], sets = new Map() }) {
   const stats = { excluded: { status: 0, personnel: 0, noUrl: 0, dup: 0 }, noPublicUrl: [] };
   const byUrl = new Map();
   const alias = new Map();
@@ -315,7 +460,7 @@ export function build({ ods1 = [], ods2 = [], ogm = [], ogmYazili = [], ogmKazan
     r.fileUrls.forEach(u => add(r, 'ogm', checkUrl(u, 'ogm-kazanim-bazli'), 'ogm-kazanim-bazli'));
   });
 
-  const index = [], topicsOut = [], ids = new Map();
+  const index = [], topicsOut = [], ids = new Map(), extra = new Map();
   for (const { rec, src, url, x } of byUrl.values()) {
     const prep = x.startsWith('ogm-') ? ogmPrep(rec, x) : null;
     const id = prep ? prep.id : sha(url);
@@ -329,23 +474,27 @@ export function build({ ods1 = [], ods2 = [], ogm = [], ogmYazili = [], ogmKazan
       g = [11, 12]; s = ogmSubject(rec); t = ogmTitle(rec); y = ''; p = rec.sourceUrl ? checkUrl(rec.sourceUrl, 'ogm sourceUrl') : '';
     } else {
       ({ g, s } = infer(rec, x, stem));
+      if (!g.length && x === 'konu') g = sheetGrades(rec.topicDistribution);
+      const own = sets.get(id), primary = own && (own.alias ? sets.get(own.alias) : own);
+      if (own && (!primary || !primary.data)) throw new Error(`${id}: alias target ${own.alias} is not in the sets directory`);
+      const meta = primary && primary.data.meta;
+      if (!g.length && own) g = setGrades(meta, own.alias || id);
+      if (!s && own) s = setSubject(meta);
       t = titleFor(rec, x, g, s, stem);
-      y = /^\d{4}-\d{4}$/.test(rec.schoolYear || '') ? rec.schoolYear : '';
-      p = rec.sourcePage ? checkUrl(rec.sourcePage, 'ods sourcePage') : '';
+      // A set knows what the file is (session, mazeret, kitapçık); the file name often does not.
+      if (own && TYPE_LABEL[x] && clean(primary.data.title)) t = shorten(own.alias && own.version ? versioned(clean(primary.data.title), own.version) : clean(primary.data.title), 160);
+      // sinif files carry the manifest's current school year, not the year they were published: take it from the URL folder.
+      y = x === 'sinif' ? yearOfUrl(url) : /^\d{4}-\d{4}$/.test(rec.schoolYear || '') ? rec.schoolYear : '';
+      p = rec.sourcePage && !/\/icerik\/0$/.test(rec.sourcePage) ? checkUrl(rec.sourcePage, 'ods sourcePage') : '';   // /icerik/0 is a dead page
     }
     index.push({ id, t, g, s, x, y, u: url, p, mb: sizeMb(rec.sizeBytes), src });
+    extra.set(id, { stem, unit: clean(rec.unit) });
     if (x === 'konu' && Array.isArray(rec.topicDistribution)) {
       const agg = aggregateTopics(rec.topicDistribution);
       if (agg) topicsOut.push({ id, g, s, term: termOf(rec.pageTitle), n: agg.n, rows: agg.rows });
     }
   }
-  const seen = new Map();
-  index.forEach(r => seen.set(r.t, (seen.get(r.t) || 0) + 1));
-  index.forEach(r => {
-    if (seen.get(r.t) < 2) return;
-    const stem = stemOf(r.u).replace(/_+/g, ' ');
-    r.t = shorten(r.t.endsWith(stem) ? r.t + ' (' + r.p.split('/').pop() + ')' : r.t + ' — ' + stem, 160);
-  });
+  disambiguate(index, extra);
   const rank = r => ORDER.indexOf(r.x);
   index.sort((a, b) => rank(a) - rank(b) || b.y.localeCompare(a.y) || (a.g[0] || 99) - (b.g[0] || 99) || a.t.localeCompare(b.t, TR) || a.id.localeCompare(b.id));
   const pos = new Map(index.map((r, i) => [r.id, i]));
@@ -426,15 +575,17 @@ function main(argv) {
   const [dir, outArg] = args;
   if (!dir) throw new Error('usage: node scripts/build-meb-index.mjs <meb-data-dir> [out-dir] [--sets <sets-dir>]');
   const out = path.resolve(outArg || path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'data', 'meb'));
+  const sets = setsDir ? readSets(setsDir) : new Map();
   const { index, topics, stats } = build({
     ods1: readJson(path.join(dir, 'ods', 'manifest.json')),
     ods2: readJson(path.join(dir, 'ods', 'manifest2.json')),
     ogm: readJson(path.join(dir, 'ogm', 'manifest.json')),
     ogmYazili: readOptional(path.join(dir, 'ogm', 'yazili', 'manifest.json')),
     ogmKazanim: readOptional(path.join(dir, 'ogm', 'kazanim', 'manifest.json')),
-    ogmKazanimBazli: readOptional(path.join(dir, 'ogm', 'kazanim-bazli', 'manifest.json'))
+    ogmKazanimBazli: readOptional(path.join(dir, 'ogm', 'kazanim-bazli', 'manifest.json')),
+    sets
   });
-  if (setsDir) attachSets(index, readSets(setsDir));
+  if (setsDir) attachSets(index, sets);
   fs.mkdirSync(out, { recursive: true });
   const a = lines(index), b = lines(topics);
   fs.writeFileSync(path.join(out, 'index.json'), a);

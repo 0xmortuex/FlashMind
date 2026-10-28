@@ -8,6 +8,8 @@
 // gets the same exam; flag scenarioExam) and the rest of the pool as "Ek
 // alıştırma". Pure, no DOM; js/mebscen.js fetches the files and opens the set.
 //
+// composeCourse turns a whole sheet + its bank into one "all topics" notebook (every kazanım, every bank question).
+//
 // Spec shapes (written by scripts/build-meb-scenarios.mjs):
 //   fileSpec  { fileId, subject, schoolYear, sourceUrl, sheets: [sheet] }
 //   sheet     { sheet, grade, course, variant, kazanimlar: [{id, code, unit, topic, outcome}],
@@ -307,5 +309,129 @@ const ScenarioSet = (() => {
     return base;
   }
 
-  return { compose, validateSpec, validateBank, questionOk, distribution, profileTopics, maxCounts, label, withFile, pickScenario, pickIndices, split, seedOf, YEAR, MAX_BYTES };
+  // ---------- whole course ----------
+  // One entry per exam of the sheet: { exam, n, national, notes, by: Map id -> { min, max } } where min / max
+  // are the question counts the kazanım gets over the exam's scenarios (0 in a scenario that skips it).
+  function examWeights(sheet) {
+    return list(sheet.exams).map((exam, ei) => {
+      const scs = list(exam.scenarios), by = new Map(sheet.kazanimlar.map(k => [k.id, { min: scs.length ? Infinity : 0, max: 0 }]));
+      scs.forEach((sc, si) => distribution(sheet, ei, si).rows.forEach(r => {
+        const w = by.get(r.id);
+        w.min = Math.min(w.min, r.count);
+        w.max = Math.max(w.max, r.count);
+      }));
+      return { exam: exam.exam, n: scs.length, national: !scs.length, notes: str(exam.notes), by };
+    });
+  }
+  const range = w => (w.min === w.max ? `${w.max}` : `${w.min}–${w.max}`);
+
+  function courseSummary(sheet, weights, bank, counts) {
+    const lines = [
+      `${sheet.subject} ${sheet.grade}. sınıf · bütün ders (MEB ${sheet.schoolYear} Konu Soru Dağılım Tablosu).`,
+      `Bu defterde dersin tüm ${counts.kazanim} kazanımının notu, ${counts.cards} kart ve ${counts.questions} soru var; sorular kazanıma göre gruplanmıştır (“Konu: …”).${counts.trimmed ? ` Defter boyutu sınırı nedeniyle bankadaki ${counts.questions + counts.trimmed} sorudan ${counts.trimmed} ek soru çıkarıldı.` : ''}`
+    ];
+    const bs = str(bank.summary).trim();
+    if (bs) lines.push('', 'Ders özeti:', bs);
+    weights.forEach(w => {
+      lines.push('', w.national
+        ? `${w.exam}: MEB konuları yayımladı ama soru sayılarını henüz yayımlamadı; bu yüzden tüm dersi çalış.${w.notes ? ' ' + w.notes : ''}`
+        : `${w.exam}: ${w.n} senaryo. Kazanım başına soru sayısı (senaryolar arasında en az–en çok):`);
+      if (w.national) return;
+      let unit = null;
+      sheet.kazanimlar.forEach(k => {
+        if (k.unit !== unit) { unit = k.unit; lines.push(`${str(unit) || '-'}:`); }
+        lines.push(`- ${k.code} · ${label(k)}: ${range(w.by.get(k.id))} soru`);
+      });
+    });
+    return lines.join('\n');
+  }
+
+  function courseTableText(sheet, weights) {
+    const exams = weights.filter(w => !w.national);
+    return [
+      `MEB ${sheet.schoolYear} Konu Soru Dağılım Tablosu · ${sheet.subject} · ${str(sheet.course) || sheet.grade + '. sınıf'}${sheet.variant ? ' (' + sheet.variant + ')' : ''}`,
+      `${sheet.kazanimlar.length} kazanım · ${weights.map(w => w.national ? `${w.exam} (soru sayıları yayımlanmadı)` : `${w.exam} (${w.n} senaryo)`).join(' · ')}`,
+      '', 'Ünite | Kazanım kodu | Konu | Öğrenme çıktısı' + exams.map(w => ' | ' + w.exam + ' (en az–en çok)').join(''),
+      ...sheet.kazanimlar.map(k => [str(k.unit) || '-', k.code, str(k.topic) || '-', str(k.outcome).replace(/\s+/g, ' ').trim(), ...exams.map(w => range(w.by.get(k.id)))].join(' | ')),
+      sheet.sourceUrl ? '\nKaynak: ' + sheet.sourceUrl : ''
+    ].filter((l, i, a) => l !== '' || a[i - 1] !== '').join('\n');
+  }
+
+  // The whole course as one notebook: every kazanım of the sheet (notes in table = unit / code order, each
+  // with its examTip), all cards, ALL bank questions grouped by kazanım (category "Konu: <topic>") and the
+  // bank's mind map, common mistakes and tips. The summary says which exams weigh which kazanım.
+  // sheet = a spec sheet with the file's fields copied on (withFile). opts: { maxBytes } as in compose.
+  // Over the limit, only extras go: every kazanım keeps as many questions as its biggest scenario asks
+  // (at least one, a seeded mixed-difficulty pick); the rest are dropped one per kazanım per round, the
+  // lowest-weight kazanım first, until the notebook fits. meta.counts.trimmed says how many were dropped.
+  function composeCourse(bank, sheet, opts) {
+    const o = opts || {};
+    const maxBytes = o.maxBytes == null ? MAX_BYTES : o.maxBytes;
+    validateBank(bank, sheet);
+    const byId = new Map(bank.kazanimlar.map(k => [k.id, k]));
+    const weights = examWeights(sheet);
+    const max = maxCounts(sheet);
+
+    const pools = sheet.kazanimlar.map(k => {
+      const pool = list(byId.get(k.id).questions);
+      const rand = rng(seedOf([sheet.fileId, sheet.sheet, 'course', k.id].join('|')));
+      const { chosen } = pickIndices(pool, Math.min(pool.length, Math.max(1, max[k.id] || 0)), rand);
+      return { k, pool, core: new Set(chosen) };
+    });
+    // Drop order: one extra per kazanım per round, lowest weight first, the last pool question first.
+    const rank = pools.slice().sort((a, b) => (max[a.k.id] || 0) - (max[b.k.id] || 0) || sheet.kazanimlar.indexOf(b.k) - sheet.kazanimlar.indexOf(a.k));
+    const left = new Map(pools.map(p => [p, p.pool.map((q, i) => i).filter(i => !p.core.has(i))]));
+    const order = [];
+    for (let more = true; more;) {
+      more = false;
+      rank.forEach(p => { const l = left.get(p); if (l.length) { order.push([p, l.pop()]); more = true; } });
+    }
+
+    const cards = [];
+    sheet.kazanimlar.forEach(k => list(byId.get(k.id).cards).forEach(c => cards.push({ ...c, category: label(k) })));
+    const sections = sheet.kazanimlar.map(k => {
+      const n = byId.get(k.id).note;
+      const content = [`Ünite: ${str(k.unit) || '-'}`, `Kazanım: ${str(k.outcome).trim()}`];
+      const asked = weights.filter(w => !w.national && w.by.get(k.id).max).map(w => `${w.exam} ${range(w.by.get(k.id))} soru`);
+      if (asked.length) content.push('Sınavlarda: ' + asked.join('; ') + '.');
+      content.push('', n.content.trim());
+      if (str(n.example).trim()) content.push('', 'Örnek: ' + n.example.trim());
+      if (str(n.examTip).trim()) content.push('', 'Sınavda nasıl sorulur: ' + n.examTip.trim());
+      return { title: `${k.code} · ${str(n.title).trim() || label(k)}`, content: content.join('\n'), bulletPoints: list(n.bulletPoints).filter(x => typeof x === 'string'), keyTerms: list(n.keyTerms) };
+    });
+    const tips = list(bank.studyTips).filter(x => typeof x === 'string');
+    if (tips.length) sections.push({ title: 'Çalışma ipuçları', content: '', bulletPoints: tips, keyTerms: [] });
+
+    const title = `${sheet.subject} ${sheet.grade} · Tüm konular · Bütün ders`;
+    // dropped = how many of `order` are left out.
+    const assemble = dropped => {
+      const gone = new Set(order.slice(0, dropped).map(([p, i]) => p.pool[i]));
+      const quiz = [];
+      pools.forEach(p => p.pool.forEach(q => { if (!gone.has(q)) quiz.push({ ...q, category: 'Konu: ' + label(p.k) }); }));
+      const counts = { kazanim: sheet.kazanimlar.length, cards: cards.length, questions: quiz.length, trimmed: dropped };
+      return {
+        title,
+        notes: {
+          summary: courseSummary(sheet, weights, bank, counts),
+          sections,
+          commonMistakes: list(bank.commonMistakes).filter(x => typeof x === 'string'),
+          ...(bank.mindmap ? { mindmap: bank.mindmap } : {})
+        },
+        flashcards: cards,
+        quiz,
+        sources: [{ id: 'tablo', name: `Konu soru dağılım tablosu · ${sheet.subject} ${sheet.grade}. sınıf`, kind: 'paste', text: courseTableText(sheet, weights), enabled: true, addedAt: 0 }],
+        meta: {
+          kind: 'course', fileId: sheet.fileId, bank: str(bank.meta && bank.meta.bank), sheet: sheet.sheet,
+          subject: sheet.subject, grade: sheet.grade, schoolYear: sheet.schoolYear || YEAR, counts,
+          ...(sheet.sourceUrl ? { sourceUrl: sheet.sourceUrl } : {})
+        }
+      };
+    };
+    if (bytes(assemble(order.length)) > maxBytes) throw new Error(`${title}: notes, cards and the questions scenarios can ask are ${Math.round(bytes(assemble(order.length)) / 1024)} KB, over the ${Math.round(maxBytes / 1024)} KB limit`);
+    let lo = 0, hi = order.length;   // fewest drops that fit
+    while (lo < hi) { const mid = (lo + hi) >> 1; if (bytes(assemble(mid)) <= maxBytes) hi = mid; else lo = mid + 1; }
+    return assemble(lo);
+  }
+
+  return { compose, composeCourse, examWeights, validateSpec, validateBank, questionOk, distribution, profileTopics, maxCounts, label, withFile, pickScenario, pickIndices, split, seedOf, YEAR, MAX_BYTES };
 })();

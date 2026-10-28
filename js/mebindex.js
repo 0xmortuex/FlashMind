@@ -11,7 +11,7 @@
 const MebIndex = (() => {
   const INDEX_URL = 'data/meb/index.json';
   const TOPICS_URL = 'data/meb/topics.json';
-  const GRADES = [5, 6, 7, 8, 9, 10, 11, 12];
+  const GRADES = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   const TYPES = ['lgs', 'bursluluk', 'ortak', 'konu', 'yks', 'acik', 'sinif', 'kilavuz', 'dort-beceri', 'ogm-yazili', 'ogm-kazanim', 'ogm-kazanim-bazli'];
   const PAGE = 50;
   const OFFICIAL = /^https:\/\/([a-z0-9-]+\.)*(meb\.gov\.tr|eba\.gov\.tr)(\/|$)/i;
@@ -19,16 +19,20 @@ const MebIndex = (() => {
   // ---------- pure helpers ----------
   const norm = s => PastPaper.normName(s);
 
-  // School years are shown exactly as the index states them; these two are the
-  // groups the library leads with. A file with no stated year sorts last and is
-  // only listed under "All years".
+  // School years are shown exactly as the index states them. A file with no stated
+  // year sorts last, is listed under "All years" and has its own "Year not stated" chip.
+  // The library opens on All years: 379 files state no year and only 21 are from
+  // 2026-2027, none of them with a grade, so a year chip as the default hid the rest.
   const YEAR_NOW = '2026-2027', YEAR_PREV = '2025-2026';
-  const defaultYear = items => (items.some(it => it.y === YEAR_NOW) ? YEAR_NOW : '');
+  const defaultYear = () => '';
   // Newest school year first; the order inside a year is kept.
   const sortByYear = items => items.slice().sort((a, b) => (b.y || '').localeCompare(a.y || ''));
 
-  // f = { grade: 5..12 | 0, type: '' | code, subject: '' | name, q: text,
-  //       year: '' | YEAR_NOW | YEAR_PREV | 'earlier', sets: bool }.
+  // Words a student may type that the title does not always carry.
+  const SEARCH_WORDS = { 'ogm-yazili': 'Yazılıya Hazırlanıyorum', konu: 'konu soru dağılım tablosu', yks: 'kitapçığı', kilavuz: 'kılavuz takvim' };
+
+  // f = { grade: 1..12 | 0, type: '' | code, subject: '' | name, q: text,
+  //       year: '' | YEAR_NOW | YEAR_PREV | 'earlier' | 'none' (no year stated), sets: bool }.
   // A grade filter keeps only files whose name states that grade; the search
   // text must match every word in the title, subject, year or exam type.
   function filterItems(items, f) {
@@ -38,10 +42,10 @@ const MebIndex = (() => {
       if (o.grade && !it.g.includes(o.grade)) return false;
       if (o.type && it.x !== o.type) return false;
       if (o.subject && it.s !== o.subject) return false;
-      if (o.year === 'earlier' ? !(it.y && it.y < YEAR_PREV) : o.year && it.y !== o.year) return false;
+      if (o.year === 'none' ? it.y : o.year === 'earlier' ? !(it.y && it.y < YEAR_PREV) : o.year && it.y !== o.year) return false;
       if (o.sets && !it.set) return false;
       if (!words.length) return true;
-      const hay = norm([it.t, it.s, it.y, it.x].join(' '));
+      const hay = norm([it.t, it.s, it.y, it.x, i18n.t('mebType_' + it.x), SEARCH_WORDS[it.x] || ''].join(' '));
       return words.every(w => hay.includes(w));
     });
   }
@@ -145,15 +149,23 @@ const MebIndex = (() => {
 
   const modal = typeof document !== 'undefined' ? PastPaper.makeModal('meb-panel') : null;
   // busy: id of the study set being fetched; err: { id, msg } of the last failure.
-  const state = { f: { grade: 0, type: '', subject: '', q: '', year: '', sets: false }, shown: PAGE, yearSet: false, busy: null, err: null, tab: 'files' };
+  const state = { f: { grade: 0, type: '', subject: '', q: '', year: '', sets: false }, shown: PAGE, yearSet: false, busy: null, err: null, tab: 'files', pushed: false };
 
-  const gradeLabel = g => T('mebGradeN', { n: g.length > 1 ? g[0] + '–' + g[g.length - 1] : g[0] });
+  // 'Grade 10', 'Grades 9–12' (contiguous), 'Grades 9, 11', or 'Grade not stated' for an entry with no grade.
+  function gradeLabel(g) {
+    if (!g.length) return T('mebGradeNone');
+    if (g.length === 1) return T('mebGradeN', { n: g[0] });
+    const sorted = g.slice().sort((a, b) => a - b);
+    const run = sorted.every((n, i) => !i || n === sorted[i - 1] + 1);
+    return T('mebGradesN', { n: run ? sorted[0] + '–' + sorted[sorted.length - 1] : sorted.join(', ') });
+  }
 
   function rowHtml(it) {
     const table = data.topics.get(it.id);
     const chips = `<span class="meb-chip meb-year${it.y ? '' : ' none'}">${esc(it.y || T('mebYearNone'))}</span>` +
-      [T('mebType_' + it.x), it.ver ? T('mebVersionN', { v: it.ver }) : '', it.g.length ? gradeLabel(it.g) : '', it.s, it.mb != null ? T('mebSizeMb', { n: it.mb }) : '']
-        .filter(Boolean).map(c => `<span class="meb-chip">${esc(c)}</span>`).join('');
+      [T('mebType_' + it.x), it.ver ? T('mebVersionN', { v: it.ver }) : ''].filter(Boolean).map(c => `<span class="meb-chip">${esc(c)}</span>`).join('') +
+      `<span class="meb-chip meb-grade${it.g.length ? '' : ' none'}">${esc(gradeLabel(it.g))}</span>` +
+      [it.s, it.mb != null ? T('mebSizeMb', { n: it.mb }) : ''].filter(Boolean).map(c => `<span class="meb-chip">${esc(c)}</span>`).join('');
     const busy = state.busy === it.id, failed = state.err && state.err.id === it.id;
     const setHtml = it.set ? `<div class="meb-set">
         ${failed ? `<p class="meb-error" role="alert">${esc(T('mebSetFail', { e: state.err.msg }))}</p>` : ''}
@@ -162,7 +174,7 @@ const MebIndex = (() => {
         ${statsLine(it) ? `<span class="meb-stats">${esc(statsLine(it))}</span>` : ''}
       </div>` : `<p class="meb-soon">${T('mebSetSoon')}</p>`;
     const preview = table ? `<details class="meb-topics"><summary>${T('mebTopicsPreview', { n: table.n })}</summary>
-        <ul>${table.rows.slice(0, 8).map(r => `<li><span>${esc(r[0])}</span><b>${r[1]}</b></li>`).join('')}</ul>
+        <ul>${table.rows.slice(0, 8).map(r => `<li><span>${esc(r[0])}</span><b>${Number.isInteger(r[1]) ? r[1] : '≈' + r[1]}</b></li>`).join('')}</ul>
         <p class="meb-note">${T('mebTopicsNote')}</p></details>` : '';
     return `<li class="meb-row" data-row="${esc(it.id)}">
       <div class="meb-row-title">${esc(it.t)}</div>
@@ -172,7 +184,7 @@ const MebIndex = (() => {
       <div class="meb-actions">
         <a class="${it.set ? 'btn-ghost' : 'btn-primary'} meb-open" href="${esc(it.u)}" target="_blank" rel="noopener noreferrer">${T('mebOpenFile')} <span aria-hidden="true">&#8599;</span></a>
         ${it.p ? `<a class="meb-src" href="${esc(it.p)}" target="_blank" rel="noopener noreferrer">${T('mebSourcePage')}</a>` : ''}
-        ${table ? `<button class="btn-ghost" data-meb-act="profile" data-id="${esc(it.id)}">&#9878;&#65039; ${T('mebUseProfile')}</button>` : ''}
+        ${table && it.g.length > 1 ? `<span class="meb-note">${T('mebProfileMulti')}</span>` : table ? `<button class="btn-ghost" data-meb-act="profile" data-id="${esc(it.id)}">&#9878;&#65039; ${T('mebUseProfile')}</button>` : ''}
       </div>
     </li>`;
   }
@@ -188,7 +200,8 @@ const MebIndex = (() => {
     const f = state.f;
     const counts = typeCounts(data.items, f);
     const subjects = subjectsFor(data.items, f);
-    if (f.subject && !subjects.includes(f.subject)) f.subject = '';
+    const cleared = f.subject && !subjects.includes(f.subject) ? f.subject : '';
+    if (cleared) f.subject = '';
     el.querySelector('#meb-grade').innerHTML = optionsHtml([[0, T('mebAllGrades')], ...GRADES.map(g => [g, T('mebGradeN', { n: g })])], f.grade);
     el.querySelector('#meb-type').innerHTML = optionsHtml([['', T('mebAllTypes')], ...TYPES.filter(x => counts[x] || f.type === x).map(x => [x, `${T('mebType_' + x)} (${counts[x] || 0})`])], f.type);
     el.querySelector('#meb-subject').innerHTML = optionsHtml([['', T('mebAllSubjects')], ...subjects.map(s => [s, s])], f.subject);
@@ -196,7 +209,7 @@ const MebIndex = (() => {
     el.querySelector('[data-meb-sets]').setAttribute('aria-pressed', String(f.sets));
     const hits = filterItems(data.items, f);
     const shown = hits.slice(0, state.shown);
-    el.querySelector('#meb-count').textContent = T('mebCount', { n: hits.length });
+    el.querySelector('#meb-count').textContent = T('mebCount', { n: hits.length }) + (cleared ? ' · ' + T('mebSubjectCleared', { s: cleared }) : '');
     el.querySelector('#meb-list').innerHTML = hits.length
       ? `<ul class="meb-list">${shown.map(rowHtml).join('')}</ul>` +
         (hits.length > shown.length ? `<button class="btn-ghost meb-more" data-meb-act="more">${T('mebShowMore', { n: hits.length - shown.length })}</button>` : '')
@@ -233,7 +246,7 @@ const MebIndex = (() => {
         <select id="meb-subject" aria-label="${esc(T('mebAllSubjects'))}"></select>
       </div>
       <div class="meb-yearbar" role="group" aria-label="${esc(T('mebYearLabel'))}">
-        ${[['', T('mebYearAll')], [YEAR_NOW, YEAR_NOW], [YEAR_PREV, YEAR_PREV], ['earlier', T('mebYearEarlier')]]
+        ${[['', T('mebYearAll')], [YEAR_NOW, YEAR_NOW], [YEAR_PREV, YEAR_PREV], ['earlier', T('mebYearEarlier')], ['none', T('mebYearNone')]]
           .map(([v, label]) => `<button type="button" class="meb-fchip" data-meb-year="${esc(v)}" aria-pressed="false">${esc(label)}</button>`).join('')}
         <button type="button" class="meb-fchip meb-fchip-sets" data-meb-sets aria-pressed="false">&#127891; ${T('mebSetsOnly')}</button>
       </div>
@@ -247,7 +260,7 @@ const MebIndex = (() => {
   // The newest school year leads, until the user picks another.
   function defaultFilters() {
     if (state.yearSet) return;
-    state.f.year = defaultYear(data.items);
+    state.f.year = defaultYear();
     state.yearSet = true;
   }
 
@@ -261,7 +274,7 @@ const MebIndex = (() => {
     try {
       await MebSets.open(it);
     } catch (err) {
-      state.err = { id, msg: err && err.message ? err.message : String(err) };
+      state.err = { id, msg: errText(err) };
     } finally {
       state.busy = null;
     }
@@ -278,11 +291,15 @@ const MebIndex = (() => {
     if (keep) modal.el.querySelector(`[data-row="${CSS.escape(id)}"] [data-meb-act="${keep}"]`)?.focus();
   }
 
+  // Offline, an unopened set only fails with the browser's 'Failed to fetch': say what is going on.
+  const errText = err => (typeof navigator !== 'undefined' && navigator.onLine === false ? T('mebOffline') : err && err.message ? err.message : String(err));
+
   function renderState(html) { shell(`<div class="meb-state" id="meb-state">${html}</div>`); }
 
   // opts.tab = 'scen' opens on the Senaryolar tab.
   async function open(opts) {
     if (!modal) return;
+    if (!state.pushed) { history.pushState({ fmLibrary: 1 }, ''); state.pushed = true; }   // Back closes the library instead of leaving the site
     if (opts && opts.tab) state.tab = opts.tab === 'scen' ? 'scen' : 'files';
     if (data) { defaultFilters(); renderReady(); return; }
     renderState(`<div class="spinner" aria-hidden="true"></div> ${T('mebLoading')}`);
@@ -296,12 +313,21 @@ const MebIndex = (() => {
     }
   }
 
+  // Closes the library and drops the history entry it pushed.
+  function close() {
+    if (!modal) return;
+    modal.close();
+    if (state.pushed) history.back();
+  }
+
   function init() {
     // Capture phase: Escape closes only this screen, not the past-paper modal under it.
     document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && modal.isOpen()) { e.stopImmediatePropagation(); modal.close(); }
+      if (e.key === 'Escape' && modal.isOpen()) { e.stopImmediatePropagation(); close(); }
     }, true);
+    window.addEventListener('popstate', () => { state.pushed = false; if (modal.isOpen()) modal.close(); });
     document.addEventListener('click', e => {
+      if (state.pushed && modal.el && modal.el.contains(e.target) && (e.target === modal.el || e.target.closest('[data-ex-close]'))) history.back();
       const tab = e.target.closest('[data-meb-tab]');
       if (tab && modal.el && modal.el.contains(tab)) { state.tab = tab.dataset.mebTab; renderReady(); modal.el.querySelector('[data-meb-tab][aria-selected="true"]')?.focus(); return; }
       const chip = e.target.closest('[data-meb-year], [data-meb-sets]');
@@ -338,7 +364,7 @@ const MebIndex = (() => {
   if (typeof document !== 'undefined') document.addEventListener('DOMContentLoaded', init);
 
   return {
-    filterItems, subjectsFor, typeCounts, validate, profileTopics, sortByYear, defaultYear, statsLine, YEAR_NOW, YEAR_PREV, GRADES, TYPES,
-    load, open, close: () => modal && modal.close(), applyProfile, storeProfile
+    filterItems, subjectsFor, typeCounts, validate, profileTopics, gradeLabel, sortByYear, defaultYear, statsLine, YEAR_NOW, YEAR_PREV, GRADES, TYPES,
+    load, open, close, applyProfile, storeProfile
   };
 })();

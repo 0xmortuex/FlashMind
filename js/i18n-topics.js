@@ -1,0 +1,43 @@
+// ===== Strings: notes topic menu (bookmark / ask AI / audio overview) =====
+i18n.add('en', {
+  topicMenuHint: 'Topic options: bookmark, ask AI, audio overview',
+  topicBookmark: 'Bookmark this topic',
+  topicBookmarked: 'Bookmarked',
+  topicRemove: 'Remove',
+  topicAsk: 'Ask AI about this topic',
+  topicAudio: 'Audio overview of this topic',
+  topicAskPrompt: 'Explain this topic to me like a teacher: {title}',
+  topicChatBusy: 'The AI is still answering. Try again in a moment.',
+  topicSaved: 'Saved topics',
+  topicSavedNone: 'No saved topics yet. Open a topic title and choose Bookmark.',
+  topicSavedToast: 'Topic bookmarked',
+  topicRemoved: 'Bookmark removed',
+  topicGone: 'This topic is no longer in the notes.',
+  topicAudioWriting: 'Writing a short audio overview of this topic...',
+  topicRetry: 'Try again',
+  topicStop: 'Stop',
+  topicTranscript: 'Transcript',
+  topicErrRate: 'The AI is rate limited right now. Wait a minute and try again.',
+  topicErrNet: 'Could not reach the AI service. Check your connection and try again.'
+});
+i18n.add('tr', {
+  topicMenuHint: 'Konu seçenekleri: yer imi, yapay zekaya sor, sesli özet',
+  topicBookmark: 'Bu konuyu yer imine ekle',
+  topicBookmarked: 'Yer imine eklendi',
+  topicRemove: 'Kaldır',
+  topicAsk: 'Bu konuyu yapay zekaya sor',
+  topicAudio: 'Bu konunun sesli özeti',
+  topicAskPrompt: 'Bu konuyu bana bir öğretmen gibi anlat: {title}',
+  topicChatBusy: 'Yapay zeka hâlâ yanıtlıyor. Birazdan tekrar dene.',
+  topicSaved: 'Kayıtlı konular',
+  topicSavedNone: 'Henüz kayıtlı konu yok. Bir konu başlığını açıp Yer imi’ni seç.',
+  topicSavedToast: 'Konu yer imine eklendi',
+  topicRemoved: 'Yer imi kaldırıldı',
+  topicGone: 'Bu konu artık notlarda yok.',
+  topicAudioWriting: 'Bu konu için kısa bir sesli özet yazılıyor...',
+  topicRetry: 'Tekrar dene',
+  topicStop: 'Durdur',
+  topicTranscript: 'Metin',
+  topicErrRate: 'Yapay zeka şu an istek sınırında. Bir dakika bekleyip tekrar dene.',
+  topicErrNet: 'Yapay zeka servisine ulaşılamadı. Bağlantını kontrol edip tekrar dene.'
+});

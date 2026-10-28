@@ -37,7 +37,7 @@
 .meb-fchip:focus-visible, .meb-set-btn:focus-visible, .meb-srclink:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 .meb-fchip-sets { margin-left: auto; }
 .meb-year { font-weight: 700; border-color: var(--primary); }
-.meb-year.none { font-weight: 500; border-color: var(--border); color: var(--text-muted); }
+.meb-year.none, .meb-grade.none { font-weight: 500; border-color: var(--border); color: var(--text-muted); }
 .meb-set { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
 .meb-set .meb-error { flex: 1 1 100%; font-size: 0.82rem; }
 .meb-set-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; min-height: 36px; }
@@ -84,7 +84,7 @@
   width: 100%; min-width: 0; min-height: 40px; background: var(--surface); color: var(--text);
   border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 10px; font: inherit; font-size: 0.86rem;
 }
-.scen-row { display: flex; flex-direction: column; gap: 8px; padding: 10px 12px; background: var(--card-raised); border: 1px solid var(--border); border-radius: var(--radius-sm); }
+.scen-row, .scen-course { display: flex; flex-direction: column; gap: 8px; padding: 10px 12px; background: var(--card-raised); border: 1px solid var(--border); border-radius: var(--radius-sm); }
 .scen-row-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 10px; }
 .scen-row-title { font-weight: 700; font-size: 0.92rem; }
 .scen-stats { font-size: 0.8rem; color: var(--text-muted); }
@@ -93,6 +93,14 @@
 .scen-bar i:nth-child(even) { background: var(--secondary); }
 .scen-national { margin: 6px 0 0; padding: 10px 12px; border: 1px dashed var(--border-strong); border-radius: var(--radius-sm); font-weight: 600; font-size: 0.88rem; }
 .scen-text { white-space: pre-line; }
+
+/* Tap targets of at least 40 px on a phone. */
+@media (max-width: 600px) {
+  .meb-fchip, .meb-actions .btn-ghost, .meb-open, .meb-set-btn, .meb-panel .btn-icon, .meb-tab { min-height: 40px; }
+  .meb-panel .btn-icon { min-width: 40px; }
+  .meb-src, .meb-topics summary { display: inline-flex; align-items: center; min-height: 40px; }
+}
+.storage-banner { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10000; padding: 10px 14px; background: #b3261e; color: #fff; font-weight: 600; font-size: 0.88rem; text-align: center; }
 
 /* On a phone the grade and subject chips scroll sideways instead of pushing the scenarios off screen. */
 @media (max-width: 480px) {

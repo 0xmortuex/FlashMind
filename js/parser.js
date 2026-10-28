@@ -260,13 +260,20 @@ const Parser = (() => {
       return out;
     };
     // Audio overview script: [{ speaker: 'A'|'B', text }].
-    const audio = obj(d.audio) ? {
-      format: ['deep', 'brief', 'recap'].includes(d.audio.format) ? d.audio.format : 'deep',
-      title: str(d.audio.title).slice(0, 200),
-      lines: list(d.audio.lines).filter(l => obj(l) && str(l.text).trim()).slice(0, 200)
+    const cleanAudio = a => obj(a) ? {
+      format: ['deep', 'brief', 'recap'].includes(a.format) ? a.format : 'deep',
+      title: str(a.title).slice(0, 200),
+      lines: list(a.lines).filter(l => obj(l) && str(l.text).trim()).slice(0, 200)
         .map(l => ({ speaker: l.speaker === 'B' ? 'B' : 'A', text: str(l.text).trim().slice(0, 2000) })),
-      createdAt: Number.isFinite(d.audio.createdAt) ? d.audio.createdAt : 0
+      createdAt: Number.isFinite(a.createdAt) ? a.createdAt : 0
     } : null;
+    const audio = cleanAudio(d.audio);
+    // Per-topic audio overviews, keyed by topic id (js/topics.js), and the student's bookmarked topics.
+    const topicAudio = obj(d.topicAudio) ? Object.fromEntries(Object.entries(d.topicAudio).filter(([k]) => /^[a-zA-Z0-9_-]{1,64}$/.test(k)).slice(0, 60)
+      .map(([k, v]) => [k, cleanAudio(v)]).filter(([, v]) => v && v.lines.length)) : {};
+    const seenBm = new Set();
+    const bookmarks = list(d.bookmarks).filter(b => obj(b) && /^[a-zA-Z0-9_-]{1,64}$/.test(str(b.id)) && str(b.title).trim() && !seenBm.has(b.id) && seenBm.add(b.id)).slice(0, 300)
+      .map(b => ({ id: b.id, title: str(b.title).trim().slice(0, 200), sectionIndex: Number.isInteger(b.sectionIndex) && b.sectionIndex >= 0 ? b.sectionIndex : 0, createdAt: Number.isFinite(b.createdAt) ? b.createdAt : 0 }));
     const mindmap = tree(n.mindmap, 0);
     // Interactive labs and video-lesson storyboards (validated in js/simspec.js).
     const labs = typeof SimSpec !== 'undefined' ? SimSpec.sanitizeLabs(d.labs) : [];
@@ -307,6 +314,8 @@ const Parser = (() => {
       ...(meta ? { meta } : {}),
       ...(Object.keys(media).length ? { media } : {}),
       ...(audio && audio.lines.length ? { audio } : {}),
+      ...(Object.keys(topicAudio).length ? { topicAudio } : {}),
+      ...(bookmarks.length ? { bookmarks } : {}),
       ...(labs.length ? { labs } : {}),
       ...(lessons.length ? { lessons } : {})
     };

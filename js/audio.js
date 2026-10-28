@@ -119,8 +119,13 @@ const AudioOverview = (() => {
 
   // ----- Playback -----
 
-  function voices() {
-    const list = typeof TTS !== 'undefined' ? TTS.voicesForLang() : [];
+  // The script's own language picks the voices (not the app language).
+  function scriptLang(script) {
+    return typeof TTS !== 'undefined' ? TTS.detectLang(script.lines.map(l => l.text).join(' ')) : null;
+  }
+
+  function voices(lang) {
+    const list = typeof TTS !== 'undefined' ? TTS.voicesForLang(lang) : [];
     const a = list[0] || null;
     const b = list.find(v => v !== a && !/compact/i.test(v.name)) || null;
     // One voice only: tell the hosts apart by pitch.
@@ -138,14 +143,15 @@ const AudioOverview = (() => {
     playing = true;
     const my = ++token;
     const line = script.lines[index];
-    const v = voices()[line.speaker === 'B' ? 'B' : 'A'];
+    const lang = scriptLang(script);
+    const v = voices(lang)[line.speaker === 'B' ? 'B' : 'A'];
     refresh();
     scrollCurrent();
     TTS.speak(line.text, cancelled => {
       if (my !== token) return;
       if (cancelled) { playing = false; refresh(); return; }
       playFrom(index + 1);
-    }, { voice: v.voice, pitch: v.pitch, rate });
+    }, { voice: v.voice, pitch: v.pitch, rate, lang });
   }
 
   function scrollCurrent() {
@@ -202,6 +208,19 @@ const AudioOverview = (() => {
     }
   }
 
+  // A short two-host overview of ONE section (js/topics.js caches and plays it). Throws when the AI call or the script fails.
+  async function generateFor(sectionText, title) {
+    const ask = 'Write a short two-host audio overview (about 2 minutes spoken, a conversation between host A who explains and host B who is curious) of ONLY the topic "' + title + '" from the study material below. ' +
+      'Cover what it is, the must-know ideas, one example or analogy, and end with the key takeaways. About 280 words in 8-14 short turns that alternate naturally. ' +
+      'Spoken style only: no markdown, no lists, no stage directions, no emojis; say formulas and symbols in words. Write it in the language of the material. ' +
+      'Return ONLY JSON, no other text: {"type":"audio","title":"episode title","lines":[{"speaker":"A","text":"..."},{"speaker":"B","text":"..."}]}';
+    const raw = await API.chat(ask, sectionText);
+    const obj = Parser.safeParseJSON(raw);
+    const clean = Parser.normalizeStudyData({ title, audio: { format: 'brief', title: obj && obj.title, lines: obj && Array.isArray(obj.lines) ? obj.lines : [], createdAt: Date.now() } }).audio;
+    if (!clean) throw new Error('empty script');
+    return clean;
+  }
+
   function copy() {
     const data = App.getStudyData();
     if (!data || !data.audio) return;
@@ -238,5 +257,5 @@ const AudioOverview = (() => {
     });
   }
 
-  return { init, render, stop, recapScript, isPlaying: () => playing };
+  return { init, render, stop, recapScript, generateFor, voices, isPlaying: () => playing };
 })();

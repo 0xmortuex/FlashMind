@@ -5,6 +5,7 @@ const Chat = (() => {
   let sendBtn;
   let isLoading = false;
   let session = 0;
+  let focusText = '';   // one topic's text added to the next request's context (Chat.askAbout)
 
   function init() {
     messagesEl = document.getElementById('chat-messages');
@@ -178,7 +179,8 @@ const Chat = (() => {
       'Use [] if the material does not cover it, and say so in the answer.]';
 
     try {
-      const context = App.getOriginalText() || JSON.stringify(source);
+      let context = App.getOriginalText() || JSON.stringify(source);
+      if (focusText) { context += '\n\nTOPIC THE STUDENT IS ASKING ABOUT:\n' + focusText; focusText = ''; }
       const raw = await API.chat(toSend, context);
       if (requestSession !== session || source !== App.getStudyData()) return;
       removeLoading();
@@ -202,6 +204,14 @@ const Chat = (() => {
     sendBtn.disabled = !inputEl.value.trim();
   }
 
+  // Opens the chat on a notes topic and sends the opening question once.
+  function askAbout(text, sectionText) {
+    if (isLoading) throw new Error(i18n.t('topicChatBusy'));
+    App.switchTab('chat');
+    focusText = sectionText;
+    sendMessage(text);
+  }
+
   function addFlashcards() {
     if (Chat._pendingFlashcards) {
       Flashcards.addCards(Chat._pendingFlashcards);
@@ -222,5 +232,5 @@ const Chat = (() => {
 
   function esc(str) { if (!str) return ''; const d = document.createElement('div'); d.textContent = str; return d.innerHTML; }
 
-  return { init, setup, sendMessage, addFlashcards, addQuizQuestions, startFeynman };
+  return { init, setup, sendMessage, askAbout, addFlashcards, addQuizQuestions, startFeynman };
 })();

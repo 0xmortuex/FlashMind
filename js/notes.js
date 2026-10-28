@@ -16,10 +16,11 @@ const Notes = (() => {
 
   function render(data) {
     if (reading) { TTS.stop(); reading = false; }
+    if (typeof Topics !== 'undefined') Topics.reset();
     if (!container) init();
     const T = i18n.t;
     const { title, notes } = data;
-    const scen = !!(data.meta && data.meta.kind === 'scenario');   // MEB scenario notebooks keep their line breaks
+    const scen = !!(data.meta && (data.meta.kind === 'scenario' || data.meta.kind === 'course'));   // MEB scenario and whole-course notebooks keep their line breaks
 
     let html = `<div class="notes-container">`;
 
@@ -39,6 +40,7 @@ const Notes = (() => {
     html += `<div class="notes-header">
       <h1 class="notes-title">${esc(title)}</h1>
       ${data.meta && data.meta.sourceUrl ? `<a class="meb-srclink" href="${escSvg(data.meta.sourceUrl)}" target="_blank" rel="noopener noreferrer">${T('mebSrcLink')} <span aria-hidden="true">&#8599;</span></a>` : ''}
+      ${typeof Topics !== 'undefined' ? Topics.savedBtnHtml(data) : ''}
       <div class="notes-summary${scen ? ' scen-text' : ''}">${esc(notes.summary)}</div>
     </div>`;
 
@@ -46,7 +48,8 @@ const Notes = (() => {
     const hasSources = Array.isArray(data.sources) && data.sources.length > 0;
     notes.sections.forEach((section, idx) => {
       html += `<div class="notes-section reveal" style="--i:${idx % 3}">
-        <h2 class="notes-section-title">${esc(section.title)}${hasSources ? `<button class="section-src-btn" data-section-src="${idx}" title="${T('srcShowPassage')}">&#128206; ${T('srcSource')}</button>` : ''}</h2>
+        <h2 class="notes-section-title">${typeof Topics !== 'undefined' ? Topics.titleHtml(data, idx) : esc(section.title)}${hasSources ? `<button class="section-src-btn" data-section-src="${idx}" title="${T('srcShowPassage')}">&#128206; ${T('srcSource')}</button>` : ''}</h2>
+        <div class="topic-audio" data-topic-audio-box="${idx}" aria-live="polite" hidden></div>
         <div class="section-src" data-section-src-box="${idx}" hidden></div>
         <p class="notes-section-content${scen ? ' scen-text' : ''}">${esc(section.content)}</p>`;
 

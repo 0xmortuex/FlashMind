@@ -6,8 +6,29 @@
 // onEnd), captions, speed, a progress bar with slide markers and keyboard
 // controls. Storyboards are saved on the set (data.lessons). Browser speech
 // can't be recorded, so "download" is a printable/PDF slide handout.
+// "I didn't understand" rewrites one slide with the AI (the original is kept,
+// undo restores it); "Another version" regenerates the whole lesson from a
+// different angle and saves it next to the original (data.lessons keeps 8).
 const VideoLesson = (() => {
-  const RATES = [0.75, 1, 1.25, 1.5, 2];
+  const RATES = [0.75, 0.95, 1.25, 1.5, 2];
+  const MAX_LESSONS = 8;
+  // Instructions for the AI, per quick choice.
+  const FIX_PROMPT = {
+    simple: 'Explain this slide much more simply, in plain everyday words.',
+    example: 'Keep the idea but teach it with a different, concrete example.',
+    steps: 'Go through it step by step, one small step at a time.',
+    analogy: 'Explain it with an everyday analogy the student knows from daily life.'
+  };
+  const FIX_LABEL = { simple: 'vlFixSimple', example: 'vlFixExample', steps: 'vlFixSteps', analogy: 'vlFixAnalogy' };
+  const PERSP_PROMPT = {
+    simple: 'Make this version for complete beginners: plain everyday words, no jargon, define every term, go slowly.',
+    examples: 'Teach mainly through worked examples: after each idea give a concrete example with numbers.',
+    exam: 'Make this version exam-focused: the key definitions, formulas, typical question types, common mistakes and quick tips.',
+    short: 'Make this version much shorter: about 2 minutes in total, only 4-5 slides with 2-3 short sentences of narration each.',
+    steps: 'Teach it as a step-by-step procedure: number the steps in the slide titles and work one example through them.',
+    story: 'Teach it through a story or an everyday analogy that the whole lesson builds on.'
+  };
+  const PERSP_LABEL = { simple: 'vlPerSimple', examples: 'vlPerExamples', exam: 'vlPerExam', short: 'vlPerShort', steps: 'vlPerSteps', story: 'vlPerStory' };
   const WPS = 2.6; // spoken words per second at rate 1 (duration estimate)
   let host = null;
   let forData = null;
@@ -24,10 +45,19 @@ const VideoLesson = (() => {
   let elapsed = 0;       // ms spent on the current slide before the last pause
   let capChunks = [];
   let capShown = -1;
-  let rate = 1;
+  let rate = 0.95;
   let captions = true;
+  let silent = false;    // the student chose to continue without a voice
+  let noVoice = '';      // language ('tr'/'en') the text needs but the device has no voice for
+  let showOrig = false;  // showing the original of a revised slide
+  let panel = null;      // open panel over the player: 'help' | 'version' | 'voice'
+  let panelBusy = false; // an AI request is running for the panel
+  let panelErr = '';
+  let lastReq = null;    // the request to repeat on "Try again"
+  let reqToken = 0;      // bumping this cancels the in-flight AI request
+  const undoStack = [];  // slides replaced by a revision: { id, i, slide }
   try {
-    rate = parseFloat(localStorage.getItem('flashmind_video_rate')) || 1;
+    rate = parseFloat(localStorage.getItem('flashmind_video_rate')) || 0.95;
     captions = localStorage.getItem('flashmind_video_cc') !== '0';
   } catch (e) {}
 
@@ -50,6 +80,82 @@ const VideoLesson = (() => {
     return Math.max(2.5, words / (WPS * rate)) + 0.6;
   }
 
+  // The slide as shown and spoken: the original while "Show original" is on.
+  function view(l, i) {
+    const s = l.slides[i];
+    return showOrig && s.orig ? s.orig : s;
+  }
+
+  // Language of the lesson's own text (not the app language); null if undetermined.
+  function lessonLang(l) {
+    return typeof TTS !== 'undefined' ? TTS.detectLang(l.title + '. ' + l.slides.map(s => s.narration).join(' ')) : null;
+  }
+
+  // ----- Versions and slide revisions (pure, tested) -----
+
+  // Lessons that are versions of the same original, oldest first.
+  function versionsOf(list, l) {
+    const fam = l.base || l.id;
+    return list.filter(x => (x.base || x.id) === fam);
+  }
+
+  // At most MAX_LESSONS: drop the oldest other version first, never the new
+  // lesson or the original it was made from.
+  function trimLessons(list, keep) {
+    const out = list.slice();
+    while (out.length > MAX_LESSONS) {
+      let i = out.findIndex(x => x.base && x.id !== keep.id);
+      if (i < 0) i = out.findIndex(x => x.id !== keep.id && x.id !== keep.base);
+      out.splice(i, 1);
+    }
+    return out;
+  }
+
+  // Put a revised slide in place; the first original is kept on the slide and
+  // the replaced slide goes on the undo stack.
+  function reviseSlide(l, i, rev, stack) {
+    const old = l.slides[i];
+    const { orig, ...plain } = old;
+    const next = { ...rev, orig: orig || plain };
+    if (!next.diagram && old.diagram) next.diagram = old.diagram;
+    stack.push({ id: l.id, i, slide: old });
+    l.slides[i] = next;
+    return next;
+  }
+
+  // Undo the last revision of slide i (or, after a reload, restore its original).
+  function undoSlide(l, i, stack) {
+    let k = stack.length - 1;
+    while (k >= 0 && !(stack[k].id === l.id && stack[k].i === i)) k--;
+    const prev = k >= 0 ? stack.splice(k, 1)[0].slide : l.slides[i].orig;
+    if (!prev) return false;
+    l.slides[i] = prev;
+    return true;
+  }
+
+  // Notes in a teacher's voice have no bullets or key terms: the paragraphs of
+  // `content` are the narration, cut into slides of about 30-70 words.
+  function paragraphSlides(content) {
+    const words = t => t.split(/\s+/).filter(Boolean).length;
+    const pieces = [];
+    String(content || '').split(/\n+/).map(p => p.trim()).filter(Boolean).forEach(p => {
+      if (words(p) <= 70) { pieces.push(p); return; }
+      let cur = '';
+      (p.match(/[^.!?…]+[.!?…]*\s*/g) || [p]).forEach(sent => {
+        if (cur && words(cur + sent) > 70) { pieces.push(cur.trim()); cur = ''; }
+        cur += sent;
+      });
+      if (cur.trim()) pieces.push(cur.trim());
+    });
+    const out = [];
+    pieces.forEach(p => {
+      const last = out.length - 1;
+      if (last >= 0 && (words(out[last]) < 30 || words(p) < 30) && words(out[last] + ' ' + p) <= 70) out[last] += ' ' + p;
+      else out.push(p);
+    });
+    return out;
+  }
+
   // ----- Storyboards -----
 
   // Offline lesson straight from the notes (no AI call).
@@ -59,7 +165,12 @@ const VideoLesson = (() => {
     const all = n.sections || [];
     const secs = Number.isInteger(sectionIdx) && all[sectionIdx] ? [all[sectionIdx]] : all.slice(0, 9);
     const slides = [{ title: Number.isInteger(sectionIdx) && all[sectionIdx] ? all[sectionIdx].title : data.title, bullets: [], narration: n.summary || data.title }];
-    secs.forEach(s => {
+    // Teacher-voice notes (no bullets / key terms): the paragraphs are the narration.
+    const teacher = secs.some(s => s.content) && secs.every(s => !(s.bulletPoints || []).length && !(s.keyTerms || []).length);
+    if (teacher) {
+      secs.forEach(s => paragraphSlides(s.content).forEach((p, k) => slides.push({ title: k ? `${s.title} · ${k + 1}` : s.title, bullets: [], narration: p })));
+      slides.splice(11);
+    } else secs.forEach(s => {
       const bullets = (s.bulletPoints || []).slice(0, 3);
       if (!bullets.length) (s.keyTerms || []).slice(0, 3).forEach(k => bullets.push(`${k.term}: ${k.definition}`));
       slides.push({ title: s.title, bullets, narration: [s.content, ...(s.keyTerms || []).slice(0, 2).map(k => `${k.term}: ${String(k.definition).replace(/[.!?…\s]+$/, '')}.`)].filter(Boolean).join(' ') || s.title });
@@ -77,7 +188,7 @@ const VideoLesson = (() => {
     return typeof Mindmap !== 'undefined' ? Mindmap.fromNotes(data) : null;
   }
 
-  function prompt(data, topic, focus) {
+  function prompt(data, topic, focus, style) {
     const diagrams = ((data.notes && data.notes.diagrams) || []).map((g, i) => `${i}: ${g.title}`).slice(0, 10);
     const tree = mapTree(data);
     const branches = tree ? (tree.children || []).map(c => c.label).slice(0, 12) : [];
@@ -86,8 +197,9 @@ const VideoLesson = (() => {
       'Each slide: "title" (max 8 words), "bullets": 1-3 short points (max 12 words each; may be empty on the title slide), optional "formula": one key formula in LaTeX without $ delimiters, ' +
       'optional "diagram" to show an existing picture: ' + (diagrams.length ? `{"kind":"notes","index":N} for one of these notes diagrams [${diagrams.join('; ')}], or ` : '') +
       (branches.length ? `{"kind":"map","label":"..."} for one of these mind-map branches [${branches.join('; ')}]. ` : 'none available. ') +
-      '"narration": what the teacher says over the slide, 2-4 natural spoken sentences (30-70 words), formulas said in words, no markdown. ' +
-      'Write it in the language of the material. ' + (focus ? `Focus especially on: ${focus}. ` : '') +
+      '"narration": what the teacher says over the slide, spoken like a teacher talking to the student: 2-4 short natural sentences (30-70 words), formulas and symbols said in words (e.g. "x kare", "a bölü b" or "x squared", "a over b"), no markdown, no LaTeX, no symbols. ' +
+      'Write everything in the same language as the material (if it is Turkish, write natural spoken Turkish). At most 10 slides. ' + (focus ? `Focus especially on: ${focus}. ` : '') +
+      (style ? `${style} (this overrides the slide count above). ` : '') +
       'Return ONLY JSON, no other text: {"title":"lesson title","slides":[{"title":"...","bullets":["..."],"formula":"E = mc^2","narration":"..."}]}';
   }
 
@@ -120,11 +232,119 @@ const VideoLesson = (() => {
     let k = list.length + 1;
     l.id = 'v' + k;
     while (ids.has(l.id)) l.id = 'v' + (++k);
-    data.lessons = list.concat([l]).slice(-8);
+    data.lessons = trimLessons(list.concat([l]), l);
     App.persistActiveDeck();
     lessonId = l.id;
     mode = 'player';
     index = 0;
+  }
+
+  // ----- AI edits: rewrite one slide, make another version -----
+
+  function aiError(err) {
+    const T = i18n.t;
+    const m = String((err && err.message) || err);
+    if (/429|rate limit|too many|try again/i.test(m)) return new Error(T('vlRateLimit'));
+    if (err instanceof TypeError || /failed to fetch|networkerror|load failed|network request/i.test(m)) return new Error(T('vlOffline'));
+    return new Error(m);
+  }
+
+  // One API.chat call whose answer must pass `accept` (returns the usable
+  // value or null). Unusable JSON gets one retry, then an explicit error.
+  // Resolves null when `my` is no longer the live request (cancelled).
+  async function askJson(question, context, accept, my) {
+    for (let attempt = 0; attempt < 2; attempt++) {
+      let raw;
+      try { raw = await API.chat(question, context); } catch (err) { throw aiError(err); }
+      if (my !== reqToken) return null;
+      let out = null;
+      try { out = accept(Parser.safeParseJSON(raw)); } catch (e) { out = null; }
+      if (out) return out;
+    }
+    throw new Error(i18n.t('vlInvalid'));
+  }
+
+  function failPanel(my, err) {
+    if (my !== reqToken) return;
+    panelBusy = false;
+    panelErr = err.message + ' ' + i18n.t('vlKept');
+    drawPanel();
+  }
+
+  // "I didn't understand": the AI rewrites the current slide.
+  async function rewriteSlide(choice, text) {
+    const data = App.getStudyData(), l = lesson();
+    if (!data || !l || panelBusy) return;
+    const my = ++reqToken, i = index;
+    lastReq = { kind: 'help', choice, text };
+    panelBusy = true;
+    panelErr = '';
+    drawPanel();
+    const slide = x => JSON.stringify({ title: x.title, bullets: x.bullets, formula: x.formula || '', narration: x.narration });
+    const near = (k, name) => l.slides[k] ? `${name}: ${slide(l.slides[k].orig || l.slides[k])}\n` : '';
+    const question = 'A student watching a narrated video lesson did not understand ONE slide. Rewrite only that slide so the student understands it. ' +
+      (choice ? FIX_PROMPT[choice] + ' ' : '') + (text ? `The student says what is unclear: "${text}". ` : '') +
+      'Keep it correct and about the same topic. "title" max 8 words, "bullets": 1-3 short points (may be empty), optional "formula": LaTeX without $ delimiters, ' +
+      '"narration": spoken like a teacher talking to the student: 2-5 short natural sentences (40-90 words), formulas and symbols said in words, no markdown, no LaTeX. ' +
+      'Write it in the same language as the lesson. Return ONLY JSON, no other text: {"title":"...","bullets":["..."],"formula":"","narration":"..."}';
+    const context = `Lesson: ${l.title}\n${near(index - 1, 'Previous slide')}Slide to rewrite: ${slide(l.slides[index].orig || l.slides[index])}\n${near(index + 1, 'Next slide')}\n` +
+      `Study material:\n${App.getOriginalText()}`.slice(0, 12000);
+    try {
+      const rev = await askJson(question, context, obj => SimSpec.sanitizeSlide(obj), my);
+      if (!rev || my !== reqToken) return;
+      if (App.getStudyData() !== data || lesson() !== l) { panelBusy = false; return; }
+      reviseSlide(l, i, rev, undoStack);
+      App.persistActiveDeck();
+      panel = null;
+      panelBusy = false;
+      showOrig = false;
+      renderPlayer(data);
+      App.showToast(i18n.t('vlSlideReady'), 'success');
+      play();
+    } catch (err) {
+      failPanel(my, err);
+    }
+  }
+
+  function undoRevision() {
+    const l = lesson();
+    if (!l || !undoSlide(l, index, undoStack)) return;
+    pause();
+    App.persistActiveDeck();
+    showOrig = false;
+    renderPlayer(App.getStudyData());
+    App.showToast(i18n.t('vlUndone'), 'success');
+  }
+
+  // "Another version of this video": regenerate the whole lesson from the same
+  // material and save it next to the original.
+  async function makeVersion(key, text) {
+    const T = i18n.t;
+    const data = App.getStudyData(), l = lesson();
+    if (!data || !l || panelBusy) return;
+    const my = ++reqToken;
+    lastReq = { kind: 'version', choice: key, text };
+    panelBusy = true;
+    panelErr = '';
+    drawPanel();
+    const label = (key ? T(PERSP_LABEL[key]) : T('vlPerCustom') + ': ' + text).slice(0, 60);
+    const style = [key ? PERSP_PROMPT[key] : '', text ? `The student asks for this kind of version: "${text}".` : ''].filter(Boolean).join(' ');
+    const sec = (data.notes.sections || []).find(s => s.title === l.topic);
+    try {
+      const ctx = App.getOriginalText();
+      const nl = await askJson(prompt(data, sec ? sec.title : '', '', style), sec ? `${sec.title}\n${sec.content}\n\n${ctx}`.slice(0, 40000) : ctx,
+        obj => SimSpec.sanitizeLesson({ ...obj, id: undefined, topic: l.topic, base: l.base || l.id, label, createdAt: Date.now() }), my);
+      if (!nl || my !== reqToken) return;
+      if (App.getStudyData() !== data) { panelBusy = false; return; }
+      stop();
+      save(data, nl);
+      panel = null;
+      panelBusy = false;
+      refresh();
+      App.showToast(T('vlPerReady'), 'success');
+    } catch (err) {
+      failPanel(my, err);
+    }
   }
 
   // ----- Rendering -----
@@ -132,7 +352,7 @@ const VideoLesson = (() => {
   function render(el, data) {
     if (el) host = el;
     if (!host || !data) return;
-    if (forData !== data) { stop(); forData = data; mode = 'list'; lessonId = null; index = 0; }
+    if (forData !== data) { stop(); resetUi(); forData = data; mode = 'list'; lessonId = null; index = 0; }
     if (mode === 'player' && lesson() && !busy) { renderPlayer(data); return; }
     stop();
     mode = 'list';
@@ -146,7 +366,7 @@ const VideoLesson = (() => {
     const cards = lessons.map(l => `<div class="vl-card">
         <button class="vl-card-play" data-vl-open="${esc(l.id)}" aria-label="${esc(T('vlPlayLesson', { title: l.title }))}">
           <span class="vl-card-thumb" aria-hidden="true">&#9654;</span>
-          <span class="vl-card-meta"><strong>${esc(l.title)}</strong><span>${T('vlSlides', { n: l.slides.length })} · ~${Math.max(1, Math.round(l.slides.reduce((s, x) => s + duration(x), 0) / 60))} ${T('vlMin')}</span></span>
+          <span class="vl-card-meta"><strong>${esc(l.title)}</strong><span>${l.label ? esc(l.label) + ' · ' : ''}${T('vlSlides', { n: l.slides.length })} · ~${Math.max(1, Math.round(l.slides.reduce((s, x) => s + duration(x), 0) / 60))} ${T('vlMin')}</span></span>
         </button>
         <button class="btn-icon" data-vl-del="${esc(l.id)}" aria-label="${esc(T('vlDelete'))}" title="${esc(T('vlDelete'))}">&#128465;</button>
       </div>`).join('');
@@ -181,13 +401,21 @@ const VideoLesson = (() => {
       acc += duration(s);
       return `<button class="vl-mark" style="left:${left.toFixed(2)}%" data-vl-go="${i}" aria-label="${esc(T('vlGoSlide', { n: i + 1, title: s.title }))}" title="${esc((i + 1) + '. ' + s.title)}"></button>`;
     }).join('');
+    const versions = versionsOf(data.lessons || [], l);
     host.innerHTML = `<div class="vl-wrap">
       <div class="vl-top">
         <button class="btn-ghost" data-vl-act="list">&larr; ${T('vlAll')}</button>
         <h3 class="vl-name">${esc(l.title)}</h3>
       </div>
+      <div class="vl-versions">
+        ${versions.length > 1 ? `<select class="editor-input vl-version" data-vl-version aria-label="${esc(T('vlVersion'))}">${versions.map((v, k) => `<option value="${esc(v.id)}"${v.id === l.id ? ' selected' : ''}>${k + 1}. ${esc(v.label || T('vlOriginal'))}</option>`).join('')}</select>` : ''}
+        <button class="btn-ghost" data-vl-act="version">&#128257; ${T('vlAnother')}</button>
+      </div>
       <div class="vl-player${captions ? ' cc-on' : ''}" data-vl-player tabindex="0" aria-roledescription="${esc(T('vlPlayerRole'))}" aria-label="${esc(l.title)}">
-        <div class="vl-stage" data-vl-stage><div class="vl-caption" data-vl-caption aria-live="polite"></div></div>
+        <div class="vl-stage" data-vl-stage>
+          <button class="vl-confused" data-vl-act="help" title="${esc(T('vlConfused'))} (H)">&#129300; ${T('vlConfused')}</button>
+          <div class="vl-caption" data-vl-caption aria-live="polite"></div>
+        </div>
         <div class="vl-bar">
           <div class="vl-progress" data-vl-seek role="slider" aria-label="${esc(T('vlProgress'))}" aria-valuemin="1" aria-valuemax="${l.slides.length}" aria-valuenow="${index + 1}">
             <div class="vl-progress-fill" data-vl-fill></div>${marks}
@@ -198,13 +426,17 @@ const VideoLesson = (() => {
             <button class="vl-btn" data-vl-act="next" aria-label="${esc(T('vlNext'))}" title="${esc(T('vlNext'))} (→)">&#9197;</button>
             <span class="vl-count" data-vl-count></span>
             <span class="vl-spacer"></span>
+            ${ttsOk() ? `<button class="vl-btn" data-vl-act="voice" aria-label="${esc(T('vlVoiceBtn'))}" title="${esc(T('vlVoiceBtn'))}">&#128266;</button>` : ''}
             <button class="vl-btn vl-rate" data-vl-act="rate" title="${esc(T('vlSpeed'))}">${rate}&times;</button>
             <button class="vl-btn vl-cc${captions ? ' on' : ''}" data-vl-act="cc" aria-pressed="${captions}" title="${esc(T('vlCaptions'))} (C)">CC</button>
             <button class="vl-btn" data-vl-act="full" aria-label="${esc(T('vlFull'))}" title="${esc(T('vlFull'))} (F)">&#x26F6;</button>
           </div>
         </div>
+        <div class="vl-panel" data-vl-panel hidden></div>
       </div>
-      ${ttsOk() ? '' : `<p class="vl-note">${T('vlNoTtsPlayer')}</p>`}
+      <div class="vl-revbar" data-vl-revbar hidden></div>
+      <div class="vl-notice" data-vl-notice role="alert" ${noVoice ? '' : 'hidden'}>${noticeHtml()}</div>
+      <p class="vl-note" data-vl-silentnote ${ttsOk() && !silent ? 'hidden' : ''}>${T('vlNoTtsPlayer')}</p>
       <ol class="vl-outline">${l.slides.map((s, i) => `<li><button class="vl-outline-item" data-vl-go="${i}">${esc(s.title)}</button></li>`).join('')}</ol>
       <div class="vl-foot">
         <button class="btn-ghost" data-vl-act="print">&#128438; ${T('vlPrint')}</button>
@@ -214,6 +446,113 @@ const VideoLesson = (() => {
     </div>`;
     showSlide(0);
     syncControls();
+    drawPanel();
+  }
+
+  // ----- Panels over the player, voice notice, revised-slide bar -----
+
+  function chips(map, labels, attr) {
+    return Object.keys(map).map(k => `<button class="vl-chip" ${attr}="${k}">${esc(i18n.t(labels[k]))}</button>`).join('');
+  }
+
+  function panelHtml() {
+    const T = i18n.t;
+    const l = lesson();
+    if (panelBusy) {
+      return `<div class="vl-panel-busy" role="status"><span class="vl-spin" aria-hidden="true"></span><span>${T(panel === 'version' ? 'vlPerMaking' : 'vlFixing')}</span>
+        <button class="btn-ghost" data-vl-act="panel-cancel">${T('vlCancel')}</button></div>`;
+    }
+    if (panelErr) {
+      return `<p class="vl-panel-error" role="alert">${esc(panelErr)}</p>
+        <div class="vl-panel-actions"><button class="btn-primary" data-vl-act="panel-retry">${T('vlRetry')}</button><button class="btn-ghost" data-vl-act="panel-close">${T('vlClose')}</button></div>`;
+    }
+    if (panel === 'voice') {
+      const lang = (l && lessonLang(l)) || (i18n.getLang() === 'tr' ? 'tr' : 'en');
+      const list = TTS.voicesForLang(lang), saved = TTS.savedVoiceFor(lang);
+      const none = !list.length && TTS.missingVoice(lang);
+      return `<h4 class="vl-panel-title" tabindex="-1">${T('vlVoiceBtn')}</h4>
+        <label class="vl-label" for="vl-voice">${T('vlVoice')}</label>
+        <select id="vl-voice" class="editor-input" data-vl-voice="${lang}"${none ? ' disabled' : ''}>
+          <option value="">${esc(T('vlVoiceAuto'))}</option>
+          ${list.map(v => `<option value="${esc(v.voiceURI)}"${saved && saved.voiceURI === v.voiceURI ? ' selected' : ''}>${esc(v.name)} (${esc(v.lang)})</option>`).join('')}
+        </select>
+        ${none ? `<p class="vl-note">${esc(T('vlVoiceNone', { lang: T(lang === 'tr' ? 'ttsLangTr' : 'ttsLangEn') }))}</p>` : ''}
+        <label class="vl-label" for="vl-speed">${T('vlVoiceSpeed')}: <output data-vl-speed-out>${rate}&times;</output></label>
+        <input id="vl-speed" class="vl-speed" type="range" min="0.75" max="1.25" step="0.05" value="${Math.min(1.25, Math.max(0.75, rate))}" data-vl-speed>
+        <div class="vl-panel-actions"><button class="btn-primary" data-vl-act="voice-test">&#128266; ${T('vlVoiceTest')}</button><button class="btn-ghost" data-vl-act="panel-close">${T('vlClose')}</button></div>`;
+    }
+    if (panel === 'version') {
+      return `<h4 class="vl-panel-title" tabindex="-1">&#128257; ${T('vlAnother')}</h4>
+        <div class="vl-chips">${chips(PERSP_PROMPT, PERSP_LABEL, 'data-vl-persp')}</div>
+        <label class="vl-label" for="vl-persp-text">${T('vlPerText')}</label>
+        <textarea id="vl-persp-text" class="editor-input" rows="2" maxlength="300" placeholder="${esc(T('vlPerHolder'))}"></textarea>
+        <div class="vl-panel-actions"><button class="btn-primary" data-vl-act="persp-go">${T('vlPerGo')}</button><button class="btn-ghost" data-vl-act="panel-close">${T('vlClose')}</button></div>`;
+    }
+    return `<h4 class="vl-panel-title" tabindex="-1">${T('vlHelpTitle')}</h4>
+      <div class="vl-chips">${chips(FIX_PROMPT, FIX_LABEL, 'data-vl-fix')}</div>
+      <label class="vl-label" for="vl-fix-text">${T('vlFixText')}</label>
+      <textarea id="vl-fix-text" class="editor-input" rows="2" maxlength="300" placeholder="${esc(T('vlFixHolder'))}"></textarea>
+      <div class="vl-panel-actions"><button class="btn-primary" data-vl-act="fix-go">${T('vlFixGo')}</button><button class="btn-ghost" data-vl-act="panel-close">${T('vlClose')}</button></div>`;
+  }
+
+  function drawPanel() {
+    const el = host && host.querySelector('[data-vl-panel]');
+    if (!el) return;
+    el.hidden = !panel;
+    el.innerHTML = panel ? panelHtml() : '';
+    el.setAttribute('role', 'dialog');
+    el.setAttribute('aria-label', i18n.t(panel === 'version' ? 'vlAnother' : panel === 'voice' ? 'vlVoiceBtn' : 'vlHelpTitle'));
+    const focus = el.querySelector('.vl-panel-title, .vl-panel-error, .vl-panel-busy button');
+    if (panel && focus) focus.focus({ preventScroll: true });
+  }
+
+  function openPanel(kind) {
+    if (panel === kind) { closePanel(); return; }
+    if (kind === 'help' || kind === 'voice') pause();
+    reqToken++;
+    panel = kind;
+    panelBusy = false;
+    panelErr = '';
+    drawPanel();
+  }
+
+  // Closing (or cancelling) drops a running AI request: its answer is ignored.
+  function closePanel() {
+    reqToken++;
+    panel = null;
+    panelBusy = false;
+    panelErr = '';
+    drawPanel();
+    const p = host && host.querySelector('[data-vl-player]');
+    if (p) p.focus({ preventScroll: true });
+  }
+
+  function noticeHtml() {
+    if (!noVoice) return '';
+    const T = i18n.t;
+    const name = T(noVoice === 'tr' ? 'ttsLangTr' : 'ttsLangEn');
+    return `<strong>${esc(T('vlNoVoiceTitle', { lang: name }))}</strong>
+      <p>${esc(T('vlNoVoiceHow', { lang: name }))}</p>
+      <div class="vl-panel-actions"><button class="btn-primary" data-vl-act="silent">${T('vlSilent')}</button><button class="btn-ghost" data-vl-act="recheck">${T('vlRecheck')}</button></div>`;
+  }
+
+  function drawNotice() {
+    const el = host && host.querySelector('[data-vl-notice]');
+    if (!el) return;
+    el.hidden = !noVoice;
+    el.innerHTML = noticeHtml();
+  }
+
+  function syncRevbar() {
+    const l = lesson();
+    const el = host && host.querySelector('[data-vl-revbar]');
+    if (!l || !el) return;
+    const T = i18n.t;
+    const revised = !!l.slides[index].orig;
+    el.hidden = !revised;
+    el.innerHTML = revised ? `<span>&#9998; ${T('vlRevised')}</span>
+      <button class="btn-ghost" data-vl-act="orig" aria-pressed="${showOrig}">${T(showOrig ? 'vlShowRevised' : 'vlShowOrig')}</button>
+      <button class="btn-ghost" data-vl-act="undo">&#8630; ${T('vlUndo')}</button>` : '';
   }
 
   function slideHtml(data, s, i, n) {
@@ -268,7 +607,7 @@ const VideoLesson = (() => {
     const l = lesson(), data = App.getStudyData();
     const stage = host && host.querySelector('[data-vl-stage]');
     if (!l || !stage) return;
-    const s = l.slides[index];
+    const s = view(l, index);
     const el = document.createElement('div');
     el.className = 'vl-slide' + (dir > 0 ? ' from-right' : dir < 0 ? ' from-left' : '');
     el.dataset.vlSlide = String(index);
@@ -292,6 +631,7 @@ const VideoLesson = (() => {
     elapsed = 0;
     ended = false;
     slideStart = performance.now();
+    syncRevbar();
     drawProgress();
   }
 
@@ -363,7 +703,7 @@ const VideoLesson = (() => {
     clearTimeout(timer);
     slideStart = performance.now();
     elapsed = 0;
-    const s = l.slides[index];
+    const s = view(l, index);
     const done = () => {
       if (my !== token || !playing) return;
       // Short beat between slides, then the next one.
@@ -373,12 +713,17 @@ const VideoLesson = (() => {
         else { playing = false; ended = true; elapsed = duration(s) * 1000; syncControls(); drawProgress(); }
       }, 450);
     };
-    if (ttsOk()) {
+    if (ttsOk() && !silent) {
+      // The narration is spoken in the language of the lesson, whatever the app language.
+      if (noVoice) { noVoice = ''; drawNotice(); }
       TTS.speak(s.narration, cancelled => {
         if (my !== token) return;
         if (cancelled) { playing = false; syncControls(); return; }
         done();
-      }, { rate });
+      }, {
+        rate, lang: lessonLang(l),
+        onNoVoice: lang => { playing = false; noVoice = lang; syncControls(); drawNotice(); }
+      });
     } else {
       // No speech: advance on the estimated reading time.
       timer = setTimeout(done, duration(s) * 1000);
@@ -416,6 +761,7 @@ const VideoLesson = (() => {
     clearTimeout(timer);
     if (playing && ttsOk()) TTS.stop();
     index = to;
+    showOrig = false;
     showSlide(dir);
     if (playing) speakCurrent();
   }
@@ -498,7 +844,7 @@ const VideoLesson = (() => {
     document.addEventListener('click', e => {
       if (!host || !host.contains(e.target)) return;
       const open = e.target.closest('[data-vl-open]');
-      if (open) { stop(); lessonId = open.dataset.vlOpen; mode = 'player'; index = 0; refresh(); return; }
+      if (open) { stop(); resetUi(); lessonId = open.dataset.vlOpen; mode = 'player'; index = 0; refresh(); return; }
       const del = e.target.closest('[data-vl-del]');
       if (del) {
         const data = App.getStudyData();
@@ -509,6 +855,10 @@ const VideoLesson = (() => {
         refresh();
         return;
       }
+      const fix = e.target.closest('[data-vl-fix]');
+      if (fix) { rewriteSlide(fix.dataset.vlFix, panelText('#vl-fix-text')); return; }
+      const persp = e.target.closest('[data-vl-persp]');
+      if (persp) { makeVersion(persp.dataset.vlPersp, panelText('#vl-persp-text')); return; }
       const goBtn = e.target.closest('[data-vl-go]');
       if (goBtn) { go(+goBtn.dataset.vlGo); return; }
       const seek = e.target.closest('[data-vl-seek]');
@@ -529,14 +879,27 @@ const VideoLesson = (() => {
       else if (act === 'next') go(index + 1);
       else if (act === 'prev') go(index - 1);
       else if (act === 'rate') {
-        rate = RATES[(RATES.indexOf(rate) + 1) % RATES.length] || 1;
-        try { localStorage.setItem('flashmind_video_rate', String(rate)); } catch (err) {}
-        btn.innerHTML = rate + '&times;';
+        setRate(RATES.find(r => r > rate + 0.001) || RATES[0]);
         if (playing) { if (ttsOk()) { token++; TTS.stop(); } speakCurrent(); }
       }
       else if (act === 'cc') setCaptions(!captions);
       else if (act === 'full') toggleFull();
-      else if (act === 'list') { stop(); mode = 'list'; refresh(); }
+      else if (act === 'list') { stop(); resetUi(); mode = 'list'; refresh(); }
+      else if (act === 'help') openPanel('help');
+      else if (act === 'version') openPanel('version');
+      else if (act === 'voice') openPanel('voice');
+      else if (act === 'panel-close' || act === 'panel-cancel') closePanel();
+      else if (act === 'panel-retry') { if (lastReq && lastReq.kind === 'version') makeVersion(lastReq.choice, lastReq.text); else if (lastReq) rewriteSlide(lastReq.choice, lastReq.text); }
+      else if (act === 'fix-go') rewriteSlide('', panelText('#vl-fix-text'));
+      else if (act === 'persp-go') {
+        const text = panelText('#vl-persp-text');
+        if (text) makeVersion('', text); else host.querySelector('#vl-persp-text').focus();
+      }
+      else if (act === 'voice-test') testVoice();
+      else if (act === 'orig') { showOrig = !showOrig; if (playing) pause(); showSlide(0); }
+      else if (act === 'undo') undoRevision();
+      else if (act === 'silent') { silent = true; noVoice = ''; drawNotice(); host.querySelector('[data-vl-silentnote]').hidden = false; play(); }
+      else if (act === 'recheck') { noVoice = ''; drawNotice(); play(); }
       else if (act === 'print') printSlides();
       else if (act === 'copy') copyScript();
       else if (act === 'quick') {
@@ -553,12 +916,31 @@ const VideoLesson = (() => {
         generate(sel && sel.value !== '' ? parseInt(sel.value, 10) : null, f ? f.value.trim().slice(0, 200) : '');
       }
     });
+    document.addEventListener('change', e => {
+      if (!host || !host.contains(e.target)) return;
+      if (e.target.matches('[data-vl-version]')) {
+        stop();
+        resetUi();
+        lessonId = e.target.value;
+        index = 0;
+        refresh();
+      } else if (e.target.matches('[data-vl-voice]')) {
+        const lang = e.target.dataset.vlVoice;
+        TTS.setVoice(lang, TTS.voicesForLang(lang).find(v => v.voiceURI === e.target.value) || null);
+      }
+    });
+    document.addEventListener('input', e => {
+      if (!host || !host.contains(e.target) || !e.target.matches('[data-vl-speed]')) return;
+      setRate(parseFloat(e.target.value));
+    });
     document.addEventListener('keydown', e => {
       if (!playerVisible() || e.ctrlKey || e.metaKey || e.altKey) return;
+      if (e.key === 'Escape' && panel) { closePanel(); return; }
       const tag = (e.target.tagName || '').toLowerCase();
       if (tag === 'input' || tag === 'textarea' || tag === 'select' || e.target.isContentEditable) return;
       if (document.querySelector('.shortcuts-backdrop[style*="flex"]')) return;
       const k = e.key;
+      if (panel) return;
       if (k === ' ' || k === 'k' || k === 'K') { e.preventDefault(); playing ? pause() : play(); }
       else if (k === 'ArrowRight' || k === 'l' || k === 'L') { e.preventDefault(); go(index + 1); }
       else if (k === 'ArrowLeft' || k === 'j' || k === 'J') { e.preventDefault(); go(index - 1); }
@@ -566,7 +948,42 @@ const VideoLesson = (() => {
       else if (k === 'End') { e.preventDefault(); go(Infinity); }
       else if (k === 'c' || k === 'C') setCaptions(!captions);
       else if (k === 'f' || k === 'F') toggleFull();
+      else if (k === 'h' || k === 'H') openPanel('help');
     });
+  }
+
+  function panelText(sel) {
+    const el = host && host.querySelector(sel);
+    return el ? el.value.trim().slice(0, 300) : '';
+  }
+
+  function setRate(r) {
+    rate = r;
+    try { localStorage.setItem('flashmind_video_rate', String(rate)); } catch (err) {}
+    if (!host) return;
+    const b = host.querySelector('[data-vl-act="rate"]');
+    if (b) b.innerHTML = rate + '&times;';
+    const out = host.querySelector('[data-vl-speed-out]');
+    if (out) out.innerHTML = rate + '&times;';
+  }
+
+  // Speaks a short sample with the chosen voice and speed, in the lesson's language.
+  function testVoice() {
+    const l = lesson();
+    if (!l || !ttsOk()) return;
+    pause();
+    const lang = lessonLang(l) || (i18n.getLang() === 'tr' ? 'tr' : 'en');
+    TTS.speak(lang === 'tr' ? 'Merhaba! Ders anlatımı bu sesle okunacak. Beni net anlayabiliyor musun?' : 'Hello! The lesson will be read with this voice. Can you hear me clearly?', null, { rate, lang });
+  }
+
+  // Forget panels, notices and "show original" when leaving a lesson.
+  function resetUi() {
+    reqToken++;
+    panel = null;
+    panelBusy = false;
+    panelErr = '';
+    noVoice = '';
+    showOrig = false;
   }
 
   function setCaptions(on) {
@@ -578,5 +995,5 @@ const VideoLesson = (() => {
     if (b) { b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on)); }
   }
 
-  return { init, render, stop, fromNotes, isPlaying: () => playing, _index: () => index };
+  return { init, render, stop, fromNotes, isPlaying: () => playing, _index: () => index, _test: { versionsOf, trimLessons, reviseSlide, undoSlide, paragraphSlides } };
 })();

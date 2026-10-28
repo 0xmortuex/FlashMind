@@ -343,6 +343,8 @@ const PastPaper = (() => {
         }
         const wasOpen = api.isOpen();
         el.innerHTML = `<div class="shortcuts-card ex-panel ${cls}" role="dialog" aria-modal="true">${html}</div>`;
+        const heading = el.querySelector('h2, h3');   // the dialog's accessible name
+        if (heading) { heading.id = heading.id || cls + '-title'; el.firstChild.setAttribute('aria-labelledby', heading.id); }
         el.style.display = 'flex';
         if (!wasOpen) release = FX.trapFocus(el);
       },

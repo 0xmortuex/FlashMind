@@ -1,42 +1,217 @@
 // ===== TTS Module =====
-// Read-aloud via the browser's built-in speechSynthesis — no dependencies,
-// supports the UI languages (tr-TR / en-US). Long text is chunked by sentence
-// because Chrome silently stops long single utterances (~15s bug).
+// Read-aloud via the browser's built-in speechSynthesis — no dependencies.
+// The voice follows the language OF THE TEXT (Turkish study material read in
+// an English-UI app must not go to an en-US voice), detected per sentence
+// chunk; the UI language is only the fallback when a chunk is undetermined.
+// Long text is chunked by sentence because Chrome silently stops long single
+// utterances (~15s bug).
 const TTS = (() => {
   let session = 0; // bumping this cancels any in-flight chunk queue
   let pendingEnd = null; // onEnd of the utterance queue currently speaking
+  const VOICE_KEY = 'flashmind_tts_voices'; // { tr: voiceURI, en: voiceURI } — the student's choice per language
+  const RATE_KEY = 'flashmind_tts_rate';
+  const DEFAULT_RATE = 0.95;
+  const TAGS = { tr: 'tr-TR', en: 'en-US' };
+  const warned = {};
 
   function supported() {
     return 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
   }
 
-  function langTag() {
-    return i18n.getLang() === 'tr' ? 'tr-TR' : 'en-US';
+  function uiLang() {
+    return i18n.getLang() === 'tr' ? 'tr' : 'en';
   }
 
-  function pickVoice(tag) {
-    const voices = speechSynthesis.getVoices() || [];
-    const prefix = tag.slice(0, 2);
-    return voices.find(v => v.lang === tag) || voices.find(v => v.lang && v.lang.startsWith(prefix)) || null;
+  function langTag(lang) {
+    return TAGS[lang] || TAGS[uiLang()];
   }
 
-  // Every installed voice for the UI language, exact locale first (used to
-  // give the two audio-overview hosts different voices).
-  function voicesForLang() {
+  // ----- Language detection -----
+
+  const TR_WORDS = new Set(('ve bir bu için ile de da olan olarak gibi çok daha ise ancak her veya kadar sonra ne mi mı değil var yok ki ya ama hem şu o ben sen biz siz onlar ' +
+    'olur olduğu oldu edilir edilen yapılır yapar eder arasında üzerinde içinde göre ayrıca çünkü bunun bunu bunlar şey nasıl neden hangi kendi tüm bütün en az fakat yani örneğin ' +
+    'dir dır tir tır dur dür bulunur denir denilir sağlar eşittir toplam fark oran sayı değer').split(/\s+/));
+  const EN_WORDS = new Set(('the and is are of to in that for with as this it on by an be was were which from or at not have has can will their its these those when then than also there ' +
+    'what how why because each other into more most such only between about both if so but you your we our they them his her').split(/\s+/));
+
+  // 'tr', 'en', or null when the text gives no evidence either way.
+  function detectLang(text) {
+    const s = String(text || '').replace(/İ/g, 'i').toLowerCase();
+    let tr = (s.match(/[çğış]/g) || []).length * 2 + (s.match(/[öü]/g) || []).length;
+    let en = 0;
+    (s.match(/[a-zçğışöü]+/g) || []).forEach(w => {
+      if (TR_WORDS.has(w)) tr += 2;
+      if (EN_WORDS.has(w)) en += 2;
+    });
+    if (tr === en) return null;
+    return tr > en ? 'tr' : 'en';
+  }
+
+  // ----- Voices -----
+
+  function allVoices() {
+    return supported() ? (speechSynthesis.getVoices() || []) : [];
+  }
+
+  // Higher is better. Natural/online/neural voices sound far better than the
+  // old "Desktop" or espeak ones that browsers often list first.
+  function voiceScore(v, tag) {
+    const n = v.name || '';
+    let s = v.lang && v.lang.replace('_', '-') === tag ? 100 : 0;
+    if (/online|natural|neural/i.test(n)) s += 60;
+    if (/google/i.test(n)) s += 35;
+    if (/\b(emel|yelda|tolga|filiz|selin|ahmet|cem|seda|aria|jenny|guy|samantha|daniel)\b/i.test(n)) s += 20;
+    if (/desktop/i.test(n)) s -= 15;
+    if (/compact/i.test(n)) s -= 30;
+    if (/espeak/i.test(n)) s -= 60;
+    return s;
+  }
+
+  // Every installed voice for a language, best first (exact locale before
+  // prefix match). Without `lang` it is the UI language.
+  function voicesForLang(lang) {
     if (!supported()) return [];
-    const tag = langTag(), prefix = tag.slice(0, 2);
-    const voices = speechSynthesis.getVoices() || [];
-    return voices.filter(v => v.lang === tag).concat(voices.filter(v => v.lang !== tag && v.lang && v.lang.startsWith(prefix)));
+    const tag = langTag(lang), prefix = tag.slice(0, 2);
+    return allVoices()
+      .filter(v => v.lang && v.lang.slice(0, 2).toLowerCase() === prefix)
+      .map((v, i) => ({ v, i, s: voiceScore(v, tag) }))
+      .sort((a, b) => b.s - a.s || a.i - b.i)
+      .map(x => x.v);
   }
 
-  // Speech-friendly text: formula delimiters and LaTeX commands are noise.
-  function speakable(text) {
-    return String(text)
+  function savedVoices() {
+    try { return JSON.parse(localStorage.getItem(VOICE_KEY)) || {}; } catch (e) { return {}; }
+  }
+
+  // The voice the student chose for this language if it is still installed,
+  // else the best ranked one.
+  function pickVoice(lang) {
+    lang = lang || uiLang();
+    const list = voicesForLang(lang);
+    return list.find(v => v.voiceURI === savedVoices()[lang]) || list[0] || null;
+  }
+
+  // The student's own choice only (null = automatic).
+  function savedVoiceFor(lang) {
+    return voicesForLang(lang).find(v => v.voiceURI === savedVoices()[lang]) || null;
+  }
+
+  // voice = null forgets the choice (automatic).
+  function setVoice(lang, voice) {
+    const m = savedVoices();
+    if (voice) m[lang] = voice.voiceURI; else delete m[lang];
+    try { localStorage.setItem(VOICE_KEY, JSON.stringify(m)); } catch (e) {}
+  }
+
+  function getRate() {
+    try { return parseFloat(localStorage.getItem(RATE_KEY)) || DEFAULT_RATE; } catch (e) { return DEFAULT_RATE; }
+  }
+
+  function setRate(r) {
+    try { localStorage.setItem(RATE_KEY, String(r)); } catch (e) {}
+  }
+
+  // True when the device lists voices but none speaks `lang`. An empty list
+  // means the browser has not loaded them yet, which is not "missing".
+  function missingVoice(lang) {
+    return supported() && allVoices().length > 0 && voicesForLang(lang).length === 0;
+  }
+
+  // ----- Speakable text -----
+
+  const GREEK = {
+    tr: { alpha: 'alfa', beta: 'beta', gamma: 'gama', delta: 'delta', theta: 'teta', lambda: 'lambda', mu: 'mü', sigma: 'sigma', omega: 'omega', pi: 'pi', phi: 'fi', epsilon: 'epsilon', rho: 'ro' },
+    en: { alpha: 'alpha', beta: 'beta', gamma: 'gamma', delta: 'delta', theta: 'theta', lambda: 'lambda', mu: 'mu', sigma: 'sigma', omega: 'omega', pi: 'pi', phi: 'phi', epsilon: 'epsilon', rho: 'rho' }
+  };
+  const WORDS = {
+    tr: { frac: 'bölü', sqrt: 'karekök', root: 'dereceden kök', sq: 'kare', cube: 'küp', pow: 'üzeri', sub: 'indis', plus: 'artı', minus: 'eksi', eq: 'eşittir', ne: 'eşit değildir', le: 'küçük eşit', ge: 'büyük eşit', lt: 'küçüktür', gt: 'büyüktür', times: 'çarpı', div: 'bölü', pm: 'artı eksi', approx: 'yaklaşık olarak eşittir', inf: 'sonsuz', sum: 'toplam', int: 'integral', to: 'verir', deg: 'derece', degC: 'derece Santigrat', pct: 'yüzde', in: 'elemanıdır', union: 'birleşim', inter: 'kesişim', lim: 'limit' },
+    en: { frac: 'over', sqrt: 'square root of', root: 'th root of', sq: 'squared', cube: 'cubed', pow: 'to the power of', sub: 'sub', plus: 'plus', minus: 'minus', eq: 'equals', ne: 'is not equal to', le: 'is less than or equal to', ge: 'is greater than or equal to', lt: 'is less than', gt: 'is greater than', times: 'times', div: 'divided by', pm: 'plus or minus', approx: 'is approximately equal to', inf: 'infinity', sum: 'sum', int: 'integral', to: 'gives', deg: 'degrees', degC: 'degrees Celsius', pct: 'percent', in: 'belongs to', union: 'union', inter: 'intersection', lim: 'limit' }
+  };
+  const ABBR = {
+    tr: { 'vb.': 've benzeri', 'vs.': 'vesaire', 'örn.': 'örneğin', 'bkz.': 'bakınız', 'yy.': 'yüzyıl', 'sn.': 'saniye', 'dk.': 'dakika', 'M.Ö.': 'milattan önce', 'M.S.': 'milattan sonra', 'T.C.': 'Türkiye Cumhuriyeti', 'Dr.': 'Doktor', 'Prof.': 'Profesör', 'yak.': 'yaklaşık', 'Sf.': 'sayfa' },
+    en: { 'e.g.': 'for example', 'i.e.': 'that is', 'etc.': 'et cetera', 'vs.': 'versus', 'approx.': 'approximately', 'Dr.': 'Doctor', 'Prof.': 'Professor', 'Fig.': 'Figure' }
+  };
+  const ABBR_ALL = [...new Set([...Object.keys(ABBR.tr), ...Object.keys(ABBR.en)])];
+  const ABBR_RE = new RegExp('(^|[\\s(])(' + ABBR_ALL.map(a => a.replace(/\./g, '\\.')).join('|') + ')(?=\\s|$|[,;)])', 'gi');
+  const DOT = '․'; // keeps an abbreviation's dot from ending the sentence chunk
+
+  // Speech-friendly text in `lang`: markdown, LaTeX and symbols are spoken as
+  // words (or dropped), never read out as "$", "backslash" or braces.
+  function speakable(text, lang) {
+    lang = lang || detectLang(text) || uiLang();
+    const W = WORDS[lang] || WORDS.en;
+    const G = GREEK[lang] || GREEK.en;
+    const sp = w => ' ' + w + ' ';
+    let s = String(text).split(DOT).join('.');
+    // Markdown remnants
+    s = s.replace(/!?\[([^\]]*)\]\([^)]*\)/g, '$1')
+      .replace(/^\s{0,3}#{1,6}\s+/gm, '')
+      .replace(/^\s*>\s?/gm, '')
+      .replace(/^\s*[-*•]\s+/gm, '')
+      .replace(/\*\*|__|~~|`+/g, '')
+      .replace(/(^|[\s(])\*(?=\S)/g, '$1')
+      .replace(/(\S)\*(?=[\s).,;:!?]|$)/g, '$1');
+    // Abbreviations
+    const ab = ABBR[lang] || {};
+    s = s.replace(ABBR_RE, (m, pre, a) => {
+      const key = Object.keys(ab).find(k => k.toLowerCase() === a.toLowerCase());
+      if (!key) return m;
+      const cap = a[0] !== a[0].toLowerCase();
+      return pre + (cap ? ab[key][0].toUpperCase() + ab[key].slice(1) : ab[key]);
+    });
+    // Math delimiters and LaTeX; a hyphen inside a formula is a minus
+    s = s.replace(/\$\$?([^$]+)\$\$?|\\\(([\s\S]*?)\\\)|\\\[([\s\S]*?)\\\]/g, (m, a, b, c) => ' ' + (a || b || c).replace(/-/g, '−') + ' ')
       .replace(/\\[()[\]]|\$+/g, ' ')
-      .replace(/\\(frac|dfrac)\{([^}]*)\}\{([^}]*)\}/g, '$2 / $3')
-      .replace(/\\(cdot|times)/g, ' × ')
-      .replace(/\\([a-zA-Z]+)/g, '$1')
-      .replace(/[{}^_]/g, ' ');
+      .replace(/\\left|\\right|\\displaystyle|\\Big|\\big/g, '')
+      .replace(/\\(?:text|mathrm|mathbf|mathit|textbf|operatorname|mathbb)\s*\{([^{}]*)\}/g, ' $1 ')
+      .replace(/\\[,;:! ]|\\quad|\\qquad/g, ' ')
+      .replace(/\\%/g, '%')
+      .replace(/\^\s*\{?\s*\\circ\s*\}?/g, '°')
+      .replace(/\\circ/g, '°');
+    for (let k = 0; k < 3; k++) {
+      s = s.replace(/\\[dt]?frac\s*\{([^{}]*)\}\s*\{([^{}]*)\}/g, ` $1 ${W.frac} $2 `)
+        .replace(/\\sqrt\s*\[([^\]]*)\]\s*\{([^{}]*)\}/g, ` $1 ${W.root} $2 `)
+        .replace(/\\sqrt\s*\{([^{}]*)\}/g, ` ${W.sqrt} $1 `)
+        .replace(/\\sqrt\s*([a-zA-Z0-9])/g, ` ${W.sqrt} $1 `);
+    }
+    s = s.replace(/√\s*\(([^)]*)\)/g, ` ${W.sqrt} $1 `).replace(/√\s*(\w+)/g, ` ${W.sqrt} $1 `);
+    // Superscripts / subscripts
+    s = s.replace(/²/g, '^2').replace(/³/g, '^3')
+      .replace(/\^\s*\{?\s*2\s*\}?(?![\d.])/g, sp(W.sq))
+      .replace(/\^\s*\{?\s*3\s*\}?(?![\d.])/g, sp(W.cube))
+      .replace(/\^\s*\{([^{}]*)\}/g, ` ${W.pow} $1 `)
+      .replace(/\^\s*(-?\w)/g, ` ${W.pow} $1 `);
+    // Chemical subscripts (CO_2, H_{12}) are spoken in sequence; others get "indis".
+    s = s.replace(/([A-Za-z0-9)\]])_(\{[^{}]*\}|\w)/g, (m, pre, sub) => {
+      const body = sub.replace(/[{}]/g, '');
+      return /[A-Z)]/.test(pre) ? `${pre} ${body} ` : `${pre} ${W.sub} ${body} `;
+    });
+    // Commands with a spoken equivalent, then Greek letters, then the bare name.
+    const cmd = { times: W.times, cdot: W.times, div: W.div, pm: W.pm, leq: W.le, le: W.le, geq: W.ge, ge: W.ge, neq: W.ne, ne: W.ne, approx: W.approx, infty: W.inf, sum: W.sum, int: W.int, to: W.to, rightarrow: W.to, Rightarrow: W.to, in: W.in, cup: W.union, cap: W.inter, lim: W.lim };
+    s = s.replace(/\\([a-zA-Z]+)/g, (m, name) => {
+      if (cmd[name]) return sp(cmd[name]);
+      return G[name.toLowerCase()] ? sp(G[name.toLowerCase()]) : ' ' + name + ' ';
+    });
+    // Unicode and plain symbols
+    const pct = lang === 'tr' ? `${W.pct} $1 ` : `$1 ${W.pct} `;
+    s = s.replace(/[×·⋅]/g, sp(W.times)).replace(/÷/g, sp(W.div)).replace(/±/g, sp(W.pm))
+      .replace(/≤|<=/g, sp(W.le)).replace(/≥|>=/g, sp(W.ge)).replace(/≠/g, sp(W.ne)).replace(/≈/g, sp(W.approx))
+      .replace(/∞/g, sp(W.inf)).replace(/∑/g, sp(W.sum)).replace(/∫/g, sp(W.int)).replace(/[→⟶⇒]/g, sp(W.to))
+      .replace(/∈/g, sp(W.in)).replace(/∪/g, sp(W.union)).replace(/∩/g, sp(W.inter))
+      .replace(/[πΠ]/g, ' pi ').replace(/Δ/g, sp(G.delta)).replace(/α/g, sp(G.alpha)).replace(/β/g, sp(G.beta))
+      .replace(/θ/g, sp(G.theta)).replace(/λ/g, sp(G.lambda)).replace(/μ/g, sp(G.mu)).replace(/σ/g, sp(G.sigma)).replace(/ω/g, sp(G.omega))
+      .replace(/°\s*C\b/g, sp(W.degC)).replace(/°/g, sp(W.deg))
+      .replace(/(\d+(?:[.,]\d+)?)\s*%/g, pct).replace(/%\s*(\d+(?:[.,]\d+)?)/g, pct).replace(/%/g, sp(W.pct))
+      .replace(/−/g, sp(W.minus))
+      .replace(/(\d+(?:[.,]\d+)?|\b[a-zA-Z]\b|\))\s+-\s+(?=\d|\b[a-zA-Z]\b|\()/g, `$1 ${W.minus} `)
+      .replace(/([=(]\s*)-(?=\d)/g, `$1${W.minus} `)
+      .replace(/\+/g, sp(W.plus))
+      .replace(/(\w)\s*\*\s*(\w)/g, `$1 ${W.times} $2`)
+      .replace(/=/g, sp(W.eq))
+      .replace(/\s<\s/g, sp(W.lt)).replace(/\s>\s/g, sp(W.gt))
+      .replace(/(\d|\b[a-zA-Z])\s*\/\s*(\d+|[a-zA-Z])(?![\w])/g, `$1 ${W.div} $2`);
+    // Whatever is left of the TeX markup
+    return s.replace(/\\/g, ' ').replace(/[{}^_]/g, ' ').replace(/[ \t]+/g, ' ').trim();
   }
 
   // Split into ~220-char chunks on sentence boundaries.
@@ -59,16 +234,46 @@ const TTS = (() => {
     return chunks.filter(Boolean);
   }
 
+  // One entry per utterance: { text, lang }. Language is detected per sentence
+  // and neighbouring sentences of one language are chunked together. An
+  // undetermined sentence keeps the previous one's language, the first one falls
+  // back to `hint`, then the language of the whole text, then the UI language.
+  function plan(text, hint) {
+    const protectedText = String(text).replace(ABBR_RE, (m, pre, a) => pre + a.split('.').join(DOT)).replace(/\s+/g, ' ');
+    let prev = hint || detectLang(text) || uiLang();
+    const groups = [];
+    (protectedText.match(/[^.!?…]+[.!?…]*/g) || [protectedText]).forEach(sent => {
+      const lang = detectLang(sent) || prev;
+      prev = lang;
+      const last = groups[groups.length - 1];
+      if (last && last.lang === lang) last.text += sent; else groups.push({ lang, text: sent });
+    });
+    return groups.flatMap(g => chunk(g.text).map(c => ({ text: speakable(c, g.lang), lang: g.lang }))).filter(p => p.text);
+  }
+
+  function notifyMissing(lang) {
+    if (warned[lang] || typeof App === 'undefined' || !App.showToast) return;
+    warned[lang] = true;
+    App.showToast(i18n.t('ttsNoVoice', { lang: i18n.t(lang === 'tr' ? 'ttsLangTr' : 'ttsLangEn') }), 'error');
+  }
+
   // onEnd(cancelled) runs once: when the text finishes, or with `true` when
-  // another speak()/stop() cuts it off. opts: { voice, pitch, rate }.
+  // another speak()/stop() cuts it off. opts: { lang (fallback), voice, pitch,
+  // rate, onNoVoice(lang) }. If a language of the text has no installed voice
+  // nothing is spoken (never the wrong-language voice): onNoVoice(lang) is
+  // called, or a toast explains it, and onEnd(false) runs.
   function speak(text, onEnd, opts) {
     if (!supported() || !text) { if (onEnd) onEnd(false); return; }
     stop();
     const mySession = ++session;
-    const tag = langTag();
     const o = opts || {};
-    const voice = o.voice || pickVoice(tag);
-    const chunks = chunk(speakable(text));
+    const queue = plan(text, o.lang);
+    const absent = [...new Set(queue.map(q => q.lang))].find(missingVoice);
+    if (absent) {
+      if (o.onNoVoice) o.onNoVoice(absent); else notifyMissing(absent);
+      if (onEnd) onEnd(false);
+      return;
+    }
     let idx = 0;
     pendingEnd = onEnd || null;
     const finish = () => {
@@ -80,11 +285,14 @@ const TTS = (() => {
 
     function next() {
       if (mySession !== session) return; // cancelled
-      if (idx >= chunks.length) { finish(); return; }
-      const u = new SpeechSynthesisUtterance(chunks[idx++]);
-      u.lang = tag;
+      if (idx >= queue.length) { finish(); return; }
+      const q = queue[idx++];
+      const u = new SpeechSynthesisUtterance(q.text);
+      u.lang = langTag(q.lang);
+      // A caller-chosen voice only counts when it speaks this chunk's language.
+      const voice = o.voice && o.voice.lang && o.voice.lang.slice(0, 2).toLowerCase() === q.lang ? o.voice : pickVoice(q.lang);
       if (voice) u.voice = voice;
-      u.rate = o.rate || 1;
+      u.rate = o.rate || getRate();
       u.pitch = o.pitch || 1;
       u.onend = next;
       u.onerror = finish;
@@ -105,5 +313,5 @@ const TTS = (() => {
     return supported() && speechSynthesis.speaking;
   }
 
-  return { supported, speak, stop, isSpeaking, voicesForLang, speakable };
+  return { supported, speak, stop, isSpeaking, voicesForLang, speakable, detectLang, pickVoice, savedVoiceFor, setVoice, getRate, setRate, missingVoice, langTag };
 })();

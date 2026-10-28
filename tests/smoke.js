@@ -739,6 +739,21 @@ const path = require('node:path');
     await page.evaluate(() => MebIndex.close());
   });
 
+  await step('exams: every MEB library card shows a grade chip and no card with a study set says "Grade not stated"', async () => {
+    const lacking = await page.evaluate(async () => (await (await fetch('data/meb/index.json')).json()).filter(r => !r.g.length).map(r => ({ id: r.id, set: !!r.set, t: r.t })));
+    console.log('      cards still without a grade: ' + lacking.length + ' (' + lacking.filter(r => r.set).length + ' with a study set)');
+    lacking.forEach(r => console.log('        ' + (r.set ? '[set] ' : '') + r.id + ' ' + r.t));
+    if (lacking.some(r => r.set)) throw new Error(lacking.filter(r => r.set).length + ' cards with a study set have no grade');
+    await page.evaluate(() => MebIndex.open());
+    await page.waitForSelector('.meb-panel .meb-row', { timeout: 5000 });
+    await page.$eval('.meb-panel [data-meb-year=""]', b => b.click());
+    await page.select('#meb-grade', '0'); await page.select('#meb-type', ''); await page.select('#meb-subject', '');
+    const chips = await page.$$eval('.meb-panel .meb-row', rs => rs.map(r => ({ set: !!r.querySelector('.meb-set-btn'), g: [...r.querySelectorAll('.meb-grade')].map(e => e.textContent) })));
+    if (chips.some(c => c.g.length !== 1)) throw new Error('a card has no single grade chip');
+    if (chips.some(c => c.set && c.g[0] === 'Grade not stated')) throw new Error('a card with a study set says Grade not stated');
+    await page.evaluate(() => MebIndex.close());
+  });
+
   await step('exams: a MEB library file opens as a ready-made study set (2026-2027 first, deck, notes, cards, quiz, Ask AI context)', async () => {
     const fixture = JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures/meb-set-a1.json'), 'utf8'));
     // Serve the fixture for one 2026-2027 library entry; everything else is the real index.
@@ -934,6 +949,49 @@ const path = require('node:path');
     await page.evaluate(() => { window.fetch = window.__scenFetch; Decks.remove(Decks.getActive().id); App.openDeck(window.__prevDeck); App.switchTab('quiz'); });
   });
 
+  await step('exams: Senaryolar offers "All topics — whole course" per course and a national exam points to it', async () => {
+    const fx = JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures/scen-fixture.json'), 'utf8'));
+    await page.evaluate(fx => {
+      window.__scenFetch = window.fetch;
+      window.fetch = (u, ...a) => {
+        const m = String(u).match(/data\/meb\/scen\/(spec|bank)\/.*$/);
+        if (!m) return window.__scenFetch.call(window, u, ...a);
+        return Promise.resolve(new Response(JSON.stringify(m[1] === 'spec' ? fx.spec : fx.bank), { status: 200 }));
+      };
+      window.__prevDeck = Decks.getActive().id; window.__decks = Decks.list().length;
+      MebIndex.open({ tab: 'scen' });
+    }, fx);
+    await page.waitForSelector('.meb-panel .scen-course', { timeout: 5000 });
+    await page.$eval('.meb-panel [data-scen-grade="0"]', b => b.click());
+    await page.select('#scen-sheet', 'fx000001.0');
+    // The national exam row: the note and a button to the whole-course notebook, not a scenario button.
+    await page.$eval('.meb-panel [data-scen-exam="1"]', b => b.click());
+    const nat = await page.evaluate(() => ({
+      note: document.querySelector('.meb-panel .scen-national + .meb-note').textContent,
+      btns: [...document.querySelectorAll('.meb-panel [data-scen-act="course"]')].map(b => b.textContent.trim()),
+      open: document.querySelectorAll('.meb-panel [data-scen-act="open"]').length
+    }));
+    if (nat.note !== 'MEB has published the topics but not the question counts yet — study the whole-course notebook.' || nat.btns.length !== 2 || nat.open) throw new Error('national row: ' + JSON.stringify(nat));
+    await page.$eval('.meb-panel .scen-national ~ .meb-actions [data-scen-act="course"]', b => b.click());
+    const title = 'Biyoloji 9 · Tüm konular · Bütün ders';
+    await page.waitForFunction(t => (App.getStudyData() || {}).title === t, { timeout: 5000 }, title);
+    const got = await page.evaluate(() => {
+      const d = App.getStudyData();
+      return {
+        decks: Decks.list().length, before: window.__decks, meta: Decks.getActive().data.meta,
+        libOpen: [...document.querySelectorAll('.shortcuts-backdrop')].some(e => e.style.display !== 'none'),
+        quiz: d.quiz.length, scen: d.quiz.filter(q => q.scenarioExam).length, cats: [...new Set(d.quiz.map(q => q.category))],
+        summary: document.querySelector('#tab-notes .notes-summary').textContent,
+        sections: document.querySelectorAll('#tab-notes .notes-section').length,
+        lines: getComputedStyle(document.querySelector('#tab-notes .notes-summary')).whiteSpace
+      };
+    });
+    if (got.decks !== got.before + 1 || got.meta.kind !== 'course' || got.meta.fileId !== 'fx000001' || got.libOpen) throw new Error('deck: ' + JSON.stringify(got).slice(0, 300));
+    if (got.quiz !== 21 || got.scen || got.cats.length !== 4 || !got.cats.every(c => /^Konu: /.test(c)) || got.sections !== 5) throw new Error('counts: ' + JSON.stringify(got).slice(0, 300));
+    if (!/tüm 4 kazanımının notu/.test(got.summary) || !/FX\.1 · Hücre Yapısı: 1–3 soru/.test(got.summary) || got.lines !== 'pre-line') throw new Error('summary: ' + got.summary.slice(0, 200));
+    await page.evaluate(() => { window.fetch = window.__scenFetch; Decks.remove(Decks.getActive().id); App.openDeck(window.__prevDeck); App.switchTab('quiz'); });
+  });
+
   await step('exams: a photographed handwritten answer is OCRed, corrected and graded', async () => {
     await page.evaluate(() => {
       window.__ex.graded = null;
@@ -1105,6 +1163,100 @@ const path = require('node:path');
     if (await page.evaluate(() => VideoLesson.isPlaying())) throw new Error('pause failed');
     if (!await page.evaluate(() => Decks.getActive().data.lessons[0].slides[1].formula.startsWith('6CO_2'))) throw new Error('lesson not saved');
     await page.evaluate(() => Object.assign(TTS, window.__tts));
+    await page.click('[data-notes-view="notes"]');
+  });
+
+  await step('video lesson: Turkish voice for Turkish text, "I didn\'t understand" rewrites + speaks the slide, another version saved and switchable, no-voice message', async () => {
+    await page.evaluate(() => { VideoLesson.stop(); delete App.getStudyData().lessons; });
+    await page.click('[data-notes-view="video"]');
+    await page.evaluate(() => {
+      window.__sv = { chat: API.chat, speak: speechSynthesis.speak, cancel: speechSynthesis.cancel, voices: speechSynthesis.getVoices, utt: window.SpeechSynthesisUtterance };
+      window.__utt = [];
+      window.__asked = [];
+      window.__voices = [{ name: 'Microsoft Zira', lang: 'en-US', voiceURI: 'zira' }, { name: 'Microsoft Tolga', lang: 'tr-TR', voiceURI: 'tolga' }, { name: 'Microsoft Emel Online (Natural)', lang: 'tr-TR', voiceURI: 'emel' }];
+      speechSynthesis.getVoices = () => window.__voices;
+      speechSynthesis.cancel = () => {};
+      speechSynthesis.speak = u => { window.__utt.push({ text: u.text, lang: u.lang, voice: u.voice && u.voice.name }); setTimeout(() => u.onend && u.onend(), window.__delay || 30); };
+      window.SpeechSynthesisUtterance = function (t) { this.text = t; };
+      const lesson = (title, label) => JSON.stringify({ title, slides: [
+        { title: 'Fotosentez nedir', bullets: [], narration: 'Fotosentez bitkilerin ışığı kullanarak besin üretmesidir. Bu olay yaprakların içinde gerçekleşir ve çok önemlidir.' },
+        { title: 'Denklem', bullets: ['Işık gerekir'], formula: 'x^2 + 1', narration: 'Denklemde x kare artı bir vardır. Burada x bilinmeyen sayıdır.' },
+        { title: 'Özet', bullets: ['Işık ve su'], narration: 'Özetle bitkiler ışık ve suyla besin üretir. Bu kadar basit.' }
+      ] });
+      window.__mode = 'ok';
+      API.chat = async q => {
+        window.__asked.push(q);
+        if (window.__mode === 'rate') throw new Error('HTTP 429');
+        if (window.__mode === 'junk') return 'not json at all';
+        if (/did not understand ONE slide/.test(q)) return JSON.stringify({ title: 'Daha basit anlatım', bullets: ['Bitki ışıkla besin yapar'], formula: '$x^2$', narration: 'Şöyle düşün. Bitki güneş ışığını alır ve kendine besin yapar. Tıpkı bir mutfak gibi çalışır.' });
+        return /beginners/.test(q) ? lesson('Basit versiyon') : lesson('Fotosentez dersi');
+      };
+    });
+    if (await page.$('[data-vl-act="list"]')) await page.click('[data-vl-act="list"]');
+    await page.waitForSelector('[data-vl-act="generate"]', { timeout: 2000 });
+    await page.click('[data-vl-act="generate"]');
+    await page.waitForSelector('.vl-slide.in', { timeout: 3000 });
+    const origId = await page.evaluate(() => Decks.getActive().data.lessons.slice(-1)[0].id);
+    // The app is not in Turkish, the text is: the voice must be the best Turkish one.
+    await page.click('[data-vl-act="toggle"]');
+    await page.waitForFunction(() => window.__utt.length >= 1, { timeout: 3000 });
+    const first = await page.evaluate(() => window.__utt[0]);
+    if (first.lang !== 'tr-TR' || first.voice !== 'Microsoft Emel Online (Natural)') throw new Error('wrong voice ' + JSON.stringify(first));
+    // I didn't understand: key H pauses and opens the panel.
+    await page.focus('[data-vl-player]');
+    await page.keyboard.press('h');
+    await page.waitForSelector('.vl-panel:not([hidden]) [data-vl-fix="simple"]', { timeout: 2000 });
+    if (await page.evaluate(() => VideoLesson.isPlaying())) throw new Error('H did not pause');
+    const at = await page.evaluate(() => VideoLesson._index());
+    // Worker unreachable / rate limit / junk: explicit error, lesson untouched.
+    await page.evaluate(() => { window.__mode = 'rate'; });
+    await page.click('[data-vl-fix="simple"]');
+    await page.waitForSelector('.vl-panel-error', { timeout: 2000 });
+    if (!/minute/.test(await page.$eval('.vl-panel-error', el => el.textContent))) throw new Error('rate limit text');
+    await page.evaluate(() => { window.__mode = 'junk'; window.__asked.length = 0; });
+    await page.click('[data-vl-act="panel-retry"]');
+    await page.waitForFunction(() => document.querySelector('.vl-panel-error') && /not usable/.test(document.querySelector('.vl-panel-error').textContent), { timeout: 3000 });
+    if (await page.evaluate(() => window.__asked.length) !== 2) throw new Error('invalid JSON was not retried exactly once');
+    if (await page.evaluate(i => !!Decks.getActive().data.lessons.slice(-1)[0].slides[i].orig, at)) throw new Error('failed request changed the lesson');
+    await page.evaluate(() => { window.__mode = 'ok'; window.__utt.length = 0; window.__delay = 500; });
+    await page.click('[data-vl-act="panel-retry"]');
+    await page.waitForFunction(i => Decks.getActive().data.lessons.slice(-1)[0].slides[i].orig, { timeout: 3000 }, at);
+    await page.waitForFunction(() => window.__utt.some(u => /mutfak/.test(u.text)), { timeout: 3000 });
+    const spoken = await page.evaluate(() => window.__utt.find(u => /mutfak/.test(u.text)));
+    if (spoken.lang !== 'tr-TR') throw new Error('revised slide not spoken in Turkish');
+    await page.waitForFunction(() => document.querySelector('.vl-slide.in:not(.leaving) .vl-slide-title').textContent === 'Daha basit anlatım', { timeout: 2000 });
+    const saved = await page.evaluate(i => { const s = Decks.getActive().data.lessons.slice(-1)[0].slides[i]; return s.orig.title + '|' + s.formula; }, at);
+    if (!saved.endsWith('|x^2')) throw new Error('revision not sanitized/saved ' + saved);
+    // Show original / undo.
+    await page.waitForSelector('[data-vl-revbar]:not([hidden]) [data-vl-act="orig"]', { timeout: 2000 });
+    await page.click('[data-vl-act="orig"]');
+    await page.waitForFunction(() => document.querySelector('.vl-slide.in:not(.leaving) .vl-slide-title').textContent !== 'Daha basit anlatım', { timeout: 2000 });
+    await page.click('[data-vl-act="orig"]');
+    await page.click('[data-vl-act="undo"]');
+    await page.waitForFunction(i => !Decks.getActive().data.lessons.slice(-1)[0].slides[i].orig, { timeout: 2000 }, at);
+    await page.evaluate(() => VideoLesson.stop());
+    // Another version: saved next to the original, switchable, original untouched.
+    await page.click('[data-vl-act="version"]');
+    await page.click('[data-vl-persp="simple"]');
+    await page.waitForSelector('[data-vl-version]', { timeout: 3000 });
+    const v = await page.evaluate(() => { const L = Decks.getActive().data.lessons; return L.length + '|' + L[L.length - 1].base + '|' + L[L.length - 1].label + '|' + L[L.length - 1].title; });
+    if (v !== `2|${origId}|Simpler (for beginners)|Basit versiyon`) throw new Error('version ' + v);
+    if (await page.$$eval('[data-vl-version] option', o => o.length) !== 2) throw new Error('version dropdown');
+    await page.select('[data-vl-version]', origId);
+    await page.waitForFunction(() => document.querySelector('.vl-name').textContent === 'Fotosentez dersi', { timeout: 2000 });
+    if (await page.evaluate(() => Decks.getActive().data.lessons[0].title) !== 'Fotosentez dersi') throw new Error('original overwritten');
+    // No Turkish voice installed: explicit message, then continue silently.
+    await page.evaluate(() => { window.__voices = [window.__voices[0]]; window.__utt.length = 0; });
+    await page.click('[data-vl-act="toggle"]');
+    await page.waitForSelector('[data-vl-notice]:not([hidden]) [data-vl-act="silent"]', { timeout: 2000 });
+    if (await page.evaluate(() => window.__utt.length) !== 0) throw new Error('spoke with the wrong voice');
+    await page.click('[data-vl-act="silent"]');
+    await page.waitForFunction(() => VideoLesson.isPlaying() && document.querySelector('[data-vl-notice]').hidden, { timeout: 2000 });
+    await page.evaluate(() => {
+      VideoLesson.stop();
+      const s = window.__sv;
+      API.chat = s.chat; speechSynthesis.speak = s.speak; speechSynthesis.cancel = s.cancel; speechSynthesis.getVoices = s.voices; window.SpeechSynthesisUtterance = s.utt;
+    });
     await page.click('[data-notes-view="notes"]');
   });
 
@@ -1457,6 +1609,113 @@ const path = require('node:path');
     await page.evaluate(() => window.__btl[2].emit({ t: 'error', code: 'kicked' }));
     await page.waitForFunction(() => /removed you/.test(document.querySelector('.btl-overlay').textContent), { timeout: 2000 });
     await page.evaluate(() => Battle.exit());
+  });
+
+  await step('topics: a notes topic opens a 3-option menu; bookmark persists across reload; Ask AI and the audio overview work (mocked API and TTS)', async () => {
+    await page.evaluate(() => {
+      const deck = Decks.save({
+        title: 'Topic Notebook', meta: { fileId: 'fxtopic1', kind: 'scenario', scenario: 1 },
+        notes: { summary: 's', sections: [
+          { title: 'Section A', content: 'Alpha content SENTINEL-TOPIC-A.', bulletPoints: ['a1'], keyTerms: [] },
+          { title: 'Section B', content: 'Beta content.', bulletPoints: [], keyTerms: [] }] },
+        flashcards: [], quiz: []
+      }, '');
+      window.__topicDeck = deck.id;
+      App.openDeck(deck.id);
+      App.switchTab('notes');
+      // An earlier step may have left the Notes tab on its Labs or Video view.
+      const toNotes = document.querySelector('[data-notes-view="notes"]'); if (toNotes) toNotes.click();
+    });
+    await page.waitForSelector('#tab-notes .topic-btn');
+    const open = async () => { await page.click('#tab-notes .topic-btn[data-topic="0"]'); await page.waitForSelector('.topic-menu [role="menuitem"]'); };
+    await open();
+    const items = await page.$$eval('.topic-menu [role="menuitem"]', els => els.map(e => e.textContent.trim()));
+    if (items.length !== 3 || !/Bookmark this topic/.test(items[0]) || !/Ask AI/.test(items[1]) || !/Audio overview/.test(items[2])) throw new Error('menu: ' + JSON.stringify(items));
+    if (await page.$eval('#tab-notes .topic-btn', b => b.getAttribute('aria-haspopup') + b.getAttribute('aria-expanded')) !== 'menutrue') throw new Error('aria attrs');
+    // Keyboard: arrows move, Escape closes and returns focus to the title.
+    await page.keyboard.press('ArrowDown');
+    if (await page.evaluate(() => document.activeElement.dataset.topicAct) !== 'ask') throw new Error('arrow down');
+    await page.keyboard.press('Escape');
+    if (await page.$('.topic-menu')) throw new Error('escape did not close');
+    if (!await page.evaluate(() => document.activeElement.classList.contains('topic-btn'))) throw new Error('focus not restored');
+    // Outside click closes.
+    await open();
+    await page.mouse.click(5, 5);
+    if (await page.$('.topic-menu')) throw new Error('outside click did not close');
+    // Bookmark, then the menu shows the Bookmarked / Remove state.
+    await open();
+    await page.click('.topic-menu [data-topic-act="bookmark"]');
+    const saved = await page.evaluate(() => ({ n: Decks.getActive().data.bookmarks.length, cls: document.querySelector('#tab-notes .topic-btn').className, count: document.querySelector('.topic-saved-count').textContent }));
+    if (saved.n !== 1 || !/bookmarked/.test(saved.cls) || saved.count !== '1') throw new Error('bookmark: ' + JSON.stringify(saved));
+    await open();
+    if (!/Bookmarked.*Remove/.test(await page.$eval('.topic-menu [data-topic-act="bookmark"]', b => b.textContent))) throw new Error('remove state');
+    await page.keyboard.press('Escape');
+    // Reload: the bookmark is still there and listed under Saved topics.
+    await page.reload({ waitUntil: 'networkidle2' });
+    await page.evaluate(() => { App.openDeck(Decks.list().find(d => d.data.title === 'Topic Notebook').id); App.switchTab('notes'); });
+    await page.waitForSelector('#tab-notes .topic-btn.bookmarked');
+    await page.click('.topic-saved-btn');
+    const listed = await page.$$eval('.topic-menu [data-topic-act="goto"]', els => els.map(e => e.lastElementChild.textContent.trim()));
+    if (listed.join() !== 'Section A') throw new Error('saved list: ' + listed);
+    await page.click('.topic-menu [data-topic-act="goto"]');
+    if (await page.$('.topic-menu')) throw new Error('saved menu stayed open');
+    // Ask AI: the chat opens with the topic and sends it once, with the section text as extra context.
+    await page.evaluate(() => { window.__asks = []; API.chat = async (msg, ctx) => { window.__asks.push({ msg, ctx }); return '{"answer":"ok"}'; }; });
+    await open();
+    await page.click('.topic-menu [data-topic-act="ask"]');
+    await page.waitForFunction(() => window.__asks.length === 1 && document.querySelector('#tab-chat.active .chat-message.ai'), { timeout: 3000 });
+    const ask = await page.evaluate(() => ({ asks: window.__asks, bubble: document.querySelector('#chat-messages .chat-message.user .chat-bubble').textContent }));
+    if (ask.bubble !== 'Explain this topic to me like a teacher: Section A' || !ask.asks[0].msg.startsWith(ask.bubble) || !/SENTINEL-TOPIC-A/.test(ask.asks[0].ctx)) throw new Error('ask: ' + JSON.stringify(ask));
+    // Audio overview: loading, then playback through (mocked) TTS with the pause and stop controls.
+    await page.evaluate(() => {
+      App.switchTab('notes');
+      window.__spoken = [];
+      TTS.supported = () => true;
+      TTS.stop = () => { const cb = window.__ttsCb; window.__ttsCb = null; if (cb) cb(true); };
+      TTS.speak = (text, cb) => { window.__spoken.push(text); window.__ttsCb = cb; };
+      window.__audioMode = 'slow';
+      API.chat = (msg) => new Promise((res, rej) => {
+        window.__audioPrompt = msg;
+        window.__audioFinish = () => window.__audioMode === 'fail' ? rej(new Error('HTTP 429')) : res(JSON.stringify({ type: 'audio', title: 'About A', lines: [{ speaker: 'A', text: 'Line one.' }, { speaker: 'B', text: 'Line two.' }] }));
+      });
+    });
+    await open();
+    await page.click('.topic-menu [data-topic-act="audio"]');
+    await page.waitForSelector('[data-topic-audio-box="0"] .topic-spin');
+    await page.evaluate(() => window.__audioFinish());
+    await page.waitForSelector('[data-topic-audio-box="0"] [data-topic-audio-act="pause"]', { timeout: 3000 });
+    if (!await page.evaluate(() => /Section A/.test(window.__audioPrompt) && window.__spoken[0] === 'Line one.')) throw new Error('audio did not start');
+    await page.evaluate(() => window.__ttsCb(false)); // line one ends: line two starts
+    await page.waitForFunction(() => window.__spoken[1] === 'Line two.');
+    await page.click('[data-topic-audio-act="pause"]');
+    await page.waitForSelector('[data-topic-audio-act="play"]');
+    await page.click('[data-topic-audio-act="stop"]');
+    await page.waitForSelector('[data-topic-audio-act="play"]');
+    const cached = await page.evaluate(() => Object.keys(Decks.getActive().data.topicAudio || {}).length);
+    if (cached !== 1) throw new Error('script not cached on the deck');
+    // Close it, then try the other topic with a rate-limited AI, then retry.
+    await page.click('[data-topic-audio-act="close"]');
+    await page.evaluate(() => { window.__audioMode = 'fail'; });
+    await page.click('#tab-notes .topic-btn[data-topic="1"]');
+    await page.waitForSelector('.topic-menu [role="menuitem"]');
+    await page.click('.topic-menu [data-topic-act="audio"]');
+    await page.evaluate(() => window.__audioFinish());
+    await page.waitForSelector('[data-topic-audio-box="1"] [role="alert"]', { timeout: 3000 });
+    if (!/rate limited/.test(await page.$eval('[data-topic-audio-box="1"] [role="alert"]', el => el.textContent))) throw new Error('rate limit message');
+    await page.evaluate(() => { window.__audioMode = 'slow'; });
+    await page.click('[data-topic-audio-act="retry"]');
+    await page.waitForSelector('[data-topic-audio-box="1"] .topic-spin');
+    await page.evaluate(() => window.__audioFinish());
+    await page.waitForSelector('[data-topic-audio-box="1"] [data-topic-audio-act="pause"]', { timeout: 3000 });
+    // Phone width: the menu is a bottom sheet inside the viewport.
+    await page.setViewport({ width: 390, height: 844 });
+    await page.$eval('#tab-notes .topic-btn[data-topic="1"]', b => b.click()); // a toast can sit over the title at this width
+    await page.waitForSelector('.topic-menu [role="menuitem"]');
+    const sheet = await page.$eval('.topic-menu', m => { const r = m.getBoundingClientRect(); return { left: r.left, right: r.right, bottom: r.bottom, w: document.documentElement.scrollWidth }; });
+    await page.keyboard.press('Escape');
+    await page.setViewport({ width: 1280, height: 900 });
+    if (sheet.left !== 0 || sheet.right !== 390 || Math.abs(sheet.bottom - 844) > 1 || sheet.w > 390) throw new Error('sheet: ' + JSON.stringify(sheet));
+    await page.evaluate(() => { TTS.stop(); Decks.remove(window.__topicDeck); });
   });
 
   console.log(errors.length ? 'ERRORS:\n' + errors.join('\n') : 'NO CONSOLE/PAGE ERRORS');

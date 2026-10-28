@@ -31,7 +31,7 @@ const MebSets = (() => {
 
   // The saved deck made from this library file, if any (a scenario notebook shares the file id but is not the file's own set).
   function findDeck(fileId) {
-    return Decks.list().find(d => d.data && d.data.meta && d.data.meta.fileId === fileId && d.data.meta.kind !== 'scenario') || null;
+    return Decks.list().find(d => d.data && d.data.meta && d.data.meta.fileId === fileId && !['scenario', 'course'].includes(d.data.meta.kind)) || null;
   }
 
   // ---------- open ----------
@@ -68,6 +68,7 @@ const MebSets = (() => {
     const existing = findDeck(entry.id);
     if (existing && confirm(i18n.t('mebSetExists', { t: existing.data.title }))) { show(existing.id); return existing.id; }
     const promise = (async () => {
+      if (!(await StorageGuard.ensureRoom((entry.sz || 200) * 1024))) return null;   // not enough storage: the user decides first
       const { raw, via } = await fetchSet(entry);
       const data = prepare(raw, entry, via);
       const id = App.mergeIntoDeck(null, data);

@@ -5,8 +5,10 @@
 // built, its study bank (bank/<bank>.json), composes the notebook with
 // ScenarioSet.compose and saves it as a NEW deck through App.mergeIntoDeck, like
 // any imported set. A failure is thrown to the row (with Retry), never papered
-// over. Exams without scenarios (national ortak yazılı) are listed but not
-// openable; scenarios whose bank is not built yet say so. The helpers at the
+// over. Every course with a bank also offers "All topics — whole course"
+// (ScenarioSet.composeCourse): all its outcomes, cards and questions in one
+// notebook; that is also what a national exam without a scenario table points to.
+// Scenarios whose bank is not built yet say so. The helpers at the
 // top are pure (covered by regression tests).
 const MebScen = (() => {
   const BASE = 'data/meb/scen/';
@@ -14,6 +16,7 @@ const MebScen = (() => {
 
   // ---------- pure helpers ----------
   const keyOf = e => `${e.fileId}.${e.si}.${e.ei}.${e.n}`;
+  const courseKey = s => 'course.' + s.key;
 
   // Throws on anything the UI could not render or open safely.
   function validateIndex(items) {
@@ -58,7 +61,8 @@ const MebScen = (() => {
   // The grade of the open deck when it states one (decks made from MEB files do), else 0.
   function activeGrade() {
     const deck = typeof Decks !== 'undefined' ? Decks.getActive() : null;
-    const g = deck && deck.data && deck.data.meta && Array.isArray(deck.data.meta.grade) ? deck.data.meta.grade[0] : 0;
+    const mg = deck && deck.data && deck.data.meta ? deck.data.meta.grade : 0;
+    const g = Array.isArray(mg) ? mg[0] : mg;   // sets store a list, older scenario decks a number
     return GRADES.includes(g) ? g : 0;
   }
 
@@ -70,6 +74,14 @@ const MebScen = (() => {
     }) || null;
   }
 
+  // The saved whole-course notebook of this course (a sheet from sheetsOf), if any.
+  function findCourseDeck(s) {
+    return Decks.list().find(d => {
+      const m = d.data && d.data.meta;
+      return m && m.kind === 'course' && m.fileId === s.fileId && m.sheet === s.sheet;
+    }) || null;
+  }
+
   // Composed set -> study data; the exam block must survive normalisation with exactly the table's count.
   function prepare(set, e) {
     const data = Parser.normalizeStudyData(set);
@@ -77,6 +89,17 @@ const MebScen = (() => {
     if (exam !== e.total) throw new Error(`scenario exam has ${exam} questions, the table says ${e.total}`);
     if (!data.notes.sections.length || !data.flashcards.length) throw new Error('scenario notebook has no notes or cards');
     if (!data.sources || !data.sources.length) throw new Error('scenario notebook has no table source');
+    return data;
+  }
+
+  // The whole-course notebook must keep every kazanım note and every composed question.
+  function prepareCourse(set) {
+    const data = Parser.normalizeStudyData(set);
+    const c = set.meta.counts;
+    if (data.quiz.length !== c.questions) throw new Error(`course notebook has ${data.quiz.length} questions, composed ${c.questions}`);
+    if (data.notes.sections.length < c.kazanim) throw new Error(`course notebook has ${data.notes.sections.length} note sections for ${c.kazanim} outcomes`);
+    if (!data.flashcards.length) throw new Error('course notebook has no cards');
+    if (!data.sources || !data.sources.length) throw new Error('course notebook has no table source');
     return data;
   }
 
@@ -135,8 +158,31 @@ const MebScen = (() => {
     const existing = findDeck(e);
     if (existing && confirm(i18n.t('scenExists', { t: existing.data.title }))) { show(existing.id); return existing.id; }
     const promise = (async () => {
+      if (!(await StorageGuard.ensureRoom(ScenarioSet.MAX_BYTES))) return null;
       const [{ sheet, k }, bank] = await Promise.all([located(e), getBank(e.bank)]);
       const id = App.mergeIntoDeck(null, prepare(ScenarioSet.compose(bank, sheet, e.ei, k), e));
+      show(id);
+      return id;
+    })();
+    opening = { key, promise };
+    try { return await promise; } finally { opening = null; }
+  }
+
+  // s = a sheet from sheetsOf. Resolves to the deck id that was opened, or null.
+  async function openCourse(s) {
+    if (!s || !s.fileId) throw new Error('No course given');
+    if (!s.bank) throw new Error(i18n.t('scenSoon'));
+    const key = courseKey(s);
+    if (opening) {
+      if (opening.key === key) return opening.promise;
+      throw new Error(i18n.t('scenBusy'));
+    }
+    const existing = findCourseDeck(s);
+    if (existing && confirm(i18n.t('scenExists', { t: existing.data.title }))) { show(existing.id); return existing.id; }
+    const promise = (async () => {
+      if (!(await StorageGuard.ensureRoom(ScenarioSet.MAX_BYTES))) return null;
+      const [spec, bank] = await Promise.all([getSpec(s.fileId), getBank(s.bank)]);
+      const id = App.mergeIntoDeck(null, prepareCourse(ScenarioSet.composeCourse(bank, ScenarioSet.withFile(spec, s.si))));
       show(id);
       return id;
     })();
@@ -180,6 +226,22 @@ const MebScen = (() => {
     </li>`;
   }
 
+  // "All topics — whole course" for a course with a bank (not a scenario row: it has no table count).
+  function courseHtml(s) {
+    const key = courseKey(s);
+    const busy = state.busy && state.busy.key === key, failed = state.err && state.err.key === key;
+    return `<ul class="meb-list"><li class="scen-course" data-row="${esc(key)}">
+      <div class="scen-row-head"><span class="scen-row-title">${T('scenCourseTitle')}</span></div>
+      <p class="meb-note">${T('scenCourseText')}</p>
+      ${failed ? `<p class="meb-error" role="alert">${esc(T('scenFail', { e: state.err.msg }))}</p>` : ''}
+      <div class="meb-actions">${courseButton(s, busy, failed)}</div>
+    </li></ul>`;
+  }
+  function courseButton(s, busy, failed) {
+    return `<button class="btn-primary scen-open-btn" data-scen-act="course" data-key="${esc(s.key)}"${state.busy ? ' disabled' : ''}${busy ? ' aria-busy="true"' : ''}>
+      ${busy ? `<span class="spinner" aria-hidden="true"></span> ${T('mebSetOpening')}` : `&#127891; ${T(failed ? 'mebRetry' : 'scenCourseOpen')}`}</button>`;
+  }
+
   function chip(attr, value, label, pressed) {
     return `<button type="button" class="meb-fchip" ${attr}="${esc(value)}" aria-pressed="${pressed}">${esc(label)}</button>`;
   }
@@ -213,8 +275,9 @@ const MebScen = (() => {
         ${sheet.exams.map(x => chip('data-scen-exam', x.ei, x.exam + (x.national ? ' · ' + T('scenNationalShort') : ''), x.ei === state.ei)).join('')}
       </div>
       <div class="meb-count" aria-live="polite">${exam && !exam.national ? T('scenCount', { n: exam.scenarios.length }) : ''}</div>
+      ${sheet.bank ? courseHtml(sheet) : ''}
       ${exam && exam.national
-        ? `<p class="scen-national">${T('scenNational')}</p><p class="meb-note">${T('scenNationalNote')}</p>`
+        ? `<p class="scen-national">${T('scenNational')}</p><p class="meb-note">${T('scenNationalNote')}</p>${sheet.bank ? `<div class="meb-actions">${courseButton(sheet, false, false)}</div>` : `<span class="meb-soon">${T('scenSoon')}</span>`}`
         : `<ul class="meb-list">${exam.scenarios.map(rowHtml).join('')}</ul>`}`
         : `<p class="meb-empty">${T('scenNone')}</p>`}`;
   }
@@ -252,7 +315,7 @@ const MebScen = (() => {
     try {
       await work();
     } catch (err) {
-      state.err = { key, msg: err && err.message ? err.message : String(err) };
+      state.err = { key, msg: typeof navigator !== 'undefined' && navigator.onLine === false ? i18n.t('mebOffline') : err && err.message ? err.message : String(err) };
     } finally {
       state.busy = null;
     }
@@ -275,6 +338,12 @@ const MebScen = (() => {
       const b = ev.target.closest('[data-scen-act]');
       if (!b || b.disabled) return;
       if (b.dataset.scenAct === 'retry') { render(host); return; }
+      if (b.dataset.scenAct === 'course') {
+        const s = data.sheets.find(x => x.key === b.dataset.key);
+        if (!s) throw new Error('Unknown course ' + b.dataset.key);
+        run(courseKey(s), 'course', () => openCourse(s));
+        return;
+      }
       const e = data.items.find(it => keyOf(it) === b.dataset.key);
       if (!e) throw new Error('Unknown scenario ' + b.dataset.key);
       if (b.dataset.scenAct === 'open') run(b.dataset.key, 'open', () => open(e));
@@ -287,5 +356,5 @@ const MebScen = (() => {
 
   if (typeof document !== 'undefined') document.addEventListener('DOMContentLoaded', init);
 
-  return { validateIndex, sheetsOf, filterSheets, subjectsOf, gradesOf, activeGrade, findDeck, prepare, keyOf, load, open, applyProfile, render };
+  return { validateIndex, sheetsOf, filterSheets, subjectsOf, gradesOf, activeGrade, findDeck, prepare, prepareCourse, findCourseDeck, keyOf, courseKey, load, open, openCourse, applyProfile, render };
 })();

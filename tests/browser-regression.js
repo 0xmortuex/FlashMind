@@ -9,7 +9,6 @@ const puppeteer = require('puppeteer');
     page.on('pageerror', e => errors.push(e.message));
     const base = process.env.BASE_URL || 'http://localhost:4173/';
     await page.goto(base, { waitUntil: 'networkidle2' });
-    await page.click('#demo-btn');
     async function check(name, fn) { await fn(); console.log('PASS  ' + name); }
 
     await check('hostile AI follow-ups are text and send the exact original string', async () => {
@@ -169,8 +168,8 @@ const puppeteer = require('puppeteer');
         document.querySelector('.meb-panel [data-meb-act="open"]').click();
         for (let i = 0; i < 50 && !document.querySelector('.meb-panel .meb-row'); i++) await new Promise(r => setTimeout(r, 100));
         const rows = document.querySelectorAll('.meb-panel .meb-row').length;
-        // A fresh visit leads with 2026-2027, and every row shows its school year.
-        const lead = document.querySelector('.meb-panel [data-meb-year][aria-pressed="true"]').dataset.mebYear === '2026-2027' && [...document.querySelectorAll('.meb-panel .meb-year')].every(e => e.textContent === '2026-2027');
+        // A fresh visit lists everything (All years, so year-less files and the grade filters are not hidden); every row shows a year or "Year not stated".
+        const lead = document.querySelector('.meb-panel [data-meb-year][aria-pressed="true"]').dataset.mebYear === '' && !!document.querySelector('.meb-panel [data-meb-year="none"]') && document.querySelectorAll('.meb-panel .meb-year').length > 0;
         const links = [...document.querySelectorAll('.meb-panel .meb-open')].every(a => a.target === '_blank' && /noopener/.test(a.rel) && /^https:\/\//.test(a.href));
         document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
         return { failed, rows: rows > 0, lead, links, closed: document.querySelector('.meb-panel').parentElement.style.display === 'none' };
@@ -182,6 +181,44 @@ const puppeteer = require('puppeteer');
       await page.goto(base + '?offline-regression=1', { waitUntil: 'domcontentloaded' });
       await page.waitForFunction(() => typeof App !== 'undefined' && !!document.querySelector('#study-view.active'));
       await page.setOfflineMode(false);
+    });
+
+    // At 390 px no screen may be wider than the viewport (the logo glow once made the home page 46 px too wide).
+    await check('no horizontal overflow at 390 px on home, notes, quiz, stats and both library tabs (dark and light)', async () => {
+      await page.goto(base, { waitUntil: 'networkidle2' });   // back to the home screen
+      await page.evaluate(() => { if (!document.querySelector('#input-view.active')) document.getElementById('back-to-input').click(); });
+      await page.setViewport({ width: 390, height: 844 });
+      const wide = async name => {
+        const m = await page.evaluate(() => {
+          const iw = window.innerWidth;
+          const over = [...document.querySelectorAll('body *')].filter(e => { const b = e.getBoundingClientRect(); return b.width && b.right > iw + 1 && getComputedStyle(e).position !== 'fixed'; })
+            .slice(0, 6).map(e => `${e.tagName.toLowerCase()}${e.id ? '#' + e.id : ''}.${String(e.className).trim().split(/\s+/).join('.')} right=${Math.round(e.getBoundingClientRect().right)}`);
+          return { sw: document.documentElement.scrollWidth, iw, over };
+        });
+        assert.ok(m.sw <= m.iw, `${name}: scrollWidth ${m.sw} > innerWidth ${m.iw}; wider than the viewport: ${m.over.join(' | ')}`);
+      };
+      const themes = t => page.evaluate(t => { if (t === 'light') document.documentElement.dataset.theme = 'light'; else delete document.documentElement.dataset.theme; }, t);
+      for (const theme of ['dark', 'light']) { await themes(theme); await wide('home (' + theme + ')'); }
+      await page.click('#demo-btn');
+      await page.waitForSelector('#study-view.active');
+      for (const theme of ['dark', 'light']) {
+        await themes(theme);
+        for (const tab of ['notes', 'quiz', 'stats']) {
+          await page.evaluate(t => App.switchTab(t), tab);
+          await new Promise(r => setTimeout(r, 300));
+          // The new tab slides in from 26 px to the right (tabSlideLeft); measure once every finite animation has ended, not after a fixed delay.
+          await page.waitForFunction(() => document.getAnimations().every(a => a.effect.getComputedTiming().iterations === Infinity || a.playState === 'finished'), { timeout: 5000 });
+          await wide(`${tab} (${theme})`);
+        }
+        for (const t of ['files', 'scen']) {
+          await page.evaluate(t => MebIndex.open({ tab: t }), t);
+          await page.waitForSelector(t === 'files' ? '.meb-panel .meb-row' : '.meb-panel .scen-course', { timeout: 5000 });
+          await wide(`library ${t} (${theme})`);
+          await page.evaluate(() => MebIndex.close());
+        }
+      }
+      await themes('dark');
+      await page.setViewport({ width: 1280, height: 900 });
     });
     assert.deepEqual(errors, []);
     console.log('ALL BROWSER REGRESSIONS PASSED');

@@ -7,6 +7,8 @@ i18n.add('en', {
   mebSearch: 'Search title, subject or year',
   mebAllGrades: 'All grades',
   mebGradeN: 'Grade {n}',
+  mebGradesN: 'Grades {n}',
+  mebGradeNone: 'Grade not stated',
   mebAllTypes: 'All exam types',
   mebAllSubjects: 'All subjects',
   mebType_lgs: 'LGS',
@@ -22,6 +24,7 @@ i18n.add('en', {
   'mebType_ogm-kazanim': 'OGM kazanım kavrama',
   'mebType_ogm-kazanim-bazli': 'OGM unit activity',
   mebCount: '{n} files',
+  mebProfileMulti: 'This table mixes several grades, so one averaged profile would fit none of them. Use the Scenarios tab for a per-grade topic profile.',
   mebNoGradeNote: 'Files whose name does not state a grade only appear under “All grades”.',
   mebNone: 'No files match these filters.',
   mebLoading: 'Loading the MEB library…',
@@ -57,7 +60,15 @@ i18n.add('en', {
   mebStatSections: '{n} sections',
   mebStatSectionsOne: '{n} section',
   mebSrcLink: 'Source: MEB (official file)',
-  mebVersionN: 'Version {v}'
+  mebVersionN: 'Version {v}',
+  guardTitle: 'Not enough browser storage',
+  guardText: 'FlashMind keeps your decks in this browser, and about {n} KB more will not fit. Delete a deck you no longer need, or open this one without saving.',
+  guardDelete: 'Delete',
+  guardAnyway: 'Open without saving',
+  guardCancel: 'Cancel',
+  guardBanner: 'This deck is NOT saved: browser storage is full. Export it or delete other decks before you leave, or it will be lost.',
+  mebOffline: 'You are offline, and this has not been opened before. Connect once to open it; it works offline afterwards.',
+  mebSubjectCleared: 'The subject filter “{s}” was cleared: no file matches it with the other filters.'
 });
 
 i18n.add('tr', {
@@ -68,6 +79,8 @@ i18n.add('tr', {
   mebSearch: 'Başlık, ders veya yıl ara',
   mebAllGrades: 'Tüm sınıflar',
   mebGradeN: '{n}. sınıf',
+  mebGradesN: '{n}. sınıf',
+  mebGradeNone: 'Sınıf belirtilmemiş',
   mebAllTypes: 'Tüm sınav türleri',
   mebAllSubjects: 'Tüm dersler',
   mebType_lgs: 'LGS',
@@ -83,6 +96,7 @@ i18n.add('tr', {
   'mebType_ogm-kazanim': 'OGM kazanım kavrama',
   'mebType_ogm-kazanim-bazli': 'OGM kazanım bazlı etkinlik',
   mebCount: '{n} dosya',
+  mebProfileMulti: 'Bu tablo birkaç sınıfı karıştırır; tek bir ortalama profil hiçbirine uymaz. Sınıfa özel konu profili için Senaryolar sekmesini kullan.',
   mebNoGradeNote: 'Adında sınıf belirtilmeyen dosyalar yalnızca “Tüm sınıflar”da görünür.',
   mebNone: 'Bu filtrelere uyan dosya yok.',
   mebLoading: 'MEB kütüphanesi yükleniyor…',
@@ -118,5 +132,13 @@ i18n.add('tr', {
   mebStatSections: '{n} bölüm',
   mebStatSectionsOne: '{n} bölüm',
   mebSrcLink: 'Kaynak: MEB (resmî dosya)',
-  mebVersionN: '{v} kitapçığı'
+  mebVersionN: '{v} kitapçığı',
+  guardTitle: 'Tarayıcı depolaması yetersiz',
+  guardText: 'FlashMind destelerini bu tarayıcıda saklar ve yaklaşık {n} KB daha sığmıyor. İşine yaramayan bir desteyi sil ya da bunu kaydetmeden aç.',
+  guardDelete: 'Sil',
+  guardAnyway: 'Kaydetmeden aç',
+  guardCancel: 'Vazgeç',
+  guardBanner: 'Bu deste KAYDEDİLMEDİ: tarayıcı depolaması dolu. Ayrılmadan önce dışa aktar veya başka desteleri sil, yoksa kaybolur.',
+  mebOffline: 'Çevrimdışısın ve bu daha önce açılmamış. Bir kez bağlanıp aç; sonra çevrimdışı da çalışır.',
+  mebSubjectCleared: '“{s}” ders filtresi temizlendi: diğer filtrelerle eşleşen dosya yok.'
 });

@@ -13,7 +13,7 @@ function modules(initial = {}, extras = {}) {
     localStorage: { getItem: k => storage.get(k) ?? null, setItem: (k, v) => storage.set(k, v), removeItem: k => storage.delete(k) },
     App: { showToast() {} }, ...extras
   });
-  for (const file of ['simspec', 'parser', 'decks', 'stats', 'api', 'sources', 'planner', 'adaptive', 'insights', 'pastpaper', 'mebindex', 'mebsets', 'scenarioset', 'mebscen', 'paperreview', 'memory', 'predictor', 'concepts', 'coach', 'live-core', 'class-core']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/', file + '.js'), 'utf8'), ctx);
+  for (const file of ['simspec', 'parser', 'decks', 'stats', 'api', 'sources', 'planner', 'adaptive', 'insights', 'pastpaper', 'mebindex', 'storageguard', 'mebsets', 'scenarioset', 'mebscen', 'paperreview', 'memory', 'predictor', 'concepts', 'coach', 'live-core', 'class-core']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/', file + '.js'), 'utf8'), ctx);
   return { ctx, storage, run: code => vm.runInContext(code, ctx) };
 }
 
@@ -1066,7 +1066,7 @@ test('MEB generator infers grade and subject from explicit names only', async ()
   const { index } = build(mebFixture);
   const at = end => index.find(r => r.u.endsWith(end));
   const gs = end => [at(end).g, at(end).s, at(end).x];
-  assert.deepEqual(gs('/2025sozel.pdf'), [[8], 'Sözel', 'lgs']);
+  assert.deepEqual(gs('/2025sozel.pdf'), [[8], 'LGS Sözel', 'lgs']);
   assert.deepEqual(gs('/konusoru/cog9.pdf'), [[9], 'Coğrafya', 'konu']);                 // cog9
   assert.deepEqual(gs('/9_10sinifB.pdf'), [[9, 10], '', 'bursluluk']);                  // manifest said [1]
   assert.deepEqual(gs('/11_fiz_1.pdf'), [[11], 'Fizik', 'sinif']);
@@ -1078,6 +1078,130 @@ test('MEB generator infers grade and subject from explicit names only', async ()
   assert.deepEqual(gs('/reading.pdf'), [[11, 12], 'İngilizce', 'yks']);
   assert.equal(at('/fizik.pdf').y, '');
   assert.equal(at('/reading.pdf').mb, null);
+});
+test('MEB generator: identical titles get a friendly suffix (unit, readable file-name words, else (2), (3)), never an opaque stem', async () => {
+  const { disambiguate } = await mebGen();
+  const run = (x, rows) => {
+    const index = rows.map(([stem, unit], i) => ({ id: 'e' + i, t: 'Başlık', g: [9], s: 'Fizik', x }));
+    disambiguate(index, new Map(rows.map(([stem, unit], i) => ['e' + i, { stem, unit: unit || '' }])));
+    return index.map(r => r.t);
+  };
+  assert.deepEqual(run('ogm-kazanim-bazli', [['2mfwtdyc51h', 'Isı'], ['llwv3xo5fby', 'Elektrik']]), ['Başlık — Isı', 'Başlık — Elektrik']);
+  assert.deepEqual(run('ogm-kazanim-bazli', [['2mfwtdyc51h', 'Isı'], ['llwv3xo5fby', 'Isı'], ['05prucgpsol', 'Isı']]), ['Başlık', 'Başlık (2)', 'Başlık (3)']);
+  assert.deepEqual(run('ortak', [['7S_Turkce_Sabah_Cevap'], ['7S_Turkce_ogle_Cevap'], ['7S_Turkce_Mazeret_Sabah_Cevap']]), ['Başlık — Sabah', 'Başlık — Öğle', 'Başlık — Mazeret Sabah']);
+  assert.deepEqual(run('konu', [['dkab_lise2'], ['dkab_orta3']]), ['Başlık — Lise', 'Başlık — Orta']);
+  assert.deepEqual(run('lgs', [['a_2026_sayisal'], ['b_2026_sayisal']]), ['Başlık — A', 'Başlık — B']);
+  assert.deepEqual(run('acik', [['6a60828016fd_x1y2z3q4w5'], ['9b60828016fd_x1y2z3q4w6']]), ['Başlık', 'Başlık (2)']);   // random-looking stems carry no words
+  assert.deepEqual(run('konu', [['cydem_ing5_2'], ['cydem_ing6_2']]), ['Başlık', 'Başlık (2)']);                    // bare numbers say nothing
+  assert.deepEqual(run('sinif', [['x']]), ['Başlık']);                                                              // a unique title is left alone
+  // a long title keeps its suffix
+  const long = [{ id: 'a', t: 'U'.repeat(158), g: [], s: '', x: 'ortak' }, { id: 'b', t: 'U'.repeat(158), g: [], s: '', x: 'ortak' }];
+  disambiguate(long, new Map([['a', { stem: 'Sabah', unit: '' }], ['b', { stem: 'Ogle', unit: '' }]]));
+  assert.ok(long.every(r => r.t.length <= 160) && long[0].t.endsWith(' — Sabah') && long[1].t.endsWith(' — Öğle'));
+});
+test('committed MEB index: no two titles of one type + grade + subject are identical and no title ends in an opaque file stem', () => {
+  const index = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/meb/index.json'), 'utf8'));
+  const keys = index.map(r => [r.x, r.g.join(','), r.s, r.t].join('|'));
+  assert.equal(new Set(keys).size, keys.length);
+  const opaque = r => { const m = r.t.match(/ — ([a-z0-9]{6,})$/); return !!m && /\d/.test(m[1]) && !/^[a-z]+\d{0,2}$/.test(m[1]) && !/^\d{4}[a-z]+$/.test(m[1]) && !/^\d[a-z]{3,}\d?$/.test(m[1]); };
+  const bad = index.filter(opaque);
+  console.log('      titles ending in a random-looking stem: ' + bad.length);
+  assert.deepEqual(bad.map(r => r.t), []);
+  assert.deepEqual(index.filter(r => r.x === 'ogm-kazanim-bazli' && / — /.test(r.t)).map(r => r.t), []);   // the OGM titles carry the activity name, ' (2)' or the unit, never a file stem
+});
+test('MEB generator: an entry without a grade takes it from its konu sheet names or its study set, never from a guess', async () => {
+  const { build, setGrades } = await mebGen();
+  assert.deepEqual(setGrades({ grade: [9, 10, 11, 12] }, 'x'), [9, 10, 11, 12]);
+  assert.deepEqual(setGrades({ grade: ['10', '11'] }, 'x'), [10, 11]);
+  assert.deepEqual(setGrades({ grade: ['Açık Lise 9-12'] }, 'x'), [9, 10, 11, 12]);
+  assert.deepEqual(setGrades({}, 'x'), []);
+  assert.throws(() => setGrades({ grade: ['lise'] }, 'x'), /cannot read meta.grade/);
+  assert.throws(() => setGrades({ grade: 9 }, 'x'), /not a list/);
+  const rec = (name, extra) => ({ title: 'Oturum', pageTitle: 'Açık öğretim', examType: 'Acik Ogretim', fileUrl: 'https://odsgm.meb.gov.tr/' + name + '.pdf', schoolYear: '2025-2026', sourcePage: 'https://odsgm.meb.gov.tr/p', ...extra });
+  const id = name => build({ ods2: [rec(name)] }).index[0].id;
+  const set = meta => ({ bytes: 10, data: { meta } });
+  const sets = new Map([[id('a'), set({ grade: ['Açık Lise 9-12'] })], [id('b'), set({ grade: [7] })], [id('c'), set({})],
+    [id('d'), { bytes: 10, data: {}, alias: id('b') }]]);
+  const g = name => build({ ods2: [rec(name)], sets }).index[0].g;
+  assert.deepEqual(g('a'), [9, 10, 11, 12]);
+  assert.deepEqual(g('b'), [7]);
+  assert.deepEqual(g('c'), []);                                       // the set states no grade: stays unknown
+  assert.deepEqual(g('d'), [7]);                                      // an alias follows its primary
+  assert.deepEqual(g('e'), []);                                       // no set
+  assert.deepEqual(build({ ods2: [rec('a')] }).index[0].g, []);       // without --sets nothing changes
+  assert.throws(() => build({ ods2: [rec('f')], sets: new Map([[id('f'), set({ grade: ['x'] })]]) }), /cannot read meta.grade/);
+  // konu tables: the sheet names of the workbook
+  const konu = sheets => ({ title: '1. Donem Konu Soru Dagilim Tablosu 2026-2027 - Biyoloji', pageTitle: '1. Dönem Konu Soru Dağılım Tabloları', examType: 'Ortak Yazili - Konu Soru Dagilim', fileUrl: 'https://cdn.eba.gov.tr/ankmeb11', schoolYear: '2026-2027',
+    topicDistribution: sheets.map(sheet => ({ sheet, rows: [] })) });
+  const kg = sheets => build({ ods2: [konu(sheets)] }).index[0].g;
+  assert.deepEqual(kg(['9. SINIF', '10. SINIF', '11. SINIF', '12. SINIF T.C.INKILAP TARİHİ']), [9, 10, 11, 12]);
+  assert.deepEqual(kg(['5. sınıf ', '6.sınıf']), [5, 6]);
+  assert.deepEqual(kg(['Sayfa1']), []);
+  assert.equal(build({ ods2: [konu(['9. SINIF', '10. SINIF'])] }).index[0].t.startsWith('9–10. sınıf'), true);
+});
+test('MEB library grade chip: single grade, contiguous range, list and unknown', () => {
+  const words = { mebGradeN: 'Grade {n}', mebGradesN: 'Grades {n}', mebGradeNone: 'Grade not stated' };
+  const { run } = modules({}, { i18n: { t: (k, p) => (words[k] || k).replace(/\{(\w+)\}/g, (_, a) => p[a]), getLang: () => 'en' } });
+  const chip = g => run(`MebIndex.gradeLabel(${JSON.stringify(g)})`);
+  assert.equal(chip([10]), 'Grade 10');
+  assert.equal(chip([9, 10, 11, 12]), 'Grades 9–12');
+  assert.equal(chip([11, 12]), 'Grades 11–12');
+  assert.equal(chip([9, 11]), 'Grades 9, 11');
+  assert.equal(chip([]), 'Grade not stated');
+});
+test('MEB library: a multi-grade entry is listed under every grade it covers', () => {
+  const { ctx, run } = modules();
+  ctx.items = [{ ...mebItems[0], id: 'm1', g: [9, 10, 11, 12], x: 'konu' }, { ...mebItems[1], id: 'm2', g: [] }];
+  for (const grade of [9, 10, 11, 12]) assert.deepEqual(mebIds(run, { grade }), ['m1']);
+  assert.deepEqual(mebIds(run, { grade: 8 }), []);
+  assert.deepEqual(mebIds(run, {}), ['m1', 'm2']);                      // ungraded entries stay under "All grades"
+});
+test('MEB generator: subject, year, titles and grades from the sources that state them (set meta, URL folder, file names)', async () => {
+  const { build } = await mebGen();
+  const rec = (examType, file, extra) => ({ title: 'T', pageTitle: 'P', examType, fileUrl: 'https://cdn.eba.gov.tr/yardimcikaynaklar/' + file, schoolYear: '2025-2026', sourcePage: 'https://odsgm.meb.gov.tr/www/x/icerik/0', ...extra });
+  const one = (r, sets) => build({ ods2: [r], sets }).index[0];
+  // school year of a sinif file = its CDN folder, not the manifest's current year; no folder = not stated
+  assert.equal(one(rec('Sinif Ici Olcme / Destek Materyal', '2022/01/11_sos_1.pdf')).y, '2021-2022');
+  assert.equal(one(rec('Sinif Ici Olcme / Destek Materyal', '2024/11/x.pdf')).y, '2024-2025');
+  assert.equal(one(rec('Sinif Ici Olcme / Destek Materyal', 'x.pdf')).y, '');
+  const sos = one(rec('Sinif Ici Olcme / Destek Materyal', '2022/01/11_sos_1.pdf'));
+  assert.deepEqual([sos.g, sos.s, sos.p], [[11], 'Sosyoloji', '']);                  // lise Tekrar Testi; /icerik/0 is a dead page
+  // grade from the file name: publisher konu files, ita8; sinif booklets only when the title states none
+  assert.deepEqual(one(rec('Ortak Yazili - Konu Soru Dagilim', 'cydem_ing5_2.pdf', { title: 'ÇYDEM-İngilizce' })).g, [5]);
+  assert.deepEqual(one(rec('Ortak Yazili - Konu Soru Dagilim', 'turk7meb.pdf', { title: 'Türkçe MEB Yayınları' })).g, [7]);
+  const ita = one(rec('Ortak Yazili - Konu Soru Dagilim', 'ita8.pdf', { title: 'T.C. İnkılap Tarihi ve Atatürkçülük' }));
+  assert.deepEqual([ita.g, ita.s], [[8], 'İnkılap Tarihi']);
+  assert.deepEqual(one(rec('Sinif Ici Olcme / Destek Materyal', 'matematik3.pdf', { title: 'Biçimlendirici Değerlendirme' })).g, [3]);
+  assert.deepEqual(one(rec('Sinif Ici Olcme / Destek Materyal', 'turkce5.pdf', { title: '1.Sınıf Etkinlik Fasikülleri' })).g, [1]);
+  // subject and title from the set; edition B swaps the booklet letter; LGS sections are 'LGS Sözel' / 'LGS Sayısal'
+  const lgs = rec('LGS', '2026/05/b_2026_x.pdf');
+  const id = one(lgs).id;
+  const set = { bytes: 10, data: { title: 'LGS 2026 Sözel Bölüm - A Kitapçığı', meta: { subject: 'Sözel' } } };
+  const e = one(lgs, new Map([[id, set]]));
+  assert.deepEqual([e.s, e.t], ['LGS Sözel', 'LGS 2026 Sözel Bölüm - A Kitapçığı']);
+  const two = build({ ods2: [lgs, rec('LGS', '2026/05/c_2026_x.pdf')], sets: new Map([[id, set], [one(rec('LGS', '2026/05/c_2026_x.pdf')).id, { bytes: 1, data: {}, alias: id, version: 'B' }]]) }).index;
+  assert.ok(two.some(r => r.t === 'LGS 2026 Sözel Bölüm - B Kitapçığı'));
+  assert.equal(one(rec('Ortak Yazili Sinav', 'x.pdf'), new Map([[one(rec('Ortak Yazili Sinav', 'x.pdf')).id, { bytes: 1, data: { meta: { subject: 'Çoklu ders (42 ders)' } } }]])).s, '');   // multi-subject stays blank
+  const mat = one(rec('Ortak Yazili Sinav', 'y.pdf'), new Map([[one(rec('Ortak Yazili Sinav', 'y.pdf')).id, { bytes: 1, data: { meta: { subject: 'Türk Dili ve Edebiyatı' } } }]]));
+  assert.equal(mat.s, 'Türkçe / Edebiyat');
+  // Turkish letters come back in titles built from ASCII file names and headings; a cut heading is not a title
+  const k = one(rec('Ortak Yazili - Kilavuz', 'Ulke_Geneli_Ortak_Yazili_Sinav_Takvimi.pdf', { title: 'MİLLÎ EĞİTİM BAKANLIĞI 2025-2026 1.…', pageTitle: 'MİLLÎ EĞİTİM BAKANLIĞI 2025-2026 1.…' }));
+  assert.equal(k.t, 'Ülke Geneli Ortak Yazılı Sınav Takvimi');
+  assert.match(one(rec('LGS', '2025/01/2025_YYlY_OrtaoYgYretime_GecYisY_Tercih_ve_YerlesYtirme_KYlavuzu.pdf')).t, /Ortaöğretime Geçiş Tercih ve Yerleştirme Kılavuzu$/);
+});
+test('committed MEB index: the library is usable out of the box (All years, every grade chip with files, no dead end)', () => {
+  const index = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/meb/index.json'), 'utf8'));
+  const { ctx, run } = modules();
+  ctx.items = index;
+  const n = f => JSON.parse(run(`JSON.stringify(MebIndex.filterItems(items, ${JSON.stringify(f)}).length)`));
+  assert.equal(run('MebIndex.defaultYear(items)'), '');
+  assert.equal(n({}), index.length);                                       // the default view lists everything
+  for (const grade of [1, 5, 6, 7, 8, 9, 10, 11, 12]) assert.ok(n({ grade }) > 0, 'grade ' + grade);
+  assert.ok(n({ q: 'edebiyat' }) > 90);                                    // was 2 while the 2026-2027 chip was the default
+  assert.equal(n({ year: 'none' }), index.filter(r => !r.y).length);
+  assert.ok(index.filter(r => !r.y).length > 300 && n({ year: 'none', type: 'ogm-yazili' }) === 74);
+  assert.ok(index.every(r => r.x !== 'sinif' || r.y !== '2025-2026' || /\/2025\/|\/2026\//.test(r.u)));   // no old booklet labelled with the current year
+  assert.equal(index.filter(r => r.set && /^(Sözel|Sayısal)$/.test(r.s)).length, 0);
 });
 test('MEB generator aggregates konu-soru tables and drops unusable rows', async () => {
   const { build } = await mebGen();
@@ -1118,14 +1242,14 @@ const setIndex = [
 ];
 const fixtureSet = id => JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures/meb-set-' + id + '.json'), 'utf8'));
 
-test('MEB library groups by school year: newest first, unstated last, default to 2026-2027 only when it exists', () => {
+test('MEB library groups by school year: newest first, unstated last, opens on All years, "Year not stated" has its own chip', () => {
   const { ctx, run } = modules();
   ctx.items = setIndex;
   const ids = code => JSON.parse(run('JSON.stringify(' + code + '.map(i => i.id))'));
   assert.deepEqual(ids('MebIndex.sortByYear(items)'), ['a2', 'a5', 'a1', 'a3', 'a4']);   // stable inside a year, no year last
   assert.deepEqual(setIndex.map(i => i.id), ['a1', 'a2', 'a3', 'a4', 'a5']);               // input not mutated
-  assert.equal(run('MebIndex.defaultYear(items)'), '2026-2027');
-  assert.equal(run('MebIndex.defaultYear(items.filter(i => i.y !== "2026-2027"))'), '');
+  assert.equal(run('MebIndex.defaultYear(items)'), '');                                    // never a year chip that would hide year-less files
+  assert.deepEqual(mebIds(run, { year: 'none' }), ['a4']);
   assert.deepEqual(mebIds(run, { year: '2026-2027' }), ['a2', 'a5']);
   assert.deepEqual(mebIds(run, { year: '2025-2026' }), ['a1']);
   assert.deepEqual(mebIds(run, { year: 'earlier' }), ['a3']);                             // a stated year before 2025-2026; unstated is not "earlier"
@@ -1578,8 +1702,133 @@ test('MebScen.open fails loudly: no bank, a national exam, a failed download (re
   L.setAnswer(false);
   await first;
 });
+const courseCompose = (opts, mutate) => {
+  const { ctx, run } = modules();
+  const bank = JSON.parse(JSON.stringify(scenFx.bank));
+  if (mutate) mutate(bank);
+  ctx.bank = bank; ctx.spec = scenFx.spec; ctx.opts = opts;
+  return JSON.parse(run('JSON.stringify(ScenarioSet.composeCourse(bank, ScenarioSet.withFile(spec, 0), opts))'));
+};
+test('course compose: every kazanım with its note and examTip, all cards, ALL bank questions grouped by kazanım', () => {
+  const set = courseCompose();
+  assert.equal(set.title, 'Biyoloji 9 · Tüm konular · Bütün ders');
+  assert.equal(set.notes.sections.length, 4 + 1);                         // 4 kazanım in table order + the study tips
+  assert.deepEqual(set.notes.sections.slice(0, 4).map(s => s.title.split(' · ')[0]), ['FX.1', 'FX.2', 'FX.3', 'FX.4']);
+  assert.ok(set.notes.sections.slice(0, 4).every(s => /Sınavda nasıl sorulur: /.test(s.content) && /Ünite: ÜNİTE/.test(s.content)));
+  assert.equal(set.flashcards.length, 16);
+  assert.equal(set.quiz.length, 8 + 6 + 3 + 4);                           // every question of the bank, nothing dropped
+  assert.deepEqual([...new Set(set.quiz.map(q => q.category))], ['Konu: Hücre Yapısı', 'Konu: Doku Çeşitleri', 'Konu: Organ Sistemleri', 'Konu: Enerji dönüşümünü yorumlayabilme']);   // one contiguous group each, table order
+  assert.deepEqual(['Hücre Yapısı', 'Doku Çeşitleri', 'Organ Sistemleri'].map(l => set.quiz.filter(q => q.category === 'Konu: ' + l).length), [8, 6, 3]);
+  assert.ok(set.quiz.every(q => !q.scenarioExam));
+  assert.equal(new Set(set.quiz.map(q => q.question)).size, set.quiz.length);
+  assert.ok(set.notes.mindmap && set.notes.commonMistakes.length === 2);
+  assert.deepEqual(set.meta.counts, { kazanim: 4, cards: 16, questions: 21, trimmed: 0 });
+  assert.deepEqual([set.meta.kind, set.meta.fileId, set.meta.sheet, set.meta.grade, set.meta.bank], ['course', 'fx000001', '9. SINIF', 9, 'b-fx000001-9']);
+  assert.equal(set.sources.length, 1);
+  assert.match(set.sources[0].text, /FX\.4 \| - \| FX\.4\. Enerji dönüşümünü yorumlayabilme \| 0–2/);
+});
+test('course compose: the summary says how many scenarios and which question counts every exam gives each kazanım', () => {
+  const s = courseCompose().notes.summary;
+  assert.match(s, /tüm 4 kazanımının notu, 16 kart ve 21 soru/);
+  assert.match(s, /1\. Dönem 1\. Ortak Yazılı Sınav: 2 senaryo/);
+  assert.match(s, /- FX\.1 · Hücre Yapısı: 1–3 soru/);                    // scenario 1 asks 1, scenario 2 asks 3
+  assert.match(s, /- FX\.2 · Doku Çeşitleri: 1–3 soru/);
+  assert.match(s, /- FX\.3 · Organ Sistemleri: 0 soru/);                  // never asked
+  assert.match(s, /- FX\.4 · Enerji dönüşümünü yorumlayabilme: 0–2 soru/);    // scenario 1 skips it
+  assert.match(s, /1\. Dönem 2\. Ortak Yazılı Sınav: MEB konuları yayımladı ama soru sayılarını henüz yayımlamadı/);
+  assert.match(s, /Ders özeti:/);
+  const sec = courseCompose().notes.sections;
+  assert.match(sec[0].content, /Sınavlarda: 1\. Dönem 1\. Ortak Yazılı Sınav 1–3 soru\./);
+  assert.ok(!/Sınavlarda:/.test(sec[2].content));                         // FX.3 is asked by no scenario
+});
+test('course compose is deterministic and passes Parser.normalizeStudyData with every question', () => {
+  assert.deepEqual(courseCompose(), courseCompose());
+  const { ctx, run } = modules();
+  ctx.bank = scenFx.bank; ctx.spec = scenFx.spec;
+  const d = JSON.parse(run('JSON.stringify(Parser.normalizeStudyData(ScenarioSet.composeCourse(bank, ScenarioSet.withFile(spec, 0))))'));
+  assert.equal(d.quiz.length, 21); assert.equal(d.flashcards.length, 16); assert.equal(d.meta.kind, 'course'); assert.deepEqual(d.meta.grade, [9]);
+  assert.equal(d.meta.counts.questions, 21);
+});
+test('course compose: over the size limit only extra questions go, lowest weight first, one per kazanım per round', () => {
+  const full = courseCompose();
+  const size = v => Buffer.byteLength(JSON.stringify(v));
+  const one = courseCompose({ maxBytes: size(full) - 1 });
+  assert.equal(one.meta.counts.trimmed, 1);
+  assert.equal(one.quiz.length, 20);
+  assert.equal(one.quiz.filter(q => q.category === 'Konu: Organ Sistemleri').length, 2);   // FX.3 has the lowest weight: its extra goes first
+  assert.match(one.notes.summary, /bankadaki 21 sorudan 1 ek soru çıkarıldı/);
+  // every kazanım keeps the questions its biggest scenario asks (FX.1 3, FX.2 3, FX.3 at least 1, FX.4 2)
+  let lo = 0;
+  for (let cap = size(full); cap > 0; cap -= 400) {
+    let set;
+    try { set = courseCompose({ maxBytes: cap }); } catch (err) { assert.match(err.message, /over the .* KB limit/); lo = cap; break; }
+    const by = c => set.quiz.filter(q => q.category === 'Konu: ' + c).length;
+    assert.ok(by('Hücre Yapısı') >= 3 && by('Doku Çeşitleri') >= 3 && by('Organ Sistemleri') >= 1 && by('Enerji dönüşümünü yorumlayabilme') >= 2);
+    assert.ok(size(set) <= cap);
+    assert.equal(set.notes.sections.length, 5); assert.equal(set.flashcards.length, 16);          // notes and cards are never trimmed
+  }
+  assert.ok(lo > 0);
+  assert.throws(() => courseCompose({ maxBytes: 1000 }), /over the 1 KB limit/);
+});
+test('course compose fails loudly on a bank that lacks a kazanım or has a pool smaller than a scenario asks', () => {
+  assert.throws(() => courseCompose(undefined, b => { b.kazanimlar.pop(); }), /has no kazanım FX\.4/);
+  assert.throws(() => courseCompose(undefined, b => { b.kazanimlar[0].questions.length = 2; }), /FX\.1 has 2 questions, a scenario asks 3/);
+  assert.throws(() => courseCompose(undefined, b => { b.kazanimlar[1].note.content = ''; }), /FX\.2 has no note/);
+});
+test('MebScen.openCourse composes the whole course into its own deck, keyed by file and sheet', async () => {
+  const L = scenLoader();
+  L.run('var sheets = MebScen.sheetsOf(' + JSON.stringify(scenEntries) + ')');
+  L.ctx.s = L.run('sheets[0]'); L.ctx.nobank = L.run('sheets[1]');
+  const id = await L.run('MebScen.openCourse(s)');
+  assert.deepEqual(L.fetched, ['data/meb/scen/spec/fx000001.json', 'data/meb/scen/bank/b-fx000001-9.json']);
+  const deck = JSON.parse(L.run(`JSON.stringify(Decks.get("${id}").data)`));
+  assert.equal(deck.title, 'Biyoloji 9 · Tüm konular · Bütün ders');
+  assert.equal(deck.quiz.length, 21);
+  assert.equal(deck.meta.kind, 'course');
+  // Again: the confirm opens the existing deck. Declined: a copy. A scenario deck of the same sheet is not the course deck.
+  assert.equal(await L.run('MebScen.openCourse(s)'), id); assert.equal(L.asked(), 1); assert.equal(L.fetched.length, 2);
+  L.setAnswer(false);
+  const copy = await L.run('MebScen.openCourse(s)');
+  assert.notEqual(copy, id); assert.equal(L.run('Decks.list().length'), 2);
+  L.ctx.e = scenEntries[0];
+  await L.run('MebScen.open(e)');
+  assert.equal(L.run('Decks.list().length'), 3); assert.equal(L.asked(), 2);
+  assert.equal(L.run('MebScen.findCourseDeck(s).data.meta.kind'), 'course');
+  assert.equal(L.run('MebScen.findDeck(e).data.meta.kind'), 'scenario');
+  assert.equal(L.run('MebSets.findDeck("fx000001")'), null);                  // neither is the file's own study set
+  await assert.rejects(L.run('MebScen.openCourse(nobank)'), /scenSoon/);
+  L.setFail(true);
+  L.ctx.s2 = { ...L.run('sheets[0]'), key: 'fx000001.9', si: 0, sheet: '9. SINIF', bank: 'b-other' };
+  await assert.rejects(L.run('MebScen.openCourse(s2)'), /HTTP 503/);
+});
+test('storage guard: a notebook that will not fit asks first; cancel opens nothing, "open without saving" warns and opens, deleting a deck makes room', async () => {
+  const banners = [];
+  const doc = { createElement: () => ({ setAttribute() {}, className: '' }), body: { appendChild: b => banners.push(b) } };
+  const L = scenLoader();
+  L.ctx.document = doc;                                                       // set after load: the modules attach listeners when a document exists
+  L.ctx.e = scenEntries[0];
+  let asked = 0, choice = 'cancel';
+  L.ctx.ask = async () => { asked++; return choice; };
+  L.run('StorageGuard.setAsk(ask)');
+  const realSet = L.run('localStorage.setItem');
+  L.ctx.realSet = realSet;
+  L.run(`var full = true; localStorage.setItem = (k, v) => { if (full && k === '__fm_guard_probe') throw new Error('quota'); return realSet(k, v); }`);
+  assert.equal(await L.run('MebScen.open(e)'), null);                         // cancelled: no deck, nothing fetched
+  assert.equal(asked, 1); assert.equal(L.run('Decks.list().length'), 0); assert.equal(L.fetched.length, 0);
+  choice = 'anyway';
+  const id = await L.run('MebScen.open(e)');
+  assert.ok(id); assert.equal(banners.length, 1); assert.match(banners[0].textContent, /guardBanner/);   // the unsaved warning stays up
+  choice = 'ok';
+  L.ctx.e2 = scenEntries[1];
+  assert.ok(await L.run('MebScen.open(e2)'));
+  L.run('full = false');
+  assert.equal(L.run('StorageGuard.fits(1000)'), true);
+  assert.deepEqual(JSON.parse(L.run('JSON.stringify(StorageGuard.decksBySize().map(d => typeof d.size))')), ['number', 'number']);
+});
 test('MebScen.open on full storage keeps the deck in memory and shows the existing save-failed toast', async () => {
   const L = scenLoader();
+  L.ctx.document = { createElement: () => ({ setAttribute() {} }), body: { appendChild() {} } };
+  L.run('StorageGuard.setAsk(async () => "anyway")');
   L.run(`localStorage.setItem = () => { throw new Error('quota'); }`);
   L.ctx.e = scenEntries[0];
   const id = await L.run('MebScen.open(e)');
@@ -1655,6 +1904,30 @@ test('scenario generator CLI is idempotent and drops files it did not write', as
   } finally { fs.rmSync(tmp, { recursive: true, force: true }); }
 });
 
+test('every committed bank composes a whole-course notebook: all kazanım, all questions, under the size limit', () => {
+  const dir = path.join(__dirname, '../data/meb/scen');
+  const items = JSON.parse(fs.readFileSync(path.join(dir, 'index.json'), 'utf8'));
+  const { ctx, run } = modules();
+  const read = f => JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'));
+  const seen = new Set(), sizes = [], trimmed = [];
+  for (const e of items) {
+    if (!e.bank || seen.has(e.bank)) continue;
+    seen.add(e.bank);
+    ctx.spec = read(`spec/${e.fileId}.json`); ctx.bank = read(`bank/${e.bank}.json`);
+    const sheet = ctx.spec.sheets[e.si];
+    const set = JSON.parse(run(`JSON.stringify(Parser.normalizeStudyData(ScenarioSet.composeCourse(bank, ScenarioSet.withFile(spec, ${e.si}))))`));
+    const all = ctx.bank.kazanimlar.reduce((n, k) => n + k.questions.length, 0);
+    assert.equal(set.notes.sections.length, sheet.kazanimlar.length + (ctx.bank.studyTips.length ? 1 : 0), e.bank);
+    assert.equal(set.quiz.length + set.meta.counts.trimmed, all, e.bank);
+    if (set.meta.counts.trimmed) trimmed.push(e.bank);
+    const kb = Buffer.byteLength(JSON.stringify(set)) / 1024;
+    assert.ok(kb <= 350, `${e.bank} ${kb.toFixed(0)} KB`);
+    sizes.push(kb);
+  }
+  assert.equal(seen.size, 62);
+  console.log(`      whole-course notebooks: ${sizes.length}, ${Math.min(...sizes).toFixed(0)}-${Math.max(...sizes).toFixed(0)} KB, banks trimmed: ${trimmed.length ? trimmed.join(', ') : 'none'}`);
+});
+
 // ---------- service worker: scenario banks ----------
 test('sw.js precaches the scenario scripts, never scenario data, and keeps the last 12 cached banks', async () => {
   const swSource = fs.readFileSync(path.join(__dirname, '../sw.js'), 'utf8');
@@ -1700,4 +1973,243 @@ test('every committed scenario with a bank composes: exact exam counts, valid in
     composed++;
   }
   assert.ok(composed > 0);
+});
+
+test('topic bookmarks and per-topic audio survive normalization, reload, merge and snapshot; junk is dropped', () => {
+  const { run, storage } = modules();
+  const raw = {
+    title: 'T', notes: { summary: '', sections: [{ title: 'Cells', content: 'c' }, { title: 'DNA', content: 'd' }] },
+    bookmarks: [
+      { id: 'tab1', title: ' Cells ', sectionIndex: 0, createdAt: 5 },
+      { id: 'tab1', title: 'dup', sectionIndex: 1, createdAt: 6 },
+      { id: '__bad id', title: 'x', sectionIndex: 0 }, { id: 'tnot', title: '' }, null,
+      { id: 'tab2', title: 'DNA', sectionIndex: -3, createdAt: 'x' }
+    ],
+    topicAudio: {
+      tab1: { format: 'brief', title: 'Cells', lines: [{ speaker: 'B', text: 'hi' }, { text: '' }], createdAt: 9 },
+      'bad key!': { lines: [{ text: 'no' }] }, tab2: { lines: [] }
+    }
+  };
+  const norm = JSON.parse(run(`JSON.stringify(Parser.normalizeStudyData(${JSON.stringify(raw)}))`));
+  assert.deepEqual(norm.bookmarks, [
+    { id: 'tab1', title: 'Cells', sectionIndex: 0, createdAt: 5 },
+    { id: 'tab2', title: 'DNA', sectionIndex: 0, createdAt: 0 }
+  ]);
+  assert.deepEqual(Object.keys(norm.topicAudio), ['tab1']);
+  assert.equal(norm.topicAudio.tab1.lines.length, 1);
+  assert.equal(norm.topicAudio.tab1.lines[0].speaker, 'B');
+  // A second pass changes nothing (export -> import round trip).
+  assert.deepEqual(JSON.parse(run(`JSON.stringify(Parser.normalizeStudyData(${JSON.stringify(norm)}))`)), norm);
+  // No bookmarks / topic audio: the keys are absent, not empty.
+  const bare = JSON.parse(run(`JSON.stringify(Parser.normalizeStudyData({title:'x', bookmarks: 'no', topicAudio: []}))`));
+  assert.equal('bookmarks' in bare, false);
+  assert.equal('topicAudio' in bare, false);
+  // Saved in a deck, persisted, reloaded from storage, snapshotted and merged from a remote device.
+  run(`Decks.save(${JSON.stringify(norm)}, 'orig')`);
+  const stored = JSON.parse(storage.get('flashmind_decks_v1'));
+  const id = Object.keys(stored.decks)[0];
+  assert.equal(stored.decks[id].data.bookmarks.length, 2);
+  const m2 = modules(Object.fromEntries(storage));
+  assert.equal(m2.run(`Decks.get(${JSON.stringify(id)}).data.bookmarks[1].title`), 'DNA');
+  assert.equal(m2.run(`Decks.get(${JSON.stringify(id)}).data.topicAudio.tab1.lines[0].text`), 'hi');
+  assert.equal(m2.run(`Decks.snapshot().decks[${JSON.stringify(id)}].data.bookmarks.length`), 2);
+  const remote = JSON.parse(JSON.stringify(stored));
+  remote.decks[id].updatedAt = Date.now() + 1000;
+  remote.decks[id].data.bookmarks = [remote.decks[id].data.bookmarks[0]];
+  assert.equal(m2.run(`Decks.mergeRemote(${JSON.stringify(remote)})`), true);
+  assert.equal(m2.run(`Decks.get(${JSON.stringify(id)}).data.bookmarks.length`), 1);
+  assert.equal(m2.run(`Decks.get(${JSON.stringify(id)}).data.topicAudio.tab1.title`), 'Cells');
+});
+
+// ===== Voice (TTS) and video-lesson regressions =====
+function ttsEnv(voices, { lang = 'en', saved = {} } = {}) {
+  const spoken = [];
+  const storage = new Map(Object.entries(saved));
+  const ctx = vm.createContext({
+    console,
+    i18n: { t: (k, p) => k + (p && p.lang ? ':' + p.lang : ''), getLang: () => lang },
+    localStorage: { getItem: k => storage.get(k) ?? null, setItem: (k, v) => storage.set(k, v), removeItem: k => storage.delete(k) },
+    toasts: [], spoken,
+    speechSynthesis: { getVoices: () => voices, cancel() {}, speaking: false, speak(u) { spoken.push(u); if (u.onend) u.onend(); } },
+    SpeechSynthesisUtterance: class { constructor(text) { this.text = text; } }
+  });
+  ctx.window = ctx;
+  ctx.App = { showToast: (m) => ctx.toasts.push(m) };
+  for (const file of ['simspec', 'tts', 'lesson']) vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/', file + '.js'), 'utf8'), ctx);
+  return { ctx, storage, spoken, run: code => vm.runInContext(code, ctx) };
+}
+const V = (name, lang, uri) => ({ name, lang, voiceURI: uri || name });
+const TR_TEXT = 'Fotosentez bitkilerin ışığı kullanarak besin üretmesidir. Bu olay yaprakların içinde gerçekleşir.';
+
+test('language detection reads the text, not the app language', () => {
+  const { run } = ttsEnv([]);
+  assert.equal(run(`TTS.detectLang('Işık enerjisi kimyasal enerjiye dönüşür ve bu çok önemlidir.')`), 'tr');
+  assert.equal(run(`TTS.detectLang('The cell is the basic unit of life and it divides.')`), 'en');
+  assert.equal(run(`TTS.detectLang('Light')`), null);
+  assert.equal(run(`TTS.detectLang('')`), null);
+});
+
+test('voices are ranked: natural/online first, compact/espeak/desktop last, exact locale before prefix', () => {
+  const { run } = ttsEnv([
+    V('eSpeak Turkish', 'tr'), V('Microsoft Tolga - Turkish (Turkey) Desktop', 'tr-TR'), V('Microsoft Emel Online (Natural) - Turkish (Turkey)', 'tr-TR'),
+    V('Google Türkçe', 'tr-TR'), V('Compact Turkish', 'tr-TR'), V('Microsoft Zira', 'en-US')
+  ]);
+  const names = JSON.parse(run(`JSON.stringify(TTS.voicesForLang('tr').map(v => v.name))`));
+  assert.equal(names[0], 'Microsoft Emel Online (Natural) - Turkish (Turkey)');
+  assert.equal(names[1], 'Google Türkçe');
+  assert.equal(names[names.length - 1], 'eSpeak Turkish');
+  assert.ok(!names.includes('Microsoft Zira'));
+  const { run: run2 } = ttsEnv([V('Prefix only', 'tr'), V('Exact', 'tr-TR')]);
+  assert.equal(run2(`TTS.pickVoice('tr').name`), 'Exact');
+});
+
+test('English UI + Turkish text speaks with the Turkish voice and lang tr-TR', () => {
+  const { run, spoken } = ttsEnv([V('Microsoft Zira', 'en-US'), V('Microsoft Tolga', 'tr-TR'), V('Microsoft Emel Online (Natural)', 'tr-TR')], { lang: 'en' });
+  run(`TTS.speak(${JSON.stringify(TR_TEXT)}, null)`);
+  assert.ok(spoken.length >= 1);
+  spoken.forEach(u => { assert.equal(u.lang, 'tr-TR'); assert.equal(u.voice.name, 'Microsoft Emel Online (Natural)'); assert.equal(u.rate, 0.95); });
+});
+
+test('no voice for the text language: nothing is spoken, the caller is told (no wrong-language voice)', () => {
+  const { run, spoken, ctx } = ttsEnv([V('Microsoft Zira', 'en-US')], { lang: 'en' });
+  run(`var missing = null, ended = null; TTS.speak(${JSON.stringify(TR_TEXT)}, c => { ended = c; }, { onNoVoice: l => { missing = l; } })`);
+  assert.equal(spoken.length, 0);
+  assert.equal(ctx.missing, 'tr');
+  assert.equal(ctx.ended, false);
+  // Without a handler a toast explains it, once.
+  run(`TTS.speak(${JSON.stringify(TR_TEXT)}); TTS.speak(${JSON.stringify(TR_TEXT)})`);
+  assert.equal(ctx.toasts.length, 1);
+  assert.equal(spoken.length, 0);
+  // A voice list that has not loaded yet (empty) is not "missing".
+  const empty = ttsEnv([]);
+  empty.run(`TTS.speak(${JSON.stringify(TR_TEXT)})`);
+  assert.ok(empty.spoken.length >= 1);
+  assert.equal(empty.spoken[0].lang, 'tr-TR');
+});
+
+test('mixed text is voiced per sentence and the chosen voice only applies to its own language', () => {
+  const { run, spoken } = ttsEnv([V('Microsoft Zira', 'en-US'), V('Microsoft Emel Online (Natural)', 'tr-TR')], { lang: 'tr' });
+  run(`TTS.speak('Fotosentez bitkilerde olur ve çok önemlidir. The leaf is green and it is the place of the process.', null, { voice: TTS.pickVoice('tr') })`);
+  assert.deepEqual(spoken.map(u => u.lang), ['tr-TR', 'en-US']);
+  assert.equal(spoken[1].voice.name, 'Microsoft Zira');
+});
+
+test('the student’s voice choice is remembered per language', () => {
+  const voices = [V('Microsoft Emel Online (Natural)', 'tr-TR', 'emel'), V('Microsoft Tolga', 'tr-TR', 'tolga')];
+  const a = ttsEnv(voices);
+  assert.equal(a.run(`TTS.pickVoice('tr').voiceURI`), 'emel');
+  a.run(`TTS.setVoice('tr', TTS.voicesForLang('tr').find(v => v.voiceURI === 'tolga'))`);
+  assert.equal(JSON.parse(a.storage.get('flashmind_tts_voices')).tr, 'tolga');
+  // A fresh page load with the same storage gets the same voice.
+  const b = ttsEnv(voices, { saved: { flashmind_tts_voices: a.storage.get('flashmind_tts_voices') } });
+  assert.equal(b.run(`TTS.pickVoice('tr').voiceURI`), 'tolga');
+  b.run(`TTS.speak('Bu çok önemlidir ve bir kuraldır.', null)`);
+  assert.equal(b.spoken[0].voice.voiceURI, 'tolga');
+  // A saved voice that is no longer installed falls back to the best one.
+  const c = ttsEnv([voices[0]], { saved: { flashmind_tts_voices: '{"tr":"tolga"}' } });
+  assert.equal(c.run(`TTS.pickVoice('tr').voiceURI`), 'emel');
+  // Automatic forgets the choice; the speed is stored and defaults to 0.95.
+  b.run(`TTS.setVoice('tr', null); TTS.setRate(1.1)`);
+  assert.equal(JSON.parse(b.storage.get('flashmind_tts_voices')).tr, undefined);
+  assert.equal(b.run('TTS.getRate()'), 1.1);
+  assert.equal(a.run('TTS.getRate()'), 0.95);
+});
+
+test('speakable says formulas and symbols in the text language', () => {
+  const { run, ctx } = ttsEnv([]);
+  const say = (t, l) => { ctx.t = t; ctx.l = l; return run('TTS.speakable(t, l)'); };
+  const tr = say('$f(x) = x^2 + \\frac{a}{b}$ ve \\sqrt{x}, %25, 30°, \\leq 5, \\pi, vb. örn. **kalın**', 'tr');
+  for (const w of ['x kare', 'a bölü b', 'karekök x', 'yüzde 25', '30 derece', 'küçük eşit 5', 'pi', 've benzeri', 'örneğin', 'artı', 'eşittir']) assert.ok(tr.includes(w), `${w} in: ${tr}`);
+  assert.ok(!/[$\\{}*^_]/.test(tr), tr);
+  assert.ok(say('H_2O ve CO_2, x_1', 'tr').includes('CO 2'));
+  assert.ok(say('x_1', 'tr').includes('x indis 1'));
+  assert.ok(say('2-3 gün ve a - b', 'tr').includes('2-3 gün'));
+  assert.ok(say('2-3 gün ve a - b', 'tr').includes('a eksi b'));
+  const en = say('$x^2 + \\frac{1}{2}$, 25%, e.g. 5 m/s', 'en');
+  for (const w of ['x squared', '1 over 2', '25 percent', 'for example', 'm divided by s']) assert.ok(en.includes(w), `${w} in: ${en}`);
+  // Abbreviation dots do not end a sentence chunk.
+  run(`TTS.speak('Örn. bu bir kuraldır ve çok önemlidir.', null)`);
+  assert.equal(ctx.spoken.length, 1);
+  assert.ok(ctx.spoken[0].text.startsWith('Örneğin bu bir'));
+});
+
+test('slide revisions keep the original, undo restores it, and the lesson survives', () => {
+  const { run, ctx } = ttsEnv([]);
+  ctx.lesson = { id: 'v1', title: 'L', slides: [
+    { title: 'One', bullets: ['a'], narration: 'First.', formula: 'x^2', diagram: { kind: 'map', label: 'M' } },
+    { title: 'Two', bullets: [], narration: 'Second.' }
+  ] };
+  ctx.rev1 = JSON.parse(run(`JSON.stringify(SimSpec.sanitizeSlide({ title: 'One simply', bullets: ['b', 'c', 'd', 'e'], narration: 'Simpler.', formula: '$y$', orig: { title: 'evil' } }))`));
+  assert.equal(ctx.rev1.bullets.length, 3);
+  assert.equal(ctx.rev1.formula, 'y');
+  assert.equal(run(`SimSpec.sanitizeSlide({ title: 'x', narration: '' })`), null);
+  assert.equal(run(`SimSpec.sanitizeSlide('nope')`), null);
+  run(`var stack = []; VideoLesson._test.reviseSlide(lesson, 0, rev1, stack)`);
+  const after = JSON.parse(run('JSON.stringify(lesson.slides[0])'));
+  assert.equal(after.title, 'One simply');
+  assert.equal(after.orig.title, 'One');
+  assert.deepEqual(after.diagram, { kind: 'map', label: 'M' });
+  assert.equal(after.orig.orig, undefined);
+  // A second revision keeps the FIRST original.
+  ctx.rev2 = { title: 'One again', bullets: [], narration: 'Again.' };
+  run('VideoLesson._test.reviseSlide(lesson, 0, rev2, stack)');
+  assert.equal(run('lesson.slides[0].orig.title'), 'One');
+  assert.equal(run('lesson.slides[1].title'), 'Two');
+  // Undo steps back one revision at a time, then falls back to the stored original.
+  assert.equal(run('VideoLesson._test.undoSlide(lesson, 0, stack)'), true);
+  assert.equal(run('lesson.slides[0].title'), 'One simply');
+  assert.equal(run('VideoLesson._test.undoSlide(lesson, 0, stack)'), true);
+  assert.equal(run('lesson.slides[0].title'), 'One');
+  assert.equal(run('VideoLesson._test.undoSlide(lesson, 0, stack)'), false);
+  // After a reload the stack is empty: undo restores slide.orig.
+  run('VideoLesson._test.reviseSlide(lesson, 1, rev2, []); var empty = []');
+  assert.equal(run('VideoLesson._test.undoSlide(lesson, 1, empty)'), true);
+  assert.equal(run('lesson.slides[1].title'), 'Two');
+  // The revised slide and its original persist through normalization.
+  const kept = JSON.parse(run(`JSON.stringify(SimSpec.sanitizeLessons([{ title: 'L', slides: [{ title: 'A', narration: 'a', orig: { title: 'O', narration: 'o', orig: { title: 'deep', narration: 'd' } } }, { title: 'B', narration: 'b' }], base: 'v1', label: 'Shorter' }]))`));
+  assert.equal(kept[0].slides[0].orig.title, 'O');
+  assert.equal(kept[0].slides[0].orig.orig, undefined);
+  assert.equal(kept[0].base, 'v1');
+  assert.equal(kept[0].label, 'Shorter');
+});
+
+test('lesson versions: grouped by original, capped at 8, the original is never dropped', () => {
+  const { run, ctx } = ttsEnv([]);
+  const mk = (id, base) => ({ id, title: id, slides: [], ...(base ? { base } : {}) });
+  ctx.list = [mk('v1'), mk('v2', 'v1'), mk('v3'), mk('v4', 'v3')];
+  assert.deepEqual(JSON.parse(run(`JSON.stringify(VideoLesson._test.versionsOf(list, list[1]).map(l => l.id))`)), ['v1', 'v2']);
+  assert.deepEqual(JSON.parse(run(`JSON.stringify(VideoLesson._test.versionsOf(list, list[2]).map(l => l.id))`)), ['v3', 'v4']);
+  // Fill to the limit with versions of v1, then add one more.
+  ctx.full = [mk('v1')];
+  for (let i = 2; i <= 8; i++) ctx.full.push(mk('v' + i, 'v1'));
+  ctx.fresh = mk('v9', 'v1');
+  const ids = JSON.parse(run(`JSON.stringify(VideoLesson._test.trimLessons(full.concat([fresh]), fresh).map(l => l.id))`));
+  assert.equal(ids.length, 8);
+  assert.equal(ids[0], 'v1');
+  assert.ok(!ids.includes('v2'));
+  assert.equal(ids[ids.length - 1], 'v9');
+  // Eight originals: the oldest unrelated lesson goes, the family's original stays.
+  ctx.orig = []; for (let i = 1; i <= 8; i++) ctx.orig.push(mk('o' + i));
+  ctx.ver = mk('o9', 'o5');
+  const ids2 = JSON.parse(run(`JSON.stringify(VideoLesson._test.trimLessons(orig.concat([ver]), ver).map(l => l.id))`));
+  assert.equal(ids2.length, 8);
+  assert.ok(ids2.includes('o5') && ids2.includes('o9') && !ids2.includes('o1'));
+  // sanitizeLessons also stops at 8.
+  assert.equal(run(`SimSpec.sanitizeLessons(Array.from({ length: 12 }, (_, i) => ({ title: 'T' + i, slides: [{ title: 'a', narration: 'a' }, { title: 'b', narration: 'b' }] }))).length`), 8);
+});
+
+test('quick lesson from teacher-voice notes uses the paragraphs as narration (30-70 words); old sets keep the old builder', () => {
+  const { run, ctx } = ttsEnv([]);
+  const words = n => Array.from({ length: n }, (_, i) => 'kelime' + i).join(' ') + '.';
+  ctx.teacher = { title: 'Set', notes: { summary: 'Özet.', sections: [{ title: 'Bölüm', content: [words(40), words(10), words(12), [30, 30, 30, 30, 30].map(words).join(' ')].join('\n'), bulletPoints: [], keyTerms: [] }] } };
+  const l = JSON.parse(run('JSON.stringify(VideoLesson.fromNotes(teacher))'));
+  const body = l.slides.slice(1, -1);
+  assert.ok(body.length >= 3);
+  body.forEach(s => { const n = s.narration.split(/\s+/).length; assert.ok(n >= 22 && n <= 70, `${n} words`); assert.deepEqual(s.bullets, []); });
+  assert.equal(body[0].title, 'Bölüm');
+  assert.equal(body[1].title, 'Bölüm · 2');
+  ctx.old = { title: 'Set', notes: { summary: 'S.', sections: [{ title: 'Eski', content: 'Metin.', bulletPoints: ['b1', 'b2'], keyTerms: [] }] } };
+  const o = JSON.parse(run('JSON.stringify(VideoLesson.fromNotes(old))'));
+  assert.deepEqual(o.slides[1].bullets, ['b1', 'b2']);
+  assert.equal(o.slides[1].narration, 'Metin.');
 });
