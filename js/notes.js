@@ -19,7 +19,7 @@ const Notes = (() => {
     if (!container) init();
     const T = i18n.t;
     const { title, notes } = data;
-    const scen = !!(data.meta && data.meta.kind === 'scenario');   // MEB scenario notebooks keep their line breaks
+    const scen = !!(data.meta && (data.meta.kind === 'scenario' || data.meta.kind === 'course'));   // MEB scenario and whole-course notebooks keep their line breaks
 
     let html = `<div class="notes-container">`;
 

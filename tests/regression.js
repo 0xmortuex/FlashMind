@@ -1655,6 +1655,105 @@ test('MebScen.open fails loudly: no bank, a national exam, a failed download (re
   L.setAnswer(false);
   await first;
 });
+const courseCompose = (opts, mutate) => {
+  const { ctx, run } = modules();
+  const bank = JSON.parse(JSON.stringify(scenFx.bank));
+  if (mutate) mutate(bank);
+  ctx.bank = bank; ctx.spec = scenFx.spec; ctx.opts = opts;
+  return JSON.parse(run('JSON.stringify(ScenarioSet.composeCourse(bank, ScenarioSet.withFile(spec, 0), opts))'));
+};
+test('course compose: every kazanım with its note and examTip, all cards, ALL bank questions grouped by kazanım', () => {
+  const set = courseCompose();
+  assert.equal(set.title, 'Biyoloji 9 · Tüm konular · Bütün ders');
+  assert.equal(set.notes.sections.length, 4 + 1);                         // 4 kazanım in table order + the study tips
+  assert.deepEqual(set.notes.sections.slice(0, 4).map(s => s.title.split(' · ')[0]), ['FX.1', 'FX.2', 'FX.3', 'FX.4']);
+  assert.ok(set.notes.sections.slice(0, 4).every(s => /Sınavda nasıl sorulur: /.test(s.content) && /Ünite: ÜNİTE/.test(s.content)));
+  assert.equal(set.flashcards.length, 16);
+  assert.equal(set.quiz.length, 8 + 6 + 3 + 4);                           // every question of the bank, nothing dropped
+  assert.deepEqual([...new Set(set.quiz.map(q => q.category))], ['Konu: Hücre Yapısı', 'Konu: Doku Çeşitleri', 'Konu: Organ Sistemleri', 'Konu: Enerji dönüşümünü yorumlayabilme']);   // one contiguous group each, table order
+  assert.deepEqual(['Hücre Yapısı', 'Doku Çeşitleri', 'Organ Sistemleri'].map(l => set.quiz.filter(q => q.category === 'Konu: ' + l).length), [8, 6, 3]);
+  assert.ok(set.quiz.every(q => !q.scenarioExam));
+  assert.equal(new Set(set.quiz.map(q => q.question)).size, set.quiz.length);
+  assert.ok(set.notes.mindmap && set.notes.commonMistakes.length === 2);
+  assert.deepEqual(set.meta.counts, { kazanim: 4, cards: 16, questions: 21, trimmed: 0 });
+  assert.deepEqual([set.meta.kind, set.meta.fileId, set.meta.sheet, set.meta.grade, set.meta.bank], ['course', 'fx000001', '9. SINIF', 9, 'b-fx000001-9']);
+  assert.equal(set.sources.length, 1);
+  assert.match(set.sources[0].text, /FX\.4 \| - \| FX\.4\. Enerji dönüşümünü yorumlayabilme \| 0–2/);
+});
+test('course compose: the summary says how many scenarios and which question counts every exam gives each kazanım', () => {
+  const s = courseCompose().notes.summary;
+  assert.match(s, /tüm 4 kazanımının notu, 16 kart ve 21 soru/);
+  assert.match(s, /1\. Dönem 1\. Ortak Yazılı Sınav: 2 senaryo/);
+  assert.match(s, /- FX\.1 · Hücre Yapısı: 1–3 soru/);                    // scenario 1 asks 1, scenario 2 asks 3
+  assert.match(s, /- FX\.2 · Doku Çeşitleri: 1–3 soru/);
+  assert.match(s, /- FX\.3 · Organ Sistemleri: 0 soru/);                  // never asked
+  assert.match(s, /- FX\.4 · Enerji dönüşümünü yorumlayabilme: 0–2 soru/);    // scenario 1 skips it
+  assert.match(s, /1\. Dönem 2\. Ortak Yazılı Sınav: MEB konuları yayımladı ama soru sayılarını henüz yayımlamadı/);
+  assert.match(s, /Ders özeti:/);
+  const sec = courseCompose().notes.sections;
+  assert.match(sec[0].content, /Sınavlarda: 1\. Dönem 1\. Ortak Yazılı Sınav 1–3 soru\./);
+  assert.ok(!/Sınavlarda:/.test(sec[2].content));                         // FX.3 is asked by no scenario
+});
+test('course compose is deterministic and passes Parser.normalizeStudyData with every question', () => {
+  assert.deepEqual(courseCompose(), courseCompose());
+  const { ctx, run } = modules();
+  ctx.bank = scenFx.bank; ctx.spec = scenFx.spec;
+  const d = JSON.parse(run('JSON.stringify(Parser.normalizeStudyData(ScenarioSet.composeCourse(bank, ScenarioSet.withFile(spec, 0))))'));
+  assert.equal(d.quiz.length, 21); assert.equal(d.flashcards.length, 16); assert.equal(d.meta.kind, 'course'); assert.deepEqual(d.meta.grade, [9]);
+  assert.equal(d.meta.counts.questions, 21);
+});
+test('course compose: over the size limit only extra questions go, lowest weight first, one per kazanım per round', () => {
+  const full = courseCompose();
+  const size = v => Buffer.byteLength(JSON.stringify(v));
+  const one = courseCompose({ maxBytes: size(full) - 1 });
+  assert.equal(one.meta.counts.trimmed, 1);
+  assert.equal(one.quiz.length, 20);
+  assert.equal(one.quiz.filter(q => q.category === 'Konu: Organ Sistemleri').length, 2);   // FX.3 has the lowest weight: its extra goes first
+  assert.match(one.notes.summary, /bankadaki 21 sorudan 1 ek soru çıkarıldı/);
+  // every kazanım keeps the questions its biggest scenario asks (FX.1 3, FX.2 3, FX.3 at least 1, FX.4 2)
+  let lo = 0;
+  for (let cap = size(full); cap > 0; cap -= 400) {
+    let set;
+    try { set = courseCompose({ maxBytes: cap }); } catch (err) { assert.match(err.message, /over the .* KB limit/); lo = cap; break; }
+    const by = c => set.quiz.filter(q => q.category === 'Konu: ' + c).length;
+    assert.ok(by('Hücre Yapısı') >= 3 && by('Doku Çeşitleri') >= 3 && by('Organ Sistemleri') >= 1 && by('Enerji dönüşümünü yorumlayabilme') >= 2);
+    assert.ok(size(set) <= cap);
+    assert.equal(set.notes.sections.length, 5); assert.equal(set.flashcards.length, 16);          // notes and cards are never trimmed
+  }
+  assert.ok(lo > 0);
+  assert.throws(() => courseCompose({ maxBytes: 1000 }), /over the 1 KB limit/);
+});
+test('course compose fails loudly on a bank that lacks a kazanım or has a pool smaller than a scenario asks', () => {
+  assert.throws(() => courseCompose(undefined, b => { b.kazanimlar.pop(); }), /has no kazanım FX\.4/);
+  assert.throws(() => courseCompose(undefined, b => { b.kazanimlar[0].questions.length = 2; }), /FX\.1 has 2 questions, a scenario asks 3/);
+  assert.throws(() => courseCompose(undefined, b => { b.kazanimlar[1].note.content = ''; }), /FX\.2 has no note/);
+});
+test('MebScen.openCourse composes the whole course into its own deck, keyed by file and sheet', async () => {
+  const L = scenLoader();
+  L.run('var sheets = MebScen.sheetsOf(' + JSON.stringify(scenEntries) + ')');
+  L.ctx.s = L.run('sheets[0]'); L.ctx.nobank = L.run('sheets[1]');
+  const id = await L.run('MebScen.openCourse(s)');
+  assert.deepEqual(L.fetched, ['data/meb/scen/spec/fx000001.json', 'data/meb/scen/bank/b-fx000001-9.json']);
+  const deck = JSON.parse(L.run(`JSON.stringify(Decks.get("${id}").data)`));
+  assert.equal(deck.title, 'Biyoloji 9 · Tüm konular · Bütün ders');
+  assert.equal(deck.quiz.length, 21);
+  assert.equal(deck.meta.kind, 'course');
+  // Again: the confirm opens the existing deck. Declined: a copy. A scenario deck of the same sheet is not the course deck.
+  assert.equal(await L.run('MebScen.openCourse(s)'), id); assert.equal(L.asked(), 1); assert.equal(L.fetched.length, 2);
+  L.setAnswer(false);
+  const copy = await L.run('MebScen.openCourse(s)');
+  assert.notEqual(copy, id); assert.equal(L.run('Decks.list().length'), 2);
+  L.ctx.e = scenEntries[0];
+  await L.run('MebScen.open(e)');
+  assert.equal(L.run('Decks.list().length'), 3); assert.equal(L.asked(), 2);
+  assert.equal(L.run('MebScen.findCourseDeck(s).data.meta.kind'), 'course');
+  assert.equal(L.run('MebScen.findDeck(e).data.meta.kind'), 'scenario');
+  assert.equal(L.run('MebSets.findDeck("fx000001")'), null);                  // neither is the file's own study set
+  await assert.rejects(L.run('MebScen.openCourse(nobank)'), /scenSoon/);
+  L.setFail(true);
+  L.ctx.s2 = { ...L.run('sheets[0]'), key: 'fx000001.9', si: 0, sheet: '9. SINIF', bank: 'b-other' };
+  await assert.rejects(L.run('MebScen.openCourse(s2)'), /HTTP 503/);
+});
 test('MebScen.open on full storage keeps the deck in memory and shows the existing save-failed toast', async () => {
   const L = scenLoader();
   L.run(`localStorage.setItem = () => { throw new Error('quota'); }`);
@@ -1730,6 +1829,30 @@ test('scenario generator CLI is idempotent and drops files it did not write', as
     assert.ok(!fs.existsSync(path.join(out, 'scen/bank/stale.json')));
     assert.deepEqual(snap(), first);
   } finally { fs.rmSync(tmp, { recursive: true, force: true }); }
+});
+
+test('every committed bank composes a whole-course notebook: all kazanım, all questions, under the size limit', () => {
+  const dir = path.join(__dirname, '../data/meb/scen');
+  const items = JSON.parse(fs.readFileSync(path.join(dir, 'index.json'), 'utf8'));
+  const { ctx, run } = modules();
+  const read = f => JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'));
+  const seen = new Set(), sizes = [], trimmed = [];
+  for (const e of items) {
+    if (!e.bank || seen.has(e.bank)) continue;
+    seen.add(e.bank);
+    ctx.spec = read(`spec/${e.fileId}.json`); ctx.bank = read(`bank/${e.bank}.json`);
+    const sheet = ctx.spec.sheets[e.si];
+    const set = JSON.parse(run(`JSON.stringify(Parser.normalizeStudyData(ScenarioSet.composeCourse(bank, ScenarioSet.withFile(spec, ${e.si}))))`));
+    const all = ctx.bank.kazanimlar.reduce((n, k) => n + k.questions.length, 0);
+    assert.equal(set.notes.sections.length, sheet.kazanimlar.length + (ctx.bank.studyTips.length ? 1 : 0), e.bank);
+    assert.equal(set.quiz.length + set.meta.counts.trimmed, all, e.bank);
+    if (set.meta.counts.trimmed) trimmed.push(e.bank);
+    const kb = Buffer.byteLength(JSON.stringify(set)) / 1024;
+    assert.ok(kb <= 350, `${e.bank} ${kb.toFixed(0)} KB`);
+    sizes.push(kb);
+  }
+  assert.equal(seen.size, 62);
+  console.log(`      whole-course notebooks: ${sizes.length}, ${Math.min(...sizes).toFixed(0)}-${Math.max(...sizes).toFixed(0)} KB, banks trimmed: ${trimmed.length ? trimmed.join(', ') : 'none'}`);
 });
 
 // ---------- service worker: scenario banks ----------

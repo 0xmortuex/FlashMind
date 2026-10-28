@@ -949,6 +949,49 @@ const path = require('node:path');
     await page.evaluate(() => { window.fetch = window.__scenFetch; Decks.remove(Decks.getActive().id); App.openDeck(window.__prevDeck); App.switchTab('quiz'); });
   });
 
+  await step('exams: Senaryolar offers "All topics — whole course" per course and a national exam points to it', async () => {
+    const fx = JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures/scen-fixture.json'), 'utf8'));
+    await page.evaluate(fx => {
+      window.__scenFetch = window.fetch;
+      window.fetch = (u, ...a) => {
+        const m = String(u).match(/data\/meb\/scen\/(spec|bank)\/.*$/);
+        if (!m) return window.__scenFetch.call(window, u, ...a);
+        return Promise.resolve(new Response(JSON.stringify(m[1] === 'spec' ? fx.spec : fx.bank), { status: 200 }));
+      };
+      window.__prevDeck = Decks.getActive().id; window.__decks = Decks.list().length;
+      MebIndex.open({ tab: 'scen' });
+    }, fx);
+    await page.waitForSelector('.meb-panel .scen-course', { timeout: 5000 });
+    await page.$eval('.meb-panel [data-scen-grade="0"]', b => b.click());
+    await page.select('#scen-sheet', 'fx000001.0');
+    // The national exam row: the note and a button to the whole-course notebook, not a scenario button.
+    await page.$eval('.meb-panel [data-scen-exam="1"]', b => b.click());
+    const nat = await page.evaluate(() => ({
+      note: document.querySelector('.meb-panel .scen-national + .meb-note').textContent,
+      btns: [...document.querySelectorAll('.meb-panel [data-scen-act="course"]')].map(b => b.textContent.trim()),
+      open: document.querySelectorAll('.meb-panel [data-scen-act="open"]').length
+    }));
+    if (nat.note !== 'MEB has published the topics but not the question counts yet — study the whole-course notebook.' || nat.btns.length !== 2 || nat.open) throw new Error('national row: ' + JSON.stringify(nat));
+    await page.$eval('.meb-panel .scen-national ~ .meb-actions [data-scen-act="course"]', b => b.click());
+    const title = 'Biyoloji 9 · Tüm konular · Bütün ders';
+    await page.waitForFunction(t => (App.getStudyData() || {}).title === t, { timeout: 5000 }, title);
+    const got = await page.evaluate(() => {
+      const d = App.getStudyData();
+      return {
+        decks: Decks.list().length, before: window.__decks, meta: Decks.getActive().data.meta,
+        libOpen: [...document.querySelectorAll('.shortcuts-backdrop')].some(e => e.style.display !== 'none'),
+        quiz: d.quiz.length, scen: d.quiz.filter(q => q.scenarioExam).length, cats: [...new Set(d.quiz.map(q => q.category))],
+        summary: document.querySelector('#tab-notes .notes-summary').textContent,
+        sections: document.querySelectorAll('#tab-notes .notes-section').length,
+        lines: getComputedStyle(document.querySelector('#tab-notes .notes-summary')).whiteSpace
+      };
+    });
+    if (got.decks !== got.before + 1 || got.meta.kind !== 'course' || got.meta.fileId !== 'fx000001' || got.libOpen) throw new Error('deck: ' + JSON.stringify(got).slice(0, 300));
+    if (got.quiz !== 21 || got.scen || got.cats.length !== 4 || !got.cats.every(c => /^Konu: /.test(c)) || got.sections !== 5) throw new Error('counts: ' + JSON.stringify(got).slice(0, 300));
+    if (!/tüm 4 kazanımının notu/.test(got.summary) || !/FX\.1 · Hücre Yapısı: 1–3 soru/.test(got.summary) || got.lines !== 'pre-line') throw new Error('summary: ' + got.summary.slice(0, 200));
+    await page.evaluate(() => { window.fetch = window.__scenFetch; Decks.remove(Decks.getActive().id); App.openDeck(window.__prevDeck); App.switchTab('quiz'); });
+  });
+
   await step('exams: a photographed handwritten answer is OCRed, corrected and graded', async () => {
     await page.evaluate(() => {
       window.__ex.graded = null;
