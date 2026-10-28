@@ -2229,6 +2229,27 @@ test('speakable says formulas and symbols in the text language', () => {
   assert.ok(ctx.spoken[0].text.startsWith('Örneğin bu bir'));
 });
 
+test('"Did you get this?" checks: valid questions are kept, malformed ones dropped, results are validated', () => {
+  const { run } = ttsEnv([]);
+  const slide = check => JSON.parse(run(`JSON.stringify(SimSpec.sanitizeSlide({ title: 'A', narration: 'a', check: ${JSON.stringify(check)} }))`));
+  const good = { q: 'Which one?', options: ['x', 'y', 'z'], correct: 2, why: 'Because.' };
+  assert.deepEqual(slide(good).check, good);
+  assert.equal(slide({ ...good, correct: 3 }).check, undefined, 'correct index out of range');
+  assert.equal(slide({ ...good, correct: '1' }).check, undefined, 'correct must be an integer');
+  assert.equal(slide({ ...good, options: ['x'] }).check, undefined, 'needs two options');
+  assert.equal(slide({ ...good, options: ['x', 'x', 'y'] }).check, undefined, 'duplicate options');
+  assert.equal(slide({ ...good, options: ['x', '', 'y'] }).check, undefined, 'blank option would shift the correct index');
+  assert.equal(slide({ ...good, q: '' }).check, undefined, 'needs a question');
+  assert.equal(slide({ ...good, why: undefined }).check.why, '', 'the explanation is optional');
+  // Results: only known values for slides that exist.
+  const lesson = checks => JSON.parse(run(`JSON.stringify(SimSpec.sanitizeLesson({ title: 'L', slides: [{ title: 'a', narration: 'a' }, { title: 'b', narration: 'b' }], checks: ${JSON.stringify(checks)} }))`));
+  assert.deepEqual(lesson({ 0: 'right', 1: 'lost', 2: 'right', 5: 'wrong', x: 'right', 0.5: 'right' }).checks, { 0: 'right', 1: 'lost' });
+  assert.equal(lesson({ 0: 'maybe' }).checks, undefined);
+  // A kept revision of a slide keeps its original question too.
+  const o = JSON.parse(run(`JSON.stringify(SimSpec.sanitizeSlide({ title: 'New', narration: 'n', orig: { title: 'Old', narration: 'o', check: ${JSON.stringify(good)} } }))`));
+  assert.deepEqual(o.orig.check, good);
+});
+
 test('slide revisions keep the original, undo restores it, and the lesson survives', () => {
   const { run, ctx } = ttsEnv([]);
   ctx.lesson = { id: 'v1', title: 'L', slides: [

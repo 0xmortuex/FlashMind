@@ -1377,6 +1377,77 @@ const path = require('node:path');
     }
   });
 
+  await step('video lesson: "Did you get this?" pauses after the slide, grades the answer, explains the slide again and re-asks, can be skipped, and is not asked again once passed', async () => {
+    await page.evaluate(() => {
+      VideoLesson.stop(); delete App.getStudyData().lessons;
+      localStorage.setItem('flashmind_tts_natural', '0');
+      window.__chk = { chat: API.chat, supported: TTS.supported, speak: TTS.speak, stop: TTS.stop };
+      window.__spoken = [];
+      let pending = null;
+      TTS.supported = () => true;
+      TTS.speak = (text, onEnd) => { if (pending) { const p = pending; pending = null; p(true); } window.__spoken.push(text); pending = onEnd; setTimeout(() => { if (pending === onEnd) { pending = null; onEnd(false); } }, 40); };
+      TTS.stop = () => { if (pending) { const p = pending; pending = null; p(true); } };
+      const check = { q: 'What do plants need to make food?', options: ['Light', 'Sand', 'Salt'], correct: 0, why: 'Light drives photosynthesis.' };
+      API.chat = async q => /did not understand ONE slide/.test(q)
+        ? JSON.stringify({ title: 'Light, simply', bullets: [], narration: 'Plants use light to make food. That is the whole idea.' })
+        : JSON.stringify({ title: 'Check lesson', slides: [
+          { title: 'Intro', bullets: [], narration: 'Welcome to the lesson.' },
+          { title: 'Light', bullets: ['Light in'], narration: 'Plants take in light to make food.', check },
+          { title: 'Recap', bullets: [], narration: 'That is all for today.' }
+        ] });
+    });
+    const click = sel => page.$eval(sel, b => b.click());
+    const spokenHas = re => page.evaluate(s => window.__spoken.some(t => new RegExp(s).test(t)), re.source);
+    const card = '[data-vl-check]:not([hidden]) [data-vl-opt]';
+    const checks = () => page.evaluate(() => JSON.stringify(App.getStudyData().lessons.slice(-1)[0].checks || {}));
+    try {
+      await click('[data-notes-view="video"]');
+      await page.waitForSelector('[data-vl-act="generate"], [data-vl-act="list"]', { timeout: 3000 });
+      if (await page.$('[data-vl-act="list"]')) await click('[data-vl-act="list"]');
+      await page.waitForSelector('[data-vl-act="generate"]', { timeout: 2000 });
+      await click('[data-vl-act="generate"]');
+      await page.waitForSelector('.vl-slide.in', { timeout: 3000 });
+      // A: play, the lesson stops after slide 2 and asks; a wrong answer is graded and saved, Continue goes on.
+      await click('[data-vl-act="toggle"]');
+      await page.waitForSelector(card, { timeout: 4000 });
+      if (await page.evaluate(() => VideoLesson.isPlaying() || VideoLesson._index() !== 1)) throw new Error('lesson did not pause on slide 2');
+      if (await spokenHas(/That is all/)) throw new Error('it kept playing past the question');
+      await click('[data-vl-opt="1"]');
+      await page.waitForSelector('.vl-opt.right', { timeout: 2000 });
+      if (!await page.$('.vl-opt.wrong') || !/Light drives/.test(await page.$eval('.vl-check-why', e => e.textContent))) throw new Error('feedback missing');
+      if (await checks() !== '{"1":"wrong"}') throw new Error('result not saved: ' + await checks());
+      await click('[data-vl-act="check-next"]');
+      await page.waitForFunction(() => window.__spoken.some(t => /That is all/.test(t)) && !VideoLesson.isPlaying(), { timeout: 4000 });
+      // B: replay slide 2: a wrong answer is asked again; "Explain it again" rewrites the slide, plays it and asks again; skipping saves "skipped".
+      await click('.vl-mark[data-vl-go="1"]');
+      await click('[data-vl-act="toggle"]');
+      await page.waitForSelector(card, { timeout: 4000 });
+      await click('[data-vl-act="check-again"]');
+      await page.waitForFunction(() => window.__spoken.some(t => /whole idea/.test(t)), { timeout: 5000 });
+      await page.waitForSelector(card, { timeout: 4000 });
+      if (!await page.evaluate(() => App.getStudyData().lessons.slice(-1)[0].slides[1].orig)) throw new Error('slide was not rewritten');
+      if (!/lost/.test(await checks())) throw new Error('"lost" not recorded: ' + await checks());
+      await click('[data-vl-act="check-skip"]');
+      await page.waitForFunction(() => window.__spoken.filter(t => /That is all/.test(t)).length >= 2 && !VideoLesson.isPlaying(), { timeout: 4000 });
+      if (await checks() !== '{"1":"skipped"}') throw new Error('skip not saved: ' + await checks());
+      // C: a skipped slide is not asked again.
+      await page.evaluate(() => { window.__spoken.length = 0; });
+      await click('.vl-mark[data-vl-go="1"]');
+      await click('[data-vl-act="toggle"]');
+      await page.waitForFunction(() => window.__spoken.some(t => /That is all/.test(t)) && !VideoLesson.isPlaying(), { timeout: 4000 });
+      if (await page.$(card)) throw new Error('asked again after skipping');
+    } finally {
+      await page.evaluate(() => {
+        VideoLesson.stop();
+        const s = window.__chk;
+        API.chat = s.chat; TTS.supported = s.supported; TTS.speak = s.speak; TTS.stop = s.stop;
+      });
+      await click('[data-notes-view="notes"]');
+      await page.evaluate(() => window.scrollTo(0, 0)); // the question card scrolls itself into view; the next step clicks the header
+      await page.waitForFunction(() => !document.querySelector('.toast'), { timeout: 6000 });
+    }
+  });
+
   await step('study brain: memory model, exam predictor and concept map render on Stats', async () => {
     await page.evaluate(() => {
       const deck = Decks.getActive();
