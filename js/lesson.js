@@ -483,6 +483,7 @@ const VideoLesson = (() => {
       <div class="vl-revbar" data-vl-revbar hidden></div>
       <div class="vl-weak" data-vl-weak${weakSlides(l).length ? '' : ' hidden'}>${weakHtml(l)}</div>
       <div class="vl-notice" data-vl-notice role="alert" ${noVoice ? '' : 'hidden'}>${noticeHtml()}</div>
+      <p class="vl-note vl-voicenote" data-vl-voicenote role="status" hidden></p>
       <p class="vl-note" data-vl-silentnote ${ttsOk() && !silent ? 'hidden' : ''}>${T('vlNoTtsPlayer')}</p>
       <ol class="vl-outline">${l.slides.map((s, i) => `<li><button class="vl-outline-item" data-vl-go="${i}">${esc(s.title)}</button></li>`).join('')}</ol>
       <div class="vl-foot">
@@ -738,6 +739,14 @@ const VideoLesson = (() => {
     if (data) addPractice(data, (data.lessons || []).flatMap(l => weakSlides(l).map(i => ({ l, i }))));
   }
 
+  // A lasting note under the player when the natural voice is not the one speaking, and why.
+  function drawVoiceNote(text) {
+    const el = host && host.querySelector('[data-vl-voicenote]');
+    if (!el) return;
+    el.textContent = text || '';
+    el.hidden = !text;
+  }
+
   // Keep this lesson's natural-voice clips on the device so it plays without a connection.
   let savingVoice = false;
   async function saveVoice(btn) {
@@ -750,7 +759,8 @@ const VideoLesson = (() => {
     try {
       const r = await TTS.saveForOffline(l.slides.map(s => s.narration), {
         lang: lessonLang(l),
-        onProgress: (d, n) => { btn.textContent = T('vlSavingVoice', { d, n }); }
+        onProgress: (d, n) => { btn.textContent = T('vlSavingVoice', { d, n }); },
+        onWait: s => { btn.textContent = T('vlVoiceWaiting', { s }); }
       });
       App.showToast(T('vlVoiceSaved', { n: r.clips, mb: (r.bytes / 1048576).toFixed(1) }), 'success');
     } catch (err) {
@@ -762,10 +772,11 @@ const VideoLesson = (() => {
   }
 
   // "Preparing voice…" next to the controls while a natural-voice clip downloads.
-  function setVoiceBusy(on) {
+  // `secs` (when the voice service asked us to wait) turns the label into a countdown.
+  function setVoiceBusy(on, secs) {
     voiceWait = !!on;
     const el = host && host.querySelector('[data-vl-voicestatus]');
-    if (el) el.textContent = on ? i18n.t('vlVoiceLoading') : '';
+    if (el) el.textContent = on ? (secs ? i18n.t('vlVoiceWaiting', { s: secs }) : i18n.t('vlVoiceLoading')) : '';
     const p = host && host.querySelector('[data-vl-player]');
     if (p) p.classList.toggle('voice-loading', !!on);
   }
@@ -960,6 +971,9 @@ const VideoLesson = (() => {
       // The narration is spoken in the language of the lesson, whatever the app language.
       if (noVoice) { noVoice = ''; drawNotice(); }
       let heard = false;
+      // If the natural voice is off for now (daily limit, no key), say so up front instead of silently using the device voice.
+      const off = TTS.naturalOn() ? TTS.naturalBlockedReason() : '';
+      drawVoiceNote(off ? i18n.t('vlVoiceBlocked', { why: off }) : '');
       TTS.speak(s.narration, cancelled => {
         setVoiceBusy(false);
         if (my !== token) return;
@@ -968,15 +982,25 @@ const VideoLesson = (() => {
       }, {
         rate, lang: lessonLang(l), natural: true,
         onNoVoice: lang => { playing = false; noVoice = lang; syncControls(); drawNotice(); },
+        // The voice service is busy: count down to the next try instead of switching voices in the middle of the lesson.
+        onWait: secs => { if (my === token) setVoiceBusy(true, secs); },
+        // It could not be reached: the device voice reads the rest of this part, and the note says why.
+        onFallback: err => {
+          if (my !== token) return;
+          drawVoiceNote(i18n.t(TTS.naturalBlockedReason() ? 'vlVoiceBlocked' : 'vlVoiceFellBack', { why: err && err.message ? err.message : String(err) }));
+        },
         onLoading: on => {
           if (my !== token) return;
           setVoiceBusy(on);
           // The slide's clock starts when its audio does, not while the clip downloads.
-          if (!on && !heard) { heard = true; slideStart = performance.now(); elapsed = 0; }
+          if (!on && !heard) {
+            heard = true; slideStart = performance.now(); elapsed = 0;
+            // The first clip is here: now have the next slide's audio ready so the lesson does not stall between slides
+            // (asking for both at once would double the requests, and the voice service's allowance is small).
+            if (index < l.slides.length - 1) TTS.prefetch(view(l, index + 1).narration, { lang: lessonLang(l) });
+          }
         }
       });
-      // Have the next slide's audio ready so the lesson does not stall between slides.
-      if (index < l.slides.length - 1) TTS.prefetch(view(l, index + 1).narration, { lang: lessonLang(l) });
     } else {
       // No speech: advance on the estimated reading time.
       timer = setTimeout(done, duration(s) * 1000);
