@@ -265,7 +265,8 @@ const Parser = (() => {
       title: str(a.title).slice(0, 200),
       lines: list(a.lines).filter(l => obj(l) && str(l.text).trim()).slice(0, 200)
         .map(l => ({ speaker: l.speaker === 'B' ? 'B' : 'A', text: str(l.text).trim().slice(0, 2000) })),
-      createdAt: Number.isFinite(a.createdAt) ? a.createdAt : 0
+      createdAt: Number.isFinite(a.createdAt) ? a.createdAt : 0,
+      ...(Number.isInteger(a.v) && a.v >= 1 && a.v <= 99 ? { v: a.v } : {}) // which generation pipeline wrote it (js/refresh.js)
     } : null;
     const audio = cleanAudio(d.audio);
     // Per-topic audio overviews, keyed by topic id (js/topics.js), and the student's bookmarked topics.

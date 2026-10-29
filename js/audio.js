@@ -173,6 +173,30 @@ const AudioOverview = (() => {
     if (typeof TTS !== 'undefined') TTS.stop();
   }
 
+  // Written from the notes (scripts made before this carry no v or v 1).
+  const AUDIO_V = 2;
+
+  // A new script for ANY deck's data; no screen involved. Throws on a bad answer.
+  async function write(data, fmt, focus) {
+    const raw = await API.chat(prompt(fmt, focus || ''), Material.forStudy(data) || JSON.stringify({ title: data.title, notes: data.notes }));
+    const obj = Parser.safeParseJSON(raw);
+    const lines = obj && Array.isArray(obj.lines) ? obj.lines : [];
+    const clean = Parser.normalizeStudyData({ title: data.title, audio: { format: fmt, title: obj && obj.title, lines, createdAt: Date.now(), v: AUDIO_V } }).audio;
+    if (!clean) throw new Error('empty script');
+    if (fmt === 'brief') clean.lines.forEach(l => { l.speaker = 'A'; });
+    return clean;
+  }
+
+  // A script written by an older pipeline (the offline recap is built from the notes and never outdated).
+  const isOutdated = data => !!(data.audio && data.audio.format !== 'recap' && (data.audio.v || 1) < AUDIO_V);
+
+  // Replaces an outdated script with a new one in the same format.
+  async function refreshOld(data) {
+    if (!isOutdated(data)) return { replaced: 0 };
+    data.audio = await write(data, data.audio.format);
+    return { replaced: 1 };
+  }
+
   async function generate() {
     const data = App.getStudyData();
     if (!data || busy) return;
@@ -189,13 +213,8 @@ const AudioOverview = (() => {
     busy = true;
     refresh();
     try {
-      const raw = await API.chat(prompt(format, focus), Material.forStudy(data) || JSON.stringify({ title: data.title, notes: data.notes }));
-      const obj = Parser.safeParseJSON(raw);
-      const lines = obj && Array.isArray(obj.lines) ? obj.lines : [];
+      const clean = await write(data, format, focus);
       if (App.getStudyData() !== data) return;
-      const clean = Parser.normalizeStudyData({ title: data.title, audio: { format, title: obj && obj.title, lines, createdAt: Date.now() } }).audio;
-      if (!clean) throw new Error('empty script');
-      if (format === 'brief') clean.lines.forEach(l => { l.speaker = 'A'; });
       data.audio = clean;
       App.persistActiveDeck();
       index = 0;
@@ -257,5 +276,5 @@ const AudioOverview = (() => {
     });
   }
 
-  return { init, render, stop, recapScript, generateFor, voices, isPlaying: () => playing };
+  return { refreshOld, isOutdated, init, render, stop, recapScript, generateFor, voices, isPlaying: () => playing };
 })();

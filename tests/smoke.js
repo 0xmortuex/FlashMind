@@ -23,6 +23,8 @@ const path = require('node:path');
   const errors = [];
   page.on('console', m => { if (m.type() === 'error') errors.push('console: ' + m.text()); });
   page.on('pageerror', e => errors.push('pageerror: ' + e.message));
+  // Chrome's "Failed to load resource" line does not say which URL: name it.
+  page.on('response', r => { if (r.status() === 404) errors.push('404: ' + r.url()); });
   let failCount = 0;
   const step = async (name, fn) => {
     try { await fn(); console.log('PASS  ' + name); }
@@ -484,6 +486,69 @@ const path = require('node:path');
     await page.waitForSelector('.plan-bar .plan-countdown', { timeout: 2000 });
     await page.click('[data-tab="stats"]');
     await page.waitForSelector('.plan-card .plan-row.today', { timeout: 2000 });
+  });
+
+  await step('update old videos and audio: only this year\'s sets are listed and replaced, last year\'s are left alone, and the AI limit pauses the run without losing anything', async () => {
+    const ids = await page.evaluate(() => {
+      const demoId = Decks.getActive().id;
+      const lesson = topic => ({ title: 'Old ' + topic, topic, slides: [{ title: 'S1', narration: 'Old narration one.' }, { title: 'S2', narration: 'Old narration two.' }] });
+      const audio = { format: 'deep', title: 'Old episode', lines: [{ speaker: 'A', text: 'Old line.' }, { speaker: 'B', text: 'Old reply.' }] };
+      const mk = (name, meta) => Decks.save({ title: name, notes: { summary: 'Sum', sections: [{ title: 'Topic X', content: 'About X.' }] }, flashcards: [{ id: 1, front: 'f', back: 'b' }], quiz: [], lessons: [lesson('Topic X')], audio, meta }, '').id;
+      const out = {
+        thisYear: mk('This year set', { fileId: 'fx1', schoolYear: '2026-2027', examType: 'konu', kind: 'topic-table' }),
+        lastYear: mk('Last year set', { fileId: 'fx2', schoolYear: '2025-2026', examType: 'lgs', kind: 'booklet' }),
+        ogm: mk('OGM set', { fileId: 'fx3', examType: 'ogm-yazili', kind: 'booklet' }),
+        demo: demoId
+      };
+      Decks.setActive(demoId);
+      window.__rf = { chat: API.chat, calls: [], mode: 'rate' };
+      API.chat = async q => {
+        window.__rf.calls.push(/video lesson/.test(q) ? 'lesson' : 'audio');
+        if (window.__rf.mode === 'rate') throw new Error('Rate limited — try again later');
+        if (/video lesson/.test(q)) return JSON.stringify({ title: 'New lesson', slides: [{ title: 'N1', narration: 'New narration one.' }, { title: 'N2', narration: 'New narration two.', check: { q: 'Q?', options: ['a', 'b', 'c'], correct: 0, why: 'w' } }] });
+        return JSON.stringify({ type: 'audio', title: 'New episode', lines: [{ speaker: 'A', text: 'New line.' }, { speaker: 'B', text: 'New reply.' }] });
+      };
+      App.switchTab('stats');
+      return out;
+    });
+    const deckInfo = id => page.evaluate(i => { const d = Decks.get(i).data; return { lessons: d.lessons.map(l => l.title + '|' + (l.v || 1) + '|' + l.slides.length), audio: d.audio.title + '|' + (d.audio.v || 1) }; }, id);
+    try {
+      await page.waitForSelector('.rf-card [data-rf-act="open"]', { timeout: 3000 });
+      if (!/^2 of this year's study sets/.test(await page.$eval('.rf-card .plan-pitch', e => e.textContent))) throw new Error('card: ' + await page.$eval('.rf-card .plan-pitch', e => e.textContent));
+      await page.$eval('.rf-card [data-rf-act="open"]', b => b.click());
+      await page.waitForSelector('.report-modal [data-rf-id]', { timeout: 2000 });
+      const rows = await page.evaluate(() => ({ titles: [...document.querySelectorAll('.rf-title')].map(e => e.textContent).sort(), note: (document.querySelector('.rf-note') || {}).textContent }));
+      if (rows.titles.join('|') !== 'OGM set|This year set' || !/1 set\(s\) from earlier years were left alone/.test(rows.note || '')) throw new Error('list ' + JSON.stringify(rows));
+      // The AI limit: it pauses with a clear message and changes nothing.
+      await page.$eval('[data-rf-act="start"]', b => b.click());
+      await page.waitForFunction(() => /Paused: the hourly AI limit/.test(document.querySelector('[data-rf-progress]').textContent), { timeout: 5000 });
+      if ((await deckInfo(ids.thisYear)).lessons[0] !== 'Old Topic X|1|2') throw new Error('changed despite the limit');
+      // Back to normal: both this-year sets are updated, last year's is not, and nothing is asked twice.
+      await page.evaluate(() => { window.__rf.mode = 'ok'; window.__rf.calls.length = 0; });
+      await page.waitForFunction(() => !document.querySelector('[data-rf-act="start"]').disabled, { timeout: 3000 });
+      await page.$eval('[data-rf-act="start"]', b => b.click());
+      await page.waitForFunction(() => /Done: 2 updated, 0 failed/.test(document.querySelector('[data-rf-progress]').textContent), { timeout: 8000 });
+      for (const id of [ids.thisYear, ids.ogm]) {
+        const d = await deckInfo(id);
+        if (d.lessons.join(',') !== 'New lesson|2|2' || d.audio !== 'New episode|2') throw new Error('not replaced: ' + JSON.stringify(d));
+      }
+      const last = await deckInfo(ids.lastYear);
+      if (last.lessons[0] !== 'Old Topic X|1|2' || last.audio !== 'Old episode|1') throw new Error('last year was touched: ' + JSON.stringify(last));
+      const calls = await page.evaluate(() => window.__rf.calls.slice().sort().join(','));
+      if (calls !== 'audio,audio,lesson,lesson') throw new Error('AI calls ' + calls);
+      await page.waitForFunction(() => !document.querySelector('.rf-card'), { timeout: 3000 });
+      await page.keyboard.press('Escape');
+      await page.waitForFunction(() => !document.querySelector('.report-modal'), { timeout: 2000 });
+    } finally {
+      await page.evaluate(ids => {
+        API.chat = window.__rf.chat;
+        [ids.thisYear, ids.lastYear, ids.ogm].forEach(id => Decks.remove(id));
+        Decks.setActive(ids.demo);
+        const m = document.querySelector('.report-backdrop'); if (m) m.remove();
+      }, ids);
+      await page.waitForFunction(() => !document.querySelector('.toast'), { timeout: 6000 });
+      await page.$eval('[data-tab="notes"]', b => b.click());
+    }
   });
 
   await step('share: the system share sheet button shows only where the browser can share, and sends the link', async () => {
@@ -1261,8 +1326,8 @@ const path = require('node:path');
   await step('labs: AI spec renders, sliders update live, challenges complete, unsafe specs rejected', async () => {
     await page.evaluate(() => document.getElementById('demo-btn').click());
     await page.waitForSelector('#study-view.active', { timeout: 3000 });
-    await page.click('[data-tab="notes"]');
-    await page.click('[data-notes-view="labs"]');
+    await page.$eval('[data-tab="notes"]', b => b.click());
+    await page.$eval('[data-notes-view="labs"]', b => b.click());
     await page.waitForSelector('[data-lab-act="generate"]', { timeout: 2000 });
     const unsafe = await page.evaluate(() => ['alert(1)', 'constructor', 'x.y', 'a[0]', 'window', '"s"', 'Function("x")()'].map(e => SimSpec.compile(e, ['x', 'a']).ok));
     if (unsafe.some(Boolean)) throw new Error('unsafe formula accepted: ' + unsafe);
@@ -1276,7 +1341,7 @@ const path = require('node:path');
         { template: 'graph', title: 'Broken', params: [], challenges: [] }
       ] }); };
     });
-    await page.click('[data-lab-act="generate"]');
+    await page.$eval('[data-lab-act="generate"]', b => b.click());
     await page.waitForSelector('[data-lab-curve="0"]', { timeout: 3000 });
     await page.evaluate(() => { API.chat = window.__chat; });
     if (!/Return ONLY JSON/.test(await page.evaluate(() => window.__labPrompt))) throw new Error('prompt shape');

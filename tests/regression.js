@@ -2303,6 +2303,98 @@ test('natural clips are kept on the device: reused after a reload, played offlin
   await assert.rejects(f.run('TTS.saveForOffline(texts, { lang: "tr" })'), /ttsNoCache/);
 });
 
+test('update old videos and audio: only this year\'s sets, stops on the AI limit, keeps finished work, never touches other years', async () => {
+  const log = [];
+  const mk = (id, meta, o) => ({ id, data: { title: 'Set ' + id, meta, lessons: o.lessons || [], audio: o.audio || null }, ...(o.extra || {}) });
+  const old = [{ id: 'v1', topic: 'A' }, { id: 'v2', topic: 'A', base: 'v1' }];
+  const decks = [
+    mk('a', { fileId: 'a', schoolYear: '2026-2027' }, { lessons: old, audio: { format: 'deep', v: 1 } }),   // this year, both old
+    mk('b', { fileId: 'b', schoolYear: '2025-2026' }, { lessons: old }),                                     // last year: left alone
+    mk('c', { fileId: 'c', examType: 'ogm-yazili' }, { audio: { format: 'brief' } }),                         // OGM written exam: this term, audio only
+    mk('e', undefined, { lessons: old }),                                                                     // not a library set
+    mk('f', { fileId: 'f', schoolYear: '2026-2027' }, { lessons: [{ id: 'v1', topic: 'A', v: 2 }], audio: { format: 'deep', v: 2 } }), // up to date
+    mk('g', { fileId: 'g', schoolYear: '2026-2027' }, { lessons: old }),                                     // fails with an ordinary error
+    mk('h', { fileId: 'h', schoolYear: '2026-2027' }, { lessons: old, audio: { format: 'deep' } }),          // lessons fine, audio fails
+    mk('i', { fileId: 'i', schoolYear: '2026-2027' }, { audio: { format: 'recap' } }),                       // the offline recap is never outdated
+    mk('d', { fileId: 'd', schoolYear: '2026-2027' }, { lessons: old })                                      // hits the AI limit
+  ];
+  let active = null;
+  const live = { title: 'live c', meta: { fileId: 'c', examType: 'ogm-yazili' }, lessons: [], audio: { format: 'brief' } };
+  const ctx = vm.createContext({
+    console, CSS: { escape: s => s }, i18n: { t: (k, p) => k + (p ? JSON.stringify(p) : '') },
+    Decks: { list: () => decks, get: id => decks.find(d => d.id === id), getActive: () => active, touch: id => log.push('touch ' + id) },
+    App: { getStudyData: () => live, persistActiveDeck: () => log.push('persist active'), showToast() {} },
+    VideoLesson: {
+      outdatedLessons: d => (d.lessons || []).filter(l => (l.v || 1) < 2),
+      refreshOld: async (d) => {
+        if (d.title === 'Set d') throw new Error('Rate limited — try again later');
+        if (d.title === 'Set g') throw new Error('The lesson came back unusable');
+        d.lessons = [{ id: 'v1', topic: 'A', v: 2 }]; log.push('lessons ' + d.title);
+      }
+    },
+    AudioOverview: {
+      isOutdated: d => !!(d.audio && d.audio.format !== 'recap' && (d.audio.v || 1) < 2),
+      refreshOld: async d => { if (d.title === 'Set h') throw new Error('empty script'); d.audio = { ...d.audio, v: 2 }; log.push('audio ' + d.title); }
+    }
+  });
+  vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/refresh.js'), 'utf8') + '; this.Refresh = Refresh;', ctx);
+  const R = ctx.Refresh;
+  const plain = v => JSON.parse(JSON.stringify(v));
+  assert.deepEqual(['a', 'b', 'c', 'e', 'f', 'i'].map(id => R.thisYear(decks.find(d => d.id === id))), [true, false, true, false, true, true]);   // the recap deck is a this-year deck too; it just has nothing old
+  const s = plain(R.scan());
+  assert.deepEqual(s.todo.map(x => x.id), ['a', 'c', 'g', 'h', 'd'], 'this year, with something old, in library order');
+  assert.deepEqual(s.todo[0], { id: 'a', title: 'Set a', videos: 2, audio: true });
+  assert.deepEqual(s.todo[1], { id: 'c', title: 'Set c', videos: 0, audio: true });
+  assert.equal(s.leftAlone, 1, 'last year\'s set b is counted as left alone; a deck with no library meta is not');
+  // c is the open deck: its live data is updated and saved through the app, not the stored copy.
+  active = decks.find(d => d.id === 'c');
+  decks.find(d => d.id === 'c').data = live;
+  const seen = [];
+  const r = plain(await R.run(['a', 'c', 'g', 'h', 'd', 'b'], { onResult: (item, ok, why) => seen.push([item.id, ok, why]), onDeck: item => seen.push(['deck', item.id]) }));
+  assert.deepEqual(r, { ok: 2, failed: 2, stopped: 'rate' }, 'a and c done; g and h failed; d stopped the run');
+  assert.deepEqual(seen.filter(x => x[0] !== 'deck'), [['a', true, ''], ['c', true, ''], ['g', false, 'The lesson came back unusable'], ['h', false, 'empty script']]);
+  assert.ok(!seen.some(x => x[1] === 'b' || x[0] === 'b'), 'b was in the list of ids but is last year\'s: never touched');
+  assert.deepEqual(log, ['lessons Set a', 'touch a', 'audio Set a', 'touch a', 'audio live c', 'persist active', 'lessons Set h', 'touch h'], 'saved after each part; h keeps its new lessons although its audio failed');
+  assert.equal(decks.find(d => d.id === 'b').data.lessons.length, 2);
+  // Run again: finished sets are not redone, and a stop request ends the run before the next set.
+  log.length = 0;
+  assert.deepEqual(plain(R.scan()).todo.map(x => x.id), ['g', 'h', 'd']);
+  let n = 0;
+  const stopped = plain(await R.run(['g', 'h', 'd'], { cancelled: () => n++ >= 1 }));
+  assert.equal(stopped.stopped, 'cancel');
+  // Offline stops too.
+  ctx.VideoLesson.refreshOld = async () => { throw new TypeError('Failed to fetch'); };
+  assert.equal(plain(await R.run(['g'], {})).stopped, 'offline');
+});
+
+test('refreshing lessons: one new lesson per topic that had old ones, nothing replaced unless all were written', async () => {
+  const { run, ctx } = ttsEnv([]);
+  ctx.Parser = { safeParseJSON: s => JSON.parse(s) };
+  ctx.App.getStudyData = () => null;
+  ctx.App.getOriginalText = () => '';
+  ctx.asked = [];
+  ctx.fail = false;
+  ctx.API = { chat: async (q, c) => { ctx.asked.push({ q, c }); if (ctx.fail && ctx.asked.length === 2) throw new Error('Rate limited'); return JSON.stringify({ title: 'New lesson', slides: [{ title: 'S1', narration: 'Hello.' }, { title: 'S2', narration: 'More.', check: { q: 'Q?', options: ['a', 'b'], correct: 1, why: 'w' } }] }); } };
+  const make = () => ({
+    title: 'Set', notes: { summary: 'Sum', sections: [{ title: 'A', content: 'About A.' }, { title: 'B', content: 'About B.' }] }, sources: [],
+    lessons: [{ id: 'v1', title: 'old A', topic: 'A', slides: [] }, { id: 'v2', title: 'old A simpler', topic: 'A', base: 'v1', slides: [] }, { id: 'v3', title: 'old B', topic: 'B', slides: [] }, { id: 'v4', title: 'fresh', topic: 'B', v: 2, slides: [] }]
+  });
+  ctx.data = make();
+  const r = JSON.parse(JSON.stringify(await run('VideoLesson.refreshOld(data, t => steps.push(t))'.replace('steps.push', '(ctx => ctx)'))));
+  assert.deepEqual(r, { replaced: 3, made: 2 });
+  const out = JSON.parse(JSON.stringify(ctx.data.lessons));
+  assert.deepEqual(out.map(l => l.title), ['fresh', 'New lesson', 'New lesson'], 'the up-to-date lesson stays; the three old ones became two new ones');
+  assert.ok(out.every(l => l.v === 2) && new Set(out.map(l => l.id)).size === 3, 'new lessons are marked and have unique ids');
+  assert.deepEqual(out.map(l => l.topic), ['B', 'A', 'B']);
+  assert.equal(ctx.asked.length, 2);
+  assert.ok(ctx.asked[0].c.includes('## A') && !ctx.asked[0].c.includes('## B'), 'each lesson is written from its own topic');
+  assert.ok(/Did you get this|"check"/.test(ctx.asked[0].q) || /check/.test(ctx.asked[0].q));
+  // A failure part-way replaces nothing.
+  ctx.data = make(); ctx.asked.length = 0; ctx.fail = true;
+  await assert.rejects(run('VideoLesson.refreshOld(data)'), /Rate limited/);
+  assert.deepEqual(JSON.parse(JSON.stringify(ctx.data.lessons.map(l => l.title))), ['old A', 'old A simpler', 'old B', 'fresh']);
+});
+
 test('progress report: numbers, weak topics, lesson checks, exam countdown, 7-day window, text and HTML', () => {
   const ctx = vm.createContext({ console, i18n: { getLang: () => 'en', t: (k, p) => k + (p ? ' ' + JSON.stringify(p) : '') } });
   vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/report.js'), 'utf8') + '; this.Report = Report;', ctx);
@@ -2385,10 +2477,12 @@ test('lesson material is the teaching notes, not the exam paper a library set ca
   const { run, ctx } = ttsEnv([]);
   const EXAM = 'SORU DAĞILIMI: 1. soru 10 puan, tarih 3 soru, coğrafya 2 soru. '.repeat(400);
   ctx.App.getOriginalText = () => EXAM;
+  ctx.App.getStudyData = () => ctx.cur; // the open deck, whose source is the app's original text
   ctx.data = { title: 'T', notes: { summary: 'Özet cümlesi.', sections: [
     { title: 'Fotosentez', content: 'Bitkiler ışıkla besin üretir.', bulletPoints: ['Işık gerekir'], keyTerms: [{ term: 'Klorofil', definition: 'Yeşil pigment.' }] },
     { title: 'Solunum', content: 'Hücre enerji üretir.' }
   ] }, sources: [{ id: 's1', name: 'Yazılı', text: EXAM }] };
+  ctx.cur = ctx.data;
   const all = run('VideoLesson._test.materialFor(data, null)');
   assert.ok(all.startsWith('Özet cümlesi.'), 'the notes come first');
   assert.ok(all.includes('## Fotosentez') && all.includes('Bitkiler ışıkla besin üretir.') && all.includes('- Işık gerekir') && all.includes('Klorofil: Yeşil pigment.') && all.includes('## Solunum'));
@@ -2404,6 +2498,7 @@ test('lesson material is the teaching notes, not the exam paper a library set ca
   assert.ok(!run('VideoLesson._test.materialFor(data, null)').includes('Reference text'));
   // No notes at all: fall back to whatever material there is.
   ctx.bare = { title: 'B', notes: { sections: [] } };
+  ctx.cur = ctx.bare;
   ctx.App.getOriginalText = () => 'Ham metin';
   assert.equal(run('VideoLesson._test.materialFor(bare, null)'), 'Ham metin');
   // The prompt tells the AI to teach the subject, not the exam format.

@@ -459,6 +459,8 @@ const SimSpec = (() => {
     // Another version of a lesson: "base" is the id of the original, "label" names the perspective.
     if (/^[a-z0-9_-]{1,24}$/i.test(str(raw.base, 24))) out.base = str(raw.base, 24);
     if (str(raw.label, 60)) out.label = str(raw.label, 60);
+    // Which generation pipeline wrote it (js/refresh.js replaces the ones written by an older one).
+    if (Number.isInteger(raw.v) && raw.v >= 1 && raw.v <= 99) out.v = raw.v;
     // How the student did on the slides' checks: { "<slide index>": "right" | "wrong" | "lost" | "skipped" }.
     if (obj(raw.checks)) {
       const checks = {};

@@ -17,13 +17,19 @@ const Material = (() => {
     return [`## ${s.title || ''}`, s.content, bullets, terms, s.example ? 'Example: ' + s.example : ''].filter(Boolean).join('\n');
   }
 
+  // The source text of THIS deck (not necessarily the open one: js/refresh.js works through the library).
+  function sourceOf(data) {
+    if (data === App.getStudyData()) return App.getOriginalText();
+    return typeof Sources !== 'undefined' ? Sources.contextText(data) : '';
+  }
+
   // `sec` limits the material to one notes section.
   function forStudy(data, sec) {
     const sections = (data.notes && data.notes.sections) || [];
     const taught = [sec ? '' : (data.notes && data.notes.summary) || '', ...(sec ? [sec] : sections).map(noteText)].filter(Boolean).join('\n\n');
     const hasSources = Array.isArray(data.sources) && data.sources.length > 0;
-    const src = hasSources ? App.getOriginalText() : '';
-    if (!taught) return String(App.getOriginalText() || '').slice(0, LIMIT);
+    const src = hasSources ? sourceOf(data) : '';
+    if (!taught) return String(sourceOf(data) || '').slice(0, LIMIT);
     return (taught.slice(0, 32000) + (src ? `\n\nReference text (it may be an exam paper or a question table: never teach its format, only use it for facts about the subject):\n${src.slice(0, REFERENCE)}` : '')).slice(0, LIMIT);
   }
 
