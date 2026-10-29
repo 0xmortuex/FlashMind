@@ -1597,6 +1597,70 @@ const path = require('node:path');
     }
   });
 
+  await step('video lesson: a busy voice service shows a countdown and keeps the natural voice; a used-up daily limit leaves a note saying why the device voice reads', async () => {
+    await page.evaluate(() => {
+      VideoLesson.stop(); delete App.getStudyData().lessons;
+      localStorage.setItem('flashmind_tts_natural', '1');
+      TTS._reset(); TTS._setRetryWaits([2, 2]);
+      window.__bz = { chat: API.chat, tts: API.tts, speak: speechSynthesis.speak, cancel: speechSynthesis.cancel, voices: speechSynthesis.getVoices, utt: window.SpeechSynthesisUtterance };
+      window.__bzCalls = 0; window.__bzMode = 'busy2'; window.__plays = []; window.__utt = []; window.__hold = false;
+      window.__voices = [{ name: 'Microsoft Emel Online (Natural)', lang: 'tr-TR', voiceURI: 'emel' }];
+      speechSynthesis.getVoices = () => window.__voices;
+      speechSynthesis.cancel = () => {};
+      speechSynthesis.speak = u => { window.__utt.push({ text: u.text }); setTimeout(() => u.onend && u.onend(), 30); };
+      window.SpeechSynthesisUtterance = function (t) { this.text = t; };
+      API.tts = async () => {
+        window.__bzCalls++;
+        if (window.__bzMode === 'day') throw Object.assign(new Error('The voice service\'s daily limit is used up'), { status: 429, quota: 'day' });
+        if (window.__bzMode === 'busy2' && window.__bzCalls <= 2) throw Object.assign(new Error('Rate limited — try again in a minute'), { status: 429 });
+        return new Blob(['x'], { type: 'audio/wav' });
+      };
+      API.chat = async () => JSON.stringify({ title: 'Busy lesson', slides: [
+        { title: 'Bir', bullets: [], narration: 'Fotosentez bitkilerin ışığı kullanarak besin üretmesidir. Bu olay yaprakların içinde gerçekleşir.' },
+        { title: 'İki', bullets: [], narration: 'Özetle bitkiler ışık ve suyla besin üretir. Bu kadar basit.' }
+      ] });
+    });
+    try {
+      await page.$eval('[data-notes-view="video"]', b => b.click());
+      await page.waitForSelector('[data-vl-act="generate"], [data-vl-act="list"]', { timeout: 3000 });
+      if (await page.$('[data-vl-act="list"]')) await page.$eval('[data-vl-act="list"]', b => b.click());
+      await page.waitForSelector('[data-vl-act="generate"]', { timeout: 2000 });
+      await page.$eval('[data-vl-act="generate"]', b => b.click());
+      await page.waitForSelector('.vl-slide.in', { timeout: 3000 });
+      // Busy twice: a countdown, then the same natural voice (no device voice, no note).
+      await page.$eval('[data-vl-act="toggle"]', b => b.click());
+      await page.waitForFunction(() => /trying again in \d s/.test(document.querySelector('[data-vl-voicestatus]').textContent), { timeout: 4000, polling: 20 });
+      await page.waitForFunction(() => window.__plays.some(p => /^blob:/.test(p.src)), { timeout: 12000 });
+      const ok = await page.evaluate(() => ({ utt: window.__utt.length, note: document.querySelector('[data-vl-voicenote]').hidden, calls: window.__bzCalls }));
+      if (ok.utt !== 0 || !ok.note || ok.calls < 3) throw new Error('busy service ' + JSON.stringify(ok));
+      // Both parts are narrated (the second slide is the last one), then the lesson ends.
+      await page.waitForFunction(() => window.__plays.filter(p => /^blob:/.test(p.src)).length >= 2 && VideoLesson._index() === 1 && !VideoLesson.isPlaying(), { timeout: 15000 });
+      // The daily limit: no waiting, the device voice reads, and a lasting note says why.
+      // (The first phase saved its clips on the device, which would be played without asking the service: clear them.)
+      await page.evaluate(async () => { VideoLesson.stop(); TTS._reset(); await caches.delete('flashmind-tts-v1'); window.__bzMode = 'day'; window.__bzCalls = 0; window.__utt = []; });
+      await page.$eval('.vl-mark[data-vl-go="0"]', b => b.click());
+      await page.waitForFunction(() => VideoLesson._index() === 0, { timeout: 2000 });
+      await page.$eval('[data-vl-act="toggle"]', b => b.click());
+      await page.waitForFunction(() => window.__utt.length >= 1, { timeout: 5000 });
+      await page.waitForFunction(() => !document.querySelector('[data-vl-voicenote]').hidden && /natural voice is off for now/.test(document.querySelector('[data-vl-voicenote]').textContent) && /daily limit/.test(document.querySelector('[data-vl-voicenote]').textContent), { timeout: 5000 });
+      await page.waitForFunction(() => !VideoLesson.isPlaying(), { timeout: 12000 });
+      if (await page.evaluate(() => window.__bzCalls) !== 1) throw new Error('the daily limit was asked about more than once: ' + await page.evaluate(() => window.__bzCalls));
+    } catch (e) {
+      const st = await page.evaluate(() => JSON.stringify({ mode: window.__bzMode, calls: window.__bzCalls, utt: (window.__utt || []).length, plays: (window.__plays || []).length, note: (document.querySelector('[data-vl-voicenote]') || {}).textContent, hidden: (document.querySelector('[data-vl-voicenote]') || {}).hidden, status: (document.querySelector('[data-vl-voicestatus]') || {}).textContent, playing: VideoLesson.isPlaying(), idx: VideoLesson._index(), btn: (document.querySelector('[data-vl-act="toggle"]') || {}).title, natural: TTS.naturalAvailable(), ttsok: TTS.supported(), blocked: TTS.naturalBlockedReason(), toasts: [...document.querySelectorAll('.toast')].map(t => t.textContent.slice(0, 60)) }));
+      throw new Error(e.message + ' | ' + st);
+    } finally {
+      await page.evaluate(() => {
+        VideoLesson.stop(); TTS.stop(); TTS._reset();
+        const s = window.__bz;
+        API.chat = s.chat; API.tts = s.tts; speechSynthesis.speak = s.speak; speechSynthesis.cancel = s.cancel; speechSynthesis.getVoices = s.voices; window.SpeechSynthesisUtterance = s.utt;
+        localStorage.setItem('flashmind_tts_natural', '0');
+      });
+      await page.$eval('[data-notes-view="notes"]', b => b.click());
+      await page.waitForFunction(() => !document.querySelector('.toast'), { timeout: 8000 });
+      await page.evaluate(() => window.scrollTo(0, 0));
+    }
+  });
+
   await step('video lesson: "Did you get this?" pauses after the slide, grades the answer, explains the slide again and re-asks, can be skipped, and is not asked again once passed', async () => {
     await page.evaluate(() => {
       VideoLesson.stop(); delete App.getStudyData().lessons;

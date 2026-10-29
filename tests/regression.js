@@ -2142,6 +2142,7 @@ function naturalEnv(voices, { tts, saved, lang } = {}) {
     extra: {
       API: { tts: (text, voice) => { calls.push({ text, voice }); return (tts || (async () => ({ blob: true })))(text, voice); } },
       navigator: { onLine: true },
+      setTimeout,
       URL: { createObjectURL: () => 'blob:clip' + calls.length, revokeObjectURL() {} },
       Audio: FakeAudio
     }
@@ -2163,6 +2164,67 @@ test('natural voice: passages are fetched in the chosen voice and played one aft
   for (let i = 0; i < calls.length; i++) { assert.equal(audios[0].played.filter(s => s.startsWith('blob:')).length, i + 1); audios[0].onended(); await flush(); }
   assert.equal(ctx.ended, false);
   assert.equal(spoken.length, 0, 'the device voice was not used');
+});
+
+test('natural voice: a busy service is waited for, a used-up daily limit is not hammered, cancelling ends the wait, prefetch stays small', async () => {
+  const busy = (status, extra) => Object.assign(new Error(status === 429 ? 'Rate limited — try again in a minute' : 'Voice service failed'), { status }, extra);
+  const waits = secs => secs.slice();
+  // 1. Busy twice, then fine: the same natural voice plays; the student sees a countdown, never a different voice.
+  let n = 0;
+  const a = naturalEnv([V('Microsoft Emel Online (Natural)', 'tr-TR')], { tts: async () => { if (n++ < 2) throw busy(429); return {}; } });
+  a.run('TTS._setRetryWaits([0.02, 0.02, 0.02])');
+  a.ctx.waited = [];
+  a.run(`var ended = null, fellBack = null; TTS.speak(${JSON.stringify(TR_TEXT)}, c => { ended = c; }, { natural: true, onWait: s => waited.push(s), onFallback: e => { fellBack = e; } });`);
+  await new Promise(r => setTimeout(r, 200));
+  assert.equal(a.calls.length, 3, 'tried again after each wait');
+  assert.ok(a.ctx.waited.length >= 2 && a.ctx.waited.every(s => s >= 1), 'a countdown was reported');
+  assert.equal(a.audios.length, 1);
+  assert.ok(a.audios[0].played.some(s => s.startsWith('blob:')), 'the natural clip played');
+  assert.equal(a.spoken.length, 0, 'the device voice was not used');
+  assert.equal(a.ctx.fellBack, null);
+  assert.equal(a.ctx.toasts.length, 0);
+  // 2. Still busy after every retry: then, and only then, the device voice, with the reason passed on.
+  const b = naturalEnv([V('Microsoft Emel Online (Natural)', 'tr-TR')], { tts: async () => { throw busy(502); } });
+  b.run('TTS._setRetryWaits([0.01, 0.01])');
+  b.run(`var fellBack = null; TTS.speak(${JSON.stringify(TR_TEXT)}, null, { natural: true, onFallback: e => { fellBack = e; } })`);
+  await new Promise(r => setTimeout(r, 200));
+  assert.equal(b.calls.length, 3, 'one try plus two retries');
+  assert.match(b.ctx.fellBack.message, /Voice service failed/);
+  assert.ok(b.spoken.length >= 1, 'the device voice took over');
+  assert.equal(b.run('TTS.naturalBlockedReason()'), '', 'a busy service is not a reason to stop asking for good');
+  // 3. A used-up daily limit is not retried, switches the natural voice off for this page load, and later reads do not ask again.
+  const c = naturalEnv([V('Microsoft Emel Online (Natural)', 'tr-TR')], { tts: async () => { throw busy(429, { quota: 'day' }); } });
+  c.run('TTS._setRetryWaits([0.01, 0.01])');
+  c.run(`TTS.speak(${JSON.stringify(TR_TEXT)}, null, { natural: true })`);
+  await new Promise(r => setTimeout(r, 100));
+  assert.equal(c.calls.length, 1, 'waiting cannot help, so no retry');
+  assert.match(c.run('TTS.naturalBlockedReason()'), /Rate limited/);
+  c.run(`TTS.speak(${JSON.stringify(TR_TEXT)}, null, { natural: true })`);
+  await new Promise(r => setTimeout(r, 50));
+  assert.equal(c.calls.length, 1, 'not asked again');
+  assert.ok(c.spoken.length >= 2);
+  // 4. Stopping while it waits ends the wait: no more tries, no fallback.
+  const d = naturalEnv([V('Microsoft Emel Online (Natural)', 'tr-TR')], { tts: async () => { throw busy(429); } });
+  d.run('TTS._setRetryWaits([5, 5])');
+  d.run(`var fellBack = null; TTS.speak(${JSON.stringify(TR_TEXT)}, null, { natural: true, onFallback: e => { fellBack = e; } })`);
+  await new Promise(r => setTimeout(r, 30));
+  d.run('TTS.stop()');
+  await new Promise(r => setTimeout(r, 1300));
+  assert.equal(d.calls.length, 1);
+  assert.equal(d.ctx.fellBack, null);
+  assert.equal(d.spoken.length, 0);
+  // 5. Prefetch asks for the first clip only, and not at all while the service is pushing back.
+  const e = naturalEnv([V('Microsoft Zira', 'en-US')], { tts: async () => ({}) });
+  e.run(`TTS.prefetch(${JSON.stringify(LONG_TR)}, { lang: 'tr' })`);
+  await e.flush();
+  assert.equal(e.calls.length, 1);
+  const f = naturalEnv([V('Microsoft Zira', 'en-US')], { tts: async () => { throw busy(429); } });
+  f.run('TTS._setRetryWaits([])');
+  f.run(`TTS.speak('Bu bir deneme cümlesidir ve bu çok önemlidir.', null, { natural: true })`);
+  await f.flush();
+  f.run(`TTS.prefetch(${JSON.stringify(LONG_TR)}, { lang: 'tr' })`);
+  await f.flush();
+  assert.equal(f.calls.length, 1, 'no prefetch right after a 429');
 });
 
 test('natural voice: a failed clip tells the student why and the device voice reads the rest', async () => {

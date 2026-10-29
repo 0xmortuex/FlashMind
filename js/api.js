@@ -240,8 +240,11 @@ const API = (() => {
       body: JSON.stringify({ text, voice })
     });
     if (!res.ok) {
-      const err = new Error((await res.json().catch(() => ({}))).error || `HTTP ${res.status}`);
+      const body = await res.json().catch(() => ({}));
+      const err = new Error(body.error || `HTTP ${res.status}`);
       err.status = res.status;
+      if (body.quota) err.quota = body.quota;               // 'day' when the voice service's daily limit is used up
+      if (Number.isFinite(body.retryAfter)) err.retryAfter = body.retryAfter; // seconds the service asked us to wait
       throw err;
     }
     return res.blob();

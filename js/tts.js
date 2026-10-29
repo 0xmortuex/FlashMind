@@ -339,7 +339,7 @@ const TTS = (() => {
     for (const text of passages) {
       const store = await clipStore(text, voice);
       if (!store) throw new Error(i18n.t('ttsNoCache'));
-      const blob = await loadClip(text, voice);
+      const blob = await patiently(() => loadClip(text, voice), () => true, o.onWait);
       if (!(await store.cache.match(store.key))) throw new Error(i18n.t('ttsCacheFull'));
       saved++; bytes += blob.size || 0;
       if (o.onProgress) o.onProgress(saved, passages.length);
@@ -347,24 +347,66 @@ const TTS = (() => {
     return { clips: saved, bytes };
   }
 
+  // What the voice service has told us: busy for now (429 per minute), used up for the day (429 per day), or no key (503).
+  let limitedAt = 0;
+  function noteRefusal(err) {
+    if (!err) return;
+    if (err.status === 429) limitedAt = Date.now();
+    if (err.quota === 'day' || err.status === 503) naturalBlocked = err.message; // waiting cannot help: stop asking until the page is reloaded
+  }
+  const recentlyLimited = () => Date.now() - limitedAt < 60000;
+
+  // Why the natural voice is switched off for now ('' when it is not).
+  function naturalBlockedReason() {
+    return naturalBlocked;
+  }
+
   function fetchClip(text, voice) {
     const key = voice + '|' + text;
     if (!clips.has(key)) {
       const p = loadClip(text, voice);
-      p.catch(() => clips.delete(key)); // a failed clip is retried next time
+      p.catch(err => { clips.delete(key); noteRefusal(err); }); // a failed clip is retried next time
       clips.set(key, p);
       if (clips.size > 24) clips.delete(clips.keys().next().value);
     }
     return clips.get(key);
   }
 
-  // Start fetching the clips of a passage the student is about to hear (the next
-  // slide). Failures are not reported here: the real playback asks again and
-  // reports them.
+  // A busy service (429 per minute, 502, a dropped connection) gets another try after a wait, counting down
+  // through onWait(secondsLeft), instead of the voice changing in the middle of a lesson. A used-up daily quota,
+  // a missing key, an offline device and a cancelled playback are not retried.
+  let retryWaits = [10, 25, 45]; // seconds before each retry
+  const transient = err => !!err && err.quota !== 'day' && (err.status === 429 || err.status === 502 || err instanceof TypeError);
+
+  async function pauseFor(secs, alive, onWait) {
+    const end = Date.now() + secs * 1000;
+    while (alive()) {
+      const left = Math.ceil((end - Date.now()) / 1000);
+      if (left <= 0) return;
+      if (onWait) onWait(left);
+      await new Promise(r => setTimeout(r, Math.min(1000, Math.max(0, end - Date.now()))));
+    }
+  }
+
+  async function patiently(get, alive, onWait) {
+    for (let attempt = 0; ; attempt++) {
+      try { return await get(); } catch (err) {
+        if (!transient(err) || attempt >= retryWaits.length || !alive()) throw err;
+        await pauseFor(Number.isFinite(err.retryAfter) ? Math.min(Math.max(err.retryAfter, 1), 60) : retryWaits[attempt], alive, onWait);
+        if (!alive()) throw err;
+      }
+    }
+  }
+
+  // Start fetching the first clip of a passage the student is about to hear (the next
+  // slide). Only one, and not while the service is pushing back, so a lesson does not
+  // use up the per-minute allowance. Failures are not reported here: the real
+  // playback asks again and reports them.
   function prefetch(text, opts) {
     const o = opts || {};
-    if (!text || !naturalAvailable()) return;
-    plan(text, o.lang, NATURAL_CHUNK).forEach(q => fetchClip(q.text, o.nvoice || naturalVoice()).catch(() => {}));
+    if (!text || !naturalAvailable() || recentlyLimited()) return;
+    const first = plan(text, o.lang, NATURAL_CHUNK)[0];
+    if (first) fetchClip(first.text, o.nvoice || naturalVoice()).catch(() => {});
   }
 
   // Call from a tap handler: lets the shared element play later without a tap.
@@ -388,7 +430,7 @@ const TTS = (() => {
 
   // onEnd(cancelled) runs once: when the text finishes, or with `true` when
   // another speak()/stop() cuts it off. opts: { lang (fallback), voice, pitch,
-  // rate, natural, nvoice, onNoVoice(lang), onLoading(bool) }. If a language of
+  // rate, natural, nvoice, onNoVoice(lang), onLoading(bool), onWait(secondsLeft), onFallback(err) }. If a language of
   // the text has no installed voice nothing is spoken (never the wrong-language
   // voice): onNoVoice(lang) is called, or a toast explains it, and onEnd(false) runs.
   function speak(text, onEnd, opts) {
@@ -454,7 +496,8 @@ const TTS = (() => {
       if (mySession !== session) return;
       loading(false);
       progressFn = null; // the device voice reads the rest; the caller estimates until it reports its own position
-      if (err && err.status === 503) naturalBlocked = err.message;
+      noteRefusal(err);
+      if (o.onFallback) o.onFallback(err);
       notifyNaturalFailed(err);
       // The device voices read the rest of the text in their own, smaller chunks.
       speakDevice(plan(queue.slice(from).map(q => q.text).join(' '), o.lang), 0);
@@ -465,10 +508,10 @@ const TTS = (() => {
       const at = idx++;
       let blob;
       loading(true);
-      try { blob = await fetchClip(queue[at].text, voiceName); } catch (err) { fallBack(err, at); return; }
+      try { blob = await patiently(() => fetchClip(queue[at].text, voiceName), () => mySession === session, s => { if (o.onWait && mySession === session) o.onWait(s); }); } catch (err) { fallBack(err, at); return; }
       if (mySession !== session) return;
       loading(false);
-      if (queue[idx]) fetchClip(queue[idx].text, voiceName).catch(() => {}); // prefetch; a failure resurfaces on its own turn
+      if (queue[idx] && !recentlyLimited()) fetchClip(queue[idx].text, voiceName).catch(() => {}); // prefetch; a failure resurfaces on its own turn
       if (audioUrl) URL.revokeObjectURL(audioUrl);
       audioUrl = URL.createObjectURL(blob);
       audioEl.onended = step;
@@ -504,6 +547,8 @@ const TTS = (() => {
 
   return {
     supported, speak, stop, isSpeaking, voicesForLang, speakable, detectLang, pickVoice, savedVoiceFor, setVoice, getRate, setRate, missingVoice, langTag,
-    naturalOn, setNatural, naturalVoice, setNaturalVoice, naturalAvailable, prefetch, NVOICES, progress, saveForOffline
+    naturalOn, setNatural, naturalVoice, setNaturalVoice, naturalAvailable, naturalBlockedReason, prefetch, NVOICES, progress, saveForOffline,
+    _setRetryWaits: a => { retryWaits = a; },
+    _reset: () => { naturalBlocked = ''; limitedAt = 0; clips.clear(); retryWaits = [10, 25, 45]; } // tests only
   };
 })();
