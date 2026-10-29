@@ -233,11 +233,11 @@ const API = (() => {
 
   // Natural speech (the separate flashmind-tts worker, see flashmind-worker/tts):
   // returns a WAV Blob for `text` in a Gemini voice. Throws the worker's message.
-  async function tts(text, voice) {
+  async function tts(text, voice, lang) {
     const res = await fetch(TTS_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text, voice })
+      body: JSON.stringify({ text, voice, lang: lang === 'en' ? 'en' : 'tr' })
     });
     if (!res.ok) {
       const body = await res.json().catch(() => ({}));

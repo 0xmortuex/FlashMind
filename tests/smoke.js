@@ -1565,7 +1565,7 @@ const path = require('node:path');
       if (r.voices.some(v => v !== 'Kore') || r.plays.some(x => x !== 0.95) || r.utt !== 0 || r.busy) throw new Error('natural playback ' + JSON.stringify(r));
       if (!(await page.evaluate(() => window.__clips.every(c => /[ğışöüç]/i.test(c.text))))) throw new Error('clip text is not the Turkish narration');
       // The clips that played were kept on the device (real Cache Storage); "Save voice for offline" keeps all of the lesson's clips.
-      const kept = () => page.evaluate(async () => (await (await caches.open('flashmind-tts-v1')).keys()).length);
+      const kept = () => page.evaluate(async () => (await (await caches.open('flashmind-tts-v2')).keys()).length);
       if (await kept() < 2) throw new Error('played clips were not kept on the device: ' + await kept());
       await page.$eval('[data-vl-act="save-voice"]', b => b.click());
       await page.waitForFunction(() => [...document.querySelectorAll('.toast')].some(t => /voice clips saved/.test(t.textContent)), { timeout: 8000 });
@@ -1637,7 +1637,7 @@ const path = require('node:path');
       await page.waitForFunction(() => window.__plays.filter(p => /^blob:/.test(p.src)).length >= 2 && VideoLesson._index() === 1 && !VideoLesson.isPlaying(), { timeout: 15000 });
       // The daily limit: no waiting, the device voice reads, and a lasting note says why.
       // (The first phase saved its clips on the device, which would be played without asking the service: clear them.)
-      await page.evaluate(async () => { VideoLesson.stop(); TTS._reset(); await caches.delete('flashmind-tts-v1'); window.__bzMode = 'day'; window.__bzCalls = 0; window.__utt = []; });
+      await page.evaluate(async () => { VideoLesson.stop(); TTS._reset(); await caches.delete('flashmind-tts-v2'); window.__bzMode = 'day'; window.__bzCalls = 0; window.__utt = []; });
       await page.$eval('.vl-mark[data-vl-go="0"]', b => b.click());
       await page.waitForFunction(() => VideoLesson._index() === 0, { timeout: 2000 });
       await page.$eval('[data-vl-act="toggle"]', b => b.click());

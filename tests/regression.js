@@ -2140,7 +2140,7 @@ function naturalEnv(voices, { tts, saved, lang } = {}) {
   const env = ttsEnv(voices, {
     saved, lang,
     extra: {
-      API: { tts: (text, voice) => { calls.push({ text, voice }); return (tts || (async () => ({ blob: true })))(text, voice); } },
+      API: { tts: (text, voice, lang) => { calls.push({ text, voice, lang }); return (tts || (async () => ({ blob: true })))(text, voice, lang); } },
       navigator: { onLine: true },
       setTimeout,
       URL: { createObjectURL: () => 'blob:clip' + calls.length, revokeObjectURL() {} },
@@ -2263,6 +2263,23 @@ test('natural voice: a server without a key is not asked again; turning it off o
   assert.ok(offline.spoken.length >= 1);
 });
 
+test('natural voice: each clip is requested in the language of its own text, and kept separately per language', async () => {
+  const caches = fakeCaches();
+  const a = withCaches(caches);
+  a.run(`TTS.speak('Fotosentez bitkilerin ışığı kullanarak besin üretmesidir. The cell is the basic unit of life and it divides every day.', null, { natural: true })`);
+  await a.flush();
+  await a.flush();
+  const langs = a.calls.map(c => c.lang);
+  assert.ok(langs.includes('tr') && langs.includes('en'), 'a mixed text asks for a Turkish and an English clip: ' + langs);
+  assert.ok(a.calls.every(c => c.lang === (/[ışğ]/.test(c.text) ? 'tr' : 'en')), 'each clip carries the language of its own text');
+  // The same words in the two languages are two different saved clips.
+  const b = withCaches(fakeCaches());
+  b.ctx.texts = ['Hello'];
+  await b.run('TTS.saveForOffline(texts, { lang: "en" })');
+  await b.run('TTS.saveForOffline(texts, { lang: "tr" })');
+  assert.deepEqual(b.calls.map(c => c.lang), ['en', 'tr'], 'asked twice, once per language');
+});
+
 test('natural voice: opt-in only, works without any device voice support, stop() cancels, repeats are not fetched again', async () => {
   const { run, ctx, calls, audios, spoken, flush } = naturalEnv([V('Microsoft Zira', 'en-US')]);
   run(`TTS.speak(${JSON.stringify(TR_TEXT)}, null)`); // no natural flag: device voices only
@@ -2308,6 +2325,7 @@ test('speakable says formulas and symbols in the text language', () => {
 function fakeCaches() {
   const stores = new Map();
   const api = { puts: 0, failPut: false, stores };
+  api.delete = async name => stores.delete(name);
   api.open = async name => {
     if (!stores.has(name)) stores.set(name, new Map());
     const m = stores.get(name);
@@ -2321,7 +2339,7 @@ function fakeCaches() {
 function savedClipsEnv(more) {
   const calls = [];
   const env = ttsEnv([V('Microsoft Zira', 'en-US')], {
-    extra: { API: { tts: async (text, voice) => { calls.push({ text, voice }); return new Blob(['abcd']); } }, navigator: { onLine: true }, URL: { createObjectURL: () => 'blob:x', revokeObjectURL() {} }, Audio: class { constructor() { this.paused = true; } play() { return Promise.resolve(); } pause() {} }, ...more }
+    extra: { API: { tts: async (text, voice, lang) => { calls.push({ text, voice, lang }); return new Blob(['abcd']); } }, navigator: { onLine: true }, URL: { createObjectURL: () => 'blob:x', revokeObjectURL() {} }, Audio: class { constructor() { this.paused = true; } play() { return Promise.resolve(); } pause() {} }, ...more }
   });
   return { ...env, calls, flush: () => new Promise(r => setTimeout(r, 20)) };
 }
