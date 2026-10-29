@@ -305,3 +305,15 @@
   body.printing-report .report-actions, body.printing-report [data-report-act="close"] { display: none !important; }
   body.printing-report .report-body { overflow: visible; }
 }
+
+/* Update old videos and audio */
+.rf-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.rf-list li { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; align-items: center; padding: 8px 10px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
+.rf-list label { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.rf-title { overflow-wrap: anywhere; font-weight: 600; }
+.rf-list small { grid-column: 1; color: var(--text-muted); }
+.rf-state { grid-column: 2; grid-row: 1 / span 2; font-size: 0.85rem; min-width: 1.4em; text-align: right; }
+.rf-state.ok { color: var(--ok-text); font-weight: 700; }
+.rf-state.bad { color: var(--bad-text); max-width: 11rem; }
+.rf-note, .rf-progress { margin: 0; color: var(--text-muted); font-size: 0.88rem; }
+.rf-progress:not(:empty) { color: var(--text); }

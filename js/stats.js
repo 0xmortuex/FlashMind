@@ -394,6 +394,7 @@ const Stats = (() => {
           ${focusWeek ? tile(`&#9201; <span data-count="${focusWeek}">0</span>`, T('statFocus')) : ''}
         </div>
         ${goalCard()}
+        ${typeof Refresh !== 'undefined' ? Refresh.statsCard() : ''}
         ${typeof Report !== 'undefined' ? Report.statsCard() : ''}
         ${plan}
         ${typeof Insights !== 'undefined' ? Insights.statsCards() : ''}

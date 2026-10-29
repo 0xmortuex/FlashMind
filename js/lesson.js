@@ -183,7 +183,7 @@ const VideoLesson = (() => {
     }
     const mistakes = (n.commonMistakes || []).slice(0, 3);
     slides.push({ title: T('vlRecap'), bullets: mistakes.length ? mistakes : secs.slice(0, 3).map(s => s.title), narration: mistakes.length ? T('commonMistakes') + '. ' + mistakes.join('. ') : T('vlRecapSay', { title: data.title }) });
-    return SimSpec.sanitizeLesson({ title: slides[0].title, topic: slides[0].title, slides, createdAt: Date.now() });
+    return SimSpec.sanitizeLesson({ title: slides[0].title, topic: slides[0].title, slides, createdAt: Date.now(), v: LESSON_V });
   }
 
   function mapTree(data) {
@@ -213,6 +213,42 @@ const VideoLesson = (() => {
       'Return ONLY JSON, no other text: {"title":"lesson title","slides":[{"title":"...","bullets":["..."],"formula":"E = mc^2","narration":"..."}]}';
   }
 
+  // Written from the notes, with "did you get this?" questions (lessons made before this carry no v or v 1).
+  const LESSON_V = 2;
+
+  // One new lesson for `sec` (or the whole set) of ANY deck's data; no screen involved. Throws on a bad answer.
+  async function write(data, sec, focus) {
+    const raw = await API.chat(prompt(data, sec ? sec.title : '', focus), materialFor(data, sec));
+    const obj = Parser.safeParseJSON(raw);
+    const l = SimSpec.sanitizeLesson({ ...(obj || {}), id: undefined, topic: sec ? sec.title : data.title, createdAt: Date.now(), v: LESSON_V });
+    if (!l) throw new Error(i18n.t('vlInvalid'));
+    return l;
+  }
+
+  const outdatedLessons = data => (data.lessons || []).filter(l => (l.v || 1) < LESSON_V);
+
+  // Replaces the lessons written by an older pipeline with one new lesson per topic they covered.
+  // Nothing is replaced unless every new lesson was written. onStep(topic) before each AI call.
+  async function refreshOld(data, onStep) {
+    const old = outdatedLessons(data);
+    const topics = [...new Set(old.map(l => l.topic))];
+    const made = [];
+    for (const topic of topics) {
+      if (onStep) onStep(topic);
+      made.push(await write(data, (data.notes.sections || []).find(s => s.title === topic), ''));
+    }
+    const list = (data.lessons || []).filter(l => !old.includes(l));
+    made.forEach(l => {
+      const ids = new Set(list.map(x => x.id));
+      let k = list.length + 1;
+      l.id = 'v' + k;
+      while (ids.has(l.id)) l.id = 'v' + (++k);
+      list.push(l);
+    });
+    data.lessons = list;
+    return { replaced: old.length, made: made.length };
+  }
+
   async function generate(topicIdx, focus) {
     const data = App.getStudyData();
     if (!data || busy) return;
@@ -220,11 +256,8 @@ const VideoLesson = (() => {
     busy = true;
     refresh();
     try {
-      const raw = await API.chat(prompt(data, sec ? sec.title : '', focus), materialFor(data, sec));
-      const obj = Parser.safeParseJSON(raw);
+      const l = await write(data, sec, focus);
       if (App.getStudyData() !== data) return;
-      const l = SimSpec.sanitizeLesson({ ...(obj || {}), id: undefined, topic: sec ? sec.title : data.title, createdAt: Date.now() });
-      if (!l) throw new Error(i18n.t('vlInvalid'));
       save(data, l);
       App.showToast(i18n.t('vlReady'), 'success');
     } catch (err) {
@@ -344,7 +377,7 @@ const VideoLesson = (() => {
     const sec = (data.notes.sections || []).find(s => s.title === l.topic);
     try {
       const nl = await askJson(prompt(data, sec ? sec.title : '', '', style), materialFor(data, sec),
-        obj => SimSpec.sanitizeLesson({ ...obj, id: undefined, topic: l.topic, base: l.base || l.id, label, createdAt: Date.now() }), my);
+        obj => SimSpec.sanitizeLesson({ ...obj, id: undefined, topic: l.topic, base: l.base || l.id, label, createdAt: Date.now(), v: LESSON_V }), my);
       if (!nl || my !== reqToken) return;
       if (App.getStudyData() !== data) { panelBusy = false; return; }
       stop();
@@ -1232,5 +1265,5 @@ const VideoLesson = (() => {
     if (b) { b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on)); }
   }
 
-  return { practiseAllWeak, init, render, stop, fromNotes, isPlaying: () => playing, _index: () => index, _test: { versionsOf, trimLessons, reviseSlide, undoSlide, paragraphSlides, materialFor, prompt, weakSlides } };
+  return { refreshOld, outdatedLessons, practiseAllWeak, init, render, stop, fromNotes, isPlaying: () => playing, _index: () => index, _test: { versionsOf, trimLessons, reviseSlide, undoSlide, paragraphSlides, materialFor, prompt, weakSlides } };
 })();

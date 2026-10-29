@@ -41,6 +41,7 @@ const App = (() => {
     if (typeof Checker !== 'undefined') Checker.init();
     if (typeof Insights !== 'undefined') Insights.init();
     if (typeof Report !== 'undefined') Report.init();
+    if (typeof Refresh !== 'undefined') Refresh.init();
     // Study brain: exam predictor, concept map, autopilot coach.
     [typeof Predictor !== 'undefined' && Predictor, typeof ConceptMap !== 'undefined' && ConceptMap, typeof Coach !== 'undefined' && Coach].forEach(m => { if (m) m.init(); });
     if (typeof MathRender !== 'undefined') MathRender.init();
