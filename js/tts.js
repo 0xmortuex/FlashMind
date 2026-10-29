@@ -302,29 +302,32 @@ const TTS = (() => {
 
   // ----- Clips saved on the device (Cache Storage) -----
 
-  const CLIP_CACHE = 'flashmind-tts-v1';
+  // v2: clips are now kept per language, and come from the Google Cloud voices (clips saved under v1 are Gemini's: a different voice).
+  const CLIP_CACHE = 'flashmind-tts-v2';
+  let oldClipsGone = false;
 
   // Where this clip lives in the cache, or null when the browser cannot store it.
-  async function clipStore(text, voice) {
+  async function clipStore(text, voice, lang) {
     if (typeof caches === 'undefined' || typeof crypto === 'undefined' || !crypto.subtle) return null;
     const cache = await caches.open(CLIP_CACHE);
-    const hash = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(voice + '|' + text));
+    if (!oldClipsGone) { oldClipsGone = true; caches.delete('flashmind-tts-v1').catch(() => { /* best-effort tidy-up of the previous clip store */ }); }
+    const hash = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(voice + '|' + (lang || 'tr') + '|' + text));
     const hex = [...new Uint8Array(hash)].map(b => b.toString(16).padStart(2, '0')).join('');
     return { cache, key: 'https://flashmind.invalid/tts/' + hex };
   }
 
   // A saved clip if there is one, else a fresh one from the worker (which is then saved).
-  async function loadClip(text, voice) {
+  async function loadClip(text, voice, lang) {
     let store = null;
-    try { store = await clipStore(text, voice); } catch (e) { store = null; } // storage blocked: the clip still plays, it just is not kept
+    try { store = await clipStore(text, voice, lang); } catch (e) { store = null; } // storage blocked: the clip still plays, it just is not kept
     if (store) {
       const hit = await store.cache.match(store.key);
       if (hit) return hit.blob();
     }
     if (typeof navigator !== 'undefined' && navigator.onLine === false) throw new Error(i18n.t('ttsOffline'));
-    const blob = await API.tts(text, voice);
+    const blob = await API.tts(text, voice, lang);
     if (store) {
-      try { await store.cache.put(store.key, new Response(blob, { headers: { 'Content-Type': 'audio/wav' } })); } catch (e) { /* storage full: playback does not need it; saveForOffline checks */ }
+      try { await store.cache.put(store.key, new Response(blob, { headers: { 'Content-Type': blob.type || 'audio/mpeg' } })); } catch (e) { /* storage full: playback does not need it; saveForOffline checks */ }
     }
     return blob;
   }
@@ -334,12 +337,13 @@ const TTS = (() => {
   async function saveForOffline(texts, opts) {
     const o = opts || {};
     const voice = o.nvoice || naturalVoice();
-    const passages = [...new Set(texts.flatMap(t => plan(t, o.lang, NATURAL_CHUNK).map(q => q.text)))];
+    const seen = new Set();
+    const passages = texts.flatMap(t => plan(t, o.lang, NATURAL_CHUNK)).filter(q => !seen.has(q.lang + '|' + q.text) && seen.add(q.lang + '|' + q.text));
     let saved = 0, bytes = 0;
-    for (const text of passages) {
-      const store = await clipStore(text, voice);
+    for (const { text, lang } of passages) {
+      const store = await clipStore(text, voice, lang);
       if (!store) throw new Error(i18n.t('ttsNoCache'));
-      const blob = await patiently(() => loadClip(text, voice), () => true, o.onWait);
+      const blob = await patiently(() => loadClip(text, voice, lang), () => true, o.onWait);
       if (!(await store.cache.match(store.key))) throw new Error(i18n.t('ttsCacheFull'));
       saved++; bytes += blob.size || 0;
       if (o.onProgress) o.onProgress(saved, passages.length);
@@ -352,7 +356,7 @@ const TTS = (() => {
   function noteRefusal(err) {
     if (!err) return;
     if (err.status === 429) limitedAt = Date.now();
-    if (err.quota === 'day' || err.status === 503) naturalBlocked = err.message; // waiting cannot help: stop asking until the page is reloaded
+    if (err.quota === 'day' || err.quota === 'month' || err.status === 503) naturalBlocked = err.message; // waiting cannot help: stop asking until the page is reloaded
   }
   const recentlyLimited = () => Date.now() - limitedAt < 60000;
 
@@ -361,10 +365,10 @@ const TTS = (() => {
     return naturalBlocked;
   }
 
-  function fetchClip(text, voice) {
-    const key = voice + '|' + text;
+  function fetchClip(text, voice, lang) {
+    const key = voice + '|' + (lang || 'tr') + '|' + text;
     if (!clips.has(key)) {
-      const p = loadClip(text, voice);
+      const p = loadClip(text, voice, lang);
       p.catch(err => { clips.delete(key); noteRefusal(err); }); // a failed clip is retried next time
       clips.set(key, p);
       if (clips.size > 24) clips.delete(clips.keys().next().value);
@@ -376,7 +380,7 @@ const TTS = (() => {
   // through onWait(secondsLeft), instead of the voice changing in the middle of a lesson. A used-up daily quota,
   // a missing key, an offline device and a cancelled playback are not retried.
   let retryWaits = [10, 25, 45]; // seconds before each retry
-  const transient = err => !!err && err.quota !== 'day' && (err.status === 429 || err.status === 502 || err instanceof TypeError);
+  const transient = err => !!err && err.quota !== 'day' && err.quota !== 'month' && (err.status === 429 || err.status === 502 || err instanceof TypeError);
 
   async function pauseFor(secs, alive, onWait) {
     const end = Date.now() + secs * 1000;
@@ -406,7 +410,7 @@ const TTS = (() => {
     const o = opts || {};
     if (!text || !naturalAvailable() || recentlyLimited()) return;
     const first = plan(text, o.lang, NATURAL_CHUNK)[0];
-    if (first) fetchClip(first.text, o.nvoice || naturalVoice()).catch(() => {});
+    if (first) fetchClip(first.text, o.nvoice || naturalVoice(), first.lang).catch(() => {});
   }
 
   // Call from a tap handler: lets the shared element play later without a tap.
@@ -508,10 +512,10 @@ const TTS = (() => {
       const at = idx++;
       let blob;
       loading(true);
-      try { blob = await patiently(() => fetchClip(queue[at].text, voiceName), () => mySession === session, s => { if (o.onWait && mySession === session) o.onWait(s); }); } catch (err) { fallBack(err, at); return; }
+      try { blob = await patiently(() => fetchClip(queue[at].text, voiceName, queue[at].lang), () => mySession === session, s => { if (o.onWait && mySession === session) o.onWait(s); }); } catch (err) { fallBack(err, at); return; }
       if (mySession !== session) return;
       loading(false);
-      if (queue[idx] && !recentlyLimited()) fetchClip(queue[idx].text, voiceName).catch(() => {}); // prefetch; a failure resurfaces on its own turn
+      if (queue[idx] && !recentlyLimited()) fetchClip(queue[idx].text, voiceName, queue[idx].lang).catch(() => {}); // prefetch; a failure resurfaces on its own turn
       if (audioUrl) URL.revokeObjectURL(audioUrl);
       audioUrl = URL.createObjectURL(blob);
       audioEl.onended = step;
