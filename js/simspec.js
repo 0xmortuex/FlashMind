@@ -428,6 +428,19 @@ const SimSpec = (() => {
       if (sl.diagram.kind === 'notes' && Number.isInteger(sl.diagram.index) && sl.diagram.index >= 0 && sl.diagram.index < 50) out.diagram = { kind: 'notes', index: sl.diagram.index };
       else if (sl.diagram.kind === 'map' && str(sl.diagram.label, 140)) out.diagram = { kind: 'map', label: str(sl.diagram.label, 140) };
     }
+    // A real picture for the slide: what to look up ("wiki": an English Wikipedia article whose main picture fits,
+    // "query": search words for Wikimedia Commons) and, once found, the picture itself (Wikimedia only).
+    if (obj(sl.image)) {
+      const im = { wiki: str(sl.image.wiki, 120), query: str(sl.image.query, 120), alt: str(sl.image.alt, 160) };
+      if (im.wiki || im.query) out.image = im;
+    }
+    if (out.image && obj(sl.img)) {
+      if (sl.img.none === true) out.img = { none: true };
+      else if (/^https:\/\/upload\.wikimedia\.org\/[^\s"'<>]+$/.test(str(sl.img.src, 600))) {
+        const page = str(sl.img.page, 600);
+        out.img = { src: str(sl.img.src, 600), credit: str(sl.img.credit, 200), page: /^https:\/\/(commons|[a-z]{2,3})\.wikimedia\.org\/[^\s"'<>]+$|^https:\/\/[a-z]{2,3}\.wikipedia\.org\/[^\s"'<>]+$/.test(page) ? page : '' };
+      }
+    }
     // "Did you get this?" question the player asks after the slide: 2-4 options, exactly one correct.
     if (obj(sl.check)) {
       const raw = list(sl.check.options).map(o => str(o, 120));
@@ -447,7 +460,7 @@ const SimSpec = (() => {
 
   function sanitizeLesson(raw, idx) {
     if (!obj(raw)) return null;
-    const slides = list(raw.slides).filter(obj).slice(0, 14).map(sl => sanitizeSlide(sl)).filter(Boolean);
+    const slides = list(raw.slides).filter(obj).slice(0, 18).map(sl => sanitizeSlide(sl)).filter(Boolean);
     if (slides.length < 2) return null;
     const out = {
       id: /^[a-z0-9_-]{1,24}$/i.test(str(raw.id, 24)) ? str(raw.id, 24) : 'v' + ((idx || 0) + 1),
