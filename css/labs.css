@@ -237,7 +237,8 @@
 .vl-player.cc-on .vl-caption { display: block; }
 .vl-player.cc-on .vl-slide { padding-bottom: calc(4cqw + 3.4em); }
 .vl-bar { background: #0b0d14; padding: 10px 12px 10px; color: #e8ecf4; }
-.vl-progress { position: relative; height: 8px; border-radius: 4px; background: rgba(255, 255, 255, 0.16); cursor: pointer; margin: 4px 0 10px; }
+.vl-progress { position: relative; height: 8px; border-radius: 4px; background: rgba(255, 255, 255, 0.16); cursor: pointer; margin: 4px 0 10px; touch-action: none; }
+.vl-progress::before { content: ''; position: absolute; left: 0; right: 0; top: -8px; bottom: -8px; } /* a taller target for fingers */
 .vl-progress-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; border-radius: 4px; background: var(--grad-brand); }
 .vl-mark {
   position: absolute; top: 50%; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; padding: 0;
@@ -256,6 +257,17 @@
 .vl-btn:focus-visible { outline: 2px solid var(--primary); }
 .vl-btn-main { width: 44px; height: 44px; border-radius: 50%; background: var(--primary); color: #fff; }
 .vl-btn-main:hover { background: var(--primary-hover); }
+.vl-preview {
+  position: absolute; bottom: calc(100% + 12px); width: 220px; transform: translateX(-50%); z-index: 5; pointer-events: none;
+  background: #0b0d14; border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 8px; overflow: hidden; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+.vl-preview[hidden] { display: none; }
+.vl-stage.vl-preview-stage { aspect-ratio: 16 / 9; }
+.vl-preview-stage .vl-slide { transition: none; }
+.vl-preview-cap { padding: 6px 8px 0; font-size: 0.72rem; line-height: 1.35; color: #e8ecf4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.vl-preview-cap:empty { display: none; }
+.vl-preview-time { padding: 4px 8px 6px; font-family: var(--font-mono); font-size: 0.72rem; color: #e8ecf4; opacity: 0.85; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.vl-time { font-family: var(--font-mono); font-size: 0.82rem; margin-left: 4px; white-space: nowrap; }
 .vl-count { font-family: var(--font-mono); font-size: 0.82rem; opacity: 0.8; margin-left: 4px; white-space: nowrap; }
 .vl-spacer { flex: 1; }
 .vl-voice-status { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; opacity: 0.85; white-space: nowrap; }
@@ -284,6 +296,8 @@
   .vl-diagram .diagram-svg, .vl-branch { max-height: 40cqw; }
   .vl-player.cc-on .vl-slide { padding-bottom: calc(6cqw + 4.6em); }
   .vl-count { display: none; }
+  .vl-time { font-size: 0.74rem; }
+  .vl-preview { width: 168px; }
   .vl-voice-status { font-size: 0; gap: 0; }
   .vl-btn { min-width: 32px; padding: 0 6px; }
 }

@@ -370,8 +370,11 @@
           <div class="chat-header">
             <span>Ask about your study material</span>
             <span class="chat-context-badge" id="chat-context-badge"></span>
+            <button class="btn-ghost chat-head-btn" id="chat-new-btn" type="button">&#43; <span class="btn-label">New chat</span></button>
+            <button class="btn-ghost chat-head-btn" id="chat-history-btn" type="button" aria-expanded="false" aria-controls="chat-history">&#128337; <span class="btn-label">History</span></button>
             <button class="btn-ghost voice-open-btn" id="voice-open-btn" type="button">&#127897;&#65039; <span class="btn-label">Talk to tutor</span></button>
           </div>
+          <div class="chat-history" id="chat-history" hidden></div>
           <div class="chat-messages" id="chat-messages">
             <div class="chat-starters" id="chat-starters"></div>
           </div>
