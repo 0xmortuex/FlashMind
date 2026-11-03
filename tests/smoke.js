@@ -530,7 +530,7 @@ const path = require('node:path');
       await page.waitForFunction(() => /Done: 2 updated, 0 failed/.test(document.querySelector('[data-rf-progress]').textContent), { timeout: 8000 });
       for (const id of [ids.thisYear, ids.ogm]) {
         const d = await deckInfo(id);
-        if (d.lessons.join(',') !== 'New lesson|2|2' || d.audio !== 'New episode|2') throw new Error('not replaced: ' + JSON.stringify(d));
+        if (d.lessons.join(',') !== 'New lesson|3|2' || d.audio !== 'New episode|2') throw new Error('not replaced: ' + JSON.stringify(d));
       }
       const last = await deckInfo(ids.lastYear);
       if (last.lessons[0] !== 'Old Topic X|1|2' || last.audio !== 'Old episode|1') throw new Error('last year was touched: ' + JSON.stringify(last));

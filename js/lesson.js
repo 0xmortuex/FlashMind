@@ -251,15 +251,16 @@ const VideoLesson = (() => {
       'Each slide: "title" (max 8 words), "bullets": 1-3 short points (max 12 words each; may be empty on the title slide), optional "formula": one key formula in LaTeX without $ delimiters, ' +
       'optional "diagram" to show an existing picture: ' + (diagrams.length ? `{"kind":"notes","index":N} for one of these notes diagrams [${diagrams.join('; ')}], or ` : '') +
       (branches.length ? `{"kind":"map","label":"..."} for one of these mind-map branches [${branches.join('; ')}]. ` : 'none available. ') +
-      'optional "image": a real picture that helps the student SEE the thing on this slide (a substance, object, apparatus, organism, place, person, structure, process or event): ' +
-      '{"wiki":"the exact title of the English Wikipedia article whose main picture shows it, e.g. Carbon dioxide","query":"2-5 English search words for Wikimedia Commons, e.g. carbon dioxide molecule model","alt":"what the picture shows, in the language of the material"}. ' +
-      'Give an image on about half of the slides, wherever a picture really helps; skip it for purely abstract slides and on slides that use "diagram". ' +
+      'optional "image": a real photo or drawing of the ONE concrete thing this slide is about (a substance, object, apparatus, organism, place, building, person or event you can see), ' +
+      '{"wiki":"the exact title of the English Wikipedia article about exactly that thing, e.g. Carbon dioxide, Erlenmeyer flask, Mitochondrion, Marie Curie","alt":"what the picture shows, in the language of the material"}. ' +
+      'The article must be about that very thing, not a broader subject (not "Chemistry", not "Mole (unit)" for a calculation). ' +
+      'Add an image on at most one slide in three, and NEVER on slides about calculations, formulas, definitions, rules, numbers, steps or exam tips, nor on slides with a "diagram". If unsure, leave it out. ' +
       '"narration": what the teacher says over the slide, spoken like a teacher talking to the student: 3-6 short natural sentences (50-110 words), explaining why and not only what, formulas and symbols said in words (e.g. "x kare", "a bölü b" or "x squared", "a over b"), no markdown, no LaTeX, no symbols. ' +
       (part ? 'On 1-2 slides of this part (never its first or last slide) add "check":' : 'On 2-4 slides in the middle of the lesson (never the first or the last) add "check":') + ' the quick question a teacher asks to see whether the student got THAT slide: ' +
       '{"q":"one clear question","options":["...","...","..."],"correct":0,"why":"one short sentence that explains the right answer"} with 3 options, exactly one correct, plausible wrong ones, and the correct option in varying positions. ' +
       'Write everything in the same language as the material (if it is Turkish, write natural spoken Turkish). ' + (part ? 'At most 12 slides. ' : 'At most 16 slides. ') + (focus ? `Focus especially on: ${focus}. ` : '') +
       (style ? `${style} (this overrides the slide count above). ` : '') +
-      'Return ONLY JSON, no other text: {"title":"lesson title","slides":[{"title":"...","bullets":["..."],"formula":"E = mc^2","image":{"wiki":"...","query":"...","alt":"..."},"narration":"..."}]}';
+      'Return ONLY JSON, no other text: {"title":"lesson title","slides":[{"title":"...","bullets":["..."],"formula":"E = mc^2","image":{"wiki":"...","alt":"..."},"narration":"..."}]}';
   }
 
   // Written from the notes, with "did you get this?" questions (lessons made before this carry no v or v 1).
@@ -308,11 +309,18 @@ const VideoLesson = (() => {
     }
     if (onStep) onStep(0, n + 1);
     const plan = await chatJson(planPrompt(topic, focus, style, n, minutes), material, o => {
+      // The AI wrote the lesson itself instead of a plan: use it rather than fail.
+      if (o && !Array.isArray(o.parts) && Array.isArray(o.slides) && o.slides.length >= 2) return { whole: o };
       const parts = o && Array.isArray(o.parts) ? o.parts.filter(x => x && typeof x.title === 'string' && x.title.trim()).map(x => ({
         title: x.title.trim().slice(0, 120), goals: (Array.isArray(x.goals) ? x.goals : []).filter(g => typeof g === 'string').map(g => g.slice(0, 200)).slice(0, 4)
       })) : [];
-      return parts.length >= Math.min(2, n) ? { title: typeof o.title === 'string' ? o.title : '', parts: parts.slice(0, n) } : null;
+      return parts.length ? { title: typeof o.title === 'string' ? o.title : '', parts: parts.slice(0, n) } : null;
     });
+    if (plan.whole) {
+      const lw = SimSpec.sanitizeLesson({ ...plan.whole, ...meta });
+      if (!lw) throw new Error(i18n.t('vlInvalid'));
+      return lw;
+    }
     const slides = [];
     for (let k = 0; k < plan.parts.length; k++) {
       if (onStep) onStep(k + 1, plan.parts.length + 1);
@@ -1043,14 +1051,16 @@ const VideoLesson = (() => {
   // The slide's picture, a placeholder while it is being looked up, or nothing.
   function figureHtml(s, i) {
     if (!s.image || (s.img && s.img.none)) return '';
-    if (!s.img) return `<div class="vl-diagram"><figure class="vl-figure pending" data-vl-fig="${i}" aria-hidden="true"></figure></div>`;
+    if (!s.img || s.img.v !== PIC_V) return `<div class="vl-diagram"><figure class="vl-figure pending" data-vl-fig="${i}" aria-hidden="true"></figure></div>`;
     const credit = s.img.credit || 'Wikimedia Commons';
     return `<div class="vl-diagram"><figure class="vl-figure" data-vl-fig="${i}">
+      <button class="vl-fig-hide" data-vl-act="hide-pic" aria-label="${esc(i18n.t('vlPicHide'))}" title="${esc(i18n.t('vlPicHide'))}">&#10005;</button>
       <img src="${esc(s.img.src)}" alt="${esc(s.image.alt || s.title)}" referrerpolicy="no-referrer" loading="lazy">
       <figcaption>${s.img.page ? `<a href="${esc(s.img.page)}" target="_blank" rel="noopener noreferrer">${esc(credit)}</a>` : esc(credit)}</figcaption>
     </figure></div>`;
   }
 
+  const PIC_V = 2; // pictures found by the current, stricter lookup; older ones are looked up again
   const COMMONS = 'https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&prop=imageinfo&iiprop=url|mime|size|extmetadata&iiurlwidth=960&iiextmetadatafilter=Artist|LicenseShortName';
   const textOf = html => { try { return (new DOMParser().parseFromString(String(html || ''), 'text/html').body.textContent || '').replace(/\s+/g, ' ').trim(); } catch (e) { return ''; } };
   async function getJson(url) {
@@ -1074,22 +1084,28 @@ const VideoLesson = (() => {
     return null;
   }
   // Look up one picture: the Wikipedia article's main picture, else a Commons search.
-  async function findPicture(req) {
-    if (req.wiki) {
-      try {
-        const j = await getJson('https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&redirects=1&prop=pageimages&piprop=name&titles=' + encodeURIComponent(req.wiki));
-        const pg = Object.values((j.query && j.query.pages) || {})[0];
-        if (pg && pg.pageimage) {
-          const hit = firstPicture(await getJson(COMMONS + '&titles=' + encodeURIComponent('File:' + pg.pageimage)));
-          if (hit) return hit;
-        }
-      } catch (e) { /* try the search */ }
-    }
-    if (req.query) {
-      return firstPicture(await getJson(COMMONS + '&generator=search&gsrnamespace=6&gsrlimit=8&gsrsearch=' + encodeURIComponent(req.query)));
-    }
-    return null;
+  // Words of a title that a matching picture's file name should share (accents removed, short and filler words dropped).
+  const fold = t => String(t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ı/g, 'i');
+  const FILLER = new Set(['the', 'and', 'for', 'with', 'from', 'unit', 'list', 'type', 'types']);
+  function sharesName(title, file) {
+    const f = fold(file).replace(/[^a-z0-9]+/g, ' ');
+    const words = fold(title).replace(/\(.*?\)/g, ' ').split(/[^a-z0-9]+/).filter(w => w.length >= 3 && !FILLER.has(w));
+    return words.some(w => f.includes(w.length > 6 ? w.slice(0, 6) : w));
   }
+
+  // Look up one picture: the main picture of the English Wikipedia article about exactly this thing,
+  // kept only when the file is plainly about that article (its name shares the article's words).
+  // No free-text search: it returned loosely related pictures that did not fit the slides.
+  async function findPicture(req) {
+    if (!req.wiki) return null;
+    const j = await getJson('https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&redirects=1&prop=pageimages|pageprops&piprop=name&ppprop=disambiguation&titles=' + encodeURIComponent(req.wiki));
+    const pg = Object.values((j.query && j.query.pages) || {})[0];
+    if (!pg || pg.missing !== undefined || (pg.pageprops && pg.pageprops.disambiguation !== undefined) || !pg.pageimage) return null;
+    if (!sharesName(pg.title || req.wiki, pg.pageimage)) return null;
+    const hit = firstPicture(await getJson(COMMONS + '&titles=' + encodeURIComponent('File:' + pg.pageimage)));
+    return hit ? { ...hit, v: PIC_V } : null;
+  }
+
 
   // Find the pictures of a lesson's slides one at a time, keep them with the lesson, and show each as it arrives.
   const picturing = new Set();
@@ -1100,11 +1116,11 @@ const VideoLesson = (() => {
       const order = l.slides.map((_, k) => k).sort((a, b) => Math.abs(a - index) - Math.abs(b - index)); // the slide on screen first
       for (const k of order) {
         const sl = l.slides[k];
-        if (!sl || !sl.image || sl.img || sl.diagram) continue;
+        if (!sl || !sl.image || sl.diagram || (sl.img && (sl.img.none || sl.img.v === PIC_V))) continue;
         if (typeof navigator !== 'undefined' && navigator.onLine === false) return;
         let hit = null;
         try { hit = await findPicture(sl.image); } catch (e) { continue; } // network trouble: try again next time
-        sl.img = hit || { none: true };
+        sl.img = hit || { none: true, v: PIC_V };
         App.persistActiveDeck();
         if (lesson() === l) refreshFigure(l, k);
       }
@@ -1606,6 +1622,10 @@ const VideoLesson = (() => {
       else if (act === 'panel-close' || act === 'panel-cancel') closePanel();
       else if (act === 'panel-retry') { if (lastReq && lastReq.kind === 'version') makeVersion(lastReq.choice, lastReq.text); else if (lastReq && lastReq.kind === 'ask') answerCheckQuestion(lastReq.text); else if (lastReq) rewriteSlide(lastReq.choice, lastReq.text); }
       else if (act === 'ask-go') askGo();
+      else if (act === 'hide-pic') {
+        const l = lesson(), k = +btn.closest('[data-vl-fig]').dataset.vlFig;
+        if (l && l.slides[k]) { l.slides[k].img = { none: true, v: PIC_V }; App.persistActiveDeck(); refreshFigure(l, k); }
+      }
       else if (act === 'ask-new') { askThread = null; drawPanel(); }
       else if (act === 'fix-go') rewriteSlide('', panelText('#vl-fix-text'));
       else if (act === 'check-next' || act === 'check-skip') continueAfterCheck();

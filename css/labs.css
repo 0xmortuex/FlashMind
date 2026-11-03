@@ -213,6 +213,11 @@
 .vl-formula { font-size: clamp(13px, 2.6cqw, 26px); padding: 1.2cqw 2cqw; border-radius: var(--radius); background: var(--primary-tint); border: 1px solid color-mix(in srgb, var(--primary) 35%, transparent); align-self: flex-start; max-width: 100%; overflow-x: auto; }
 .vl-diagram { flex: 1 1 0; min-width: 0; max-height: 100%; display: flex; align-items: center; justify-content: center; }
 .vl-figure { margin: 0; width: 100%; max-height: 100%; display: flex; flex-direction: column; align-items: center; gap: 0.8cqw; }
+.vl-figure { position: relative; }
+.vl-fig-hide { position: absolute; top: 0.6cqw; right: 0.6cqw; width: 26px; height: 26px; border-radius: 50%; border: none; background: rgba(11, 13, 20, 0.6); color: #fff; font-size: 12px; cursor: pointer; opacity: 0; transition: opacity 0.15s; z-index: 1; }
+.vl-figure:hover .vl-fig-hide, .vl-fig-hide:focus-visible { opacity: 1; }
+@media (hover: none) { .vl-fig-hide { opacity: 0.85; } }
+.vl-preview-stage .vl-fig-hide { display: none; }
 .vl-figure img { display: block; max-width: 100%; max-height: 34cqw; object-fit: contain; border-radius: 1.2cqw; background: #fff; box-shadow: 0 1cqw 3cqw rgba(0, 0, 0, 0.12); }
 .vl-figure figcaption { font-size: max(9px, 1.15cqw); color: var(--text-muted); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .vl-figure figcaption a { color: inherit; }

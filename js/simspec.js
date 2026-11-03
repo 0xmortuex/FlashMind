@@ -437,10 +437,11 @@ const SimSpec = (() => {
       if (im.wiki || im.query) out.image = im;
     }
     if (out.image && obj(sl.img)) {
-      if (sl.img.none === true) out.img = { none: true };
+      const v = sl.img.v === 2 ? { v: 2 } : {}; // which lookup found it (js/lesson.js PIC_V)
+      if (sl.img.none === true) out.img = { none: true, ...v };
       else if (/^https:\/\/upload\.wikimedia\.org\/[^\s"'<>]+$/.test(str(sl.img.src, 600))) {
         const page = str(sl.img.page, 600);
-        out.img = { src: str(sl.img.src, 600), credit: str(sl.img.credit, 200), page: /^https:\/\/(commons|[a-z]{2,3})\.wikimedia\.org\/[^\s"'<>]+$|^https:\/\/[a-z]{2,3}\.wikipedia\.org\/[^\s"'<>]+$/.test(page) ? page : '' };
+        out.img = { ...v, src: str(sl.img.src, 600), credit: str(sl.img.credit, 200), page: /^https:\/\/(commons|[a-z]{2,3})\.wikimedia\.org\/[^\s"'<>]+$|^https:\/\/[a-z]{2,3}\.wikipedia\.org\/[^\s"'<>]+$/.test(page) ? page : '' };
       }
     }
     // "Did you get this?" question the player asks after the slide: 2-4 options, exactly one correct.
