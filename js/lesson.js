@@ -26,9 +26,25 @@ const VideoLesson = (() => {
     exam: 'Make this version exam-focused: the key definitions, formulas, typical question types, common mistakes and quick tips.',
     short: 'Make this version much shorter: about 2 minutes in total, only 4-5 slides with 2-3 short sentences of narration each.',
     steps: 'Teach it as a step-by-step procedure: number the steps in the slide titles and work one example through them.',
-    story: 'Teach it through a story or an everyday analogy that the whole lesson builds on.'
+    story: 'Teach it through a story or an everyday analogy that the whole lesson builds on.',
+    eli5: 'Explain it like the student is five: tiny everyday words, comparisons with toys, food, games and sports, one small idea per slide and lots of mini examples. ' +
+      'Near the end, connect every idea back to the real terms and formulas of the material, so the student can still answer exam questions with them.',
+    gossip: 'Tell it like juicy office gossip: the concepts, substances, numbers or people are coworkers with drama ("you will NOT believe what Oxygen did next..."), ' +
+      'spilled as the tea slide by slide, playful and dramatic. Every fact, number and formula must stay exactly correct and each idea must still be clearly taught; ' +
+      'keep it school-appropriate (no romance, no insults), and the recap slide states the facts plainly.',
+    history: 'Teach it through its history: who worked it out, when and where, what problem they were trying to solve, which experiment or mistake led to the idea, ' +
+      'and how it grew into what the student learns today. Use only real people, dates and events you are sure of, never invent them; still teach the method and give worked examples.'
   };
-  const PERSP_LABEL = { simple: 'vlPerSimple', examples: 'vlPerExamples', exam: 'vlPerExam', short: 'vlPerShort', steps: 'vlPerSteps', story: 'vlPerStory' };
+  const PERSP_LABEL = { simple: 'vlPerSimple', examples: 'vlPerExamples', exam: 'vlPerExam', short: 'vlPerShort', steps: 'vlPerSteps', story: 'vlPerStory', eli5: 'vlPerEli5', gossip: 'vlPerGossip', history: 'vlPerHistory' };
+  // How new lessons are told by default (chosen on the video page, kept on this device). '' = the standard example-led lesson.
+  const STYLE_KEY = 'flashmind_video_style';
+  const STYLES = ['', 'examples', 'eli5', 'gossip', 'history', 'story', 'steps', 'exam'];
+  function lessonStyle() {
+    try { const v = localStorage.getItem(STYLE_KEY) || ''; return STYLES.includes(v) ? v : ''; } catch (e) { return ''; }
+  }
+  function setLessonStyle(v) {
+    try { localStorage.setItem(STYLE_KEY, STYLES.includes(v) ? v : ''); } catch (e) {}
+  }
   const WPS = 2.6; // spoken words per second at rate 1 (duration estimate)
   let host = null;
   let forData = null;
@@ -207,6 +223,8 @@ const VideoLesson = (() => {
     return `Write the storyboard of a narrated video lesson (10-16 slides, about 6-10 minutes) that teaches ${topic ? `"${topic}"` : 'the main ideas of this study material'} to a student revising for an exam. ` +
       Material.SUBJECT_RULE +
       'Slide 1 is a title slide with a hook; then build the idea step by step: explain each idea, show a worked example with the numbers, point out the typical mistake, and connect it to everyday life where it fits; the last slide recaps the 3-4 key takeaways. ' +
+      'Examples carry the lesson: every new idea gets at least one concrete example (real numbers, real substances, real situations the student knows), at least half of the slides are built around an example, ' +
+      'and a worked example says each step out loud and why it is done. Prefer examples like the ones in the material and in exam questions. ' +
       'Each slide: "title" (max 8 words), "bullets": 1-3 short points (max 12 words each; may be empty on the title slide), optional "formula": one key formula in LaTeX without $ delimiters, ' +
       'optional "diagram" to show an existing picture: ' + (diagrams.length ? `{"kind":"notes","index":N} for one of these notes diagrams [${diagrams.join('; ')}], or ` : '') +
       (branches.length ? `{"kind":"map","label":"..."} for one of these mind-map branches [${branches.join('; ')}]. ` : 'none available. ') +
@@ -226,9 +244,10 @@ const VideoLesson = (() => {
 
   // One new lesson for `sec` (or the whole set) of ANY deck's data; no screen involved. Throws on a bad answer.
   async function write(data, sec, focus) {
-    const raw = await API.chat(prompt(data, sec ? sec.title : '', focus), materialFor(data, sec));
+    const key = lessonStyle();
+    const raw = await API.chat(prompt(data, sec ? sec.title : '', focus, key ? PERSP_PROMPT[key] : ''), materialFor(data, sec));
     const obj = Parser.safeParseJSON(raw);
-    const l = SimSpec.sanitizeLesson({ ...(obj || {}), id: undefined, topic: sec ? sec.title : data.title, createdAt: Date.now(), v: LESSON_V });
+    const l = SimSpec.sanitizeLesson({ ...(obj || {}), id: undefined, topic: sec ? sec.title : data.title, createdAt: Date.now(), v: LESSON_V, ...(key ? { label: i18n.t(PERSP_LABEL[key]).slice(0, 60) } : {}) });
     if (!l) throw new Error(i18n.t('vlInvalid'));
     return l;
   }
@@ -497,6 +516,8 @@ const VideoLesson = (() => {
           ${sections.map((s, i) => `<option value="${i}">${esc(s.title || T('vlSection', { n: i + 1 }))}</option>`).join('')}
         </select>
         <input type="text" class="editor-input" id="vl-focus" maxlength="200" placeholder="${esc(T('vlFocusHolder'))}" ${busy ? 'disabled' : ''}>
+        <span class="vl-label" id="vl-style-label">${T('vlStyle')}</span>
+        <div class="vl-chips vl-style" role="radiogroup" aria-labelledby="vl-style-label">${STYLES.map(k => `<button class="vl-chip" role="radio" aria-checked="${lessonStyle() === k}" data-vl-style="${k}" ${busy ? 'disabled' : ''}>${esc(T(k ? PERSP_LABEL[k] : 'vlStyleStandard'))}</button>`).join('')}</div>
         <div class="vl-new-actions">
           <button class="btn-primary" data-vl-act="generate" ${busy ? 'disabled' : ''}>${busy ? T('vlWriting') : '&#10024; ' + T('vlGenerate')}</button>
           <button class="btn-ghost" data-vl-act="quick" ${busy ? 'disabled' : ''}>&#128214; ${T('vlQuick')}</button>
@@ -1475,6 +1496,8 @@ const VideoLesson = (() => {
       if (opt) { pickOption(+opt.dataset.vlOpt); return; }
       const fix = e.target.closest('[data-vl-fix]');
       if (fix) { rewriteSlide(fix.dataset.vlFix, panelText('#vl-fix-text')); return; }
+      const sty = e.target.closest('[data-vl-style]');
+      if (sty) { setLessonStyle(sty.dataset.vlStyle); host.querySelectorAll('[data-vl-style]').forEach(b => b.setAttribute('aria-checked', String(b === sty))); return; }
       const persp = e.target.closest('[data-vl-persp]');
       if (persp) { makeVersion(persp.dataset.vlPersp, panelText('#vl-persp-text')); return; }
       const goBtn = e.target.closest('[data-vl-go]');
