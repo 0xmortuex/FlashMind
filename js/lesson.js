@@ -49,6 +49,8 @@ const VideoLesson = (() => {
   let captions = true;
   let silent = false;    // the student chose to continue without a voice
   let voiceWait = false; // a natural-voice clip is downloading
+  let startAt = 0;       // where in the current slide (0..1) the narration started: a seek or resume starts at a caption's sentence
+  let scrub = null;      // { id } while a finger or mouse button is held on the progress bar
   let heardFrac = null; // how much of the current slide's narration the voice has spoken (null = unknown, estimate)
   let checkpoint = null; // { i, picked } while a "Did you get this?" card is open (picked = chosen option or null)
   let noVoice = '';      // language ('tr'/'en') the text needs but the device has no voice for
@@ -529,11 +531,17 @@ const VideoLesson = (() => {
         <div class="vl-bar">
           <div class="vl-progress" data-vl-seek role="slider" aria-label="${esc(T('vlProgress'))}" aria-valuemin="1" aria-valuemax="${l.slides.length}" aria-valuenow="${index + 1}">
             <div class="vl-progress-fill" data-vl-fill></div>${marks}
+            <div class="vl-preview" data-vl-preview hidden aria-hidden="true">
+              <div class="vl-stage vl-preview-stage" data-vl-preview-stage></div>
+              <div class="vl-preview-cap" data-vl-preview-cap></div>
+              <div class="vl-preview-time" data-vl-preview-time></div>
+            </div>
           </div>
           <div class="vl-controls">
             <button class="vl-btn" data-vl-act="prev" aria-label="${esc(T('vlPrev'))}" title="${esc(T('vlPrev'))} (←)">&#9198;</button>
             <button class="vl-btn vl-btn-main" data-vl-act="toggle" aria-label="${esc(T('vlPlay'))}" title="${esc(T('vlPlay'))} (Space)">&#9654;</button>
             <button class="vl-btn" data-vl-act="next" aria-label="${esc(T('vlNext'))}" title="${esc(T('vlNext'))} (→)">&#9197;</button>
+            <span class="vl-time" data-vl-time></span>
             <span class="vl-count" data-vl-count></span>
             <span class="vl-voice-status" data-vl-voicestatus role="status"></span>
             <span class="vl-spacer"></span>
@@ -727,6 +735,8 @@ const VideoLesson = (() => {
 
   function openCheckpoint(i) {
     pause();
+    startAt = 0; heardFrac = 1; // the narration is over: the bar stays at the end of the slide
+    drawProgress();
     checkpoint = { i, picked: null };
     askThread = null; // a new question card starts a new conversation
     drawCheckpoint();
@@ -955,6 +965,7 @@ const VideoLesson = (() => {
     if (!l || !stage) return;
     const s = view(l, index);
     heardFrac = null;
+    startAt = 0;
     const el = document.createElement('div');
     el.className = 'vl-slide' + (dir > 0 ? ' from-right' : dir < 0 ? ' from-left' : '');
     el.dataset.vlSlide = String(index);
@@ -995,29 +1006,111 @@ const VideoLesson = (() => {
     if (p) p.classList.toggle('playing', playing);
   }
 
+  // How far into the current slide we are (0..1). The voice's real position when it reports one
+  // (it speaks slower or faster than the estimate), otherwise the estimate. While the first clip
+  // downloads nothing has been said yet, so it holds where the narration starts.
+  function slideFrac() {
+    const l = lesson();
+    if (!l) return 0;
+    if (ended) return 1;
+    const rest = 1 - startAt;
+    if (heardFrac !== null) return startAt + heardFrac * rest;
+    if (voiceWait) return startAt;
+    const spent = (elapsed + (playing ? performance.now() - slideStart : 0)) / 1000;
+    return startAt + Math.min(spent / duration(l.slides[index]), rest * 0.97);
+  }
+
+  // Seconds as m:ss.
+  function clock(secs) {
+    const t = Math.max(0, Math.round(secs));
+    return Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0');
+  }
+
   function drawProgress() {
     const l = lesson();
     const fill = host && host.querySelector('[data-vl-fill]');
     if (!l || !fill) return;
     const total = l.slides.reduce((s, x) => s + duration(x), 0);
     const before = l.slides.slice(0, index).reduce((s, x) => s + duration(x), 0);
-    const spent = (elapsed + (playing ? performance.now() - slideStart : 0)) / 1000;
-    // The voice's real position when it reports one (it speaks slower or faster than the estimate); otherwise the estimate.
     const heard = playing && ttsOk() ? TTS.progress() : null;
     if (heard !== null) heardFrac = heard;
-    // While the first clip downloads nothing has been said yet: hold at the start instead of racing ahead.
-    const within = ended ? duration(l.slides[index]) : heardFrac !== null ? heardFrac * duration(l.slides[index]) : voiceWait ? 0 : Math.min(spent, duration(l.slides[index]) * 0.97);
-    fill.style.width = ((before + within) / total * 100).toFixed(2) + '%';
+    const frac = slideFrac();
+    const at = before + frac * duration(l.slides[index]);
+    fill.style.width = (at / total * 100).toFixed(2) + '%';
+    const time = host.querySelector('[data-vl-time]');
+    if (time) time.textContent = `${clock(at)} / ${clock(total)}`;
+    const seek = host.querySelector('[data-vl-seek]');
+    if (seek) seek.setAttribute('aria-valuetext', `${clock(at)} / ${clock(total)}`);
     // Captions follow the narration, one sentence group at a time.
-    const frac = ended ? 1 : heardFrac !== null ? heardFrac : within / duration(l.slides[index]);
-    // (frac is 0 while waiting for the voice, so the first caption stays up.)
-    let i = 0;
-    while (i < capChunks.length - 1 && capChunks[i].end < frac) i++;
+    const i = chunkAt(capChunks, frac);
     if (i !== capShown) {
       capShown = i;
       const cap = host.querySelector('[data-vl-caption]');
       if (cap) cap.textContent = capChunks[i] ? capChunks[i].text : '';
     }
+  }
+
+  // Which caption piece is on screen at `frac` of the slide.
+  function chunkAt(chunks, frac) {
+    let i = 0;
+    while (i < chunks.length - 1 && chunks[i].end <= frac) i++;
+    return i;
+  }
+
+  // Where the caption piece that is on screen at `frac` begins (narration restarts at a sentence, not mid-word).
+  function chunkStart(frac) {
+    const i = chunkAt(capChunks, frac);
+    return i > 0 ? capChunks[i - 1].end : 0;
+  }
+
+  // The slide and the point within it (0..1) at `f` of the whole lesson.
+  function locate(l, f) {
+    const total = l.slides.reduce((s, x) => s + duration(x), 0);
+    const t = Math.max(0, Math.min(1, f)) * total;
+    let acc = 0;
+    for (let i = 0; i < l.slides.length; i++) {
+      const d = duration(l.slides[i]);
+      if (t < acc + d || i === l.slides.length - 1) return { i, w: Math.max(0, Math.min(0.999, (t - acc) / d)), t };
+      acc += d;
+    }
+    return { i: 0, w: 0, t: 0 };
+  }
+
+  // Jump to `f` of the whole lesson: that slide, from the start of the sentence being said there.
+  function seekTo(f) {
+    const l = lesson();
+    if (!l) return;
+    const { i, w } = locate(l, f);
+    go(i, w);
+  }
+
+  // The preview over the progress bar: the slide, its caption and the time at the pointer.
+  let previewFor = -1;
+  function showPreview(clientX) {
+    const l = lesson(), data = App.getStudyData();
+    const bar = host && host.querySelector('[data-vl-seek]');
+    const box = host && host.querySelector('[data-vl-preview]');
+    if (!l || !bar || !box) return;
+    const r = bar.getBoundingClientRect();
+    const f = Math.max(0, Math.min(1, (clientX - r.left) / r.width));
+    const { i, w, t } = locate(l, f);
+    if (previewFor !== i || box.hidden) {
+      previewFor = i;
+      const s = view(l, i);
+      box.querySelector('[data-vl-preview-stage]').innerHTML = `<div class="vl-slide in">${slideHtml(data, s, i, l.slides.length)}</div>`;
+    }
+    const chunks = captionChunks(view(l, i).narration);
+    const c = chunks[chunkAt(chunks, w)];
+    box.querySelector('[data-vl-preview-cap]').textContent = c ? c.text : '';
+    box.querySelector('[data-vl-preview-time]').textContent = `${clock(t)} · ${i + 1}. ${view(l, i).title}`;
+    box.hidden = false;
+    const half = box.offsetWidth / 2;
+    box.style.left = Math.max(half, Math.min(r.width - half, f * r.width)) + 'px';
+  }
+
+  function hidePreview() {
+    const box = host && host.querySelector('[data-vl-preview]');
+    if (box) box.hidden = true;
   }
 
   // Narration split into caption-sized pieces with their share of the time.
@@ -1057,6 +1150,9 @@ const VideoLesson = (() => {
     elapsed = 0;
     heardFrac = null;
     const s = view(l, index);
+    // From a seek or a resume: say the rest of the slide from the sentence it stopped at.
+    const k = startAt > 0 ? chunkAt(capChunks, startAt) : 0;
+    const said = k > 0 ? capChunks.slice(k).map(c => c.text).join(' ') : s.narration;
     const done = () => {
       if (my !== token || !playing) return;
       // A slide with a question stops here until the student answers.
@@ -1075,7 +1171,7 @@ const VideoLesson = (() => {
       // If the natural voice is off for now (daily limit, no key), say so up front instead of silently using the device voice.
       const off = TTS.naturalOn() ? TTS.naturalBlockedReason() : '';
       drawVoiceNote(off ? i18n.t('vlVoiceBlocked', { why: off }) : '');
-      TTS.speak(s.narration, cancelled => {
+      TTS.speak(said, cancelled => {
         setVoiceBusy(false);
         if (my !== token) return;
         if (cancelled) { playing = false; syncControls(); return; }
@@ -1104,7 +1200,7 @@ const VideoLesson = (() => {
       });
     } else {
       // No speech: advance on the estimated reading time.
-      timer = setTimeout(done, duration(s) * 1000);
+      timer = setTimeout(done, duration(s) * (1 - startAt) * 1000);
     }
   }
 
@@ -1127,11 +1223,21 @@ const VideoLesson = (() => {
     elapsed += performance.now() - slideStart;
     playing = false;
     if (ttsOk()) TTS.stop();
+    resumePoint();
     syncControls();
     drawProgress();
   }
 
-  function go(i) {
+  // Playback picks up at the start of the sentence that was being said.
+  function resumePoint() {
+    if (ended) return;
+    startAt = chunkStart(slideFrac());
+    heardFrac = null;
+    elapsed = 0;
+  }
+
+  // `at` (0..1): where in the slide to start; it is rounded back to the start of that sentence.
+  function go(i, at) {
     const l = lesson();
     if (!l) return;
     hideCheckpoint();
@@ -1140,9 +1246,18 @@ const VideoLesson = (() => {
     token++;
     clearTimeout(timer);
     if (playing && ttsOk()) TTS.stop();
-    index = to;
-    showOrig = false;
-    showSlide(dir);
+    if (to !== index || !at) {
+      index = to;
+      showOrig = false;
+      showSlide(dir);
+    } else {
+      ended = false; // a seek within the slide on screen: no new slide transition
+    }
+    startAt = at ? chunkStart(at) : 0;
+    heardFrac = null;
+    elapsed = 0;
+    slideStart = performance.now();
+    drawProgress();
     if (playing) speakCurrent();
   }
 
@@ -1222,6 +1337,31 @@ const VideoLesson = (() => {
   }
 
   function init() {
+    // Progress bar: hover (or hold and drag) shows the slide at that point, release jumps there.
+    const barX = e => { const bar = host && host.querySelector('[data-vl-seek]'); if (!bar) return 0; const r = bar.getBoundingClientRect(); return (e.clientX - r.left) / r.width; };
+    document.addEventListener('pointerdown', e => {
+      const bar = host && e.target.closest && e.target.closest('[data-vl-seek]');
+      if (!bar || !host.contains(bar) || e.target.closest('[data-vl-go]') || e.button > 0) return;
+      e.preventDefault();
+      scrub = { id: e.pointerId };
+      try { bar.setPointerCapture(e.pointerId); } catch (err) {}
+      showPreview(e.clientX);
+    });
+    document.addEventListener('pointermove', e => {
+      if (!host) return;
+      const bar = host.querySelector('[data-vl-seek]');
+      if (!bar) return;
+      if (scrub ? scrub.id === e.pointerId : e.pointerType === 'mouse' && bar.contains(e.target)) showPreview(e.clientX);
+      else hidePreview();
+    });
+    const endScrub = (e, apply) => {
+      if (!scrub || scrub.id !== e.pointerId) return;
+      scrub = null;
+      hidePreview();
+      if (apply) seekTo(barX(e));
+    };
+    document.addEventListener('pointerup', e => endScrub(e, true));
+    document.addEventListener('pointercancel', e => endScrub(e, false));
     document.addEventListener('click', e => {
       if (!host || !host.contains(e.target)) return;
       const open = e.target.closest('[data-vl-open]');
@@ -1244,17 +1384,6 @@ const VideoLesson = (() => {
       if (persp) { makeVersion(persp.dataset.vlPersp, panelText('#vl-persp-text')); return; }
       const goBtn = e.target.closest('[data-vl-go]');
       if (goBtn) { go(+goBtn.dataset.vlGo); return; }
-      const seek = e.target.closest('[data-vl-seek]');
-      if (seek) {
-        const l = lesson();
-        const r = seek.getBoundingClientRect();
-        const f = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width));
-        const total = l.slides.reduce((s, x) => s + duration(x), 0);
-        let acc = 0, i = 0;
-        for (; i < l.slides.length - 1; i++) { acc += duration(l.slides[i]); if (acc / total > f) break; }
-        go(i);
-        return;
-      }
       const btn = e.target.closest('[data-vl-act]');
       if (!btn) return;
       const act = btn.dataset.vlAct;
@@ -1263,7 +1392,7 @@ const VideoLesson = (() => {
       else if (act === 'prev') go(index - 1);
       else if (act === 'rate') {
         setRate(RATES.find(r => r > rate + 0.001) || RATES[0]);
-        if (playing) { if (ttsOk()) { token++; TTS.stop(); } speakCurrent(); }
+        if (playing) { if (ttsOk()) { token++; TTS.stop(); } resumePoint(); speakCurrent(); }
       }
       else if (act === 'cc') setCaptions(!captions);
       else if (act === 'full') toggleFull();
