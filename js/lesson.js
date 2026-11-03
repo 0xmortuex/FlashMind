@@ -45,6 +45,16 @@ const VideoLesson = (() => {
   function setLessonStyle(v) {
     try { localStorage.setItem(STYLE_KEY, STYLES.includes(v) ? v : ''); } catch (e) {}
   }
+  // How long new lessons are, in minutes (kept on this device). Long lessons are written in parts of about PART_MIN minutes.
+  const LENGTH_KEY = 'flashmind_video_minutes';
+  const LENGTHS = [10, 20, 30];
+  const PART_MIN = 5;
+  function lessonMinutes() {
+    try { const v = parseInt(localStorage.getItem(LENGTH_KEY), 10); return LENGTHS.includes(v) ? v : 10; } catch (e) { return 10; }
+  }
+  function setLessonMinutes(v) {
+    try { localStorage.setItem(LENGTH_KEY, String(LENGTHS.includes(v) ? v : 10)); } catch (e) {}
+  }
   const WPS = 2.6; // spoken words per second at rate 1 (duration estimate)
   let host = null;
   let forData = null;
@@ -54,6 +64,7 @@ const VideoLesson = (() => {
   let playing = false;
   let ended = false;     // reached the end of the last slide
   let busy = false;
+  let busyStep = null;   // { d, t }: AI calls done / total while a long lesson is being written
   let token = 0;
   let timer = 0;
   let progRaf = 0;
@@ -216,13 +227,25 @@ const VideoLesson = (() => {
   // only as a short reference (see material.js).
   const materialFor = (data, sec) => Material.forStudy(data, sec);
 
-  function prompt(data, topic, focus, style) {
+  // part (optional): { k, n, outline: [{ title, goals }], minutes } — write only part k of a long lesson planned by planPrompt.
+  function prompt(data, topic, focus, style, part) {
     const diagrams = ((data.notes && data.notes.diagrams) || []).map((g, i) => `${i}: ${g.title}`).slice(0, 10);
     const tree = mapTree(data);
     const branches = tree ? (tree.children || []).map(c => c.label).slice(0, 12) : [];
-    return `Write the storyboard of a narrated video lesson (10-16 slides, about 6-10 minutes) that teaches ${topic ? `"${topic}"` : 'the main ideas of this study material'} to a student revising for an exam. ` +
-      Material.SUBJECT_RULE +
-      'Slide 1 is a title slide with a hook; then build the idea step by step: explain each idea, show a worked example with the numbers, point out the typical mistake, and connect it to everyday life where it fits; the last slide recaps the 3-4 key takeaways. ' +
+    const what = topic ? `"${topic}"` : 'the main ideas of this study material';
+    const first = part && part.k === 0, last = part && part.k === part.n - 1;
+    const scope = !part
+      ? `Write the storyboard of a narrated video lesson (10-16 slides, about 6-10 minutes) that teaches ${what} to a student revising for an exam. `
+      : `Write PART ${part.k + 1} of ${part.n} of a long narrated video lesson (about ${part.minutes} minutes in total) that teaches ${what} to a student revising for an exam. ` +
+        `The whole lesson is planned like this: ${part.outline.map((o, j) => `${j + 1}. ${o.title} (${o.goals.join('; ')})`).join(' | ')}. ` +
+        `This part covers ONLY part ${part.k + 1}: "${part.outline[part.k].title}". Do not teach what the other parts cover, but you may refer back to earlier parts. ` +
+        'This part has 9-12 slides and about 5 minutes of narration (700-850 words in total). ';
+    const shape = !part
+      ? 'Slide 1 is a title slide with a hook; then build the idea step by step: explain each idea, show a worked example with the numbers, point out the typical mistake, and connect it to everyday life where it fits; the last slide recaps the 3-4 key takeaways. '
+      : (first ? 'Slide 1 is the title slide of the whole lesson with a hook, then this part begins. ' : 'No title slide and no welcome: the first slide opens with one sentence that bridges from the previous part, then teaches. ') +
+        'Build the idea step by step: explain each idea, show worked examples with the numbers, point out the typical mistakes, and connect it to everyday life where it fits. ' +
+        (last ? 'The last slide recaps the 4-6 key takeaways of the WHOLE lesson. ' : 'The last slide sums up this part in 2-3 points (not a recap of the whole lesson). ');
+    return scope + Material.SUBJECT_RULE + shape +
       'Examples carry the lesson: every new idea gets at least one concrete example (real numbers, real substances, real situations the student knows), at least half of the slides are built around an example, ' +
       'and a worked example says each step out loud and why it is done. Prefer examples like the ones in the material and in exam questions. ' +
       'Each slide: "title" (max 8 words), "bullets": 1-3 short points (max 12 words each; may be empty on the title slide), optional "formula": one key formula in LaTeX without $ delimiters, ' +
@@ -232,9 +255,9 @@ const VideoLesson = (() => {
       '{"wiki":"the exact title of the English Wikipedia article whose main picture shows it, e.g. Carbon dioxide","query":"2-5 English search words for Wikimedia Commons, e.g. carbon dioxide molecule model","alt":"what the picture shows, in the language of the material"}. ' +
       'Give an image on about half of the slides, wherever a picture really helps; skip it for purely abstract slides and on slides that use "diagram". ' +
       '"narration": what the teacher says over the slide, spoken like a teacher talking to the student: 3-6 short natural sentences (50-110 words), explaining why and not only what, formulas and symbols said in words (e.g. "x kare", "a bölü b" or "x squared", "a over b"), no markdown, no LaTeX, no symbols. ' +
-      'On 2-4 slides in the middle of the lesson (never the first or the last) add "check": the quick question a teacher asks to see whether the student got THAT slide: ' +
+      (part ? 'On 1-2 slides of this part (never its first or last slide) add "check":' : 'On 2-4 slides in the middle of the lesson (never the first or the last) add "check":') + ' the quick question a teacher asks to see whether the student got THAT slide: ' +
       '{"q":"one clear question","options":["...","...","..."],"correct":0,"why":"one short sentence that explains the right answer"} with 3 options, exactly one correct, plausible wrong ones, and the correct option in varying positions. ' +
-      'Write everything in the same language as the material (if it is Turkish, write natural spoken Turkish). At most 16 slides. ' + (focus ? `Focus especially on: ${focus}. ` : '') +
+      'Write everything in the same language as the material (if it is Turkish, write natural spoken Turkish). ' + (part ? 'At most 12 slides. ' : 'At most 16 slides. ') + (focus ? `Focus especially on: ${focus}. ` : '') +
       (style ? `${style} (this overrides the slide count above). ` : '') +
       'Return ONLY JSON, no other text: {"title":"lesson title","slides":[{"title":"...","bullets":["..."],"formula":"E = mc^2","image":{"wiki":"...","query":"...","alt":"..."},"narration":"..."}]}';
   }
@@ -243,11 +266,62 @@ const VideoLesson = (() => {
   const LESSON_V = 3; // 3: longer lessons with real pictures
 
   // One new lesson for `sec` (or the whole set) of ANY deck's data; no screen involved. Throws on a bad answer.
-  async function write(data, sec, focus) {
-    const key = lessonStyle();
-    const raw = await API.chat(prompt(data, sec ? sec.title : '', focus, key ? PERSP_PROMPT[key] : ''), materialFor(data, sec));
-    const obj = Parser.safeParseJSON(raw);
-    const l = SimSpec.sanitizeLesson({ ...(obj || {}), id: undefined, topic: sec ? sec.title : data.title, createdAt: Date.now(), v: LESSON_V, ...(key ? { label: i18n.t(PERSP_LABEL[key]).slice(0, 60) } : {}) });
+  // The plan of a long lesson: its title and `n` parts of about PART_MIN minutes, each with what it teaches.
+  function planPrompt(topic, focus, style, n, minutes) {
+    return `Plan a long narrated video lesson of about ${minutes} minutes that teaches ${topic ? `"${topic}"` : 'the main ideas of this study material'} to a student revising for an exam. ` +
+      Material.SUBJECT_RULE +
+      `Split it into exactly ${n} parts of about ${PART_MIN} minutes each that build on each other, from the basics up to exam-level questions; ` +
+      'together they cover the whole topic without repeating each other. Each part has a short title and 2-4 goals: what it explains and which worked examples it shows. ' +
+      'Write in the same language as the material. ' + (focus ? `Focus especially on: ${focus}. ` : '') + (style ? `The lesson will be told like this: ${style} ` : '') +
+      'Return ONLY JSON, no other text: {"title":"lesson title","parts":[{"title":"...","goals":["...","..."]}]}';
+  }
+
+  // One AI call whose JSON must pass `accept`; an unusable answer or a dropped request gets one more try.
+  async function chatJson(question, context, accept) {
+    let last = null;
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        const out = accept(Parser.safeParseJSON(await API.chat(question, context)));
+        if (out) return out;
+        last = new Error(i18n.t('vlInvalid'));
+      } catch (err) {
+        last = err; // the raw error: callers (refresh.js) recognise rate limits by its message
+        if (/429|rate limit|too many/i.test(String(err && err.message))) break; // the limit will not lift in a second
+      }
+    }
+    throw last;
+  }
+
+  // Write a new lesson in the chosen style and length. onStep(done, total) before each AI call of a long lesson.
+  // `single`: one AI call, a standard-length lesson (used when many lessons are rewritten at once).
+  async function write(data, sec, focus, onStep, single) {
+    const key = lessonStyle(), style = key ? PERSP_PROMPT[key] : '';
+    const minutes = lessonMinutes(), n = Math.max(1, Math.round(minutes / PART_MIN));
+    const topic = sec ? sec.title : '';
+    const material = materialFor(data, sec);
+    const meta = { id: undefined, topic: sec ? sec.title : data.title, createdAt: Date.now(), v: LESSON_V, ...(key ? { label: i18n.t(PERSP_LABEL[key]).slice(0, 60) } : {}) };
+    if (single) {
+      const one = await chatJson(prompt(data, topic, focus, style), material, o => o && Array.isArray(o.slides) ? o : null);
+      const l1 = SimSpec.sanitizeLesson({ ...one, ...meta });
+      if (!l1) throw new Error(i18n.t('vlInvalid'));
+      return l1;
+    }
+    if (onStep) onStep(0, n + 1);
+    const plan = await chatJson(planPrompt(topic, focus, style, n, minutes), material, o => {
+      const parts = o && Array.isArray(o.parts) ? o.parts.filter(x => x && typeof x.title === 'string' && x.title.trim()).map(x => ({
+        title: x.title.trim().slice(0, 120), goals: (Array.isArray(x.goals) ? x.goals : []).filter(g => typeof g === 'string').map(g => g.slice(0, 200)).slice(0, 4)
+      })) : [];
+      return parts.length >= Math.min(2, n) ? { title: typeof o.title === 'string' ? o.title : '', parts: parts.slice(0, n) } : null;
+    });
+    const slides = [];
+    for (let k = 0; k < plan.parts.length; k++) {
+      if (onStep) onStep(k + 1, plan.parts.length + 1);
+      const part = await chatJson(prompt(data, topic, focus, style, { k, n: plan.parts.length, outline: plan.parts, minutes }), material,
+        o => o && Array.isArray(o.slides) && o.slides.filter(x => x && typeof x === 'object').length >= 2 ? o.slides.filter(x => x && typeof x === 'object').slice(0, 14) : null);
+      if (plan.parts.length > 1) part[0] = { ...part[0], chapter: plan.parts[k].title };
+      slides.push(...part);
+    }
+    const l = SimSpec.sanitizeLesson({ title: plan.title || (slides[0] && slides[0].title), slides, ...meta });
     if (!l) throw new Error(i18n.t('vlInvalid'));
     return l;
   }
@@ -262,7 +336,7 @@ const VideoLesson = (() => {
     const made = [];
     for (const topic of topics) {
       if (onStep) onStep(topic);
-      made.push(await write(data, (data.notes.sections || []).find(s => s.title === topic), ''));
+      made.push(await write(data, (data.notes.sections || []).find(s => s.title === topic), '', null, true));
     }
     const list = (data.lessons || []).filter(l => !old.includes(l));
     made.forEach(l => {
@@ -281,9 +355,10 @@ const VideoLesson = (() => {
     if (!data || busy) return;
     const sec = Number.isInteger(topicIdx) ? (data.notes.sections || [])[topicIdx] : null;
     busy = true;
+    busyStep = null;
     refresh();
     try {
-      const l = await write(data, sec, focus);
+      const l = await write(data, sec, focus, (d, t) => { busyStep = { d, t }; refresh(); });
       if (App.getStudyData() !== data) return;
       save(data, l);
       App.showToast(i18n.t('vlReady'), 'success');
@@ -291,6 +366,7 @@ const VideoLesson = (() => {
       App.showToast(i18n.t('vlFailed') + ' ' + err.message, 'error');
     } finally {
       busy = false;
+      busyStep = null;
       refresh();
     }
   }
@@ -516,10 +592,13 @@ const VideoLesson = (() => {
           ${sections.map((s, i) => `<option value="${i}">${esc(s.title || T('vlSection', { n: i + 1 }))}</option>`).join('')}
         </select>
         <input type="text" class="editor-input" id="vl-focus" maxlength="200" placeholder="${esc(T('vlFocusHolder'))}" ${busy ? 'disabled' : ''}>
+        <span class="vl-label" id="vl-length-label">${T('vlLength')}</span>
+        <div class="vl-chips vl-length" role="radiogroup" aria-labelledby="vl-length-label">${LENGTHS.map(m => `<button class="vl-chip" role="radio" aria-checked="${lessonMinutes() === m}" data-vl-length="${m}" ${busy ? 'disabled' : ''}>${T('vlLengthMin', { n: m })}</button>`).join('')}</div>
+        <p class="vl-note">${T('vlLengthNote')}</p>
         <span class="vl-label" id="vl-style-label">${T('vlStyle')}</span>
         <div class="vl-chips vl-style" role="radiogroup" aria-labelledby="vl-style-label">${STYLES.map(k => `<button class="vl-chip" role="radio" aria-checked="${lessonStyle() === k}" data-vl-style="${k}" ${busy ? 'disabled' : ''}>${esc(T(k ? PERSP_LABEL[k] : 'vlStyleStandard'))}</button>`).join('')}</div>
         <div class="vl-new-actions">
-          <button class="btn-primary" data-vl-act="generate" ${busy ? 'disabled' : ''}>${busy ? T('vlWriting') : '&#10024; ' + T('vlGenerate')}</button>
+          <button class="btn-primary" data-vl-act="generate" ${busy ? 'disabled' : ''}>${busy ? (busyStep ? (busyStep.d === 0 ? T('vlPlanning') : T('vlWritingPart', { k: busyStep.d, n: busyStep.t - 1 })) : T('vlWriting')) : '&#10024; ' + T('vlGenerate')}</button>
           <button class="btn-ghost" data-vl-act="quick" ${busy ? 'disabled' : ''}>&#128214; ${T('vlQuick')}</button>
         </div>
       </div>
@@ -533,9 +612,11 @@ const VideoLesson = (() => {
     index = Math.min(index, l.slides.length - 1);
     const total = l.slides.reduce((s, x) => s + duration(x), 0);
     let acc = 0;
+    const many = l.slides.length > 24; // a long lesson: one mark per part, not per slide
     const marks = l.slides.map((s, i) => {
       const left = acc / total * 100;
       acc += duration(s);
+      if (many && i > 0 && !s.chapter) return '';
       return `<button class="vl-mark" style="left:${left.toFixed(2)}%" data-vl-go="${i}" aria-label="${esc(T('vlGoSlide', { n: i + 1, title: s.title }))}" title="${esc((i + 1) + '. ' + s.title)}"></button>`;
     }).join('');
     const versions = versionsOf(data.lessons || [], l);
@@ -1218,7 +1299,9 @@ const VideoLesson = (() => {
     const chunks = captionChunks(view(l, i).narration);
     const c = chunks[chunkAt(chunks, w)];
     box.querySelector('[data-vl-preview-cap]').textContent = c ? c.text : '';
-    box.querySelector('[data-vl-preview-time]').textContent = `${clock(t)} · ${i + 1}. ${view(l, i).title}`;
+    let ch = '';
+    for (let j = i; j >= 0; j--) if (l.slides[j].chapter) { ch = l.slides[j].chapter; break; }
+    box.querySelector('[data-vl-preview-time]').textContent = `${clock(t)} · ${ch ? ch + ' › ' : ''}${i + 1}. ${view(l, i).title}`;
     box.hidden = false;
     const half = box.offsetWidth / 2;
     box.style.left = Math.max(half, Math.min(r.width - half, f * r.width)) + 'px';
@@ -1496,6 +1579,8 @@ const VideoLesson = (() => {
       if (opt) { pickOption(+opt.dataset.vlOpt); return; }
       const fix = e.target.closest('[data-vl-fix]');
       if (fix) { rewriteSlide(fix.dataset.vlFix, panelText('#vl-fix-text')); return; }
+      const len = e.target.closest('[data-vl-length]');
+      if (len) { setLessonMinutes(+len.dataset.vlLength); host.querySelectorAll('[data-vl-length]').forEach(b => b.setAttribute('aria-checked', String(b === len))); return; }
       const sty = e.target.closest('[data-vl-style]');
       if (sty) { setLessonStyle(sty.dataset.vlStyle); host.querySelectorAll('[data-vl-style]').forEach(b => b.setAttribute('aria-checked', String(b === sty))); return; }
       const persp = e.target.closest('[data-vl-persp]');
