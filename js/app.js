@@ -142,6 +142,7 @@ const App = (() => {
     // Chat header & input
     document.querySelector('.chat-header span').textContent = T('chatHeader');
     document.getElementById('chat-input').placeholder = T('chatHolder');
+    if (typeof Chat !== 'undefined' && Chat.labels) Chat.labels();
 
     // Study mode overlay
     document.getElementById('study-mode-close').title = T('exitStudy');
@@ -1263,6 +1264,7 @@ const App = (() => {
     showToast,
     getStudyData,
     getOriginalText,
+    getActiveDeckId: () => activeDeckId,
     openDeck,
     // Pass-throughs kept for external callers (palette.js).
     toggleTheme: (originEl) => Shell.toggleTheme(originEl),
