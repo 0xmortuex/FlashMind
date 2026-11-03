@@ -54,7 +54,8 @@ const VideoLesson = (() => {
   let noVoice = '';      // language ('tr'/'en') the text needs but the device has no voice for
   let showOrig = false;  // showing the original of a revised slide
   let panel = null;      // open panel over the player: 'help' | 'version' | 'voice' | 'ask'
-  let askAnswer = '';    // the tutor's answer shown in the 'ask' panel
+  let pendingAsk = '';   // what the student just asked, shown while the answer is on its way
+  let askThread = null;  // { i, turns: [{ q, a }] }: the conversation about one check question, kept while its card is open
   let panelBusy = false; // an AI request is running for the panel
   let panelErr = '';
   let lastReq = null;    // the request to repeat on "Try again"
@@ -364,14 +365,18 @@ const VideoLesson = (() => {
     if (!c) return;
     const my = ++reqToken;
     lastReq = { kind: 'ask', choice: 'question', text };
+    if (!askThread || askThread.i !== at.i) askThread = { i: at.i, turns: [] };
+    const thread = askThread;
+    const earlier = thread.turns.slice(-6);
     panelBusy = true;
     panelErr = '';
-    askAnswer = '';
+    pendingAsk = text;
     drawPanel();
     const s = view(l, at.i);
     const answered = at.picked !== null;
     const question = 'A student watching a narrated video lesson was asked a multiple-choice check question and has a question ABOUT THAT CHECK QUESTION. ' +
       (text ? `The student asks: "${text}". ` : 'The student does not understand the check question. ') +
+      (earlier.length ? 'This is a follow-up in the same conversation (see "Conversation so far" in the context): build on your earlier answers, resolve what "it", "that" or "why" refer to from them, and do not repeat what you already said unless asked. ' : '') +
       'Answer the student directly, like a patient teacher: explain what the question is asking and how to work it out step by step. ' +
       'The check question may use a different example than the slide; that is fine, never call it off-topic or tell the student not to mix things up, just help. ' +
       (answered ? 'The student has already answered, so you may name the correct option and explain why. '
@@ -381,13 +386,17 @@ const VideoLesson = (() => {
     const context = `Lesson: ${l.title}\nSlide: ${JSON.stringify({ title: s.title, bullets: s.bullets, formula: s.formula || '', narration: s.narration })}\n` +
       `Check question: ${JSON.stringify({ q: c.q, options: c.options, correct: c.options[c.correct], why: c.why || '' })}\n` +
       (answered ? `The student picked: ${JSON.stringify(c.options[at.picked])}\n` : '') +
+      (earlier.length ? `Conversation so far:\n${earlier.map(t => `Student: ${t.q || '(did not understand the question)'}\nTeacher: ${t.a}`).join('\n')}\n` : '') +
       `Study material:\n${materialFor(data, (data.notes.sections || []).find(x => x.title === l.topic))}`.slice(0, 12000);
     try {
       const out = await askJson(question, context, obj => obj && typeof obj.answer === 'string' && obj.answer.trim() ? obj.answer.trim() : null, my);
       if (!out || my !== reqToken) return;
       panelBusy = false;
-      askAnswer = out;
+      pendingAsk = '';
+      thread.turns.push({ q: text, a: out });
       drawPanel();
+      const box = host && host.querySelector('.vl-ask-thread');
+      if (box) box.scrollTop = box.scrollHeight;
     } catch (err) {
       failPanel(my, err);
     }
@@ -561,11 +570,20 @@ const VideoLesson = (() => {
     return Object.keys(map).map(k => `<button class="vl-chip" ${attr}="${k}">${esc(i18n.t(labels[k]))}</button>`).join('');
   }
 
+  // The questions and answers so far about the open check question (plus the one being asked).
+  function askThreadHtml() {
+    const T = i18n.t;
+    const turns = askThread && checkpoint && askThread.i === checkpoint.i ? askThread.turns : [];
+    const rows = turns.map(t => `<p class="vl-ask-q">${esc(t.q || T('vlAskNoText'))}</p><p class="vl-ask-answer">${esc(t.a)}</p>`);
+    if (panelBusy && panel === 'ask') rows.push(`<p class="vl-ask-q">${esc(pendingAsk || T('vlAskNoText'))}</p>`);
+    return rows.length ? `<div class="vl-ask-thread" role="log" aria-live="polite">${rows.join('')}</div>` : '';
+  }
+
   function panelHtml() {
     const T = i18n.t;
     const l = lesson();
     if (panelBusy) {
-      return `<div class="vl-panel-busy" role="status"><span class="vl-spin" aria-hidden="true"></span><span>${T(panel === 'version' ? 'vlPerMaking' : panel === 'ask' ? 'vlAskThinking' : 'vlFixing')}</span>
+      return (panel === 'ask' ? askThreadHtml() : '') + `<div class="vl-panel-busy" role="status"><span class="vl-spin" aria-hidden="true"></span><span>${T(panel === 'version' ? 'vlPerMaking' : panel === 'ask' ? 'vlAskThinking' : 'vlFixing')}</span>
         <button class="btn-ghost" data-vl-act="panel-cancel">${T('vlCancel')}</button></div>`;
     }
     if (panelErr) {
@@ -593,10 +611,13 @@ const VideoLesson = (() => {
         <div class="vl-panel-actions"><button class="btn-primary" data-vl-act="voice-test">&#128266; ${T('vlVoiceTest')}</button><button class="btn-ghost" data-vl-act="panel-close">${T('vlClose')}</button></div>`;
     }
     if (panel === 'ask') {
-      if (askAnswer) {
+      const thread = askThreadHtml();
+      if (thread) {
         return `<h4 class="vl-panel-title" tabindex="-1">&#128172; ${T('vlAskAnswerTitle')}</h4>
-        <p class="vl-ask-answer" role="status">${esc(askAnswer)}</p>
-        <div class="vl-panel-actions"><button class="btn-primary" data-vl-act="ask-more">${T('vlAskMore')}</button><button class="btn-ghost" data-vl-act="panel-close">${T('vlClose')}</button></div>`;
+        ${thread}
+        <label class="vl-label" for="vl-ask-text">${T('vlAskFollow')}</label>
+        <textarea id="vl-ask-text" class="editor-input" rows="2" maxlength="300" placeholder="${esc(T('vlAskFollowHolder'))}"></textarea>
+        <div class="vl-panel-actions"><button class="btn-primary" data-vl-act="ask-go">${T('vlAskGo')}</button><button class="btn-ghost" data-vl-act="ask-new">${T('vlAskMore')}</button><button class="btn-ghost" data-vl-act="panel-close">${T('vlClose')}</button></div>`;
       }
       return `<h4 class="vl-panel-title" tabindex="-1">&#128172; ${T('vlAskTitle')}</h4>
         <div class="vl-ask-about" role="radiogroup" aria-label="${esc(T('vlAskAbout'))}">
@@ -639,7 +660,7 @@ const VideoLesson = (() => {
     panel = kind;
     panelBusy = false;
     panelErr = '';
-    askAnswer = '';
+    pendingAsk = '';
     drawPanel();
   }
 
@@ -649,7 +670,7 @@ const VideoLesson = (() => {
     panel = null;
     panelBusy = false;
     panelErr = '';
-    askAnswer = '';
+    pendingAsk = '';
     drawPanel();
     const p = host && host.querySelector('[data-vl-player]');
     if (p) p.focus({ preventScroll: true });
@@ -707,6 +728,7 @@ const VideoLesson = (() => {
   function openCheckpoint(i) {
     pause();
     checkpoint = { i, picked: null };
+    askThread = null; // a new question card starts a new conversation
     drawCheckpoint();
   }
 
@@ -1252,7 +1274,7 @@ const VideoLesson = (() => {
       else if (act === 'panel-close' || act === 'panel-cancel') closePanel();
       else if (act === 'panel-retry') { if (lastReq && lastReq.kind === 'version') makeVersion(lastReq.choice, lastReq.text); else if (lastReq && lastReq.kind === 'ask') answerCheckQuestion(lastReq.text); else if (lastReq) rewriteSlide(lastReq.choice, lastReq.text); }
       else if (act === 'ask-go') askGo();
-      else if (act === 'ask-more') { askAnswer = ''; drawPanel(); }
+      else if (act === 'ask-new') { askThread = null; drawPanel(); }
       else if (act === 'fix-go') rewriteSlide('', panelText('#vl-fix-text'));
       else if (act === 'check-next' || act === 'check-skip') continueAfterCheck();
       else if (act === 'check-again') explainAgain();
@@ -1356,7 +1378,8 @@ const VideoLesson = (() => {
     panel = null;
     panelBusy = false;
     panelErr = '';
-    askAnswer = '';
+    askThread = null;
+    pendingAsk = '';
     noVoice = '';
     silent = false; // "continue silently" applies to the lesson the student chose it in
     showOrig = false;
