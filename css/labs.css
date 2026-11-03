@@ -340,6 +340,8 @@
 .vl-check-why strong { color: var(--text); }
 .vl-check-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .vl-panel-busy { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+.vl-ask-about { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; margin-bottom: 0.4rem; }
+.vl-ask-answer { margin: 0; line-height: 1.55; white-space: pre-wrap; color: var(--text); }
 .vl-panel-error { color: var(--bad-text); margin: 0; line-height: 1.45; }
 .vl-spin { width: 20px; height: 20px; border-radius: 50%; border: 3px solid var(--border-strong); border-top-color: var(--primary); animation: vl-spin 0.8s linear infinite; }
 @keyframes vl-spin { to { transform: rotate(360deg); } }

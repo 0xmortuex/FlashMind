@@ -53,7 +53,8 @@ const VideoLesson = (() => {
   let checkpoint = null; // { i, picked } while a "Did you get this?" card is open (picked = chosen option or null)
   let noVoice = '';      // language ('tr'/'en') the text needs but the device has no voice for
   let showOrig = false;  // showing the original of a revised slide
-  let panel = null;      // open panel over the player: 'help' | 'version' | 'voice'
+  let panel = null;      // open panel over the player: 'help' | 'version' | 'voice' | 'ask'
+  let askAnswer = '';    // the tutor's answer shown in the 'ask' panel
   let panelBusy = false; // an AI request is running for the panel
   let panelErr = '';
   let lastReq = null;    // the request to repeat on "Try again"
@@ -327,10 +328,13 @@ const VideoLesson = (() => {
     const near = (k, name) => l.slides[k] ? `${name}: ${slide(l.slides[k].orig || l.slides[k])}\n` : '';
     const question = 'A student watching a narrated video lesson did not understand ONE slide. Rewrite only that slide so the student understands it. ' +
       (choice ? FIX_PROMPT[choice] + ' ' : '') + (text ? `The student says what is unclear: "${text}". ` : '') +
+      'If the student\'s words are about the check question after the slide (it may use a different example), never call it off-topic: make the slide teach what is needed to answer it. ' +
       'Keep it correct and about the same topic. "title" max 8 words, "bullets": 1-3 short points (may be empty), optional "formula": LaTeX without $ delimiters, ' +
       '"narration": spoken like a teacher talking to the student: 2-5 short natural sentences (40-90 words), formulas and symbols said in words, no markdown, no LaTeX. ' +
       'Write it in the same language as the lesson. Return ONLY JSON, no other text: {"title":"...","bullets":["..."],"formula":"","narration":"..."}';
+    const chk = l.slides[index].check;
     const context = `Lesson: ${l.title}\n${near(index - 1, 'Previous slide')}Slide to rewrite: ${slide(l.slides[index].orig || l.slides[index])}\n${near(index + 1, 'Next slide')}\n` +
+      (chk ? `Check question asked after this slide: ${JSON.stringify({ q: chk.q, options: chk.options, correct: chk.options[chk.correct] })}\n` : '') +
       `Study material:\n${materialFor(data, (data.notes.sections || []).find(s => s.title === l.topic))}`.slice(0, 12000);
     try {
       const rev = await askJson(question, context, obj => SimSpec.sanitizeSlide(obj), my);
@@ -348,6 +352,59 @@ const VideoLesson = (() => {
       play();
     } catch (err) {
       failPanel(my, err);
+    }
+  }
+
+  // "I have a question" about the check question itself: the tutor answers in the panel and the question card stays open.
+  async function answerCheckQuestion(text) {
+    const data = App.getStudyData(), l = lesson();
+    const at = checkpoint;
+    if (!data || !l || !at || panelBusy) return;
+    const c = view(l, at.i).check;
+    if (!c) return;
+    const my = ++reqToken;
+    lastReq = { kind: 'ask', choice: 'question', text };
+    panelBusy = true;
+    panelErr = '';
+    askAnswer = '';
+    drawPanel();
+    const s = view(l, at.i);
+    const answered = at.picked !== null;
+    const question = 'A student watching a narrated video lesson was asked a multiple-choice check question and has a question ABOUT THAT CHECK QUESTION. ' +
+      (text ? `The student asks: "${text}". ` : 'The student does not understand the check question. ') +
+      'Answer the student directly, like a patient teacher: explain what the question is asking and how to work it out step by step. ' +
+      'The check question may use a different example than the slide; that is fine, never call it off-topic or tell the student not to mix things up, just help. ' +
+      (answered ? 'The student has already answered, so you may name the correct option and explain why. '
+        : 'The student has not answered yet: guide them to the method and do not reveal which option is correct unless they explicitly ask for the answer. ') +
+      'Max 120 words, plain text, no markdown, formulas written simply (e.g. n = m / M). Write in the same language as the lesson. ' +
+      'Return ONLY JSON, no other text: {"answer":"..."}';
+    const context = `Lesson: ${l.title}\nSlide: ${JSON.stringify({ title: s.title, bullets: s.bullets, formula: s.formula || '', narration: s.narration })}\n` +
+      `Check question: ${JSON.stringify({ q: c.q, options: c.options, correct: c.options[c.correct], why: c.why || '' })}\n` +
+      (answered ? `The student picked: ${JSON.stringify(c.options[at.picked])}\n` : '') +
+      `Study material:\n${materialFor(data, (data.notes.sections || []).find(x => x.title === l.topic))}`.slice(0, 12000);
+    try {
+      const out = await askJson(question, context, obj => obj && typeof obj.answer === 'string' && obj.answer.trim() ? obj.answer.trim() : null, my);
+      if (!out || my !== reqToken) return;
+      panelBusy = false;
+      askAnswer = out;
+      drawPanel();
+    } catch (err) {
+      failPanel(my, err);
+    }
+  }
+
+  // The 'ask' panel's "Ask" button: about the question (answered here) or about the video (the slide is rewritten).
+  function askGo() {
+    const about = host && host.querySelector('input[name="vl-ask-about"]:checked');
+    const text = panelText('#vl-ask-text');
+    if (about && about.value === 'slide') {
+      const l = lesson();
+      if (checkpoint && l) saveCheck(l, checkpoint.i, 'lost');
+      hideCheckpoint();
+      panel = 'help';
+      rewriteSlide('', text);
+    } else {
+      answerCheckQuestion(text);
     }
   }
 
@@ -508,7 +565,7 @@ const VideoLesson = (() => {
     const T = i18n.t;
     const l = lesson();
     if (panelBusy) {
-      return `<div class="vl-panel-busy" role="status"><span class="vl-spin" aria-hidden="true"></span><span>${T(panel === 'version' ? 'vlPerMaking' : 'vlFixing')}</span>
+      return `<div class="vl-panel-busy" role="status"><span class="vl-spin" aria-hidden="true"></span><span>${T(panel === 'version' ? 'vlPerMaking' : panel === 'ask' ? 'vlAskThinking' : 'vlFixing')}</span>
         <button class="btn-ghost" data-vl-act="panel-cancel">${T('vlCancel')}</button></div>`;
     }
     if (panelErr) {
@@ -535,6 +592,21 @@ const VideoLesson = (() => {
         <input id="vl-speed" class="vl-speed" type="range" min="0.75" max="1.25" step="0.05" value="${Math.min(1.25, Math.max(0.75, rate))}" data-vl-speed>
         <div class="vl-panel-actions"><button class="btn-primary" data-vl-act="voice-test">&#128266; ${T('vlVoiceTest')}</button><button class="btn-ghost" data-vl-act="panel-close">${T('vlClose')}</button></div>`;
     }
+    if (panel === 'ask') {
+      if (askAnswer) {
+        return `<h4 class="vl-panel-title" tabindex="-1">&#128172; ${T('vlAskAnswerTitle')}</h4>
+        <p class="vl-ask-answer" role="status">${esc(askAnswer)}</p>
+        <div class="vl-panel-actions"><button class="btn-primary" data-vl-act="ask-more">${T('vlAskMore')}</button><button class="btn-ghost" data-vl-act="panel-close">${T('vlClose')}</button></div>`;
+      }
+      return `<h4 class="vl-panel-title" tabindex="-1">&#128172; ${T('vlAskTitle')}</h4>
+        <div class="vl-ask-about" role="radiogroup" aria-label="${esc(T('vlAskAbout'))}">
+          <label class="vl-check"><input type="radio" name="vl-ask-about" value="question" checked> ${T('vlAskAboutQuestion')}</label>
+          <label class="vl-check"><input type="radio" name="vl-ask-about" value="slide"> ${T('vlAskAboutSlide')}</label>
+        </div>
+        <label class="vl-label" for="vl-ask-text">${T('vlFixText')}</label>
+        <textarea id="vl-ask-text" class="editor-input" rows="2" maxlength="300" placeholder="${esc(T('vlAskHolder'))}"></textarea>
+        <div class="vl-panel-actions"><button class="btn-primary" data-vl-act="ask-go">${T('vlAskGo')}</button><button class="btn-ghost" data-vl-act="panel-close">${T('vlClose')}</button></div>`;
+    }
     if (panel === 'version') {
       return `<h4 class="vl-panel-title" tabindex="-1">&#128257; ${T('vlAnother')}</h4>
         <div class="vl-chips">${chips(PERSP_PROMPT, PERSP_LABEL, 'data-vl-persp')}</div>
@@ -555,7 +627,7 @@ const VideoLesson = (() => {
     el.hidden = !panel;
     el.innerHTML = panel ? panelHtml() : '';
     el.setAttribute('role', 'dialog');
-    el.setAttribute('aria-label', i18n.t(panel === 'version' ? 'vlAnother' : panel === 'voice' ? 'vlVoiceBtn' : 'vlHelpTitle'));
+    el.setAttribute('aria-label', i18n.t(panel === 'version' ? 'vlAnother' : panel === 'voice' ? 'vlVoiceBtn' : panel === 'ask' ? 'vlAskTitle' : 'vlHelpTitle'));
     const focus = el.querySelector('.vl-panel-title, .vl-panel-error, .vl-panel-busy button');
     if (panel && focus) focus.focus({ preventScroll: true });
   }
@@ -567,6 +639,7 @@ const VideoLesson = (() => {
     panel = kind;
     panelBusy = false;
     panelErr = '';
+    askAnswer = '';
     drawPanel();
   }
 
@@ -576,6 +649,7 @@ const VideoLesson = (() => {
     panel = null;
     panelBusy = false;
     panelErr = '';
+    askAnswer = '';
     drawPanel();
     const p = host && host.querySelector('[data-vl-player]');
     if (p) p.focus({ preventScroll: true });
@@ -658,6 +732,7 @@ const VideoLesson = (() => {
     if (!checkpoint || !l) return;
     const i = checkpoint.i;
     if (checkpoint.picked === null) saveCheck(l, i, 'skipped');
+    if (panel === 'ask') closePanel();
     hideCheckpoint();
     if (i >= l.slides.length - 1) { ended = true; elapsed = duration(l.slides[i]) * 1000; syncControls(); drawProgress(); return; }
     go(i + 1);
@@ -677,9 +752,13 @@ const VideoLesson = (() => {
     rewriteSlide('simple', '');
   }
 
+  // "I have a question": the student says whether it is about the check question or the video.
+  // The question card stays open so they can still answer it after reading the reply.
   function askAboutSlide() {
-    hideCheckpoint();
-    openPanel('help');
+    if (panel === 'ask') { closePanel(); return; }
+    openPanel('ask');
+    const t = host && host.querySelector('#vl-ask-text');
+    if (t) t.focus({ preventScroll: true });
   }
 
   // ----- Weak spots: slides answered wrong or marked "lost" become practice -----
@@ -1171,7 +1250,9 @@ const VideoLesson = (() => {
       else if (act === 'version') openPanel('version');
       else if (act === 'voice') openPanel('voice');
       else if (act === 'panel-close' || act === 'panel-cancel') closePanel();
-      else if (act === 'panel-retry') { if (lastReq && lastReq.kind === 'version') makeVersion(lastReq.choice, lastReq.text); else if (lastReq) rewriteSlide(lastReq.choice, lastReq.text); }
+      else if (act === 'panel-retry') { if (lastReq && lastReq.kind === 'version') makeVersion(lastReq.choice, lastReq.text); else if (lastReq && lastReq.kind === 'ask') answerCheckQuestion(lastReq.text); else if (lastReq) rewriteSlide(lastReq.choice, lastReq.text); }
+      else if (act === 'ask-go') askGo();
+      else if (act === 'ask-more') { askAnswer = ''; drawPanel(); }
       else if (act === 'fix-go') rewriteSlide('', panelText('#vl-fix-text'));
       else if (act === 'check-next' || act === 'check-skip') continueAfterCheck();
       else if (act === 'check-again') explainAgain();
@@ -1275,6 +1356,7 @@ const VideoLesson = (() => {
     panel = null;
     panelBusy = false;
     panelErr = '';
+    askAnswer = '';
     noVoice = '';
     silent = false; // "continue silently" applies to the lesson the student chose it in
     showOrig = false;
