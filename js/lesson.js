@@ -125,6 +125,7 @@ const VideoLesson = (() => {
     const { orig, ...plain } = old;
     const next = { ...rev, orig: orig || plain };
     if (!next.diagram && old.diagram) next.diagram = old.diagram;
+    if (!next.image && old.image) { next.image = old.image; if (old.img) next.img = old.img; }
     stack.push({ id: l.id, i, slide: old });
     l.slides[i] = next;
     return next;
@@ -203,22 +204,25 @@ const VideoLesson = (() => {
     const diagrams = ((data.notes && data.notes.diagrams) || []).map((g, i) => `${i}: ${g.title}`).slice(0, 10);
     const tree = mapTree(data);
     const branches = tree ? (tree.children || []).map(c => c.label).slice(0, 12) : [];
-    return `Write the storyboard of a short narrated video lesson (6-10 slides) that teaches ${topic ? `"${topic}"` : 'the main ideas of this study material'} to a student revising for an exam. ` +
+    return `Write the storyboard of a narrated video lesson (10-16 slides, about 6-10 minutes) that teaches ${topic ? `"${topic}"` : 'the main ideas of this study material'} to a student revising for an exam. ` +
       Material.SUBJECT_RULE +
-      'Slide 1 is a title slide with a hook; then build the idea step by step with a concrete example; the last slide recaps the 3 key takeaways. ' +
+      'Slide 1 is a title slide with a hook; then build the idea step by step: explain each idea, show a worked example with the numbers, point out the typical mistake, and connect it to everyday life where it fits; the last slide recaps the 3-4 key takeaways. ' +
       'Each slide: "title" (max 8 words), "bullets": 1-3 short points (max 12 words each; may be empty on the title slide), optional "formula": one key formula in LaTeX without $ delimiters, ' +
       'optional "diagram" to show an existing picture: ' + (diagrams.length ? `{"kind":"notes","index":N} for one of these notes diagrams [${diagrams.join('; ')}], or ` : '') +
       (branches.length ? `{"kind":"map","label":"..."} for one of these mind-map branches [${branches.join('; ')}]. ` : 'none available. ') +
-      '"narration": what the teacher says over the slide, spoken like a teacher talking to the student: 2-4 short natural sentences (30-70 words), formulas and symbols said in words (e.g. "x kare", "a bölü b" or "x squared", "a over b"), no markdown, no LaTeX, no symbols. ' +
+      'optional "image": a real picture that helps the student SEE the thing on this slide (a substance, object, apparatus, organism, place, person, structure, process or event): ' +
+      '{"wiki":"the exact title of the English Wikipedia article whose main picture shows it, e.g. Carbon dioxide","query":"2-5 English search words for Wikimedia Commons, e.g. carbon dioxide molecule model","alt":"what the picture shows, in the language of the material"}. ' +
+      'Give an image on about half of the slides, wherever a picture really helps; skip it for purely abstract slides and on slides that use "diagram". ' +
+      '"narration": what the teacher says over the slide, spoken like a teacher talking to the student: 3-6 short natural sentences (50-110 words), explaining why and not only what, formulas and symbols said in words (e.g. "x kare", "a bölü b" or "x squared", "a over b"), no markdown, no LaTeX, no symbols. ' +
       'On 2-4 slides in the middle of the lesson (never the first or the last) add "check": the quick question a teacher asks to see whether the student got THAT slide: ' +
       '{"q":"one clear question","options":["...","...","..."],"correct":0,"why":"one short sentence that explains the right answer"} with 3 options, exactly one correct, plausible wrong ones, and the correct option in varying positions. ' +
-      'Write everything in the same language as the material (if it is Turkish, write natural spoken Turkish). At most 10 slides. ' + (focus ? `Focus especially on: ${focus}. ` : '') +
+      'Write everything in the same language as the material (if it is Turkish, write natural spoken Turkish). At most 16 slides. ' + (focus ? `Focus especially on: ${focus}. ` : '') +
       (style ? `${style} (this overrides the slide count above). ` : '') +
-      'Return ONLY JSON, no other text: {"title":"lesson title","slides":[{"title":"...","bullets":["..."],"formula":"E = mc^2","narration":"..."}]}';
+      'Return ONLY JSON, no other text: {"title":"lesson title","slides":[{"title":"...","bullets":["..."],"formula":"E = mc^2","image":{"wiki":"...","query":"...","alt":"..."},"narration":"..."}]}';
   }
 
   // Written from the notes, with "did you get this?" questions (lessons made before this carry no v or v 1).
-  const LESSON_V = 2;
+  const LESSON_V = 3; // 3: longer lessons with real pictures
 
   // One new lesson for `sec` (or the whole set) of ANY deck's data; no screen involved. Throws on a bad answer.
   async function write(data, sec, focus) {
@@ -569,7 +573,7 @@ const VideoLesson = (() => {
     </div>`;
     showSlide(0);
     syncControls();
-    drawPanel();
+    drawPanel();  loadPictures(l);
   }
 
   // ----- Panels over the player, voice notice, revised-slide bar -----
@@ -919,7 +923,8 @@ const VideoLesson = (() => {
     } else if (s.diagram && s.diagram.kind === 'map') {
       diagram = branchSvg(data, s.diagram.label);
     }
-    const kind = i === 0 ? ' vl-cover' : diagram ? ' vl-has-diagram' : '';
+    const pic = diagram ? '' : figureHtml(s, i);
+    const kind = i === 0 && !pic ? ' vl-cover' : diagram || pic ? ' vl-has-diagram' : '';
     return `<div class="vl-slide-inner${kind}">
       <span class="vl-slide-num">${i + 1} / ${n}</span>
       <div class="vl-text">
@@ -927,8 +932,98 @@ const VideoLesson = (() => {
         ${s.bullets.length ? `<ul class="vl-bullets">${s.bullets.map((b, k) => `<li style="--d:${k}">${esc(b)}</li>`).join('')}</ul>` : ''}
         ${s.formula ? `<div class="vl-formula">${esc('$$' + s.formula + '$$')}</div>` : ''}
       </div>
-      ${diagram ? `<div class="vl-diagram">${diagram}</div>` : ''}
+      ${diagram ? `<div class="vl-diagram">${diagram}</div>` : pic}
     </div>`;
+  }
+
+  // ----- Real pictures (Wikipedia / Wikimedia Commons) -----
+
+  // The slide's picture, a placeholder while it is being looked up, or nothing.
+  function figureHtml(s, i) {
+    if (!s.image || (s.img && s.img.none)) return '';
+    if (!s.img) return `<div class="vl-diagram"><figure class="vl-figure pending" data-vl-fig="${i}" aria-hidden="true"></figure></div>`;
+    const credit = s.img.credit || 'Wikimedia Commons';
+    return `<div class="vl-diagram"><figure class="vl-figure" data-vl-fig="${i}">
+      <img src="${esc(s.img.src)}" alt="${esc(s.image.alt || s.title)}" referrerpolicy="no-referrer" loading="lazy">
+      <figcaption>${s.img.page ? `<a href="${esc(s.img.page)}" target="_blank" rel="noopener noreferrer">${esc(credit)}</a>` : esc(credit)}</figcaption>
+    </figure></div>`;
+  }
+
+  const COMMONS = 'https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&prop=imageinfo&iiprop=url|mime|size|extmetadata&iiurlwidth=960&iiextmetadatafilter=Artist|LicenseShortName';
+  const textOf = html => { try { return (new DOMParser().parseFromString(String(html || ''), 'text/html').body.textContent || '').replace(/\s+/g, ' ').trim(); } catch (e) { return ''; } };
+  async function getJson(url) {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }
+  // The first usable picture among Commons API pages (in search order).
+  function firstPicture(json) {
+    const pages = Object.values((json && json.query && json.query.pages) || {}).sort((a, b) => (a.index || 0) - (b.index || 0));
+    for (const pg of pages) {
+      const ii = pg.imageinfo && pg.imageinfo[0];
+      if (!ii || !/^image\/(jpeg|png|svg\+xml|webp|gif)$/.test(ii.mime || '') || (ii.width && ii.width < 180)) continue;
+      const src = ii.thumburl || ii.url;
+      if (!/^https:\/\/upload\.wikimedia\.org\//.test(src || '')) continue;
+      const meta = ii.extmetadata || {};
+      const who = textOf(meta.Artist && meta.Artist.value).slice(0, 80);
+      const lic = textOf(meta.LicenseShortName && meta.LicenseShortName.value).slice(0, 40);
+      return { src, page: ii.descriptionurl || '', credit: [who, lic].filter(Boolean).join(' · ') || 'Wikimedia Commons' };
+    }
+    return null;
+  }
+  // Look up one picture: the Wikipedia article's main picture, else a Commons search.
+  async function findPicture(req) {
+    if (req.wiki) {
+      try {
+        const j = await getJson('https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&redirects=1&prop=pageimages&piprop=name&titles=' + encodeURIComponent(req.wiki));
+        const pg = Object.values((j.query && j.query.pages) || {})[0];
+        if (pg && pg.pageimage) {
+          const hit = firstPicture(await getJson(COMMONS + '&titles=' + encodeURIComponent('File:' + pg.pageimage)));
+          if (hit) return hit;
+        }
+      } catch (e) { /* try the search */ }
+    }
+    if (req.query) {
+      return firstPicture(await getJson(COMMONS + '&generator=search&gsrnamespace=6&gsrlimit=8&gsrsearch=' + encodeURIComponent(req.query)));
+    }
+    return null;
+  }
+
+  // Find the pictures of a lesson's slides one at a time, keep them with the lesson, and show each as it arrives.
+  const picturing = new Set();
+  async function loadPictures(l) {
+    if (!l || picturing.has(l) || typeof fetch === 'undefined') return;
+    picturing.add(l);
+    try {
+      const order = l.slides.map((_, k) => k).sort((a, b) => Math.abs(a - index) - Math.abs(b - index)); // the slide on screen first
+      for (const k of order) {
+        const sl = l.slides[k];
+        if (!sl || !sl.image || sl.img || sl.diagram) continue;
+        if (typeof navigator !== 'undefined' && navigator.onLine === false) return;
+        let hit = null;
+        try { hit = await findPicture(sl.image); } catch (e) { continue; } // network trouble: try again next time
+        sl.img = hit || { none: true };
+        App.persistActiveDeck();
+        if (lesson() === l) refreshFigure(l, k);
+      }
+    } finally {
+      picturing.delete(l);
+    }
+  }
+
+  // Swap the placeholder of slide k (if it is on screen) for its picture.
+  function refreshFigure(l, k) {
+    const fig = host && host.querySelector(`.vl-stage [data-vl-slide="${k}"] [data-vl-fig="${k}"]`);
+    if (!fig) return;
+    const slideEl = fig.closest('[data-vl-slide]');
+    const inner = slideEl && slideEl.querySelector('.vl-slide-inner');
+    if (!inner) return;
+    const tmp = document.createElement('div');
+    tmp.innerHTML = slideHtml(App.getStudyData(), view(l, k), k, l.slides.length);
+    const fresh = tmp.firstElementChild;
+    const oldDiagram = fig.closest('.vl-diagram');
+    const newDiagram = fresh.querySelector('.vl-diagram');
+    if (newDiagram) oldDiagram.replaceWith(newDiagram); else { oldDiagram.remove(); inner.className = fresh.className; }
   }
 
   // A mind-map branch as a small radial diagram.

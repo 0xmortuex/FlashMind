@@ -2439,14 +2439,14 @@ test('refreshing lessons: one new lesson per topic that had old ones, nothing re
   ctx.API = { chat: async (q, c) => { ctx.asked.push({ q, c }); if (ctx.fail && ctx.asked.length === 2) throw new Error('Rate limited'); return JSON.stringify({ title: 'New lesson', slides: [{ title: 'S1', narration: 'Hello.' }, { title: 'S2', narration: 'More.', check: { q: 'Q?', options: ['a', 'b'], correct: 1, why: 'w' } }] }); } };
   const make = () => ({
     title: 'Set', notes: { summary: 'Sum', sections: [{ title: 'A', content: 'About A.' }, { title: 'B', content: 'About B.' }] }, sources: [],
-    lessons: [{ id: 'v1', title: 'old A', topic: 'A', slides: [] }, { id: 'v2', title: 'old A simpler', topic: 'A', base: 'v1', slides: [] }, { id: 'v3', title: 'old B', topic: 'B', slides: [] }, { id: 'v4', title: 'fresh', topic: 'B', v: 2, slides: [] }]
+    lessons: [{ id: 'v1', title: 'old A', topic: 'A', slides: [] }, { id: 'v2', title: 'old A simpler', topic: 'A', base: 'v1', slides: [] }, { id: 'v3', title: 'old B', topic: 'B', slides: [] }, { id: 'v4', title: 'fresh', topic: 'B', v: 3, slides: [] }]
   });
   ctx.data = make();
   const r = JSON.parse(JSON.stringify(await run('VideoLesson.refreshOld(data, t => steps.push(t))'.replace('steps.push', '(ctx => ctx)'))));
   assert.deepEqual(r, { replaced: 3, made: 2 });
   const out = JSON.parse(JSON.stringify(ctx.data.lessons));
   assert.deepEqual(out.map(l => l.title), ['fresh', 'New lesson', 'New lesson'], 'the up-to-date lesson stays; the three old ones became two new ones');
-  assert.ok(out.every(l => l.v === 2) && new Set(out.map(l => l.id)).size === 3, 'new lessons are marked and have unique ids');
+  assert.ok(out.every(l => l.v === 3) && new Set(out.map(l => l.id)).size === 3, 'new lessons are marked and have unique ids');
   assert.deepEqual(out.map(l => l.topic), ['B', 'A', 'B']);
   assert.equal(ctx.asked.length, 2);
   assert.ok(ctx.asked[0].c.includes('## A') && !ctx.asked[0].c.includes('## B'), 'each lesson is written from its own topic');
