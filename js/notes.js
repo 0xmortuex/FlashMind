@@ -9,9 +9,94 @@ const Notes = (() => {
     container.addEventListener('click', e => {
       const v = e.target.closest('[data-notes-view]');
       if (v) { showView(v.dataset.notesView); return; }
+      const img = e.target.closest('[data-section-img]');
+      if (img) { saveSectionImage(+img.dataset.sectionImg, img); return; }
       const src = e.target.closest('[data-section-src]');
       if (src) toggleSectionSource(+src.dataset.sectionSrc);
     });
+  }
+
+  // ----- A note card as a picture (PNG) -----
+  // html2canvas draws the card as it looks on screen (formulas included); it is loaded only when first used.
+  const H2C_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+  let h2cPromise = null;
+  function loadH2C() {
+    if (window.html2canvas) return Promise.resolve(window.html2canvas);
+    if (!h2cPromise) {
+      h2cPromise = new Promise((resolve, reject) => {
+        const sc = document.createElement('script');
+        sc.src = H2C_SRC;
+        sc.async = true;
+        sc.onload = () => window.html2canvas ? resolve(window.html2canvas) : reject(new Error('html2canvas'));
+        sc.onerror = () => reject(new Error('html2canvas'));
+        document.head.appendChild(sc);
+      });
+      h2cPromise.catch(() => { h2cPromise = null; });
+    }
+    return h2cPromise;
+  }
+
+  const fileName = t => (String(t || 'not').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ı/g, 'i').replace(/İ/g, 'I')
+    .replace(/[^a-zA-Z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'not') + '.png';
+
+  async function saveSectionImage(idx, btn) {
+    const T = i18n.t;
+    const data = App.getStudyData();
+    const card = container && container.querySelectorAll('.notes-section')[idx];
+    const section = data && data.notes && (data.notes.sections || [])[idx];
+    if (!card || !section || btn.disabled) return;
+    btn.disabled = true;
+    const label = btn.innerHTML;
+    btn.textContent = T('notesImgMaking');
+    try {
+      const h2c = await loadH2C();
+      const page = getComputedStyle(document.body).backgroundColor;
+      const canvas = await h2c(card, {
+        scale: Math.min(3, Math.max(2, window.devicePixelRatio || 1)),
+        backgroundColor: page && page !== 'rgba(0, 0, 0, 0)' ? page : '#ffffff',
+        useCORS: true,
+        logging: false,
+        // Buttons and open panels are not part of the note.
+        ignoreElements: el => el.matches && el.matches('[data-section-img], [data-section-src], .topic-chev, .topic-audio, .section-src, [data-section-src-box]'),
+        onclone: (doc, el) => {
+          const st = doc.createElement('style');
+          st.textContent = '*{animation:none!important;transition:none!important} .reveal{opacity:1!important;transform:none!important}';
+          doc.head.appendChild(st);
+          // Which set it is from, and where it was made, on the picture itself.
+          const head = doc.createElement('div');
+          head.className = 'notes-img-head';
+          head.textContent = data.title || '';
+          el.insertBefore(head, el.firstChild);
+          const foot = doc.createElement('div');
+          foot.className = 'notes-img-foot';
+          foot.textContent = 'FlashMind';
+          el.appendChild(foot);
+          el.style.margin = '0';
+        }
+      });
+      const blob = await new Promise((res, rej) => canvas.toBlob(b => b ? res(b) : rej(new Error('png')), 'image/png'));
+      const name = fileName(section.title);
+      const file = typeof File !== 'undefined' ? new File([blob], name, { type: 'image/png' }) : null;
+      // Phones: the share sheet (save to gallery, send to a friend). Elsewhere: a download.
+      if (file && navigator.canShare && navigator.canShare({ files: [file] }) && /Android|iPhone|iPad/i.test(navigator.userAgent)) {
+        try { await navigator.share({ files: [file], title: section.title }); } catch (e) { if (e && e.name !== 'AbortError') throw e; }
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = name;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 10000);
+        App.showToast(T('notesImgSaved'), 'success');
+      }
+    } catch (err) {
+      App.showToast(T(navigator.onLine === false && !window.html2canvas ? 'notesImgOffline' : 'notesImgFailed'), 'error');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = label;
+    }
   }
 
   function render(data) {
@@ -48,7 +133,7 @@ const Notes = (() => {
     const hasSources = Array.isArray(data.sources) && data.sources.length > 0;
     notes.sections.forEach((section, idx) => {
       html += `<div class="notes-section reveal" style="--i:${idx % 3}">
-        <h2 class="notes-section-title">${typeof Topics !== 'undefined' ? Topics.titleHtml(data, idx) : esc(section.title)}${hasSources ? `<button class="section-src-btn" data-section-src="${idx}" title="${T('srcShowPassage')}">&#128206; ${T('srcSource')}</button>` : ''}</h2>
+        <h2 class="notes-section-title">${typeof Topics !== 'undefined' ? Topics.titleHtml(data, idx) : esc(section.title)}${hasSources ? `<button class="section-src-btn" data-section-src="${idx}" title="${T('srcShowPassage')}">&#128206; ${T('srcSource')}</button>` : ''}<button class="section-src-btn" data-section-img="${idx}" title="${T('notesImgTitle')}" aria-label="${T('notesImgTitle')}">&#128444;&#65039; ${T('notesImg')}</button></h2>
         <div class="topic-audio" data-topic-audio-box="${idx}" aria-live="polite" hidden></div>
         <div class="section-src" data-section-src-box="${idx}" hidden></div>
         <p class="notes-section-content${scen ? ' scen-text' : ''}">${esc(section.content)}</p>`;
