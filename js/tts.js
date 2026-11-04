@@ -446,15 +446,26 @@ const TTS = (() => {
       if (cb) cb(false);
     };
     pendingEnd = onEnd || null;
+    // o.from (0-1): start this far into the text (a resume or a seek). The text is still planned whole, so the
+    // natural voice reuses the clips it already has (they are kept by their exact text) instead of asking again.
+    const from = Math.max(0, Math.min(0.999, Number(o.from) || 0));
+    // Index of the passage holding `from`, and how far into it (0-1).
+    const locate = q => {
+      const l = q.map(x => x.text.length), all = l.reduce((a, b) => a + b, 0) || 1, target = from * all;
+      let i = 0, acc = 0;
+      while (i < q.length - 1 && acc + l[i] <= target) { acc += l[i]; i++; }
+      return { i, within: l[i] ? Math.max(0, Math.min(0.999, (target - acc) / l[i])) : 0 };
+    };
 
     // Device voices, from queue[start]. Refuses (never the wrong language) when a language has no voice.
     function speakDevice(queue, start, track) {
       const rest = queue.slice(start);
       const lens = rest.map(q => q.text.length);
-      const total = lens.reduce((a, b) => a + b, 0) || 1;
+      const before = queue.slice(0, start).reduce((a, q) => a + q.text.length, 0); // skipped passages still count in the position
+      const total = (before + lens.reduce((a, b) => a + b, 0)) || 1;
       let cur = 0, charAt = 0, tracked = false;
       // Word-boundary events give the real position; a voice without them reports null (the caller estimates).
-      if (track) progressFn = () => tracked ? Math.min(1, (lens.slice(0, cur).reduce((a, b) => a + b, 0) + charAt) / total) : null;
+      if (track) progressFn = () => tracked ? Math.min(1, (before + lens.slice(0, cur).reduce((a, b) => a + b, 0) + charAt) / total) : null;
       const absent = [...new Set(rest.map(q => q.lang))].find(missingVoice);
       if (!supported() || absent) {
         if (absent) { if (o.onNoVoice) o.onNoVoice(absent); else notifyMissing(absent); }
@@ -483,7 +494,7 @@ const TTS = (() => {
       next();
     }
 
-    if (!useNatural) { speakDevice(plan(text, o.lang), 0, true); return; }
+    if (!useNatural) { const dq = plan(text, o.lang); speakDevice(dq, from ? locate(dq).i : 0, true); return; }
 
     const queue = plan(text, o.lang, NATURAL_CHUNK);
     const lens = queue.map(q => q.text.length);
@@ -491,7 +502,9 @@ const TTS = (() => {
     const voiceName = o.nvoice || naturalVoice();
     const loading = on => { if (o.onLoading && mySession === session) o.onLoading(on); };
     unlockAudio();
-    let idx = 0;
+    const startAt = from ? locate(queue) : { i: 0, within: 0 };
+    let idx = startAt.i;
+    let seekTo = startAt.within; // into the first clip played
     const fallBack = (err, from) => {
       if (mySession !== session) return;
       loading(false);
@@ -521,6 +534,14 @@ const TTS = (() => {
       // Position in the whole text: the finished passages plus how far this clip has played.
       const done = lens.slice(0, at).reduce((a, b) => a + b, 0);
       progressFn = () => Math.min(1, (done + (audioEl.duration > 0 ? Math.min(1, audioEl.currentTime / audioEl.duration) : 0) * lens[at]) / total);
+      if (seekTo > 0) {
+        // Resume inside the clip: wait for its length, then jump to the same point.
+        const frac = seekTo;
+        seekTo = 0;
+        await new Promise(r => { if (audioEl.readyState >= 1) r(); else { audioEl.addEventListener('loadedmetadata', r, { once: true }); setTimeout(r, 1500); } });
+        if (mySession !== session) return;
+        if (audioEl.duration > 0 && isFinite(audioEl.duration)) { try { audioEl.currentTime = frac * audioEl.duration; } catch (e) { /* plays from the clip start */ } }
+      }
       try { await audioEl.play(); } catch (err) { fallBack(err, at); }
     };
     step();

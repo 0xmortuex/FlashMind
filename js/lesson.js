@@ -340,6 +340,7 @@ const VideoLesson = (() => {
   // Nothing is replaced unless every new lesson was written. onStep(topic) before each AI call.
   async function refreshOld(data, onStep) {
     const old = outdatedLessons(data);
+    await remember(old, '', data.title); // the replaced lessons stay in the history
     const topics = [...new Set(old.map(l => l.topic))];
     const made = [];
     for (const topic of topics) {
@@ -355,6 +356,7 @@ const VideoLesson = (() => {
       list.push(l);
     });
     data.lessons = list;
+    await remember(made, '', data.title);
     return { replaced: old.length, made: made.length };
   }
 
@@ -379,7 +381,101 @@ const VideoLesson = (() => {
     }
   }
 
-  function save(data, l) {
+  // ----- History: every lesson ever made, on this device (IndexedDB: localStorage is kept for the sets) -----
+  const HIST_DB = 'flashmind-lesson-history', HIST_STORE = 'lessons', HIST_SEEDED = 'flashmind_lesson_history_seeded';
+  let histOpen = false;   // the history list is showing on the video page
+  let histRows = null;    // loaded records, newest first
+  function histDb() {
+    return new Promise((resolve, reject) => {
+      if (typeof indexedDB === 'undefined') { reject(new Error('no IndexedDB')); return; }
+      const r = indexedDB.open(HIST_DB, 1);
+      r.onupgradeneeded = () => { if (!r.result.objectStoreNames.contains(HIST_STORE)) r.result.createObjectStore(HIST_STORE, { keyPath: 'hid' }); };
+      r.onsuccess = () => resolve(r.result);
+      r.onerror = () => reject(r.error);
+    });
+  }
+  async function histTx(mode, fn) {
+    const db = await histDb();
+    return new Promise((resolve, reject) => {
+      const t = db.transaction(HIST_STORE, mode);
+      const out = fn(t.objectStore(HIST_STORE));
+      t.oncomplete = () => { db.close(); resolve(out && 'result' in out ? out.result : undefined); };
+      t.onerror = t.onabort = () => { db.close(); reject(t.error); };
+    });
+  }
+  // One record per lesson: which set it was made in, a summary for the list, and the whole lesson to play again.
+  function histRecord(l, deckId, deckTitle) {
+    const plain = JSON.parse(JSON.stringify(l));
+    return {
+      hid: (deckId || 't:' + (deckTitle || '')) + '|' + (l.createdAt || 0) + '|' + l.id + '|' + String(l.title || '').slice(0, 40),
+      at: l.createdAt || Date.now(), deckId: deckId || '', deckTitle: deckTitle || '', title: l.title || '', label: l.label || '',
+      slides: l.slides.length, secs: Math.round(l.slides.reduce((a, x) => a + duration(x), 0)), lesson: plain
+    };
+  }
+  function remember(lessons, deckId, deckTitle) {
+    if (!lessons || !lessons.length) return Promise.resolve();
+    return histTx('readwrite', st => { lessons.forEach(l => { try { st.put(histRecord(l, deckId, deckTitle)); } catch (e) {} }); })
+      .then(() => { histRows = null; })
+      .catch(() => { /* no IndexedDB (private window): the lesson itself is still saved in the set */ });
+  }
+  // The first time: put the lessons already in every saved set into the history.
+  async function seedHistory() {
+    try { if (localStorage.getItem(HIST_SEEDED)) return; } catch (e) { return; }
+    const decks = typeof Decks !== 'undefined' ? Decks.list() : [];
+    for (const d of decks) await remember((d.data && d.data.lessons) || [], d.id, (d.data && d.data.title) || d.title || '');
+    try { localStorage.setItem(HIST_SEEDED, '1'); } catch (e) {}
+  }
+  async function loadHistory() {
+    await seedHistory();
+    try { histRows = ((await histTx('readonly', st => st.getAll())) || []).sort((a, b) => b.at - a.at); } catch (e) { histRows = []; histRows.failed = true; }
+    if (histOpen) refresh();
+  }
+
+  function historyHtml() {
+    const T = i18n.t;
+    if (!histRows) return `<div class="vl-history"><p class="vl-note">${T('vlHistLoading')}</p></div>`;
+    const fmt = t => { try { return new Date(t).toLocaleString(i18n.getLang() === 'tr' ? 'tr-TR' : 'en-US', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }); } catch (e) { return ''; } };
+    const rows = histRows.map(r => `<li class="vl-hist-row">
+        <button class="vl-hist-open" data-vl-hist-play="${esc(r.hid)}">
+          <strong>${esc(r.title)}</strong>
+          <span>${esc(r.deckTitle || '—')} · ${esc(fmt(r.at))}</span>
+          <span>${r.label ? esc(r.label) + ' · ' : ''}${T('vlSlides', { n: r.slides })} · ~${Math.max(1, Math.round(r.secs / 60))} ${T('vlMin')}</span>
+        </button>
+        <button class="btn-icon" data-vl-hist-del="${esc(r.hid)}" aria-label="${esc(T('vlHistDelete'))}" title="${esc(T('vlHistDelete'))}">&#128465;</button>
+      </li>`).join('');
+    return `<div class="vl-history">
+      <div class="vl-history-head"><strong>&#128337; ${T('vlHistTitle', { n: histRows.length })}</strong><button class="btn-ghost" data-vl-act="hist-close">${T('vlClose')}</button></div>
+      <p class="vl-note">${T(histRows.failed ? 'vlHistUnavailable' : 'vlHistNote')}</p>
+      ${rows ? `<ol class="vl-hist-list">${rows}</ol>` : `<p class="vl-note">${T('vlHistEmpty')}</p>`}
+    </div>`;
+  }
+
+  // Play a lesson from the history: the one in this set if it is still there, otherwise a copy is put back into this set.
+  function playFromHistory(hid) {
+    const data = App.getStudyData();
+    const r = (histRows || []).find(x => x.hid === hid);
+    if (!data || !r) return;
+    const same = (data.lessons || []).find(l => l.createdAt === r.lesson.createdAt && l.title === r.lesson.title);
+    histOpen = false;
+    stop();
+    resetUi();
+    if (same) { lessonId = same.id; mode = 'player'; index = 0; refresh(); return; }
+    const l = SimSpec.sanitizeLesson({ ...r.lesson, id: undefined });
+    if (!l) { App.showToast(i18n.t('vlInvalid'), 'error'); return; }
+    save(data, l, true);
+    App.showToast(i18n.t('vlHistRestored'), 'success');
+    refresh();
+  }
+
+  async function deleteFromHistory(hid) {
+    try { await histTx('readwrite', st => { st.delete(hid); }); } catch (e) {}
+    if (histRows) histRows = histRows.filter(x => x.hid !== hid);
+    refresh();
+  }
+
+  // `restored`: put back from the history (already in it).
+  function save(data, l, restored) {
+    if (!restored) remember([l], App.getActiveDeckId ? App.getActiveDeckId() : '', data.title);
     const list = data.lessons || [];
     const ids = new Set(list.map(x => x.id));
     let k = list.length + 1;
@@ -590,7 +686,9 @@ const VideoLesson = (() => {
         <button class="btn-icon" data-vl-del="${esc(l.id)}" aria-label="${esc(T('vlDelete'))}" title="${esc(T('vlDelete'))}">&#128465;</button>
       </div>`).join('');
     return `<div class="vl-wrap vl-setup">
-      <h3 class="vl-setup-title">&#127916; ${T('vlTitle')}</h3>
+      <div class="vl-setup-head"><h3 class="vl-setup-title">&#127916; ${T('vlTitle')}</h3>
+        <button class="btn-ghost" data-vl-act="hist" aria-expanded="${histOpen}">&#128337; ${T('vlHistBtn')}</button></div>
+      ${histOpen ? historyHtml() : ''}
       <p class="vl-setup-text">${T('vlIntro')}</p>
       ${cards ? `<div class="vl-cards">${cards}</div>` : ''}
       <div class="vl-new">
@@ -1227,7 +1325,7 @@ const VideoLesson = (() => {
     if (!l) return 0;
     if (ended) return 1;
     const rest = 1 - startAt;
-    if (heardFrac !== null) return startAt + heardFrac * rest;
+    if (heardFrac !== null) return Math.max(startAt, heardFrac); // the voice reports its place in the whole narration
     if (voiceWait) return startAt;
     const spent = (elapsed + (playing ? performance.now() - slideStart : 0)) / 1000;
     return startAt + Math.min(spent / duration(l.slides[index]), rest * 0.97);
@@ -1365,9 +1463,8 @@ const VideoLesson = (() => {
     elapsed = 0;
     heardFrac = null;
     const s = view(l, index);
-    // From a seek or a resume: say the rest of the slide from the sentence it stopped at.
-    const k = startAt > 0 ? chunkAt(capChunks, startAt) : 0;
-    const said = k > 0 ? capChunks.slice(k).map(c => c.text).join(' ') : s.narration;
+    // From a seek or a resume the voice starts at that point of the WHOLE narration (TTS `from`): the
+    // natural voice then reuses the clip it already has instead of asking the voice service again.
     const done = () => {
       if (my !== token || !playing) return;
       // A slide with a question stops here until the student answers.
@@ -1386,13 +1483,13 @@ const VideoLesson = (() => {
       // If the natural voice is off for now (daily limit, no key), say so up front instead of silently using the device voice.
       const off = TTS.naturalOn() ? TTS.naturalBlockedReason() : '';
       drawVoiceNote(off ? i18n.t('vlVoiceBlocked', { why: off }) : '');
-      TTS.speak(said, cancelled => {
+      TTS.speak(s.narration, cancelled => {
         setVoiceBusy(false);
         if (my !== token) return;
         if (cancelled) { playing = false; syncControls(); return; }
         done();
       }, {
-        rate, lang: lessonLang(l), natural: true,
+        rate, lang: lessonLang(l), natural: true, from: startAt,
         onNoVoice: lang => { playing = false; noVoice = lang; syncControls(); drawNotice(); },
         // The voice service is busy: count down to the next try instead of switching voices in the middle of the lesson.
         onWait: secs => { if (my === token) setVoiceBusy(true, secs); },
@@ -1597,6 +1694,10 @@ const VideoLesson = (() => {
       if (fix) { rewriteSlide(fix.dataset.vlFix, panelText('#vl-fix-text')); return; }
       const len = e.target.closest('[data-vl-length]');
       if (len) { setLessonMinutes(+len.dataset.vlLength); host.querySelectorAll('[data-vl-length]').forEach(b => b.setAttribute('aria-checked', String(b === len))); return; }
+      const hp = e.target.closest('[data-vl-hist-play]');
+      if (hp) { playFromHistory(hp.dataset.vlHistPlay); return; }
+      const hd = e.target.closest('[data-vl-hist-del]');
+      if (hd) { if (confirm(i18n.t('vlHistDeleteConfirm'))) deleteFromHistory(hd.dataset.vlHistDel); return; }
       const sty = e.target.closest('[data-vl-style]');
       if (sty) { setLessonStyle(sty.dataset.vlStyle); host.querySelectorAll('[data-vl-style]').forEach(b => b.setAttribute('aria-checked', String(b === sty))); return; }
       const persp = e.target.closest('[data-vl-persp]');
@@ -1622,6 +1723,8 @@ const VideoLesson = (() => {
       else if (act === 'panel-close' || act === 'panel-cancel') closePanel();
       else if (act === 'panel-retry') { if (lastReq && lastReq.kind === 'version') makeVersion(lastReq.choice, lastReq.text); else if (lastReq && lastReq.kind === 'ask') answerCheckQuestion(lastReq.text); else if (lastReq) rewriteSlide(lastReq.choice, lastReq.text); }
       else if (act === 'ask-go') askGo();
+      else if (act === 'hist') { histOpen = !histOpen; refresh(); if (histOpen) loadHistory(); }
+      else if (act === 'hist-close') { histOpen = false; refresh(); }
       else if (act === 'hide-pic') {
         const l = lesson(), k = +btn.closest('[data-vl-fig]').dataset.vlFig;
         if (l && l.slides[k]) { l.slides[k].img = { none: true, v: PIC_V }; App.persistActiveDeck(); refreshFigure(l, k); }

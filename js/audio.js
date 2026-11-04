@@ -14,6 +14,9 @@ const AudioOverview = (() => {
   let index = 0;
   let token = 0;
   let rate = 1;
+  // One-on-one deep dive: { at, ask, text, busy, listening, err } while it is the student's turn to speak.
+  let turn = null;
+  let rec = null; // the running speech recognition
   try { rate = parseFloat(localStorage.getItem('flashmind_audio_rate')) || 1; } catch (e) {}
 
   function esc(str) {
@@ -42,14 +45,19 @@ const AudioOverview = (() => {
     const base = fmt === 'brief'
       ? 'Write a short single-host audio briefing (like a teacher recording a 2-minute revision note) of this study material for a student revising for an exam. ' +
         'About 280 words in 6-10 short paragraphs, all with "speaker":"A". Open with what the topic is, cover only the must-know ideas, end with the 3 key takeaways.'
-      : 'Write an engaging two-host audio overview (a podcast-style conversation) of this study material for a student revising for an exam. ' +
-        'Host A explains and leads; host B is curious, asks the questions a student would ask, reacts, and adds examples. ' +
-        'Cover the most important ideas, one memorable analogy or example, a common mistake to avoid, and end with a quick recap of the 3 key takeaways. ' +
-        'About 650 words in 18-30 short turns that alternate naturally.';
+      : 'Write a one-on-one spoken revision conversation between a host and the student who is listening, face to face, about this study material, for a student revising for an exam. ' +
+        'Every line is the host ("speaker":"A") talking directly to the student ("you", in Turkish "sen"), warm and natural like a good tutor sitting across the table. ' +
+        'The host explains the most important ideas with concrete examples, one memorable analogy and a common mistake to avoid, and ends with the 3 key takeaways. ' +
+        'Every 3-4 lines the host asks the student a short question and waits for the answer: mark that line "ask": true and end it with the question ' +
+        '(check understanding, ask them to predict, or to explain something back in their own words). The line after a question must work whatever the student said: ' +
+        'do not assume their answer; give the right answer and the reason ("Let\'s check: ..."). ' +
+        'About 650 words in 16-26 lines, 5-7 of them questions.';
     return base + ' ' + Material.SUBJECT_RULE + 'Spoken style only: no markdown, no lists, no stage directions, no emojis; say formulas and symbols in words. ' +
       'Write it in the language of the material. ' +
       (focus ? `Focus especially on: ${focus}. ` : '') +
-      'Return ONLY JSON, no other text: {"type":"audio","title":"episode title","lines":[{"speaker":"A","text":"..."},{"speaker":"B","text":"..."}]}';
+      'Return ONLY JSON, no other text: ' + (fmt === 'brief'
+        ? '{"type":"audio","title":"episode title","lines":[{"speaker":"A","text":"..."}]}'
+        : '{"type":"audio","title":"episode title","lines":[{"speaker":"A","text":"..."},{"speaker":"A","text":"... ?","ask":true}]}');
   }
 
   // ----- Rendering -----
@@ -77,11 +85,13 @@ const AudioOverview = (() => {
           <button class="audio-play" data-audio-act="${playing ? 'pause' : 'play'}" aria-label="${playing ? T('audioPause') : T('audioPlay')}">${playing ? '&#10074;&#10074;' : '&#9654;'}</button>
           <button class="btn-icon" data-audio-act="next" aria-label="${T('audioNext')}" title="${T('audioNext')}">&#9197;</button>
           <button class="btn-ghost audio-rate" data-audio-act="rate" title="${T('audioSpeed')}">${rate}&times;</button>
+          ${script.talk ? `<button class="btn-ghost audio-hand" data-audio-act="hand" ${turn ? 'disabled' : ''}>&#9995; ${T('audioRaiseHand')}</button>` : ''}
         </div>` : `<p class="audio-notts">${T('audioNoTts')}</p>`}
       </div>
+      ${turn ? turnHtml() : ''}
       <div class="audio-transcript" role="list">
-        ${script.lines.map((l, i) => `<button class="audio-line speaker-${l.speaker}${i === index ? ' current' : ''}" data-audio-line="${i}" role="listitem">
-          <span class="audio-speaker">${l.speaker === 'B' ? T('audioHostB') : T('audioHostA')}</span>
+        ${script.lines.map((l, i) => `<button class="audio-line speaker-${l.speaker}${i === index ? ' current' : ''}${l.ask ? ' ask' : ''}" data-audio-line="${i}" role="listitem">
+          <span class="audio-speaker">${speakerName(script, l)}</span>
           <span class="audio-text">${esc(l.text)}</span>
         </button>`).join('')}
       </div>
@@ -140,6 +150,9 @@ const AudioOverview = (() => {
     if (!script || typeof TTS === 'undefined' || !TTS.supported()) { playing = false; return; }
     if (i >= script.lines.length) { playing = false; index = 0; refresh(); return; }
     index = Math.max(0, i);
+    if (turn) closeTurn();
+    // The student's own lines are shown, not read out.
+    if (script.lines[index].speaker === 'U') { playFrom(index + 1); return; }
     playing = true;
     const my = ++token;
     const line = script.lines[index];
@@ -150,8 +163,142 @@ const AudioOverview = (() => {
     TTS.speak(line.text, cancelled => {
       if (my !== token) return;
       if (cancelled) { playing = false; refresh(); return; }
+      // A question the student has not answered yet: wait for their answer.
+      const next = script.lines[index + 1];
+      if (script.talk && line.ask && !(next && next.speaker === 'U')) { openTurn(index, line.text); return; }
       playFrom(index + 1);
     }, { voice: v.voice, pitch: v.pitch, rate, lang });
+  }
+
+  function speakerName(script, l) {
+    const T = i18n.t;
+    if (l.speaker === 'U') return T('audioYou');
+    if (script.talk) return T('audioHost');
+    return l.speaker === 'B' ? T('audioHostB') : T('audioHostA');
+  }
+
+  // ----- One-on-one: the student's turn -----
+
+  function turnHtml() {
+    const T = i18n.t;
+    const canListen = !!SpeechRec();
+    const status = turn.busy ? T('audioThinking') : turn.listening ? T('audioListening') : turn.err || '';
+    return `<div class="audio-turn" role="group" aria-label="${esc(T('audioYourTurn'))}">
+      <strong class="audio-turn-title">&#127897;&#65039; ${T('audioYourTurn')}</strong>
+      ${turn.ask ? `<p class="audio-turn-q">${esc(turn.ask)}</p>` : ''}
+      <div class="audio-turn-row">
+        ${canListen ? `<button class="btn-ghost audio-mic${turn.listening ? ' on' : ''}" data-audio-act="listen" aria-pressed="${!!turn.listening}" ${turn.busy ? 'disabled' : ''}>&#127908; ${T(turn.listening ? 'audioStopListening' : 'audioListen')}</button>` : ''}
+        <input type="text" class="editor-input audio-say" id="audio-say" maxlength="400" autocomplete="off" placeholder="${esc(T(canListen ? 'audioSayHolder' : 'audioSayHolderType'))}" value="${esc(turn.text || '')}" ${turn.busy ? 'disabled' : ''}>
+        <button class="btn-primary" data-audio-act="say" ${turn.busy ? 'disabled' : ''}>${T('audioSend')}</button>
+        <button class="btn-ghost" data-audio-act="skip" ${turn.busy ? 'disabled' : ''}>${T(turn.ask ? 'audioSkip' : 'audioBack')}</button>
+      </div>
+      <span class="audio-turn-status" role="status">${esc(status)}</span>
+    </div>`;
+  }
+
+  const SpeechRec = () => (typeof window !== 'undefined' && (window.SpeechRecognition || window.webkitSpeechRecognition)) || null;
+
+  // It is the student's turn after line `at` (a host question, or a raised hand).
+  function openTurn(at, ask) {
+    stopListening();
+    turn = { at, ask: ask || '', text: '' };
+    playing = false;
+    refresh();
+    const input = host && host.querySelector('#audio-say');
+    if (input) input.focus({ preventScroll: true });
+    if (SpeechRec()) listen(); // talk out loud, like across a table (typing stays possible)
+  }
+
+  function closeTurn() {
+    stopListening();
+    turn = null;
+  }
+
+  function listen() {
+    const R = SpeechRec();
+    if (!R || !turn || turn.busy) return;
+    stopListening();
+    const data = App.getStudyData();
+    const lang = (data && data.audio && scriptLang(data.audio)) || (i18n.getLang() === 'tr' ? 'tr' : 'en');
+    const r = new R();
+    rec = r;
+    r.lang = lang === 'tr' ? 'tr-TR' : 'en-US';
+    r.interimResults = true;
+    r.continuous = false;
+    let said = '';
+    r.onresult = e => {
+      said = Array.from(e.results).map(x => x[0].transcript).join(' ').trim();
+      if (turn) turn.text = said;
+      const input = host && host.querySelector('#audio-say');
+      if (input) input.value = said;
+    };
+    r.onerror = e => { if (rec !== r || !turn) return; turn.err = e && (e.error === 'not-allowed' || e.error === 'service-not-allowed') ? i18n.t('audioNoMic') : e && e.error === 'no-speech' ? i18n.t('audioNoSpeech') : ''; };
+    r.onend = () => {
+      if (rec !== r) return;
+      rec = null;
+      if (!turn) return;
+      turn.listening = false;
+      if (said) send(said); else refresh();
+    };
+    turn.listening = true;
+    turn.err = '';
+    try { r.start(); } catch (err) { rec = null; turn.listening = false; turn.err = i18n.t('audioNoMic'); }
+    refresh();
+  }
+
+  function stopListening() {
+    const r = rec;
+    rec = null;
+    if (r) { try { r.onend = null; r.abort(); } catch (e) {} }
+    if (turn) turn.listening = false;
+  }
+
+  // The student said something: put it in the conversation, let the host answer, say it, and go on with the script.
+  async function send(text) {
+    const data = App.getStudyData();
+    const script = data && data.audio;
+    text = String(text || '').trim().slice(0, 400);
+    if (!script || !turn || turn.busy || !text) return;
+    stopListening();
+    const at = turn.at, ask = turn.ask;
+    turn.busy = true;
+    turn.text = text;
+    turn.err = '';
+    script.lines.splice(at + 1, 0, { speaker: 'U', text });
+    App.persistActiveDeck();
+    index = at + 1;
+    refresh();
+    const said = script.lines.slice(Math.max(0, at - 10), at + 2).map(l => (l.speaker === 'U' ? 'Student: ' : 'Host: ') + l.text).join('\n');
+    const question = 'You are the host of a one-on-one spoken revision session, talking face to face with a student about the study material. ' +
+      (ask ? `You just asked: "${ask}". The student answered: "${text}". React to THAT answer like a warm tutor: say plainly whether it is right, partly right or wrong, ` +
+          'give the correct idea with the reason in simple words, and praise what was good. '
+        : `The student interrupted you and said: "${text}". Answer that directly and clearly, with a short example if it helps. `) +
+      'Do not continue the lesson yourself and do not ask a new question: the lesson goes on after your reply. ' +
+      '1-4 short spoken sentences, at most 80 words, no markdown, no lists, no emojis; say formulas and symbols in words. Talk to the student as "you" (in Turkish "sen"). ' +
+      'Write it in the same language as the conversation. Return ONLY JSON, no other text: {"say":"..."}';
+    const context = `Conversation so far:\n${said}\n\nStudy material:\n${(Material.forStudy(data) || JSON.stringify({ title: data.title, notes: data.notes })).slice(0, 10000)}`;
+    let reply = '';
+    try {
+      const raw = await API.chat(question, context);
+      const obj = Parser.safeParseJSON(raw);
+      reply = obj && typeof obj.say === 'string' ? obj.say.trim() : (typeof raw === 'string' && !/^\s*[{[]/.test(raw) ? raw.trim() : '');
+    } catch (err) {
+      reply = '';
+    }
+    if (App.getStudyData() !== data || !turn || turn.at !== at) return;
+    if (!reply) {
+      // The host could not answer: keep what the student said, let them try again or go on.
+      turn.busy = false;
+      turn.text = '';
+      turn.at = at + 1;
+      turn.err = i18n.t('audioReplyFailed');
+      refresh();
+      return;
+    }
+    script.lines.splice(at + 2, 0, { speaker: 'A', text: reply.slice(0, 1200), reply: true });
+    App.persistActiveDeck();
+    closeTurn();
+    playFrom(at + 2);
   }
 
   function scrollCurrent() {
@@ -160,6 +307,7 @@ const AudioOverview = (() => {
   }
 
   function pause() {
+    closeTurn();
     token++;
     playing = false;
     if (typeof TTS !== 'undefined') TTS.stop();
@@ -167,6 +315,7 @@ const AudioOverview = (() => {
   }
 
   function stop() {
+    closeTurn();
     if (!playing) return;
     token++;
     playing = false;
@@ -183,7 +332,8 @@ const AudioOverview = (() => {
     const lines = obj && Array.isArray(obj.lines) ? obj.lines : [];
     const clean = Parser.normalizeStudyData({ title: data.title, audio: { format: fmt, title: obj && obj.title, lines, createdAt: Date.now(), v: AUDIO_V } }).audio;
     if (!clean) throw new Error('empty script');
-    if (fmt === 'brief') clean.lines.forEach(l => { l.speaker = 'A'; });
+    if (fmt === 'brief') clean.lines.forEach(l => { l.speaker = 'A'; delete l.ask; });
+    if (fmt === 'deep') { clean.talk = true; clean.lines.forEach(l => { l.speaker = 'A'; }); }
     return clean;
   }
 
@@ -244,19 +394,25 @@ const AudioOverview = (() => {
     const data = App.getStudyData();
     if (!data || !data.audio) return;
     const T = i18n.t;
-    const text = data.audio.lines.map(l => `${l.speaker === 'B' ? T('audioHostB') : T('audioHostA')}: ${l.text}`).join('\n\n');
+    const text = data.audio.lines.map(l => `${speakerName(data.audio, l)}: ${l.text}`).join('\n\n');
     navigator.clipboard.writeText((data.audio.title || data.title) + '\n\n' + text)
       .then(() => App.showToast(T('audioCopied'), 'success'))
       .catch(() => App.showToast(T('failedCopy'), 'error'));
   }
 
   function init() {
+    document.addEventListener('keydown', e => {
+      if (e.key !== 'Enter' || !e.target || e.target.id !== 'audio-say' || !host || !host.contains(e.target)) return;
+      e.preventDefault();
+      send(e.target.value);
+    });
+    document.addEventListener('input', e => { if (turn && e.target && e.target.id === 'audio-say') turn.text = e.target.value; });
     document.addEventListener('click', e => {
       if (!host || !host.contains(e.target)) return;
       const fmt = e.target.closest('[data-audio-format]');
       if (fmt) { format = fmt.dataset.audioFormat; refresh(); return; }
       const line = e.target.closest('[data-audio-line]');
-      if (line) { token++; playFrom(parseInt(line.dataset.audioLine, 10)); return; }
+      if (line) { token++; closeTurn(); playFrom(parseInt(line.dataset.audioLine, 10)); return; }
       const btn = e.target.closest('[data-audio-act]');
       if (!btn) return;
       const act = btn.dataset.audioAct;
@@ -271,6 +427,10 @@ const AudioOverview = (() => {
         if (playing) { token++; playFrom(index); } else refresh();
       }
       else if (act === 'generate') generate();
+      else if (act === 'hand') { const sc = data && data.audio; if (!sc) return; token++; if (typeof TTS !== 'undefined') TTS.stop(); openTurn(Math.min(index, sc.lines.length) - 1, ''); } // before the cut-off line, which is said again afterwards
+      else if (act === 'listen') { if (turn && turn.listening) { const r = rec; if (r) { try { r.stop(); } catch (err) {} } } else listen(); }
+      else if (act === 'say') { const inp = host.querySelector('#audio-say'); send(inp ? inp.value : ''); }
+      else if (act === 'skip') { const at = turn ? turn.at : index; closeTurn(); playFrom(at + 1); }
       else if (act === 'copy') copy();
       else if (act === 'new' && data) { stop(); delete data.audio; App.persistActiveDeck(); index = 0; refresh(); }
     });

@@ -455,6 +455,19 @@ button.citation:hover { background: var(--primary-tint); }
 .audio-line.speaker-A .audio-speaker { color: var(--primary); }
 .audio-line.speaker-B .audio-speaker { color: var(--secondary); }
 .audio-text { font-family: var(--font-content); font-size: 0.92rem; line-height: 1.6; }
+.audio-line.speaker-U { flex-direction: row-reverse; text-align: right; background: var(--primary-tint); color: var(--text); margin-left: 15%; }
+.audio-line.speaker-U .audio-speaker { color: var(--primary); text-align: right; }
+.audio-line.ask .audio-text { font-weight: 600; color: var(--text); }
+.audio-hand { white-space: nowrap; }
+.audio-turn { display: flex; flex-direction: column; gap: 8px; padding: 14px 16px; border: 2px solid var(--primary); border-radius: var(--radius); background: var(--surface); }
+.audio-turn-title { font-size: 0.95rem; }
+.audio-turn-q { margin: 0; font-family: var(--font-content); line-height: 1.5; color: var(--text); }
+.audio-turn-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.audio-turn-row .audio-say { flex: 1 1 220px; min-width: 0; }
+.audio-mic.on { border-color: #ef4444; color: #ef4444; animation: audio-mic-pulse 1.2s ease-in-out infinite; }
+@keyframes audio-mic-pulse { 50% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0.15); } }
+.audio-turn-status { font-size: 0.82rem; color: var(--text-muted); min-height: 1em; }
+@media (prefers-reduced-motion: reduce) { .audio-mic.on { animation: none; } }
 .audio-footer { display: flex; gap: 8px; flex-wrap: wrap; }
 
 /* ----- Image occlusion ----- */

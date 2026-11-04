@@ -259,12 +259,15 @@ const Parser = (() => {
       if (str(n.detail).trim()) out.detail = str(n.detail).trim().slice(0, 600);
       return out;
     };
-    // Audio overview script: [{ speaker: 'A'|'B', text }].
+    // Audio overview script: [{ speaker: 'A'|'B'|'U', text, ask?, reply? }].
     const cleanAudio = a => obj(a) ? {
       format: ['deep', 'brief', 'recap'].includes(a.format) ? a.format : 'deep',
       title: str(a.title).slice(0, 200),
-      lines: list(a.lines).filter(l => obj(l) && str(l.text).trim()).slice(0, 200)
-        .map(l => ({ speaker: l.speaker === 'B' ? 'B' : 'A', text: str(l.text).trim().slice(0, 2000) })),
+      lines: list(a.lines).filter(l => obj(l) && str(l.text).trim()).slice(0, 300)
+        .map(l => ({ speaker: ['B', 'U'].includes(l.speaker) ? l.speaker : 'A', text: str(l.text).trim().slice(0, 2000),
+          ...(l.ask === true && l.speaker !== 'U' ? { ask: true } : {}), ...(l.reply === true && l.speaker !== 'U' ? { reply: true } : {}) })),
+      // One-on-one: the host talks with the student, who answers the host's questions ("ask") and can interrupt ("U" lines are the student's).
+      ...(a.talk === true ? { talk: true } : {}),
       createdAt: Number.isFinite(a.createdAt) ? a.createdAt : 0,
       ...(Number.isInteger(a.v) && a.v >= 1 && a.v <= 99 ? { v: a.v } : {}) // which generation pipeline wrote it (js/refresh.js)
     } : null;

@@ -388,3 +388,14 @@
 @media (prefers-reduced-motion: reduce) {
   .vl-spin, .vl-voice-status::before { animation-duration: 3s; }
 }
+
+/* Video lesson history */
+.vl-setup-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.vl-history { border: 1px solid var(--border); border-radius: 12px; background: var(--surface); padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
+.vl-history-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.vl-hist-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; max-height: 420px; overflow-y: auto; }
+.vl-hist-row { display: flex; align-items: center; gap: 6px; border-radius: 8px; }
+.vl-hist-row:hover { background: var(--primary-tint); }
+.vl-hist-open { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; background: none; border: none; padding: 8px; font: inherit; color: var(--text); text-align: left; cursor: pointer; }
+.vl-hist-open strong { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vl-hist-open span { font-size: 0.78rem; color: var(--text-muted); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
