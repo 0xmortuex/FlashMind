@@ -290,3 +290,7 @@
 }
 .topic-audio .audio-play { width: 44px; height: 44px; border-radius: 50%; background: var(--primary-hover); color: #fff; border: 0; cursor: pointer; font-size: 1rem; }
 .topic-audio .audio-play:focus-visible, .topic-audio .btn-ghost:focus-visible { outline: 2px solid var(--primary-text); outline-offset: 2px; }
+
+/* Only on a note saved as an image (js/notes.js saveSectionImage) */
+.notes-img-head { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.02em; color: var(--text-muted); margin-bottom: 10px; }
+.notes-img-foot { margin-top: 14px; text-align: right; font-size: 0.72rem; font-weight: 700; color: var(--primary); opacity: 0.8; }
