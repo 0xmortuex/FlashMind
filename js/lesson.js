@@ -1227,7 +1227,7 @@ const VideoLesson = (() => {
     if (!l) return 0;
     if (ended) return 1;
     const rest = 1 - startAt;
-    if (heardFrac !== null) return startAt + heardFrac * rest;
+    if (heardFrac !== null) return Math.max(startAt, heardFrac); // the voice reports its place in the whole narration
     if (voiceWait) return startAt;
     const spent = (elapsed + (playing ? performance.now() - slideStart : 0)) / 1000;
     return startAt + Math.min(spent / duration(l.slides[index]), rest * 0.97);
@@ -1365,9 +1365,8 @@ const VideoLesson = (() => {
     elapsed = 0;
     heardFrac = null;
     const s = view(l, index);
-    // From a seek or a resume: say the rest of the slide from the sentence it stopped at.
-    const k = startAt > 0 ? chunkAt(capChunks, startAt) : 0;
-    const said = k > 0 ? capChunks.slice(k).map(c => c.text).join(' ') : s.narration;
+    // From a seek or a resume the voice starts at that point of the WHOLE narration (TTS `from`): the
+    // natural voice then reuses the clip it already has instead of asking the voice service again.
     const done = () => {
       if (my !== token || !playing) return;
       // A slide with a question stops here until the student answers.
@@ -1386,13 +1385,13 @@ const VideoLesson = (() => {
       // If the natural voice is off for now (daily limit, no key), say so up front instead of silently using the device voice.
       const off = TTS.naturalOn() ? TTS.naturalBlockedReason() : '';
       drawVoiceNote(off ? i18n.t('vlVoiceBlocked', { why: off }) : '');
-      TTS.speak(said, cancelled => {
+      TTS.speak(s.narration, cancelled => {
         setVoiceBusy(false);
         if (my !== token) return;
         if (cancelled) { playing = false; syncControls(); return; }
         done();
       }, {
-        rate, lang: lessonLang(l), natural: true,
+        rate, lang: lessonLang(l), natural: true, from: startAt,
         onNoVoice: lang => { playing = false; noVoice = lang; syncControls(); drawNotice(); },
         // The voice service is busy: count down to the next try instead of switching voices in the middle of the lesson.
         onWait: secs => { if (my === token) setVoiceBusy(true, secs); },
